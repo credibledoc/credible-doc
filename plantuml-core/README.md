@@ -3,8 +3,8 @@
 This module contains services for generation of [plantUml](http://plantuml.com) diagrams
 from plantUml notations.
 
-## Parent module
-See the [plantuml-parent README.md](../README.md) file.
+For launching of the generator, the Graphviz tool should be installed,
+see the [http://plantuml.com/graphviz-dot](http://plantuml.com/graphviz-dot) documentation.
 
 ## Example of usage
     String svg = SvgGeneratorService.getInstance().generateSvgFromPlantUml(plantUml);
@@ -48,5 +48,9 @@ And the result in this case will be
     --></g>
     </svg>
 
-For launching of the generator, the Graphviz tool should be installed,
-see the [http://plantuml.com/graphviz-dot](http://plantuml.com/graphviz-dot) documentation.
+And generated svg file will looks like
+
+![An UML diagram that describes, how the generated content looks like](doc/img/example.svg?sanitize=true)
+
+## Parent module
+See the [plantuml-parent README.md](../README.md) file.
