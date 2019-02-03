@@ -109,7 +109,7 @@ public class SvgGeneratorService {
                     " And link parameters, for example ?search=... have also been REMOVED from the comment," +
                     " because they are not readable for humans.";
 
-            svg = svg.replace(TAG_G_SVG,
+            String replacedSvg = svg.replace(TAG_G_SVG,
                     LINE_SEPARATOR
                     + "<!--"
                     + LINE_SEPARATOR
@@ -127,11 +127,10 @@ public class SvgGeneratorService {
                 formatSvg = false;
             }
             if (formatSvg) {
-                return formatSvg(svg);
+                return formatSvg(replacedSvg);
             } else {
-                return svg;
+                return replacedSvg;
             }
-            
         } catch (Exception e) {
             throw new PlantumlRuntimeException("PlantUML: " + plantUml, e);
         }

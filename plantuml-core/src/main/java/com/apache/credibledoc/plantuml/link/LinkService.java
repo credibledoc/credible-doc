@@ -14,15 +14,13 @@ import java.util.regex.Pattern;
  * @author Kyrylo Semenko
  */
 public class LinkService {
-    
-    public static final String PIPE = "|";
 
-    public static final String DOT = ".";
-    
     private static final String SEARCH_PARAMETER = "?search=";
 
     private static final String LAST_DIGIT = "(.*\\d+)\\D*$";
     private static final Pattern PATTERN = Pattern.compile(LAST_DIGIT);
+    private static final String SPACE_URL_REPLACEMENT = "%20";
+    private static final String PLUS = "+";
 
     /**
      * Singleton.
@@ -54,13 +52,15 @@ public class LinkService {
             String truncated = line.substring(0, len);
 
             Matcher matcher = PATTERN.matcher(truncated);
+            String encodedWithPluses = null;
             if (matcher.find()) {
                 String dateTimeString = matcher.group(1);
-                String encoded = new URLCodec().encode(dateTimeString, StandardCharsets.UTF_8.name()).replace("+", "%20");
-                return SEARCH_PARAMETER + encoded;
+                encodedWithPluses = new URLCodec().encode(dateTimeString, StandardCharsets.UTF_8.name());
+            } else {
+                encodedWithPluses = new URLCodec().encode(truncated, StandardCharsets.UTF_8.name());
             }
 
-            String encoded = new URLCodec().encode(truncated, StandardCharsets.UTF_8.name()).replace("+", "%20");
+            String encoded = encodedWithPluses.replace(PLUS, SPACE_URL_REPLACEMENT);
             return SEARCH_PARAMETER + encoded;
 
         } catch (UnsupportedEncodingException e) {

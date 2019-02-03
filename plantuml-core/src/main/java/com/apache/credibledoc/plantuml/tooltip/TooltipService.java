@@ -36,14 +36,15 @@ public class TooltipService {
     /** 
      * Replace all {@link System#lineSeparator()}s to {@link #TOOLTIP_NEW_LINE}.<br>
      * Replace all {@link #TAB}s to {@link #FOUR_SPACES}<br>
-     * Add {@link #SPACE_AND_BRACKET_BEFORE_TOOLTIP} before and {@link #BRACKET_AFTER_TOOLTIP} after the source string.
+     * Add {@link #SPACE_AND_BRACKET_BEFORE_TOOLTIP} before and {@link #BRACKET_AFTER_TOOLTIP}
+     * after the source string.
      */
     public String generateTooltip(String source) {
         if (source.length() > MAX_TOOLTIP_LENGTH) {
             source = source.substring(0, MAX_TOOLTIP_LENGTH);
         }
         String result = source.replaceAll(TAB, FOUR_SPACES);
-        result = result.replaceAll("\\R", TOOLTIP_NEW_LINE);
+        result = result.replaceAll("\\r\\n|\\n", TOOLTIP_NEW_LINE);
         result = result.replaceAll("]]", "] ]");
         return SPACE_AND_BRACKET_BEFORE_TOOLTIP + result + BRACKET_AFTER_TOOLTIP;
     }
