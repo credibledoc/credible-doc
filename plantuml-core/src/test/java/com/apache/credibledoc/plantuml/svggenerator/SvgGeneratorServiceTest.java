@@ -14,7 +14,7 @@ public class SvgGeneratorServiceTest {
      */
     @Test
     public void generateSvgFromPlantUml() {
-        String plantUml = "Bob->Alice : hello";
+        String plantUml = "Bob -> Alice : hello \n Alice -> Bob : hi";
         String svg = SvgGeneratorService.getInstance().generateSvgFromPlantUml(plantUml);
         Assert.assertNotNull(svg);
     }
