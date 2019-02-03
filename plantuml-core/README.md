@@ -9,11 +9,11 @@ see the [http://plantuml.com/graphviz-dot](http://plantuml.com/graphviz-dot) doc
 ## Example of usage
     String svg = SvgGeneratorService.getInstance().generateSvgFromPlantUml(plantUml);
 
-Where the plantUml parameter can be, for example,
+Where the _**plantUml**_ parameter can be, for example,
 
     Bob->Alice : hello
 
-And the result in this case will be
+And the returned _**String svg**_ in this case will be
 
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="129px" preserveAspectRatio="none" style="width:114px;height:129px;" version="1.1" viewBox="0 0 114 129" width="114px" zoomAndPan="magnify">
       <defs>
