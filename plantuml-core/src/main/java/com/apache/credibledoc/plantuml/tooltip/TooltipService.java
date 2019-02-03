@@ -33,11 +33,14 @@ public class TooltipService {
         return instance;
     }
 
-    /** 
-     * Replace all {@link System#lineSeparator()}s to {@link #TOOLTIP_NEW_LINE}.<br>
-     * Replace all {@link #TAB}s to {@link #FOUR_SPACES}<br>
-     * Add {@link #SPACE_AND_BRACKET_BEFORE_TOOLTIP} before and {@link #BRACKET_AFTER_TOOLTIP}
-     * after the source string.
+    /**
+     * Replace all {@link System#lineSeparator()}s with {@link #TOOLTIP_NEW_LINE}.
+     * <p>
+     * Replace all {@link #TAB}s with {@link #FOUR_SPACES}.
+     *
+     * @param source the tooltip content
+     * @return the replaced source enclosed by {@link #SPACE_AND_BRACKET_BEFORE_TOOLTIP}
+     * before and {@link #BRACKET_AFTER_TOOLTIP} after the replaced source.
      */
     public String generateTooltip(String source) {
         if (source.length() > MAX_TOOLTIP_LENGTH) {

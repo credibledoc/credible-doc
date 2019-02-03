@@ -69,13 +69,15 @@ public class LinkService {
     }
 
     /**
-     * Generate link for example
+     * Generate a link for example
      * <pre>
-     * [[public/wallet-2018-09-29.0.log.001.expanded.html?search=searchParam  {tooltip ...} ]]
+     * [[public/application.log.001.expanded.html?search=searchParam  {tooltip ...} ]]
      * </pre>
-     * @param text text in the link
-     * @param multilineJoined lines from log file
+     *
+     * @param text                       text in the link
+     * @param multilineJoined            lines from log file
      * @param reportDocumentLinkResource a relative path to the linked resource
+     * @return for example <pre>"[[reportDocumentLinkResource?search=multiline%0D%0AJoined  {multiline\\\\nJoined} text]]"</pre>
      */
     public String generateLink(String text, String multilineJoined, String reportDocumentLinkResource) {
         return "[["
@@ -85,14 +87,15 @@ public class LinkService {
     }
 
     /**
-     * Generate link for example
+     * Generate a link for example
      * <pre>
-     * [[public/wallet-2018-09-29.0.log.001.expanded.html?search=searchParam  {tooltip ...} ]]
+     * [[public/application.log.001.expanded.html?search=searchParam  {tooltip ...} ]]
      * </pre>
      * @param text text in the link
      * @param searchParam the first line from a log file for search parameter generation
      * @param reportDocumentLinkResource a relative path to the linked resource
      * @param tooltip the link's tooltip
+     * @return for example <pre>"[[reportDocumentLinkResource?search=multiline%0D%0AJoined  {tooltip} text]]"</pre>
      */
     public String generateLink(String text, String searchParam, String reportDocumentLinkResource, String tooltip) {
         return "[["

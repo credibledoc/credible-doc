@@ -1,28 +1,39 @@
 package com.apache.credibledoc.plantuml.sequence;
 
 /**
- * Enum of possible message arrows in a sequence diagram,
+ * The enum of some message arrows in a sequence diagram,
  * see the <a href="http://plantuml.com/sequence-diagram">http://plantuml.com/sequence-diagram</a>
+ * documentation.
  *
  * @author Kyrylo Semenko
  */
 public enum SequenceArrow {
-    
-    /** Arrow ' -> ' */
+
+    /**
+     * Arrow {@code ' -> '}
+     */
     FULL_ARROW(" -> "),
-    
-    /** Arrow ' --> ' */
+
+    /**
+     * Arrow {@code ' --> '}
+     */
     DASH_ARROW(" --> "),
-    
-    /** Arrow ' -[#red]>x ' */
+
+    /**
+     * Arrow {@code ' -[#red]>x '}
+     */
     ERROR_RED_ARROW(" -[#red]>x "),
-    
-    /** Arrow ' <-> ' */
+
+    /**
+     * Arrow {@code ' <-> '}
+     */
     DOUBLE_SIZED_FULL_ARROW(" <-> ");
-    
-    /** A mame in a diagram */
+
+    /**
+     * A mame in a diagram
+     */
     private final String uml;
-    
+
     /**
      * @param uml see {@link #uml}
      */

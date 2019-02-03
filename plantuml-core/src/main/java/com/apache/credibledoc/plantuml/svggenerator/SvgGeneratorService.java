@@ -60,8 +60,16 @@ public class SvgGeneratorService {
         }
         return instance;
     }
-    
-    /** Call the {@link #generateSvgFromPlantUml(String, boolean)} method with the second argument <b>true</b> */
+
+    /**
+     * Call the {@link #generateSvgFromPlantUml(String, boolean)}
+     * method with the second argument <b>true</b>.
+     *
+     * @param plantUml see the {@link #generateSvgFromPlantUml(String, boolean)}
+     *                 method description
+     * @return see the {@link #generateSvgFromPlantUml(String, boolean)}
+     * method description
+     */
     public String generateSvgFromPlantUml(String plantUml) {
         return generateSvgFromPlantUml(plantUml, true);
     }
