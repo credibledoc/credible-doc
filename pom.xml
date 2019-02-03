@@ -9,19 +9,35 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>
         A simple library for generation plantUML diagrams.
         See description in the README.md file in the root
         of the plantuml repository.
     </description>
+    <url>https://github.com/credibledoc/plantuml</url>
 
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>Kyrylo Semenko</name>
+            <email>kyrylo.semenko@gmail.com</email>
+            <organization>credibledoc.com</organization>
+            <organizationUrl>http://credibledoc.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/credibledoc/plantuml.git</connection>
+        <developerConnection>scm:git:ssh://github.com:credibledoc/plantuml.git</developerConnection>
+        <url>https://github.com/credibledoc/plantuml</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
