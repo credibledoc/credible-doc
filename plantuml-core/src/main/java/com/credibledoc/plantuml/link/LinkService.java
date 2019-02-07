@@ -1,7 +1,7 @@
-package com.apache.credibledoc.plantuml.link;
+package com.credibledoc.plantuml.link;
 
-import com.apache.credibledoc.plantuml.exception.PlantumlRuntimeException;
-import com.apache.credibledoc.plantuml.tooltip.TooltipService;
+import com.credibledoc.plantuml.exception.PlantumlRuntimeException;
+import com.credibledoc.plantuml.tooltip.TooltipService;
 import org.apache.commons.codec.net.URLCodec;
 
 import java.io.UnsupportedEncodingException;

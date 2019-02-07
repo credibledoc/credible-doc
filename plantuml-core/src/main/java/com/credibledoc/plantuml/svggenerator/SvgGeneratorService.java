@@ -1,6 +1,6 @@
-package com.apache.credibledoc.plantuml.svggenerator;
+package com.credibledoc.plantuml.svggenerator;
 
-import com.apache.credibledoc.plantuml.exception.PlantumlRuntimeException;
+import com.credibledoc.plantuml.exception.PlantumlRuntimeException;
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;

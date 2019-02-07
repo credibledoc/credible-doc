@@ -1,4 +1,4 @@
-package com.apache.credibledoc.plantuml.exception;
+package com.credibledoc.plantuml.exception;
 
 /**
  * Application runtime exception. Extends the {@link RuntimeException}.

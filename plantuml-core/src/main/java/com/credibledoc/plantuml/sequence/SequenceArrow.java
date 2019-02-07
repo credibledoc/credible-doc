@@ -1,4 +1,4 @@
-package com.apache.credibledoc.plantuml.sequence;
+package com.credibledoc.plantuml.sequence;
 
 /**
  * The enum of some message arrows in a sequence diagram,

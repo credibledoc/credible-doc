@@ -1,4 +1,4 @@
-package com.apache.credibledoc.plantuml.link;
+package com.credibledoc.plantuml.link;
 
 import org.junit.Test;
 

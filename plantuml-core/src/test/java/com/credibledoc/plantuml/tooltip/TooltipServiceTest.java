@@ -1,4 +1,4 @@
-package com.apache.credibledoc.plantuml.tooltip;
+package com.credibledoc.plantuml.tooltip;
 
 import org.junit.Test;
 

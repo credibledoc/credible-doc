@@ -1,4 +1,4 @@
-package com.apache.credibledoc.plantuml.svggenerator;
+package com.credibledoc.plantuml.svggenerator;
 
 import org.junit.Assert;
 import org.junit.Test;
