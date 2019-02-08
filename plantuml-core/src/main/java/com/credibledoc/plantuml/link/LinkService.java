@@ -10,7 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Provides html links and parameters
+ * Provides a service for creation of html links and parameters.
+ *
  * @author Kyrylo Semenko
  */
 public class LinkService {
@@ -27,12 +28,15 @@ public class LinkService {
      */
     private static LinkService instance;
 
-    private LinkService() {
+    /**
+     * Create a new instance of this class.
+     */
+    public LinkService() {
         // empty
     }
 
     /**
-     * @return the {@link LinkService} singleton.
+     * @return A singleton {@link #instance} of this class.
      */
     public static LinkService getInstance() {
         if (instance == null) {
@@ -42,8 +46,10 @@ public class LinkService {
     }
 
     /**
-     * Return for example "?search=29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1"
-     * from "29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1|DEBUG.."
+     * Create a HTML parameter from the method argument.
+     *
+     * @param line for example {@code 29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1|DEBUG..}
+     * @return For example {@code ?search=29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1}
      */
     private String generateSearchParam(String line) {
         try {
