@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <property name="LINE_PATTERN"
+              value="%d{dd.MM.yyyy HH:mm:ss.SSS}|%t|%-5p|%c - %m%n" />
+
+    <property name="LOG_FILE_PREFIX"
+              value="log/substitution-doc" />
+
+    <property name="LOG_FILE_EXTENSION"
+              value="log" />
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+            <pattern>${LINE_PATTERN}</pattern>
+        </encoder>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <!-- Rolls over on startup, see the triggeringPolicy tag. -->
+    <appender name="startup-rolling-file-appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PREFIX}.${LOG_FILE_EXTENSION}</file>
+        <encoder>
+            <pattern>${LINE_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_FILE_PREFIX}_%i.${LOG_FILE_EXTENSION}</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="org.credibledoc.substitution.doc.logback.StartupTriggeringPolicy" />
+    </appender>
+
+    <logger name="org.springframework" level="WARN"/>
+
+    <root level="debug">
+        <appender-ref ref="console"/>
+        <appender-ref ref="startup-rolling-file-appender"/>
+    </root>
+</configuration>
