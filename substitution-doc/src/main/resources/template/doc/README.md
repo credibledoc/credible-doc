@@ -1,5 +1,7 @@
 # Module substitution-doc
-This module generates a documentation for the placeholder-substitution module.
+This module generates a documentation for the
+[placeholder-substitution](../README.md) module. This document is also generated
+by the `substitution-doc` module.
 
 ## Usage
 Checkout from Github
@@ -16,16 +18,19 @@ Build by Maven
 
 Change directory
     
-    cd substitution-doc\target
+    cd substitution-doc
     
-Create a log file. This log will be used as a recording of the tool behaviour.
+Launch the application
 
-    java -jar &&beginPlaceholder {
+    java -jar target/&&beginPlaceholder {
                   "className": "org.credibledoc.substitution.doc.module.substitution.jar.SubstitutionDocJarNameContentGenerator",
                   "description": "Current name of the substitution-doc-X.X.X.jar."
               } &&endPlaceholder
 
-As a result, the `target/generated` folder with a new README.md and SVG files is generated.
+As a result, the `target/generated/doc` folder with the new README.md file
+and `target/generated/doc/img` with SVG file generated.
+
+Please inspect these generated files in the `target/generated/doc` folder.
 
 ## Templates used for generation of this documentation
 This documentation is generated from these templates:
@@ -37,6 +42,10 @@ This documentation is generated from these templates:
 } &&endPlaceholder
 
 ## Behavior of the application
+After launching the application generates a log file in the `log` directory.
+This log will be used as a recording of the tool behaviour. Application uses its
+own log for generation of UML diagrams like this one, see below.
+
 This diagram shows the main steps the application does after launching.
 
 &&beginPlaceholder {

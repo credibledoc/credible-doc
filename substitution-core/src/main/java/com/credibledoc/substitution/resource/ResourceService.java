@@ -59,8 +59,9 @@ public class ResourceService {
      * Find resources in IDE directory or jar file, depends
      * on runtime environment.
      *
-     * @param endsWith for example '.md'. Can be <b>null</b>. In this case all resources will be returned.
+     * @param endsWith          for example '.md'. Can be <b>null</b>. In this case all resources will be returned.
      * @param templatesResource for example {@link ConfigurationService#TEMPLATES_RESOURCE}.
+     * @return List of resources from jar file or classpath, for example <b>["/template/doc/README.md"]</b>
      */
     public List<String> getResources(String endsWith, String templatesResource) {
         List<String> result = new ArrayList<>();
