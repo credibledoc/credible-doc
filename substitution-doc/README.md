@@ -32,7 +32,7 @@ Please inspect these generated files in the `target/generated/doc` folder.
 ## Templates used for generation of this documentation
 This documentation is generated from these templates:
 
-    /template/doc/README.md
+* [/template/doc/README.md](src/main/resources/template/doc/README.md)
 
 
 ## Behavior of the application
