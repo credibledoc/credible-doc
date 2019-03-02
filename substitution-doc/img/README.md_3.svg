@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="142px" preserveAspectRatio="none" style="width:403px;height:142px;" version="1.1" viewBox="0 0 403 142" width="403px" zoomAndPan="magnify">
+  <defs>
+    <filter height="300%" id="fywn9an" width="300%" x="-1" y="-1">
+      <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+      <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+      <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+      <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+    </filter>
+  </defs>
+  <g>
+    <line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="67" x2="67" y1="39.6094" y2="102.9609"/>
+    <rect fill="#FEFECE" filter="url(#fywn9an)" height="31.6094" style="stroke: #A80036; stroke-width: 1.5;" width="114" x="8" y="3"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="100" x="15" y="24.5332">substitution-doc</text>
+    <rect fill="#FEFECE" filter="url(#fywn9an)" height="31.6094" style="stroke: #A80036; stroke-width: 1.5;" width="114" x="8" y="101.9609"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="100" x="15" y="123.4941">substitution-doc</text>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="67" x2="109" y1="71.9609" y2="71.9609"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="109" x2="109" y1="71.9609" y2="84.9609"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="68" x2="109" y1="84.9609" y2="84.9609"/>
+    <polygon fill="#A80036" points="78,80.9609,68,84.9609,78,88.9609,74,84.9609" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="104" x="74" y="67.1045">Application stared</text>
+    <a target="_top" xlink:actuate="onRequest" xlink:href="null?search=02.03.2019%2007%3A03%3A02.606  " xlink:show="new" xlink:title="02.03.2019 07:03:02.606|main|INFO |org.credibledoc.substitution.doc.SubstitutionDocMain - Application substitution-doc launched." xlink:type="simple">
+      <text fill="#0000FF" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="220" x="182" y="67.1045">Application substitution-doc launched.</text>
+      <line style="stroke: #0000FF; stroke-width: 1.0;" x1="182" x2="402" y1="69.1045" y2="69.1045"/>
+    </a>
+<!--
+!WARNING! Original strings (double dash) has been replaced by '- -' (dash+space+dash) in this comment, because the string (double dash) is not permitted within comments. And link parameters, for example ?search=... have also been REMOVED from the comment, because they are not readable for humans.
+<img uml="
+@startuml
+"substitution-doc" -> "substitution-doc": Application stared [[null 
+@enduml
+"/>
+--></g>
+</svg>

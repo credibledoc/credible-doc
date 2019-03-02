@@ -6,11 +6,15 @@ Checkout from Github
 
     git clone https://github.com/credibledoc/placeholder-substitution.git
 
+Change directory
+
+    cd placeholder-substitution
+    
 Build by Maven
     
     mvn clean install
 
-Jump to the substitution-doc\target directory
+Change directory
     
     cd substitution-doc\target
     
@@ -20,6 +24,8 @@ Create a log file. This log will be used as a recording of the tool behaviour.
                   "className": "org.credibledoc.substitution.doc.module.substitution.jar.SubstitutionDocJarNameContentGenerator",
                   "description": "Current name of the substitution-doc-X.X.X.jar."
               } &&endPlaceholder
+
+As a result, the `target/generated` folder with a new README.md and SVG files is generated.
 
 ## Templates used for generation of this documentation
 This documentation is generated from these templates:
