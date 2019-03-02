@@ -37,6 +37,7 @@ public class SvgGeneratorService {
 
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
+
     private static final String STARTUML = "@startuml";
 
     private static final Logger logger = LoggerFactory.getLogger(SvgGeneratorService.class);

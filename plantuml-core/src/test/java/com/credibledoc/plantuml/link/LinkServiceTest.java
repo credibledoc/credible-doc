@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
  *
  * @author Kyrylo Semenko
  */
+@SuppressWarnings("ALL")
 public class LinkServiceTest {
 
     /**

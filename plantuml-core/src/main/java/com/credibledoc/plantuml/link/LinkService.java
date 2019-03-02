@@ -58,7 +58,7 @@ public class LinkService {
             String truncated = line.substring(0, len);
 
             Matcher matcher = PATTERN.matcher(truncated);
-            String encodedWithPluses = null;
+            String encodedWithPluses;
             if (matcher.find()) {
                 String dateTimeString = matcher.group(1);
                 encodedWithPluses = new URLCodec().encode(dateTimeString, StandardCharsets.UTF_8.name());
