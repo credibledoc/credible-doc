@@ -1,6 +1,6 @@
 package org.credibledoc.substitution.doc.template;
 
-import com.credibledoc.substitution.template.TemplateService;
+import com.credibledoc.substitution.core.template.TemplateService;
 import org.springframework.stereotype.Service;
 
 /**

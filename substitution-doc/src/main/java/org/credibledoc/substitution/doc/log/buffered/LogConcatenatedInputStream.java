@@ -1,6 +1,6 @@
 package org.credibledoc.substitution.doc.log.buffered;
 
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 
 import java.io.FileInputStream;
 import java.io.IOException;

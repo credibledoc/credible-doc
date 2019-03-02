@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.exception;
+package com.credibledoc.substitution.core.exception;
 
 /**
  * Application runtime exception. Extends the {@link RuntimeException}.

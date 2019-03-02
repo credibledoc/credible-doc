@@ -1,6 +1,6 @@
 package org.credibledoc.substitution.doc.file;
 
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.google.common.base.Preconditions;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

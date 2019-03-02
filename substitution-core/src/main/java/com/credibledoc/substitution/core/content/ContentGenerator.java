@@ -1,7 +1,7 @@
-package com.credibledoc.substitution.content;
+package com.credibledoc.substitution.core.content;
 
-import com.credibledoc.substitution.configuration.Configuration;
-import com.credibledoc.substitution.placeholder.Placeholder;
+import com.credibledoc.substitution.core.configuration.Configuration;
+import com.credibledoc.substitution.core.placeholder.Placeholder;
 
 /**
  * Classes which implement this interface has a single method

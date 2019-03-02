@@ -1,9 +1,9 @@
 package org.credibledoc.substitution.doc.module.substitution.resource;
 
-import com.credibledoc.substitution.configuration.ConfigurationService;
-import com.credibledoc.substitution.content.ContentGenerator;
-import com.credibledoc.substitution.placeholder.Placeholder;
-import com.credibledoc.substitution.resource.ResourceService;
+import com.credibledoc.substitution.core.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.placeholder.Placeholder;
+import com.credibledoc.substitution.core.resource.ResourceService;
 import lombok.RequiredArgsConstructor;
 import org.credibledoc.substitution.doc.markdown.MarkdownService;
 import org.springframework.stereotype.Service;

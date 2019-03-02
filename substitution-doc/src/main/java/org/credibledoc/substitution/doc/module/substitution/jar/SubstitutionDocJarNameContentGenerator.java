@@ -1,8 +1,8 @@
 package org.credibledoc.substitution.doc.module.substitution.jar;
 
-import com.credibledoc.substitution.content.ContentGenerator;
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.placeholder.Placeholder;
+import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.RequiredArgsConstructor;
 import org.credibledoc.substitution.doc.SubstitutionDocMain;
 import org.springframework.stereotype.Service;

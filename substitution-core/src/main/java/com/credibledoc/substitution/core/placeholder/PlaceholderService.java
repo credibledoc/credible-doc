@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.placeholder;
+package com.credibledoc.substitution.core.placeholder;
 
 import java.util.List;
 

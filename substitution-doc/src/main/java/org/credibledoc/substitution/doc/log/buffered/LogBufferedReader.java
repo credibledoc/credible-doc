@@ -1,6 +1,6 @@
 package org.credibledoc.substitution.doc.log.buffered;
 
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

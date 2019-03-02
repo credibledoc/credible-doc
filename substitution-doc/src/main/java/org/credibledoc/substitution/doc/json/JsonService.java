@@ -1,6 +1,6 @@
 package org.credibledoc.substitution.doc.json;
 
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 

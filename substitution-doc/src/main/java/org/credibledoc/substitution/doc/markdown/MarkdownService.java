@@ -1,14 +1,14 @@
 package org.credibledoc.substitution.doc.markdown;
 
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
-import com.credibledoc.substitution.configuration.Configuration;
-import com.credibledoc.substitution.configuration.ConfigurationService;
-import com.credibledoc.substitution.content.ContentGenerator;
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.placeholder.Placeholder;
-import com.credibledoc.substitution.placeholder.PlaceholderService;
-import com.credibledoc.substitution.resource.ResourceService;
-import com.credibledoc.substitution.template.TemplateService;
+import com.credibledoc.substitution.core.configuration.Configuration;
+import com.credibledoc.substitution.core.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.placeholder.Placeholder;
+import com.credibledoc.substitution.core.placeholder.PlaceholderService;
+import com.credibledoc.substitution.core.resource.ResourceService;
+import com.credibledoc.substitution.core.template.TemplateService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

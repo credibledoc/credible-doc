@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.content;
+package com.credibledoc.substitution.core.content;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
-package com.credibledoc.substitution.template;
+package com.credibledoc.substitution.core.template;
 
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 
 import java.io.File;
 import java.io.FileOutputStream;

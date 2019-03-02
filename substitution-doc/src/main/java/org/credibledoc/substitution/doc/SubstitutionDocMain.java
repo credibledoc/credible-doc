@@ -1,7 +1,7 @@
 package org.credibledoc.substitution.doc;
 
-import com.credibledoc.substitution.content.ContentGenerator;
-import com.credibledoc.substitution.content.ContentGeneratorService;
+import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.content.ContentGeneratorService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

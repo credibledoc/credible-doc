@@ -1,7 +1,7 @@
 package org.credibledoc.substitution.doc.module.substitution.participant;
 
-import com.credibledoc.substitution.content.ContentGenerator;
-import com.credibledoc.substitution.placeholder.Placeholder;
+import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.steppschuh.markdowngenerator.table.Table;

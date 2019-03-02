@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.configuration;
+package com.credibledoc.substitution.core.configuration;
 
 /**
  * This data object contains application configuration properties.

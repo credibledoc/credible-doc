@@ -1,6 +1,6 @@
-package com.credibledoc.substitution.configuration;
+package com.credibledoc.substitution.core.configuration;
 
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

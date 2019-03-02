@@ -1,6 +1,6 @@
-package com.credibledoc.substitution.placeholder;
+package com.credibledoc.substitution.core.placeholder;
 
-import com.credibledoc.substitution.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.configuration.ConfigurationService;
 
 import java.util.ArrayList;
 import java.util.List;

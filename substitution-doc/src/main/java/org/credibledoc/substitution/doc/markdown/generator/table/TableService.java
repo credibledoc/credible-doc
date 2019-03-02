@@ -1,7 +1,7 @@
 package org.credibledoc.substitution.doc.markdown.generator.table;
 
-import com.credibledoc.substitution.resource.ResourceService;
-import com.credibledoc.substitution.template.TemplateService;
+import com.credibledoc.substitution.core.resource.ResourceService;
+import com.credibledoc.substitution.core.template.TemplateService;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.EnumConstantDeclaration;

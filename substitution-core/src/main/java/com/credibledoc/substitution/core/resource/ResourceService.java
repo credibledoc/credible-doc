@@ -1,7 +1,7 @@
-package com.credibledoc.substitution.resource;
+package com.credibledoc.substitution.core.resource;
 
-import com.credibledoc.substitution.configuration.ConfigurationService;
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

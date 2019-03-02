@@ -1,7 +1,7 @@
 package org.credibledoc.substitution.doc.report;
 
-import com.credibledoc.substitution.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.template.TemplateService;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.template.TemplateService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
