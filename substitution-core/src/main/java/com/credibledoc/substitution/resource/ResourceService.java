@@ -163,7 +163,7 @@ public class ResourceService {
             }
         } else {
             throw new SubstitutionRuntimeException(
-                    "Resource of template not found. TemplateResource: " + templatesResource);
+                    "Resource of template not found. TemplateResource: '" + templatesResource + "'");
         }
     }
 

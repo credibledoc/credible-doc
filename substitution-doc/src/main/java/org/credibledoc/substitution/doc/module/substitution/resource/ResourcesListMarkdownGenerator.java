@@ -1,5 +1,6 @@
 package org.credibledoc.substitution.doc.module.substitution.resource;
 
+import com.credibledoc.substitution.configuration.ConfigurationService;
 import com.credibledoc.substitution.content.ContentGenerator;
 import com.credibledoc.substitution.placeholder.Placeholder;
 import com.credibledoc.substitution.resource.ResourceService;
@@ -19,13 +20,13 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ResourcesListMarkdownGenerator implements ContentGenerator {
     private static final String FOUR_SPACES = "    ";
-    private static final String ROOT_RESOURCE = "";
     private static final String CLASSES_PREFIX = "/com/credibledoc";
 
     @Override
     public String generate(Placeholder placeholder) {
+        ConfigurationService instance = ConfigurationService.getInstance();
         List<String> resources = ResourceService.getInstance()
-            .getResources(MarkdownService.MARKDOWN_FILE_EXTENSION, ROOT_RESOURCE);
+            .getResources(MarkdownService.MARKDOWN_FILE_EXTENSION, instance.getConfiguration().getTemplatesResource());
 
         StringBuilder stringBuilder = new StringBuilder();
         for (String resource : resources) {
