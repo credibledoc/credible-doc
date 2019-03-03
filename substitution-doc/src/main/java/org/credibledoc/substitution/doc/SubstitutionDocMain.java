@@ -128,6 +128,7 @@ public class SubstitutionDocMain {
             if (!resource.endsWith(MarkdownService.MARKDOWN_FILE_EXTENSION)) {
                 String targetFilePath = resourceService.generatePlaceholderResourceRelativePath(resource);
                 String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFilePath;
+                log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'", resource, targetFileAbsolutePath);
                 File file = templateService.exportResource(resource, targetFileAbsolutePath);
                 log.info("Resource copied to file: '{}'", file.getAbsolutePath());
             }
