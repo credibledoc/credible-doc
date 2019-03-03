@@ -125,7 +125,7 @@ public class SubstitutionDocMain {
         List<String> allResources = resourceService.getResources(null, configuration.getTemplatesResource());
         TemplateService templateService = TemplateService.getInstance();
         for (String resource : allResources) {
-            if (!resource.endsWith(MarkdownService.MARKDOWN_FILE_EXTENSION)) {
+            if (!resource.endsWith(MarkdownService.MARKDOWN_FILE_EXTENSION) && containsDotInName(resource)) {
                 String targetFilePath = resourceService.generatePlaceholderResourceRelativePath(resource);
                 String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFilePath;
                 log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'", resource, targetFileAbsolutePath);
@@ -133,5 +133,18 @@ public class SubstitutionDocMain {
                 log.info("Resource copied to file: '{}'", file.getAbsolutePath());
             }
         }
+    }
+
+    /**
+     * @param resource for example '/template/markdown/' is a directory, and '/template/markdown/README.md' is a file.
+     * @return 'False' if this resource is directory
+     */
+    private boolean containsDotInName(String resource) {
+        int index = resource.lastIndexOf('/');
+        if (index == -1) {
+            index = 0;
+        }
+        String fileName = resource.substring(index);
+        return fileName.contains(".");
     }
 }
