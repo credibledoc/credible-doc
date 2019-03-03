@@ -49,6 +49,7 @@ public class MarkdownService {
     private static final String SVG_TAG_BEGIN = "![";
     private static final String SVG_TAG_MIDDLE = "](";
     private static final String SVG_TAG_END = "?sanitize=true)";
+    public static final String CONTENT_REPLACED = "Content replaced. ";
 
     /**
      * Cache of beans of the {@link ContentGenerator} type
@@ -223,7 +224,9 @@ public class MarkdownService {
         String replacedContent =
                 replacePlaceholdersToGeneratedContent(templateResource, templateContent, templatePlaceholders);
 
-        String placeholderResourceRelativePath = generatePlaceholderResourceRelativePath(templateResource);
+        ResourceService resourceService = ResourceService.getInstance();
+        String placeholderResourceRelativePath =
+            resourceService.generatePlaceholderResourceRelativePath(templateResource);
         File markdownFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
         File markdownDirectory = markdownFile.getParentFile();
         createDirectoryIfNotExists(markdownDirectory);
@@ -252,7 +255,8 @@ public class MarkdownService {
             placeholder.setId(Integer.toString(position++));
             String contentForReplacement = generateContent(placeholder);
             replacedContent = replacedContent.replace(templatePlaceholder, contentForReplacement);
-            log.info("Content replaced. Placeholder description: '{}', placeholder class: {}", placeholder.getDescription(), placeholder.getClassName());
+            String json = jsonService.writeValueAsString(placeholder);
+            log.info("{}{}", CONTENT_REPLACED, json);
         }
         return replacedContent;
     }
@@ -315,8 +319,9 @@ public class MarkdownService {
      * @return A part of markdown document with link to generated SVG image.
      */
     private String generateDiagram(Placeholder placeholder) {
+        ResourceService resourceService = ResourceService.getInstance();
         String placeholderResourceRelativePath =
-                generatePlaceholderResourceRelativePath(placeholder.getResource());
+                resourceService.generatePlaceholderResourceRelativePath(placeholder.getResource());
 
         File mdFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
         File directory = mdFile.getParentFile();
@@ -355,9 +360,5 @@ public class MarkdownService {
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
-    }
-
-    private String generatePlaceholderResourceRelativePath(String resource) {
-        return resource.substring(configuration.getTemplatesResource().length() + 1);
     }
 }

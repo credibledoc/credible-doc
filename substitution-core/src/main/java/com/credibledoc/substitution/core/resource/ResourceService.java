@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.core.resource;
 
+import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ import java.util.jar.JarFile;
  * @author Kyrylo Semenko
  */
 public class ResourceService {
+    public static final String SUBSTITUTION_CORE_MODULE_NAME = "substitution-core";
     private static final Logger logger = LoggerFactory.getLogger(ResourceService.class);
     private static final String FILE_PREFIX = "file:/";
     private static final String BOOT_INF_CLASSES_WITH_EXCLAMATION_MARK = "!/BOOT-INF/";
@@ -181,5 +183,16 @@ public class ResourceService {
                 collectTemplateFilesRecursively(file, templateFiles, fileExtension);
             }
         }
+    }
+
+    /**
+     * Generate a relative path of the file that will be created from the resource defined in the argument.
+     *
+     * @param resource for example /template/markdown/doc/diagrams.md
+     * @return For example /doc/diagrams.md
+     */
+    public String generatePlaceholderResourceRelativePath(String resource) {
+        Configuration configuration = ConfigurationService.getInstance().getConfiguration();
+        return resource.substring(configuration.getTemplatesResource().length() + 1);
     }
 }

@@ -1,6 +1,7 @@
 package org.credibledoc.substitution.doc.json;
 
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,14 @@ public class JsonService {
     public <T> T readValue(String json, Class<T> valueClass) {
         try {
             return objectMapper.readValue(json, valueClass);
+        } catch (Exception e) {
+            throw new SubstitutionRuntimeException(e);
+        }
+    }
+
+    public String writeValueAsString(Placeholder placeholder) {
+        try {
+            return objectMapper.writeValueAsString(placeholder);
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }

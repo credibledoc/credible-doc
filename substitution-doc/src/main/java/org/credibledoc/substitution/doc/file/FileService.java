@@ -132,7 +132,7 @@ public class FileService {
                 map.put(application, new TreeMap<>());
             }
 
-            Date date = findOutDate(file, application);
+            Date date = findDate(file, application);
             if (date == null) {
                 throw new SubstitutionRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
             }
@@ -152,7 +152,7 @@ public class FileService {
      * @param application each {@link TacticHolder} has its own strategy of date searching
      * @return the most recent date and time
      */
-    public Date findOutDate(File file, Application application) {
+    public Date findDate(File file, Application application) {
         Class<? extends SpecificTactic> dateFinderStrategyClass = application.getSpecificTacticClass();
         SpecificTactic specificTactic = applicationContext.getBean(dateFinderStrategyClass);
         return specificTactic.findDate(file);

@@ -78,6 +78,8 @@ public class ConfigurationService {
     private static final String ORIGIN_DEFAULT = "default";
 
     private static final String SUBSTITUTION_PROPERTIES_RESOURCE_NAME = "substitution.properties";
+    public static final String PROPERTIES_LOADED_BY_CLASS_LOADER_FROM_THE_RESOURCE =
+        "Properties loaded by ClassLoader from the resource: ";
 
     /**
      * Contains application configuration parameters.
@@ -177,7 +179,7 @@ public class ConfigurationService {
                     map.put(configurationProperty.key(), "classpath:" + SUBSTITUTION_PROPERTIES_RESOURCE_NAME);
                 }
             }
-            logger.info("Properties loaded by ClassLoader from the resource: {}", url);
+            logger.info("{}{}", PROPERTIES_LOADED_BY_CLASS_LOADER_FROM_THE_RESOURCE, url);
         } catch (Exception e) {
             throw new SubstitutionRuntimeException("ClassLoader cannot find the resource: " +
                 SUBSTITUTION_PROPERTIES_RESOURCE_NAME, e);

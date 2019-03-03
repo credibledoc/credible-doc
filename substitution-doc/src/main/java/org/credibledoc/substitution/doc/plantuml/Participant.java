@@ -1,9 +1,10 @@
 package org.credibledoc.substitution.doc.plantuml;
 
+import com.credibledoc.substitution.core.resource.ResourceService;
 import org.credibledoc.substitution.doc.SubstitutionDocMain;
 
 /**
- * PlantUML participants, for example {@link #PLACEHOLDER_SUBSTITUTION}.
+ * PlantUML participants, for example {@link #SUBSTITUTION_DOC}.
  * @author Kyrylo Semenko
  */
 public enum Participant {
@@ -11,7 +12,7 @@ public enum Participant {
     /**
      * The placeholder-substitution module.
      */
-    PLACEHOLDER_SUBSTITUTION("\"placeholder-substitution\""),
+    SUBSTITUTION_CORE("\"" + ResourceService.SUBSTITUTION_CORE_MODULE_NAME + "\""),
 
     /**
      * This module.

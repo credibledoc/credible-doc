@@ -4,9 +4,7 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.credibledoc.substitution.doc.module.substitution.launching.ConfigurationLoadingSearchCommand;
-import org.credibledoc.substitution.doc.module.substitution.launching.LaunchingSearchCommand;
-import org.credibledoc.substitution.doc.module.substitution.launching.LaunchingTransformer;
+import org.credibledoc.substitution.doc.module.substitution.launching.*;
 import org.credibledoc.substitution.doc.report.ReportDocumentCreator;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
@@ -53,7 +51,12 @@ public class LaunchingUmlReportService implements ReportDocumentCreator {
         lineProcessors.add(
                 new LineProcessor(
                         applicationContext.getBean(ConfigurationLoadingSearchCommand.class),
-                        applicationContext.getBean(LaunchingTransformer.class),
+                        applicationContext.getBean(ConfigurationLoadingTransformer.class),
+                        reportDocument));
+        lineProcessors.add(
+                new LineProcessor(
+                        applicationContext.getBean(ContentReplacedSearchCommand.class),
+                        applicationContext.getBean(ContentReplacedTransformer.class),
                         reportDocument));
 
         lineProcessorService.getLineProcessors().addAll(lineProcessors);

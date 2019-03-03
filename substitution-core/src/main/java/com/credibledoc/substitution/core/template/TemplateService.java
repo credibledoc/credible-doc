@@ -1,6 +1,8 @@
 package com.credibledoc.substitution.core.template;
 
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,6 +17,8 @@ import java.util.Scanner;
  * @author Kyrylo Semenko
  */
 public class TemplateService {
+
+    private static final Logger logger = LoggerFactory.getLogger(TemplateService.class);
 
     private static final String BEGINNING_OF_THE_INPUT_BOUNDARY = "\\A";
 
@@ -62,11 +66,16 @@ public class TemplateService {
      * Export the resource embedded into a Jar file to the local file path.
     *
     * @param resourceName, for example "/template/css/css.css"
-    * @param targetFileAbsolutePath where to copy, for example "c:\template\css.css"
+    * @param targetFilePath where to copy, for example "c:\template\css.css"
     * @return The file of the exported resource
     */
-   public File exportResource(String resourceName, String targetFileAbsolutePath) {
-       File targetFile = new File(targetFileAbsolutePath);
+   public File exportResource(String resourceName, String targetFilePath) {
+       File targetFile = new File(targetFilePath);
+       File parenDirectory = targetFile.getParentFile();
+       boolean created = parenDirectory.mkdirs();
+       if (created) {
+           logger.info("Directory created: {}", parenDirectory.getAbsolutePath());
+       }
        try (InputStream stream = TemplateService.class.getResourceAsStream(resourceName);
             OutputStream resStreamOut = new FileOutputStream(targetFile)) {
            
