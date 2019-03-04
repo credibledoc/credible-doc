@@ -41,7 +41,7 @@
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>substitution-core</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>net.steppschuh.markdowngenerator</groupId>
