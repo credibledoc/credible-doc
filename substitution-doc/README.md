@@ -27,7 +27,9 @@ Launch the application
 As a result, the `target/generated/markdown` folder with new folders and files
 is generated.
 
-Please inspect these generated files in the `target/generated/markdown` folder.
+Please inspect these generated files in the `substitution-doc/target/generated/markdown` folder.
+These generated files is the documentation you are currently reading. You can use
+this approach for generation of documentation for your own projects.
 
 ## Templates used for generation of this documentation
 This documentation is generated from these templates:

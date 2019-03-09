@@ -3,11 +3,35 @@
 ## Behavior of the application
 After launching the application generates a log file in the `log` directory.
 This log will be used as a recording of the tool behaviour. Application uses its
-own log for generation of UML diagrams like this one, see below.
+own `substitution-doc.log` for generation of UML diagrams like this one, see below.
 
-This diagram shows the main steps the application does after launching.
+This diagram shows the first steps the application performs after launching.
 
 &&beginPlaceholder {
-    "className": "org.credibledoc.substitution.doc.module.substitution.report.LaunchingUmlReportService",
-    "description": "Diagram of the application launching."
+    "className": "org.credibledoc.substitution.doc.module.substitution.launching.LaunchingUmlReportService",
+    "description": "Diagram of the application launching.",
+    "parameters": {"sourceFileRelativePath": "log/substitution-doc.log"}
+} &&endPlaceholder
+
+If you will launch the application more times then more log files will be created,
+for example `substitution-doc_1.log`, `substitution-doc_2.log` and so on, as
+configured in `src/main/resources/logback.xml` file. The next diagram is
+generated from `substitution-doc_1.log` file and contains behavior from previous
+launching.
+
+TODO parameterized sourceFileRelativePath
+&&beginPlaceholder {
+    "className": "org.credibledoc.substitution.doc.module.substitution.launching.LaunchingUmlReportService",
+    "description": "Diagram of the application launching.",
+    "parameters": {"sourceFileRelativePath": "log/substitution-doc_1.log"}
+} &&endPlaceholder
+
+### Activity diagram
+This Activity diagram shows main steps of the application activity parsed from a
+log file. 
+
+&&beginPlaceholder {
+    "className": "org.credibledoc.substitution.doc.module.substitution.activity.ActivityUmlReportService",
+    "description": "Diagram of the previous application launching.",
+    "parameters": {"sourceFileRelativePath": "log/substitution-doc_1.log"}
 } &&endPlaceholder

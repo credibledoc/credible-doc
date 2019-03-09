@@ -119,6 +119,7 @@ public class MarkdownService {
                     }
                 }
             }
+            log.info("Report documents created");
         } catch (ClassNotFoundException e) {
             throw new SubstitutionRuntimeException("Class defined in the placeholder cannot be found, " +
                     "templateResource: '" +

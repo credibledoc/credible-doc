@@ -3,8 +3,23 @@
 ## Behavior of the application
 After launching the application generates a log file in the `log` directory.
 This log will be used as a recording of the tool behaviour. Application uses its
-own log for generation of UML diagrams like this one, see below.
+own `substitution-doc.log` for generation of UML diagrams like this one, see below.
 
-This diagram shows the main steps the application does after launching.
+This diagram shows the first steps the application performs after launching.
 
 ![Diagram of the application launching.](img/diagrams.md_1.svg?sanitize=true)
+
+If you will launch the application more times then more log files will be created,
+for example `substitution-doc_1.log`, `substitution-doc_2.log` and so on, as
+configured in `src/main/resources/logback.xml` file. The next diagram is
+generated from `substitution-doc_1.log` file and contains behavior from previous
+launching.
+
+TODO parameterized sourceFileRelativePath
+![Diagram of the application launching.](img/diagrams.md_2.svg?sanitize=true)
+
+### Activity diagram
+This Activity diagram shows main steps of the application activity parsed from a
+log file. 
+
+![Diagram of the previous application launching.](img/diagrams.md_3.svg?sanitize=true)

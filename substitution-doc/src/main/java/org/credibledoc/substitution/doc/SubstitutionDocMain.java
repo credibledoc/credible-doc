@@ -71,15 +71,12 @@ public class SubstitutionDocMain {
      */
     public static void main(String[] args) {
         log.info(APPLICATION_SUBSTITUTION_DOC_LAUNCHED);
-
         try (AnnotationConfigApplicationContext applicationContext
                      = new AnnotationConfigApplicationContext(SubstitutionDocMain.class)) {
-
             applicationContext.start();
             log.info("Spring ApplicationContext created and started");
             SubstitutionDocMain substitutionDocMain = applicationContext.getBean(SubstitutionDocMain.class);
             substitutionDocMain.substitute(applicationContext);
-
         }
         log.info("Application finished.");
     }
@@ -128,7 +125,8 @@ public class SubstitutionDocMain {
             if (!resource.endsWith(MarkdownService.MARKDOWN_FILE_EXTENSION) && containsDotInName(resource)) {
                 String targetFilePath = resourceService.generatePlaceholderResourceRelativePath(resource);
                 String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFilePath;
-                log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'", resource, targetFileAbsolutePath);
+                log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
+                    resource, targetFileAbsolutePath);
                 File file = templateService.exportResource(resource, targetFileAbsolutePath);
                 log.info("Resource copied to file: '{}'", file.getAbsolutePath());
             }
