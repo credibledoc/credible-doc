@@ -114,7 +114,7 @@ public class ResourceService {
                                          String endsWith,
                                          String locationPath,
                                          String templatesResource) throws IOException {
-        int beginIndex = FILE_PREFIX.length();
+        int beginIndex = FILE_PREFIX.length() - 1;
         int endIndex = locationPath.indexOf(BOOT_INF_CLASSES_WITH_EXCLAMATION_MARK);
         File file = new File(locationPath.substring(beginIndex, endIndex));
         if (!file.exists()) {
