@@ -6,7 +6,7 @@ by this `substitution-doc` module.
 ## Usage
 Please open a command line and try it yourself.
 
-Checkout this project from Github
+Clone this project from Github
 
     git clone https://github.com/credibledoc/placeholder-substitution.git
 

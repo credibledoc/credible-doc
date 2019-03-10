@@ -392,6 +392,11 @@ public class MarkdownService {
         String placeholderDescription = placeholder.getDescription();
         String nextPlaceholderId = placeholder.getId();
 
+        if (plantUml.isEmpty()) {
+            return "Cannot generate diagram because source content not found. " +
+                "PlaceholderDescription: '" + placeholderDescription + "'.";
+        }
+
         return generateSvgFileAndTagForMarkdown(
                 mdFile,
                 imageDirectory,
