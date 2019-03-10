@@ -118,7 +118,8 @@ public class ResourceService {
         int endIndex = locationPath.indexOf(BOOT_INF_CLASSES_WITH_EXCLAMATION_MARK);
         File file = new File(locationPath.substring(beginIndex, endIndex));
         if (!file.exists()) {
-            throw new SubstitutionRuntimeException("The file cannot be found '" + file.getAbsolutePath() + "'");
+            throw new SubstitutionRuntimeException("LocationPath: '" + locationPath +
+                "'. The file cannot be found '" + file.getAbsolutePath() + "'");
         }
         // Running from JAR file
         final JarFile jarFile = new JarFile(file);
