@@ -25,10 +25,6 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ApplicationService {
 
-    public static final String RIGHT_SQUARE_BRACKET = "]";
-    public static final String LEFT_SQUARE_BRACKET = "[";
-    public static final String PIPE = "|";
-
     @NonNull
     private final List<ApplicationIdentifier> applicationIdentifiers;
 

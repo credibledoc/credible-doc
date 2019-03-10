@@ -17,7 +17,6 @@ import org.credibledoc.substitution.doc.node.file.NodeFileService;
 import org.credibledoc.substitution.doc.node.log.NodeLog;
 import org.credibledoc.substitution.doc.node.log.NodeLogService;
 import org.credibledoc.substitution.doc.report.Report;
-import org.credibledoc.substitution.doc.report.ReportService;
 import org.credibledoc.substitution.doc.specific.SpecificTactic;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +44,6 @@ public class ReaderService {
 
     @NonNull
     private final NodeLogService nodeLogService;
-
-    @NonNull
-    private final ReportService reportService;
 
     @NonNull
     private final ApplicationLogService applicationLogService;
@@ -118,10 +114,9 @@ public class ReaderService {
      *
      * @return a preferred line from one of {@link LogBufferedReader}s or 'null' if all buffers are empty.
      */
-    public String readLineFromReaders() {
-        Report report = reportService.getReport();
+    public String readLineFromReaders(Report report) {
         try {
-            List<LogBufferedReader> logBufferedReaders = collectBufferedReaders();
+            List<LogBufferedReader> logBufferedReaders = collectBufferedReaders(report);
             if (logBufferedReaders.isEmpty()) {
                 return null;
             }
@@ -133,7 +128,7 @@ public class ReaderService {
             }
             if (LineState.IS_NULL == lineStates.get(lastUsedNodeLogIndex)) {
                 logBufferedReader.close();
-                logBufferedReaders = collectBufferedReaders();
+                logBufferedReaders = collectBufferedReaders(report);
                 if (logBufferedReaders.isEmpty()) {
                     return null;
                 }
@@ -146,9 +141,9 @@ public class ReaderService {
         }
     }
 
-    private List<LogBufferedReader> collectBufferedReaders() {
+    private List<LogBufferedReader> collectBufferedReaders(Report report) {
         List<LogBufferedReader> logBufferedReaders = new ArrayList<>();
-        for (ApplicationLog applicationLog : applicationLogService.getApplicationLogs()) {
+        for (ApplicationLog applicationLog : applicationLogService.getApplicationLogs(report)) {
             for (NodeLog nodeLog : nodeLogService.findNodeLogs(applicationLog)) {
                 if (nodeLog.getLogBufferedReader().isNotClosed()) {
                     logBufferedReaders.add(nodeLog.getLogBufferedReader());
@@ -168,7 +163,7 @@ public class ReaderService {
      */
     public LogBufferedReader getCurrentReader(Report report) {
         int nextNumber = 0;
-        for (ApplicationLog applicationLog : applicationLogService.getApplicationLogs()) {
+        for (ApplicationLog applicationLog : applicationLogService.getApplicationLogs(report)) {
             for (NodeLog nodeLog : nodeLogService.findNodeLogs(applicationLog)) {
                 if (nodeLog.getLogBufferedReader().isNotClosed()) {
                     if (report.getLastUsedNodeLogIndex() == nextNumber) {

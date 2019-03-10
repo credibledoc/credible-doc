@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,7 +29,7 @@ public class ReportService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
 
-    public static final String PUBLIC = "public";
+    private static final String PUBLIC = "public";
 
     @NonNull
     private final ReportRepository reportRepository;
@@ -43,39 +44,33 @@ public class ReportService {
      * Create empty reports
      */
     public void prepareReports() {
-        Report report = reportRepository.getReport();
-        File publicFolder = new File(report.getDirectory(), PUBLIC);
-        createCssFile(publicFolder);
-        createJsFiles(publicFolder);
+        List<Report> reports = reportRepository.getReports();
+        for (Report report : reports) {
+            File publicFolder = new File(report.getDirectory(), PUBLIC);
+            createCssFile(publicFolder);
+            createJsFiles(publicFolder);
 
-        Map<String, ReportDocumentCreator> reportDocumentCreatorMap =
+            Map<String, ReportDocumentCreator> reportDocumentCreatorMap =
                 applicationContext.getBeansOfType(ReportDocumentCreator.class);
 
-        for (ReportDocumentCreator reportDocumentCreator : reportDocumentCreatorMap.values()) {
-            ReportDocumentType reportDocumentType = reportDocumentCreator.getReportDocumentType();
-            if (reportDocumentType == ReportDocumentType.INDEX ||
+            for (ReportDocumentCreator reportDocumentCreator : reportDocumentCreatorMap.values()) {
+                ReportDocumentType reportDocumentType = reportDocumentCreator.getReportDocumentType();
+                if (reportDocumentType == ReportDocumentType.INDEX ||
                     reportDocumentType == ReportDocumentType.UNIDENTIFIED) {
 
-                ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
-                reportDocumentService.getReportDocuments().add(reportDocument);
+                    ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
+                    reportDocumentService.getReportDocuments().add(reportDocument);
+                }
             }
         }
     }
 
     /**
-     * Call the {@link ReportRepository#getReport()} method.
+     * Call the {@link ReportRepository#getReports()} method.
      * @return the global application state.
      */
-    public Report getReport() {
-        return reportRepository.getReport();
-    }
-
-    /**
-     * Call the {@link ReportRepository#setReport(Report)} method
-     * @param report the global application state
-     */
-    public void setReport(Report report) {
-        reportRepository.setReport(report);
+    public List<Report> getReports() {
+        return reportRepository.getReports();
     }
 
     /**
@@ -111,5 +106,13 @@ public class ReportService {
         TemplateService templateService = TemplateService.getInstance();
         File cssFile = templateService.exportResource(Template.CSS.getTemplateRelativePath(), cssFileAbsolutePath);
         logger.info("File created: {}", cssFile);
+    }
+
+    /**
+     * Add all reports to the {@link #reportRepository}.
+     * @param reports for appending
+     */
+    public void addReports(List<Report> reports) {
+        reportRepository.addReports(reports);
     }
 }

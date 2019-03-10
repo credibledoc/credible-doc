@@ -13,8 +13,18 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.credibledoc.substitution.doc.file.FileService;
 import org.credibledoc.substitution.doc.json.JsonService;
+import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
+import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLog;
+import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLogService;
+import org.credibledoc.substitution.doc.node.file.NodeFile;
+import org.credibledoc.substitution.doc.node.file.NodeFileService;
+import org.credibledoc.substitution.doc.node.log.NodeLog;
+import org.credibledoc.substitution.doc.node.log.NodeLogService;
+import org.credibledoc.substitution.doc.report.Report;
 import org.credibledoc.substitution.doc.report.ReportDocumentCreator;
+import org.credibledoc.substitution.doc.report.ReportService;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
 import org.springframework.stereotype.Service;
@@ -25,10 +35,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This singleton helps to parse *.md templates from the {@link Configuration#getTemplatesResource()} folder, extract
@@ -50,6 +57,7 @@ public class MarkdownService {
     private static final String SVG_TAG_MIDDLE = "](";
     private static final String SVG_TAG_END = "?sanitize=true)";
     public static final String CONTENT_REPLACED = "Content replaced. ";
+    private static final String SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER = "sourceFileRelativePath";
 
     /**
      * Cache of beans of the {@link ContentGenerator} type
@@ -81,6 +89,21 @@ public class MarkdownService {
 
     @NonNull
     private final List<ReportDocumentCreator> reportDocumentCreators;
+
+    @NonNull
+    private final ReportService reportService;
+
+    @NonNull
+    private final FileService fileService;
+
+    @NonNull
+    private final NodeFileService nodeFileService;
+
+    @NonNull
+    private final NodeLogService nodeLogService;
+
+    @NonNull
+    private final ApplicationLogService applicationLogService;
 
     private Configuration configuration;
 
@@ -147,11 +170,46 @@ public class MarkdownService {
      * @param placeholder           for addition
      * @param reportDocumentCreator for addition
      */
-    private void createReportDocumentForPlaceholder(Placeholder placeholder, ReportDocumentCreator reportDocumentCreator) {
+    private void createReportDocumentForPlaceholder(Placeholder placeholder,
+                                                    ReportDocumentCreator reportDocumentCreator) {
         ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
         placeholderToReportDocumentMap.put(placeholder, reportDocument);
         reportDocumentService.getReportDocuments().add(reportDocument);
         PlaceholderService.getInstance().getPlaceholders().add(placeholder);
+        if (placeholder.getParameters() != null &&
+                placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER) != null) {
+            File file = new File(placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER));
+            if (!file.exists()) {
+                log.info("File not exists. Report will not be created. File: '{}'", file.getAbsolutePath());
+            } else {
+                log.info("File will be parsed: {}", file.getAbsolutePath());
+                prepareReport(file, reportDocument);
+            }
+        }
+    }
+
+    /**
+     * Create a new {@link Report}
+     * @param logFile a source file
+     * @param reportDocument which belongs to the {@link Report}
+     */
+    private void prepareReport(File logFile, ReportDocument reportDocument) {
+        Report report = new Report();
+        reportService.addReports(Collections.singletonList(report));
+        ApplicationLog applicationLog = new ApplicationLog();
+        reportDocument.setReport(report);
+        TacticHolder tacticHolder = fileService.findOutApplicationType(logFile);
+
+        applicationLog.setTacticHolder(tacticHolder);
+        Date date = fileService.findDate(logFile, tacticHolder);
+        NodeFile nodeFile = nodeFileService.createNodeFile(date, logFile);
+        NodeLog nodeLog = nodeLogService.createNodeLog(nodeFile.getFile());
+        nodeLog.setApplicationLog(applicationLog);
+        nodeFile.setNodeLog(nodeLog);
+        reportDocument.getNodeFiles().add(nodeFile);
+        nodeLogService.findNodeLogs(applicationLog).add(nodeLog);
+        applicationLogService.addApplicationLog(applicationLog);
+        log.info("Report prepared. Report: {}", report.hashCode());
     }
 
     private List<String> parsePlaceholders(String templateContent, String templateResource) {

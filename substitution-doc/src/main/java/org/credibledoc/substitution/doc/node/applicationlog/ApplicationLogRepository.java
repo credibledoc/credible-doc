@@ -9,7 +9,7 @@ import java.util.List;
  * Stateful object. Contains a list of {@link ApplicationLog}.
  */
 @Repository
-public class ApplicationLogRepository {
+class ApplicationLogRepository {
 
     /**
      * Contains {@link ApplicationLog}s of the {@link org.credibledoc.substitution.doc.report.Report}
@@ -19,14 +19,8 @@ public class ApplicationLogRepository {
     /**
      * @return the {@link #applicationLogs} value
      */
-    public List<ApplicationLog> getApplicationLogs() {
+    List<ApplicationLog> getApplicationLogs() {
         return applicationLogs;
     }
 
-    /**
-     * @param applicationLogs see the {@link #applicationLogs} field
-     */
-    public void setApplicationLogs(List<ApplicationLog> applicationLogs) {
-        this.applicationLogs = applicationLogs;
-    }
 }

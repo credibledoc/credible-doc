@@ -4,7 +4,9 @@ This module generates a documentation for the
 by this `substitution-doc` module.
 
 ## Usage
-Checkout from Github
+Please open a command line and try it yourself.
+
+Checkout this project from Github
 
     git clone https://github.com/credibledoc/placeholder-substitution.git
 

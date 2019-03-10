@@ -2,28 +2,32 @@ package org.credibledoc.substitution.doc.report;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * This repository contains a single {@link #report} object.
+ * This repository contains a list of {@link Report} objects.
  */
 @Repository
-public class ReportRepository {
+class ReportRepository {
 
     /**
      * The global state of the application.
      */
-    private Report report;
+    private List<Report> reports = new ArrayList<>();
 
     /**
-     * @return The {@link #report} field value.
+     * @return The {@link #reports} field value.
      */
-    public Report getReport() {
-        return report;
+    List<Report> getReports() {
+        return reports;
     }
 
     /**
-     * @param report see the {@link #report} field
+     * Add all reports to the {@link #reports}.
+     * @param reports for appending
      */
-    public void setReport(Report report) {
-        this.report = report;
+    void addReports(List<Report> reports) {
+        this.reports.addAll(reports);
     }
 }

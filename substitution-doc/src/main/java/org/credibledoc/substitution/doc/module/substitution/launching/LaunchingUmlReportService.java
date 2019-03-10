@@ -57,6 +57,11 @@ public class LaunchingUmlReportService implements ReportDocumentCreator {
                         applicationContext.getBean(ContentReplacedSearchCommand.class),
                         applicationContext.getBean(ContentReplacedTransformer.class),
                         reportDocument));
+        lineProcessors.add(
+            new LineProcessor(
+                applicationContext.getBean(FinishedSearchCommand.class),
+                applicationContext.getBean(FinishedTransformer.class),
+                reportDocument));
 
         lineProcessorService.getLineProcessors().addAll(lineProcessors);
         log.info("Line processors prepared");

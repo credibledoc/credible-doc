@@ -54,15 +54,22 @@ public class VisualizerService {
      */
     public void createReports(List<ReportDocumentType> reportDocumentTypes) {
         logger.info("Method createReports started, reportDocumentTypes: '{}'", reportDocumentTypes);
-        Report report = reportService.getReport();
-        readerService.prepareBufferedReaders(applicationLogService.getApplicationLogs());
+        List<Report> reports = reportService.getReports();
+        for (Report report : reports) {
+            createReport(reportDocumentTypes, report);
+        }
+    }
+
+    private void createReport(List<ReportDocumentType> reportDocumentTypes, Report report) {
+        logger.info("Method createReports started. Report: {}", report.hashCode());
+        readerService.prepareBufferedReaders(applicationLogService.getApplicationLogs(report));
         String line = null;
 
-        List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments();
+        List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
         LogBufferedReader currentReader = null;
         int currentLineNumber = 0;
         try {
-            line = readerService.readLineFromReaders();
+            line = readerService.readLineFromReaders(report);
             String substring = line.substring(0, 35);
             logger.info("The first line read from {}. Line: '{}...'", ReaderService.class.getSimpleName(), substring);
             while (line != null) {
@@ -71,7 +78,7 @@ public class VisualizerService {
 
                 currentLineNumber = currentLineNumber + multiline.size();
                 if (currentLineNumber % 100000 == 0) {
-                    int perCent = (int)(currentLineNumber * 100f) / report.getLinesNumber();
+                    int perCent = (int) (currentLineNumber * 100f) / report.getLinesNumber();
                     logger.debug("{} lines processed ({}%)", currentLineNumber, perCent);
                 }
 
@@ -81,9 +88,9 @@ public class VisualizerService {
                     }
                 }
 
-                reportDocumentService.appendReportDocumentsForAddition();
+                reportDocumentService.appendReportDocumentsForAddition(report);
 
-                line = readerService.readLineFromReaders();
+                line = readerService.readLineFromReaders(report);
             }
             logger.debug("{} lines processed (100%)", currentLineNumber);
         } catch (Exception e) {
@@ -93,8 +100,8 @@ public class VisualizerService {
             }
             String message =
                 "Creation of reports failed. File: '" + fileName +
-                        "', ReportDirectory: '" + report.getDirectory().getAbsolutePath() +
-                        "', line: '" + line + "'";
+                    "', ReportDirectory: '" + report.getDirectory().getAbsolutePath() +
+                    "', line: '" + line + "'";
             throw new SubstitutionRuntimeException(message, e);
         } finally {
             for (ReportDocument reportDocument : reportDocuments) {

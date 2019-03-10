@@ -3,6 +3,7 @@ package org.credibledoc.substitution.doc.reportdocument;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.credibledoc.substitution.doc.node.file.NodeFile;
+import org.credibledoc.substitution.doc.report.Report;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 /**
- * Contains a state of a single generated report file.
+ * Contains a state of a single generated report document.
  *
  * @author Kyrylo Semenko
  */
@@ -80,6 +81,11 @@ public class ReportDocument {
      * This {@link ReportDocument} file.
      */
     private File file;
+
+    /**
+     * The {@link Report} this {@link ReportDocument} belongs to
+     */
+    private Report report;
 
     public ReportDocument() {
         fileNumber = 1;
@@ -244,5 +250,19 @@ public class ReportDocument {
      */
     public void setFile(File file) {
         this.file = file;
+    }
+
+    /**
+     * @return The {@link #report} field value.
+     */
+    public Report getReport() {
+        return report;
+    }
+
+    /**
+     * @param report see the {@link #report} field description.
+     */
+    public void setReport(Report report) {
+        this.report = report;
     }
 }

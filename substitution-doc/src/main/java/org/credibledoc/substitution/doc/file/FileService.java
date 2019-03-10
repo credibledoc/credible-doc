@@ -37,7 +37,7 @@ public class FileService {
 
     private static final char DOT = '.';
 
-    public static final String REPORT_FOLDER_EXTENSION = ".report";
+    private static final String REPORT_FOLDER_EXTENSION = ".report";
 
     @NonNull
     private final ApplicationService applicationService;
@@ -105,7 +105,7 @@ public class FileService {
      *                        will be processed recursively.
      * @param applicationLogs at first invocation an empty, and it will be filled with files
      */
-    public void collectApplicationLogs(File directory, List<ApplicationLog> applicationLogs) {
+    private void collectApplicationLogs(File directory, List<ApplicationLog> applicationLogs) {
         Preconditions.checkNotNull(directory);
         Preconditions.checkState(directory.isDirectory());
         Map<TacticHolder, Map<Date, File>> map = new EnumMap<>(TacticHolder.class);

@@ -2,9 +2,14 @@ package org.credibledoc.substitution.doc.node.applicationlog;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.credibledoc.substitution.doc.node.file.NodeFile;
+import org.credibledoc.substitution.doc.report.Report;
+import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
+import org.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,16 +24,39 @@ public class ApplicationLogService {
     @NonNull
     private final ApplicationLogRepository applicationLogRepository;
 
+    @NonNull
+    private final ReportDocumentService reportDocumentService;
+
     /**
-     * Call the {@link ApplicationLogRepository#getApplicationLogs()} method
-     * @return all {@link ApplicationLog}s.
+     * Find all {@link ApplicationLog} filtered by {@link Report}
+     * @return all {@link ApplicationLog}s which belongs to the {@link Report}
      */
-    public List<ApplicationLog> getApplicationLogs() {
-        return applicationLogRepository.getApplicationLogs();
+    public List<ApplicationLog> getApplicationLogs(Report report) {
+        List<ApplicationLog> result = new ArrayList<>();
+        for (ApplicationLog applicationLog : applicationLogRepository.getApplicationLogs()) {
+            for (ReportDocument reportDocument : reportDocumentService.getReportDocuments(report)) {
+                NodeFile nodeFile = reportDocument.getNodeFiles().iterator().next();
+                if (nodeFile.getNodeLog().getApplicationLog() == applicationLog) {
+                    result.add(applicationLog);
+                }
+            }
+        }
+        return result;
     }
 
+    /**
+     * Add the {@link ApplicationLog} to the {@link ApplicationLogRepository}
+     * @param applicationLog for addition
+     */
     public void addApplicationLog(ApplicationLog applicationLog) {
         applicationLogRepository.getApplicationLogs().add(applicationLog);
     }
 
+    /**
+     * Call the {@link ApplicationLogRepository#getApplicationLogs()} method
+     * @return All items from the {@link ApplicationLogRepository}
+     */
+    public List<ApplicationLog> getApplicationLogs() {
+        return applicationLogRepository.getApplicationLogs();
+    }
 }
