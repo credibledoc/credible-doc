@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
+import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
 import org.credibledoc.substitution.doc.template.Template;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

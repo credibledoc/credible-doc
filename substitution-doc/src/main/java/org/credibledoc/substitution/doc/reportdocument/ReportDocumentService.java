@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * A stateless service for working with {@link ReportDocument}s.
+ * The stateless service for working with {@link ReportDocument}s.
  *
  * @author Kyrylo Semenko
  */

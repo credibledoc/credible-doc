@@ -1,11 +1,11 @@
-package org.credibledoc.substitution.doc.report;
+package org.credibledoc.substitution.doc.reportdocument.creator;
 
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
 
 /**
  * Classes which implement this interface should be able to create {@link ReportDocument}
- * of concrete {@link ReportDocumentType}.
+ * of a {@link ReportDocumentType}.
  *
  * @author Kyrylo Semenko
  */

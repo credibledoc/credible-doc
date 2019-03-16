@@ -23,10 +23,11 @@ import org.credibledoc.substitution.doc.node.file.NodeFileService;
 import org.credibledoc.substitution.doc.node.log.NodeLog;
 import org.credibledoc.substitution.doc.node.log.NodeLogService;
 import org.credibledoc.substitution.doc.report.Report;
-import org.credibledoc.substitution.doc.report.ReportDocumentCreator;
 import org.credibledoc.substitution.doc.report.ReportService;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
+import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
+import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreatorService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -66,12 +67,6 @@ public class MarkdownService {
     private Map<Class, ContentGenerator> markdownGeneratorsMap = new HashMap<>();
 
     /**
-     * Cache of beans of the {@link ReportDocumentCreator} type
-     * obtained from the Spring container.
-     */
-    private Map<Class, ReportDocumentCreator> reportDocumentCreatorsMap = new HashMap<>();
-
-    /**
      * This map is filled out during preparatory phase, see the
      * {@link #createReportDocumentForPlaceholder(Placeholder, ReportDocumentCreator)} method. And used during
      * generation phase, see the {@link #generateDiagram(Placeholder)} method.
@@ -105,6 +100,9 @@ public class MarkdownService {
     @NonNull
     private final ApplicationLogService applicationLogService;
 
+    @NonNull
+    private final ReportDocumentCreatorService reportDocumentCreatorService;
+
     private Configuration configuration;
 
     @PostConstruct
@@ -112,16 +110,14 @@ public class MarkdownService {
         for (ContentGenerator markdownGenerator : markdownGenerators) {
             markdownGeneratorsMap.put(markdownGenerator.getClass(), markdownGenerator);
         }
-        for (ReportDocumentCreator reportDocumentCreator : reportDocumentCreators) {
-            reportDocumentCreatorsMap.put(reportDocumentCreator.getClass(), reportDocumentCreator);
-        }
+        reportDocumentCreatorService.addAll(reportDocumentCreators);
         configuration = ConfigurationService.getInstance().getConfiguration();
     }
 
     /**
      * Iterate {@link Placeholder}s from template resources and for each {@link Placeholder} find the appropriate
-     * {@link ReportDocumentCreator} from the {@link #reportDocumentCreatorsMap}. Then create a {@link ReportDocument}
-     * for the {@link Placeholder}.
+     * {@link ReportDocumentCreator} from the {@link ReportDocumentCreatorService#getReportDocumentCreator(Class)}.
+     * Then create a {@link ReportDocument} for the {@link Placeholder}.
      */
     public void createReportDocuments() {
         String lastTemplateResource = null;
@@ -142,7 +138,8 @@ public class MarkdownService {
                     placeholder.setId(Integer.toString(position++));
                     Class<?> placeholderClass = Class.forName(placeholder.getClassName());
                     if (ReportDocumentCreator.class.isAssignableFrom(placeholderClass)) {
-                        ReportDocumentCreator reportDocumentCreator = reportDocumentCreatorsMap.get(placeholderClass);
+                        ReportDocumentCreator reportDocumentCreator =
+                            reportDocumentCreatorService.getReportDocumentCreator(placeholderClass);
                         createReportDocumentForPlaceholder(placeholder, reportDocumentCreator);
                     }
                 }

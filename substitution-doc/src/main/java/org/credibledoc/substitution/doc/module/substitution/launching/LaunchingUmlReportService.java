@@ -4,7 +4,7 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.credibledoc.substitution.doc.report.ReportDocumentCreator;
+import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
 import org.credibledoc.substitution.doc.transformer.LineProcessor;
