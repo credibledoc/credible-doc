@@ -66,7 +66,7 @@ public class SubstitutionDocMain {
         markdownService.createReportDocuments();
         copyResourcesToTargetDirectory();
         visualizerService.createReports(Collections.singletonList(ReportDocumentType.DOCUMENT_PART_UML));
-        markdownService.generateMarkdownFromTemplates();
+        markdownService.generateContentFromTemplates();
     }
 
     private void copyResourcesToTargetDirectory() {

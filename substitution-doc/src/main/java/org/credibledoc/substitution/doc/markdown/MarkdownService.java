@@ -118,6 +118,11 @@ public class MarkdownService {
         configuration = ConfigurationService.getInstance().getConfiguration();
     }
 
+    /**
+     * Iterate {@link Placeholder}s from template resources and for each {@link Placeholder} find the appropriate
+     * {@link ReportDocumentCreator} from the {@link #reportDocumentCreatorsMap}. Then create a {@link ReportDocument}
+     * for the {@link Placeholder}.
+     */
     public void createReportDocuments() {
         String lastTemplateResource = null;
         String lastTemplatePlaceholder = null;
@@ -151,6 +156,34 @@ public class MarkdownService {
                     "templatePlaceholder: '" +
                     lastTemplatePlaceholder +
                     "'.", e);
+        } catch (Exception e) {
+            throw new SubstitutionRuntimeException(e);
+        }
+    }
+
+    /**
+     * Find out a target directory where a generated content will be placed, iterate template resources and
+     * for each template resource generate content for its {@link Placeholder}s. Then replace the {@link Placeholder}s
+     * with generated content.
+     */
+    public void generateContentFromTemplates() {
+        try {
+            File targetDirectory = new File(configuration.getTargetDirectory());
+            if (!targetDirectory.exists()) {
+                boolean created = targetDirectory.mkdirs();
+                if (!created) {
+                    throw new SubstitutionRuntimeException("Cannot create directory '" +
+                        targetDirectory.getAbsolutePath() +
+                        "'");
+                }
+                log.info("Target directory created: '{}'", targetDirectory.getAbsolutePath());
+            }
+            List<String> templateResources =
+                ResourceService.getInstance()
+                    .getResources(MARKDOWN_FILE_EXTENSION, configuration.getTemplatesResource());
+            for (String templateResource : templateResources) {
+                insertMarkdownIntoTemplate(templateResource);
+            }
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
@@ -252,29 +285,13 @@ public class MarkdownService {
         return placeholder;
     }
 
-    public void generateMarkdownFromTemplates() {
-        try {
-            File targetDirectory = new File(configuration.getTargetDirectory());
-            if (!targetDirectory.exists()) {
-                boolean created = targetDirectory.mkdirs();
-                if (!created) {
-                    throw new SubstitutionRuntimeException("Cannot create directory '" +
-                            targetDirectory.getAbsolutePath() +
-                            "'");
-                }
-                log.info("Target directory created: '{}'", targetDirectory.getAbsolutePath());
-            }
-            List<String> templateResources =
-                    ResourceService.getInstance()
-                            .getResources(MARKDOWN_FILE_EXTENSION, configuration.getTemplatesResource());
-            for (String templateResource : templateResources) {
-                insertMarkdownIntoTemplate(templateResource);
-            }
-        } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
-        }
-    }
-
+    /**
+     * Load template from the templateResource, collect {@link Placeholder}s from the template, replace the
+     * {@link Placeholder}s with generated content and write the template with generated content to a target file.
+     *
+     * @param templateResource source of a template, for example <i>/template/markdown/doc/diagrams.md</i>
+     * @throws IOException in case of problem with writing of template with generated content to a target file.
+     */
     private void insertMarkdownIntoTemplate(String templateResource) throws IOException {
         String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
 
