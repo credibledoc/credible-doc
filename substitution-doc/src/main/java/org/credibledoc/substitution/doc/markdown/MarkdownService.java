@@ -14,7 +14,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.credibledoc.substitution.doc.json.JsonService;
 import org.credibledoc.substitution.doc.placeholder.PlaceholderParser;
 import org.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
@@ -59,9 +58,6 @@ public class MarkdownService {
 
     @NonNull
     private final PlaceholderParser placeholderParser;
-
-    @NonNull
-    private final JsonService jsonService;
 
     private Configuration configuration;
 
@@ -144,7 +140,7 @@ public class MarkdownService {
             placeholder.setId(Integer.toString(position++));
             String contentForReplacement = generateContent(placeholder);
             replacedContent = replacedContent.replace(templatePlaceholder, contentForReplacement);
-            String json = jsonService.writeValueAsString(placeholder);
+            String json = placeholderParser.writePlaceholderToJson(placeholder);
             log.info("{}{}", CONTENT_REPLACED, json);
         }
         return replacedContent;

@@ -37,6 +37,7 @@ public class ContentGeneratorService {
 
     /**
      * Append {@link ContentGenerator}s from the argument to the {@link ContentGeneratorRepository}.
+     *
      * @param contentGenerators implementations of the {@link ContentGenerator} interface.
      */
     public void addContentGenerators(Collection<ContentGenerator> contentGenerators) {

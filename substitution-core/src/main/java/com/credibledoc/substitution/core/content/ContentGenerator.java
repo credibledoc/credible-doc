@@ -5,7 +5,7 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 
 /**
  * Classes which implement this interface has a single method
- * {@link #generate(Placeholder)}. Links to these classes are defined in markdown templates
+ * {@link #generate(Placeholder)}. Links to these classes are defined in templates
  * stored in the {@link Configuration#getTemplatesResource()} directory. These
  * templates has tags, content of these tags is parsed and stored in {@link Placeholder}
  * objects, where class name is stored in the

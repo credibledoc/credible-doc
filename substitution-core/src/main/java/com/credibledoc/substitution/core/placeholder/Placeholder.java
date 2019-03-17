@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This data object represents a placeholder inside a markdown template file.
+ * This data object represents a placeholder inside a template file.
  * The placeholder begins with
  * {@link ConfigurationService#PLACEHOLDER_BEGIN}
  * and ends with
@@ -37,8 +37,7 @@ public class Placeholder {
     /**
      * Description for debugging purposes, for example
      * <pre>An UML diagram of application launching.</pre>
-     * It uses for generation of alternative text of markdown
-     * image.
+     * It can be use for generation of an image alternative text, for logging and so on.
      */
     private String description;
 
