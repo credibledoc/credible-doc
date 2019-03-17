@@ -1,4 +1,4 @@
-package org.credibledoc.substitution.doc.markdown.generator.table;
+package org.credibledoc.substitution.doc.module.substitution.markdown.table;
 
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 /**
- * This service generates markdown tables.
+ * This service generates markdown tables, see the {@link #createMarkdownTableFromEnum(Table.Builder, Class)} method.
  *
  * @author Kyrylo Semenko
  */

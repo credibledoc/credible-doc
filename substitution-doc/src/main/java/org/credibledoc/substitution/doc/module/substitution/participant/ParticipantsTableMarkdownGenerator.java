@@ -5,7 +5,7 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.steppschuh.markdowngenerator.table.Table;
-import org.credibledoc.substitution.doc.markdown.generator.table.TableService;
+import org.credibledoc.substitution.doc.module.substitution.markdown.table.TableService;
 import org.credibledoc.substitution.doc.plantuml.Participant;
 import org.springframework.stereotype.Service;
 
