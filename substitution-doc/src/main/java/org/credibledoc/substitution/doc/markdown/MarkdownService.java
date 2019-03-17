@@ -14,7 +14,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.credibledoc.substitution.doc.placeholder.PlaceholderParser;
 import org.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
@@ -55,9 +54,6 @@ public class MarkdownService {
 
     @NonNull
     public final PlaceholderToReportDocumentService placeholderToReportDocumentService;
-
-    @NonNull
-    private final PlaceholderParser placeholderParser;
 
     private Configuration configuration;
 
@@ -104,7 +100,8 @@ public class MarkdownService {
     private void insertContentIntoTemplate(String templateResource) throws IOException {
         String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
 
-        List<String> templatePlaceholders = placeholderParser.parsePlaceholders(templateContent, templateResource);
+        List<String> templatePlaceholders =
+            PlaceholderService.getInstance().parsePlaceholders(templateContent, templateResource);
 
         String replacedContent =
                 replacePlaceholdersWithGeneratedContent(templateResource, templateContent, templatePlaceholders);
@@ -136,11 +133,12 @@ public class MarkdownService {
         String replacedContent = templateContent;
         int position = 1;
         for (String templatePlaceholder : templatePlaceholders) {
-            Placeholder placeholder = placeholderParser.parseJsonFromPlaceholder(templatePlaceholder, templateResource);
+            Placeholder placeholder =
+                PlaceholderService.getInstance().parseJsonFromPlaceholder(templatePlaceholder, templateResource);
             placeholder.setId(Integer.toString(position++));
             String contentForReplacement = generateContent(placeholder);
             replacedContent = replacedContent.replace(templatePlaceholder, contentForReplacement);
-            String json = placeholderParser.writePlaceholderToJson(placeholder);
+            String json = PlaceholderService.getInstance().writePlaceholderToJson(placeholder);
             log.info("{}{}", CONTENT_REPLACED, json);
         }
         return replacedContent;

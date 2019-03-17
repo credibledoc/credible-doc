@@ -17,6 +17,12 @@ import java.util.Map;
  */
 public class Placeholder {
 
+    public static final String FIELD_PARAMETERS = "parameters";
+    public static final String FIELD_RESOURCE = "resource";
+    public static final String FIELD_CLASS_NAME = "className";
+    public static final String FIELD_DESCRIPTION = "description";
+    public static final String FIELD_ID = "id";
+
     /**
      * A resource this placeholder belongs to, for example
      * <pre>/template/doc/README.md</pre>

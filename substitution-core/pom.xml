@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
 
     <description>
-        A simple library for replacing of placeholders with a generated content.
+        A simple library for replacing placeholders with a generated content.
         See description in the README.md file in the root of the
         https://github.com/credibledoc/placeholder-substitution repository.
     </description>
@@ -40,6 +40,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eclipsesource.minimal-json</groupId>
+            <artifactId>minimal-json</artifactId>
+            <version>0.9.5</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -117,6 +122,33 @@
                         <include>**/*</include>
                     </includes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <relocations>
+                                <relocation>
+                                    <!-- com.eclipsesource.minimal-json:minimal-json -->
+                                    <pattern>com.eclipsesource.json</pattern>
+                                    <shadedPattern>com.credibledoc.substitution.core.shaded.com.eclipsesource.json</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <!-- org.slf4j:slf4j-api -->
+                                    <pattern>org.slf4j</pattern>
+                                    <shadedPattern>com.credibledoc.substitution.core.shaded.org.slf4j</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

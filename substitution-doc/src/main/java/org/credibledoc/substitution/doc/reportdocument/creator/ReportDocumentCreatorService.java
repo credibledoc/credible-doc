@@ -18,7 +18,6 @@ import org.credibledoc.substitution.doc.node.file.NodeFile;
 import org.credibledoc.substitution.doc.node.file.NodeFileService;
 import org.credibledoc.substitution.doc.node.log.NodeLog;
 import org.credibledoc.substitution.doc.node.log.NodeLogService;
-import org.credibledoc.substitution.doc.placeholder.PlaceholderParser;
 import org.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
 import org.credibledoc.substitution.doc.report.Report;
 import org.credibledoc.substitution.doc.report.ReportService;
@@ -63,9 +62,6 @@ public class ReportDocumentCreatorService {
     private final ApplicationLogService applicationLogService;
 
     @NonNull
-    private final PlaceholderParser placeholderParser;
-
-    @NonNull
     private final PlaceholderToReportDocumentService placeholderToReportDocumentService;
 
     /**
@@ -94,15 +90,16 @@ public class ReportDocumentCreatorService {
             List<String> resources =
                     ResourceService.getInstance().getResources(MarkdownService.MARKDOWN_FILE_EXTENSION, templatesResource);
             log.info("Markdown templates will be loaded from the resources: {}", resources);
+            PlaceholderService placeholderService = PlaceholderService.getInstance();
             for (String templateResource : resources) {
                 lastTemplateResource = templateResource;
                 String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
-                List<String> placeholders = placeholderParser.parsePlaceholders(templateContent, templateResource);
+                List<String> placeholders = placeholderService.parsePlaceholders(templateContent, templateResource);
                 int position = 1;
                 for (String templatePlaceholder : placeholders) {
                     lastTemplatePlaceholder = templatePlaceholder;
                     Placeholder placeholder =
-                        placeholderParser.parseJsonFromPlaceholder(templatePlaceholder, templateResource);
+                        placeholderService.parseJsonFromPlaceholder(templatePlaceholder, templateResource);
                     placeholder.setId(Integer.toString(position++));
                     Class<?> placeholderClass = Class.forName(placeholder.getClassName());
                     if (ReportDocumentCreator.class.isAssignableFrom(placeholderClass)) {
