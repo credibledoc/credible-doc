@@ -25,7 +25,7 @@ public class ReportDocumentCreatorService {
      *
      * @param reportDocumentCreators items for addition
      */
-    public void addAll(Collection<ReportDocumentCreator> reportDocumentCreators) {
+    public void addReportDocumentCreators(Collection<ReportDocumentCreator> reportDocumentCreators) {
         Map<Class<? extends ReportDocumentCreator>, ReportDocumentCreator> map = new HashMap<>();
         for (ReportDocumentCreator reportDocumentCreator : reportDocumentCreators) {
             map.put(reportDocumentCreator.getClass(), reportDocumentCreator);

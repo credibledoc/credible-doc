@@ -1,8 +1,10 @@
 package com.credibledoc.substitution.core.content;
 
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * This singleton provides services for working with {@link ContentGenerator}s.
@@ -10,11 +12,6 @@ import java.util.Set;
  * @author Kyrylo Semenko
  */
 public class ContentGeneratorService {
-
-    /**
-     * This map contains entries where a key is a {@link ContentGenerator} subtype class and value is the key instance.
-     */
-    private Map<Class<? extends ContentGenerator>, ContentGenerator> contentGeneratorMap = new HashMap<>();
 
     /**
      * Singleton.
@@ -39,12 +36,32 @@ public class ContentGeneratorService {
     }
 
     /**
-     * Append {@link ContentGenerator}s from the argument to the {@link #contentGeneratorMap}.
+     * Append {@link ContentGenerator}s from the argument to the {@link ContentGeneratorRepository}.
      * @param contentGenerators implementations of the {@link ContentGenerator} interface.
      */
-    public void addContentGenerators(Set<ContentGenerator> contentGenerators) {
+    public void addContentGenerators(Collection<ContentGenerator> contentGenerators) {
+        Map<Class<? extends ContentGenerator>, ContentGenerator> contentGeneratorMap = new HashMap<>();
         for (ContentGenerator contentGenerator : contentGenerators) {
             contentGeneratorMap.put(contentGenerator.getClass(), contentGenerator);
         }
+        ContentGeneratorRepository.getInstance().getContentGeneratorMap().putAll(contentGeneratorMap);
+    }
+
+    /**
+     * Find {@link ContentGenerator} in the {@link ContentGeneratorRepository}
+     *
+     * @param contentGeneratorClass type of the {@link ContentGenerator}
+     * @return The {@link ContentGenerator} or throw an {@link Exception}
+     */
+    public ContentGenerator getContentGenerator(Class contentGeneratorClass) {
+        Map<Class<? extends ContentGenerator>, ContentGenerator> contentGeneratorMap =
+            ContentGeneratorRepository.getInstance().getContentGeneratorMap();
+        if (!contentGeneratorMap.containsKey(contentGeneratorClass)) {
+            throw new SubstitutionRuntimeException("Cannot find item with key '" +
+                contentGeneratorClass.getCanonicalName() +
+                "' in the contentGeneratorMap. Items of this map should be created and appended by the library " +
+                "client before invocation of this method.");
+        }
+        return contentGeneratorMap.get(contentGeneratorClass);
     }
 }

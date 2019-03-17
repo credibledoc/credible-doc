@@ -4,6 +4,7 @@ import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.content.ContentGeneratorService;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
@@ -61,12 +62,6 @@ public class MarkdownService {
     private static final String SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER = "sourceFileRelativePath";
 
     /**
-     * Cache of beans of the {@link ContentGenerator} type
-     * obtained from the Spring container.
-     */
-    private Map<Class, ContentGenerator> markdownGeneratorsMap = new HashMap<>();
-
-    /**
      * This map is filled out during preparatory phase, see the
      * {@link #createReportDocumentForPlaceholder(Placeholder, ReportDocumentCreator)} method. And used during
      * generation phase, see the {@link #generateDiagram(Placeholder)} method.
@@ -78,12 +73,6 @@ public class MarkdownService {
 
     @NonNull
     private final ReportDocumentService reportDocumentService;
-
-    @NonNull
-    private final List<ContentGenerator> markdownGenerators;
-
-    @NonNull
-    private final List<ReportDocumentCreator> reportDocumentCreators;
 
     @NonNull
     private final ReportService reportService;
@@ -107,10 +96,6 @@ public class MarkdownService {
 
     @PostConstruct
     private void postConstruct() {
-        for (ContentGenerator markdownGenerator : markdownGenerators) {
-            markdownGeneratorsMap.put(markdownGenerator.getClass(), markdownGenerator);
-        }
-        reportDocumentCreatorService.addAll(reportDocumentCreators);
         configuration = ConfigurationService.getInstance().getConfiguration();
     }
 
@@ -179,7 +164,7 @@ public class MarkdownService {
                 ResourceService.getInstance()
                     .getResources(MARKDOWN_FILE_EXTENSION, configuration.getTemplatesResource());
             for (String templateResource : templateResources) {
-                insertMarkdownIntoTemplate(templateResource);
+                insertContentIntoTemplate(templateResource);
             }
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
@@ -289,7 +274,7 @@ public class MarkdownService {
      * @param templateResource source of a template, for example <i>/template/markdown/doc/diagrams.md</i>
      * @throws IOException in case of problem with writing of template with generated content to a target file.
      */
-    private void insertMarkdownIntoTemplate(String templateResource) throws IOException {
+    private void insertContentIntoTemplate(String templateResource) throws IOException {
         String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
 
         List<String> templatePlaceholders = parsePlaceholders(templateContent, templateResource);
@@ -300,10 +285,10 @@ public class MarkdownService {
         ResourceService resourceService = ResourceService.getInstance();
         String placeholderResourceRelativePath =
             resourceService.generatePlaceholderResourceRelativePath(templateResource);
-        File markdownFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
-        File markdownDirectory = markdownFile.getParentFile();
-        createDirectoryIfNotExists(markdownDirectory);
-        try (OutputStream outputStream = new FileOutputStream(markdownFile)){
+        File generatedFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
+        File generatedFileDirectory = generatedFile.getParentFile();
+        createDirectoryIfNotExists(generatedFileDirectory);
+        try (OutputStream outputStream = new FileOutputStream(generatedFile)){
             outputStream.write(replacedContent.getBytes());
         }
     }
@@ -354,7 +339,7 @@ public class MarkdownService {
                     return generatedTag;
                 }
             } else if (ContentGenerator.class.isAssignableFrom(placeholderClass)) {
-                ContentGenerator markdownGenerator = markdownGeneratorsMap.get(placeholderClass);
+                ContentGenerator markdownGenerator = ContentGeneratorService.getInstance().getContentGenerator(placeholderClass);
                 return markdownGenerator.generate(placeholder);
             }
         } catch (Exception e) {

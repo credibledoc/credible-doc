@@ -11,17 +11,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.credibledoc.substitution.doc.markdown.MarkdownService;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
+import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
+import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreatorService;
 import org.credibledoc.substitution.doc.visualizer.VisualizerService;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 import javax.inject.Inject;
 import java.io.File;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The main class for generation of documentation of the credibledoc-substitution tool.
@@ -45,6 +44,15 @@ public class SubstitutionDocMain {
     @NonNull
     private final VisualizerService visualizerService;
 
+    @NonNull
+    private final List<ContentGenerator> markdownGenerators;
+
+    @NonNull
+    private final List<ReportDocumentCreator> reportDocumentCreators;
+
+    @NonNull
+    private final ReportDocumentCreatorService reportDocumentCreatorService;
+
     /**
      * The main method for generation of documentation of the credibledoc-substitution tool.
      */
@@ -55,14 +63,14 @@ public class SubstitutionDocMain {
             applicationContext.start();
             log.info("Spring ApplicationContext created and started");
             SubstitutionDocMain substitutionDocMain = applicationContext.getBean(SubstitutionDocMain.class);
-            substitutionDocMain.substitute(applicationContext);
+            substitutionDocMain.substitute();
         }
         log.info(APPLICATION_SUBSTITUTION_DOC_FINISHED);
     }
 
-    private void substitute(ApplicationContext applicationContext) {
-        Map<String, ContentGenerator> contentGeneratorMap = applicationContext.getBeansOfType(ContentGenerator.class);
-        ContentGeneratorService.getInstance().addContentGenerators(new HashSet<>(contentGeneratorMap.values()));
+    private void substitute() {
+        ContentGeneratorService.getInstance().addContentGenerators(markdownGenerators);
+        reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
         markdownService.createReportDocuments();
         copyResourcesToTargetDirectory();
         visualizerService.createReports(Collections.singletonList(ReportDocumentType.DOCUMENT_PART_UML));
