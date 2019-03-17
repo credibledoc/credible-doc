@@ -71,7 +71,7 @@ public class SubstitutionDocMain {
     private void substitute() {
         ContentGeneratorService.getInstance().addContentGenerators(markdownGenerators);
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
-        markdownService.createReportDocuments();
+        markdownService.reportDocumentCreatorService.createReportDocuments();
         copyResourcesToTargetDirectory();
         visualizerService.createReports(Collections.singletonList(ReportDocumentType.DOCUMENT_PART_UML));
         markdownService.generateContentFromTemplates();

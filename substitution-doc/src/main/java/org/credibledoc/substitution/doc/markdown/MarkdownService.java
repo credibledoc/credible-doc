@@ -14,19 +14,10 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.credibledoc.substitution.doc.file.FileService;
 import org.credibledoc.substitution.doc.json.JsonService;
-import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
-import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLog;
-import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLogService;
-import org.credibledoc.substitution.doc.node.file.NodeFile;
-import org.credibledoc.substitution.doc.node.file.NodeFileService;
-import org.credibledoc.substitution.doc.node.log.NodeLog;
-import org.credibledoc.substitution.doc.node.log.NodeLogService;
-import org.credibledoc.substitution.doc.report.Report;
-import org.credibledoc.substitution.doc.report.ReportService;
+import org.credibledoc.substitution.doc.placeholder.PlaceholderParser;
+import org.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import org.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
 import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
 import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreatorService;
 import org.springframework.stereotype.Service;
@@ -37,7 +28,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.*;
+import java.util.List;
 
 /**
  * This singleton helps to parse *.md templates from the {@link Configuration#getTemplatesResource()} folder, extract
@@ -59,88 +50,24 @@ public class MarkdownService {
     private static final String SVG_TAG_MIDDLE = "](";
     private static final String SVG_TAG_END = "?sanitize=true)";
     public static final String CONTENT_REPLACED = "Content replaced. ";
-    private static final String SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER = "sourceFileRelativePath";
 
-    /**
-     * This map is filled out during preparatory phase, see the
-     * {@link #createReportDocumentForPlaceholder(Placeholder, ReportDocumentCreator)} method. And used during
-     * generation phase, see the {@link #generateDiagram(Placeholder)} method.
-     */
-    private Map<Placeholder, ReportDocument> placeholderToReportDocumentMap = new HashMap<>();
+    @NonNull
+    public final ReportDocumentCreatorService reportDocumentCreatorService;
+
+    @NonNull
+    public final PlaceholderToReportDocumentService placeholderToReportDocumentService;
+
+    @NonNull
+    private final PlaceholderParser placeholderParser;
 
     @NonNull
     private final JsonService jsonService;
-
-    @NonNull
-    private final ReportDocumentService reportDocumentService;
-
-    @NonNull
-    private final ReportService reportService;
-
-    @NonNull
-    private final FileService fileService;
-
-    @NonNull
-    private final NodeFileService nodeFileService;
-
-    @NonNull
-    private final NodeLogService nodeLogService;
-
-    @NonNull
-    private final ApplicationLogService applicationLogService;
-
-    @NonNull
-    private final ReportDocumentCreatorService reportDocumentCreatorService;
 
     private Configuration configuration;
 
     @PostConstruct
     private void postConstruct() {
         configuration = ConfigurationService.getInstance().getConfiguration();
-    }
-
-    /**
-     * Iterate {@link Placeholder}s from template resources and for each {@link Placeholder} find the appropriate
-     * {@link ReportDocumentCreator} from the {@link ReportDocumentCreatorService#getReportDocumentCreator(Class)}.
-     * Then create a {@link ReportDocument} for the {@link Placeholder}.
-     */
-    public void createReportDocuments() {
-        String lastTemplateResource = null;
-        String lastTemplatePlaceholder = null;
-        try {
-            String templatesResource = ConfigurationService.getInstance().getConfiguration().getTemplatesResource();
-            List<String> resources =
-                    ResourceService.getInstance().getResources(MARKDOWN_FILE_EXTENSION, templatesResource);
-            log.info("Markdown templates will be loaded from the resources: {}", resources);
-            for (String templateResource : resources) {
-                lastTemplateResource = templateResource;
-                String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
-                List<String> placeholders = parsePlaceholders(templateContent, templateResource);
-                int position = 1;
-                for (String templatePlaceholder : placeholders) {
-                    lastTemplatePlaceholder = templatePlaceholder;
-                    Placeholder placeholder = parseJsonFromPlaceholder(templatePlaceholder, templateResource);
-                    placeholder.setId(Integer.toString(position++));
-                    Class<?> placeholderClass = Class.forName(placeholder.getClassName());
-                    if (ReportDocumentCreator.class.isAssignableFrom(placeholderClass)) {
-                        ReportDocumentCreator reportDocumentCreator =
-                            reportDocumentCreatorService.getReportDocumentCreator(placeholderClass);
-                        createReportDocumentForPlaceholder(placeholder, reportDocumentCreator);
-                    }
-                }
-            }
-            log.info("Report documents created");
-        } catch (ClassNotFoundException e) {
-            throw new SubstitutionRuntimeException("Class defined in the placeholder cannot be found, " +
-                    "templateResource: '" +
-                    lastTemplateResource +
-                    "', " +
-                    "templatePlaceholder: '" +
-                    lastTemplatePlaceholder +
-                    "'.", e);
-        } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
-        }
     }
 
     /**
@@ -172,102 +99,6 @@ public class MarkdownService {
     }
 
     /**
-     * Prepare relations between {@link Placeholder}s and {@link ReportDocument}s.
-     * <p>
-     * Create {@link ReportDocument}, see the {@link ReportDocumentCreator#prepareReportDocument()} method.
-     * <p>
-     * Put the {@link Placeholder} and {@link ReportDocument} to the {@link #placeholderToReportDocumentMap}.
-     * <p>
-     * Add the {@link ReportDocument} to the {@link ReportDocumentService#getReportDocuments()} list.
-     * <p>
-     * Add the {@link Placeholder} to the {@link PlaceholderService#getPlaceholders()} list.
-     *
-     * @param placeholder           for addition
-     * @param reportDocumentCreator for addition
-     */
-    private void createReportDocumentForPlaceholder(Placeholder placeholder,
-                                                    ReportDocumentCreator reportDocumentCreator) {
-        ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
-        placeholderToReportDocumentMap.put(placeholder, reportDocument);
-        reportDocumentService.getReportDocuments().add(reportDocument);
-        PlaceholderService.getInstance().getPlaceholders().add(placeholder);
-        if (placeholder.getParameters() != null &&
-                placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER) != null) {
-            File file = new File(placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER));
-            if (!file.exists()) {
-                log.info("File not exists. Report will not be created. File: '{}'", file.getAbsolutePath());
-            } else {
-                log.info("File will be parsed: {}", file.getAbsolutePath());
-                prepareReport(file, reportDocument);
-            }
-        }
-    }
-
-    /**
-     * Create a new {@link Report}
-     * @param logFile a source file
-     * @param reportDocument which belongs to the {@link Report}
-     */
-    private void prepareReport(File logFile, ReportDocument reportDocument) {
-        Report report = new Report();
-        reportService.addReports(Collections.singletonList(report));
-        ApplicationLog applicationLog = new ApplicationLog();
-        reportDocument.setReport(report);
-        TacticHolder tacticHolder = fileService.findOutApplicationType(logFile);
-
-        applicationLog.setTacticHolder(tacticHolder);
-        Date date = fileService.findDate(logFile, tacticHolder);
-        NodeFile nodeFile = nodeFileService.createNodeFile(date, logFile);
-        NodeLog nodeLog = nodeLogService.createNodeLog(nodeFile.getFile());
-        nodeLog.setApplicationLog(applicationLog);
-        nodeFile.setNodeLog(nodeLog);
-        reportDocument.getNodeFiles().add(nodeFile);
-        nodeLogService.findNodeLogs(applicationLog).add(nodeLog);
-        applicationLogService.addApplicationLog(applicationLog);
-        log.info("Report prepared. Report: {}", report.hashCode());
-    }
-
-    private List<String> parsePlaceholders(String templateContent, String templateResource) {
-        List<String> result = new ArrayList<>();
-        int index = 0;
-        while (true) {
-            int beginIndex = templateContent.indexOf(configuration.getPlaceholderBegin(), index);
-            if (beginIndex == -1) {
-                return result;
-            }
-            int endIndex = templateContent.indexOf(configuration.getPlaceholderEnd(), beginIndex);
-            if (endIndex == -1) {
-                endIndex = beginIndex + 30 < templateResource.length() ?
-                        beginIndex + 30 : templateResource.length();
-
-                throw new SubstitutionRuntimeException("Cannot find out '" +
-                        configuration.getPlaceholderEnd() +
-                        "' in the template '" +
-                        templateResource +
-                        "' which begins from '" +
-                        templateContent.substring(beginIndex, endIndex) +
-                        "'.");
-            }
-            result.add(templateContent.substring(beginIndex, endIndex + configuration.getPlaceholderEnd().length()));
-            index = endIndex;
-        }
-    }
-
-    /**
-     * Parse {@link Placeholder} from templatePlaceholder
-     * @param templatePlaceholder for example
-     *                            <pre>&&beginPlaceholder{"className": "org.my.MyContentGenerator"}&&endPlaceholder</pre>
-     * @return for example <pre>{"className": "org.my.MyContentGenerator"}</pre>
-     */
-    private Placeholder parseJsonFromPlaceholder(String templatePlaceholder, String resource) {
-        int endIndex = templatePlaceholder.length() - configuration.getPlaceholderEnd().length();
-        String json = templatePlaceholder.substring(configuration.getPlaceholderBegin().length(), endIndex);
-        Placeholder placeholder = jsonService.readValue(json, Placeholder.class);
-        placeholder.setResource(resource);
-        return placeholder;
-    }
-
-    /**
      * Load template from the templateResource, collect {@link Placeholder}s from the template, replace the
      * {@link Placeholder}s with generated content and write the template with generated content to a target file.
      *
@@ -277,10 +108,10 @@ public class MarkdownService {
     private void insertContentIntoTemplate(String templateResource) throws IOException {
         String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
 
-        List<String> templatePlaceholders = parsePlaceholders(templateContent, templateResource);
+        List<String> templatePlaceholders = placeholderParser.parsePlaceholders(templateContent, templateResource);
 
         String replacedContent =
-                replacePlaceholdersToGeneratedContent(templateResource, templateContent, templatePlaceholders);
+                replacePlaceholdersWithGeneratedContent(templateResource, templateContent, templatePlaceholders);
 
         ResourceService resourceService = ResourceService.getInstance();
         String placeholderResourceRelativePath =
@@ -304,12 +135,12 @@ public class MarkdownService {
         }
     }
 
-    private String replacePlaceholdersToGeneratedContent(String templateResource,
-                                                         String templateContent, List<String> templatePlaceholders) {
+    private String replacePlaceholdersWithGeneratedContent(String templateResource,
+                                                           String templateContent, List<String> templatePlaceholders) {
         String replacedContent = templateContent;
         int position = 1;
         for (String templatePlaceholder : templatePlaceholders) {
-            Placeholder placeholder = parseJsonFromPlaceholder(templatePlaceholder, templateResource);
+            Placeholder placeholder = placeholderParser.parseJsonFromPlaceholder(templatePlaceholder, templateResource);
             placeholder.setId(Integer.toString(position++));
             String contentForReplacement = generateContent(placeholder);
             replacedContent = replacedContent.replace(templatePlaceholder, contentForReplacement);
@@ -367,7 +198,7 @@ public class MarkdownService {
      *     <li>Load template from the {@link Placeholder#getResource()} field</li>
      *     <li>Create a new file from the template in the {@link Configuration#getTargetDirectory()} directory</li>
      *     <li>Create a new {@link #IMAGE_DIRECTORY_NAME} directory</li>
-     *     <li>Get a {@link ReportDocument} form the {@link #placeholderToReportDocumentMap}</li>
+     *     <li>Get a {@link ReportDocument} form the {@link #placeholderToReportDocumentService}</li>
      *     <li>Join lines from the {@link ReportDocument#getCacheLines()} list</li>
      *     <li>And return result of the
      *     {@link #generateSvgFileAndTagForMarkdown(File, File, String, String, String)} method</li>
@@ -385,7 +216,7 @@ public class MarkdownService {
         File directory = mdFile.getParentFile();
         File imageDirectory = new File(directory, IMAGE_DIRECTORY_NAME);
         createDirectoryIfNotExists(imageDirectory);
-        ReportDocument reportDocument = placeholderToReportDocumentMap.get(placeholder);
+        ReportDocument reportDocument = placeholderToReportDocumentService.getReportDocument(placeholder);
         String plantUml = StringUtils.join(reportDocument.getCacheLines(), System.lineSeparator());
 
         String placeholderDescription = placeholder.getDescription();

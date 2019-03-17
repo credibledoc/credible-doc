@@ -22,14 +22,14 @@ public class ReportDocumentCreatorRepository {
     /**
      * @return The {@link #map} field value.
      */
-    Map<Class<? extends ReportDocumentCreator>, ReportDocumentCreator> getMap() {
+    public Map<Class<? extends ReportDocumentCreator>, ReportDocumentCreator> getMap() {
         return map;
     }
 
     /**
      * @param map see the {@link #map} field description.
      */
-    void setMap(Map<Class<? extends ReportDocumentCreator>, ReportDocumentCreator> map) {
+    public void setMap(Map<Class<? extends ReportDocumentCreator>, ReportDocumentCreator> map) {
         this.map = map;
     }
 }
