@@ -64,4 +64,22 @@ public class PlaceholderParser {
         placeholder.setResource(resource);
         return placeholder;
     }
+
+    /**
+     * Transform JSON to object.
+     * @param json a {@link Placeholder} in a JSON format
+     * @return Parsed {@link Placeholder}
+     */
+    public Placeholder readPlaceholderFromJson(String json) {
+        return jsonService.readValue(json, Placeholder.class);
+    }
+
+    /**
+     * Create JSON from the {@link Placeholder}
+     * @param placeholder the source of JSON
+     * @return JSON
+     */
+    public String writePlaceholderToJson(Placeholder placeholder) {
+        return jsonService.writeValueAsString(placeholder);
+    }
 }

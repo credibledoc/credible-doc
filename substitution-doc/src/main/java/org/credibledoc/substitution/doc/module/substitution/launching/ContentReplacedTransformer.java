@@ -3,9 +3,9 @@ package org.credibledoc.substitution.doc.module.substitution.launching;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.credibledoc.substitution.doc.json.JsonService;
 import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
 import org.credibledoc.substitution.doc.markdown.MarkdownService;
+import org.credibledoc.substitution.doc.placeholder.PlaceholderParser;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.transformer.Transformer;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class ContentReplacedTransformer implements Transformer {
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
     @NonNull
-    private final JsonService jsonService;
+    private final PlaceholderParser placeholderParser;
 
     @Override
     public String transform(ReportDocument reportDocument,
@@ -40,7 +40,8 @@ public class ContentReplacedTransformer implements Transformer {
         String line = multiLine.get(0);
         int beginIndex = line.indexOf(MarkdownService.CONTENT_REPLACED);
         String json = line.substring(beginIndex +  MarkdownService.CONTENT_REPLACED.length());
-        Placeholder placeholder = jsonService.readValue(json, Placeholder.class);
+        Placeholder placeholder = placeholderParser.readPlaceholderFromJson(json);
         return placeholder.getDescription();
     }
+
 }
