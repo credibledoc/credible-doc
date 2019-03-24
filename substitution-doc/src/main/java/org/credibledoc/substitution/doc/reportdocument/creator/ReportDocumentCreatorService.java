@@ -30,7 +30,7 @@ import java.io.File;
 import java.util.*;
 
 /**
- * The stateless service for working with {@link ReportDocumentCreator}s.
+ * A stateless service for working with {@link ReportDocumentCreator}s.
  *
  * @author Kyrylo Semenko
  */

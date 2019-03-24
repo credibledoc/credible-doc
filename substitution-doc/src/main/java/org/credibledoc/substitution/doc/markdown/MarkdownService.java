@@ -63,9 +63,9 @@ public class MarkdownService {
     }
 
     /**
-     * Find out a target directory where a generated content will be placed, iterate template resources and
+     * Find out a target directory where a generated documents will be placed, iterate template resources and
      * for each template resource generate content for its {@link Placeholder}s. Then replace the {@link Placeholder}s
-     * with generated content.
+     * with generated content. And finally write out generated documents to files.
      */
     public void generateContentFromTemplates() {
         try {
@@ -115,6 +115,7 @@ public class MarkdownService {
         try (OutputStream outputStream = new FileOutputStream(generatedFile)){
             outputStream.write(replacedContent.getBytes());
         }
+        log.info("File is generated '{}'", generatedFile.getAbsolutePath());
     }
 
     private void createDirectoryIfNotExists(File directory) {
