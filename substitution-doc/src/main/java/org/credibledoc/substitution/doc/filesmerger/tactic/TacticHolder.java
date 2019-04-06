@@ -1,8 +1,8 @@
-package org.credibledoc.substitution.doc.module.tactic;
+package org.credibledoc.substitution.doc.filesmerger.tactic;
 
 import org.credibledoc.substitution.doc.filesmerger.application.Application;
 import org.credibledoc.substitution.doc.module.substitution.SubstitutionSpecificTactic;
-import org.credibledoc.substitution.doc.specific.SpecificTactic;
+import org.credibledoc.substitution.doc.filesmerger.specific.SpecificTactic;
 
 /**
  * This enum represents applications, for example placeholder-substitution.

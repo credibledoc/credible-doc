@@ -1,16 +1,16 @@
 package org.credibledoc.substitution.doc.filesmerger.application;
 
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.credibledoc.substitution.doc.filesmerger.application.identifier.ApplicationIdentifier;
+import org.credibledoc.substitution.doc.filesmerger.exception.FilesmergerRuntimeException;
 import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
 import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
 import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLogService;
 import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog;
 import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLogService;
-import org.credibledoc.substitution.doc.specific.SpecificTactic;
+import org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder;
+import org.credibledoc.substitution.doc.filesmerger.specific.SpecificTactic;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +64,7 @@ public class ApplicationService {
                 }
             }
         }
-        throw new SubstitutionRuntimeException("Cannot find out Application. LogBufferedReader: " + logBufferedReader);
+        throw new FilesmergerRuntimeException("Application cannot be found. LogBufferedReader: " + logBufferedReader);
     }
 
     /**
@@ -104,6 +104,6 @@ public class ApplicationService {
                 }
             }
         }
-        throw new SubstitutionRuntimeException("Cannot find out SpecificTactic");
+        throw new FilesmergerRuntimeException("SpecificTactic cannot be found");
     }
 }

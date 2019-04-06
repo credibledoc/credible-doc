@@ -19,7 +19,7 @@ public class DateService {
      *
      * @param line    for example
      *                <pre>31.10.2019;07:00:00.231 [placeholder-substitution]  DEBUG [http-nio-8280-exec-29] - Dispatcher...</pre>
-     *                for {@link org.credibledoc.substitution.doc.module.tactic.TacticHolder#SUBSTITUTION}
+     *                for {@link org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder#SUBSTITUTION}
      * @return a parsed {@link Date}, for example 16.10.2019;00:44:23.973
      * or 'null' if the line is null or the date cannot be found.
      */
@@ -45,7 +45,7 @@ public class DateService {
      *
      * @param line for example
      * <pre>17:45:58.172|qtp826690115-39|DEBUG|...</pre>
-     * for {@link org.credibledoc.substitution.doc.module.tactic.TacticHolder#SUBSTITUTION}
+     * for {@link org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder#SUBSTITUTION}
      * @return a parsed {@link Date}, for example 17:45:58.172 or 'null' if the line is 'null' or the date cannot be found.
      */
     public String findDateTime(String line, Pattern dateTimePattern, int maxIndexEndOfTime) {

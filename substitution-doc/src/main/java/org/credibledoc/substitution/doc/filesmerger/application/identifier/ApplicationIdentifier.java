@@ -1,7 +1,7 @@
 package org.credibledoc.substitution.doc.filesmerger.application.identifier;
 
 import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
+import org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder;
 
 /**
  * Implementations of this interface belongs to a particular

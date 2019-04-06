@@ -20,7 +20,7 @@ public enum LineState {
     /**
      * The line contains date and time records, for example
      * <pre>29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1|DEBUG...</pre>
-     * for {@link org.credibledoc.substitution.doc.module.tactic.TacticHolder#SUBSTITUTION}
+     * for {@link org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder#SUBSTITUTION}
      */
     WITH_DATE
 

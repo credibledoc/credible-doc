@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.credibledoc.substitution.doc.file.FileService;
 import org.credibledoc.substitution.doc.markdown.MarkdownService;
-import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
+import org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder;
 import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
 import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLogService;
 import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;

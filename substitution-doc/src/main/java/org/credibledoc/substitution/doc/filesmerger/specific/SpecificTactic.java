@@ -1,4 +1,4 @@
-package org.credibledoc.substitution.doc.specific;
+package org.credibledoc.substitution.doc.filesmerger.specific;
 
 import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
 
@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * This interface contains methods specific for concrete
- * {@link org.credibledoc.substitution.doc.module.tactic.TacticHolder}s.
+ * {@link org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder}s.
  *
  * @author Kyrylo Semenko
  */

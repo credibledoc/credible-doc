@@ -1,6 +1,6 @@
 package org.credibledoc.substitution.doc.filesmerger.application;
 
-import org.credibledoc.substitution.doc.specific.SpecificTactic;
+import org.credibledoc.substitution.doc.filesmerger.specific.SpecificTactic;
 
 /**
  * This interface represents behavior of an item of enumeration.

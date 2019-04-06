@@ -2,7 +2,7 @@ package org.credibledoc.substitution.doc.filesmerger.node.applicationlog;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
+import org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder;
 
 /**
  * <p>
