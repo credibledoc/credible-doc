@@ -1,6 +1,6 @@
 package org.credibledoc.substitution.doc.transformer;
 
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.springframework.stereotype.Component;
 

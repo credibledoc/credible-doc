@@ -1,15 +1,15 @@
-package org.credibledoc.substitution.doc.node.file;
+package org.credibledoc.substitution.doc.filesmerger.node.file;
 
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import org.credibledoc.substitution.doc.filesmerger.exception.FilesmergerRuntimeException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.log.buffered.LogConcatenatedInputStream;
-import org.credibledoc.substitution.doc.log.buffered.LogFileInputStream;
-import org.credibledoc.substitution.doc.log.buffered.LogInputStreamReader;
-import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLog;
-import org.credibledoc.substitution.doc.node.log.NodeLog;
-import org.credibledoc.substitution.doc.node.log.NodeLogService;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogConcatenatedInputStream;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogFileInputStream;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogInputStreamReader;
+import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
+import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog;
+import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLogService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -57,7 +57,7 @@ public class NodeFileService {
                 return nodeFile;
             }
         }
-        throw new SubstitutionRuntimeException("Cannot find out NodeFile");
+        throw new FilesmergerRuntimeException("Cannot find out NodeFile");
     }
 
     public List<NodeFile> getNodeFiles() {

@@ -1,8 +1,8 @@
-package org.credibledoc.substitution.doc.node.applicationlog;
+package org.credibledoc.substitution.doc.filesmerger.node.applicationlog;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.credibledoc.substitution.doc.node.file.NodeFile;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
 import org.credibledoc.substitution.doc.report.Report;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentService;

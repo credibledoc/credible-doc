@@ -3,8 +3,8 @@ package org.credibledoc.substitution.doc.record;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.node.file.NodeFileService;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFileService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

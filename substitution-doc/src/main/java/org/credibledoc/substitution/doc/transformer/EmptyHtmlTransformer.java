@@ -3,10 +3,10 @@ package org.credibledoc.substitution.doc.transformer;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.credibledoc.substitution.doc.application.Application;
-import org.credibledoc.substitution.doc.application.ApplicationService;
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.node.log.NodeLogService;
+import org.credibledoc.substitution.doc.filesmerger.application.Application;
+import org.credibledoc.substitution.doc.filesmerger.application.ApplicationService;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLogService;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.springframework.stereotype.Component;
 

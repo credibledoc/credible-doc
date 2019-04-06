@@ -29,7 +29,7 @@ public class Report {
 
     /**
      * Contains an order number of the last used
-     * {@link org.credibledoc.substitution.doc.node.log.NodeLog#getLogBufferedReader()}
+     * {@link org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog#getLogBufferedReader()}
      */
     private int lastUsedNodeLogIndex;
 

@@ -2,7 +2,7 @@ package org.credibledoc.substitution.doc.reportdocument;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.credibledoc.substitution.doc.node.file.NodeFile;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
 import org.credibledoc.substitution.doc.report.Report;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;

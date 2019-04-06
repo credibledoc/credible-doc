@@ -1,7 +1,7 @@
 package org.credibledoc.substitution.doc.module.substitution;
 
-import org.credibledoc.substitution.doc.application.identifier.ApplicationIdentifier;
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.application.identifier.ApplicationIdentifier;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
 import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
 import org.springframework.stereotype.Service;
 

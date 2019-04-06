@@ -1,4 +1,4 @@
-package org.credibledoc.substitution.doc.node.applicationlog;
+package org.credibledoc.substitution.doc.filesmerger.node.applicationlog;
 
 import org.springframework.stereotype.Repository;
 

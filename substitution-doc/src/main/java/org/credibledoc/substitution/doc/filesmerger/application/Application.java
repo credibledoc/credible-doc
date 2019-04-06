@@ -1,4 +1,4 @@
-package org.credibledoc.substitution.doc.application;
+package org.credibledoc.substitution.doc.filesmerger.application;
 
 import org.credibledoc.substitution.doc.specific.SpecificTactic;
 

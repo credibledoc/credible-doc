@@ -1,4 +1,4 @@
-package org.credibledoc.substitution.doc.node.applicationlog;
+package org.credibledoc.substitution.doc.filesmerger.node.applicationlog;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -16,7 +16,7 @@ import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
 public class ApplicationLog {
 
     /**
-     * The tacticHolder the log {@link org.credibledoc.substitution.doc.node.log.NodeLog}s belong to
+     * The tacticHolder the log {@link org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog}s belong to
      */
     private TacticHolder tacticHolder;
 

@@ -1,4 +1,4 @@
-package org.credibledoc.substitution.doc.line;
+package org.credibledoc.substitution.doc.filesmerger.line;
 
 import java.io.Reader;
 

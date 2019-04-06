@@ -12,12 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.credibledoc.substitution.doc.file.FileService;
 import org.credibledoc.substitution.doc.markdown.MarkdownService;
 import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
-import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLog;
-import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLogService;
-import org.credibledoc.substitution.doc.node.file.NodeFile;
-import org.credibledoc.substitution.doc.node.file.NodeFileService;
-import org.credibledoc.substitution.doc.node.log.NodeLog;
-import org.credibledoc.substitution.doc.node.log.NodeLogService;
+import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
+import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLogService;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFileService;
+import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog;
+import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLogService;
 import org.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
 import org.credibledoc.substitution.doc.report.Report;
 import org.credibledoc.substitution.doc.report.ReportService;
@@ -166,7 +166,7 @@ public class ReportDocumentCreatorService {
         reportService.addReports(Collections.singletonList(report));
         ApplicationLog applicationLog = new ApplicationLog();
         reportDocument.setReport(report);
-        TacticHolder tacticHolder = fileService.findOutApplicationType(logFile);
+        TacticHolder tacticHolder = fileService.findTacticHolder(logFile);
 
         applicationLog.setTacticHolder(tacticHolder);
         Date date = fileService.findDate(logFile, tacticHolder);

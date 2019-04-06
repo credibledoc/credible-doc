@@ -8,13 +8,13 @@ import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.utils.IOUtils;
-import org.credibledoc.substitution.doc.application.Application;
-import org.credibledoc.substitution.doc.application.ApplicationService;
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.log.buffered.LogFileReader;
+import org.credibledoc.substitution.doc.filesmerger.application.Application;
+import org.credibledoc.substitution.doc.filesmerger.application.ApplicationService;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogFileReader;
 import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
-import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLog;
-import org.credibledoc.substitution.doc.node.file.NodeFileService;
+import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFileService;
 import org.credibledoc.substitution.doc.specific.SpecificTactic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +80,7 @@ public class FileService {
      * @param file the log file
      * @return {@link TacticHolder} or throw the new {@link SubstitutionRuntimeException} if the file not recognized
      */
-    public TacticHolder findOutApplicationType(File file) {
+    public TacticHolder findTacticHolder(File file) {
         try (LogBufferedReader logBufferedReader = new LogBufferedReader(new LogFileReader(file))) {
             String line = logBufferedReader.readLine();
             while (line != null) {
@@ -127,7 +127,7 @@ public class FileService {
             if (file.getName().endsWith(".zip")) {
                 file = unzipIfNotExists(file, files);
             }
-            TacticHolder application = findOutApplicationType(file);
+            TacticHolder application = findTacticHolder(file);
             if (!map.containsKey(application)) {
                 map.put(application, new TreeMap<>());
             }

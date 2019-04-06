@@ -1,7 +1,7 @@
-package org.credibledoc.substitution.doc.node.file;
+package org.credibledoc.substitution.doc.filesmerger.node.file;
 
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.node.log.NodeLog;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog;
 
 import java.io.File;
 import java.util.Date;

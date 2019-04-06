@@ -1,6 +1,6 @@
 package org.credibledoc.substitution.doc.module.tactic;
 
-import org.credibledoc.substitution.doc.application.Application;
+import org.credibledoc.substitution.doc.filesmerger.application.Application;
 import org.credibledoc.substitution.doc.module.substitution.SubstitutionSpecificTactic;
 import org.credibledoc.substitution.doc.specific.SpecificTactic;
 

@@ -4,9 +4,9 @@ import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.credibledoc.substitution.doc.date.DateService;
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.log.buffered.LogFileReader;
-import org.credibledoc.substitution.doc.node.file.NodeFile;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogFileReader;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
 import org.credibledoc.substitution.doc.specific.SpecificTactic;
 import org.springframework.stereotype.Service;
 
@@ -85,12 +85,7 @@ public class SubstitutionSpecificTactic implements SpecificTactic {
         if (line == null) {
             return null;
         }
-        String dateString = findDateString(line);
-        if (dateString != null) {
-            return dateString;
-        }
-
-        return null;
+        return findDateString(line);
     }
 
     /**
@@ -132,9 +127,6 @@ public class SubstitutionSpecificTactic implements SpecificTactic {
         Matcher matcher = PATTERN_DATE.matcher(line.substring(0, maxLength));
         if (matcher.find()) {
             dateString = matcher.group();
-        }
-        if (dateString == null) {
-            return null;
         }
         return dateString;
     }

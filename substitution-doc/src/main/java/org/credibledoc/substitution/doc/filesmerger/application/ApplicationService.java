@@ -1,15 +1,15 @@
-package org.credibledoc.substitution.doc.application;
+package org.credibledoc.substitution.doc.filesmerger.application;
 
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.credibledoc.substitution.doc.application.identifier.ApplicationIdentifier;
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.application.identifier.ApplicationIdentifier;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
 import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
-import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLog;
-import org.credibledoc.substitution.doc.node.applicationlog.ApplicationLogService;
-import org.credibledoc.substitution.doc.node.log.NodeLog;
-import org.credibledoc.substitution.doc.node.log.NodeLogService;
+import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
+import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLogService;
+import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog;
+import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLogService;
 import org.credibledoc.substitution.doc.specific.SpecificTactic;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;

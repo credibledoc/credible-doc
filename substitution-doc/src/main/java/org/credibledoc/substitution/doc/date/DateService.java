@@ -1,8 +1,8 @@
 package org.credibledoc.substitution.doc.date;
 
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.log.buffered.LogFileReader;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogFileReader;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -54,9 +54,6 @@ public class DateService {
         Matcher matcher = dateTimePattern.matcher(line.substring(0, maxLength));
         if (matcher.find()) {
             dateString = matcher.group();
-        }
-        if (dateString == null) {
-            return null;
         }
         return dateString;
     }

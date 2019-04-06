@@ -1,6 +1,6 @@
 package org.credibledoc.substitution.doc.specific;
 
-import org.credibledoc.substitution.doc.node.file.NodeFile;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
 
 import java.io.File;
 import java.util.Date;
@@ -26,11 +26,11 @@ public interface SpecificTactic {
      * date and time stamp, for example <b>29.09.2018 22:28:40.029</b>.
      * In other cases a line contains a time stamp only, for example
      * <b>16:59:01.931</b>. In this cases a date can be found in the
-     * {@link org.credibledoc.substitution.doc.node.file.NodeFile#getDate()} field.
+     * {@link org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile#getDate()} field.
      *
      * @param line     a line from a log file
      * @param nodeFile in case when a line contains a time stamp only, the
-     *                 {@link org.credibledoc.substitution.doc.node.file.NodeFile#getDate()} will be used
+     *                 {@link org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile#getDate()} will be used
      * @return 'null' if the line does not contains a time stamp
      */
     Date findDate(String line, NodeFile nodeFile);

@@ -1,6 +1,6 @@
-package org.credibledoc.substitution.doc.application.identifier;
+package org.credibledoc.substitution.doc.filesmerger.application.identifier;
 
-import org.credibledoc.substitution.doc.log.buffered.LogBufferedReader;
+import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
 import org.credibledoc.substitution.doc.module.tactic.TacticHolder;
 
 /**
