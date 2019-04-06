@@ -12,7 +12,6 @@ import org.credibledoc.substitution.doc.filesmerger.application.Application;
 import org.credibledoc.substitution.doc.filesmerger.application.ApplicationService;
 import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
 import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogFileReader;
-import org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder;
 import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
 import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFileService;
 import org.credibledoc.substitution.doc.filesmerger.specific.SpecificTactic;
@@ -76,15 +75,15 @@ public class FileService {
     }
 
     /**
-     * Recognize, which {@link TacticHolder} this file belongs to.
+     * Recognize, which {@link Application} this file belongs to.
      * @param file the log file
-     * @return {@link TacticHolder} or throw the new {@link SubstitutionRuntimeException} if the file not recognized
+     * @return {@link Application} or throw the new {@link SubstitutionRuntimeException} if the file not recognized
      */
-    public TacticHolder findTacticHolder(File file) {
+    public Application findApplication(File file) {
         try (LogBufferedReader logBufferedReader = new LogBufferedReader(new LogFileReader(file))) {
             String line = logBufferedReader.readLine();
             while (line != null) {
-                TacticHolder application = applicationService.findApplication(line, logBufferedReader);
+                Application application = applicationService.findApplication(line, logBufferedReader);
                 if (application != null) {
                     return application;
                 }
@@ -98,9 +97,9 @@ public class FileService {
 
     /**
      * Sort files in a directory from the first argument.
-     * For each {@link TacticHolder} creates its own list of files.
+     * For each {@link Application} creates its own list of files.
      *
-     * @param directory       cannot be 'null'. Can have files from different {@link TacticHolder}s.<br>
+     * @param directory       cannot be 'null'. Can have files from different {@link Application}s.<br>
      *                        Cannot contain other files. But can have directories. These directories
      *                        will be processed recursively.
      * @param applicationLogs at first invocation an empty, and it will be filled with files
@@ -108,26 +107,26 @@ public class FileService {
     private void collectApplicationLogs(File directory, List<ApplicationLog> applicationLogs) {
         Preconditions.checkNotNull(directory);
         Preconditions.checkState(directory.isDirectory());
-        Map<TacticHolder, Map<Date, File>> map = new EnumMap<>(TacticHolder.class);
+        Map<Application, Map<Date, File>> map = new HashMap<>();
         File[] files = Objects.requireNonNull(directory.listFiles());
         for (File file : files) {
             addFileToMap(applicationLogs, map, files, file);
         }
-        for (Entry<TacticHolder, Map<Date, File>> appEntry : map.entrySet()) {
-            TacticHolder tacticHolder = appEntry.getKey();
-            ApplicationLog applicationLog = applicationService.findOrCreate(applicationLogs, tacticHolder);
+        for (Entry<Application, Map<Date, File>> appEntry : map.entrySet()) {
+            Application application = appEntry.getKey();
+            ApplicationLog applicationLog = applicationService.findOrCreate(applicationLogs, application);
             nodeFileService.appendToNodeLogs(appEntry.getValue(), applicationLog);
         }
     }
 
-    private void addFileToMap(List<ApplicationLog> applicationLogs, Map<TacticHolder,
+    private void addFileToMap(List<ApplicationLog> applicationLogs, Map<Application,
             Map<Date, File>> map, File[] files, File file) {
 
         if (file.isFile()) {
             if (file.getName().endsWith(".zip")) {
                 file = unzipIfNotExists(file, files);
             }
-            TacticHolder application = findTacticHolder(file);
+            Application application = findApplication(file);
             if (!map.containsKey(application)) {
                 map.put(application, new TreeMap<>());
             }
@@ -149,7 +148,7 @@ public class FileService {
      * Find out date and time of the first line in a file.
      *
      * @param file        an application log
-     * @param application each {@link TacticHolder} has its own strategy of date searching
+     * @param application each {@link Application} has its own strategy of date searching
      * @return the most recent date and time
      */
     public Date findDate(File file, Application application) {

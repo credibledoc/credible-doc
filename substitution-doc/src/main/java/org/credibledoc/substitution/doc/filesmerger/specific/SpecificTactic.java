@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * This interface contains methods specific for concrete
- * {@link org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder}s.
+ * {@link org.credibledoc.substitution.doc.filesmerger.application.Application}s.
  *
  * @author Kyrylo Semenko
  */

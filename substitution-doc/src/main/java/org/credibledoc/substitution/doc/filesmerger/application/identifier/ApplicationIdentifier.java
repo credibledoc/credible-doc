@@ -1,13 +1,13 @@
 package org.credibledoc.substitution.doc.filesmerger.application.identifier;
 
+import org.credibledoc.substitution.doc.filesmerger.application.Application;
 import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder;
 
 /**
  * Implementations of this interface belongs to a particular
- * {@link TacticHolder}.
+ * {@link Application}.
  * It recognizes a log file and tell if the file belongs to some
- * {@link TacticHolder}.
+ * {@link Application}.
  *
  * @author Kyrylo Semenko
  */
@@ -15,7 +15,7 @@ public interface ApplicationIdentifier {
 
     /**
      * Recognize a line and return 'true' if the line belongs
-     * to the {@link TacticHolder} returned from the {@link #getSpecificTacticHolder()} method.
+     * to the {@link Application} returned from the {@link #getApplication()} method.
      * @param line a line from a log file
      * @param logBufferedReader can be used for reading other lines from the current file
      * @return 'false', if the line cannot be recognized
@@ -23,8 +23,8 @@ public interface ApplicationIdentifier {
     boolean identifyApplication(String line, LogBufferedReader logBufferedReader);
 
     /**
-     * @return an {@link TacticHolder}, this {@link ApplicationIdentifier}
+     * @return an {@link Application}, this {@link ApplicationIdentifier}
      * belongs to.
      */
-    TacticHolder getSpecificTacticHolder();
+    Application getApplication();
 }

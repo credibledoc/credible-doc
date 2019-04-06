@@ -2,11 +2,11 @@ package org.credibledoc.substitution.doc.filesmerger.node.applicationlog;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder;
+import org.credibledoc.substitution.doc.filesmerger.application.Application;
 
 /**
  * <p>
- * This data object represents a list of log files from the concrete {@link TacticHolder}.
+ * This data object represents a list of log files from the concrete {@link Application}.
  *
  * <p>
  * These files will be parsed and visualized.
@@ -16,9 +16,9 @@ import org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder;
 public class ApplicationLog {
 
     /**
-     * The tacticHolder the log {@link org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog}s belong to
+     * The {@link Application} the log {@link org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog}s belong to
      */
-    private TacticHolder tacticHolder;
+    private Application application;
 
     @Override
     public String toString() {
@@ -33,17 +33,16 @@ public class ApplicationLog {
     }
 
     /**
-     * @return The {@link ApplicationLog#tacticHolder} field
+     * @return The {@link #application} field value.
      */
-    public TacticHolder getTacticHolder() {
-        return tacticHolder;
+    public Application getApplication() {
+        return application;
     }
 
     /**
-     * @param tacticHolder see the {@link ApplicationLog#tacticHolder} field
+     * @param application see the {@link #application} field description.
      */
-    public void setTacticHolder(TacticHolder tacticHolder) {
-        this.tacticHolder = tacticHolder;
+    public void setApplication(Application application) {
+        this.application = application;
     }
-
 }

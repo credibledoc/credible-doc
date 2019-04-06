@@ -9,7 +9,6 @@ import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.Applicat
 import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLogService;
 import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog;
 import org.credibledoc.substitution.doc.filesmerger.node.log.NodeLogService;
-import org.credibledoc.substitution.doc.filesmerger.tactic.TacticHolder;
 import org.credibledoc.substitution.doc.filesmerger.specific.SpecificTactic;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * A service for working with {@link TacticHolder}s.
+ * A service for working with {@link Application}s.
  * @author Kyrylo Semenko
  */
 @Service
@@ -38,29 +37,29 @@ public class ApplicationService {
     private final ApplicationLogService applicationLogService;
 
     /**
-     * Recognize, which {@link TacticHolder} the line belongs to.
+     * Recognize, which {@link Application} the line belongs to.
      * @param line the line from the log file
-     * @return {@link TacticHolder} or 'null' if not found
+     * @return {@link Application} or 'null' if not found
      */
-    public TacticHolder findApplication(String line, LogBufferedReader logBufferedReader) {
+    public Application findApplication(String line, LogBufferedReader logBufferedReader) {
         for (ApplicationIdentifier applicationIdentifier : applicationIdentifiers) {
             if (applicationIdentifier.identifyApplication(line, logBufferedReader)) {
-                return applicationIdentifier.getSpecificTacticHolder();
+                return applicationIdentifier.getApplication();
             }
         }
         return null;
     }
 
     /**
-     * Recognize, which {@link TacticHolder} the line belongs to.
-     * @param logBufferedReader links to a {@link TacticHolder}
-     * @return {@link TacticHolder} or throw exception
+     * Recognize, which {@link Application} the line belongs to.
+     * @param logBufferedReader links to a {@link Application}
+     * @return {@link Application} or throw exception
      */
-    public TacticHolder findApplication(LogBufferedReader logBufferedReader) {
+    public Application findApplication(LogBufferedReader logBufferedReader) {
         for (ApplicationLog applicationLog : applicationLogService.getApplicationLogs()) {
             for (NodeLog nodeLog : nodeLogService.findNodeLogs(applicationLog)) {
                 if (nodeLog.getLogBufferedReader() == logBufferedReader) {
-                    return applicationLog.getTacticHolder();
+                    return applicationLog.getApplication();
                 }
             }
         }
@@ -70,18 +69,18 @@ public class ApplicationService {
     /**
      * Find out {@link ApplicationLog}. Create a new one if it not exists.
      * @param applicationLogs collection of {@link ApplicationLog}s
-     * @param tacticHolder search parameter
+     * @param application search parameter
      * @return searched or created {@link ApplicationLog}
      */
-    public ApplicationLog findOrCreate(List<ApplicationLog> applicationLogs, TacticHolder tacticHolder) {
+    public ApplicationLog findOrCreate(List<ApplicationLog> applicationLogs, Application application) {
         for (ApplicationLog applicationLog : applicationLogs) {
-            if (tacticHolder == applicationLog.getTacticHolder()) {
+            if (application == applicationLog.getApplication()) {
                 return applicationLog;
             }
         }
         ApplicationLog applicationLog = new ApplicationLog();
         applicationLogService.addApplicationLog(applicationLog);
-        applicationLog.setTacticHolder(tacticHolder);
+        applicationLog.setApplication(application);
         applicationLogs.add(applicationLog);
         return applicationLog;
     }
@@ -91,7 +90,7 @@ public class ApplicationService {
      * that equals with the first parameter
      *
      * @param logBufferedReader for {@link NodeLog} searching
-     * @return an {@link TacticHolder#getSpecificTacticClass()} instance from the
+     * @return an {@link Application#getSpecificTacticClass()} instance from the
      * {@link #applicationContext}
      */
     public SpecificTactic findSpecificTactic(@NonNull LogBufferedReader logBufferedReader) {
@@ -99,7 +98,7 @@ public class ApplicationService {
             for (NodeLog nodeLog : nodeLogService.findNodeLogs(applicationLog)) {
                 if (nodeLog.getLogBufferedReader() == logBufferedReader) {
                     Class<? extends SpecificTactic> dateFinderStrategyClass
-                            = applicationLog.getTacticHolder().getSpecificTacticClass();
+                            = applicationLog.getApplication().getSpecificTacticClass();
                     return applicationContext.getBean(dateFinderStrategyClass);
                 }
             }
