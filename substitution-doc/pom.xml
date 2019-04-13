@@ -113,7 +113,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>org.credibledoc.substitution.doc.SubstitutionDocMain</mainClass>
+                            <mainClass>com.credibledoc.substitution.doc.SubstitutionDocMain</mainClass>
                         </configuration>
                     </execution>
                 </executions>

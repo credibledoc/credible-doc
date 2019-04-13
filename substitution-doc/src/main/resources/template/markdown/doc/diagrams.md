@@ -8,7 +8,7 @@ own `substitution-doc.log` for generation of UML diagrams like this one, see bel
 This diagram shows the first steps the application performs after launching.
 
 &&beginPlaceholder {
-    "className": "org.credibledoc.substitution.doc.module.substitution.launching.LaunchingUmlReportService",
+    "className": "com.credibledoc.substitution.doc.module.substitution.launching.LaunchingUmlReportService",
     "description": "Diagram of the application launching created from substitution-doc.log.",
     "parameters": {"sourceFileRelativePath": "log/substitution-doc.log"}
 } &&endPlaceholder
@@ -24,7 +24,7 @@ launching. This diagram is longer because the application loaded the whole
 log file generated during the previous launching.
 
 &&beginPlaceholder {
-    "className": "org.credibledoc.substitution.doc.module.substitution.launching.LaunchingUmlReportService",
+    "className": "com.credibledoc.substitution.doc.module.substitution.launching.LaunchingUmlReportService",
     "description": "Diagram of the application launching created from substitution-doc_1.log.",
     "parameters": {"sourceFileRelativePath": "log/substitution-doc_1.log"}
 } &&endPlaceholder
@@ -34,7 +34,7 @@ This Activity diagram shows main steps of the application activity parsed from a
 substitution-doc_1.log file. 
 
 &&beginPlaceholder {
-    "className": "org.credibledoc.substitution.doc.module.substitution.activity.anyline.ActivityUmlReportService",
+    "className": "com.credibledoc.substitution.doc.module.substitution.activity.anyline.ActivityUmlReportService",
     "description": "Diagram of the previous application launching.",
     "parameters": {"sourceFileRelativePath": "log/substitution-doc_1.log"}
 } &&endPlaceholder
@@ -45,7 +45,7 @@ represents a module where an event occurred.
 This diagram is generated from parsed substitution-doc_1.log file.
 
 &&beginPlaceholder {
-    "className": "org.credibledoc.substitution.doc.module.substitution.activity.modules.ModulesActivityUmlReportService",
+    "className": "com.credibledoc.substitution.doc.module.substitution.activity.modules.ModulesActivityUmlReportService",
     "description": "Credibledoc modules dependency diagram.",
     "parameters": {"sourceFileRelativePath": "log/substitution-doc_1.log"}
 } &&endPlaceholder

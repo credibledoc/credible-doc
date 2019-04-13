@@ -25,7 +25,7 @@ Change directory
 Launch the application
 
     java -jar target/&&beginPlaceholder {
-                  "className": "org.credibledoc.substitution.doc.module.substitution.jar.SubstitutionDocJarNameContentGenerator",
+                  "className": "com.credibledoc.substitution.doc.module.substitution.jar.SubstitutionDocJarNameContentGenerator",
                   "description": "Current name of the substitution-doc-X.X.X.jar."
               } &&endPlaceholder
 
@@ -40,7 +40,7 @@ this approach for generation of documentation for your own projects.
 This documentation is generated from these templates:
 
 &&beginPlaceholder {
-    "className": "org.credibledoc.substitution.doc.module.substitution.resource.ResourcesListMarkdownGenerator",
+    "className": "com.credibledoc.substitution.doc.module.substitution.resource.ResourcesListMarkdownGenerator",
     "description": "List of resources from classpath of the substitution-doc application.",
     "parameters": {"endsWith": ".md"}
 } &&endPlaceholder
