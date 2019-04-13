@@ -6,11 +6,14 @@ package org.credibledoc.substitution.doc.plantuml.sequence;
  */
 public enum PlantUmlSequenceMessageArrow {
     
+    /** Arrow ' ..> ' */
+    DEPENDENCY_ARROW(" ..> "),
+
     /** Arrow ' -> ' */
-    FULL_ARROW(" -> "),
+    INHERITANCE_ARROW(" -> "),
     
     /** Arrow ' --> ' */
-    DASH_ARROW(" --> "),
+    IMPLEMENTATION_ARROW(" --> "),
     
     /** Arrow ' -[#red]>x ' */
     ERROR_RED_ARROW(" -[#red]>x "),

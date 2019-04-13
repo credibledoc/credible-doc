@@ -1,46 +1,33 @@
-package org.credibledoc.substitution.doc.module.substitution.activity;
+package org.credibledoc.substitution.doc.module.substitution.logmessage;
 
-import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
-import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import org.credibledoc.substitution.doc.transformer.Transformer;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Create a part of PlantUML activity diagram, for example
- * <pre>
- *     |Swimlane1|
- *         :foo4;
- * </pre>
- * from the <i>04.03.2019 18:41:13.658|main|INFO |com.credibledoc.substitution.core.configuration.ConfigurationService - Properties loaded by ClassLoader from the resource: file..</i> line.
+ * This service helps to parse log messages.
+ * 
+ * @author Kyrylo Semenko
  */
 @Service
-public class AnyLineTransformer implements Transformer {
+public class LogMessageService {
 
-    private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final String LOG_SEPARATOR = " - ";
-    private static final String DOT = ".";
-    private static final String FOUR_SPACES = "    ";
+    public static final String LINE_SEPARATOR = System.lineSeparator();
+    public static final String LOG_SEPARATOR = " - ";
+    public static final String DOT = ".";
+    public static final String FOUR_SPACES = "    ";
     private static final String WORDS_SEPARATOR = " ";
     private static final String BACKWARD_SLASH = "\\";
 
-    @Override
-    public String transform(ReportDocument reportDocument, List<String> multiLine,
-                            LogBufferedReader logBufferedReader) {
-        String currentSwimlane = parseClassName(multiLine.get(0));
-        int maxRowLength = currentSwimlane.length() * 2 + currentSwimlane.length() / 2;
-        String message = parseMessage(multiLine.get(0), maxRowLength);
-        String result = "|" + currentSwimlane + "|" + LINE_SEPARATOR +
-            FOUR_SPACES + ":" + message + ";" + LINE_SEPARATOR;
-
-        reportDocument.getCacheLines().add(result);
-
-        return null;
-    }
-
-    private String parseMessage(String line, int maxRowLength) {
+    /**
+     * Parse a message from a log line and plit it to rows.
+     * @param line for example
+     *             <pre>04.03.2019 18:41:13.658|main|INFO |com.credibledoc.substitution.core.configuration.ConfigurationService - Properties loaded by ClassLoader from the resource: file..</pre>
+     * @param maxRowLength maximal number of characters in a row
+     * @return For example <pre>Properties loaded by ClassLoader from the resource: file..</pre>
+     */
+    public String parseMessage(String line, int maxRowLength) {
         int separatorIndex = line.indexOf(LOG_SEPARATOR);
         String[] tokens = line.substring(separatorIndex + LOG_SEPARATOR.length()).split("\\s");
         tokens = splitLongTokens(tokens, maxRowLength);
@@ -87,8 +74,8 @@ public class AnyLineTransformer implements Transformer {
 
     private String escapeToken(String token) {
         return token//.replaceAll(":", "~:")
-                    .replaceAll(";", "~;")
-                    .replaceAll("'", "");
+            .replaceAll(";", "~;")
+            .replaceAll("'", "");
     }
 
     private void appendEscapedToRow(int maxRowLength, StringBuilder row, String replaced, boolean hasMoreTokens) {
@@ -96,12 +83,5 @@ public class AnyLineTransformer implements Transformer {
         if (row.length() < maxRowLength && hasMoreTokens) {
             row.append(WORDS_SEPARATOR);
         }
-    }
-
-    private String parseClassName(String line) {
-        int separatorIndex = line.indexOf(LOG_SEPARATOR);
-        String firstPart = line.substring(0, separatorIndex);
-        int lastDotIndex = firstPart.lastIndexOf(DOT);
-        return firstPart.substring(lastDotIndex + DOT.length());
     }
 }

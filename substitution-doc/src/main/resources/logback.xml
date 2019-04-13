@@ -10,6 +10,9 @@
     <property name="LOG_FILE_EXTENSION"
               value="log" />
 
+    <property name="COMMON_LEVEL"
+              value="TRACE" />
+
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <charset class="java.nio.charset.Charset">UTF-8</charset>
@@ -17,7 +20,7 @@
         </encoder>
 
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
+            <level>${COMMON_LEVEL}</level>
         </filter>
     </appender>
 
@@ -36,8 +39,9 @@
     </appender>
 
     <logger name="org.springframework" level="WARN"/>
+    <logger name="com.credibledoc.plantuml.svggenerator" level="DEBUG"/>
 
-    <root level="debug">
+    <root level="${COMMON_LEVEL}">
         <appender-ref ref="console"/>
         <appender-ref ref="startup-rolling-file-appender"/>
     </root>

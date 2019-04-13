@@ -1,12 +1,13 @@
-package org.credibledoc.substitution.doc.module.substitution.activity;
+package org.credibledoc.substitution.doc.module.substitution.activity.modules;
 
-import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
+import org.credibledoc.substitution.doc.module.substitution.activity.AnyLineSearchCommand;
+import org.credibledoc.substitution.doc.module.substitution.activity.modules.ModulesActivityTransformer;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
+import org.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
 import org.credibledoc.substitution.doc.transformer.LineProcessor;
 import org.credibledoc.substitution.doc.transformer.LineProcessorService;
 import org.springframework.context.ApplicationContext;
@@ -17,13 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Creates document with UML part of a {@link Placeholder}.
+ * Creates document with data for dependency UML diagram.
  * @author Kyrylo Semenko
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 @Slf4j
-public class ActivityUmlReportService implements ReportDocumentCreator {
+public class ModulesActivityUmlReportService implements ReportDocumentCreator {
 
     @NonNull
     private final ApplicationContext applicationContext;
@@ -45,7 +46,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
         lineProcessors.add(
                 new LineProcessor(
                         applicationContext.getBean(AnyLineSearchCommand.class),
-                        applicationContext.getBean(AnyLineTransformer.class),
+                        applicationContext.getBean(ModulesActivityTransformer.class),
                         reportDocument));
 
         lineProcessorService.getLineProcessors().addAll(lineProcessors);
