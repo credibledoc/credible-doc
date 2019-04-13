@@ -10,8 +10,7 @@ import java.util.List;
 
 /**
  * Contains a global state of generated reports. It contains for example
- * {@link #directory}, {@link #lastUsedNodeLogIndex}, {@link #linesNumber}
- * and {@link #transactionsFilter}.
+ * {@link #directory}, {@link #linesNumber} and {@link #transactionsFilter}.
  */
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -26,12 +25,6 @@ public class Report {
      * Else only defined in the list transactions will be parsed.
      */
     private List<String> transactionsFilter;
-
-    /**
-     * Contains an order number of the last used
-     * {@link org.credibledoc.substitution.doc.filesmerger.node.log.NodeLog#getLogBufferedReader()}
-     */
-    private int lastUsedNodeLogIndex;
 
     /**
      * A total number of lines in all log files.
@@ -77,20 +70,6 @@ public class Report {
      */
     public void setTransactionsFilter(List<String> transactionsFilter) {
         this.transactionsFilter = transactionsFilter;
-    }
-
-    /**
-     * @return The {@link #lastUsedNodeLogIndex} field value.
-     */
-    public int getLastUsedNodeLogIndex() {
-        return lastUsedNodeLogIndex;
-    }
-
-    /**
-     * @param lastUsedNodeLogIndex see the {@link #lastUsedNodeLogIndex} field
-     */
-    public void setLastUsedNodeLogIndex(int lastUsedNodeLogIndex) {
-        this.lastUsedNodeLogIndex = lastUsedNodeLogIndex;
     }
 
     /**

@@ -3,8 +3,8 @@ package org.credibledoc.substitution.doc.filesmerger.application;
 import org.credibledoc.substitution.doc.filesmerger.specific.SpecificTactic;
 
 /**
- * This interface represents behavior of an item of enumeration.
- * This item holds an instance of {@link SpecificTactic}, se
+ * This interface represents one application that generates log files.
+ * This application holds an instance of {@link SpecificTactic}, se
  * the {@link #getSpecificTacticClass()} method and has a short name,
  * see the {@link #getShortName()} method.
  */

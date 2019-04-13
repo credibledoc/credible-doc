@@ -5,7 +5,10 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
 import org.credibledoc.substitution.doc.filesmerger.log.reader.ReaderService;
+import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
 import org.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLogService;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
+import org.credibledoc.substitution.doc.filesmerger.state.FilesMergerState;
 import org.credibledoc.substitution.doc.report.Report;
 import org.credibledoc.substitution.doc.report.ReportService;
 import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
@@ -62,18 +65,23 @@ public class VisualizerService {
 
     private void createReport(List<ReportDocumentType> reportDocumentTypes, Report report) {
         logger.info("Method createReports started. Report: {}", report.hashCode());
-        readerService.prepareBufferedReaders(applicationLogService.getApplicationLogs(report));
+        List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
+        List<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
+        List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs(nodeFiles);
+        readerService.prepareBufferedReaders(applicationLogs);
         String line = null;
 
-        List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
+        FilesMergerState filesMergerState = new FilesMergerState();
+        filesMergerState.setNodeFiles(nodeFiles);
+
         LogBufferedReader currentReader = null;
         int currentLineNumber = 0;
         try {
-            line = readerService.readLineFromReaders(report);
+            line = readerService.readLineFromReaders(filesMergerState);
             String substring = line.substring(0, 35);
             logger.info("The first line read from {}. Line: '{}...'", ReaderService.class.getSimpleName(), substring);
             while (line != null) {
-                currentReader = readerService.getCurrentReader(report);
+                currentReader = readerService.getCurrentReader(filesMergerState);
                 List<String> multiline = readerService.readMultiline(line, currentReader);
 
                 currentLineNumber = currentLineNumber + multiline.size();
@@ -90,7 +98,7 @@ public class VisualizerService {
 
                 reportDocumentService.appendReportDocumentsForAddition(report);
 
-                line = readerService.readLineFromReaders(report);
+                line = readerService.readLineFromReaders(filesMergerState);
             }
             logger.debug("{} lines processed (100%)", currentLineNumber);
         } catch (Exception e) {
@@ -100,7 +108,7 @@ public class VisualizerService {
             }
             String message =
                 "Creation of reports failed. File: '" + fileName +
-                    "', ReportDirectory: '" + report.getDirectory().getAbsolutePath() +
+                    "', ReportDirectory: '" + getReportDirectoryPath(report) +
                     "', line: '" + line + "'";
             throw new SubstitutionRuntimeException(message, e);
         } finally {
@@ -110,5 +118,12 @@ public class VisualizerService {
                 }
             }
         }
+    }
+
+    private String getReportDirectoryPath(Report report) {
+        if (report.getDirectory() != null && report.getDirectory().getAbsolutePath() != null) {
+            return report.getDirectory().getAbsolutePath();
+        }
+        return null;
     }
 }

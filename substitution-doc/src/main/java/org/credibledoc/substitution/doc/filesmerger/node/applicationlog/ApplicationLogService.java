@@ -3,13 +3,11 @@ package org.credibledoc.substitution.doc.filesmerger.node.applicationlog;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
-import org.credibledoc.substitution.doc.report.Report;
-import org.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import org.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -24,21 +22,18 @@ public class ApplicationLogService {
     @NonNull
     private final ApplicationLogRepository applicationLogRepository;
 
-    @NonNull
-    private final ReportDocumentService reportDocumentService;
-
     /**
-     * Find all {@link ApplicationLog} filtered by {@link Report}
-     * @return all {@link ApplicationLog}s which belongs to the {@link Report}
+     * Collect all {@link ApplicationLog}s of {@link NodeFile}s
+     * from argument.
+     * @return all {@link ApplicationLog}s which belongs to the
+     * {@link NodeFile}s.
      */
-    public List<ApplicationLog> getApplicationLogs(Report report) {
+    public List<ApplicationLog> getApplicationLogs(Collection<NodeFile> nodeFiles) {
         List<ApplicationLog> result = new ArrayList<>();
-        for (ApplicationLog applicationLog : applicationLogRepository.getApplicationLogs()) {
-            for (ReportDocument reportDocument : reportDocumentService.getReportDocuments(report)) {
-                NodeFile nodeFile = reportDocument.getNodeFiles().iterator().next();
-                if (nodeFile.getNodeLog().getApplicationLog() == applicationLog) {
-                    result.add(applicationLog);
-                }
+        for (NodeFile nodeFile : nodeFiles) {
+            ApplicationLog applicationLog = nodeFile.getNodeLog().getApplicationLog();
+            if (!result.contains(applicationLog)) {
+                result.add(applicationLog);
             }
         }
         return result;

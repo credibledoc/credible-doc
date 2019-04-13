@@ -2,12 +2,16 @@ package org.credibledoc.substitution.doc.reportdocument;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
+// TODO Kyrylo Semenko - prejmenovat na com
 import org.credibledoc.substitution.doc.report.Report;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -52,5 +56,23 @@ public class ReportDocumentService {
         return getReportDocuments().stream()
             .filter(reportDocument -> reportDocument.getReport() == report)
             .collect(Collectors.toList());
+    }
+
+    /**
+     * Collect {@link NodeFile}s which belong to the {@link ReportDocument}
+     * @param reportDocuments that contains {@link NodeFile}s
+     * @return List of unordered unique {@link NodeFile}s
+     */
+    public List<NodeFile> getNodeFiles(List<ReportDocument> reportDocuments) {
+        List<NodeFile> nodeFiles = new ArrayList<>();
+        for (ReportDocument reportDocument : reportDocuments) {
+            Set<NodeFile> nodeFilesSet = reportDocument.getNodeFiles();
+            for (NodeFile nodeFile : nodeFilesSet) {
+                if (!nodeFiles.contains(nodeFile)) {
+                    nodeFiles.add(nodeFile);
+                }
+            }
+        }
+        return nodeFiles;
     }
 }
