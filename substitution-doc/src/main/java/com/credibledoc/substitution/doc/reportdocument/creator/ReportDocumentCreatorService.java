@@ -1,5 +1,12 @@
 package com.credibledoc.substitution.doc.reportdocument.creator;
 
+import com.credibledoc.combiner.application.Application;
+import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
+import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
+import com.credibledoc.combiner.node.file.NodeFile;
+import com.credibledoc.combiner.node.file.NodeFileService;
+import com.credibledoc.combiner.node.log.NodeLog;
+import com.credibledoc.combiner.node.log.NodeLogService;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
@@ -7,13 +14,6 @@ import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.doc.file.FileService;
-import com.credibledoc.substitution.doc.filesmerger.application.Application;
-import com.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
-import com.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLogService;
-import com.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
-import com.credibledoc.substitution.doc.filesmerger.node.file.NodeFileService;
-import com.credibledoc.substitution.doc.filesmerger.node.log.NodeLog;
-import com.credibledoc.substitution.doc.filesmerger.node.log.NodeLogService;
 import com.credibledoc.substitution.doc.markdown.MarkdownService;
 import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentRepository;
 import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
@@ -52,15 +52,6 @@ public class ReportDocumentCreatorService {
 
     @NonNull
     private final FileService fileService;
-
-    @NonNull
-    private final NodeFileService nodeFileService;
-
-    @NonNull
-    private final NodeLogService nodeLogService;
-
-    @NonNull
-    private final ApplicationLogService applicationLogService;
 
     @NonNull
     private final PlaceholderToReportDocumentService placeholderToReportDocumentService;
@@ -171,13 +162,14 @@ public class ReportDocumentCreatorService {
 
         applicationLog.setApplication(application);
         Date date = fileService.findDate(logFile, application);
-        NodeFile nodeFile = nodeFileService.createNodeFile(date, logFile);
+        NodeFile nodeFile = NodeFileService.getInstance().createNodeFile(date, logFile);
+        NodeLogService nodeLogService = NodeLogService.getInstance();
         NodeLog nodeLog = nodeLogService.createNodeLog(nodeFile.getFile());
         nodeLog.setApplicationLog(applicationLog);
         nodeFile.setNodeLog(nodeLog);
         reportDocument.getNodeFiles().add(nodeFile);
         nodeLogService.findNodeLogs(applicationLog).add(nodeLog);
-        applicationLogService.addApplicationLog(applicationLog);
+        ApplicationLogService.getInstance().addApplicationLog(applicationLog);
         log.info("Report prepared. Report: {}", report.hashCode());
     }
 }

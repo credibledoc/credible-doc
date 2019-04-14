@@ -1,11 +1,11 @@
 package com.credibledoc.substitution.doc.module.substitution;
 
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.application.Application;
+import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.substitution.doc.module.substitution.application.Substitution;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import com.credibledoc.substitution.doc.filesmerger.application.Application;
-import com.credibledoc.substitution.doc.filesmerger.application.identifier.ApplicationIdentifier;
-import com.credibledoc.substitution.doc.module.substitution.application.Substitution;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

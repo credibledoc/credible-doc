@@ -1,6 +1,6 @@
 package com.credibledoc.substitution.doc.record;
 
-import com.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
+import com.credibledoc.combiner.node.file.NodeFile;
 
 import java.util.Date;
 import java.util.List;

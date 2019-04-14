@@ -1,20 +1,20 @@
 package com.credibledoc.substitution.doc.visualizer;
 
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.log.reader.ReaderService;
+import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
+import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
+import com.credibledoc.combiner.node.file.NodeFile;
+import com.credibledoc.combiner.state.FilesMergerState;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLogService;
-import com.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
-import com.credibledoc.substitution.doc.filesmerger.log.reader.ReaderService;
-import com.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
-import com.credibledoc.substitution.doc.filesmerger.state.FilesMergerState;
 import com.credibledoc.substitution.doc.report.Report;
 import com.credibledoc.substitution.doc.report.ReportService;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.doc.transformer.TransformerService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -38,13 +38,7 @@ public class VisualizerService {
     private TransformerService transformerService;
 
     @NonNull
-    public ReaderService readerService;
-
-    @NonNull
     private final ReportService reportService;
-
-    @NonNull
-    private final ApplicationLogService applicationLogService;
 
     @NonNull
     private ReportDocumentService reportDocumentService;
@@ -67,7 +61,8 @@ public class VisualizerService {
         logger.info("Method createReports started. Report: {}", report.hashCode());
         List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
         List<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
-        List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs(nodeFiles);
+        List<ApplicationLog> applicationLogs = ApplicationLogService.getInstance().getApplicationLogs(nodeFiles);
+        ReaderService readerService = ReaderService.getInstance();
         readerService.prepareBufferedReaders(applicationLogs);
         String line = null;
 
@@ -121,7 +116,7 @@ public class VisualizerService {
     }
 
     private String getReportDirectoryPath(Report report) {
-        if (report.getDirectory() != null && report.getDirectory().getAbsolutePath() != null) {
+        if (report.getDirectory() != null) {
             return report.getDirectory().getAbsolutePath();
         }
         return null;

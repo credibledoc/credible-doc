@@ -1,7 +1,8 @@
 package com.credibledoc.substitution.doc.module.substitution.activity.anyline;
 
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import com.credibledoc.substitution.doc.module.substitution.activity.AnyLineSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
@@ -12,7 +13,6 @@ import com.credibledoc.substitution.doc.transformer.Transformer;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import com.credibledoc.substitution.doc.module.substitution.activity.AnyLineSearchCommand;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 

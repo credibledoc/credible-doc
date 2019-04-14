@@ -1,13 +1,12 @@
 package com.credibledoc.substitution.doc.transformer;
 
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
-import com.credibledoc.substitution.doc.filesmerger.node.log.NodeLogService;
-import lombok.NonNull;
+import com.credibledoc.combiner.application.Application;
+import com.credibledoc.combiner.application.ApplicationService;
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.node.log.NodeLogService;
+import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringEscapeUtils;
-import com.credibledoc.substitution.doc.filesmerger.application.Application;
-import com.credibledoc.substitution.doc.filesmerger.application.ApplicationService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -25,12 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class EmptyHtmlTransformer implements Transformer {
 
-    @NonNull
-    private final NodeLogService nodeLogService;
-
-    @NonNull
-    private final ApplicationService applicationService;
-
     @Override
     public String transform(ReportDocument reportDocument, List<String> multiLine, LogBufferedReader logBufferedReader) {
         String line = multiLine.get(0);
@@ -38,8 +31,8 @@ public class EmptyHtmlTransformer implements Transformer {
             reportDocument.getCacheLines().add(line);
         }
         String joined = String.join(System.lineSeparator(), multiLine);
-        String nodeName = nodeLogService.findNodeName(logBufferedReader);
-        Application application = applicationService.findApplication(logBufferedReader);
+        String nodeName = NodeLogService.getInstance().findNodeName(logBufferedReader);
+        Application application = ApplicationService.getInstance().findApplication(logBufferedReader);
         return StringEscapeUtils.escapeHtml4(nodeName + " " + application.getShortName() + " " + joined);
     }
 

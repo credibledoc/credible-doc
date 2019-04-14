@@ -1,9 +1,13 @@
 package com.credibledoc.substitution.doc.file;
 
+import com.credibledoc.combiner.application.Application;
+import com.credibledoc.combiner.application.ApplicationService;
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.log.buffered.LogFileReader;
+import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
+import com.credibledoc.combiner.node.file.NodeFileService;
+import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogFileReader;
-import com.credibledoc.substitution.doc.filesmerger.node.file.NodeFileService;
 import com.google.common.base.Preconditions;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +15,6 @@ import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.utils.IOUtils;
-import com.credibledoc.substitution.doc.filesmerger.application.Application;
-import com.credibledoc.substitution.doc.filesmerger.application.ApplicationService;
-import com.credibledoc.substitution.doc.filesmerger.node.applicationlog.ApplicationLog;
-import com.credibledoc.substitution.doc.filesmerger.specific.SpecificTactic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -37,12 +37,6 @@ public class FileService {
     private static final char DOT = '.';
 
     private static final String REPORT_FOLDER_EXTENSION = ".report";
-
-    @NonNull
-    private final ApplicationService applicationService;
-
-    @NonNull
-    private final NodeFileService nodeFileService;
 
     @NonNull
     private final ApplicationContext applicationContext;
@@ -80,6 +74,7 @@ public class FileService {
      * @return {@link Application} or throw the new {@link SubstitutionRuntimeException} if the file not recognized
      */
     public Application findApplication(File file) {
+        ApplicationService applicationService = ApplicationService.getInstance();
         try (LogBufferedReader logBufferedReader = new LogBufferedReader(new LogFileReader(file))) {
             String line = logBufferedReader.readLine();
             while (line != null) {
@@ -112,10 +107,11 @@ public class FileService {
         for (File file : files) {
             addFileToMap(applicationLogs, map, files, file);
         }
+        ApplicationService applicationService = ApplicationService.getInstance();
         for (Entry<Application, Map<Date, File>> appEntry : map.entrySet()) {
             Application application = appEntry.getKey();
             ApplicationLog applicationLog = applicationService.findOrCreate(applicationLogs, application);
-            nodeFileService.appendToNodeLogs(appEntry.getValue(), applicationLog);
+            NodeFileService.getInstance().appendToNodeLogs(appEntry.getValue(), applicationLog);
         }
     }
 
@@ -152,9 +148,9 @@ public class FileService {
      * @return the most recent date and time
      */
     public Date findDate(File file, Application application) {
-        Class<? extends SpecificTactic> dateFinderStrategyClass = application.getSpecificTacticClass();
-        SpecificTactic specificTactic = applicationContext.getBean(dateFinderStrategyClass);
-        return specificTactic.findDate(file);
+        Class<? extends Tactic> dateFinderStrategyClass = application.getSpecificTacticClass();
+        Tactic tactic = applicationContext.getBean(dateFinderStrategyClass);
+        return tactic.findDate(file);
     }
 
     /**

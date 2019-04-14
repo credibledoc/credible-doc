@@ -1,9 +1,10 @@
 package com.credibledoc.substitution.doc.module.substitution.activity.modules;
 
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.doc.SubstitutionDocMain;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
@@ -38,6 +39,7 @@ public class ModulesActivityTransformer implements Transformer {
         packagePrefixToModuleName.put("com.credibledoc.substitution.core", ResourceService.SUBSTITUTION_CORE_MODULE_NAME);
         packagePrefixToModuleName.put("com.credibledoc.substitution.doc", SubstitutionDocMain.SUBSTITUTION_DOC);
         packagePrefixToModuleName.put("com.credibledoc.plantuml", PLANTUML_CORE_MODULE_NAME);
+        packagePrefixToModuleName.put("com.credibledoc.combiner", ReaderService.COMBINER_CORE_MODULE_NAME);
         // Should be here for activating the "com.credibledoc.plantuml" class loader
         SvgGeneratorService.class.getPackage();
         validatePackagesExist();

@@ -1,6 +1,6 @@
 package com.credibledoc.substitution.doc.searchcommand;
 
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 
 import java.util.List;

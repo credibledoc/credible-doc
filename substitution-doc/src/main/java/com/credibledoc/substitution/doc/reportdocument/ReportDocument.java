@@ -1,6 +1,6 @@
 package com.credibledoc.substitution.doc.reportdocument;
 
-import com.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
+import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.substitution.doc.report.Report;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

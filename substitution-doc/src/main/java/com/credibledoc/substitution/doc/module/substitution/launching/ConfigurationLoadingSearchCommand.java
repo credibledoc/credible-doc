@@ -1,7 +1,7 @@
 package com.credibledoc.substitution.doc.module.substitution.launching;
 
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import com.credibledoc.substitution.doc.searchcommand.SearchCommand;
 import org.springframework.stereotype.Service;

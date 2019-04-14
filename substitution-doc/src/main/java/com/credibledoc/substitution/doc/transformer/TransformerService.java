@@ -1,10 +1,10 @@
 package com.credibledoc.substitution.doc.transformer;
 
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import com.credibledoc.substitution.doc.searchcommand.SearchCommand;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

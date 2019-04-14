@@ -49,9 +49,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <artifactId>plantuml-core</artifactId>
                 <groupId>com.credibledoc</groupId>
+                <artifactId>plantuml-core</artifactId>
                 <version>1.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.credibledoc</groupId>
+                <artifactId>combiner-core</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>

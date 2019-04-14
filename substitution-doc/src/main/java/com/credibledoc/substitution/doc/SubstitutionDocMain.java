@@ -1,19 +1,23 @@
 package com.credibledoc.substitution.doc;
 
+import com.credibledoc.combiner.application.identifier.ApplicationIdentifierService;
+import com.credibledoc.combiner.tactic.TacticService;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.content.ContentGeneratorService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import com.credibledoc.substitution.doc.markdown.MarkdownService;
+import com.credibledoc.substitution.doc.module.substitution.SubstitutionApplicationIdentifier;
+import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
 import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreatorService;
 import com.credibledoc.substitution.doc.visualizer.VisualizerService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -53,6 +57,12 @@ public class SubstitutionDocMain {
     @NonNull
     private final ReportDocumentCreatorService reportDocumentCreatorService;
 
+    @NonNull
+    private final SubstitutionTactic substitutionSpecificTactic;
+
+    @NonNull
+    private final SubstitutionApplicationIdentifier substitutionApplicationIdentifier;
+
     /**
      * The main method for generation of documentation of the credibledoc-substitution tool.
      */
@@ -69,6 +79,9 @@ public class SubstitutionDocMain {
     }
 
     private void substitute() {
+        TacticService.getInstance().getSpecificTactics().add(substitutionSpecificTactic);
+        ApplicationIdentifierService.getInstance().getApplicationIdentifiers().add(substitutionApplicationIdentifier);
+//        ApplicationService.getInstance().
         ContentGeneratorService.getInstance().addContentGenerators(markdownGenerators);
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
         markdownService.reportDocumentCreatorService.createReportDocuments();

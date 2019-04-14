@@ -1,14 +1,14 @@
 package com.credibledoc.substitution.doc.module.substitution;
 
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.log.buffered.LogFileReader;
+import com.credibledoc.combiner.node.file.NodeFile;
+import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.doc.date.DateService;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogFileReader;
-import com.credibledoc.substitution.doc.filesmerger.node.file.NodeFile;
 import com.credibledoc.substitution.doc.module.substitution.application.Substitution;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import com.credibledoc.substitution.doc.filesmerger.specific.SpecificTactic;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -19,12 +19,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Implementation of the {@link SpecificTactic}
+ * Implementation of the {@link Tactic}
  * for the {@link Substitution}.
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class SubstitutionSpecificTactic implements SpecificTactic {
+public class SubstitutionTactic implements Tactic {
 
     /**
      * RegEx of a date in a {@link Substitution} log line,

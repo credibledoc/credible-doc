@@ -1,8 +1,8 @@
 package com.credibledoc.substitution.doc.date;
 
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.log.buffered.LogFileReader;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogBufferedReader;
-import com.credibledoc.substitution.doc.filesmerger.log.buffered.LogFileReader;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
