@@ -61,7 +61,8 @@ public class JsonService {
             }
             return (T) placeholder;
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+            throw new SubstitutionRuntimeException("JSON cannot be processed: '" + json +
+                "', valueClass: " + valueClass, e);
         }
     }
 
