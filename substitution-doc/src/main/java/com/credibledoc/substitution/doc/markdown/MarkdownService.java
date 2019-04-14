@@ -181,7 +181,7 @@ public class MarkdownService {
             if (nextPlaceholder.getResource().equals(placeholder.getResource()) &&
                     nextPlaceholder.getId().equals(placeholder.getId())) {
 
-                return generateDiagram(nextPlaceholder);
+                return generateDiagram(nextPlaceholder, null);
             }
         }
         return null;
@@ -200,9 +200,12 @@ public class MarkdownService {
      * </ul>
      *
      * @param placeholder the state object
+     * @param plantUml PlantUML source notation. If the value is 'null', the value will be obtained from
+     *                 {@link ReportDocument} which is stored in
+     *                 {@link PlaceholderToReportDocumentService#getReportDocument(Placeholder)}.
      * @return A part of markdown document with link to generated SVG image.
      */
-    private String generateDiagram(Placeholder placeholder) {
+    public String generateDiagram(Placeholder placeholder, String plantUml) {
         ResourceService resourceService = ResourceService.getInstance();
         String placeholderResourceRelativePath =
                 resourceService.generatePlaceholderResourceRelativePath(placeholder.getResource());
@@ -211,9 +214,10 @@ public class MarkdownService {
         File directory = mdFile.getParentFile();
         File imageDirectory = new File(directory, IMAGE_DIRECTORY_NAME);
         createDirectoryIfNotExists(imageDirectory);
-        ReportDocument reportDocument = placeholderToReportDocumentService.getReportDocument(placeholder);
-        String plantUml = StringUtils.join(reportDocument.getCacheLines(), System.lineSeparator());
-
+        if (plantUml == null) {
+            ReportDocument reportDocument = placeholderToReportDocumentService.getReportDocument(placeholder);
+            plantUml = StringUtils.join(reportDocument.getCacheLines(), System.lineSeparator());
+        }
         String placeholderDescription = placeholder.getDescription();
         String nextPlaceholderId = placeholder.getId();
 

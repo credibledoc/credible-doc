@@ -34,6 +34,10 @@ public class LogMessageService {
         StringBuilder result = new StringBuilder(line.length());
         StringBuilder row = new StringBuilder(line.length());
         for (int i = 0; i < tokens.length; i++) {
+            if ("}".equals(tokens[i].trim())) {
+                row.insert(row.length() - 1, tokens[i].trim());
+                tokens[i] = "";
+            }
             String escapedToken = escapeToken(tokens[i]);
             boolean hasMoreTokens = i + 1 < tokens.length;
             boolean isShortRow = row.length() + escapedToken.length() + WORDS_SEPARATOR.length() < maxRowLength;
@@ -73,7 +77,7 @@ public class LogMessageService {
     }
 
     private String escapeToken(String token) {
-        return token//.replaceAll(":", "~:")
+        return token
             .replaceAll(";", "~;")
             .replaceAll("'", "");
     }

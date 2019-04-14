@@ -46,6 +46,16 @@ This diagram is generated from parsed substitution-doc_1.log file.
 
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.doc.module.substitution.activity.modules.ModulesActivityUmlReportService",
-    "description": "Credibledoc modules dependency diagram.",
+    "description": "Credibledoc modules - based activity diagram.",
     "parameters": {"sourceFileRelativePath": "log/substitution-doc_1.log"}
+} &&endPlaceholder
+
+### Dependencies of `com.credibledoc.substitution.doc.filesmerger` on other packages in the `substitution-doc` module
+
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
+    "description": "Package dependency diagram.",
+    "parameters": {"jarRelativePath": "target/substitution-doc-1.0.0-SNAPSHOT-sources.jar",
+        "dependantPackage": "com.credibledoc.substitution.doc.filesmerger",
+        "dependenciesPackagesSemicolonSeparated": "com.credibledoc.substitution.doc;com.credibledoc.substitution.core"}
 } &&endPlaceholder
