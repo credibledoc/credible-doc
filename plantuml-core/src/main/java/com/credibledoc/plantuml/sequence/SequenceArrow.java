@@ -10,14 +10,19 @@ package com.credibledoc.plantuml.sequence;
 public enum SequenceArrow {
 
     /**
+     * Arrow {@code ' ..> '}
+     */
+    DEPENDENCY_ARROW(" ..> "),
+
+    /**
      * Arrow {@code ' -> '}
      */
-    FULL_ARROW(" -> "),
+    INHERITANCE_ARROW(" -> "),
 
     /**
      * Arrow {@code ' --> '}
      */
-    DASH_ARROW(" --> "),
+    IMPLEMENTATION_ARROW(" --> "),
 
     /**
      * Arrow {@code ' -[#red]>x '}
@@ -27,7 +32,7 @@ public enum SequenceArrow {
     /**
      * Arrow {@code ' <-> '}
      */
-    DOUBLE_SIZED_FULL_ARROW(" <-> ");
+    DOUBLE_SIZE_FULL_ARROW(" <-> ");
 
     /**
      * A mame in a diagram
