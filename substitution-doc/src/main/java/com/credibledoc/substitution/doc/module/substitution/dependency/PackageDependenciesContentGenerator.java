@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.io.File;
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Generates a UML diagram with figured dependencies of a package configured in a {@link #DEPENDANT_PACKAGE} variable on
@@ -40,6 +42,8 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private static final String DEPENDANT_PACKAGE = "dependantPackage";
     private static final String DEPENDENCIES_PACKAGES = "dependenciesPackagesSemicolonSeparated";
     private static final String SEPARATOR = ";";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+
     @NonNull
     MarkdownService markdownService;
 
@@ -89,18 +93,20 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                 .append(System.lineSeparator())
                 .append("Class ").append(dependantPackage).append(" << (P,PaleGreen) >>")
                 .append(System.lineSeparator());
+
+            Set<String> classLines = new HashSet<>();
             for (ImportDeclaration importDeclaration : importsNodeList) {
-                stringBuilder.append("Class ")
-                    .append(importDeclaration.getNameAsString())
-                    .append(" << (C,YellowGreen) >>")
-                    .append(System.lineSeparator());
+                classLines.add("Class " + importDeclaration.getNameAsString() +
+                    " << (C,YellowGreen) >>");
             }
+            stringBuilder.append(String.join(System.lineSeparator(), classLines)).append(LINE_SEPARATOR);
+
+            Set<String> dependencies = new HashSet<>();
             for (ImportDeclaration importDeclaration : importsNodeList) {
-                stringBuilder.append(dependantPackage)
-                    .append(SequenceArrow.DEPENDENCY_ARROW.getUml())
-                    .append(importDeclaration.getNameAsString())
-                    .append(System.lineSeparator());
+                dependencies.add(dependantPackage +
+                    SequenceArrow.DEPENDENCY_ARROW.getUml() + importDeclaration.getNameAsString());
             }
+            stringBuilder.append(String.join(System.lineSeparator(), dependencies));
             return markdownService.generateDiagram(placeholder, stringBuilder.toString());
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
