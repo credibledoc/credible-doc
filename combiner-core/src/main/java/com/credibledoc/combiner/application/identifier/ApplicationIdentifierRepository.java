@@ -7,7 +7,6 @@ import java.util.List;
  * Stateful object. Contains a list of {@link ApplicationIdentifier}s.
  */
 class ApplicationIdentifierRepository {
-    // TODO Kyrylo Semenko - nesmi byt singleton
 
     /**
      * Singleton.

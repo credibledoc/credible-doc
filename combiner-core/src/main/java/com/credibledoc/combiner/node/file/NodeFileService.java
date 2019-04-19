@@ -63,7 +63,7 @@ public class NodeFileService {
         throw new CombinerRuntimeException("Cannot find out NodeFile");
     }
 
-    public List<NodeFile> getNodeFiles() {
+    private List<NodeFile> getNodeFiles() {
         return NodeFileRepository.getInstance().getNodeFiles();
     }
 

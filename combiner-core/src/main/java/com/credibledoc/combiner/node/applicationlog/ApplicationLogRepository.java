@@ -7,7 +7,6 @@ import java.util.List;
  * Stateful object. Contains a list of {@link ApplicationLog}.
  */
 class ApplicationLogRepository {
-    // TODO Kyrylo Semenko - nesmi byt singleton
 
     /**
      * Singleton.

@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A stateful service. Contains a list of {@link Tactic}s.
+ * Stateful singleton. Contains a list of {@link Tactic}s.
  *
  * @author Kyrylo Semenko
  */
 public class TacticRepository {
-    // TODO Kyrylo Semenko - prejmenovat na Tactic
-    // TODO Kyrylo Semenko - nesmi byt singleton aby slo pustit ve vice instancich
 
     /**
      * Singleton.

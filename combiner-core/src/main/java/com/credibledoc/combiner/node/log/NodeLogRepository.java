@@ -11,7 +11,6 @@ import java.util.List;
  * @author Kyrylo Semenko
  */
 public class NodeLogRepository {
-    // TODO Kyrylo Semenko - nesmi byt singleton aby slo pustit ve vice instancich
 
     /**
      * Singleton.
@@ -36,14 +35,8 @@ public class NodeLogRepository {
     /**
      * @return the {@link #nodeLogs} value
      */
-    public List<NodeLog> getNodeLogs() {
+    List<NodeLog> getNodeLogs() {
         return nodeLogs;
     }
 
-    /**
-     * @param nodeLogs see the {@link #nodeLogs} field
-     */
-    public void setNodeLogs(List<NodeLog> nodeLogs) {
-        this.nodeLogs = nodeLogs;
-    }
 }

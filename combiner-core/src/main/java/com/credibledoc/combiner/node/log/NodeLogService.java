@@ -55,12 +55,12 @@ public class NodeLogService {
 
     /**
      * Find out {@link NodeLog} with the same {@link NodeLog#getLogBufferedReader()}
-     * as the second parameter.
+     * as the parameter.
      *
      * @param logBufferedReader from {@link NodeLog}
      * @return found {@link NodeLog}
      */
-    public NodeLog findNodeLog(LogBufferedReader logBufferedReader) {
+    private NodeLog findNodeLog(LogBufferedReader logBufferedReader) {
         for (ApplicationLog applicationLog : ApplicationLogService.getInstance().getApplicationLogs()) {
             for (NodeLog nodeLog : findNodeLogs(applicationLog)) {
                 if (logBufferedReader == nodeLog.getLogBufferedReader()) {

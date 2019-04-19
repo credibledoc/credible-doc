@@ -7,7 +7,9 @@ import java.io.File;
 import java.util.Date;
 
 /**
- * This interface contains methods specific for particular {@link Application}.
+ * This interface contains methods specific for particular {@link Application} log,
+ * for example {@link #findDate(String)}. In case of merging log files with different date formats,
+ * any format should have its own implementation of the {@link Tactic} interface.
  *
  * @author Kyrylo Semenko
  */

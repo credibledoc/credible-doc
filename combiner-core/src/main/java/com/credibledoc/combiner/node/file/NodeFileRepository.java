@@ -9,7 +9,6 @@ import java.util.List;
  * @author Kyrylo Semenko
  */
 public class NodeFileRepository {
-    // TODO Kyrylo Semenko - nesmi byt singleton
 
     /**
      * Singleton.
