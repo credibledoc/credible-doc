@@ -32,7 +32,22 @@ public enum SequenceArrow {
     /**
      * Arrow {@code ' <-> '}
      */
-    DOUBLE_SIZE_FULL_ARROW(" <-> ");
+    DOUBLE_SIZE_FULL_ARROW(" <-> "),
+
+    /**
+     * {@link #INHERITANCE_ARROW} alias
+     */
+    FULL_ARROW(" -> "),
+
+    /**
+     * {@link #IMPLEMENTATION_ARROW} alias
+     */
+    DASH_ARROW(" --> "),
+
+    /**
+     * {@link #DOUBLE_SIZE_FULL_ARROW} alias
+     */
+    DOUBLE_SIZED_FULL_ARROW(" <-> ");
 
     /**
      * A mame in a diagram
