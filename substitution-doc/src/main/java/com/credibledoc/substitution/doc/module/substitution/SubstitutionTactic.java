@@ -1,13 +1,12 @@
 package com.credibledoc.substitution.doc.module.substitution;
 
+import com.credibledoc.combiner.date.DateService;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogFileReader;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.doc.date.DateService;
 import com.credibledoc.substitution.doc.module.substitution.application.Substitution;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,8 @@ public class SubstitutionTactic implements Tactic {
      * RegEx of a date in a {@link Substitution} log line,
      * for example <pre>29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1...</pre>
      */
-    private static final String PATTERN_DATE_STRING = "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d\\s\\d\\d:\\d\\d:\\d\\d\\.\\d\\d\\d";
+    private static final String PATTERN_DATE_STRING =
+        "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d\\s\\d\\d:\\d\\d:\\d\\d\\.\\d\\d\\d";
 
     /**
      * Compiled {@value #PATTERN_DATE_STRING} value
@@ -47,9 +47,6 @@ public class SubstitutionTactic implements Tactic {
     private static final String PIPE = "|";
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_STRING);
-
-    @NonNull
-    private final DateService dateService;
 
     @Override
     public Date findDate(File file) {
@@ -163,6 +160,6 @@ public class SubstitutionTactic implements Tactic {
 
     @Override
     public Date findDate(String line) {
-        return dateService.parseDateTimeFromLine(line, simpleDateFormat, PATTERN_DATE, 35);
+        return DateService.getInstance().parseDateTimeFromLine(line, simpleDateFormat, PATTERN_DATE, 35);
     }
 }
