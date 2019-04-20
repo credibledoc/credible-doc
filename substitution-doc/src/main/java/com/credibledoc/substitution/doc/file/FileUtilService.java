@@ -2,14 +2,12 @@ package com.credibledoc.substitution.doc.file;
 
 import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.ApplicationService;
-import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.combiner.log.buffered.LogFileReader;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
+import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.file.NodeFileService;
-import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.google.common.base.Preconditions;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
@@ -17,7 +15,6 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -30,16 +27,13 @@ import java.util.Map.Entry;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class FileService {
+public class FileUtilService {
 
-    private static final Logger logger = LoggerFactory.getLogger(FileService.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileUtilService.class);
 
     private static final char DOT = '.';
 
     private static final String REPORT_FOLDER_EXTENSION = ".report";
-
-    @NonNull
-    private final ApplicationContext applicationContext;
 
     /**
      * Generate a new file with transformed content of source log files.
@@ -66,28 +60,6 @@ public class FileService {
         File file = new File(reportDirectory, newFileName.toString());
         logger.info("The new empty file created: '{}'", file.getAbsolutePath());
         return file;
-    }
-
-    /**
-     * Recognize, which {@link Application} this file belongs to.
-     * @param file the log file
-     * @return {@link Application} or throw the new {@link SubstitutionRuntimeException} if the file not recognized
-     */
-    public Application findApplication(File file) {
-        ApplicationService applicationService = ApplicationService.getInstance();
-        try (LogBufferedReader logBufferedReader = new LogBufferedReader(new LogFileReader(file))) {
-            String line = logBufferedReader.readLine();
-            while (line != null) {
-                Application application = applicationService.findApplication(line, logBufferedReader);
-                if (application != null) {
-                    return application;
-                }
-                line = logBufferedReader.readLine();
-            }
-            throw new SubstitutionRuntimeException("Cannot recognize application type of the file: " + file.getAbsolutePath());
-        } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
-        }
     }
 
     /**
@@ -122,14 +94,14 @@ public class FileService {
             if (file.getName().endsWith(".zip")) {
                 file = unzipIfNotExists(file, files);
             }
-            Application application = findApplication(file);
+            Application application = FileService.getInstance().findApplication(file);
             if (!map.containsKey(application)) {
                 map.put(application, new TreeMap<>());
             }
 
-            Date date = findDate(file, application);
+            Date date = FileService.getInstance().findDate(file, application);
             if (date == null) {
-                throw new SubstitutionRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
+                throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
             }
             map.get(application).put(date, file);
         } else {
@@ -141,26 +113,13 @@ public class FileService {
     }
 
     /**
-     * Find out date and time of the first line in a file.
-     *
-     * @param file        an application log
-     * @param application each {@link Application} has its own strategy of date searching
-     * @return the most recent date and time
-     */
-    public Date findDate(File file, Application application) {
-        Class<? extends Tactic> dateFinderStrategyClass = application.getSpecificTacticClass();
-        Tactic tactic = applicationContext.getBean(dateFinderStrategyClass);
-        return tactic.findDate(file);
-    }
-
-    /**
      * If the second argument contains unzipped first argument, do not unzip it.
      * Else unzip it and return a file from this zipFile.
      * @param zipFile zipped log file
      * @param files all files in a directory
      * @return an unzipped file or file from files
      */
-    public File unzipIfNotExists(File zipFile, File[] files) {
+    private File unzipIfNotExists(File zipFile, File[] files) {
         try (
             InputStream is = new FileInputStream(zipFile);
             ArchiveInputStream ais = new ArchiveStreamFactory().createArchiveInputStream("zip", is)

@@ -1,6 +1,7 @@
 package com.credibledoc.substitution.doc.reportdocument.creator;
 
 import com.credibledoc.combiner.application.Application;
+import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
 import com.credibledoc.combiner.node.file.NodeFile;
@@ -13,7 +14,6 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
-import com.credibledoc.substitution.doc.file.FileService;
 import com.credibledoc.substitution.doc.markdown.MarkdownService;
 import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentRepository;
 import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
@@ -49,9 +49,6 @@ public class ReportDocumentCreatorService {
 
     @NonNull
     private final ReportService reportService;
-
-    @NonNull
-    private final FileService fileService;
 
     @NonNull
     private final PlaceholderToReportDocumentService placeholderToReportDocumentService;
@@ -158,6 +155,7 @@ public class ReportDocumentCreatorService {
         reportService.addReports(Collections.singletonList(report));
         ApplicationLog applicationLog = new ApplicationLog();
         reportDocument.setReport(report);
+        FileService fileService = FileService.getInstance();
         Application application = fileService.findApplication(logFile);
 
         applicationLog.setApplication(application);

@@ -56,6 +56,6 @@ This diagram is generated from parsed substitution-doc_1.log file.
     "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
     "description": "Package dependency diagram.",
     "parameters": {"jarRelativePath": "target/substitution-doc-1.0.0-SNAPSHOT-sources.jar",
-        "dependantPackage": "com.credibledoc.substitution.doc",
-        "dependenciesPackagesSemicolonSeparated": "com.credibledoc.substitution.doc;com.credibledoc.substitution.core;com.credibledoc.combiner"}
+        "dependantPackage": "com.credibledoc.substitution.doc.report",
+        "dependenciesPackagesSemicolonSeparated": "com.credibledoc.substitution.doc;com.credibledoc.substitution.core"}
 } &&endPlaceholder
