@@ -5,15 +5,15 @@ import com.credibledoc.combiner.tactic.Tactic;
 /**
  * This interface represents one application that generates log files.
  * This application holds an instance of {@link Tactic}, se
- * the {@link #getSpecificTacticClass()} method and has a short name,
+ * the {@link #getTactic()} method and has a short name,
  * see the {@link #getShortName()} method.
  */
 public interface Application {
 
     /**
-     * @return A class of {@link Tactic} subtype.
+     * @return An instance of a class implemented the {@link Tactic} interface.
      */
-    Class<? extends Tactic> getSpecificTacticClass();
+    Tactic getTactic();
 
     /**
      * This name is used for identification of log lines in created

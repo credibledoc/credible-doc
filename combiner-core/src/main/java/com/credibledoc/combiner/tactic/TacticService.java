@@ -1,8 +1,5 @@
 package com.credibledoc.combiner.tactic;
 
-import com.credibledoc.combiner.exception.CombinerRuntimeException;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,21 +27,7 @@ public class TacticService {
     /**
      * @return All {@link Tactic} instances from the {@link TacticRepository}.
      */
-    public List<Tactic> getSpecificTactics() {
+    public List<Tactic> getTactics() {
         return TacticRepository.getInstance().getTactics();
-    }
-
-    public Tactic findByClass(Class<? extends Tactic> specificTacticClass) {
-        for (Tactic tactic : getSpecificTactics()) {
-            if (specificTacticClass.isAssignableFrom(tactic.getClass())) {
-                return tactic;
-            }
-        }
-        List<Class> specificTacticClasses = new ArrayList<>();
-        for (Tactic tactic : getSpecificTactics()) {
-            specificTacticClasses.add(tactic.getClass());
-        }
-        throw new CombinerRuntimeException("Tactic instance of '" + specificTacticClass +
-            "' class cannot be found in repository with classes: " + specificTacticClasses);
     }
 }

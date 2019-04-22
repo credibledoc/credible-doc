@@ -16,8 +16,10 @@ import java.util.List;
 public class FilesMergerState {
 
     /**
-     * Contains an order number of the last used
-     * {@link NodeLog#getLogBufferedReader()}
+     * Contains an order number of the last used {@link NodeLog#getLogBufferedReader()}.
+     * If the last used has been closed because the last line has been read, the index of next
+     * opened {@link com.credibledoc.combiner.log.buffered.LogBufferedReader} will be stored
+     * in this field.
      */
     private int lastUsedNodeLogIndex;
 

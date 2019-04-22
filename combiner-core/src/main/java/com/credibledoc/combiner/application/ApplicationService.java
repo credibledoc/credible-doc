@@ -90,15 +90,13 @@ public class ApplicationService {
      * that equals with the first parameter
      *
      * @param logBufferedReader for {@link NodeLog} searching
-     * @return A {@link Application#getSpecificTacticClass()} instance from the {@link TacticService}.
+     * @return A {@link Application#getTactic()} instance from the {@link TacticService}.
      */
     public Tactic findSpecificTactic(LogBufferedReader logBufferedReader) {
         for (ApplicationLog applicationLog : ApplicationLogService.getInstance().getApplicationLogs()) {
             for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(applicationLog)) {
                 if (nodeLog.getLogBufferedReader() == logBufferedReader) {
-                    Class<? extends Tactic> dateFinderStrategyClass
-                            = applicationLog.getApplication().getSpecificTacticClass();
-                    return TacticService.getInstance().findByClass(dateFinderStrategyClass);
+                    return applicationLog.getApplication().getTactic();
                 }
             }
         }

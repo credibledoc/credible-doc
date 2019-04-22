@@ -1,0 +1,8 @@
+INFO 2019-04-22T07:59:27.000+0200 [main] Application app1 started.
+INFO 2019-04-22T07:59:27.925+0200 [main] Configuration app1 loaded.
+Some additional lines of app1
+without timestamps
+
+
+and with empty lines
+INFO 2019-04-22T07:59:27.940+0200 [main] Application app1 finished.

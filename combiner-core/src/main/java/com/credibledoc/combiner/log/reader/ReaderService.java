@@ -126,7 +126,7 @@ public class ReaderService {
      */
     public String readLineFromReaders(FilesMergerState filesMergerState) {
         try {
-            List<LogBufferedReader> logBufferedReaders = collectBufferedReaders(filesMergerState.getNodeFiles());
+            List<LogBufferedReader> logBufferedReaders = collectOpenedBufferedReaders(filesMergerState.getNodeFiles());
             if (logBufferedReaders.isEmpty()) {
                 return null;
             }
@@ -138,7 +138,7 @@ public class ReaderService {
             }
             if (LineState.IS_NULL == lineStates.get(lastUsedNodeLogIndex)) {
                 logBufferedReader.close();
-                logBufferedReaders = collectBufferedReaders(filesMergerState.getNodeFiles());
+                logBufferedReaders = collectOpenedBufferedReaders(filesMergerState.getNodeFiles());
                 if (logBufferedReaders.isEmpty()) {
                     return null;
                 }
@@ -151,7 +151,7 @@ public class ReaderService {
         }
     }
 
-    private List<LogBufferedReader> collectBufferedReaders(List<NodeFile> nodeFiles) {
+    private List<LogBufferedReader> collectOpenedBufferedReaders(List<NodeFile> nodeFiles) {
         List<LogBufferedReader> logBufferedReaders = new ArrayList<>();
         for (NodeFile nodeFile : nodeFiles) {
             NodeLog nodeLog = nodeFile.getNodeLog();
@@ -163,25 +163,24 @@ public class ReaderService {
     }
 
     /**
-     * Find out a {@link NodeLog#getLogBufferedReader()} of a {@link NodeFile#getNodeLog()},
+     * Find out an opened {@link NodeLog#getLogBufferedReader()} of a {@link NodeFile#getNodeLog()},
      * which has the same order number as the
-     * {@link FilesMergerState#getLastUsedNodeLogIndex()} index. If the found {@link LogBufferedReader}
-     * is NOT {@link LogBufferedReader#isNotClosed()} (is closed), then the next {@link LogBufferedReader}
-     * will be returned. If all {@link LogBufferedReader}s are closed, then exception will be thrown.
+     * {@link FilesMergerState#getLastUsedNodeLogIndex()} index.
+     *
+     * If all {@link LogBufferedReader}s are closed, then return 'null'.
      *
      * @param filesMergerState contains {@link NodeFile}s with link to {@link LogBufferedReader}s
      * @return required {@link NodeLog#getLogBufferedReader()}
      */
     public LogBufferedReader getCurrentReader(FilesMergerState filesMergerState) {
-        int nextNumber = 0;
-        for (NodeFile nodeFile : filesMergerState.getNodeFiles()) {
-            LogBufferedReader logBufferedReader = nodeFile.getLogBufferedReader();
-            if (logBufferedReader.isNotClosed() && nextNumber == filesMergerState.getLastUsedNodeLogIndex()) {
-                return logBufferedReader;
-            }
-            nextNumber++;
+        List<LogBufferedReader> logBufferedReaders =
+            collectOpenedBufferedReaders(filesMergerState.getNodeFiles());
+
+        if (logBufferedReaders.isEmpty()) {
+            return null;
         }
-        throw new CombinerRuntimeException("No BufferedReaders found. Expected at least one.");
+
+        return logBufferedReaders.get(filesMergerState.getLastUsedNodeLogIndex());
     }
 
     /**

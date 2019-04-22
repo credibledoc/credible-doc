@@ -5,8 +5,6 @@ import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogFileReader;
-import com.credibledoc.combiner.tactic.Tactic;
-import com.credibledoc.combiner.tactic.TacticService;
 
 import java.io.File;
 import java.util.Date;
@@ -58,9 +56,7 @@ public class FileService {
      * @return the most recent date and time
      */
     public Date findDate(File file, Application application) {
-        Class<? extends Tactic> dateFinderStrategyClass = application.getSpecificTacticClass();
-        Tactic tactic = TacticService.getInstance().findByClass(dateFinderStrategyClass);
-        return tactic.findDate(file);
+        return application.getTactic().findDate(file);
     }
 
 }
