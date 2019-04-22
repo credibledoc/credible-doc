@@ -165,7 +165,8 @@ public class MarkdownService {
                     return generatedTag;
                 }
             } else if (ContentGenerator.class.isAssignableFrom(placeholderClass)) {
-                ContentGenerator markdownGenerator = ContentGeneratorService.getInstance().getContentGenerator(placeholderClass);
+                ContentGenerator markdownGenerator =
+                    ContentGeneratorService.getInstance().getContentGenerator(placeholderClass);
                 return markdownGenerator.generate(placeholder);
             }
         } catch (Exception e) {

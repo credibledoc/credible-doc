@@ -50,7 +50,7 @@ This diagram is generated from parsed substitution-doc_1.log file.
     "parameters": {"sourceFileRelativePath": "log/substitution-doc_1.log"}
 } &&endPlaceholder
 
-### Dependencies of `com.credibledoc.substitution.doc` on other packages in the `substitution-doc` and `combiner-parent` modules
+### Dependencies of the `com.credibledoc.substitution.doc.report` package on other packages in the `substitution-doc` and `substitution-core` modules
 
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
@@ -58,4 +58,14 @@ This diagram is generated from parsed substitution-doc_1.log file.
     "parameters": {"jarRelativePath": "target/substitution-doc-1.0.0-SNAPSHOT-sources.jar",
         "dependantPackage": "com.credibledoc.substitution.doc.report",
         "dependenciesPackagesSemicolonSeparated": "com.credibledoc.substitution.doc;com.credibledoc.substitution.core"}
+} &&endPlaceholder
+
+### Dependencies of the `substitution-doc` module on packages in the `combiner-core` module
+
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
+    "description": "Package dependency diagram.",
+    "parameters": {"jarRelativePath": "target/substitution-doc-1.0.0-SNAPSHOT-sources.jar",
+        "dependantPackage": "com.credibledoc.substitution.doc",
+        "dependenciesPackagesSemicolonSeparated": "com.credibledoc.combiner"}
 } &&endPlaceholder

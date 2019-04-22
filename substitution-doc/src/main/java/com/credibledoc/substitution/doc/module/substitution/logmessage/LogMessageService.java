@@ -39,6 +39,10 @@ public class LogMessageService {
                 tokens[i] = "";
             }
             String escapedToken = escapeToken(tokens[i]);
+            if (escapedToken.endsWith("~;")) {
+                row.insert(row.length() - 1, escapedToken.trim());
+                escapedToken = escapedToken.substring(0, escapedToken.length() - 2);
+            }
             boolean hasMoreTokens = i + 1 < tokens.length;
             boolean isShortRow = row.length() + escapedToken.length() + WORDS_SEPARATOR.length() < maxRowLength;
             if (isShortRow) {

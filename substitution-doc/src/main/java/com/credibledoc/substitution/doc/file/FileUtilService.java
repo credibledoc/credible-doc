@@ -2,7 +2,6 @@ package com.credibledoc.substitution.doc.file;
 
 import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.ApplicationService;
-import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.file.NodeFileService;
@@ -101,7 +100,7 @@ public class FileUtilService {
 
             Date date = FileService.getInstance().findDate(file, application);
             if (date == null) {
-                throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
+                throw new SubstitutionRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
             }
             map.get(application).put(date, file);
         } else {
