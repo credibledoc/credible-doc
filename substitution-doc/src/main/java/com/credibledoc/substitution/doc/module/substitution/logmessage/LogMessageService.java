@@ -21,7 +21,7 @@ public class LogMessageService {
     private static final String BACKWARD_SLASH = "\\";
 
     /**
-     * Parse a message from a log line and plit it to rows.
+     * Parse a message from a log line and split it to rows.
      * @param line for example
      *             <pre>04.03.2019 18:41:13.658|main|INFO |com.credibledoc.substitution.core.configuration.ConfigurationService - Properties loaded by ClassLoader from the resource: file..</pre>
      * @param maxRowLength maximal number of characters in a row
