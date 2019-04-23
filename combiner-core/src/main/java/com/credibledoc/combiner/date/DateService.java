@@ -30,8 +30,12 @@ public class DateService {
     /**
      * Parse a {@link Date} from a log line.
      *
-     * @param line    for example
-     *                <pre>31.10.2019;07:00:00.231 [placeholder-substitution]  DEBUG [http-nio-8280-exec-29] - Dispatcher...</pre>
+     * @param line              for example
+     *     <pre>31.10.2019;07:00:00.231 [placeholder-substitution]  DEBUG [http-nio-8280-exec-29] - Dispatcher...</pre>
+     * @param simpleDateFormat  for parsing String date to a {@link Date} object
+     * @param dateTimePattern   for searching of String date in the log line
+     * @param maxIndexEndOfTime can be 'null'. If set, the last n chars will be searched for date String.
+     *                          Max index (exclusive).
      * @return a parsed {@link Date}, for example 16.10.2019;00:44:23.973
      * or 'null' if the line is null or the date cannot be found.
      */
@@ -57,6 +61,9 @@ public class DateService {
      *
      * @param line for example
      * <pre>17:45:58.172|qtp826690115-39|DEBUG|...</pre>
+     * @param dateTimePattern   for searching of String date in the log line
+     * @param maxIndexEndOfTime can be 'null'. If set, the last n chars will be searched for date String.
+     *                          Max index (exclusive).
      * @return a parsed {@link Date}, for example 17:45:58.172 or 'null' if the line is 'null' or the date cannot be found.
      */
     public String findDateTime(String line, Pattern dateTimePattern, int maxIndexEndOfTime) {
