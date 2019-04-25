@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.doc.reportdocument.creator;
+package com.credibledoc.combiner.doc.reportdocument.creator;
 
 import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.file.FileService;
@@ -9,18 +9,18 @@ import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.node.log.NodeLog;
 import com.credibledoc.combiner.node.log.NodeLogService;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
-import com.credibledoc.substitution.doc.markdown.MarkdownService;
-import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentRepository;
-import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
-import com.credibledoc.substitution.doc.report.Report;
-import com.credibledoc.substitution.doc.report.ReportService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
+import com.credibledoc.combiner.doc.markdown.MarkdownService;
+import com.credibledoc.combiner.doc.placeholder.reportdocument.PlaceholderToReportDocumentRepository;
+import com.credibledoc.combiner.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
+import com.credibledoc.combiner.doc.report.Report;
+import com.credibledoc.combiner.doc.report.ReportService;
+import com.credibledoc.combiner.doc.reportdocument.ReportDocument;
+import com.credibledoc.combiner.doc.reportdocument.ReportDocumentService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -100,7 +100,7 @@ public class ReportDocumentCreatorService {
             }
             log.info("Report documents created");
         } catch (ClassNotFoundException e) {
-            throw new SubstitutionRuntimeException("Class defined in the placeholder cannot be found, " +
+            throw new CombinerRuntimeException("Class defined in the placeholder cannot be found, " +
                     "templateResource: '" +
                     lastTemplateResource +
                     "', " +
@@ -108,7 +108,7 @@ public class ReportDocumentCreatorService {
                     lastTemplatePlaceholder +
                     "'.", e);
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+            throw new CombinerRuntimeException(e);
         }
     }
 

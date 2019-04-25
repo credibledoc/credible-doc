@@ -1,11 +1,11 @@
-package com.credibledoc.substitution.doc.file;
+package com.credibledoc.combiner.doc.file;
 
 import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.file.NodeFileService;
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
@@ -97,7 +97,7 @@ public class FileUtilService {
 
             Date date = FileService.getInstance().findDate(file, application);
             if (date == null) {
-                throw new SubstitutionRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
+                throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
             }
             map.get(application).put(date, file);
         } else {
@@ -132,7 +132,7 @@ public class FileUtilService {
             IOUtils.copy(ais, new FileOutputStream(outputFile));
             return outputFile;
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException("Cannot unzipIfNotExists file: " + zipFile.getAbsolutePath(), e);
+            throw new CombinerRuntimeException("Cannot unzipIfNotExists file: " + zipFile.getAbsolutePath(), e);
         }
     }
 

@@ -1,11 +1,11 @@
-package com.credibledoc.substitution.doc.module.substitution.dependency;
+package com.credibledoc.combiner.doc.module.combiner.dependency;
 
 import com.credibledoc.plantuml.sequence.SequenceArrow;
 import com.credibledoc.substitution.core.content.ContentGenerator;
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
-import com.credibledoc.substitution.doc.markdown.MarkdownService;
-import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
+import com.credibledoc.combiner.doc.markdown.MarkdownService;
+import com.credibledoc.combiner.doc.module.combiner.exception.SubstitutionDocRuntimeException;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
@@ -109,7 +109,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
             stringBuilder.append(String.join(System.lineSeparator(), dependencies));
             return markdownService.generateDiagram(placeholder, stringBuilder.toString());
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+            throw new CombinerRuntimeException(e);
         }
     }
 
@@ -120,7 +120,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                 "' cannot be found. This parameter is mandatory for this placeholder. " +
                 "Example of usage: '\"" + Placeholder.FIELD_PARAMETERS +
                 "\": {\"" + JAR_RELATIVE_PATH +
-                "\": \"target/substitution-doc-1.0.0-SNAPSHOT-sources.jar\"}" +
+                "\": \"target/combiner-doc-1.0.0-SNAPSHOT-sources.jar\"}" +
                 "'. ");
         }
         File file = new File(jarRelativePath);

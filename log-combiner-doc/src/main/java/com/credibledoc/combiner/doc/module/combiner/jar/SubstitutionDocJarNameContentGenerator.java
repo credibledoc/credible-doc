@@ -1,9 +1,9 @@
-package com.credibledoc.substitution.doc.module.substitution.jar;
+package com.credibledoc.combiner.doc.module.combiner.jar;
 
+import com.credibledoc.combiner.doc.CombinerDocMain;
 import com.credibledoc.substitution.core.content.ContentGenerator;
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
-import com.credibledoc.substitution.doc.SubstitutionDocMain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,26 +24,26 @@ public class SubstitutionDocJarNameContentGenerator implements ContentGenerator 
         try {
             File targetDirectory = new File("target");
             if (!targetDirectory.exists()) {
-                throw new SubstitutionRuntimeException("Jar name cannot be found. " +
+                throw new CombinerRuntimeException("Jar name cannot be found. " +
                     "Target directory does not exists: '" + targetDirectory.getAbsolutePath() +
                     "'. Please run 'mvn install' first");
             }
             File[] files = targetDirectory.listFiles();
             if (files == null) {
-                throw new SubstitutionRuntimeException("Local variable 'files' is null. " +
+                throw new CombinerRuntimeException("Local variable 'files' is null. " +
                     "TargetDirectory: " + targetDirectory.getAbsolutePath());
             }
             for (File file : files) {
                 String name = file.getName();
-                if (name.startsWith(SubstitutionDocMain.SUBSTITUTION_DOC) && name.endsWith(".jar")) {
+                if (name.startsWith(CombinerDocMain.SUBSTITUTION_DOC) && name.endsWith(".jar")) {
                     return name;
                 }
             }
-            throw new SubstitutionRuntimeException("Jar name cannot be found. " +
+            throw new CombinerRuntimeException("Jar name cannot be found. " +
                 "Target directory '" + targetDirectory.getAbsolutePath() +
-                "' has no jar file with '" + SubstitutionDocMain.SUBSTITUTION_DOC + "' prefix. Please run 'mvn install' first");
+                "' has no jar file with '" + CombinerDocMain.SUBSTITUTION_DOC + "' prefix. Please run 'mvn install' first");
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+            throw new CombinerRuntimeException(e);
         }
     }
 

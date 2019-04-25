@@ -1,11 +1,11 @@
-package com.credibledoc.substitution.doc.markdown;
+package com.credibledoc.combiner.doc.markdown;
 
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.content.ContentGeneratorService;
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
@@ -14,10 +14,10 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
-import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreatorService;
+import com.credibledoc.combiner.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
+import com.credibledoc.combiner.doc.reportdocument.ReportDocument;
+import com.credibledoc.combiner.doc.reportdocument.creator.ReportDocumentCreator;
+import com.credibledoc.combiner.doc.reportdocument.creator.ReportDocumentCreatorService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -73,7 +73,7 @@ public class MarkdownService {
             if (!targetDirectory.exists()) {
                 boolean created = targetDirectory.mkdirs();
                 if (!created) {
-                    throw new SubstitutionRuntimeException("Cannot create directory '" +
+                    throw new CombinerRuntimeException("Cannot create directory '" +
                         targetDirectory.getAbsolutePath() +
                         "'");
                 }
@@ -86,7 +86,7 @@ public class MarkdownService {
                 insertContentIntoTemplate(templateResource);
             }
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+            throw new CombinerRuntimeException(e);
         }
     }
 
@@ -122,7 +122,7 @@ public class MarkdownService {
         if (!directory.exists()) {
             boolean created = directory.mkdirs();
             if (!created) {
-                throw new SubstitutionRuntimeException("Cannot create a new directory '" +
+                throw new CombinerRuntimeException("Cannot create a new directory '" +
                         directory.getAbsolutePath() + "'");
             }
             log.info("The new directory created '{}'", directory.getAbsolutePath());
@@ -170,9 +170,9 @@ public class MarkdownService {
                 return markdownGenerator.generate(placeholder);
             }
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+            throw new CombinerRuntimeException(e);
         }
-        throw new SubstitutionRuntimeException("Cannot find out generated content " +
+        throw new CombinerRuntimeException("Cannot find out generated content " +
                 "for the placeholder id: " + placeholder.getId() +
                 ", placeholder resource: '" + placeholder.getResource() + "'");
     }
@@ -252,7 +252,7 @@ public class MarkdownService {
             log.debug("File created: {}", svgFile.getAbsolutePath());
             return SVG_TAG_BEGIN + placeholderDescription + SVG_TAG_MIDDLE + imageDirectory.getName() + SLASH + svgFile.getName() + SVG_TAG_END;
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+            throw new CombinerRuntimeException(e);
         }
     }
 }

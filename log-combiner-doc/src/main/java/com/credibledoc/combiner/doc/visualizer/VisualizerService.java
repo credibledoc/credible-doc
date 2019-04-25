@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.doc.visualizer;
+package com.credibledoc.combiner.doc.visualizer;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
@@ -6,13 +6,13 @@ import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.state.FilesMergerState;
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.doc.report.Report;
-import com.credibledoc.substitution.doc.report.ReportService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
-import com.credibledoc.substitution.doc.transformer.TransformerService;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
+import com.credibledoc.combiner.doc.report.Report;
+import com.credibledoc.combiner.doc.report.ReportService;
+import com.credibledoc.combiner.doc.reportdocument.ReportDocument;
+import com.credibledoc.combiner.doc.reportdocument.ReportDocumentService;
+import com.credibledoc.combiner.doc.reportdocument.ReportDocumentType;
+import com.credibledoc.combiner.doc.transformer.TransformerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -105,7 +105,7 @@ public class VisualizerService {
                 "Creation of reports failed. File: '" + fileName +
                     "', ReportDirectory: '" + getReportDirectoryPath(report) +
                     "', line: '" + line + "'";
-            throw new SubstitutionRuntimeException(message, e);
+            throw new CombinerRuntimeException(message, e);
         } finally {
             for (ReportDocument reportDocument : reportDocuments) {
                 if (reportDocument.getFooterMethod() != null) {

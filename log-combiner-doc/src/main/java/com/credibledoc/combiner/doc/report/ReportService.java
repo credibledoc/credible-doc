@@ -1,14 +1,14 @@
-package com.credibledoc.substitution.doc.report;
+package com.credibledoc.combiner.doc.report;
 
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.substitution.core.template.TemplateService;
-import com.credibledoc.substitution.doc.template.Template;
+import com.credibledoc.combiner.doc.template.Template;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
-import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
+import com.credibledoc.combiner.doc.reportdocument.ReportDocument;
+import com.credibledoc.combiner.doc.reportdocument.ReportDocumentService;
+import com.credibledoc.combiner.doc.reportdocument.ReportDocumentType;
+import com.credibledoc.combiner.doc.reportdocument.creator.ReportDocumentCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -82,7 +82,7 @@ public class ReportService {
         File jsFolder = new File(publicFolder, "js");
         boolean cssFolderCreated = jsFolder.mkdirs();
         if (!cssFolderCreated) {
-            throw new SubstitutionRuntimeException("Cannot create folder: " + jsFolder.getAbsolutePath());
+            throw new CombinerRuntimeException("Cannot create folder: " + jsFolder.getAbsolutePath());
         }
         
         String jqueryFileAbsolutePath = jsFolder.getAbsolutePath() + File.separator + "jquery-1.11.0.min.js";
@@ -101,7 +101,7 @@ public class ReportService {
         File cssFolder = new File(publicFolder, "css");
         boolean isCreated = cssFolder.mkdirs();
         if (!isCreated) {
-            throw new SubstitutionRuntimeException("Cannot create folder: " + cssFolder.getAbsolutePath());
+            throw new CombinerRuntimeException("Cannot create folder: " + cssFolder.getAbsolutePath());
         }
         String cssFileAbsolutePath = cssFolder.getAbsolutePath() + File.separator + "css.css";
         TemplateService templateService = TemplateService.getInstance();

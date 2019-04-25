@@ -1,12 +1,12 @@
-package com.credibledoc.substitution.doc.module.substitution;
+package com.credibledoc.combiner.doc.module.combiner;
 
 import com.credibledoc.combiner.date.DateService;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogFileReader;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.tactic.Tactic;
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.doc.module.substitution.application.Substitution;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
+import com.credibledoc.combiner.doc.module.combiner.application.Substitution;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +61,7 @@ public class SubstitutionTactic implements Tactic {
             }
             return null;
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException("Cannot find date. File: " + file.getAbsolutePath(), e);
+            throw new CombinerRuntimeException("Cannot find date. File: " + file.getAbsolutePath(), e);
         }
     }
 
@@ -107,7 +107,7 @@ public class SubstitutionTactic implements Tactic {
 
             return null;
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException("Cannot parse a date from the line: " + line, e);
+            throw new CombinerRuntimeException("Cannot parse a date from the line: " + line, e);
         }
     }
 

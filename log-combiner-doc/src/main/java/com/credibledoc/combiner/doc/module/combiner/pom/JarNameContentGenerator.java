@@ -1,7 +1,7 @@
-package com.credibledoc.substitution.doc.module.substitution.pom;
+package com.credibledoc.combiner.doc.module.combiner.pom;
 
 import com.credibledoc.substitution.core.content.ContentGenerator;
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ import java.net.URL;
  * Example
  * <pre>
  *     &&beginPlaceholder {
- *             "className": "com.credibledoc.substitution.doc.module.substitution.pom.JarNameContentGenerator",
+ *             "className": "com.credibledoc.combiner.doc.module.combiner.pom.JarNameContentGenerator",
  *             "description": "Latest plantuml-core.jar name",
  *             "parameters": {"url": "https://repo1.maven.org/maven2/com/credibledoc/plantuml-core/maven-metadata.xml"}
  *           } &&endPlaceholder
@@ -47,7 +47,7 @@ public class JarNameContentGenerator implements ContentGenerator {
     public String generate(Placeholder placeholder) {
         String url = placeholder.getParameters().get("url");
         if (url == null) {
-            throw new SubstitutionRuntimeException("Placeholder parameter 'url' is required, but found 'null'.");
+            throw new CombinerRuntimeException("Placeholder parameter 'url' is required, but found 'null'.");
         }
         return loadJarName(url);
     }
@@ -61,7 +61,7 @@ public class JarNameContentGenerator implements ContentGenerator {
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String contentType = httpConn.getContentType();
                 if (!TEXT_XML.equals(contentType)) {
-                    throw new SubstitutionRuntimeException("Expected '" + TEXT_XML + "', but found " + contentType);
+                    throw new CombinerRuntimeException("Expected '" + TEXT_XML + "', but found " + contentType);
                 }
                 InputStream inputStream = httpConn.getInputStream();
                 String xmlString = convertStreamToString(inputStream);
@@ -74,7 +74,7 @@ public class JarNameContentGenerator implements ContentGenerator {
             }
             httpConn.disconnect();
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+            throw new CombinerRuntimeException(e);
         }
         return result;
     }
@@ -82,11 +82,11 @@ public class JarNameContentGenerator implements ContentGenerator {
     private String parseTag(String xmlString, String beginTag, String endTag) {
         int beginIndex = xmlString.indexOf(beginTag);
         if (beginIndex == -1) {
-            throw new SubstitutionRuntimeException("Cannot find " + beginTag);
+            throw new CombinerRuntimeException("Cannot find " + beginTag);
         }
         int endIndex = xmlString.indexOf(endTag, beginIndex);
         if (endIndex == -1) {
-            throw new SubstitutionRuntimeException("Cannot find " + endTag);
+            throw new CombinerRuntimeException("Cannot find " + endTag);
         }
         return xmlString.substring(beginIndex + beginTag.length(), endIndex);
     }

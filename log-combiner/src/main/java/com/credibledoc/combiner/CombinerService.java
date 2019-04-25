@@ -11,7 +11,6 @@ import com.credibledoc.combiner.date.DateService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.combiner.log.buffered.LogFileReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
@@ -176,7 +175,7 @@ public class CombinerService {
 
     private void joinFiles(File folder) throws IOException {
         List<File> files = new ArrayList<>();
-        collectFilesRecursive(folder, files);
+        collectFilesRecursively(folder, files);
         Collections.sort(files, new Comparator<File>() {
             @Override
             public int compare(File left, File right) {
@@ -208,7 +207,7 @@ public class CombinerService {
         logger.info("All files combined to '{}'", targetFile.getAbsolutePath());
     }
 
-    private void collectFilesRecursive(File folder, List<File> collectedFiles) {
+    private void collectFilesRecursively(File folder, List<File> collectedFiles) {
         File[] files = folder.listFiles();
         if (files == null) {
             throw new CombinerRuntimeException("The file is not a folder. File: '" + folder.getAbsolutePath() + "'");
@@ -217,7 +216,7 @@ public class CombinerService {
             if (file.isFile()) {
                 collectedFiles.add(file);
             } else {
-                collectFilesRecursive(file, collectedFiles);
+                collectFilesRecursively(file, collectedFiles);
             }
         }
     }
@@ -256,21 +255,14 @@ public class CombinerService {
 
                     @Override
                     public Date findDate(File file) {
-                        try (LogBufferedReader logBufferedReader = new LogBufferedReader(new LogFileReader(file))) {
-                            String line = logBufferedReader.readLine();
-                            while (line != null) {
-                                Date date = findDate(line);
-                                if (date != null) {
-                                    return date;
-                                }
-                                line = logBufferedReader.readLine();
-                            }
+                        Date date = DateService.getInstance()
+                            .findDateInFile(file, simpleDateFormat, pattern, tacticConfig.getMaxIndexEndOfTime());
+                        if (date == null) {
                             throw new CombinerRuntimeException("Cannot recognize some line with Date pattern " +
                                 tacticConfig.getSimpleDateFormat() +
                                 " in file: " + file.getAbsolutePath());
-                        } catch (Exception e) {
-                            throw new CombinerRuntimeException(e);
                         }
+                        return date;
                     }
 
                     @Override
