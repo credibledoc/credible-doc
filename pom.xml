@@ -69,6 +69,8 @@
 
     <modules>
         <module>combiner-core</module>
+        <module>log-combiner</module>
+        <module>log-combiner-doc</module>
     </modules>
 
     <distributionManagement>
