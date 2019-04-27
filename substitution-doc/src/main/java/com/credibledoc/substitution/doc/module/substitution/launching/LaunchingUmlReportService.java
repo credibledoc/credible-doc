@@ -1,11 +1,11 @@
 package com.credibledoc.substitution.doc.module.substitution.launching;
 
 import com.credibledoc.substitution.core.placeholder.Placeholder;
+import com.credibledoc.enricher.line.LineProcessor;
+import com.credibledoc.enricher.line.LineProcessorService;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
-import com.credibledoc.substitution.doc.transformer.LineProcessor;
-import com.credibledoc.substitution.doc.transformer.LineProcessorService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +27,6 @@ public class LaunchingUmlReportService implements ReportDocumentCreator {
 
     @NonNull
     private final ApplicationContext applicationContext;
-
-    @NonNull
-    private final LineProcessorService lineProcessorService;
 
     /**
      * Create a stateful object of {@link ReportDocument} type.
@@ -63,7 +60,7 @@ public class LaunchingUmlReportService implements ReportDocumentCreator {
                 applicationContext.getBean(FinishedTransformer.class),
                 reportDocument));
 
-        lineProcessorService.getLineProcessors().addAll(lineProcessors);
+        LineProcessorService.getInstance().getLineProcessors().addAll(lineProcessors);
         log.info("Line processors prepared");
         return reportDocument;
     }

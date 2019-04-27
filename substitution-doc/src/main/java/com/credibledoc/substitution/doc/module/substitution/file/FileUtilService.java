@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.doc.file;
+package com.credibledoc.substitution.doc.module.substitution.file;
 
 import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.ApplicationService;

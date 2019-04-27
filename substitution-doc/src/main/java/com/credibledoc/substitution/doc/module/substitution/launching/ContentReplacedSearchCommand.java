@@ -1,9 +1,9 @@
 package com.credibledoc.substitution.doc.module.substitution.launching;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.searchcommand.SearchCommand;
 import com.credibledoc.substitution.doc.markdown.MarkdownService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.searchcommand.SearchCommand;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public class ContentReplacedSearchCommand implements SearchCommand {
 
     @Override
-    public boolean isApplicable(ReportDocument reportDocument,
+    public boolean isApplicable(Deriving deriving,
                                 List<String> multiLine, LogBufferedReader logBufferedReader) {
         return multiLine.get(0).contains(MarkdownService.CONTENT_REPLACED);
     }

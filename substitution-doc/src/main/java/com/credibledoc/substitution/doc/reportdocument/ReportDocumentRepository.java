@@ -1,6 +1,6 @@
 package com.credibledoc.substitution.doc.reportdocument;
 
-import com.credibledoc.substitution.doc.transformer.LineProcessor;
+import com.credibledoc.enricher.line.LineProcessor;
 import com.credibledoc.substitution.doc.visualizer.VisualizerService;
 import org.springframework.stereotype.Repository;
 

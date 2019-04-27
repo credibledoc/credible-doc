@@ -50,7 +50,7 @@ This diagram is generated from parsed substitution-doc_1.log file.
     "parameters": {"sourceFileRelativePath": "log/substitution-doc_1.log"}
 } &&endPlaceholder
 
-### Dependencies of the `com.credibledoc.substitution.doc.report` package on other packages in the `substitution-doc` and `substitution-core` modules
+### Dependencies of the `com.credibledoc.substitution.doc.report` package on `com.credibledoc.substitution.doc` and `com.credibledoc.substitution.core` packages
 
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
@@ -60,7 +60,7 @@ This diagram is generated from parsed substitution-doc_1.log file.
         "dependenciesPackagesSemicolonSeparated": "com.credibledoc.substitution.doc;com.credibledoc.substitution.core"}
 } &&endPlaceholder
 
-### Dependencies of the `substitution-doc` module on packages in the `combiner-core` module
+### Dependencies of the `substitution-doc` module on packages on the `combiner-core` module
 
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
@@ -68,4 +68,47 @@ This diagram is generated from parsed substitution-doc_1.log file.
     "parameters": {"jarRelativePath": "target/substitution-doc-1.0.0-SNAPSHOT-sources.jar",
         "dependantPackage": "com.credibledoc.substitution.doc",
         "dependenciesPackagesSemicolonSeparated": "com.credibledoc.combiner"}
+} &&endPlaceholder
+
+### Dependencies of all packages of the the `substitution-doc` module on its `substitution` package
+
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
+    "description": "Package dependency diagram.",
+    "parameters": {"jarRelativePath": "target/substitution-doc-1.0.0-SNAPSHOT-sources.jar",
+        "dependantPackage": "com.credibledoc.substitution.doc",
+        "dependenciesPackagesSemicolonSeparated": "com.credibledoc.substitution.doc.module.substitution",
+        "ignoreInnerPackages": "true"}
+} &&endPlaceholder
+
+### Dependencies of all packages of the the `substitution` package on other packages of the `substitution-doc` module
+
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
+    "description": "Package dependency diagram.",
+    "parameters": {"jarRelativePath": "target/substitution-doc-1.0.0-SNAPSHOT-sources.jar",
+        "dependantPackage": "com.credibledoc.substitution.doc.module.substitution",
+        "dependenciesPackagesSemicolonSeparated": "com.credibledoc.substitution.doc",
+        "ignoreInnerPackages": "true"}
+} &&endPlaceholder
+
+### Dependencies of all packages of the the `substitution-doc` module on its `enricher` package
+
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
+    "description": "Package dependency diagram.",
+    "parameters": {"jarRelativePath": "target/substitution-doc-1.0.0-SNAPSHOT-sources.jar",
+        "dependantPackage": "com.credibledoc.substitution.doc",
+        "dependenciesPackagesSemicolonSeparated": "com.credibledoc.enricher"}
+} &&endPlaceholder
+
+### Dependencies of `enricher` package on other packages of the `substitution-doc` module
+
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator",
+    "description": "Package dependency diagram.",
+    "parameters": {"jarRelativePath": "target/substitution-doc-1.0.0-SNAPSHOT-sources.jar",
+        "dependantPackage": "com.credibledoc.enricher",
+        "dependenciesPackagesSemicolonSeparated": "com.credibledoc.substitution.doc",
+        "ignoreInnerPackages": "true"}
 } &&endPlaceholder

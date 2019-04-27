@@ -1,8 +1,8 @@
 package com.credibledoc.substitution.doc.module.substitution.activity;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.searchcommand.SearchCommand;
+import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.searchcommand.SearchCommand;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 public class AnyLineSearchCommand implements SearchCommand {
 
     @Override
-    public boolean isApplicable(ReportDocument reportDocument, List<String> multiLine, LogBufferedReader logBufferedReader) {
+    public boolean isApplicable(Deriving deriving, List<String> multiLine, LogBufferedReader logBufferedReader) {
         return true;
     }
 }

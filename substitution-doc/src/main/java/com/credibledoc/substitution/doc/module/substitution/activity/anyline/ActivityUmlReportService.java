@@ -2,14 +2,15 @@ package com.credibledoc.substitution.doc.module.substitution.activity.anyline;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
+import com.credibledoc.enricher.deriving.Deriving;
 import com.credibledoc.substitution.doc.module.substitution.activity.AnyLineSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
-import com.credibledoc.substitution.doc.transformer.LineProcessor;
-import com.credibledoc.substitution.doc.transformer.LineProcessorService;
-import com.credibledoc.substitution.doc.transformer.Transformer;
+import com.credibledoc.enricher.line.LineProcessor;
+import com.credibledoc.enricher.line.LineProcessorService;
+import com.credibledoc.enricher.transformer.Transformer;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +33,6 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
     @NonNull
     private final ApplicationContext applicationContext;
 
-    @NonNull
-    private final LineProcessorService lineProcessorService;
-
     /**
      * Create a stateful object of {@link ReportDocument} type.
      *
@@ -52,7 +50,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
                         applicationContext.getBean(AnyLineTransformer.class),
                         reportDocument));
 
-        lineProcessorService.getLineProcessors().addAll(lineProcessors);
+        LineProcessorService.getInstance().getLineProcessors().addAll(lineProcessors);
         log.info("Line processors prepared");
         return reportDocument;
     }
@@ -78,7 +76,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
         public final LogMessageService logMessageService;
 
         @Override
-        public String transform(ReportDocument reportDocument, List<String> multiLine,
+        public String transform(Deriving deriving, List<String> multiLine,
                                 LogBufferedReader logBufferedReader) {
             String currentSwimlane = parseClassName(multiLine.get(0));
             int maxRowLength = currentSwimlane.length() * 2 + currentSwimlane.length() / 2;
@@ -86,7 +84,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
             String result = "|" + currentSwimlane + "|" + LogMessageService.LINE_SEPARATOR +
                 LogMessageService.FOUR_SPACES + ":" + message + ";" + LogMessageService.LINE_SEPARATOR;
 
-            reportDocument.getCacheLines().add(result);
+            deriving.getCacheLines().add(result);
 
             return null;
         }

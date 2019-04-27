@@ -1,7 +1,8 @@
-package com.credibledoc.substitution.doc.transformer;
+package com.credibledoc.substitution.doc.module.substitution.empty;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
+import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.transformer.Transformer;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,9 +22,9 @@ public class EmptyTransformer implements Transformer {
     static final int MIN_LINES_COUNT_FOR_DECISION = 2;
 
     @Override
-    public String transform(ReportDocument reportDocument, List<String> multiLine, LogBufferedReader logBufferedReader) {
-        if (reportDocument.getCacheLines().size() < MIN_LINES_COUNT_FOR_DECISION) {
-            reportDocument.getCacheLines().add(multiLine.get(0));
+    public String transform(Deriving deriving, List<String> multiLine, LogBufferedReader logBufferedReader) {
+        if (deriving.getCacheLines().size() < MIN_LINES_COUNT_FOR_DECISION) {
+            deriving.getCacheLines().add(multiLine.get(0));
         }
         return String.join(System.lineSeparator(), multiLine);
     }

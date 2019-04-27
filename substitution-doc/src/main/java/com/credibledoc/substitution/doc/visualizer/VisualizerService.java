@@ -12,7 +12,7 @@ import com.credibledoc.substitution.doc.report.ReportService;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
-import com.credibledoc.substitution.doc.transformer.TransformerService;
+import com.credibledoc.enricher.transformer.TransformerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -33,9 +33,6 @@ import java.util.List;
 public class VisualizerService {
 
     private static final Logger logger = LoggerFactory.getLogger(VisualizerService.class);
-    
-    @NonNull
-    private TransformerService transformerService;
 
     @NonNull
     private final ReportService reportService;
@@ -71,6 +68,7 @@ public class VisualizerService {
 
         LogBufferedReader currentReader = null;
         int currentLineNumber = 0;
+        TransformerService transformerService = TransformerService.getInstance();
         try {
             line = readerService.readLineFromReaders(filesMergerState);
             String substring = line.substring(0, 35);

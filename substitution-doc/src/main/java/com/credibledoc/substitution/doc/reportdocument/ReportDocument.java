@@ -1,6 +1,7 @@
 package com.credibledoc.substitution.doc.reportdocument;
 
 import com.credibledoc.combiner.node.file.NodeFile;
+import com.credibledoc.enricher.deriving.Deriving;
 import com.credibledoc.substitution.doc.report.Report;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -24,7 +25,7 @@ import java.util.function.Consumer;
  */
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class ReportDocument {
+public class ReportDocument implements Deriving {
 
     /**
      * {@link Writer} of the report document
@@ -98,9 +99,7 @@ public class ReportDocument {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
-    /**
-     * @return The {@link ReportDocument#printWriter} field
-     */
+    @Override
     public PrintWriter getPrintWriter() {
         return printWriter;
     }
@@ -182,9 +181,7 @@ public class ReportDocument {
         this.footerMethod = footerMethod;
     }
 
-    /**
-     * @return The {@link ReportDocument#cacheLines} field
-     */
+    @Override
     public List<String> getCacheLines() {
         return cacheLines;
     }

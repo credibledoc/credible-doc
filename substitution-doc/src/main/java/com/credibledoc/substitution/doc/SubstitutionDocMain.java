@@ -81,7 +81,6 @@ public class SubstitutionDocMain {
     private void substitute() {
         TacticService.getInstance().getTactics().add(substitutionSpecificTactic);
         ApplicationIdentifierService.getInstance().getApplicationIdentifiers().add(substitutionApplicationIdentifier);
-//        ApplicationService.getInstance().
         ContentGeneratorService.getInstance().addContentGenerators(markdownGenerators);
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
         markdownService.reportDocumentCreatorService.createReportDocuments();

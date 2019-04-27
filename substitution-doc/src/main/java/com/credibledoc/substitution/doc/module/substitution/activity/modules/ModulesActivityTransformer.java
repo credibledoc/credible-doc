@@ -5,10 +5,10 @@ import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.doc.SubstitutionDocMain;
+import com.credibledoc.enricher.deriving.Deriving;
 import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.transformer.Transformer;
+import com.credibledoc.enricher.transformer.Transformer;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -65,13 +65,13 @@ public class ModulesActivityTransformer implements Transformer {
     }
 
     @Override
-    public String transform(ReportDocument reportDocument,
+    public String transform(Deriving deriving,
                             List<String> multiLine, LogBufferedReader logBufferedReader) {
         String canonicalClassName = parseClassName(multiLine.get(0));
         String moduleName = findModuleName(canonicalClassName);
 
         int maxRowLength = moduleName.length() * 2 + moduleName.length() / 2;
-        List<String> cacheLines = reportDocument.getCacheLines();
+        List<String> cacheLines = deriving.getCacheLines();
         addMessageToCache(multiLine, moduleName, maxRowLength, cacheLines);
 
         return null;

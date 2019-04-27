@@ -30,6 +30,9 @@ import java.util.Set;
  * <p>
  * This information will be parsed from a jar file with a source code. Path to this jar file is configured in the
  * {@link #JAR_RELATIVE_PATH} variable.
+ * <p>
+ * If the {@link #IGNORE_INNER_PACKAGES} parameter is 'true', dependencies on inner packages will not be showed.
+ * Default value is 'false'.
  *
  * @author Kyrylo Semenko
  */
@@ -43,6 +46,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private static final String DEPENDENCIES_PACKAGES = "dependenciesPackagesSemicolonSeparated";
     private static final String SEPARATOR = ";";
     private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String IGNORE_INNER_PACKAGES = "ignoreInnerPackages";
 
     @NonNull
     MarkdownService markdownService;
@@ -57,6 +61,8 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
             ParserConfiguration parserConfiguration = new ParserConfiguration();
             sourceZip.setParserConfiguration(parserConfiguration);
             List<Pair<Path, ParseResult<CompilationUnit>>> parsedPairs = sourceZip.parse();
+            String ignoreInnerPackagesString = placeholder.getParameters().get(IGNORE_INNER_PACKAGES);
+            boolean ignoreInnerPackages = "true".equals(ignoreInnerPackagesString);
 
             NodeList<ImportDeclaration> importsNodeList = new NodeList<>();
             for (Pair<Path, ParseResult<CompilationUnit>> pair : parsedPairs) {
@@ -69,11 +75,37 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                     .orElseThrow(() -> new SubstitutionDocRuntimeException(
                         "Package name cannot be found. CompilationUnit: " + compilationUnit))
                     .getNameAsString();
-                if (packageName.startsWith(dependantPackage)) {
+                /*
+                    For example:
+                    IF
+                        First class is com.first.First
+                            and imports com.second.Second
+                        Second class is com.second.Second
+                    THEN
+                        the First class IS depend on the Second class
+
+                    IF
+                        First class is com.first.First
+                            and imports com.first.Second
+                        Second class is com.first.Second
+                    THEN
+                        the First class IS NOT depend on the Second class
+
+                    IF
+                        First class is com.first.First
+                            and imports com.first.second.Second
+                        Second class is com.first.second.Second
+                    THEN
+                        IF ignoreInnerPackages
+                            the First class IS NOT depend on the Second class
+                        ELSE
+                            the First class IS depend on the Second class
+                 */
+                if (packageName.startsWith(dependantPackage) && !containsOneOf(packageName, dependenciesPackages)) {
                     for (ImportDeclaration importDeclaration : compilationUnit.getImports()) {
                         String nextImport = importDeclaration.getNameAsString();
-                        if (!nextImport.startsWith(dependantPackage) &&
-                            startsWithOneOf(nextImport, dependenciesPackages)) {
+                        if (startsWithOneOf(nextImport, dependenciesPackages) &&
+                                !classBelongsToPackage(nextImport, dependantPackage, ignoreInnerPackages)) {
 
                             importsNodeList.add(importDeclaration);
                         }
@@ -91,7 +123,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                 .append(INDENTATION).append("BorderColor SpringGreen").append(System.lineSeparator())
                 .append("}").append(System.lineSeparator())
                 .append(System.lineSeparator())
-                .append("Class ").append(dependantPackage).append(" << (P,PaleGreen) >>")
+                .append("Class ").append(dependantPackage).append(" << (P,LightSeaGreen) >>")
                 .append(System.lineSeparator());
 
             Set<String> classLines = new HashSet<>();
@@ -107,10 +139,38 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                     SequenceArrow.DEPENDENCY_ARROW.getUml() + importDeclaration.getNameAsString());
             }
             stringBuilder.append(String.join(System.lineSeparator(), dependencies));
-            return markdownService.generateDiagram(placeholder, stringBuilder.toString());
+            String linkToDiagram = markdownService.generateDiagram(placeholder, stringBuilder.toString());
+            StringBuilder result =
+                new StringBuilder(linkToDiagram)
+                    .append(LINE_SEPARATOR)
+                    .append(LINE_SEPARATOR)
+                    .append("_").append(placeholder.getDescription()).append("_")
+                    .append(LINE_SEPARATOR);
+            return result.toString();
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
+    }
+
+    private boolean classBelongsToPackage(String className, String packageName, boolean ignoreInnerPackages) {
+        int index = className.indexOf(packageName);
+        if (index == -1) {
+            return false;
+        }
+        String suffix = className.substring(packageName.length());
+        if (ignoreInnerPackages) {
+            return suffix.startsWith(".");
+        }
+        return suffix.startsWith(".") && suffix.split("\\.").length < 3;
+    }
+
+    private boolean containsOneOf(String packageName, String[] packageNames) {
+        for (String nextPackageName : packageNames) {
+            if (packageName.equals(nextPackageName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Path getSourcesJarPath(Placeholder placeholder) {
