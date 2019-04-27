@@ -28,7 +28,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
- * This stateless instance contains methods for launching
+ * This stateless instance contains methods for launching of
  * the {@link CombinerCommandLineMain#LOG_COMBINER_MODULE_NAME} tool.
  *
  * @author Kyrylo Semenko
@@ -305,7 +305,7 @@ public class CombinerService {
      *                        will be processed recursively.
      * @param applicationLogs at first invocation an empty, and it will be filled with files
      */
-    private void collectApplicationLogs(File directory, List<ApplicationLog> applicationLogs) {
+    public void collectApplicationLogs(File directory, List<ApplicationLog> applicationLogs) {
         Map<Application, Map<Date, File>> map = new HashMap<>();
         File[] files = Objects.requireNonNull(directory.listFiles());
         for (File file : files) {
@@ -319,9 +319,7 @@ public class CombinerService {
         }
     }
 
-    private void addFileToMap(List<ApplicationLog> applicationLogs, Map<Application,
-        Map<Date, File>> map, File file) {
-
+    private void addFileToMap(List<ApplicationLog> applicationLogs, Map<Application, Map<Date, File>> map, File file) {
         if (file.isFile()) {
             Application application = FileService.getInstance().findApplication(file);
             if (!map.containsKey(application)) {
