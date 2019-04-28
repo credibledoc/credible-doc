@@ -10,7 +10,7 @@ import java.io.File;
  * Generates the published jar name. Tries to find the current jar name in the <b>target</b> directory.
  * <p>
  * Usage:
- * <pre>
+ * <pre>{@code
  *     &&beginPlaceholder {
  *         "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
  *         "description": "Current name of the substitution-doc-X.X.X.jar.",
@@ -19,7 +19,7 @@ import java.io.File;
  *             "jarNamePrefix": "substitution-doc-"
  *         }
  *     } &&endPlaceholder
- * </pre>
+ * }</pre>
  * @author Kyrylo Semenko
  */
 public class LocalJarNameContentGenerator implements ContentGenerator {

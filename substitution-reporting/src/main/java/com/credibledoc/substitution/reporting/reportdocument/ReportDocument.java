@@ -1,13 +1,8 @@
-package com.credibledoc.substitution.doc.reportdocument;
+package com.credibledoc.substitution.reporting.reportdocument;
 
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.enricher.deriving.Deriving;
-import com.credibledoc.substitution.doc.report.Report;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import com.credibledoc.substitution.reporting.report.Report;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -23,8 +18,6 @@ import java.util.function.Consumer;
  *
  * @author Kyrylo Semenko
  */
-@Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ReportDocument implements Deriving {
 
     /**
@@ -96,7 +89,20 @@ public class ReportDocument implements Deriving {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+        return "ReportDocument{" +
+            "printWriter=" + printWriter +
+            ", fileNumber=" + fileNumber +
+            ", reportDirectory=" + reportDirectory +
+            ", fileExtension='" + fileExtension + '\'' +
+            ", headerMethod=" + headerMethod +
+            ", footerMethod=" + footerMethod +
+            ", cacheLines=" + cacheLines +
+            ", linkResource='" + linkResource + '\'' +
+            ", reportDocumentType=" + reportDocumentType +
+            ", nodeFiles=" + nodeFiles +
+            ", file=" + file +
+            ", report=" + report +
+            '}';
     }
 
     @Override

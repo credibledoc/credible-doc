@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.doc.visualizer;
+package com.credibledoc.substitution.reporting.visualizer;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
@@ -6,20 +6,16 @@ import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.state.FilesMergerState;
-import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.doc.report.Report;
-import com.credibledoc.substitution.doc.report.ReportService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
 import com.credibledoc.enricher.transformer.TransformerService;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.reporting.report.Report;
+import com.credibledoc.substitution.reporting.report.ReportService;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentService;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -28,17 +24,24 @@ import java.util.List;
  *
  * @author Kyrylo Semenko
  */
-@Service
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class VisualizerService {
 
     private static final Logger logger = LoggerFactory.getLogger(VisualizerService.class);
 
-    @NonNull
-    private final ReportService reportService;
+    /**
+     * Singleton.
+     */
+    private static VisualizerService instance;
 
-    @NonNull
-    private ReportDocumentService reportDocumentService;
+    /**
+     * @return The {@link VisualizerService} singleton.
+     */
+    public static VisualizerService getInstance() {
+        if (instance == null) {
+            instance = new VisualizerService();
+        }
+        return instance;
+    }
 
     /**
      * Read files(s), parse them and create reports.
@@ -48,7 +51,7 @@ public class VisualizerService {
      */
     public void createReports(List<ReportDocumentType> reportDocumentTypes) {
         logger.info("Method createReports started, reportDocumentTypes: '{}'", reportDocumentTypes);
-        List<Report> reports = reportService.getReports();
+        List<Report> reports = ReportService.getInstance().getReports();
         for (Report report : reports) {
             createReport(reportDocumentTypes, report);
         }
@@ -56,6 +59,7 @@ public class VisualizerService {
 
     private void createReport(List<ReportDocumentType> reportDocumentTypes, Report report) {
         logger.info("Method createReports started. Report: {}", report.hashCode());
+        ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
         List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
         List<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
         List<ApplicationLog> applicationLogs = ApplicationLogService.getInstance().getApplicationLogs(nodeFiles);

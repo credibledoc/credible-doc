@@ -1,8 +1,4 @@
-package com.credibledoc.substitution.doc.report;
-
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+package com.credibledoc.substitution.reporting.report;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,8 +8,6 @@ import java.util.List;
  * Contains a global state of generated reports. It contains for example
  * {@link #directory}, {@link #linesNumber} and {@link #transactionsFilter}.
  */
-@Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class Report {
     /**
      * Where all reports will be placed.

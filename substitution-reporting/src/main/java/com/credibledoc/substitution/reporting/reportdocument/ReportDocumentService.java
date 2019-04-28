@@ -1,12 +1,8 @@
-package com.credibledoc.substitution.doc.reportdocument;
+package com.credibledoc.substitution.reporting.reportdocument;
 
 import com.credibledoc.combiner.node.file.NodeFile;
-import com.credibledoc.substitution.doc.report.Report;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.credibledoc.substitution.reporting.report.Report;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -18,18 +14,29 @@ import java.util.stream.Collectors;
  *
  * @author Kyrylo Semenko
  */
-@Service
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ReportDocumentService {
-    @NonNull
-    private ReportDocumentRepository reportDocumentRepository;
+
+    /**
+     * Singleton.
+     */
+    private static ReportDocumentService instance;
+
+    /**
+     * @return The {@link ReportDocumentService} singleton.
+     */
+    public static ReportDocumentService getInstance() {
+        if (instance == null) {
+            instance = new ReportDocumentService();
+        }
+        return instance;
+    }
 
     /**
      * Call the {@link ReportDocumentRepository#getReportDocuments()} method.
      * @return all {@link ReportDocument}s from the {@link ReportDocumentRepository}.
      */
     public List<ReportDocument> getReportDocuments() {
-        return reportDocumentRepository.getReportDocuments();
+        return ReportDocumentRepository.getInstance().getReportDocuments();
     }
 
     /**
@@ -37,7 +44,7 @@ public class ReportDocumentService {
      * @return all {@link ReportDocument}s from the {@link ReportDocumentRepository}.
      */
     private List<ReportDocument> getReportDocumentsForAddition() {
-        return reportDocumentRepository.getReportDocumentsForAddition();
+        return ReportDocumentRepository.getInstance().getReportDocumentsForAddition();
     }
 
     /**
@@ -52,9 +59,13 @@ public class ReportDocumentService {
     }
 
     public List<ReportDocument> getReportDocuments(Report report) {
-        return getReportDocuments().stream()
-            .filter(reportDocument -> reportDocument.getReport() == report)
-            .collect(Collectors.toList());
+        List<ReportDocument> result = new ArrayList<>();
+        for (ReportDocument reportDocument : getReportDocuments()) {
+            if (report == reportDocument.getReport()) {
+                result.add(reportDocument);
+            }
+        }
+        return result;
     }
 
     /**

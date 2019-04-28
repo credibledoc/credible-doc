@@ -10,10 +10,9 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
-import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
-import lombok.NonNull;
+import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentService;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
+import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -47,9 +46,6 @@ public class MarkdownService {
     private static final String SVG_TAG_MIDDLE = "](";
     private static final String SVG_TAG_END = "?sanitize=true)";
     public static final String CONTENT_REPLACED = "Content replaced. ";
-
-    @NonNull
-    public final PlaceholderToReportDocumentService placeholderToReportDocumentService;
 
     private Configuration configuration;
 
@@ -190,7 +186,7 @@ public class MarkdownService {
      *     <li>Load template from the {@link Placeholder#getResource()} field</li>
      *     <li>Create a new file from the template in the {@link Configuration#getTargetDirectory()} directory</li>
      *     <li>Create a new {@link #IMAGE_DIRECTORY_NAME} directory</li>
-     *     <li>Get a {@link ReportDocument} form the {@link #placeholderToReportDocumentService}</li>
+     *     <li>Get a {@link ReportDocument} form the {@link PlaceholderToReportDocumentService}</li>
      *     <li>Join lines from the {@link ReportDocument#getCacheLines()} list</li>
      *     <li>And return result of the
      *     {@link #generateSvgFileAndTagForMarkdown(File, File, String, String, String)} method</li>
@@ -212,7 +208,8 @@ public class MarkdownService {
         File imageDirectory = new File(directory, IMAGE_DIRECTORY_NAME);
         createDirectoryIfNotExists(imageDirectory);
         if (plantUml == null) {
-            ReportDocument reportDocument = placeholderToReportDocumentService.getReportDocument(placeholder);
+            ReportDocument reportDocument = PlaceholderToReportDocumentService.getInstance()
+                .getReportDocument(placeholder);
             plantUml = StringUtils.join(reportDocument.getCacheLines(), System.lineSeparator());
         }
         String placeholderDescription = placeholder.getDescription();

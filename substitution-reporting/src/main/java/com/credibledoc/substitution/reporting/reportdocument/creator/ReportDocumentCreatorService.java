@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.doc.reportdocument.creator;
+package com.credibledoc.substitution.reporting.reportdocument.creator;
 
 import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.file.FileService;
@@ -14,19 +14,15 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
-import com.credibledoc.substitution.doc.markdown.MarkdownService;
-import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentRepository;
-import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
-import com.credibledoc.substitution.doc.report.Report;
-import com.credibledoc.substitution.doc.report.ReportService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentService;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentRepository;
+import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentService;
+import com.credibledoc.substitution.reporting.report.Report;
+import com.credibledoc.substitution.reporting.report.ReportService;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.util.*;
 
@@ -35,23 +31,25 @@ import java.util.*;
  *
  * @author Kyrylo Semenko
  */
-@Service
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
-@Slf4j
 public class ReportDocumentCreatorService {
+    private static final Logger logger = LoggerFactory.getLogger(ReportDocumentCreatorService.class);
     private static final String SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER = "sourceFileRelativePath";
+    private static final String MARKDOWN_FILE_EXTENSION = ".md";
 
-    @NonNull
-    private ReportDocumentCreatorRepository reportDocumentCreatorRepository;
+    /**
+     * Singleton.
+     */
+    private static ReportDocumentCreatorService instance;
 
-    @NonNull
-    private final ReportDocumentService reportDocumentService;
-
-    @NonNull
-    private final ReportService reportService;
-
-    @NonNull
-    private final PlaceholderToReportDocumentService placeholderToReportDocumentService;
+    /**
+     * @return The {@link ReportDocumentCreatorService} singleton.
+     */
+    public static ReportDocumentCreatorService getInstance() {
+        if (instance == null) {
+            instance = new ReportDocumentCreatorService();
+        }
+        return instance;
+    }
 
     /**
      * Add all items to the {@link ReportDocumentCreatorRepository#getMap()} entries.
@@ -63,7 +61,7 @@ public class ReportDocumentCreatorService {
         for (ReportDocumentCreator reportDocumentCreator : reportDocumentCreators) {
             map.put(reportDocumentCreator.getClass(), reportDocumentCreator);
         }
-        reportDocumentCreatorRepository.getMap().putAll(map);
+        ReportDocumentCreatorRepository.getInstance().getMap().putAll(map);
     }
 
     /**
@@ -74,11 +72,12 @@ public class ReportDocumentCreatorService {
     public void createReportDocuments() {
         String lastTemplateResource = null;
         String lastTemplatePlaceholder = null;
+        ReportDocumentCreatorRepository reportDocumentCreatorRepository = ReportDocumentCreatorRepository.getInstance();
         try {
             String templatesResource = ConfigurationService.getInstance().getConfiguration().getTemplatesResource();
             List<String> resources =
-                    ResourceService.getInstance().getResources(MarkdownService.MARKDOWN_FILE_EXTENSION, templatesResource);
-            log.info("Markdown templates will be loaded from the resources: {}", resources);
+                    ResourceService.getInstance().getResources(MARKDOWN_FILE_EXTENSION, templatesResource);
+            logger.info("Markdown templates will be loaded from the resources: {}", resources);
             PlaceholderService placeholderService = PlaceholderService.getInstance();
             for (String templateResource : resources) {
                 lastTemplateResource = templateResource;
@@ -98,7 +97,7 @@ public class ReportDocumentCreatorService {
                     }
                 }
             }
-            log.info("Report documents created");
+            logger.info("Report documents created");
         } catch (ClassNotFoundException e) {
             throw new SubstitutionRuntimeException("Class defined in the placeholder cannot be found, " +
                     "templateResource: '" +
@@ -130,16 +129,16 @@ public class ReportDocumentCreatorService {
     private void createReportDocumentForPlaceholder(Placeholder placeholder,
                                                     ReportDocumentCreator reportDocumentCreator) {
         ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
-        placeholderToReportDocumentService.putPlaceholderToReportDocument(placeholder, reportDocument);
-        reportDocumentService.getReportDocuments().add(reportDocument);
+        PlaceholderToReportDocumentService.getInstance().putPlaceholderToReportDocument(placeholder, reportDocument);
+        ReportDocumentService.getInstance().getReportDocuments().add(reportDocument);
         PlaceholderService.getInstance().getPlaceholders().add(placeholder);
         if (placeholder.getParameters() != null &&
             placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER) != null) {
             File file = new File(placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER));
             if (!file.exists()) {
-                log.info("File not exists. Report will not be created. File: '{}'", file.getAbsolutePath());
+                logger.info("File not exists. Report will not be created. File: '{}'", file.getAbsolutePath());
             } else {
-                log.info("File will be parsed: {}", file.getAbsolutePath());
+                logger.info("File will be parsed: {}", file.getAbsolutePath());
                 prepareReport(file, reportDocument);
             }
         }
@@ -152,7 +151,7 @@ public class ReportDocumentCreatorService {
      */
     private void prepareReport(File logFile, ReportDocument reportDocument) {
         Report report = new Report();
-        reportService.addReports(Collections.singletonList(report));
+        ReportService.getInstance().addReports(Collections.singletonList(report));
         ApplicationLog applicationLog = new ApplicationLog();
         reportDocument.setReport(report);
         FileService fileService = FileService.getInstance();
@@ -168,6 +167,6 @@ public class ReportDocumentCreatorService {
         reportDocument.getNodeFiles().add(nodeFile);
         nodeLogService.findNodeLogs(applicationLog).add(nodeLog);
         ApplicationLogService.getInstance().addApplicationLog(applicationLog);
-        log.info("Report prepared. Report: {}", report.hashCode());
+        logger.info("Report prepared. Report: {}", report.hashCode());
     }
 }

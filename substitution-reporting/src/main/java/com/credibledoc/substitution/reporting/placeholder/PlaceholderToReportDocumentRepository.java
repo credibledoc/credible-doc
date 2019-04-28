@@ -1,8 +1,7 @@
-package com.credibledoc.substitution.doc.placeholder.reportdocument;
+package com.credibledoc.substitution.reporting.placeholder;
 
 import com.credibledoc.substitution.core.placeholder.Placeholder;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import org.springframework.stereotype.Repository;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,8 +11,22 @@ import java.util.Map;
  *
  * @author Kyrylo Semenko
  */
-@Repository
 public class PlaceholderToReportDocumentRepository {
+
+    /**
+     * Singleton.
+     */
+    private static PlaceholderToReportDocumentRepository instance;
+
+    /**
+     * @return The {@link PlaceholderToReportDocumentRepository} singleton.
+     */
+    public static PlaceholderToReportDocumentRepository getInstance() {
+        if (instance == null) {
+            instance = new PlaceholderToReportDocumentRepository();
+        }
+        return instance;
+    }
 
     /**
      * This map is filled out during a preparation phase and used in a generation phase.

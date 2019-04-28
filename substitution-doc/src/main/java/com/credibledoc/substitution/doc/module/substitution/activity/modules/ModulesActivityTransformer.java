@@ -10,6 +10,7 @@ import com.credibledoc.enricher.deriving.Deriving;
 import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.enricher.transformer.Transformer;
+import com.credibledoc.substitution.reporting.report.ReportService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,8 @@ public class ModulesActivityTransformer implements Transformer {
             ReaderService.COMBINER_CORE_MODULE_NAME);
         packagePrefixToModuleName.put("com.credibledoc.substitution.content.generator",
             LocalJarNameContentGenerator.MODULE_NAME);
+        packagePrefixToModuleName.put("com.credibledoc.substitution.reporting",
+            ReportService.MODULE_NAME);
 
         // Should be here for activating of the "com.credibledoc.plantuml" class loader
         SvgGeneratorService.class.getPackage();

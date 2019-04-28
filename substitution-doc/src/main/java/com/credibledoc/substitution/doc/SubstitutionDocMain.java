@@ -4,7 +4,6 @@ import com.credibledoc.combiner.application.identifier.ApplicationIdentifierServ
 import com.credibledoc.combiner.tactic.TacticService;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
-import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.content.ContentGeneratorService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
@@ -12,10 +11,10 @@ import com.credibledoc.substitution.doc.markdown.MarkdownService;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionApplicationIdentifier;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
 import com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
-import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
-import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreatorService;
-import com.credibledoc.substitution.doc.visualizer.VisualizerService;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
+import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
+import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreatorService;
+import com.credibledoc.substitution.reporting.visualizer.VisualizerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +23,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,13 +46,7 @@ public class SubstitutionDocMain {
     private final MarkdownService markdownService;
 
     @NonNull
-    private final VisualizerService visualizerService;
-
-    @NonNull
     private final List<ReportDocumentCreator> reportDocumentCreators;
-
-    @NonNull
-    private final ReportDocumentCreatorService reportDocumentCreatorService;
 
     @NonNull
     private final SubstitutionTactic substitutionSpecificTactic;
@@ -83,11 +75,13 @@ public class SubstitutionDocMain {
     private void substitute() {
         TacticService.getInstance().getTactics().add(substitutionSpecificTactic);
         ApplicationIdentifierService.getInstance().getApplicationIdentifiers().add(substitutionApplicationIdentifier);
-        ContentGeneratorService.getInstance().addContentGenerators(Arrays.asList(packageDependenciesContentGenerator));
+        ContentGeneratorService.getInstance()
+            .addContentGenerators(Collections.singletonList(packageDependenciesContentGenerator));
+        ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
         reportDocumentCreatorService.createReportDocuments();
         copyResourcesToTargetDirectory();
-        visualizerService.createReports(Collections.singletonList(ReportDocumentType.DOCUMENT_PART_UML));
+        VisualizerService.getInstance().createReports(Collections.singletonList(ReportDocumentType.DOCUMENT_PART_UML));
         markdownService.generateContentFromTemplates();
     }
 

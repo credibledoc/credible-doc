@@ -1,6 +1,4 @@
-package com.credibledoc.substitution.doc.reportdocument.creator;
-
-import org.springframework.stereotype.Repository;
+package com.credibledoc.substitution.reporting.reportdocument.creator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +8,22 @@ import java.util.Map;
  *
  * @author Kyrylo Semenko
  */
-@Repository
 public class ReportDocumentCreatorRepository {
+
+    /**
+     * Singleton.
+     */
+    private static ReportDocumentCreatorRepository instance;
+
+    /**
+     * @return The {@link ReportDocumentCreatorRepository} singleton.
+     */
+    public static ReportDocumentCreatorRepository getInstance() {
+        if (instance == null) {
+            instance = new ReportDocumentCreatorRepository();
+        }
+        return instance;
+    }
 
     /**
      * This map contains {@link ReportDocumentCreator}s created by a client application where the keys are

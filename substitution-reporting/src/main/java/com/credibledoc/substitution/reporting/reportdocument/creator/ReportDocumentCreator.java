@@ -1,7 +1,7 @@
-package com.credibledoc.substitution.doc.reportdocument.creator;
+package com.credibledoc.substitution.reporting.reportdocument.creator;
 
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 
 /**
  * Classes which implement this interface should be able to create {@link ReportDocument}

@@ -1,8 +1,7 @@
-package com.credibledoc.substitution.doc.reportdocument;
+package com.credibledoc.substitution.reporting.reportdocument;
 
 import com.credibledoc.enricher.line.LineProcessor;
-import com.credibledoc.substitution.doc.visualizer.VisualizerService;
-import org.springframework.stereotype.Repository;
+import com.credibledoc.substitution.reporting.visualizer.VisualizerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +11,22 @@ import java.util.List;
  *
  * @author Kyrylo Semenko
  */
-@Repository
 public class ReportDocumentRepository {
+
+    /**
+     * Singleton.
+     */
+    private static ReportDocumentRepository instance;
+
+    /**
+     * @return The {@link ReportDocumentRepository} singleton.
+     */
+    public static ReportDocumentRepository getInstance() {
+        if (instance == null) {
+            instance = new ReportDocumentRepository();
+        }
+        return instance;
+    }
 
     /**
      * All {@link ReportDocument}s that will be completed during parsing.

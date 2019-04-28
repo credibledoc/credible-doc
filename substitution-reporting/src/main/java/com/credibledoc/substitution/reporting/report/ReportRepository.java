@@ -1,6 +1,4 @@
-package com.credibledoc.substitution.doc.report;
-
-import org.springframework.stereotype.Repository;
+package com.credibledoc.substitution.reporting.report;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +6,22 @@ import java.util.List;
 /**
  * This repository contains a list of {@link Report} objects.
  */
-@Repository
 class ReportRepository {
+
+    /**
+     * Singleton.
+     */
+    private static ReportRepository instance;
+
+    /**
+     * @return The {@link ReportRepository} singleton.
+     */
+    public static ReportRepository getInstance() {
+        if (instance == null) {
+            instance = new ReportRepository();
+        }
+        return instance;
+    }
 
     /**
      * The global state of the application.

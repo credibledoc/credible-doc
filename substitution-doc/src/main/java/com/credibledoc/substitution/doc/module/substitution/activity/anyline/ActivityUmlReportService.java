@@ -5,9 +5,9 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.enricher.deriving.Deriving;
 import com.credibledoc.substitution.doc.module.substitution.activity.AnyLineSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
-import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
+import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
+import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
 import com.credibledoc.enricher.line.LineProcessor;
 import com.credibledoc.enricher.line.LineProcessorService;
 import com.credibledoc.enricher.transformer.Transformer;
@@ -40,7 +40,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
      * will be used for generation of PlantUML activity diagram.
      */
     public ReportDocument prepareReportDocument() {
-        ReportDocument reportDocument = applicationContext.getBean(ReportDocument.class);
+        ReportDocument reportDocument = new ReportDocument();
         reportDocument.setReportDocumentType(ReportDocumentType.DOCUMENT_PART_UML);
 
         List<LineProcessor> lineProcessors = new ArrayList<>();

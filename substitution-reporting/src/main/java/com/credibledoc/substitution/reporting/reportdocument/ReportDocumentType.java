@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.doc.reportdocument;
+package com.credibledoc.substitution.reporting.reportdocument;
 
 /**
  * Each generated {@link ReportDocument} has some type, for example
