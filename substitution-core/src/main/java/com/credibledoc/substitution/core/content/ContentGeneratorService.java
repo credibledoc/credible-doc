@@ -55,14 +55,16 @@ public class ContentGeneratorService {
      * @return The {@link ContentGenerator} or throw an {@link Exception}
      */
     public ContentGenerator getContentGenerator(Class contentGeneratorClass) {
-        Map<Class<? extends ContentGenerator>, ContentGenerator> contentGeneratorMap =
-            ContentGeneratorRepository.getInstance().getContentGeneratorMap();
-        if (!contentGeneratorMap.containsKey(contentGeneratorClass)) {
-            throw new SubstitutionRuntimeException("Cannot find item with key '" +
-                contentGeneratorClass.getCanonicalName() +
-                "' in the contentGeneratorMap. Items of this map should be created and appended by the library " +
-                "client before invocation of this method.");
+        try {
+            Map<Class<? extends ContentGenerator>, ContentGenerator> contentGeneratorMap =
+                ContentGeneratorRepository.getInstance().getContentGeneratorMap();
+            if (!contentGeneratorMap.containsKey(contentGeneratorClass)) {
+                Object object = contentGeneratorClass.newInstance();
+                contentGeneratorMap.put(contentGeneratorClass, (ContentGenerator) object);
+            }
+            return contentGeneratorMap.get(contentGeneratorClass);
+        } catch (Exception e) {
+            throw new SubstitutionRuntimeException(e);
         }
-        return contentGeneratorMap.get(contentGeneratorClass);
     }
 }

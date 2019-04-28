@@ -25,8 +25,12 @@ Change directory
 Launch the application
 
     java -jar target/&&beginPlaceholder {
-                  "className": "com.credibledoc.substitution.doc.module.substitution.jar.SubstitutionDocJarNameContentGenerator",
-                  "description": "Current name of the substitution-doc-X.X.X.jar."
+                  "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
+                  "description": "Current name of the substitution-doc-X.X.X.jar.",
+                  "parameters": {
+                      "targetDirectoryRelativePath": "target",
+                      "jarNamePrefix": "substitution-doc-"
+                  }
               } &&endPlaceholder
 
 As a result, the `target/generated/markdown` folder with new folders and files

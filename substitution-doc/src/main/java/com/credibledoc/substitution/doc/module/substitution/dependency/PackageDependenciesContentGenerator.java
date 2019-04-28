@@ -19,10 +19,9 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Generates a UML diagram with figured dependencies of a package configured in a {@link #DEPENDANT_PACKAGE} variable on
@@ -47,6 +46,9 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private static final String SEPARATOR = ";";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String IGNORE_INNER_PACKAGES = "ignoreInnerPackages";
+    private static final String ITALICS_MARKDOWN_MARK = "_";
+
+    private Map<String, List<Pair<Path, ParseResult<CompilationUnit>>>> cache = new HashMap<>();
 
     @NonNull
     MarkdownService markdownService;
@@ -56,16 +58,13 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
         try {
             String dependantPackage = getDependantPackageName(placeholder);
             String[] dependenciesPackages = getDependenciesPackages(placeholder);
-            Path path = getSourcesJarPath(placeholder);
-            SourceZip sourceZip = new SourceZip(path);
-            ParserConfiguration parserConfiguration = new ParserConfiguration();
-            sourceZip.setParserConfiguration(parserConfiguration);
-            List<Pair<Path, ParseResult<CompilationUnit>>> parsedPairs = sourceZip.parse();
+            String jarRelativePath = placeholder.getParameters().get(JAR_RELATIVE_PATH);
+            addToCacheIfNotExists(placeholder, jarRelativePath);
             String ignoreInnerPackagesString = placeholder.getParameters().get(IGNORE_INNER_PACKAGES);
             boolean ignoreInnerPackages = "true".equals(ignoreInnerPackagesString);
 
             NodeList<ImportDeclaration> importsNodeList = new NodeList<>();
-            for (Pair<Path, ParseResult<CompilationUnit>> pair : parsedPairs) {
+            for (Pair<Path, ParseResult<CompilationUnit>> pair : cache.get(jarRelativePath)) {
                 Path nextPath = pair.a;
                 ParseResult<CompilationUnit> parseResult = pair.b;
                 CompilationUnit compilationUnit =
@@ -140,15 +139,21 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
             }
             stringBuilder.append(String.join(System.lineSeparator(), dependencies));
             String linkToDiagram = markdownService.generateDiagram(placeholder, stringBuilder.toString());
-            StringBuilder result =
-                new StringBuilder(linkToDiagram)
-                    .append(LINE_SEPARATOR)
-                    .append(LINE_SEPARATOR)
-                    .append("_").append(placeholder.getDescription()).append("_")
-                    .append(LINE_SEPARATOR);
-            return result.toString();
+            return linkToDiagram + LINE_SEPARATOR + LINE_SEPARATOR + ITALICS_MARKDOWN_MARK +
+                placeholder.getDescription() + ITALICS_MARKDOWN_MARK + LINE_SEPARATOR;
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
+        }
+    }
+
+    private void addToCacheIfNotExists(Placeholder placeholder, String jarRelativePath) throws IOException {
+        if (!cache.containsKey(jarRelativePath)) {
+            Path path = getSourcesJarPath(placeholder);
+            SourceZip sourceZip = new SourceZip(path);
+            ParserConfiguration parserConfiguration = new ParserConfiguration();
+            sourceZip.setParserConfiguration(parserConfiguration);
+            List<Pair<Path, ParseResult<CompilationUnit>>> parsedPairs = sourceZip.parse();
+            cache.put(jarRelativePath, parsedPairs);
         }
     }
 

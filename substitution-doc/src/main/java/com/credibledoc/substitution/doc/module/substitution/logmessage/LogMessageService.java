@@ -19,6 +19,7 @@ public class LogMessageService {
     public static final String FOUR_SPACES = "    ";
     private static final String WORDS_SEPARATOR = " ";
     private static final String BACKWARD_SLASH = "\\";
+    private static final String NOT_ALLOWED_AT_THE_END = "~;";
 
     /**
      * Parse a message from a log line and split it to rows.
@@ -39,8 +40,11 @@ public class LogMessageService {
                 tokens[i] = "";
             }
             String escapedToken = escapeToken(tokens[i]);
-            if (escapedToken.endsWith("~;")) {
-                row.insert(row.length() - 1, escapedToken.trim());
+            if (escapedToken.endsWith(NOT_ALLOWED_AT_THE_END)) {
+                // PlantUML comment line cannot be ended by this sequence. Move this sequence to the next line.
+                if (tokens.length > i + 2) {
+                    tokens[i + 1] = NOT_ALLOWED_AT_THE_END + tokens[i + 1];
+                }
                 escapedToken = escapedToken.substring(0, escapedToken.length() - 2);
             }
             boolean hasMoreTokens = i + 1 < tokens.length;

@@ -10,14 +10,13 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
+import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
+import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
+import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import com.credibledoc.substitution.doc.placeholder.reportdocument.PlaceholderToReportDocumentService;
-import com.credibledoc.substitution.doc.reportdocument.ReportDocument;
-import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
-import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreatorService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -48,9 +47,6 @@ public class MarkdownService {
     private static final String SVG_TAG_MIDDLE = "](";
     private static final String SVG_TAG_END = "?sanitize=true)";
     public static final String CONTENT_REPLACED = "Content replaced. ";
-
-    @NonNull
-    public final ReportDocumentCreatorService reportDocumentCreatorService;
 
     @NonNull
     public final PlaceholderToReportDocumentService placeholderToReportDocumentService;

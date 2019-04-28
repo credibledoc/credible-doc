@@ -3,6 +3,7 @@ package com.credibledoc.substitution.doc.module.substitution.activity.modules;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
+import com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.doc.SubstitutionDocMain;
 import com.credibledoc.enricher.deriving.Deriving;
@@ -36,12 +37,20 @@ public class ModulesActivityTransformer implements Transformer {
     private static Map<String, String> packagePrefixToModuleName = new HashMap<>();
 
     static {
-        packagePrefixToModuleName.put("com.credibledoc.substitution.core", ResourceService.SUBSTITUTION_CORE_MODULE_NAME);
-        packagePrefixToModuleName.put("com.credibledoc.substitution.doc", SubstitutionDocMain.SUBSTITUTION_DOC);
-        packagePrefixToModuleName.put("com.credibledoc.plantuml", PLANTUML_CORE_MODULE_NAME);
-        packagePrefixToModuleName.put("com.credibledoc.combiner", ReaderService.COMBINER_CORE_MODULE_NAME);
-        // Should be here for activating the "com.credibledoc.plantuml" class loader
+        packagePrefixToModuleName.put("com.credibledoc.substitution.core",
+            ResourceService.SUBSTITUTION_CORE_MODULE_NAME);
+        packagePrefixToModuleName.put("com.credibledoc.substitution.doc",
+            SubstitutionDocMain.SUBSTITUTION_DOC);
+        packagePrefixToModuleName.put("com.credibledoc.plantuml",
+            PLANTUML_CORE_MODULE_NAME);
+        packagePrefixToModuleName.put("com.credibledoc.combiner",
+            ReaderService.COMBINER_CORE_MODULE_NAME);
+        packagePrefixToModuleName.put("com.credibledoc.substitution.content.generator",
+            LocalJarNameContentGenerator.MODULE_NAME);
+
+        // Should be here for activating of the "com.credibledoc.plantuml" class loader
         SvgGeneratorService.class.getPackage();
+        LocalJarNameContentGenerator.class.getPackage();
         validatePackagesExist();
     }
 

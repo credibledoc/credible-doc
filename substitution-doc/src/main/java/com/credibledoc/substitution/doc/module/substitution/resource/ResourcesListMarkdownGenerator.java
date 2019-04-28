@@ -4,11 +4,8 @@ import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.resource.ResourceService;
-import lombok.RequiredArgsConstructor;
 import com.credibledoc.substitution.doc.markdown.MarkdownService;
-import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -16,8 +13,6 @@ import java.util.List;
  *
  * @author Kyrylo Semenko
  */
-@Service
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ResourcesListMarkdownGenerator implements ContentGenerator {
     private static final String BULLET_POINT = "* ";
     private static final String CLASSES_PREFIX = "/com/credibledoc";

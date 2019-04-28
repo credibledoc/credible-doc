@@ -11,6 +11,7 @@ import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.doc.markdown.MarkdownService;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionApplicationIdentifier;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
+import com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator;
 import com.credibledoc.substitution.doc.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreator;
 import com.credibledoc.substitution.doc.reportdocument.creator.ReportDocumentCreatorService;
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,9 +51,6 @@ public class SubstitutionDocMain {
     private final VisualizerService visualizerService;
 
     @NonNull
-    private final List<ContentGenerator> markdownGenerators;
-
-    @NonNull
     private final List<ReportDocumentCreator> reportDocumentCreators;
 
     @NonNull
@@ -62,6 +61,9 @@ public class SubstitutionDocMain {
 
     @NonNull
     private final SubstitutionApplicationIdentifier substitutionApplicationIdentifier;
+
+    @NonNull
+    private final PackageDependenciesContentGenerator packageDependenciesContentGenerator;
 
     /**
      * The main method for generation of documentation of the credibledoc-substitution tool.
@@ -81,9 +83,9 @@ public class SubstitutionDocMain {
     private void substitute() {
         TacticService.getInstance().getTactics().add(substitutionSpecificTactic);
         ApplicationIdentifierService.getInstance().getApplicationIdentifiers().add(substitutionApplicationIdentifier);
-        ContentGeneratorService.getInstance().addContentGenerators(markdownGenerators);
+        ContentGeneratorService.getInstance().addContentGenerators(Arrays.asList(packageDependenciesContentGenerator));
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
-        markdownService.reportDocumentCreatorService.createReportDocuments();
+        reportDocumentCreatorService.createReportDocuments();
         copyResourcesToTargetDirectory();
         visualizerService.createReports(Collections.singletonList(ReportDocumentType.DOCUMENT_PART_UML));
         markdownService.generateContentFromTemplates();
