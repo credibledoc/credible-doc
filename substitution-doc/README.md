@@ -1,3 +1,5 @@
+Notice: work in progress.
+
 # Module substitution-doc
 This module generates a documentation for the
 [placeholder-substitution](../README.md) module. This document is also generated
