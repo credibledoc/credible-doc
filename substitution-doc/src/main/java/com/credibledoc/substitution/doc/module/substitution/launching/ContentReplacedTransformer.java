@@ -4,7 +4,7 @@ import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.enricher.deriving.Deriving;
-import com.credibledoc.substitution.doc.markdown.MarkdownService;
+import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.enricher.transformer.Transformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

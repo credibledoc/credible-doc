@@ -4,8 +4,8 @@ import com.credibledoc.plantuml.sequence.SequenceArrow;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
-import com.credibledoc.substitution.doc.markdown.MarkdownService;
 import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
+import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
@@ -13,7 +13,6 @@ import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.utils.Pair;
 import com.github.javaparser.utils.SourceZip;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,9 +48,6 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private static final String ITALICS_MARKDOWN_MARK = "_";
 
     private Map<String, List<Pair<Path, ParseResult<CompilationUnit>>>> cache = new HashMap<>();
-
-    @NonNull
-    MarkdownService markdownService;
 
     @Override
     public String generate(Placeholder placeholder) {
@@ -138,7 +134,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                     SequenceArrow.DEPENDENCY_ARROW.getUml() + importDeclaration.getNameAsString());
             }
             stringBuilder.append(String.join(System.lineSeparator(), dependencies));
-            String linkToDiagram = markdownService.generateDiagram(placeholder, stringBuilder.toString());
+            String linkToDiagram = MarkdownService.getInstance().generateDiagram(placeholder, stringBuilder.toString());
             return linkToDiagram + LINE_SEPARATOR + LINE_SEPARATOR + ITALICS_MARKDOWN_MARK +
                 placeholder.getDescription() + ITALICS_MARKDOWN_MARK + LINE_SEPARATOR;
         } catch (Exception e) {

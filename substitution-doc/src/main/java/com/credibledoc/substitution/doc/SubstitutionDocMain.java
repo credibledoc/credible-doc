@@ -7,7 +7,7 @@ import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.ContentGeneratorService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
-import com.credibledoc.substitution.doc.markdown.MarkdownService;
+import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionApplicationIdentifier;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
 import com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator;
@@ -41,9 +41,6 @@ public class SubstitutionDocMain {
     public static final String SUBSTITUTION_DOC = "substitution-doc";
 
     public static final String APPLICATION_SUBSTITUTION_DOC_FINISHED = "Application finished.";
-
-    @NonNull
-    private final MarkdownService markdownService;
 
     @NonNull
     private final List<ReportDocumentCreator> reportDocumentCreators;
@@ -82,7 +79,7 @@ public class SubstitutionDocMain {
         reportDocumentCreatorService.createReportDocuments();
         copyResourcesToTargetDirectory();
         VisualizerService.getInstance().createReports(Collections.singletonList(ReportDocumentType.DOCUMENT_PART_UML));
-        markdownService.generateContentFromTemplates();
+        MarkdownService.getInstance().generateContentFromTemplates();
     }
 
     private void copyResourcesToTargetDirectory() {

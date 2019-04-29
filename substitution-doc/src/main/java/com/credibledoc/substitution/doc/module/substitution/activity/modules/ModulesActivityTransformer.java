@@ -50,6 +50,8 @@ public class ModulesActivityTransformer implements Transformer {
             LocalJarNameContentGenerator.MODULE_NAME);
         packagePrefixToModuleName.put("com.credibledoc.substitution.reporting",
             ReportService.MODULE_NAME);
+        packagePrefixToModuleName.put("org.springframework.context.annotation",
+            "spring-libraries");
 
         // Should be here for activating of the "com.credibledoc.plantuml" class loader
         SvgGeneratorService.class.getPackage();

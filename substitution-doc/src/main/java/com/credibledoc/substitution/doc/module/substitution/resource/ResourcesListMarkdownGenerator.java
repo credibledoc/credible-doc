@@ -4,7 +4,7 @@ import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.resource.ResourceService;
-import com.credibledoc.substitution.doc.markdown.MarkdownService;
+import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 
 import java.util.List;
 

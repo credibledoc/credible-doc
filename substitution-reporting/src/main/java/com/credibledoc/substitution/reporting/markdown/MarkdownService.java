@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.doc.markdown;
+package com.credibledoc.substitution.reporting.markdown;
 
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.core.configuration.Configuration;
@@ -13,13 +13,9 @@ import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,10 +30,8 @@ import java.util.List;
  *
  * @author Kyrylo Semenko
  */
-@Service
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
-@Slf4j
 public class MarkdownService {
+    private static final Logger logger = LoggerFactory.getLogger(MarkdownService.class);
     private static final String SLASH = "/";
     public static final String MARKDOWN_FILE_EXTENSION = ".md";
     private static final String IMAGE_DIRECTORY_NAME = "img";
@@ -49,7 +43,22 @@ public class MarkdownService {
 
     private Configuration configuration;
 
-    @PostConstruct
+    /**
+     * Singleton.
+     */
+    private static MarkdownService instance;
+
+    /**
+     * @return The {@link MarkdownService} singleton.
+     */
+    public static MarkdownService getInstance() {
+        if (instance == null) {
+            instance = new MarkdownService();
+            instance.postConstruct();
+        }
+        return instance;
+    }
+
     private void postConstruct() {
         configuration = ConfigurationService.getInstance().getConfiguration();
     }
@@ -69,7 +78,7 @@ public class MarkdownService {
                         targetDirectory.getAbsolutePath() +
                         "'");
                 }
-                log.info("Target directory created: '{}'", targetDirectory.getAbsolutePath());
+                logger.info("Target directory created: '{}'", targetDirectory.getAbsolutePath());
             }
             List<String> templateResources =
                 ResourceService.getInstance()
@@ -107,7 +116,7 @@ public class MarkdownService {
         try (OutputStream outputStream = new FileOutputStream(generatedFile)){
             outputStream.write(replacedContent.getBytes());
         }
-        log.info("File is generated '{}'", generatedFile.getAbsolutePath());
+        logger.info("File is generated '{}'", generatedFile.getAbsolutePath());
     }
 
     private void createDirectoryIfNotExists(File directory) {
@@ -117,7 +126,7 @@ public class MarkdownService {
                 throw new SubstitutionRuntimeException("Cannot create a new directory '" +
                         directory.getAbsolutePath() + "'");
             }
-            log.info("The new directory created '{}'", directory.getAbsolutePath());
+            logger.info("The new directory created '{}'", directory.getAbsolutePath());
         }
     }
 
@@ -132,7 +141,7 @@ public class MarkdownService {
             String contentForReplacement = generateContent(placeholder);
             replacedContent = replacedContent.replace(templatePlaceholder, contentForReplacement);
             String json = PlaceholderService.getInstance().writePlaceholderToJson(placeholder);
-            log.info("{}{}", CONTENT_REPLACED, json);
+            logger.info("{}{}", CONTENT_REPLACED, json);
         }
         return replacedContent;
     }
@@ -210,7 +219,7 @@ public class MarkdownService {
         if (plantUml == null) {
             ReportDocument reportDocument = PlaceholderToReportDocumentService.getInstance()
                 .getReportDocument(placeholder);
-            plantUml = StringUtils.join(reportDocument.getCacheLines(), System.lineSeparator());
+            plantUml = String.join(System.lineSeparator(), reportDocument.getCacheLines());
         }
         String placeholderDescription = placeholder.getDescription();
         String nextPlaceholderId = placeholder.getId();
@@ -242,8 +251,9 @@ public class MarkdownService {
             try (OutputStream outputStream = new FileOutputStream(svgFile)) {
                 outputStream.write(svg.getBytes());
             }
-            log.debug("File created: {}", svgFile.getAbsolutePath());
-            return SVG_TAG_BEGIN + placeholderDescription + SVG_TAG_MIDDLE + imageDirectory.getName() + SLASH + svgFile.getName() + SVG_TAG_END;
+            logger.debug("File created: {}", svgFile.getAbsolutePath());
+            return SVG_TAG_BEGIN + placeholderDescription + SVG_TAG_MIDDLE + imageDirectory.getName() +
+                SLASH + svgFile.getName() + SVG_TAG_END;
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
