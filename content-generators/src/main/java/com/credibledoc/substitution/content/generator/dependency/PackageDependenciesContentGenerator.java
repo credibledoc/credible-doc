@@ -1,10 +1,9 @@
-package com.credibledoc.substitution.doc.module.substitution.dependency;
+package com.credibledoc.substitution.content.generator.dependency;
 
 import com.credibledoc.plantuml.sequence.SequenceArrow;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
-import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
 import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ParserConfiguration;
@@ -13,10 +12,7 @@ import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.utils.Pair;
 import com.github.javaparser.utils.SourceZip;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -34,8 +30,6 @@ import java.util.*;
  *
  * @author Kyrylo Semenko
  */
-@Service
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class PackageDependenciesContentGenerator implements ContentGenerator {
 
     private static final String INDENTATION = "    ";
@@ -64,10 +58,10 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                 Path nextPath = pair.a;
                 ParseResult<CompilationUnit> parseResult = pair.b;
                 CompilationUnit compilationUnit =
-                    parseResult.getResult().orElseThrow(() -> new SubstitutionDocRuntimeException(
+                    parseResult.getResult().orElseThrow(() -> new SubstitutionRuntimeException(
                         "CompilationUnit is not available. Path: " + nextPath));
                 String packageName = compilationUnit.getPackageDeclaration()
-                    .orElseThrow(() -> new SubstitutionDocRuntimeException(
+                    .orElseThrow(() -> new SubstitutionRuntimeException(
                         "Package name cannot be found. CompilationUnit: " + compilationUnit))
                     .getNameAsString();
                 /*
@@ -177,7 +171,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private Path getSourcesJarPath(Placeholder placeholder) {
         String jarRelativePath = placeholder.getParameters().get(JAR_RELATIVE_PATH);
         if (jarRelativePath == null) {
-            throw new SubstitutionDocRuntimeException("Parameter '" + JAR_RELATIVE_PATH +
+            throw new SubstitutionRuntimeException("Parameter '" + JAR_RELATIVE_PATH +
                 "' cannot be found. This parameter is mandatory for this placeholder. " +
                 "Example of usage: '\"" + Placeholder.FIELD_PARAMETERS +
                 "\": {\"" + JAR_RELATIVE_PATH +
@@ -186,7 +180,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
         }
         File file = new File(jarRelativePath);
         if (!file.exists()) {
-            throw new SubstitutionDocRuntimeException("The file cannot be found: '" + file.getAbsolutePath() +
+            throw new SubstitutionRuntimeException("The file cannot be found: '" + file.getAbsolutePath() +
                 "'. Its path is defined in the '" + JAR_RELATIVE_PATH +
                 "' property with value '" + jarRelativePath +
                 "'. This property is a part of the Placeholder: " + placeholder);
@@ -197,7 +191,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private String[] getDependenciesPackages(Placeholder placeholder) {
         String dependenciesPackagesParameter = placeholder.getParameters().get(DEPENDENCIES_PACKAGES);
         if (dependenciesPackagesParameter == null) {
-            throw new SubstitutionDocRuntimeException("Parameter '" + DEPENDANT_PACKAGE +
+            throw new SubstitutionRuntimeException("Parameter '" + DEPENDANT_PACKAGE +
                 "' cannot be found. It is mandatory for this Placeholder. " +
                 "Example of usage: '" + "\"" + Placeholder.FIELD_PARAMETERS +
                 "\": {\"" + DEPENDENCIES_PACKAGES +
@@ -209,7 +203,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private String getDependantPackageName(Placeholder placeholder) {
         String dependantPackage = placeholder.getParameters().get(DEPENDANT_PACKAGE);
         if (dependantPackage == null) {
-            throw new SubstitutionDocRuntimeException("Parameter with name '" + DEPENDANT_PACKAGE +
+            throw new SubstitutionRuntimeException("Parameter with name '" + DEPENDANT_PACKAGE +
                 "' cannot be found. It is mandatory for this Placeholder. " +
                 "Example of usage: '" + "\"" + Placeholder.FIELD_PARAMETERS +
                 "\":{\"" + DEPENDANT_PACKAGE +

@@ -13,7 +13,8 @@
 
     <description>
         This module contains implementations of the ContentGenerator interface.
-        Instances of these classes generate content to be placed instead of Placeholders.
+        Instances of these classes generate content.
+        This content will be placed instead of Placeholders.
         See description in the README.md file in the root of the
         https://github.com/credibledoc/placeholder-substitution repository.
     </description>
@@ -33,8 +34,8 @@
     </licenses>
 
     <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -44,8 +45,23 @@
             <version>${parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.credibledoc</groupId>
+            <artifactId>plantuml-core</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.credibledoc</groupId>
+            <artifactId>substitution-reporting</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.javaparser</groupId>
+            <artifactId>javaparser-core</artifactId>
+            <version>3.9.0</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>

@@ -4,13 +4,11 @@ import com.credibledoc.combiner.application.identifier.ApplicationIdentifierServ
 import com.credibledoc.combiner.tactic.TacticService;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
-import com.credibledoc.substitution.core.content.ContentGeneratorService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
-import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionApplicationIdentifier;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
-import com.credibledoc.substitution.doc.module.substitution.dependency.PackageDependenciesContentGenerator;
+import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreatorService;
@@ -51,9 +49,6 @@ public class SubstitutionDocMain {
     @NonNull
     private final SubstitutionApplicationIdentifier substitutionApplicationIdentifier;
 
-    @NonNull
-    private final PackageDependenciesContentGenerator packageDependenciesContentGenerator;
-
     /**
      * The main method for generation of documentation of the credibledoc-substitution tool.
      */
@@ -72,8 +67,6 @@ public class SubstitutionDocMain {
     private void substitute() {
         TacticService.getInstance().getTactics().add(substitutionSpecificTactic);
         ApplicationIdentifierService.getInstance().getApplicationIdentifiers().add(substitutionApplicationIdentifier);
-        ContentGeneratorService.getInstance()
-            .addContentGenerators(Collections.singletonList(packageDependenciesContentGenerator));
         ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
         reportDocumentCreatorService.createReportDocuments();
