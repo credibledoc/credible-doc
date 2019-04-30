@@ -33,6 +33,7 @@ public class LineProcessor {
      * Constructor sets the fields:
      * @param searchCommand {@link #searchCommand}
      * @param transformer {@link #transformer}
+     * @param deriving {@link #deriving}
      */
     public LineProcessor(SearchCommand searchCommand, Transformer transformer, Deriving deriving) {
         this.searchCommand = searchCommand;
@@ -47,17 +48,24 @@ public class LineProcessor {
         return searchCommand;
     }
 
-    /** See the {@link LineProcessor#searchCommand} field<br> */
+    /**
+     * See the {@link LineProcessor#searchCommand} field
+     * @param searchCommand {@link #searchCommand}
+     */
     public void setSearchCommand(SearchCommand searchCommand) {
         this.searchCommand = searchCommand;
     }
 
-    /** @return The {@link LineProcessor#transformer} field */
+    /**
+     * @return The {@link LineProcessor#transformer} field
+     */
     public Transformer getTransformer() {
         return transformer;
     }
 
-    /** @param transformer see the {@link LineProcessor#transformer} field */
+    /**
+     * @param transformer see the {@link LineProcessor#transformer} field
+     */
     private void setTransformer(Transformer transformer) {
         this.transformer = transformer;
     }
