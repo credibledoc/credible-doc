@@ -39,7 +39,7 @@ public class ReaderService {
     /**
      * This module name
      */
-    public static final String COMBINER_CORE_MODULE_NAME = "combiner-core";
+    public static final String COMBINER_CORE_MODULE_NAME = "log-combiner-core";
 
     /**
      * Singleton.

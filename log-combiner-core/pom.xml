@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>combiner-core</artifactId>
+    <artifactId>log-combiner-core</artifactId>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>
@@ -17,7 +17,7 @@
         of lines timestamps to a single file or InputStream
         with lines sorted by timestamps.
     </description>
-    <url>https://github.com/credibledoc/log-combiner/tree/master/combiner-core</url>
+    <url>https://github.com/credibledoc/log-combiner/tree/master/log-combiner-core</url>
 
     <licenses>
         <license>

@@ -35,7 +35,7 @@
             <minIndex>1</minIndex>
             <maxIndex>5</maxIndex>
         </rollingPolicy>
-        <triggeringPolicy class="com.credibledoc.combiner.doc.logback.StartupTriggeringPolicy" />
+        <triggeringPolicy class="com.credibledoc.substitution.reporting.logback.StartupTriggeringPolicy" />
     </appender>
 
     <logger name="org.springframework" level="WARN"/>
