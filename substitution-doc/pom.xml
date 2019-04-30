@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
-            <artifactId>content-generators</artifactId>
+            <artifactId>substitution-generators</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>

@@ -25,7 +25,7 @@ import java.io.File;
 public class LocalJarNameContentGenerator implements ContentGenerator {
     private static final String JAR_NAME_PREFIX = "jarNamePrefix";
     private static final String TARGET_DIRECTORY_RELATIVE_PATH = "targetDirectoryRelativePath";
-    public static final String MODULE_NAME = "content-generators";
+    public static final String MODULE_NAME = "substitution-generators";
 
     @Override
     public String generate(Placeholder placeholder) {
