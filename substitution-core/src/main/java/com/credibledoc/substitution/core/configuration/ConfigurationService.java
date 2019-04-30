@@ -75,8 +75,6 @@ public class ConfigurationService {
 
     private static final String SUBSTITUTION_PROPERTIES_FILE_PATH = "substitution.properties.file.path";
 
-    private static final String ORIGIN_DEFAULT = "default";
-
     private static final String SUBSTITUTION_PROPERTIES_RESOURCE_NAME = "substitution.properties";
     public static final String PROPERTIES_LOADED_BY_CLASS_LOADER_FROM_THE_RESOURCE =
         "Properties loaded by ClassLoader from the resource: ";
@@ -167,8 +165,8 @@ public class ConfigurationService {
         Properties properties = new Properties();
         URL url = getClass().getClassLoader().getResource(SUBSTITUTION_PROPERTIES_RESOURCE_NAME);
         if (url == null) {
-            throw new SubstitutionRuntimeException("ClassLoader cannot find the resource: " +
-                SUBSTITUTION_PROPERTIES_RESOURCE_NAME);
+            logger.info("ClassLoader cannot find the resource: {}", SUBSTITUTION_PROPERTIES_RESOURCE_NAME);
+            return;
         }
         try (InputStream inputStream = url.openStream()) {
             properties.load(inputStream);
@@ -229,7 +227,7 @@ public class ConfigurationService {
                         " does not contains a " + ConfigurationProperty.class.getSimpleName() + " annotation.");
             }
             setValue(field, configurationProperty.defaultValue());
-            map.put(configurationProperty.key(), ORIGIN_DEFAULT);
+            map.put(configurationProperty.key(), configurationProperty.defaultValue());
         }
     }
 

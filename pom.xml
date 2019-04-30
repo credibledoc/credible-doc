@@ -55,7 +55,7 @@
             </dependency>
             <dependency>
                 <groupId>com.credibledoc</groupId>
-                <artifactId>combiner-core</artifactId>
+                <artifactId>log-combiner-core</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>

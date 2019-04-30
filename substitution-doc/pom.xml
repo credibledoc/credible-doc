@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
-            <artifactId>combiner-core</artifactId>
+            <artifactId>log-combiner-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>

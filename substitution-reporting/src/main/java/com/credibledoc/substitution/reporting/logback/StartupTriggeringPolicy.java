@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.doc.logback;
+package com.credibledoc.substitution.reporting.logback;
 
 import ch.qos.logback.core.rolling.TriggeringPolicyBase;
 
