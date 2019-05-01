@@ -1,13 +1,6 @@
 # Usage of the log-combiner-core module
 
-This module is the source for the &&beginPlaceholder {
-          "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
-          "description": "Current name of the log-combiner-core-X.X.X.jar.",
-                  "parameters": {
-                      "targetDirectoryRelativePath": "log-combiner-core/target",
-                      "jarNamePrefix": "log-combiner-core-"
-                  }
-      } &&endPlaceholder library.
+This module is the source for the log-combiner-core-1.0.0-SNAPSHOT.jar library.
 
 This library can be loaded by the Maven tool from the Maven central repository.
 
@@ -22,13 +15,6 @@ Example of Maven configuration in a `pom.xml` file
             <dependency>
                 <groupId>com.credibledoc</groupId>
                 <artifactId>log-combiner-core</artifactId>
-                <version>&&beginPlaceholder {
-                   "className": "com.credibledoc.substitution.content.generator.jar.LocalVersionContentGenerator",
-                   "description": "Current name of the log-combiner-core-X.X.X.jar.",
-                   "parameters": {
-                       "targetDirectoryRelativePath": "log-combiner-core/target",
-                       "jarNamePrefix": "log-combiner-core-"
-                   }
-    } &&endPlaceholder</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
     ...
