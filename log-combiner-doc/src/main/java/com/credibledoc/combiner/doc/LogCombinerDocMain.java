@@ -1,5 +1,7 @@
 package com.credibledoc.combiner.doc;
 
+import com.credibledoc.substitution.core.configuration.Configuration;
+import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.reporting.visualizer.VisualizerService;
@@ -25,13 +27,19 @@ public class LogCombinerDocMain {
      * The main method for generation of documentation of the credibledoc-substitution tool.
      */
     public static void main(String[] args) {
-        log.info("Application '{}' launched.", LogCombinerDocMain.class.getSimpleName());
-        try (AnnotationConfigApplicationContext applicationContext
-                 = new AnnotationConfigApplicationContext(LogCombinerDocMain.class)) {
-            applicationContext.start();
-            log.info("Spring ApplicationContext created and started");
-            LogCombinerDocMain logCombinerDocMain = applicationContext.getBean(LogCombinerDocMain.class);
-            logCombinerDocMain.substitute();
+        try {
+            log.info("Application '{}' launched.", LogCombinerDocMain.class.getSimpleName());
+            try (AnnotationConfigApplicationContext applicationContext
+                     = new AnnotationConfigApplicationContext(LogCombinerDocMain.class)) {
+                applicationContext.start();
+                log.info("Spring ApplicationContext created and started");
+                LogCombinerDocMain logCombinerDocMain = applicationContext.getBean(LogCombinerDocMain.class);
+                Configuration configuration = ConfigurationService.getInstance().getConfiguration();
+                configuration.setTemplatesResource("template/markdown/doc");
+                logCombinerDocMain.substitute();
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         }
         log.info("Application finished");
     }

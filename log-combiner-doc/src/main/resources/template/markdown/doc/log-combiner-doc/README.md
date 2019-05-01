@@ -30,7 +30,7 @@ Launch the application
            "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
            "description": "Current name of the log-combiner-doc-X.X.X.jar.",
                   "parameters": {
-                      "targetDirectoryRelativePath": "target",
+                      "targetDirectoryRelativePath": "log-combiner-doc/target",
                       "jarNamePrefix": "log-combiner-doc-"
                   }
        } &&endPlaceholder
@@ -46,13 +46,12 @@ this approach for generation of documentation for your own projects.
 This documentation is generated from these templates:
 
 &&beginPlaceholder {
-    "className": "com.credibledoc.substitution.doc.module.substitution.resource.ResourcesListMarkdownGenerator",
+    "className": "com.credibledoc.substitution.content.generator.resource.ResourcesListMarkdownGenerator",
     "description": "List of resources from classpath of the log-combiner-doc application.",
-    "parameters": {"endsWith": ".md"}
+    "parameters": {"endWith": ".md"}
 } &&endPlaceholder
 
 As you can notice, this generated document and its template have common parts,
-and this diff shows different parts. These different parts are placeholders and
-the content generated from these placeholders.
-TODO Kyrylo Semenko
+and this diff shows different parts. These different parts are placeholders (at the left side)
+and the content generated from these placeholders (at the right side).
 ![Image of differences between template and generated files](doc/img/diffBetweenTemplateAndGeneratedFiles.png)

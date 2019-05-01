@@ -1,10 +1,10 @@
 # Usage of the log-combiner-core module
 
-This module is a source for the &&beginPlaceholder {
+This module is the source for the &&beginPlaceholder {
           "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
           "description": "Current name of the log-combiner-core-X.X.X.jar.",
                   "parameters": {
-                      "targetDirectoryRelativePath": "target",
+                      "targetDirectoryRelativePath": "log-combiner-core/target",
                       "jarNamePrefix": "log-combiner-core-"
                   }
       } &&endPlaceholder library.
@@ -23,12 +23,12 @@ Example of Maven configuration in a `pom.xml` file
                 <groupId>com.credibledoc</groupId>
                 <artifactId>log-combiner-core</artifactId>
                 <version>&&beginPlaceholder {
-       "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
-       "description": "Current name of the log-combiner-core-X.X.X.jar.",
-       "parameters": {
-           "targetDirectoryRelativePath": "target",
-           "jarNamePrefix": "log-combiner-core-"
-       }
+                   "className": "com.credibledoc.substitution.content.generator.jar.LocalVersionContentGenerator",
+                   "description": "Current name of the log-combiner-core-X.X.X.jar.",
+                   "parameters": {
+                       "targetDirectoryRelativePath": "log-combiner-core/target",
+                       "jarNamePrefix": "log-combiner-core-"
+                   }
     } &&endPlaceholder</version>
             </dependency>
     ...
