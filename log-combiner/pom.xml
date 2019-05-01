@@ -6,7 +6,7 @@
     <parent>
         <artifactId>log-combiner-parent</artifactId>
         <groupId>com.credibledoc</groupId>
-        <version>1.0.1</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>log-combiner</artifactId>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>log-combiner-core</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
