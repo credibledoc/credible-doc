@@ -53,6 +53,17 @@ public class Placeholder {
      */
     private Map<String, String> parameters = new HashMap<>();
 
+    @Override
+    public String toString() {
+        return "Placeholder{" +
+            "resource='" + resource + '\'' +
+            ", id='" + id + '\'' +
+            ", className='" + className + '\'' +
+            ", description='" + description + '\'' +
+            ", parameters=" + parameters +
+            '}';
+    }
+
     /**
      * @return The {@link #resource} field value.
      */

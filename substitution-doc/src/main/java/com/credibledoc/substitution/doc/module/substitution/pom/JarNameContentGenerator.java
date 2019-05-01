@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.pom;
 
+import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
@@ -44,7 +45,7 @@ public class JarNameContentGenerator implements ContentGenerator {
     private static final String LATEST_END_TAG = "</latest>";
 
     @Override
-    public String generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder) {
         String url = placeholder.getParameters().get("url");
         if (url == null) {
             throw new SubstitutionRuntimeException("Placeholder parameter 'url' is required, but found 'null'.");
@@ -52,7 +53,7 @@ public class JarNameContentGenerator implements ContentGenerator {
         return loadJarName(url);
     }
 
-    private String loadJarName(String urlParameter) {
+    private Content loadJarName(String urlParameter) {
         String result;
         try {
             URL url = new URL(urlParameter);
@@ -76,7 +77,9 @@ public class JarNameContentGenerator implements ContentGenerator {
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
-        return result;
+        Content content = new Content();
+        content.setMarkdownContent(result);
+        return content;
     }
 
     private String parseTag(String xmlString, String beginTag, String endTag) {

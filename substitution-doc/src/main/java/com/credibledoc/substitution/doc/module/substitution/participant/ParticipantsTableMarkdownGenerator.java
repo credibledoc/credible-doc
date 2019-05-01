@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.participant;
 
+import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.NonNull;
@@ -22,11 +23,14 @@ public class ParticipantsTableMarkdownGenerator implements ContentGenerator {
     private final TableService tableService;
 
     @Override
-    public String generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder) {
         Table.Builder tableBuilder = new Table.Builder()
                 .addRow("Participant name", "Description");
 
-        return tableService.createMarkdownTableFromEnum(tableBuilder, Participant.class);
+        String markdown = tableService.createMarkdownTableFromEnum(tableBuilder, Participant.class);
+        Content content = new Content();
+        content.setMarkdownContent(markdown);
+        return content;
     }
 
 }

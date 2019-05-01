@@ -8,13 +8,13 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import java.io.File;
 
 /**
- * Generates a jar name. Tries to find the current jar name in the <b>target</b> directory.
+ * Generates a jar version. Tries to find the current jar in the <b>target</b> directory.
  * <p>
  * Usage:
  * <pre>{@code
  *     &&beginPlaceholder {
- *         "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
- *         "description": "Current name of the substitution-doc-X.X.X.jar.",
+ *         "className": "com.credibledoc.substitution.content.generator.jar.LocalVersionContentGenerator",
+ *         "description": "Current name of the substitution-doc-X.X.X.jar version.",
  *         "parameters": {
  *             "targetDirectoryRelativePath": "target",
  *             "jarNamePrefix": "substitution-doc-"
@@ -23,10 +23,11 @@ import java.io.File;
  * }</pre>
  * @author Kyrylo Semenko
  */
-public class LocalJarNameContentGenerator implements ContentGenerator {
+public class LocalVersionContentGenerator implements ContentGenerator {
     private static final String JAR_NAME_PREFIX = "jarNamePrefix";
     private static final String TARGET_DIRECTORY_RELATIVE_PATH = "targetDirectoryRelativePath";
     public static final String MODULE_NAME = "substitution-generators";
+    private static final String DOT_JAR = ".jar";
 
     @Override
     public Content generate(Placeholder placeholder) {
@@ -56,10 +57,11 @@ public class LocalJarNameContentGenerator implements ContentGenerator {
                 if (name.startsWith(jarNamePrefix) &&
                         !name.contains("-sources") &&
                         !name.contains("-javadoc") &&
-                        name.endsWith(".jar")) {
+                        name.endsWith(DOT_JAR)) {
 
                     Content content = new Content();
-                    content.setMarkdownContent(name);
+                    String versionName = name.substring(jarNamePrefix.length(), name.indexOf(DOT_JAR));
+                    content.setMarkdownContent(versionName);
                     return content;
                 }
             }

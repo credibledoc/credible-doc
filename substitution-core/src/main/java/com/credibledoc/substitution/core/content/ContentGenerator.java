@@ -24,8 +24,7 @@ public interface ContentGenerator {
      * tags.
      *
      * @param placeholder its properties can be used for customization of content generation.
-     * @return generated documentation part for example javaDoc of some method
-     * or a table generated from the application source code in markdown or other formats.
+     * @return Generated {@link Content}
      */
-    String generate(Placeholder placeholder);
+    Content generate(Placeholder placeholder);
 }

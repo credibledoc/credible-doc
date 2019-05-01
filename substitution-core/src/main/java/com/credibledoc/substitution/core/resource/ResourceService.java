@@ -106,8 +106,14 @@ public class ResourceService {
     }
 
     private boolean isLocatedInJar(String locationPath) {
-        return locationPath.contains(FILE_PREFIX) &&
+        boolean found = locationPath.contains(FILE_PREFIX) &&
             locationPath.contains(BOOT_INF_CLASSES_WITH_EXCLAMATION_MARK);
+        if (found) {
+            logger.info("Resource found in a jar file. LocationPath: '{}'", locationPath);
+        } else {
+            logger.info("Resource cannot be found in a jar file. LocationPath: '{}'", locationPath);
+        }
+        return found;
     }
 
     private void collectResourcesFromJar(List<String> result,
@@ -152,6 +158,7 @@ public class ResourceService {
         final URL url = getClass().getResource(SLASH + templatesResource);
         if (url != null) {
             final File directory = new File(url.toURI());
+            logger.info("Resource has been found in the directory: '{}'", directory.getAbsolutePath());
             List<File> templateFiles = new ArrayList<>();
             collectTemplateFilesRecursively(directory, templateFiles, endsWith);
             for (File templateFile : templateFiles) {
@@ -165,8 +172,16 @@ public class ResourceService {
                 result.add(substring.replaceAll("\\\\", SLASH));
             }
         } else {
+            String directoryString = new File(templatesResource).getAbsolutePath();
+
             throw new SubstitutionRuntimeException(
-                    "Resource of template not found. TemplateResource: '" + templatesResource + "'");
+                    "Resource of template not found. TemplateResource: '" + templatesResource + "'." +
+                        " Directory: '" + directoryString + "'." +
+                        " This resource can be configured" +
+                        " with '" + ConfigurationService.TEMPLATES_RESOURCE_KEY + "' key" +
+                        " or directly set by calling for example" +
+                        " 'ConfigurationService.getInstance().getConfiguration()." +
+                        "setTemplatesResource(\"resource/in/classpath\");'.");
         }
     }
 

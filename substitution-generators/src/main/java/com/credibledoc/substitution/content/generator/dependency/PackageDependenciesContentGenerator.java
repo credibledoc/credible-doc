@@ -1,10 +1,10 @@
 package com.credibledoc.substitution.content.generator.dependency;
 
 import com.credibledoc.plantuml.sequence.SequenceArrow;
+import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
-import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
@@ -44,7 +44,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private Map<String, List<Pair<Path, ParseResult<CompilationUnit>>>> cache = new HashMap<>();
 
     @Override
-    public String generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder) {
         try {
             String dependantPackage = getDependantPackageName(placeholder);
             String[] dependenciesPackages = getDependenciesPackages(placeholder);
@@ -128,9 +128,11 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                     SequenceArrow.DEPENDENCY_ARROW.getUml() + importDeclaration.getNameAsString());
             }
             stringBuilder.append(String.join(System.lineSeparator(), dependencies));
-            String linkToDiagram = MarkdownService.getInstance().generateDiagram(placeholder, stringBuilder.toString());
-            return linkToDiagram + LINE_SEPARATOR + LINE_SEPARATOR + ITALICS_MARKDOWN_MARK +
-                placeholder.getDescription() + ITALICS_MARKDOWN_MARK + LINE_SEPARATOR;
+            Content result = new Content();
+            result.setPlantUmlContent(stringBuilder.toString());
+            result.setMarkdownContent(LINE_SEPARATOR + LINE_SEPARATOR + ITALICS_MARKDOWN_MARK +
+                placeholder.getDescription() + ITALICS_MARKDOWN_MARK + LINE_SEPARATOR);
+            return result;
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }

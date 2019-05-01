@@ -32,7 +32,7 @@ public class ConfigurationService {
      * Its value contains a relative path to templates in a jar file
      * or in a file system.
      */
-    static final String TEMPLATES_RESOURCE_KEY = "substitution.templates.resource";
+    public static final String TEMPLATES_RESOURCE_KEY = "substitution.templates.resource";
 
     /**
      * Default value of the {@link #PLACEHOLDER_BEGIN_KEY}.

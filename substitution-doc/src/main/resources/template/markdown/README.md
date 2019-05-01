@@ -44,7 +44,7 @@ this approach for generation of documentation for your own projects.
 This documentation is generated from these templates:
 
 &&beginPlaceholder {
-    "className": "com.credibledoc.substitution.doc.module.substitution.resource.ResourcesListMarkdownGenerator",
+    "className": "com.credibledoc.substitution.content.generator.resource.ResourcesListMarkdownGenerator",
     "description": "List of resources from classpath of the substitution-doc application.",
     "parameters": {"endsWith": ".md"}
 } &&endPlaceholder

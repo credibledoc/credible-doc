@@ -3,6 +3,7 @@ package com.credibledoc.substitution.reporting.markdown;
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.content.ContentGeneratorService;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
@@ -86,8 +87,8 @@ public class MarkdownService {
             for (String templateResource : templateResources) {
                 insertContentIntoTemplate(templateResource);
             }
-        } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+        } catch (Exception exception) {
+            throw new SubstitutionRuntimeException(exception);
         }
     }
 
@@ -168,8 +169,18 @@ public class MarkdownService {
             } else if (ContentGenerator.class.isAssignableFrom(placeholderClass)) {
                 ContentGenerator markdownGenerator =
                     ContentGeneratorService.getInstance().getContentGenerator(placeholderClass);
-                return markdownGenerator.generate(placeholder);
+                Content content = markdownGenerator.generate(placeholder);
+                if (content.getPlantUmlContent() != null) {
+                    String linkToDiagram = generateDiagram(placeholder, content.getPlantUmlContent());
+                    return linkToDiagram + content.getMarkdownContent();
+                } else {
+                    return content.getMarkdownContent();
+                }
             }
+        } catch (ClassNotFoundException classNotFoundException) {
+            throw new SubstitutionRuntimeException("PlaceholderClass cannot be found." +
+                " Placeholder className: '" + placeholder.getClassName() +
+                "', placeholder: " + placeholder, classNotFoundException);
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
@@ -207,7 +218,7 @@ public class MarkdownService {
      *                 {@link PlaceholderToReportDocumentService#getReportDocument(Placeholder)}.
      * @return A part of markdown document with link to generated SVG image.
      */
-    public String generateDiagram(Placeholder placeholder, String plantUml) {
+    private String generateDiagram(Placeholder placeholder, String plantUml) {
         ResourceService resourceService = ResourceService.getInstance();
         String placeholderResourceRelativePath =
                 resourceService.generatePlaceholderResourceRelativePath(placeholder.getResource());
