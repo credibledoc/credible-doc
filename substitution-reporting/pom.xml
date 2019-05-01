@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.credibledoc</groupId>
         <artifactId>substitution-parent</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>substitution-reporting</artifactId>
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>substitution-generators</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
