@@ -26,7 +26,7 @@ Launch the application
 
     cd log-combiner
     mvn clean install
-    java -jar target/log-combiner-doc-1.0.0-SNAPSHOT.jar
+    java -jar target/log-combiner-doc-1.0.0.jar
 
 As a result, the `target/generated/markdown` folder with new folders and files
 is generated.
@@ -38,6 +38,7 @@ this approach for generation of documentation for your own projects.
 ## Templates used for generation of this documentation
 This documentation is generated from these templates:
 
+* [/template/markdown/doc/log-combiner/README.md](src/main/resources/template/markdown/doc/log-combiner/README.md)
 * [/template/markdown/doc/log-combiner-core/doc/usage.md](src/main/resources/template/markdown/doc/log-combiner-core/doc/usage.md)
 * [/template/markdown/doc/log-combiner-core/README.md](src/main/resources/template/markdown/doc/log-combiner-core/README.md)
 * [/template/markdown/doc/log-combiner-doc/README.md](src/main/resources/template/markdown/doc/log-combiner-doc/README.md)

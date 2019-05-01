@@ -20,7 +20,7 @@ In this case log files from the `/var/log/temp` folder will be merged. And the
 the `three-app.properties` file in the `/var/log/combiner/` folder.
 
 ## Arguments description
-* `log-combiner.jar` (mandatory) is the latest release TODO Kyrylo Semenko link of the log-combiner tool
+* `log-combiner.jar` (mandatory) is the [latest release of the log-combiner-X.X.X.jar](https://github.com/credibledoc/log-combiner/releases/latest) tool
 * `folderAbsolutePath` (mandatory) is a path to a folder with log files for merging. Files will be parsed in this folder and sub-folders recursively.
 * `configAbsolutePath` (optional) is a configuration file path. Example of the file see below. If the `configAbsolutePath`
 is not defined, default is `log-combiner.properties` placed next to the jar file.

@@ -1,6 +1,6 @@
 # Usage of the log-combiner-core module
 
-This module is the source for the log-combiner-core-1.0.0-SNAPSHOT.jar library.
+This module is the source for the log-combiner-core-1.0.0.jar library.
 
 This library can be loaded by the Maven tool from the Maven central repository.
 
@@ -15,6 +15,6 @@ Example of Maven configuration in a `pom.xml` file
             <dependency>
                 <groupId>com.credibledoc</groupId>
                 <artifactId>log-combiner-core</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.0</version>
             </dependency>
     ...
