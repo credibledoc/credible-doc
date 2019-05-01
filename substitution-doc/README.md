@@ -26,7 +26,7 @@ Change directory
     
 Launch the application
 
-    java -jar target/substitution-doc-1.0.0-SNAPSHOT.jar
+    java -jar target/substitution-doc-1.0.0.jar
 
 As a result, the `target/generated/markdown` folder with new folders and files
 is generated.

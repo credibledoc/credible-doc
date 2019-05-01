@@ -30,7 +30,10 @@ public enum Template {
     /** A path in a classpath, for example "/html/template/sourceLog.html" */
     private final String templateRelativePath;
 
-    /** Constructor to set {@link #templateRelativePath} */
+    /**
+     * Constructor to set {@link #templateRelativePath}
+     * @param templateRelativePath see {@link #templateRelativePath} field
+     */
     Template(String templateRelativePath) {
         this.templateRelativePath = templateRelativePath;
     }

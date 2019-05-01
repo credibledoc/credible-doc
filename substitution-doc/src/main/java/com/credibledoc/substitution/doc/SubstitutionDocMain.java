@@ -51,6 +51,7 @@ public class SubstitutionDocMain {
 
     /**
      * The main method for generation of documentation of the credibledoc-substitution tool.
+     * @param args not used
      */
     public static void main(String[] args) {
         log.info(APPLICATION_SUBSTITUTION_DOC_LAUNCHED);

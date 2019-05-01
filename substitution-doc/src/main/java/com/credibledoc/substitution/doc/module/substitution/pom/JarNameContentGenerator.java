@@ -22,13 +22,13 @@ import java.net.URL;
  * Link to the repository API is defined in the <i>url</i> {@link Placeholder#getParameters()} property.
  * <p>
  * Example
- * <pre>
+ * <pre>{@code
  *     &&beginPlaceholder {
  *             "className": "com.credibledoc.substitution.doc.module.substitution.pom.JarNameContentGenerator",
  *             "description": "Latest plantuml-core.jar name",
  *             "parameters": {"url": "https://repo1.maven.org/maven2/com/credibledoc/plantuml-core/maven-metadata.xml"}
  *           } &&endPlaceholder
- * </pre>
+ * }</pre>
  *
  * @author Kyrylo Semenko
  */
