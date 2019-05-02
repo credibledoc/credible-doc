@@ -26,3 +26,17 @@ This Activity diagram shows main steps of the application activity parsed from a
 substitution-doc_1.log file. 
 
 ![Diagram of the previous application launching.](img/diagrams.md_3.svg?sanitize=true)
+
+### Modules - based activity diagram
+This diagram shows the application activity divided to swimlanes. Each swimlane
+represents a module where an event occurred.
+This diagram is generated from parsed substitution-doc_1.log file.
+
+![Credibledoc modules - based activity diagram.](img/diagrams.md_4.svg?sanitize=true)
+
+### Dependencies between packages
+
+![Dependency of the `com.credibledoc.substitution.reporting` package on other packages in the `com.credibledoc.substitution.doc` package.](img/diagrams.md_5.svg?sanitize=true)
+
+_Dependency of the `com.credibledoc.substitution.reporting` package on other packages in the `com.credibledoc.substitution.doc` package._
+

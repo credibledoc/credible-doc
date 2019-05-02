@@ -1,5 +1,3 @@
-Notice: work in progress.
-
 # Module substitution-doc
 This module generates a documentation for the
 [placeholder-substitution](../README.md) module. This document is also generated
@@ -8,7 +6,7 @@ by this `substitution-doc` module.
 ## Usage
 Please open a command line and try it yourself.
 
-Checkout this project from Github
+Clone this project from Github
 
     git clone https://github.com/credibledoc/placeholder-substitution.git
 
@@ -26,7 +24,7 @@ Change directory
     
 Launch the application
 
-    java -jar target/substitution-doc-1.0.0.jar
+    java -jar target/substitution-doc-1.0.3.jar
 
 As a result, the `target/generated/markdown` folder with new folders and files
 is generated.
@@ -39,6 +37,7 @@ this approach for generation of documentation for your own projects.
 This documentation is generated from these templates:
 
 * [/template/markdown/doc/diagrams.md](src/main/resources/template/markdown/doc/diagrams.md)
+* [/template/markdown/doc/img/diffBetweenTemplateAndGeneratedFiles.png](src/main/resources/template/markdown/doc/img/diffBetweenTemplateAndGeneratedFiles.png)
 * [/template/markdown/README.md](src/main/resources/template/markdown/README.md)
 
 
