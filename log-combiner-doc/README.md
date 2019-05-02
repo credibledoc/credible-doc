@@ -26,7 +26,7 @@ Launch the application
 
     cd log-combiner
     mvn clean install
-    java -jar target/log-combiner-doc-1.0.1.jar
+    java -jar target/log-combiner-doc-1.0.3.jar
 
 As a result, the `target/generated/markdown` folder with new folders and files
 is generated.
