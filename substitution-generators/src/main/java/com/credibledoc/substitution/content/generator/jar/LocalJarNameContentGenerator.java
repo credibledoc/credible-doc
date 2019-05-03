@@ -16,7 +16,7 @@ import java.io.File;
  *         "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
  *         "description": "Current name of the substitution-doc-X.X.X.jar.",
  *         "parameters": {
- *             "targetDirectoryRelativePath": "target",
+ *             "targetDirectoryRelativePath": "substitution-doc/target",
  *             "jarNamePrefix": "substitution-doc-"
  *         }
  *     } &&endPlaceholder

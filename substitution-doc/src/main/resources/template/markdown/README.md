@@ -8,35 +8,35 @@ Please open a command line and try it yourself.
 
 Clone this project from Github
 
+    git clone https://github.com/credibledoc/plantuml.git
     git clone https://github.com/credibledoc/placeholder-substitution.git
+    git clone https://github.com/credibledoc/log-combiner.git
+
+Build projects and install artifacts by Maven
+    
+    mvn clean install -f plantuml/pom.xml
+    mvn clean install -f placeholder-substitution/pom.xml
+    mvn clean install -f log-combiner/pom.xml
 
 Change directory
-
+    
     cd placeholder-substitution
-    
-Build by Maven
-    
-    mvn clean install
-
-Change directory
-    
-    cd substitution-doc
     
 Launch the application
 
-    java -jar target/&&beginPlaceholder {
+    java -jar substitution-doc/target/&&beginPlaceholder {
                   "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
                   "description": "Current name of the substitution-doc-X.X.X.jar.",
                   "parameters": {
-                      "targetDirectoryRelativePath": "target",
+                      "targetDirectoryRelativePath": "substitution-doc/target",
                       "jarNamePrefix": "substitution-doc-"
                   }
               } &&endPlaceholder
 
-As a result, the `target/generated/markdown` folder with new folders and files
+As a result, the `placeholder-substitution/target/generated/markdown` folder with new folders and files
 is generated.
 
-Please inspect these generated files in the `substitution-doc/target/generated/markdown` folder.
+Please inspect these generated files in the `placeholder-substitution/target/generated/markdown` folder.
 These generated files is the documentation you are currently reading. You can use
 this approach for generation of documentation for your own projects.
 

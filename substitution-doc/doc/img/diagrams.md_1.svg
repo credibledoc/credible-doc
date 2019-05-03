@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="147px" preserveAspectRatio="none" style="width:949px;height:147px;" version="1.1" viewBox="0 0 949 147" width="949px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="92px" preserveAspectRatio="none" style="width:245px;height:92px;" version="1.1" viewBox="0 0 245 92" width="245px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="fuhfxht" width="300%" x="-1" y="-1">
+    <filter height="300%" id="f6frmxl" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,31 +8,17 @@
     </filter>
   </defs>
   <g>
-    <ellipse cx="124" cy="20" fill="#000000" filter="url(#fuhfxht)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#fuhfxht)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="10" y="50"/>
+    <ellipse cx="124" cy="20" fill="#000000" filter="url(#f6frmxl)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#f6frmxl)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="10" y="50"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="20" y="72.457">Application substitution-doc launched.</text>
-    <polygon fill="#FBFB77" filter="url(#fuhfxht)" points="241,109.4648,241,135.8164,940,135.8164,940,119.4648,930,109.4648,241,109.4648" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <polygon fill="#FBFB77" points="241,109.4648,241,118.6406,221,122.6406,241,126.6406,241,135.8164,940,135.8164,940,119.4648,930,109.4648,241,109.4648" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.0;" x1="930" x2="930" y1="109.4648" y2="119.4648"/>
-    <line style="stroke: #A80036; stroke-width: 1.0;" x1="940" x2="930" y1="119.4648" y2="119.4648"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="678" x="247" y="127.96">file:/C:/Users/semenko/git/credibledoc_placeholder-substitution/substitution-doc/target/classes/substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#fuhfxht)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="27" y="105.0938"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="37" y="127.5508">Configuration properties loaded</text>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="30" y2="50"/>
     <polygon fill="#A80036" points="120,40,124,50,128,40,124,44" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="85.0938" y2="105.0938"/>
-    <polygon fill="#A80036" points="120,95.0938,124,105.0938,128,95.0938,124,99.0938" style="stroke: #A80036; stroke-width: 1.0;"/>
 <!--
 !WARNING! Original strings (double dash) has been replaced by '- -' (dash+space+dash) in this comment, because the string (double dash) is not permitted within comments. And link parameters, for example ?search=... have also been REMOVED from the comment, because they are not readable for humans.
 <img uml="
 @startuml
 start
 :Application substitution-doc launched.;
-
-:Configuration properties loaded;
-note right
-file:/C:/Users/semenko/git/credibledoc_placeholder-substitution/substitution-doc/target/classes/substitution.properties
-end note
 
 @enduml
 "/>
