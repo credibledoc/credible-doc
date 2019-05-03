@@ -177,7 +177,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.credibledoc.substitution.doc.SubstitutionDocMain</mainClass>
+                            <mainClass>com.credibledoc.combiner.doc.LogCombinerDocMain</mainClass>
                         </configuration>
                     </execution>
                 </executions>
