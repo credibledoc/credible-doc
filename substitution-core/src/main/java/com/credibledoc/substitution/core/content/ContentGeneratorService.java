@@ -54,13 +54,13 @@ public class ContentGeneratorService {
      * @param contentGeneratorClass type of the {@link ContentGenerator}
      * @return The {@link ContentGenerator} or throw an {@link Exception}
      */
-    public ContentGenerator getContentGenerator(Class contentGeneratorClass) {
+    public ContentGenerator getContentGenerator(Class<? extends ContentGenerator> contentGeneratorClass) {
         try {
             Map<Class<? extends ContentGenerator>, ContentGenerator> contentGeneratorMap =
                 ContentGeneratorRepository.getInstance().getContentGeneratorMap();
             if (!contentGeneratorMap.containsKey(contentGeneratorClass)) {
-                Object object = contentGeneratorClass.newInstance();
-                contentGeneratorMap.put(contentGeneratorClass, (ContentGenerator) object);
+                ContentGenerator contentGenerator = contentGeneratorClass.newInstance();
+                contentGeneratorMap.put(contentGeneratorClass, contentGenerator);
             }
             return contentGeneratorMap.get(contentGeneratorClass);
         } catch (Exception e) {

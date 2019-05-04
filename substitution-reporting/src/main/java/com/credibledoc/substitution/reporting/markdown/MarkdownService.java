@@ -167,6 +167,7 @@ public class MarkdownService {
                     return generatedTag;
                 }
             } else if (ContentGenerator.class.isAssignableFrom(placeholderClass)) {
+                @SuppressWarnings("unchecked")
                 ContentGenerator markdownGenerator =
                     ContentGeneratorService.getInstance().getContentGenerator(placeholderClass);
                 Content content = markdownGenerator.generate(placeholder);
