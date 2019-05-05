@@ -1,56 +1,17 @@
-# Module substitution-doc
-This module generates a documentation for the
-[substitution](../README.md) module. This document is also generated
-by this `substitution-doc` module.
+Notice: work in progress.
 
-## Usage
-Please open a command line and try it yourself.
+# Module substitution-parent
+The parent Maven module of the `credibledoc/credible-doc/substitution` modules.
 
-Clone this project from Github
+The `Placeholder` and `Substitution` words are used here in the sense
+of [Snippet placeholders](https://en.wikipedia.org/wiki/Snippet_(programming)#Snippet_placeholders).
 
-    git clone https://github.com/credibledoc/credible-doc.git
-
-Build projects and install artifacts by Maven
-    
-    mvn clean install -f credible-doc/pom.xml
-
-Change directory
-    
-    cd credible-doc/substitution
-    
-Launch the application
-
-    java -jar substitution-doc/target/&&beginPlaceholder {
-                  "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
-                  "description": "Current name of the substitution-doc-X.X.X.jar.",
-                  "parameters": {
-                      "targetDirectoryRelativePath": "substitution-doc/target",
-                      "jarNamePrefix": "substitution-doc-"
-                  }
-              } &&endPlaceholder
-
-As a result, the `substitution/target/generated/markdown` folder with new folders and files
-is generated.
-
-Please inspect these generated files in the `substitution/target/generated/markdown` folder.
-These generated files is the documentation you are currently reading. You can use
-this approach for generation of documentation for your own projects.
-
-## Templates used for generation of this documentation
-This documentation is generated from these templates:
-
-&&beginPlaceholder {
-    "className": "com.credibledoc.substitution.content.generator.resource.ResourcesListMarkdownGenerator",
-    "description": "List of resources from classpath of the substitution-doc application.",
-    "parameters": {"endsWith": ".md"}
-} &&endPlaceholder
-
-As you can notice, this generated document and its template have common parts,
-and this diff shows different parts. These different parts are placeholders and
-the content generated from these placeholders.
-![Image of differences between template and generated files](doc/img/diffBetweenTemplateAndGeneratedFiles.png)
-
-## Examples of PlantUML diagrams
-
-The [diagrams.md](doc/diagrams.md) page shows some examples of PlantUML diagrams
-generated from log files.
+## Submodules
+* [substitution-core](substitution-core/README.md) module contains
+a simple [template processor](https://en.wikipedia.org/wiki/Template_processor) with a focus on creation of UML diagrams
+* [substitution-doc](substitution-doc/README.md) module contains an example
+of [substitution-core](substitution-core/README.md) usage
+* [substitution-generators](substitution-generators/README.md) module contains classes
+with utilities for generation document parts and diagrams
+* [substitution-reporting](substitution-reporting/README.md) module contains classes with business logic of library
+for creation of application documentation

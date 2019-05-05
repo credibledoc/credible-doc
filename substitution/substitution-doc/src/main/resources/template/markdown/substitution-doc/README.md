@@ -20,7 +20,14 @@ Change directory
     
 Launch the application
 
-    java -jar substitution-doc/target/substitution-doc-1.0.4-SNAPSHOT.jar
+    java -jar substitution-doc/target/&&beginPlaceholder {
+                  "className": "com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator",
+                  "description": "Current name of the substitution-doc-X.X.X.jar.",
+                  "parameters": {
+                      "targetDirectoryRelativePath": "substitution-doc/target",
+                      "jarNamePrefix": "substitution-doc-"
+                  }
+              } &&endPlaceholder
 
 As a result, the `substitution/target/generated/markdown` folder with new folders and files
 is generated.
@@ -32,14 +39,11 @@ this approach for generation of documentation for your own projects.
 ## Templates used for generation of this documentation
 This documentation is generated from these templates:
 
-* [/template/markdown/README.md](src/main/resources/template/markdown/README.md)
-* [/template/markdown/substitution-core/README.md](src/main/resources/template/markdown/substitution-core/README.md)
-* [/template/markdown/substitution-doc/doc/diagrams.md](src/main/resources/template/markdown/substitution-doc/doc/diagrams.md)
-* [/template/markdown/substitution-doc/doc/img/diffBetweenTemplateAndGeneratedFiles.png](src/main/resources/template/markdown/substitution-doc/doc/img/diffBetweenTemplateAndGeneratedFiles.png)
-* [/template/markdown/substitution-doc/README.md](src/main/resources/template/markdown/substitution-doc/README.md)
-* [/template/markdown/substitution-generators/README.md](src/main/resources/template/markdown/substitution-generators/README.md)
-* [/template/markdown/substitution-reporting/README.md](src/main/resources/template/markdown/substitution-reporting/README.md)
-
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.content.generator.resource.ResourcesListMarkdownGenerator",
+    "description": "List of resources from classpath of the substitution-doc application.",
+    "parameters": {"endsWith": ".md"}
+} &&endPlaceholder
 
 As you can notice, this generated document and its template have common parts,
 and this diff shows different parts. These different parts are placeholders and
