@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="147px" preserveAspectRatio="none" style="width:950px;height:147px;" version="1.1" viewBox="0 0 950 147" width="950px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="fdnfi5c" width="300%" x="-1" y="-1">
+    <filter height="300%" id="frv4uon" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,15 +8,15 @@
     </filter>
   </defs>
   <g>
-    <ellipse cx="124" cy="20" fill="#000000" filter="url(#fdnfi5c)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#fdnfi5c)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="10" y="50"/>
+    <ellipse cx="124" cy="20" fill="#000000" filter="url(#frv4uon)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#frv4uon)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="10" y="50"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="20" y="72.457">Application substitution-doc launched.</text>
-    <polygon fill="#FBFB77" filter="url(#fdnfi5c)" points="241,109.4648,241,135.8164,941,135.8164,941,119.4648,931,109.4648,241,109.4648" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FBFB77" filter="url(#frv4uon)" points="241,109.4648,241,135.8164,941,135.8164,941,119.4648,931,109.4648,241,109.4648" style="stroke: #A80036; stroke-width: 1.0;"/>
     <polygon fill="#FBFB77" points="241,109.4648,241,118.6406,221,122.6406,241,126.6406,241,135.8164,941,135.8164,941,119.4648,931,109.4648,241,109.4648" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.0;" x1="931" x2="931" y1="109.4648" y2="119.4648"/>
     <line style="stroke: #A80036; stroke-width: 1.0;" x1="941" x2="931" y1="119.4648" y2="119.4648"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="679" x="247" y="127.96">file:/C:/Users/semenko/git/credibledoc/credible-doc/substitution/substitution-doc/target/classes/substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#fdnfi5c)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="27" y="105.0938"/>
+    <rect fill="#FEFECE" filter="url(#frv4uon)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="27" y="105.0938"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="37" y="127.5508">Configuration properties loaded</text>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="30" y2="50"/>
     <polygon fill="#A80036" points="120,40,124,50,128,40,124,44" style="stroke: #A80036; stroke-width: 1.0;"/>
