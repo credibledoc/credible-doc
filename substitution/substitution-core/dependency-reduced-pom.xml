@@ -10,8 +10,8 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <description>A simple library for replacing placeholders with a generated content.
         See description in the README.md file in the root of the
-        https://github.com/credibledoc/placeholder-substitution repository.</description>
-  <url>https://github.com/credibledoc/placeholder-substitution</url>
+        https://github.com/credibledoc/credible-doc repository.</description>
+  <url>https://github.com/credibledoc/credible-doc</url>
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -20,7 +20,7 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:git://github.com/credibledoc/placeholder-substitution.git</connection>
+    <connection>scm:git:git://github.com/credibledoc/credible-doc.git</connection>
   </scm>
   <build>
     <plugins>

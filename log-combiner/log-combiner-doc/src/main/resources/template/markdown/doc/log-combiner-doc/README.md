@@ -8,19 +8,15 @@ Please open a command line and try the next commands in a temporary folder.
 
 Clone these projects from Github
 
-    git clone https://github.com/credibledoc/plantuml.git
-    git clone https://github.com/credibledoc/placeholder-substitution.git
-    git clone https://github.com/credibledoc/log-combiner.git
+    git clone https://github.com/credibledoc/credible-doc.git
     
 Build projects and install artifacts by Maven
     
-    mvn clean install -f plantuml/pom.xml
-    mvn clean install -f placeholder-substitution/pom.xml
-    mvn clean install -f log-combiner/pom.xml
+    mvn clean install -f credible-doc/pom.xml
 
 Change directory
     
-    cd log-combiner
+    cd credible-doc/log-combiner
     
 Launch the application
 

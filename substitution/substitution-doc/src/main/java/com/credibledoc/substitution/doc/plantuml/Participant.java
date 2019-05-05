@@ -10,7 +10,7 @@ import com.credibledoc.substitution.doc.SubstitutionDocMain;
 public enum Participant {
 
     /**
-     * The placeholder-substitution module.
+     * The substitution module.
      */
     SUBSTITUTION_CORE("\"" + ResourceService.SUBSTITUTION_CORE_MODULE_NAME + "\""),
 

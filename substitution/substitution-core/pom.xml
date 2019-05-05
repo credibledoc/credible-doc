@@ -15,13 +15,13 @@
     <description>
         A simple library for replacing placeholders with a generated content.
         See description in the README.md file in the root of the
-        https://github.com/credibledoc/placeholder-substitution repository.
+        https://github.com/credibledoc/credible-doc repository.
     </description>
 
-    <url>https://github.com/credibledoc/placeholder-substitution</url>
+    <url>https://github.com/credibledoc/credible-doc</url>
 
     <scm>
-        <connection>scm:git:git://github.com/credibledoc/placeholder-substitution.git</connection>
+        <connection>scm:git:git://github.com/credibledoc/credible-doc.git</connection>
         <tag>HEAD</tag>
     </scm>
     <licenses>

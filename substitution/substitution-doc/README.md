@@ -36,12 +36,9 @@ this approach for generation of documentation for your own projects.
 ## Templates used for generation of this documentation
 This documentation is generated from these templates:
 
-* [/template/markdown/](src/main/resources/template/markdown/)
-* [/template/markdown/doc/](src/main/resources/template/markdown/doc/)
-* [/template/markdown/doc/img/](src/main/resources/template/markdown/doc/img/)
+* [/template/markdown/doc/diagrams.md](src/main/resources/template/markdown/doc/diagrams.md)
 * [/template/markdown/doc/img/diffBetweenTemplateAndGeneratedFiles.png](src/main/resources/template/markdown/doc/img/diffBetweenTemplateAndGeneratedFiles.png)
 * [/template/markdown/README.md](src/main/resources/template/markdown/README.md)
-* [/template/markdown/doc/diagrams.md](src/main/resources/template/markdown/doc/diagrams.md)
 
 
 As you can notice, this generated document and its template have common parts,

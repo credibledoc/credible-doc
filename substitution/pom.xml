@@ -13,9 +13,9 @@
     <description>
         A simple library for replacing of placeholders with a generated content.
         See description in the README.md file in the root of the
-        https://github.com/credibledoc/placeholder-substitution repository.
+        https://github.com/credibledoc/credible-doc repository.
     </description>
-    <url>https://github.com/credibledoc/placeholder-substitution</url>
+    <url>https://github.com/credibledoc/credible-doc</url>
 
     <licenses>
         <license>
@@ -34,9 +34,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/credibledoc/placeholder-substitution.git</connection>
-        <developerConnection>scm:git:ssh://github.com:credibledoc/placeholder-substitution.git</developerConnection>
-        <url>https://github.com/credibledoc/placeholder-substitution</url>
+        <connection>scm:git:git://github.com/credibledoc/credible-doc.git</connection>
+        <developerConnection>scm:git:ssh://github.com:credibledoc/credible-doc.git</developerConnection>
+        <url>https://github.com/credibledoc/credible-doc</url>
     </scm>
 
     <properties>

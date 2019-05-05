@@ -1,7 +1,7 @@
 Notice: work in progress.
 
 # Module substitution-parent
-The parent Maven module of the `credibledoc/placeholder-substitution` repository.
+The parent Maven module of the `credibledoc/credible-doc/substitution` modules.
 
 The `Placeholder` and `Substitution` words are used here in the sense
 of [Snippet placeholders](https://en.wikipedia.org/wiki/Snippet_(programming)#Snippet_placeholders).

@@ -66,9 +66,9 @@ combined into a single file. In this case each line can be distinguished which a
 For example:
 
 
-    node1 app1 INFO 2019-04-22T07:59:27.000+0200 [main] Application app1 started.
-    node0 app0 22.04.2019 07:59:27.910 [main] INFO Application app0 started.
-    node1 app0 22.04.2019 07:59:27.910 [thread2] INFO Application app0 started.
+     node1 app1 INFO 2019-04-22T07:59:27.000+0200 [main] Application app1 started.
+     node0 app0 22.04.2019 07:59:27.910 [main] INFO Application app0 started.
+     node1 app0 22.04.2019 07:59:27.910 [thread2] INFO Application app0 started.
 
 Example of folder structure with log files from multiple nodes:
 

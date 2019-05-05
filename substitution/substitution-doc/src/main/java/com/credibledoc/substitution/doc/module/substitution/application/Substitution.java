@@ -23,6 +23,6 @@ public class Substitution implements Application {
 
     @Override
     public String getShortName() {
-        return "placeholder-substitution";
+        return "substitution";
     }
 }

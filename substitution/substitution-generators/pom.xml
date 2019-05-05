@@ -14,16 +14,16 @@
 
     <description>
         This module contains implementations of the ContentGenerator interface.
-        Instances of these classes generate content.
+        Instances of these classes generate a content.
         This content will be placed instead of Placeholders.
-        See description in the README.md file in the root of the
-        https://github.com/credibledoc/placeholder-substitution repository.
+        See description in the
+        https://github.com/credibledoc/credible-doc/blob/master/substitution/README.md.
     </description>
 
-    <url>https://github.com/credibledoc/placeholder-substitution</url>
+    <url>https://github.com/credibledoc/credible-doc</url>
 
     <scm>
-        <connection>scm:git:git://github.com/credibledoc/placeholder-substitution.git</connection>
+        <connection>scm:git:git://github.com/credibledoc/credible-doc.git</connection>
         <tag>HEAD</tag>
     </scm>
     <licenses>

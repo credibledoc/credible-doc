@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="4240px" preserveAspectRatio="none" style="width:934px;height:4240px;" version="1.1" viewBox="0 0 934 4240" width="934px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="5025px" preserveAspectRatio="none" style="width:1216px;height:5025px;" version="1.1" viewBox="0 0 1216 5025" width="1216px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="fquxukb" width="300%" x="-1" y="-1">
+    <filter height="300%" id="finz3t4" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,348 +8,406 @@
     </filter>
   </defs>
   <g>
-    <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="126" x="92" y="31.1406">substitution-doc</text>
-    <line style="stroke: #000000; stroke-width: 2.0;" x1="10" x2="10" y1="12.4551" y2="4233.877"/>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="41.5" y="35.0957"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="51.5" y="57.5527">Application substitution-doc launched.</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="41.5" y="90.1895"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="51.5" y="112.6465">Spring ApplicationContext created and</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="38" x="51.5" y="127.7402">started</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="74" y="245.6582"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="84" y="268.1152">Line processors prepared</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="74" y="441.127"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="84" y="463.584">Line processors prepared</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="74" y="636.5957"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="84" y="659.0527">Line processors prepared</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="74" y="832.0645"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="84" y="854.5215">Line processors prepared</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="125.6563" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="253" x="29" y="1082.627"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="167" x="39" y="1105.084">Resource will be copied to file.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="57" x="39" y="1120.1777">Resource:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="233" x="39" y="1135.2715">/template/markdown/doc/img/diffBetweenT</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="178" x="39" y="1150.3652">emplateAndGeneratedFiles.png.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="131" x="39" y="1165.459">TargetFileAbsolutePath:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="225" x="39" y="1180.5527">target/generated/markdown/doc/img/diffB</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="222" x="39" y="1195.6465">etweenTemplateAndGeneratedFiles.png</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="271" x="20" y="1228.2832"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="129" x="30" y="1250.7402">Resource copied to file:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="231" x="30" y="1265.834">C:\Users\semenko\git\credibledoc_placeh</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="220" x="30" y="1280.9277">older-substitution\target\generated\mark</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="251" x="30" y="1296.0215">down\doc\img\diffBetweenTemplateAndGener</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="75" x="30" y="1311.1152">atedFiles.png</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="130" x="90.5" y="4198.7832"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="110" x="100.5" y="4221.2402">Application finished.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="168" x="406.5" y="31.1406">substitution-reporting</text>
-    <line style="stroke: #000000; stroke-width: 2.0;" x1="300" x2="300" y1="12.4551" y2="4233.877"/>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="323" x="329.5" y="160.377"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="303" x="339.5" y="182.834">Markdown templates will be loaded from the resources:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="192" x="339.5" y="197.9277">[/template/markdown/README.md,</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="339.5" y="213.0215">/template/markdown/doc/diagrams.md]</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="333" x="324.5" y="300.752"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="334.5" y="323.209">File will be parsed:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="313" x="334.5" y="338.3027">C:\Users\semenko\git\credibledoc_placeholder-substituti</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="334.5" y="353.3965">on\log\substitution-doc.log</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="215" x="383.5" y="386.0332"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="195" x="393.5" y="408.4902">Report prepared. Report: 20671747</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="333" x="324.5" y="496.2207"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="334.5" y="518.6777">File will be parsed:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="313" x="334.5" y="533.7715">C:\Users\semenko\git\credibledoc_placeholder-substituti</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="334.5" y="548.8652">on\log\substitution-doc_1.log</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="376.5" y="581.502"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="209" x="386.5" y="603.959">Report prepared. Report: 1690716179</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="333" x="324.5" y="691.6895"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="334.5" y="714.1465">File will be parsed:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="313" x="334.5" y="729.2402">C:\Users\semenko\git\credibledoc_placeholder-substituti</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="334.5" y="744.334">on\log\substitution-doc_1.log</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="222" x="380" y="776.9707"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="202" x="390" y="799.4277">Report prepared. Report: 564160838</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="333" x="324.5" y="887.1582"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="334.5" y="909.6152">File will be parsed:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="313" x="334.5" y="924.709">C:\Users\semenko\git\credibledoc_placeholder-substituti</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="334.5" y="939.8027">on\log\substitution-doc_1.log</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="222" x="380" y="972.4395"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="202" x="390" y="994.8965">Report prepared. Report: 627150481</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="408" y="1027.5332"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="418" y="1049.9902">Report documents created</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="313" x="334.5" y="1343.752"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="293" x="344.5" y="1366.209">Method createReports started, reportDocumentTypes:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="344.5" y="1381.3027">[DOCUMENT_PART_UML]</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="287" x="347.5" y="1413.9395"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="267" x="357.5" y="1436.3965">Method createReports started. Report: 20671747</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="260" x="361" y="1539.2207"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="240" x="371" y="1561.6777">The first line read from ReaderService. Line:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="371" y="1576.7715">03.05.2019 08:03:26.115|main|INFO |...</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="169" x="406.5" y="1609.4082"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="416.5" y="1631.8652">22 lines processed (100%)</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="301" x="340.5" y="1664.502"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="281" x="350.5" y="1686.959">Method createReports started. Report: 1690716179</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="260" x="361" y="1789.7832"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="240" x="371" y="1812.2402">The first line read from ReaderService. Line:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="371" y="1827.334">03.05.2019 08:00:06.784|main|INFO |...</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="169" x="406.5" y="1859.9707"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="416.5" y="1882.4277">43 lines processed (100%)</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="294" x="344" y="1915.0645"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="274" x="354" y="1937.5215">Method createReports started. Report: 564160838</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="260" x="361" y="2040.3457"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="240" x="371" y="2062.8027">The first line read from ReaderService. Line:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="371" y="2077.8965">03.05.2019 08:00:06.784|main|INFO |...</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="169" x="406.5" y="2110.5332"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="416.5" y="2132.9902">43 lines processed (100%)</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="294" x="344" y="2165.627"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="274" x="354" y="2188.084">Method createReports started. Report: 627150481</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="260" x="361" y="2290.9082"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="240" x="371" y="2313.3652">The first line read from ReaderService. Line:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="371" y="2328.459">03.05.2019 08:00:06.784|main|INFO |...</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="169" x="406.5" y="2361.0957"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="416.5" y="2383.5527">43 lines processed (100%)</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="140.75" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="356" x="313" y="2416.1895"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="323" y="2438.6465">Content replaced.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="336" x="323" y="2453.7402">{"resource":"/template/markdown/README.md","className":</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="301" x="323" y="2468.834">"com.credibledoc.substitution.content.generator.jar.Loc</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="283" x="323" y="2483.9277">alJarNameContentGenerator","description":"Current</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="65" x="323" y="2499.0215">name of the</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="278" x="323" y="2514.1152">substitution-doc-X.X.X.jar.","id":"1","parameters":{"ta</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="285" x="323" y="2529.209">rgetDirectoryRelativePath":"substitution-doc/target","j</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="190" x="323" y="2544.3027">arNamePrefix":"substitution-doc-"}}</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="125.6563" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="356" x="313" y="2576.9395"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="323" y="2599.3965">Content replaced.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="336" x="323" y="2614.4902">{"resource":"/template/markdown/README.md","className":</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="306" x="323" y="2629.584">"com.credibledoc.substitution.content.generator.resourc</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="305" x="323" y="2644.6777">e.ResourcesListMarkdownGenerator","description":"List</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="187" x="323" y="2659.7715">of resources from classpath of the</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="88" x="323" y="2674.8652">substitution-doc</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="288" x="323" y="2689.959">application.","id":"2","parameters":{"endsWith":".md"}}</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="330" x="326" y="2722.5957"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="336" y="2745.0527">File is generated</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="310" x="336" y="2760.1465">C:\Users\semenko\git\credibledoc_placeholder-substitut</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="336" y="2775.2402">ion\target\generated\markdown\README.md</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="348" x="317" y="2807.877"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="327" y="2830.334">File created:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="313" x="327" y="2845.4277">C:\Users\semenko\git\credibledoc_placeholder-substituti</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="328" x="327" y="2860.5215">on\target\generated\markdown\doc\img\diagrams.md_1.svg</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="140.75" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="341" x="320.5" y="2893.1582"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="330.5" y="2915.6152">Content replaced.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="330.5" y="2930.709">{"resource":"/template/markdown/doc/diagrams.md","class</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="318" x="330.5" y="2945.8027">Name":"com.credibledoc.substitution.doc.module.substitu</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="314" x="330.5" y="2960.8965">tion.launching.LaunchingUmlReportService","description"</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="252" x="330.5" y="2975.9902">:"Diagram of the application launching created</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="25" x="330.5" y="2991.084">from</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="288" x="330.5" y="3006.1777">substitution-doc.log.","id":"1","parameters":{"sourceFi</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="330.5" y="3021.2715">leRelativePath":"log/substitution-doc.log"}}</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="348" x="317" y="3053.9082"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="327" y="3076.3652">File created:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="313" x="327" y="3091.459">C:\Users\semenko\git\credibledoc_placeholder-substituti</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="328" x="327" y="3106.5527">on\target\generated\markdown\doc\img\diagrams.md_2.svg</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="140.75" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="341" x="320.5" y="3139.1895"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="330.5" y="3161.6465">Content replaced.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="330.5" y="3176.7402">{"resource":"/template/markdown/doc/diagrams.md","class</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="318" x="330.5" y="3191.834">Name":"com.credibledoc.substitution.doc.module.substitu</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="314" x="330.5" y="3206.9277">tion.launching.LaunchingUmlReportService","description"</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="252" x="330.5" y="3222.0215">:"Diagram of the application launching created</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="25" x="330.5" y="3237.1152">from</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="292" x="330.5" y="3252.209">substitution-doc_1.log.","id":"2","parameters":{"source</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="254" x="330.5" y="3267.3027">FileRelativePath":"log/substitution-doc_1.log"}}</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="348" x="317" y="3299.9395"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="327" y="3322.3965">File created:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="313" x="327" y="3337.4902">C:\Users\semenko\git\credibledoc_placeholder-substituti</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="328" x="327" y="3352.584">on\target\generated\markdown\doc\img\diagrams.md_3.svg</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="125.6563" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="341" x="320.5" y="3385.2207"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="330.5" y="3407.6777">Content replaced.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="330.5" y="3422.7715">{"resource":"/template/markdown/doc/diagrams.md","class</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="318" x="330.5" y="3437.8652">Name":"com.credibledoc.substitution.doc.module.substitu</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="283" x="330.5" y="3452.959">tion.activity.anyline.ActivityUmlReportService","descri</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="232" x="330.5" y="3468.0527">ption":"Diagram of the previous application</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="296" x="330.5" y="3483.1465">launching.","id":"3","parameters":{"sourceFileRelativeP</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="182" x="330.5" y="3498.2402">ath":"log/substitution-doc_1.log"}}</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="348" x="317" y="3530.877"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="327" y="3553.334">File created:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="313" x="327" y="3568.4277">C:\Users\semenko\git\credibledoc_placeholder-substituti</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="328" x="327" y="3583.5215">on\target\generated\markdown\doc\img\diagrams.md_4.svg</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="140.75" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="341" x="320.5" y="3616.1582"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="330.5" y="3638.6152">Content replaced.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="330.5" y="3653.709">{"resource":"/template/markdown/doc/diagrams.md","class</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="318" x="330.5" y="3668.8027">Name":"com.credibledoc.substitution.doc.module.substitu</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="302" x="330.5" y="3683.8965">tion.activity.modules.ModulesActivityUmlReportService",</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="240" x="330.5" y="3698.9902">"description":"Credibledoc modules - based</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="35" x="330.5" y="3714.084">activity</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="298" x="330.5" y="3729.1777">diagram.","id":"4","parameters":{"sourceFileRelativePat</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="172" x="330.5" y="3744.2715">h":"log/substitution-doc_1.log"}}</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="348" x="317" y="3776.9082"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="327" y="3799.3652">File created:</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="313" x="327" y="3814.459">C:\Users\semenko\git\credibledoc_placeholder-substituti</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="328" x="327" y="3829.5527">on\target\generated\markdown\doc\img\diagrams.md_5.svg</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="362" x="310" y="3862.1895"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="320" y="3884.6465">Content replaced.</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="320" y="3899.7402">{"resource":"/template/markdown/doc/diagrams.md","class</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="312" x="320" y="3914.834">Name":"com.credibledoc.substitution.content.generator.d</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="342" x="320" y="3929.9277">ependency.PackageDependenciesContentGenerator","descrip</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="133" x="320" y="3945.0215">tion":"Dependency of the</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="268" x="320" y="3960.1152">`com.credibledoc.substitution.reporting` package</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="135" x="320" y="3975.209">on other packages in the</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="189" x="320" y="3990.3027">`com.credibledoc.substitution.doc`</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="294" x="320" y="4005.3965">package.","id":"5","parameters":{"jarRelativePath":"sub</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="310" x="320" y="4020.4902">stitution-doc/target/substitution-doc-1.0.4-SNAPSHOT-so</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="315" x="320" y="4035.584">urces.jar","dependantPackage":"com.credibledoc.substitu</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="333" x="320" y="4050.6777">tion.reporting","dependenciesPackagesSemicolonSeparated</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="307" x="320" y="4065.7715">":"com.credibledoc.substitution.doc","ignoreInnerPackag</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="58" x="320" y="4080.8652">es":"true"}}</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="330" x="326" y="4113.502"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="336" y="4135.959">File is generated</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="310" x="336" y="4151.0527">C:\Users\semenko\git\credibledoc_placeholder-substitut</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="271" x="336" y="4166.1465">ion\target\generated\markdown\doc\diagrams.md</text>
-    <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="144" x="735" y="31.1406">log-combiner-core</text>
-    <line style="stroke: #000000; stroke-width: 2.0;" x1="681" x2="681" y1="12.4551" y2="4233.877"/>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="233" x="691" y="1469.0332"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="213" x="701" y="1491.4902">Duration of prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="701" y="1506.584">0,475242 milliseconds</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="233" x="691" y="1719.5957"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="213" x="701" y="1742.0527">Duration of prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="701" y="1757.1465">0,101048 milliseconds</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="233" x="691" y="1970.1582"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="213" x="701" y="1992.6152">Duration of prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="701" y="2007.709">0,114073 milliseconds</text>
-    <rect fill="#FEFECE" filter="url(#fquxukb)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="233" x="691" y="2220.7207"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="213" x="701" y="2243.1777">Duration of prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="701" y="2258.2715">0,160651 milliseconds</text>
-    <line style="stroke: #000000; stroke-width: 2.0;" x1="933" x2="933" y1="12.4551" y2="4233.877"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="70.1895" y2="90.1895"/>
-    <polygon fill="#A80036" points="151.5,80.1895,155.5,90.1895,159.5,80.1895,155.5,84.1895" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="1208.2832" y2="1228.2832"/>
-    <polygon fill="#A80036" points="151.5,1218.2832,155.5,1228.2832,159.5,1218.2832,155.5,1222.2832" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="366.0332" y2="386.0332"/>
-    <polygon fill="#A80036" points="487,376.0332,491,386.0332,495,376.0332,491,380.0332" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="561.502" y2="581.502"/>
-    <polygon fill="#A80036" points="487,571.502,491,581.502,495,571.502,491,575.502" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="756.9707" y2="776.9707"/>
-    <polygon fill="#A80036" points="487,766.9707,491,776.9707,495,766.9707,491,770.9707" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="952.4395" y2="972.4395"/>
-    <polygon fill="#A80036" points="487,962.4395,491,972.4395,495,962.4395,491,966.4395" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1007.5332" y2="1027.5332"/>
-    <polygon fill="#A80036" points="487,1017.5332,491,1027.5332,495,1017.5332,491,1021.5332" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1393.9395" y2="1413.9395"/>
-    <polygon fill="#A80036" points="487,1403.9395,491,1413.9395,495,1403.9395,491,1407.9395" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1589.4082" y2="1609.4082"/>
-    <polygon fill="#A80036" points="487,1599.4082,491,1609.4082,495,1599.4082,491,1603.4082" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1644.502" y2="1664.502"/>
-    <polygon fill="#A80036" points="487,1654.502,491,1664.502,495,1654.502,491,1658.502" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1839.9707" y2="1859.9707"/>
-    <polygon fill="#A80036" points="487,1849.9707,491,1859.9707,495,1849.9707,491,1853.9707" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1895.0645" y2="1915.0645"/>
-    <polygon fill="#A80036" points="487,1905.0645,491,1915.0645,495,1905.0645,491,1909.0645" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2090.5332" y2="2110.5332"/>
-    <polygon fill="#A80036" points="487,2100.5332,491,2110.5332,495,2100.5332,491,2104.5332" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2145.627" y2="2165.627"/>
-    <polygon fill="#A80036" points="487,2155.627,491,2165.627,495,2155.627,491,2159.627" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2341.0957" y2="2361.0957"/>
-    <polygon fill="#A80036" points="487,2351.0957,491,2361.0957,495,2351.0957,491,2355.0957" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2396.1895" y2="2416.1895"/>
-    <polygon fill="#A80036" points="487,2406.1895,491,2416.1895,495,2406.1895,491,2410.1895" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2556.9395" y2="2576.9395"/>
-    <polygon fill="#A80036" points="487,2566.9395,491,2576.9395,495,2566.9395,491,2570.9395" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2702.5957" y2="2722.5957"/>
-    <polygon fill="#A80036" points="487,2712.5957,491,2722.5957,495,2712.5957,491,2716.5957" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2787.877" y2="2807.877"/>
-    <polygon fill="#A80036" points="487,2797.877,491,2807.877,495,2797.877,491,2801.877" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2873.1582" y2="2893.1582"/>
-    <polygon fill="#A80036" points="487,2883.1582,491,2893.1582,495,2883.1582,491,2887.1582" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="3033.9082" y2="3053.9082"/>
-    <polygon fill="#A80036" points="487,3043.9082,491,3053.9082,495,3043.9082,491,3047.9082" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="3119.1895" y2="3139.1895"/>
-    <polygon fill="#A80036" points="487,3129.1895,491,3139.1895,495,3129.1895,491,3133.1895" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="3279.9395" y2="3299.9395"/>
-    <polygon fill="#A80036" points="487,3289.9395,491,3299.9395,495,3289.9395,491,3293.9395" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="3365.2207" y2="3385.2207"/>
-    <polygon fill="#A80036" points="487,3375.2207,491,3385.2207,495,3375.2207,491,3379.2207" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="3510.877" y2="3530.877"/>
-    <polygon fill="#A80036" points="487,3520.877,491,3530.877,495,3520.877,491,3524.877" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="3596.1582" y2="3616.1582"/>
-    <polygon fill="#A80036" points="487,3606.1582,491,3616.1582,495,3606.1582,491,3610.1582" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="3756.9082" y2="3776.9082"/>
-    <polygon fill="#A80036" points="487,3766.9082,491,3776.9082,495,3766.9082,491,3770.9082" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="3842.1895" y2="3862.1895"/>
-    <polygon fill="#A80036" points="487,3852.1895,491,3862.1895,495,3852.1895,491,3856.1895" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="4093.502" y2="4113.502"/>
-    <polygon fill="#A80036" points="487,4103.502,491,4113.502,495,4103.502,491,4107.502" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="140.377" y2="145.377"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="491" y1="145.377" y2="145.377"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="145.377" y2="160.377"/>
-    <polygon fill="#A80036" points="487,150.377,491,160.377,495,150.377,491,154.377" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="225.6582" y2="230.6582"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="155.5" y1="230.6582" y2="230.6582"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="230.6582" y2="245.6582"/>
-    <polygon fill="#A80036" points="151.5,235.6582,155.5,245.6582,159.5,235.6582,155.5,239.6582" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="280.752" y2="285.752"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="491" y1="285.752" y2="285.752"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="285.752" y2="300.752"/>
-    <polygon fill="#A80036" points="487,290.752,491,300.752,495,290.752,491,294.752" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="421.127" y2="426.127"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="155.5" y1="426.127" y2="426.127"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="426.127" y2="441.127"/>
-    <polygon fill="#A80036" points="151.5,431.127,155.5,441.127,159.5,431.127,155.5,435.127" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="476.2207" y2="481.2207"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="491" y1="481.2207" y2="481.2207"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="481.2207" y2="496.2207"/>
-    <polygon fill="#A80036" points="487,486.2207,491,496.2207,495,486.2207,491,490.2207" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="616.5957" y2="621.5957"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="155.5" y1="621.5957" y2="621.5957"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="621.5957" y2="636.5957"/>
-    <polygon fill="#A80036" points="151.5,626.5957,155.5,636.5957,159.5,626.5957,155.5,630.5957" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="671.6895" y2="676.6895"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="491" y1="676.6895" y2="676.6895"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="676.6895" y2="691.6895"/>
-    <polygon fill="#A80036" points="487,681.6895,491,691.6895,495,681.6895,491,685.6895" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="812.0645" y2="817.0645"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="155.5" y1="817.0645" y2="817.0645"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="817.0645" y2="832.0645"/>
-    <polygon fill="#A80036" points="151.5,822.0645,155.5,832.0645,159.5,822.0645,155.5,826.0645" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="867.1582" y2="872.1582"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="491" y1="872.1582" y2="872.1582"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="872.1582" y2="887.1582"/>
-    <polygon fill="#A80036" points="487,877.1582,491,887.1582,495,877.1582,491,881.1582" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1062.627" y2="1067.627"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="155.5" y1="1067.627" y2="1067.627"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="1067.627" y2="1082.627"/>
-    <polygon fill="#A80036" points="151.5,1072.627,155.5,1082.627,159.5,1072.627,155.5,1076.627" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="1323.752" y2="1328.752"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="491" y1="1328.752" y2="1328.752"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1328.752" y2="1343.752"/>
-    <polygon fill="#A80036" points="487,1333.752,491,1343.752,495,1333.752,491,1337.752" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1449.0332" y2="1454.0332"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="807.5" y1="1454.0332" y2="1454.0332"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="807.5" y1="1454.0332" y2="1469.0332"/>
-    <polygon fill="#A80036" points="803.5,1459.0332,807.5,1469.0332,811.5,1459.0332,807.5,1463.0332" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="807.5" y1="1519.2207" y2="1524.2207"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="491" y1="1524.2207" y2="1524.2207"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1524.2207" y2="1539.2207"/>
-    <polygon fill="#A80036" points="487,1529.2207,491,1539.2207,495,1529.2207,491,1533.2207" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1699.5957" y2="1704.5957"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="807.5" y1="1704.5957" y2="1704.5957"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="807.5" y1="1704.5957" y2="1719.5957"/>
-    <polygon fill="#A80036" points="803.5,1709.5957,807.5,1719.5957,811.5,1709.5957,807.5,1713.5957" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="807.5" y1="1769.7832" y2="1774.7832"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="491" y1="1774.7832" y2="1774.7832"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1774.7832" y2="1789.7832"/>
-    <polygon fill="#A80036" points="487,1779.7832,491,1789.7832,495,1779.7832,491,1783.7832" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="1950.1582" y2="1955.1582"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="807.5" y1="1955.1582" y2="1955.1582"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="807.5" y1="1955.1582" y2="1970.1582"/>
-    <polygon fill="#A80036" points="803.5,1960.1582,807.5,1970.1582,811.5,1960.1582,807.5,1964.1582" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="807.5" y1="2020.3457" y2="2025.3457"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="491" y1="2025.3457" y2="2025.3457"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2025.3457" y2="2040.3457"/>
-    <polygon fill="#A80036" points="487,2030.3457,491,2040.3457,495,2030.3457,491,2034.3457" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2200.7207" y2="2205.7207"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="807.5" y1="2205.7207" y2="2205.7207"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="807.5" y1="2205.7207" y2="2220.7207"/>
-    <polygon fill="#A80036" points="803.5,2210.7207,807.5,2220.7207,811.5,2210.7207,807.5,2214.7207" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="807.5" y1="2270.9082" y2="2275.9082"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="807.5" x2="491" y1="2275.9082" y2="2275.9082"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="2275.9082" y2="2290.9082"/>
-    <polygon fill="#A80036" points="487,2280.9082,491,2290.9082,495,2280.9082,491,2284.9082" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="491" y1="4178.7832" y2="4183.7832"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="491" x2="155.5" y1="4183.7832" y2="4183.7832"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="155.5" x2="155.5" y1="4183.7832" y2="4198.7832"/>
-    <polygon fill="#A80036" points="151.5,4188.7832,155.5,4198.7832,159.5,4188.7832,155.5,4192.7832" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="126" x="93" y="31.1406">substitution-doc</text>
+    <line style="stroke: #000000; stroke-width: 2.0;" x1="10" x2="10" y1="12.4551" y2="5018.752"/>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="42.5" y="35.0957"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="52.5" y="57.5527">Application substitution-doc launched.</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="42.5" y="90.1895"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="52.5" y="112.6465">Spring ApplicationContext created and</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="38" x="52.5" y="127.7402">started</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="75" y="1109.0332"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="85" y="1131.4902">Line processors prepared</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="75" y="1304.502"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="85" y="1326.959">Line processors prepared</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="75" y="1444.877"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="85" y="1467.334">Line processors prepared</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="75" y="1585.252"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="85" y="1607.709">Line processors prepared</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="125.6563" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="253" x="30" y="2112.0332"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="167" x="40" y="2134.4902">Resource will be copied to file.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="57" x="40" y="2149.584">Resource:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="233" x="40" y="2164.6777">/template/markdown/doc/img/diffBetweenT</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="178" x="40" y="2179.7715">emplateAndGeneratedFiles.png.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="131" x="40" y="2194.8652">TargetFileAbsolutePath:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="225" x="40" y="2209.959">target/generated/markdown/doc/img/diffB</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="222" x="40" y="2225.0527">etweenTemplateAndGeneratedFiles.png</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="273" x="20" y="2358.0645"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="129" x="30" y="2380.5215">Resource copied to file:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="224" x="30" y="2395.6152">C:\Users\semenko\git\credibledoc\credib</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="219" x="30" y="2410.709">le-doc\substitution\target\generated\mar</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="253" x="30" y="2425.8027">kdown\doc\img\diffBetweenTemplateAndGene</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="79" x="30" y="2440.8965">ratedFiles.png</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="130" x="91.5" y="4983.6582"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="110" x="101.5" y="5006.1152">Application finished.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="132" x="376" y="31.1406">substitution-core</text>
+    <line style="stroke: #000000; stroke-width: 2.0;" x1="302" x2="302" y1="12.4551" y2="5018.752"/>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="249" x="318" y="160.377"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="216" x="328" y="182.834">Properties loaded by ClassLoader from</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="72" x="328" y="197.9277">the resource:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="229" x="328" y="213.0215">file:/C:/Users/semenko/git/credibledoc/cre</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="222" x="328" y="228.1152">dible-doc/substitution/substitution-doc/ta</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="194" x="328" y="243.209">rget/classes/substitution.properties</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="207" x="339" y="275.8457"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="349" y="298.3027">Configuration property key:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="177" x="349" y="313.3965">substitution.templates.resource,</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="184" x="349" y="328.4902">value: template/markdown, origin:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="180" x="349" y="343.584">classpath:substitution.properties</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="211" x="337" y="376.2207"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="347" y="398.6777">Configuration property key:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="169" x="347" y="413.7715">substitution.placeholder.begin,</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="188" x="347" y="428.8652">value: &amp;&amp;beginPlaceholder, origin:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="180" x="347" y="443.959">classpath:substitution.properties</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="217" x="334" y="476.5957"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="344" y="499.0527">Configuration property key:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="194" x="344" y="514.1465">substitution.placeholder.end, value:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="344" y="529.2402">&amp;&amp;endPlaceholder, origin:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="180" x="344" y="544.334">classpath:substitution.properties</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="212" x="336.5" y="576.9707"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="346.5" y="599.4277">Configuration property key:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="150" x="346.5" y="614.5215">substitution.target.directory,</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="189" x="346.5" y="629.6152">value: target/generated/markdown,</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="34" x="346.5" y="644.709">origin:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="180" x="346.5" y="659.8027">classpath:substitution.properties</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="317.5" y="692.4395"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="327.5" y="714.8965">Source code location path:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="327.5" y="729.9902">/C:/Users/semenko/git/credibledoc/credibl</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="224" x="327.5" y="745.084">e-doc/substitution/substitution-core/targe</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="327.5" y="760.1777">t/classes/</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="317.5" y="792.8145"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="327.5" y="815.2715">Resource cannot be found in a jar file.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="75" x="327.5" y="830.3652">LocationPath:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="327.5" y="845.459">/C:/Users/semenko/git/credibledoc/credibl</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="224" x="327.5" y="860.5527">e-doc/substitution/substitution-core/targe</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="327.5" y="875.6465">t/classes/</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="254" x="315.5" y="908.2832"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="325.5" y="930.7402">Resource has been found in the</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="325.5" y="945.834">directory:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="234" x="325.5" y="960.9277">C:\Users\semenko\git\credibledoc\credible</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="216" x="325.5" y="976.0215">-doc\substitution\substitution-doc\target</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="325.5" y="991.1152">\classes\template\markdown</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="317.5" y="1780.7207"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="327.5" y="1803.1777">Source code location path:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="327.5" y="1818.2715">/C:/Users/semenko/git/credibledoc/credibl</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="224" x="327.5" y="1833.3652">e-doc/substitution/substitution-core/targe</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="327.5" y="1848.459">t/classes/</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="317.5" y="1881.0957"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="327.5" y="1903.5527">Resource cannot be found in a jar file.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="75" x="327.5" y="1918.6465">LocationPath:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="327.5" y="1933.7402">/C:/Users/semenko/git/credibledoc/credibl</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="224" x="327.5" y="1948.834">e-doc/substitution/substitution-core/targe</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="327.5" y="1963.9277">t/classes/</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="254" x="315.5" y="1996.5645"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="325.5" y="2019.0215">Resource has been found in the</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="325.5" y="2034.1152">directory:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="234" x="325.5" y="2049.209">C:\Users\semenko\git\credibledoc\credible</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="216" x="325.5" y="2064.3027">-doc\substitution\substitution-doc\target</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="325.5" y="2079.3965">\classes\template\markdown</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="261" x="312" y="2257.6895"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="95" x="322" y="2280.1465">Directory created:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="238" x="322" y="2295.2402">C:\Users\semenko\git\credibledoc\credible-</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="241" x="322" y="2310.334">doc\substitution\target\generated\markdown</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="47" x="322" y="2325.4277">\doc\img</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="317.5" y="2794.2832"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="327.5" y="2816.7402">Source code location path:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="327.5" y="2831.834">/C:/Users/semenko/git/credibledoc/credibl</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="224" x="327.5" y="2846.9277">e-doc/substitution/substitution-core/targe</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="327.5" y="2862.0215">t/classes/</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="317.5" y="2894.6582"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="327.5" y="2917.1152">Resource cannot be found in a jar file.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="75" x="327.5" y="2932.209">LocationPath:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="327.5" y="2947.3027">/C:/Users/semenko/git/credibledoc/credibl</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="224" x="327.5" y="2962.3965">e-doc/substitution/substitution-core/targe</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="327.5" y="2977.4902">t/classes/</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="254" x="315.5" y="3010.127"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="325.5" y="3032.584">Resource has been found in the</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="325.5" y="3047.6777">directory:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="234" x="325.5" y="3062.7715">C:\Users\semenko\git\credibledoc\credible</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="216" x="325.5" y="3077.8652">-doc\substitution\substitution-doc\target</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="325.5" y="3092.959">\classes\template\markdown</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="317.5" y="4421.4082"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="327.5" y="4443.8652">Source code location path:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="327.5" y="4458.959">/C:/Users/semenko/git/credibledoc/credibl</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="224" x="327.5" y="4474.0527">e-doc/substitution/substitution-core/targe</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="327.5" y="4489.1465">t/classes/</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="317.5" y="4521.7832"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="327.5" y="4544.2402">Resource cannot be found in a jar file.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="75" x="327.5" y="4559.334">LocationPath:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="327.5" y="4574.4277">/C:/Users/semenko/git/credibledoc/credibl</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="224" x="327.5" y="4589.5215">e-doc/substitution/substitution-core/targe</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="327.5" y="4604.6152">t/classes/</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="254" x="315.5" y="4637.252"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="325.5" y="4659.709">Resource has been found in the</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="325.5" y="4674.8027">directory:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="234" x="325.5" y="4689.8965">C:\Users\semenko\git\credibledoc\credible</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="216" x="325.5" y="4704.9902">-doc\substitution\substitution-doc\target</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="325.5" y="4720.084">\classes\template\markdown</text>
+    <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="168" x="688.5" y="31.1406">substitution-reporting</text>
+    <line style="stroke: #000000; stroke-width: 2.0;" x1="582" x2="582" y1="12.4551" y2="5018.752"/>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="323" x="611.5" y="1023.752"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="303" x="621.5" y="1046.209">Markdown templates will be loaded from the resources:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="218" x="621.5" y="1061.3027">[/template/markdown/doc/diagrams.md,</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="189" x="621.5" y="1076.3965">/template/markdown/README.md]</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="328" x="609" y="1164.127"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="619" y="1186.584">File will be parsed:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="308" x="619" y="1201.6777">C:\Users\semenko\git\credibledoc\credible-doc\substitut</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="148" x="619" y="1216.7715">ion\log\substitution-doc.log</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="658.5" y="1249.4082"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="209" x="668.5" y="1271.8652">Report prepared. Report: 1926343982</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="325" x="610.5" y="1359.5957"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="249" x="620.5" y="1382.0527">File not exists. Report will not be created. File:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="305" x="620.5" y="1397.1465">C:\Users\semenko\git\credibledoc\credible-doc\substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="165" x="620.5" y="1412.2402">tion\log\substitution-doc_1.log</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="325" x="610.5" y="1499.9707"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="249" x="620.5" y="1522.4277">File not exists. Report will not be created. File:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="305" x="620.5" y="1537.5215">C:\Users\semenko\git\credibledoc\credible-doc\substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="165" x="620.5" y="1552.6152">tion\log\substitution-doc_1.log</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="325" x="610.5" y="1640.3457"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="249" x="620.5" y="1662.8027">File not exists. Report will not be created. File:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="305" x="620.5" y="1677.8965">C:\Users\semenko\git\credibledoc\credible-doc\substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="165" x="620.5" y="1692.9902">tion\log\substitution-doc_1.log</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="690" y="1725.627"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="700" y="1748.084">Report documents created</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="313" x="616.5" y="2473.5332"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="293" x="626.5" y="2495.9902">Method createReports started, reportDocumentTypes:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="626.5" y="2511.084">[DOCUMENT_PART_UML]</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="301" x="622.5" y="2543.7207"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="281" x="632.5" y="2566.1777">Method createReports started. Report: 1926343982</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="260" x="643" y="2669.002"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="240" x="653" y="2691.459">The first line read from ReaderService. Line:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="653" y="2706.5527">05.05.2019 07:04:47.992|main|INFO |...</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="169" x="688.5" y="2739.1895"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="698.5" y="2761.6465">31 lines processed (100%)</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="351" x="597.5" y="3125.5957"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="607.5" y="3148.0527">File created:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="308" x="607.5" y="3163.1465">C:\Users\semenko\git\credibledoc\credible-doc\substitut</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="331" x="607.5" y="3178.2402">ion\target\generated\markdown\doc\img\diagrams.md_1.svg</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="140.75" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="341" x="602.5" y="3210.877"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="612.5" y="3233.334">Content replaced.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="612.5" y="3248.4277">{"resource":"/template/markdown/doc/diagrams.md","class</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="318" x="612.5" y="3263.5215">Name":"com.credibledoc.substitution.doc.module.substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="314" x="612.5" y="3278.6152">tion.launching.LaunchingUmlReportService","description"</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="252" x="612.5" y="3293.709">:"Diagram of the application launching created</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="25" x="612.5" y="3308.8027">from</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="288" x="612.5" y="3323.8965">substitution-doc.log.","id":"1","parameters":{"sourceFi</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="612.5" y="3338.9902">leRelativePath":"log/substitution-doc.log"}}</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="140.75" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="341" x="602.5" y="3371.627"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="612.5" y="3394.084">Content replaced.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="612.5" y="3409.1777">{"resource":"/template/markdown/doc/diagrams.md","class</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="318" x="612.5" y="3424.2715">Name":"com.credibledoc.substitution.doc.module.substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="314" x="612.5" y="3439.3652">tion.launching.LaunchingUmlReportService","description"</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="252" x="612.5" y="3454.459">:"Diagram of the application launching created</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="25" x="612.5" y="3469.5527">from</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="292" x="612.5" y="3484.6465">substitution-doc_1.log.","id":"2","parameters":{"source</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="254" x="612.5" y="3499.7402">FileRelativePath":"log/substitution-doc_1.log"}}</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="125.6563" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="341" x="602.5" y="3532.377"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="612.5" y="3554.834">Content replaced.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="612.5" y="3569.9277">{"resource":"/template/markdown/doc/diagrams.md","class</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="318" x="612.5" y="3585.0215">Name":"com.credibledoc.substitution.doc.module.substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="283" x="612.5" y="3600.1152">tion.activity.anyline.ActivityUmlReportService","descri</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="232" x="612.5" y="3615.209">ption":"Diagram of the previous application</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="296" x="612.5" y="3630.3027">launching.","id":"3","parameters":{"sourceFileRelativeP</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="182" x="612.5" y="3645.3965">ath":"log/substitution-doc_1.log"}}</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="140.75" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="341" x="602.5" y="3678.0332"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="612.5" y="3700.4902">Content replaced.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="612.5" y="3715.584">{"resource":"/template/markdown/doc/diagrams.md","class</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="318" x="612.5" y="3730.6777">Name":"com.credibledoc.substitution.doc.module.substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="302" x="612.5" y="3745.7715">tion.activity.modules.ModulesActivityUmlReportService",</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="240" x="612.5" y="3760.8652">"description":"Credibledoc modules - based</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="35" x="612.5" y="3775.959">activity</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="298" x="612.5" y="3791.0527">diagram.","id":"4","parameters":{"sourceFileRelativePat</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="172" x="612.5" y="3806.1465">h":"log/substitution-doc_1.log"}}</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="351" x="597.5" y="3838.7832"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="607.5" y="3861.2402">File created:</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="308" x="607.5" y="3876.334">C:\Users\semenko\git\credibledoc\credible-doc\substitut</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="331" x="607.5" y="3891.4277">ion\target\generated\markdown\doc\img\diagrams.md_5.svg</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="362" x="592" y="3924.0645"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="602" y="3946.5215">Content replaced.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="321" x="602" y="3961.6152">{"resource":"/template/markdown/doc/diagrams.md","class</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="312" x="602" y="3976.709">Name":"com.credibledoc.substitution.content.generator.d</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="342" x="602" y="3991.8027">ependency.PackageDependenciesContentGenerator","descrip</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="133" x="602" y="4006.8965">tion":"Dependency of the</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="268" x="602" y="4021.9902">`com.credibledoc.substitution.reporting` package</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="135" x="602" y="4037.084">on other packages in the</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="189" x="602" y="4052.1777">`com.credibledoc.substitution.doc`</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="294" x="602" y="4067.2715">package.","id":"5","parameters":{"jarRelativePath":"sub</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="310" x="602" y="4082.3652">stitution-doc/target/substitution-doc-1.0.4-SNAPSHOT-so</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="315" x="602" y="4097.459">urces.jar","dependantPackage":"com.credibledoc.substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="333" x="602" y="4112.5527">tion.reporting","dependenciesPackagesSemicolonSeparated</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="307" x="602" y="4127.6465">":"com.credibledoc.substitution.doc","ignoreInnerPackag</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="58" x="602" y="4142.7402">es":"true"}}</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="325" x="610.5" y="4175.377"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="620.5" y="4197.834">File is generated</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="305" x="620.5" y="4212.9277">C:\Users\semenko\git\credibledoc\credible-doc\substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="274" x="620.5" y="4228.0215">tion\target\generated\markdown\doc\diagrams.md</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="140.75" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="356" x="595" y="4260.6582"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="605" y="4283.1152">Content replaced.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="336" x="605" y="4298.209">{"resource":"/template/markdown/README.md","className":</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="301" x="605" y="4313.3027">"com.credibledoc.substitution.content.generator.jar.Loc</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="283" x="605" y="4328.3965">alJarNameContentGenerator","description":"Current</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="65" x="605" y="4343.4902">name of the</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="278" x="605" y="4358.584">substitution-doc-X.X.X.jar.","id":"1","parameters":{"ta</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="285" x="605" y="4373.6777">rgetDirectoryRelativePath":"substitution-doc/target","j</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="190" x="605" y="4388.7715">arNamePrefix":"substitution-doc-"}}</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="125.6563" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="356" x="595" y="4752.7207"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="605" y="4775.1777">Content replaced.</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="336" x="605" y="4790.2715">{"resource":"/template/markdown/README.md","className":</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="306" x="605" y="4805.3652">"com.credibledoc.substitution.content.generator.resourc</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="305" x="605" y="4820.459">e.ResourcesListMarkdownGenerator","description":"List</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="187" x="605" y="4835.5527">of resources from classpath of the</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="88" x="605" y="4850.6465">substitution-doc</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="288" x="605" y="4865.7402">application.","id":"2","parameters":{"endsWith":".md"}}</text>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="325" x="610.5" y="4898.377"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="620.5" y="4920.834">File is generated</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="305" x="620.5" y="4935.9277">C:\Users\semenko\git\credibledoc\credible-doc\substitu</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="248" x="620.5" y="4951.0215">tion\target\generated\markdown\README.md</text>
+    <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="144" x="1017" y="31.1406">log-combiner-core</text>
+    <line style="stroke: #000000; stroke-width: 2.0;" x1="963" x2="963" y1="12.4551" y2="5018.752"/>
+    <rect fill="#FEFECE" filter="url(#finz3t4)" height="50.1875" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="233" x="973" y="2598.8145"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="213" x="983" y="2621.2715">Duration of prepareBufferedReaders is</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="983" y="2636.3652">0,628025 milliseconds</text>
+    <line style="stroke: #000000; stroke-width: 2.0;" x1="1215" x2="1215" y1="12.4551" y2="5018.752"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="70.1895" y2="90.1895"/>
+    <polygon fill="#A80036" points="152.5,80.1895,156.5,90.1895,160.5,80.1895,156.5,84.1895" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="255.8457" y2="275.8457"/>
+    <polygon fill="#A80036" points="438.5,265.8457,442.5,275.8457,446.5,265.8457,442.5,269.8457" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="356.2207" y2="376.2207"/>
+    <polygon fill="#A80036" points="438.5,366.2207,442.5,376.2207,446.5,366.2207,442.5,370.2207" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="456.5957" y2="476.5957"/>
+    <polygon fill="#A80036" points="438.5,466.5957,442.5,476.5957,446.5,466.5957,442.5,470.5957" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="556.9707" y2="576.9707"/>
+    <polygon fill="#A80036" points="438.5,566.9707,442.5,576.9707,446.5,566.9707,442.5,570.9707" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="672.4395" y2="692.4395"/>
+    <polygon fill="#A80036" points="438.5,682.4395,442.5,692.4395,446.5,682.4395,442.5,686.4395" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="772.8145" y2="792.8145"/>
+    <polygon fill="#A80036" points="438.5,782.8145,442.5,792.8145,446.5,782.8145,442.5,786.8145" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="888.2832" y2="908.2832"/>
+    <polygon fill="#A80036" points="438.5,898.2832,442.5,908.2832,446.5,898.2832,442.5,902.2832" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="1861.0957" y2="1881.0957"/>
+    <polygon fill="#A80036" points="438.5,1871.0957,442.5,1881.0957,446.5,1871.0957,442.5,1875.0957" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="1976.5645" y2="1996.5645"/>
+    <polygon fill="#A80036" points="438.5,1986.5645,442.5,1996.5645,446.5,1986.5645,442.5,1990.5645" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="2874.6582" y2="2894.6582"/>
+    <polygon fill="#A80036" points="438.5,2884.6582,442.5,2894.6582,446.5,2884.6582,442.5,2888.6582" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="2990.127" y2="3010.127"/>
+    <polygon fill="#A80036" points="438.5,3000.127,442.5,3010.127,446.5,3000.127,442.5,3004.127" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="4501.7832" y2="4521.7832"/>
+    <polygon fill="#A80036" points="438.5,4511.7832,442.5,4521.7832,446.5,4511.7832,442.5,4515.7832" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="4617.252" y2="4637.252"/>
+    <polygon fill="#A80036" points="438.5,4627.252,442.5,4637.252,446.5,4627.252,442.5,4631.252" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1229.4082" y2="1249.4082"/>
+    <polygon fill="#A80036" points="769,1239.4082,773,1249.4082,777,1239.4082,773,1243.4082" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1705.627" y2="1725.627"/>
+    <polygon fill="#A80036" points="769,1715.627,773,1725.627,777,1715.627,773,1719.627" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="2523.7207" y2="2543.7207"/>
+    <polygon fill="#A80036" points="769,2533.7207,773,2543.7207,777,2533.7207,773,2537.7207" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="2719.1895" y2="2739.1895"/>
+    <polygon fill="#A80036" points="769,2729.1895,773,2739.1895,777,2729.1895,773,2733.1895" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="3190.877" y2="3210.877"/>
+    <polygon fill="#A80036" points="769,3200.877,773,3210.877,777,3200.877,773,3204.877" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="3351.627" y2="3371.627"/>
+    <polygon fill="#A80036" points="769,3361.627,773,3371.627,777,3361.627,773,3365.627" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="3512.377" y2="3532.377"/>
+    <polygon fill="#A80036" points="769,3522.377,773,3532.377,777,3522.377,773,3526.377" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="3658.0332" y2="3678.0332"/>
+    <polygon fill="#A80036" points="769,3668.0332,773,3678.0332,777,3668.0332,773,3672.0332" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="3818.7832" y2="3838.7832"/>
+    <polygon fill="#A80036" points="769,3828.7832,773,3838.7832,777,3828.7832,773,3832.7832" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="3904.0645" y2="3924.0645"/>
+    <polygon fill="#A80036" points="769,3914.0645,773,3924.0645,777,3914.0645,773,3918.0645" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="4155.377" y2="4175.377"/>
+    <polygon fill="#A80036" points="769,4165.377,773,4175.377,777,4165.377,773,4169.377" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="4240.6582" y2="4260.6582"/>
+    <polygon fill="#A80036" points="769,4250.6582,773,4260.6582,777,4250.6582,773,4254.6582" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="4878.377" y2="4898.377"/>
+    <polygon fill="#A80036" points="769,4888.377,773,4898.377,777,4888.377,773,4892.377" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="140.377" y2="145.377"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="442.5" y1="145.377" y2="145.377"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="145.377" y2="160.377"/>
+    <polygon fill="#A80036" points="438.5,150.377,442.5,160.377,446.5,150.377,442.5,154.377" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="1003.752" y2="1008.752"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="773" y1="1008.752" y2="1008.752"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1008.752" y2="1023.752"/>
+    <polygon fill="#A80036" points="769,1013.752,773,1023.752,777,1013.752,773,1017.752" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1089.0332" y2="1094.0332"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="156.5" y1="1094.0332" y2="1094.0332"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="1094.0332" y2="1109.0332"/>
+    <polygon fill="#A80036" points="152.5,1099.0332,156.5,1109.0332,160.5,1099.0332,156.5,1103.0332" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="1144.127" y2="1149.127"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="773" y1="1149.127" y2="1149.127"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1149.127" y2="1164.127"/>
+    <polygon fill="#A80036" points="769,1154.127,773,1164.127,777,1154.127,773,1158.127" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1284.502" y2="1289.502"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="156.5" y1="1289.502" y2="1289.502"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="1289.502" y2="1304.502"/>
+    <polygon fill="#A80036" points="152.5,1294.502,156.5,1304.502,160.5,1294.502,156.5,1298.502" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="1339.5957" y2="1344.5957"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="773" y1="1344.5957" y2="1344.5957"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1344.5957" y2="1359.5957"/>
+    <polygon fill="#A80036" points="769,1349.5957,773,1359.5957,777,1349.5957,773,1353.5957" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1424.877" y2="1429.877"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="156.5" y1="1429.877" y2="1429.877"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="1429.877" y2="1444.877"/>
+    <polygon fill="#A80036" points="152.5,1434.877,156.5,1444.877,160.5,1434.877,156.5,1438.877" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="1479.9707" y2="1484.9707"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="773" y1="1484.9707" y2="1484.9707"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1484.9707" y2="1499.9707"/>
+    <polygon fill="#A80036" points="769,1489.9707,773,1499.9707,777,1489.9707,773,1493.9707" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1565.252" y2="1570.252"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="156.5" y1="1570.252" y2="1570.252"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="1570.252" y2="1585.252"/>
+    <polygon fill="#A80036" points="152.5,1575.252,156.5,1585.252,160.5,1575.252,156.5,1579.252" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="1620.3457" y2="1625.3457"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="773" y1="1625.3457" y2="1625.3457"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1625.3457" y2="1640.3457"/>
+    <polygon fill="#A80036" points="769,1630.3457,773,1640.3457,777,1630.3457,773,1634.3457" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="1760.7207" y2="1765.7207"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="442.5" y1="1765.7207" y2="1765.7207"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="1765.7207" y2="1780.7207"/>
+    <polygon fill="#A80036" points="438.5,1770.7207,442.5,1780.7207,446.5,1770.7207,442.5,1774.7207" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="2092.0332" y2="2097.0332"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="156.5" y1="2097.0332" y2="2097.0332"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="2097.0332" y2="2112.0332"/>
+    <polygon fill="#A80036" points="152.5,2102.0332,156.5,2112.0332,160.5,2102.0332,156.5,2106.0332" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="2237.6895" y2="2242.6895"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="442.5" y1="2242.6895" y2="2242.6895"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="2242.6895" y2="2257.6895"/>
+    <polygon fill="#A80036" points="438.5,2247.6895,442.5,2257.6895,446.5,2247.6895,442.5,2251.6895" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="2338.0645" y2="2343.0645"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="156.5" y1="2343.0645" y2="2343.0645"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="2343.0645" y2="2358.0645"/>
+    <polygon fill="#A80036" points="152.5,2348.0645,156.5,2358.0645,160.5,2348.0645,156.5,2352.0645" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="2453.5332" y2="2458.5332"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="773" y1="2458.5332" y2="2458.5332"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="2458.5332" y2="2473.5332"/>
+    <polygon fill="#A80036" points="769,2463.5332,773,2473.5332,777,2463.5332,773,2467.5332" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="2578.8145" y2="2583.8145"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="1089.5" y1="2583.8145" y2="2583.8145"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="1089.5" x2="1089.5" y1="2583.8145" y2="2598.8145"/>
+    <polygon fill="#A80036" points="1085.5,2588.8145,1089.5,2598.8145,1093.5,2588.8145,1089.5,2592.8145" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="1089.5" x2="1089.5" y1="2649.002" y2="2654.002"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="1089.5" x2="773" y1="2654.002" y2="2654.002"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="2654.002" y2="2669.002"/>
+    <polygon fill="#A80036" points="769,2659.002,773,2669.002,777,2659.002,773,2663.002" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="2774.2832" y2="2779.2832"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="442.5" y1="2779.2832" y2="2779.2832"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="2779.2832" y2="2794.2832"/>
+    <polygon fill="#A80036" points="438.5,2784.2832,442.5,2794.2832,446.5,2784.2832,442.5,2788.2832" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="3105.5957" y2="3110.5957"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="773" y1="3110.5957" y2="3110.5957"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="3110.5957" y2="3125.5957"/>
+    <polygon fill="#A80036" points="769,3115.5957,773,3125.5957,777,3115.5957,773,3119.5957" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="4401.4082" y2="4406.4082"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="442.5" y1="4406.4082" y2="4406.4082"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="4406.4082" y2="4421.4082"/>
+    <polygon fill="#A80036" points="438.5,4411.4082,442.5,4421.4082,446.5,4411.4082,442.5,4415.4082" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="442.5" y1="4732.7207" y2="4737.7207"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="442.5" x2="773" y1="4737.7207" y2="4737.7207"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="4737.7207" y2="4752.7207"/>
+    <polygon fill="#A80036" points="769,4742.7207,773,4752.7207,777,4742.7207,773,4746.7207" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="773" y1="4963.6582" y2="4968.6582"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="773" x2="156.5" y1="4968.6582" y2="4968.6582"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="156.5" x2="156.5" y1="4968.6582" y2="4983.6582"/>
+    <polygon fill="#A80036" points="152.5,4973.6582,156.5,4983.6582,160.5,4973.6582,156.5,4977.6582" style="stroke: #A80036; stroke-width: 1.0;"/>
 <!--
 !WARNING! Original strings (double dash) has been replaced by '- -' (dash+space+dash) in this comment, because the string (double dash) is not permitted within comments. And link parameters, for example ?search=... have also been REMOVED from the comment, because they are not readable for humans.
 <img uml="
@@ -361,57 +419,120 @@
     :Spring ApplicationContext created and 
     started;
 
+|substitution-core|
+    :Properties loaded by ClassLoader from 
+    the resource: 
+    file:/C:/Users/semenko/git/credibledoc/cre
+    dible-doc/substitution/substitution-doc/ta
+    rget/classes/substitution.properties;
+
+|substitution-core|
+    :Configuration property key: 
+    substitution.templates.resource, 
+    value: template/markdown, origin: 
+    classpath:substitution.properties;
+
+|substitution-core|
+    :Configuration property key: 
+    substitution.placeholder.begin, 
+    value: &&beginPlaceholder, origin: 
+    classpath:substitution.properties;
+
+|substitution-core|
+    :Configuration property key: 
+    substitution.placeholder.end, value: 
+    &&endPlaceholder, origin: 
+    classpath:substitution.properties;
+
+|substitution-core|
+    :Configuration property key: 
+    substitution.target.directory, 
+    value: target/generated/markdown, 
+    origin: 
+    classpath:substitution.properties;
+
+|substitution-core|
+    :Source code location path: 
+    /C:/Users/semenko/git/credibledoc/credibl
+    e-doc/substitution/substitution-core/targe
+    t/classes/;
+
+|substitution-core|
+    :Resource cannot be found in a jar file. 
+    LocationPath: 
+    /C:/Users/semenko/git/credibledoc/credibl
+    e-doc/substitution/substitution-core/targe
+    t/classes/;
+
+|substitution-core|
+    :Resource has been found in the 
+    directory: 
+    C:\Users\semenko\git\credibledoc\credible
+    -doc\substitution\substitution-doc\target
+    \classes\template\markdown;
+
 |substitution-reporting|
     :Markdown templates will be loaded from the resources: 
-    [/template/markdown/README.md, 
-    /template/markdown/doc/diagrams.md];
+    [/template/markdown/doc/diagrams.md, 
+    /template/markdown/README.md];
 
 |substitution-doc|
     :Line processors prepared;
 
 |substitution-reporting|
     :File will be parsed: 
-    C:\Users\semenko\git\credibledoc_placeholder-substituti
-    on\log\substitution-doc.log;
+    C:\Users\semenko\git\credibledoc\credible-doc\substitut
+    ion\log\substitution-doc.log;
 
 |substitution-reporting|
-    :Report prepared. Report: 20671747;
+    :Report prepared. Report: 1926343982;
 
 |substitution-doc|
     :Line processors prepared;
 
 |substitution-reporting|
-    :File will be parsed: 
-    C:\Users\semenko\git\credibledoc_placeholder-substituti
-    on\log\substitution-doc_1.log;
-
-|substitution-reporting|
-    :Report prepared. Report: 1690716179;
+    :File not exists. Report will not be created. File: 
+    C:\Users\semenko\git\credibledoc\credible-doc\substitu
+    tion\log\substitution-doc_1.log;
 
 |substitution-doc|
     :Line processors prepared;
 
 |substitution-reporting|
-    :File will be parsed: 
-    C:\Users\semenko\git\credibledoc_placeholder-substituti
-    on\log\substitution-doc_1.log;
-
-|substitution-reporting|
-    :Report prepared. Report: 564160838;
+    :File not exists. Report will not be created. File: 
+    C:\Users\semenko\git\credibledoc\credible-doc\substitu
+    tion\log\substitution-doc_1.log;
 
 |substitution-doc|
     :Line processors prepared;
 
 |substitution-reporting|
-    :File will be parsed: 
-    C:\Users\semenko\git\credibledoc_placeholder-substituti
-    on\log\substitution-doc_1.log;
-
-|substitution-reporting|
-    :Report prepared. Report: 627150481;
+    :File not exists. Report will not be created. File: 
+    C:\Users\semenko\git\credibledoc\credible-doc\substitu
+    tion\log\substitution-doc_1.log;
 
 |substitution-reporting|
     :Report documents created;
+
+|substitution-core|
+    :Source code location path: 
+    /C:/Users/semenko/git/credibledoc/credibl
+    e-doc/substitution/substitution-core/targe
+    t/classes/;
+
+|substitution-core|
+    :Resource cannot be found in a jar file. 
+    LocationPath: 
+    /C:/Users/semenko/git/credibledoc/credibl
+    e-doc/substitution/substitution-core/targe
+    t/classes/;
+
+|substitution-core|
+    :Resource has been found in the 
+    directory: 
+    C:\Users\semenko\git\credibledoc\credible
+    -doc\substitution\substitution-doc\target
+    \classes\template\markdown;
 
 |substitution-doc|
     :Resource will be copied to file. 
@@ -422,101 +543,61 @@
     target/generated/markdown/doc/img/diffB
     etweenTemplateAndGeneratedFiles.png;
 
+|substitution-core|
+    :Directory created: 
+    C:\Users\semenko\git\credibledoc\credible-
+    doc\substitution\target\generated\markdown
+    \doc\img;
+
 |substitution-doc|
     :Resource copied to file: 
-    C:\Users\semenko\git\credibledoc_placeh
-    older-substitution\target\generated\mark
-    down\doc\img\diffBetweenTemplateAndGener
-    atedFiles.png;
+    C:\Users\semenko\git\credibledoc\credib
+    le-doc\substitution\target\generated\mar
+    kdown\doc\img\diffBetweenTemplateAndGene
+    ratedFiles.png;
 
 |substitution-reporting|
     :Method createReports started, reportDocumentTypes: 
     [DOCUMENT_PART_UML];
 
 |substitution-reporting|
-    :Method createReports started. Report: 20671747;
+    :Method createReports started. Report: 1926343982;
 
 |log-combiner-core|
     :Duration of prepareBufferedReaders is 
-    0,475242 milliseconds;
+    0,628025 milliseconds;
 
 |substitution-reporting|
     :The first line read from ReaderService. Line: 
-    03.05.2019 08:03:26.115|main|INFO |...;
+    05.05.2019 07:04:47.992|main|INFO |...;
 
 |substitution-reporting|
-    :22 lines processed (100%);
+    :31 lines processed (100%);
 
-|substitution-reporting|
-    :Method createReports started. Report: 1690716179;
+|substitution-core|
+    :Source code location path: 
+    /C:/Users/semenko/git/credibledoc/credibl
+    e-doc/substitution/substitution-core/targe
+    t/classes/;
 
-|log-combiner-core|
-    :Duration of prepareBufferedReaders is 
-    0,101048 milliseconds;
+|substitution-core|
+    :Resource cannot be found in a jar file. 
+    LocationPath: 
+    /C:/Users/semenko/git/credibledoc/credibl
+    e-doc/substitution/substitution-core/targe
+    t/classes/;
 
-|substitution-reporting|
-    :The first line read from ReaderService. Line: 
-    03.05.2019 08:00:06.784|main|INFO |...;
-
-|substitution-reporting|
-    :43 lines processed (100%);
-
-|substitution-reporting|
-    :Method createReports started. Report: 564160838;
-
-|log-combiner-core|
-    :Duration of prepareBufferedReaders is 
-    0,114073 milliseconds;
-
-|substitution-reporting|
-    :The first line read from ReaderService. Line: 
-    03.05.2019 08:00:06.784|main|INFO |...;
-
-|substitution-reporting|
-    :43 lines processed (100%);
-
-|substitution-reporting|
-    :Method createReports started. Report: 627150481;
-
-|log-combiner-core|
-    :Duration of prepareBufferedReaders is 
-    0,160651 milliseconds;
-
-|substitution-reporting|
-    :The first line read from ReaderService. Line: 
-    03.05.2019 08:00:06.784|main|INFO |...;
-
-|substitution-reporting|
-    :43 lines processed (100%);
-
-|substitution-reporting|
-    :Content replaced. 
-    {"resource":"/template/markdown/README.md","className":
-    "com.credibledoc.substitution.content.generator.jar.Loc
-    alJarNameContentGenerator","description":"Current 
-    name of the 
-    substitution-doc-X.X.X.jar.","id":"1","parameters":{"ta
-    rgetDirectoryRelativePath":"substitution-doc/target","j
-    arNamePrefix":"substitution-doc-"}};
-
-|substitution-reporting|
-    :Content replaced. 
-    {"resource":"/template/markdown/README.md","className":
-    "com.credibledoc.substitution.content.generator.resourc
-    e.ResourcesListMarkdownGenerator","description":"List
-    of resources from classpath of the 
-    substitution-doc 
-    application.","id":"2","parameters":{"endsWith":".md"}};
-
-|substitution-reporting|
-    :File is generated 
-    C:\Users\semenko\git\credibledoc_placeholder-substitut
-    ion\target\generated\markdown\README.md;
+|substitution-core|
+    :Resource has been found in the 
+    directory: 
+    C:\Users\semenko\git\credibledoc\credible
+    -doc\substitution\substitution-doc\target
+    \classes\template\markdown;
 
 |substitution-reporting|
     :File created: 
-    C:\Users\semenko\git\credibledoc_placeholder-substituti
-    on\target\generated\markdown\doc\img\diagrams.md_1.svg;
+    C:\Users\semenko\git\credibledoc\credible-doc\substitut
+    ion\target\generated\markdown\doc\img\diagrams.md_1.svg;
 
 |substitution-reporting|
     :Content replaced. 
@@ -529,11 +610,6 @@
     leRelativePath":"log/substitution-doc.log"}};
 
 |substitution-reporting|
-    :File created: 
-    C:\Users\semenko\git\credibledoc_placeholder-substituti
-    on\target\generated\markdown\doc\img\diagrams.md_2.svg;
-
-|substitution-reporting|
     :Content replaced. 
     {"resource":"/template/markdown/doc/diagrams.md","class
     Name":"com.credibledoc.substitution.doc.module.substitu
@@ -544,11 +620,6 @@
     FileRelativePath":"log/substitution-doc_1.log"}};
 
 |substitution-reporting|
-    :File created: 
-    C:\Users\semenko\git\credibledoc_placeholder-substituti
-    on\target\generated\markdown\doc\img\diagrams.md_3.svg;
-
-|substitution-reporting|
     :Content replaced. 
     {"resource":"/template/markdown/doc/diagrams.md","class
     Name":"com.credibledoc.substitution.doc.module.substitu
@@ -556,11 +627,6 @@
     ption":"Diagram of the previous application 
     launching.","id":"3","parameters":{"sourceFileRelativeP
     ath":"log/substitution-doc_1.log"}};
-
-|substitution-reporting|
-    :File created: 
-    C:\Users\semenko\git\credibledoc_placeholder-substituti
-    on\target\generated\markdown\doc\img\diagrams.md_4.svg;
 
 |substitution-reporting|
     :Content replaced. 
@@ -574,8 +640,8 @@
 
 |substitution-reporting|
     :File created: 
-    C:\Users\semenko\git\credibledoc_placeholder-substituti
-    on\target\generated\markdown\doc\img\diagrams.md_5.svg;
+    C:\Users\semenko\git\credibledoc\credible-doc\substitut
+    ion\target\generated\markdown\doc\img\diagrams.md_5.svg;
 
 |substitution-reporting|
     :Content replaced. 
@@ -595,8 +661,52 @@
 
 |substitution-reporting|
     :File is generated 
-    C:\Users\semenko\git\credibledoc_placeholder-substitut
-    ion\target\generated\markdown\doc\diagrams.md;
+    C:\Users\semenko\git\credibledoc\credible-doc\substitu
+    tion\target\generated\markdown\doc\diagrams.md;
+
+|substitution-reporting|
+    :Content replaced. 
+    {"resource":"/template/markdown/README.md","className":
+    "com.credibledoc.substitution.content.generator.jar.Loc
+    alJarNameContentGenerator","description":"Current 
+    name of the 
+    substitution-doc-X.X.X.jar.","id":"1","parameters":{"ta
+    rgetDirectoryRelativePath":"substitution-doc/target","j
+    arNamePrefix":"substitution-doc-"}};
+
+|substitution-core|
+    :Source code location path: 
+    /C:/Users/semenko/git/credibledoc/credibl
+    e-doc/substitution/substitution-core/targe
+    t/classes/;
+
+|substitution-core|
+    :Resource cannot be found in a jar file. 
+    LocationPath: 
+    /C:/Users/semenko/git/credibledoc/credibl
+    e-doc/substitution/substitution-core/targe
+    t/classes/;
+
+|substitution-core|
+    :Resource has been found in the 
+    directory: 
+    C:\Users\semenko\git\credibledoc\credible
+    -doc\substitution\substitution-doc\target
+    \classes\template\markdown;
+
+|substitution-reporting|
+    :Content replaced. 
+    {"resource":"/template/markdown/README.md","className":
+    "com.credibledoc.substitution.content.generator.resourc
+    e.ResourcesListMarkdownGenerator","description":"List
+    of resources from classpath of the 
+    substitution-doc 
+    application.","id":"2","parameters":{"endsWith":".md"}};
+
+|substitution-reporting|
+    :File is generated 
+    C:\Users\semenko\git\credibledoc\credible-doc\substitu
+    tion\target\generated\markdown\README.md;
 
 |substitution-doc|
     :Application finished.;
