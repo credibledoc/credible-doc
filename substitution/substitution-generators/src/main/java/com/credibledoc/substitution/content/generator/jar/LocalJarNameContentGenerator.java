@@ -27,25 +27,15 @@ public class LocalJarNameContentGenerator implements ContentGenerator {
     private static final String JAR_NAME_PREFIX = "jarNamePrefix";
     private static final String TARGET_DIRECTORY_RELATIVE_PATH = "targetDirectoryRelativePath";
     public static final String MODULE_NAME = "substitution-generators";
+    private static final String DEFAULT_DIRECTORY_NAME = "target";
 
     @Override
     public Content generate(Placeholder placeholder) {
         try {
-            String target = placeholder.getParameters().get(TARGET_DIRECTORY_RELATIVE_PATH);
-            if (target == null) {
-                target = "target";
-            }
-            File targetDirectory = new File(target);
-            if (!targetDirectory.exists()) {
-                throw new SubstitutionRuntimeException("Jar name cannot be found. " +
-                    "Target directory does not exists: '" + targetDirectory.getAbsolutePath() +
-                    "'. Please run 'mvn install' first");
-            }
+            File targetDirectory = getTargetDirectory(placeholder);
+            validateTargetDirectoryExists(targetDirectory);
             File[] files = targetDirectory.listFiles();
-            if (files == null) {
-                throw new SubstitutionRuntimeException("Local variable 'files' is null. " +
-                    "TargetDirectory: " + targetDirectory.getAbsolutePath());
-            }
+            validateFilesNotNull(targetDirectory, files);
             String jarNamePrefix = placeholder.getParameters().get(JAR_NAME_PREFIX);
             if (jarNamePrefix == null) {
                 throw new SubstitutionRuntimeException("The '" + JAR_NAME_PREFIX +
@@ -69,6 +59,29 @@ public class LocalJarNameContentGenerator implements ContentGenerator {
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
+    }
+
+    private void validateFilesNotNull(File targetDirectory, File[] files) {
+        if (files == null) {
+            throw new SubstitutionRuntimeException("Local variable 'files' is null. " +
+                "TargetDirectory: " + targetDirectory.getAbsolutePath());
+        }
+    }
+
+    private void validateTargetDirectoryExists(File targetDirectory) {
+        if (!targetDirectory.exists()) {
+            throw new SubstitutionRuntimeException("Jar name cannot be found. " +
+                "Target directory does not exists: '" + targetDirectory.getAbsolutePath() +
+                "'. Please run 'mvn install' first");
+        }
+    }
+
+    private File getTargetDirectory(Placeholder placeholder) {
+        String target = placeholder.getParameters().get(TARGET_DIRECTORY_RELATIVE_PATH);
+        if (target == null) {
+            target = DEFAULT_DIRECTORY_NAME;
+        }
+        return new File(target);
     }
 
 }

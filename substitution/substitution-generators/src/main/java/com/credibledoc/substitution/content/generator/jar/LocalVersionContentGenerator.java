@@ -26,7 +26,6 @@ import java.io.File;
 public class LocalVersionContentGenerator implements ContentGenerator {
     private static final String JAR_NAME_PREFIX = "jarNamePrefix";
     private static final String TARGET_DIRECTORY_RELATIVE_PATH = "targetDirectoryRelativePath";
-    public static final String MODULE_NAME = "substitution-generators";
     private static final String DOT_JAR = ".jar";
 
     @Override

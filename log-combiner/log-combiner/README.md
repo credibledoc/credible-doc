@@ -1,5 +1,5 @@
 # Module log-combiner
-This module is a simple command-line tool for merging log files
+This module creates a simple command-line tool for merging log files
 with different format of lines timestamps to a single file or InputStream
 with lines sorted by timestamps.
 
@@ -14,13 +14,14 @@ In case of existing `log-combiner.properties` configuration file log files will 
 merged with configuration parameters. Else default configuration parameters
 will be used and files will be joined by last modification time.
 
-    java -jar log-combiner.jar /var/log/temp /var/log/combiner/three-app.properties
+    java -jar log-combiner-1.0.3.jar /var/log/temp /var/log/combiner/three-app.properties
 In this case log files from the `/var/log/temp` folder will be merged. And the
 `/var/log/combiner/three-app.properties` configuration file will be used. In this case you should create
 the `three-app.properties` file in the `/var/log/combiner/` folder.
 
 ## Arguments description
-* `log-combiner.jar` (mandatory) is the [latest release of the log-combiner-X.X.X.jar](https://github.com/credibledoc/log-combiner/releases/latest) tool
+* `log-combiner.jar` (mandatory) is an executable jar file. It can be downloaded from the
+[latest release of the log-combiner-X.X.X.jar](https://github.com/credibledoc/log-combiner/releases/latest)
 * `folderAbsolutePath` (mandatory) is a path to a folder with log files for merging. Files will be parsed in this folder and sub-folders recursively.
 * `configAbsolutePath` (optional) is a configuration file path. Example of the file see below. If the `configAbsolutePath`
 is not defined, default is `log-combiner.properties` placed next to the jar file.
@@ -67,7 +68,9 @@ For example:
 
 
      node1 app1 INFO 2019-04-22T07:59:27.000+0200 [main] Application app1 started.
+     
      node0 app0 22.04.2019 07:59:27.910 [main] INFO Application app0 started.
+     
      node1 app0 22.04.2019 07:59:27.910 [thread2] INFO Application app0 started.
 
 Example of folder structure with log files from multiple nodes:

@@ -1,14 +1,12 @@
-package com.credibledoc.substitution.doc.module.substitution.pom;
+package com.credibledoc.substitution.content.generator.pom;
 
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,7 +22,7 @@ import java.net.URL;
  * Example
  * <pre>{@code
  *     &&beginPlaceholder {
- *             "className": "com.credibledoc.substitution.doc.module.substitution.pom.JarNameContentGenerator",
+ *             "className": "com.credibledoc.substitution.content.generator.pom.JarNameContentGenerator",
  *             "description": "Latest plantuml-core.jar name",
  *             "parameters": {"url": "https://repo1.maven.org/maven2/com/credibledoc/plantuml-core/maven-metadata.xml"}
  *           } &&endPlaceholder
@@ -32,10 +30,8 @@ import java.net.URL;
  *
  * @author Kyrylo Semenko
  */
-@Service
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
-@Slf4j
 public class JarNameContentGenerator implements ContentGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(JarNameContentGenerator.class);
 
     private static final String NOT_PUBLISHED_YET = "'The artifact not published yet.'";
     private static final String TEXT_XML = "text/xml";
@@ -70,7 +66,7 @@ public class JarNameContentGenerator implements ContentGenerator {
                 String latestVersion = parseTag(xmlString, LATEST_BEGIN_TAG, LATEST_END_TAG);
                 result = artifactId + "-" + latestVersion + ".jar";
             } else {
-                log.info("ResponseCode is " + responseCode);
+                logger.info("ResponseCode is {}", responseCode);
                 result = NOT_PUBLISHED_YET;
             }
             httpConn.disconnect();
