@@ -36,7 +36,7 @@ This diagram is generated from parsed substitution-doc_1.log file.
 
 ### Dependencies between packages
 
-![Dependency of the `com.credibledoc.substitution.reporting` package on other packages in the `com.credibledoc.substitution.doc` package.](img/diagrams.md_5.svg?sanitize=true)
+![Dependency of the `com.credibledoc.substitution.doc` package on other packages in the `com.credibledoc.substitution` package.](img/diagrams.md_5.svg?sanitize=true)
 
-_Dependency of the `com.credibledoc.substitution.reporting` package on other packages in the `com.credibledoc.substitution.doc` package._
+_Dependency of the `com.credibledoc.substitution.doc` package on other packages in the `com.credibledoc.substitution` package._
 
