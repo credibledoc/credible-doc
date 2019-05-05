@@ -9,6 +9,7 @@
     </parent>
 
     <artifactId>substitution-generators</artifactId>
+    <name>${project.groupId}:${project.artifactId}</name>
     <packaging>jar</packaging>
 
     <description>
