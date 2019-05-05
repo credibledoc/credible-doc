@@ -1,0 +1,5 @@
+22.04.2019 07:59:27.910 [main] INFO Application app0 started.
+22.04.2019 07:59:27.920 [main] ERROR Exception in app0
+Exception in thread "main" com.credibledoc.combiner.exception.CombinerRuntimeException
+        at com.credibledoc.combiner.CombinerService.combine(CombinerService.java:76)
+22.04.2019 07:59:27.990 [main] INFO Application app0 finished.
