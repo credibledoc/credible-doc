@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="115px" preserveAspectRatio="none" style="width:242px;height:115px;" version="1.1" viewBox="0 0 242 115" width="242px" zoomAndPan="magnify">
+  <defs>
+    <filter height="300%" id="fy6e3n8" width="300%" x="-1" y="-1">
+      <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+      <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+      <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+      <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+    </filter>
+  </defs>
+  <g>
+    <!--cluster com.credibledoc.substitution-->
+    <polygon fill="#FFFFFF" filter="url(#fy6e3n8)" points="14,24,225,24,232,47.6094,235,47.6094,235,108,14,108,14,24" style="stroke: #000000; stroke-width: 2.0;"/>
+    <line style="stroke: #000000; stroke-width: 2.0;" x1="14" x2="232" y1="47.6094" y2="47.6094"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="205" x="18" y="40.5332">com.credibledoc.substitution</text>
+    <!--class com.credibledoc.substitution.reporting-->
+    <rect fill="#98FB98" filter="url(#fy6e3n8)" height="32" style="stroke: #00FF7F; stroke-width: 1.5;" width="81" x="84" y="60"/>
+    <ellipse cx="99" cy="76" fill="#20B2AA" rx="11" ry="11" style="stroke: #00FF7F; stroke-width: 1.0;"/>
+    <path d="M99.625,77.5469 L99.625,79.2969 L101.3281,79.2969 Q101.9531,79.2969 102.2109,79.5313 Q102.4688,79.7656 102.4688,80.1563 Q102.4688,80.5313 102.2109,80.7656 Q101.9531,81 101.3281,81 L97.6563,81 Q97.0313,81 96.7734,80.7656 Q96.5156,80.5313 96.5156,80.1406 Q96.5156,79.7656 96.7813,79.5313 Q97.0469,79.2969 97.6563,79.2969 L97.9219,79.2969 L97.9219,72.6406 L97.6563,72.6406 Q97.0313,72.6406 96.7734,72.4063 Q96.5156,72.1719 96.5156,71.7813 Q96.5156,71.4063 96.7734,71.1719 Q97.0313,70.9375 97.6563,70.9375 L101.5625,70.9375 Q103.2969,70.9375 104.3047,71.8828 Q105.3125,72.8281 105.3125,74.1719 Q105.3125,74.9219 104.9688,75.5938 Q104.7188,76.0781 104.1172,76.5703 Q103.5156,77.0625 102.8828,77.3047 Q102.25,77.5469 101.2344,77.5469 L99.625,77.5469 Z M99.625,75.8438 L101.1875,75.8438 Q102.3125,75.8438 102.9609,75.3438 Q103.6094,74.8438 103.6094,74.1406 Q103.6094,73.5313 103.0859,73.0859 Q102.5625,72.6406 101.5781,72.6406 L99.625,72.6406 L99.625,75.8438 Z "/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="113" y="80.9102">reporting</text>
+<!--
+!WARNING! Original strings (double dash) has been replaced by '- -' (dash+space+dash) in this comment, because the string (double dash) is not permitted within comments. And link parameters, for example ?search=... have also been REMOVED from the comment, because they are not readable for humans.
+<img uml="
+@startuml
+left to right direction
+hide empty members
+
+skinparam class {
+    BackgroundColor PaleGreen
+    ArrowColor SeaGreen
+    BorderColor SpringGreen
+}
+
+Class com.credibledoc.substitution.reporting << (P,LightSeaGreen) >>
+
+
+@enduml
+"/>
+--></g>
+</svg>

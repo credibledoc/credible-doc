@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="517px" preserveAspectRatio="none" style="width:1034px;height:517px;" version="1.1" viewBox="0 0 1034 517" width="1034px" zoomAndPan="magnify">
+  <defs>
+    <filter height="300%" id="frsi5j7" width="300%" x="-1" y="-1">
+      <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+      <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+      <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+      <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+    </filter>
+  </defs>
+  <g>
+    <ellipse cx="124" cy="20" fill="#000000" filter="url(#frsi5j7)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#frsi5j7)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="10" y="50"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="20" y="72.457">Application substitution-doc launched.</text>
+    <polygon fill="#FBFB77" filter="url(#frsi5j7)" points="204,109.4648,204,135.8164,490,135.8164,490,119.4648,480,109.4648,204,109.4648" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FBFB77" points="204,109.4648,204,118.6406,184,122.6406,204,126.6406,204,135.8164,490,135.8164,490,119.4648,480,109.4648,204,109.4648" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="480" x2="480" y1="109.4648" y2="119.4648"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="490" x2="480" y1="119.4648" y2="119.4648"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="265" x="210" y="127.96">Current name of the substitution-doc-X.X.X.jar.</text>
+    <rect fill="#FEFECE" filter="url(#frsi5j7)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="105.0938"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="127.5508">Content replaced.</text>
+    <polygon fill="#FBFB77" filter="url(#frsi5j7)" points="204,164.5586,204,190.9102,612,190.9102,612,174.5586,602,164.5586,204,164.5586" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FBFB77" points="204,164.5586,204,173.7344,184,177.7344,204,181.7344,204,190.9102,612,190.9102,612,174.5586,602,164.5586,204,164.5586" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="602" x2="602" y1="164.5586" y2="174.5586"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="612" x2="602" y1="174.5586" y2="174.5586"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="387" x="210" y="183.0537">List of resources from classpath of the substitution-doc application.</text>
+    <rect fill="#FEFECE" filter="url(#frsi5j7)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="160.1875"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="182.6445">Content replaced.</text>
+    <polygon fill="#FBFB77" filter="url(#frsi5j7)" points="204,219.6523,204,246.0039,631,246.0039,631,229.6523,621,219.6523,204,219.6523" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FBFB77" points="204,219.6523,204,228.8281,184,232.8281,204,236.8281,204,246.0039,631,246.0039,631,229.6523,621,219.6523,204,219.6523" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="621" x2="621" y1="219.6523" y2="229.6523"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="631" x2="621" y1="229.6523" y2="229.6523"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="406" x="210" y="238.1475">Diagram of the application launching created from substitution-doc.log.</text>
+    <rect fill="#FEFECE" filter="url(#frsi5j7)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="215.2813"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="237.7383">Content replaced.</text>
+    <polygon fill="#FBFB77" filter="url(#frsi5j7)" points="204,274.7461,204,301.0977,645,301.0977,645,284.7461,635,274.7461,204,274.7461" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FBFB77" points="204,274.7461,204,283.9219,184,287.9219,204,291.9219,204,301.0977,645,301.0977,645,284.7461,635,274.7461,204,274.7461" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="635" x2="635" y1="274.7461" y2="284.7461"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="645" x2="635" y1="284.7461" y2="284.7461"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="420" x="210" y="293.2412">Diagram of the application launching created from substitution-doc_1.log.</text>
+    <rect fill="#FEFECE" filter="url(#frsi5j7)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="270.375"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="292.832">Content replaced.</text>
+    <polygon fill="#FBFB77" filter="url(#frsi5j7)" points="204,329.8398,204,356.1914,489,356.1914,489,339.8398,479,329.8398,204,329.8398" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FBFB77" points="204,329.8398,204,339.0156,184,343.0156,204,347.0156,204,356.1914,489,356.1914,489,339.8398,479,329.8398,204,329.8398" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="479" x2="479" y1="329.8398" y2="339.8398"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="489" x2="479" y1="339.8398" y2="339.8398"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="264" x="210" y="348.335">Diagram of the previous application launching.</text>
+    <rect fill="#FEFECE" filter="url(#frsi5j7)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="325.4688"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="347.9258">Content replaced.</text>
+    <polygon fill="#FBFB77" filter="url(#frsi5j7)" points="204,384.9336,204,411.2852,491,411.2852,491,394.9336,481,384.9336,204,384.9336" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FBFB77" points="204,384.9336,204,394.1094,184,398.1094,204,402.1094,204,411.2852,491,411.2852,491,394.9336,481,384.9336,204,384.9336" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="481" x2="481" y1="384.9336" y2="394.9336"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="491" x2="481" y1="394.9336" y2="394.9336"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="266" x="210" y="403.4287">Credibledoc modules - based activity diagram.</text>
+    <rect fill="#FEFECE" filter="url(#frsi5j7)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="380.5625"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="403.0195">Content replaced.</text>
+    <polygon fill="#FBFB77" filter="url(#frsi5j7)" points="204,440.0273,204,466.3789,1025,466.3789,1025,450.0273,1015,440.0273,204,440.0273" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <polygon fill="#FBFB77" points="204,440.0273,204,449.2031,184,453.2031,204,457.2031,204,466.3789,1025,466.3789,1025,450.0273,1015,440.0273,204,440.0273" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="1015" x2="1015" y1="440.0273" y2="450.0273"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="1025" x2="1015" y1="450.0273" y2="450.0273"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="800" x="210" y="458.5225">Dependency of the `com.credibledoc.substitution.reporting` package on other packages in the `com.credibledoc.substitution.doc` package.</text>
+    <rect fill="#FEFECE" filter="url(#frsi5j7)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="435.6563"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="458.1133">Content replaced.</text>
+    <ellipse cx="124" cy="500.75" fill="none" filter="url(#frsi5j7)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"/>
+    <ellipse cx="124.5" cy="501.25" fill="#000000" filter="url(#frsi5j7)" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="30" y2="50"/>
+    <polygon fill="#A80036" points="120,40,124,50,128,40,124,44" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="85.0938" y2="105.0938"/>
+    <polygon fill="#A80036" points="120,95.0938,124,105.0938,128,95.0938,124,99.0938" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="140.1875" y2="160.1875"/>
+    <polygon fill="#A80036" points="120,150.1875,124,160.1875,128,150.1875,124,154.1875" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="195.2813" y2="215.2813"/>
+    <polygon fill="#A80036" points="120,205.2813,124,215.2813,128,205.2813,124,209.2813" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="250.375" y2="270.375"/>
+    <polygon fill="#A80036" points="120,260.375,124,270.375,128,260.375,124,264.375" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="305.4688" y2="325.4688"/>
+    <polygon fill="#A80036" points="120,315.4688,124,325.4688,128,315.4688,124,319.4688" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="360.5625" y2="380.5625"/>
+    <polygon fill="#A80036" points="120,370.5625,124,380.5625,128,370.5625,124,374.5625" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="415.6563" y2="435.6563"/>
+    <polygon fill="#A80036" points="120,425.6563,124,435.6563,128,425.6563,124,429.6563" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="470.75" y2="490.75"/>
+    <polygon fill="#A80036" points="120,480.75,124,490.75,128,480.75,124,484.75" style="stroke: #A80036; stroke-width: 1.0;"/>
+<!--
+!WARNING! Original strings (double dash) has been replaced by '- -' (dash+space+dash) in this comment, because the string (double dash) is not permitted within comments. And link parameters, for example ?search=... have also been REMOVED from the comment, because they are not readable for humans.
+<img uml="
+@startuml
+start
+:Application substitution-doc launched.;
+
+:Content replaced. ;
+note right
+Current name of the substitution-doc-X.X.X.jar.
+end note
+
+:Content replaced. ;
+note right
+List of resources from classpath of the substitution-doc application.
+end note
+
+:Content replaced. ;
+note right
+Diagram of the application launching created from substitution-doc.log.
+end note
+
+:Content replaced. ;
+note right
+Diagram of the application launching created from substitution-doc_1.log.
+end note
+
+:Content replaced. ;
+note right
+Diagram of the previous application launching.
+end note
+
+:Content replaced. ;
+note right
+Credibledoc modules - based activity diagram.
+end note
+
+:Content replaced. ;
+note right
+Dependency of the `com.credibledoc.substitution.reporting` package on other packages in the `com.credibledoc.substitution.doc` package.
+end note
+
+stop
+
+@enduml
+"/>
+--></g>
+</svg>
