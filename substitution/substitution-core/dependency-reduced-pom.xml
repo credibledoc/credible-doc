@@ -3,7 +3,7 @@
   <parent>
     <artifactId>substitution-parent</artifactId>
     <groupId>com.credibledoc</groupId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.4</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>substitution-core</artifactId>
@@ -19,9 +19,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  <scm>
-    <connection>scm:git:git://github.com/credibledoc/credible-doc.git</connection>
-  </scm>
   <build>
     <plugins>
       <plugin>
