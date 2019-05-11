@@ -11,7 +11,7 @@
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>
-        The top main module of this monolitic credibledoc repository.
+        The top main module of this monolithic credibledoc repository.
     </description>
     <url>https://github.com/credibledoc/credible-doc</url>
 
