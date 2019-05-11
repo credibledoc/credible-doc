@@ -16,7 +16,7 @@ Build projects and install artifacts by Maven
 
 Change directory
     
-    cd credible-doc/log-combiner
+    cd credible-doc/log-combiner-parent
     
 Launch the application
 

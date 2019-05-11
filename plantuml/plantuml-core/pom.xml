@@ -34,12 +34,6 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/credibledoc/plantuml.git</connection>
-        <developerConnection>scm:git:ssh://github.com:credibledoc/plantuml.git</developerConnection>
-        <url>https://github.com/credibledoc/plantuml</url>
-    </scm>
-
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>

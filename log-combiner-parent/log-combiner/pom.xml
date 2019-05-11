@@ -17,7 +17,7 @@
         of lines timestamps to a single file or InputStream
         with lines sorted by timestamps.
     </description>
-    <url>https://github.com/credibledoc/log-combiner/tree/master/log-combiner</url>
+    <url>https://github.com/credibledoc/credible-doc/tree/master/log-combiner-parent/log-combiner</url>
 
     <licenses>
         <license>

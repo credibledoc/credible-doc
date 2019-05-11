@@ -20,10 +20,6 @@
 
     <url>https://github.com/credibledoc/credible-doc</url>
 
-    <scm>
-        <connection>scm:git:git://github.com/credibledoc/credible-doc.git</connection>
-        <tag>HEAD</tag>
-    </scm>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>

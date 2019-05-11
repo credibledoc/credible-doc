@@ -11,7 +11,7 @@ import java.io.File;
  */
 public class CombinerCommandLineMain {
     private static final Logger logger = LoggerFactory.getLogger(CombinerCommandLineMain.class);
-    static final String LOG_COMBINER_MODULE_NAME = "log-combiner/log-combiner";
+    static final String LOG_COMBINER_MODULE_NAME = "log-combiner-parent/log-combiner";
     private static final String LOG_COMBINER_REPOSITORY_NAME = "credible-doc";
     private static final String LINE_SEPARATOR = System.lineSeparator();
 

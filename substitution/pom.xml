@@ -34,12 +34,6 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/credibledoc/credible-doc.git</connection>
-        <developerConnection>scm:git:ssh://github.com:credibledoc/credible-doc.git</developerConnection>
-        <url>https://github.com/credibledoc/credible-doc</url>
-    </scm>
-
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
