@@ -29,10 +29,10 @@ Launch the application
                   }
               } &&endPlaceholder
 
-As a result, the `substitution/target/generated/markdown` folder with new folders and files
+As a result, the `credible-doc/substitution/target/generated/markdown` folder with new folders and files
 is generated.
 
-Please inspect these generated files in the `substitution/target/generated/markdown` folder.
+Please inspect these generated files in the `credible-doc/substitution/target/generated/markdown` folder.
 These generated files is the documentation you are currently reading. You can use
 this approach for generation of documentation for your own projects.
 

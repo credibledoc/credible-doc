@@ -78,6 +78,7 @@
     ```bash
     git push
     ```
+## Generate documentation
 
 ## Rollback the tag in case of a mistake
 
