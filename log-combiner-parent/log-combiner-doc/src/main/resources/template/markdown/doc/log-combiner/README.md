@@ -6,10 +6,16 @@ with lines sorted by timestamps.
 ## Download
 This tool can be [downloaded from this page](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
 see the image
+
+1. Select the newest version
+
 ![Link to the Maven Central Repository](doc/img/mvnRepository.png)
 
-Select newest version and then select a link next to the 'Files' word in the page, see the image
+
+2. Select a link next to the 'Files' word in the page, see the image
+
 ![Link to the jar file](doc/img/linkToJar.png)
+
 
 ## Usage
     java -jar log-combiner.jar <folderAbsolutePath> [configAbsolutePath]
