@@ -1,6 +1,6 @@
 # Usage of the log-combiner-core module
 
-This module is the source for the log-combiner-core-1.0.5-SNAPSHOT.jar library.
+This module is the source for the log-combiner-core-1.0.4 library.
 
 This library can be loaded by the Maven tool from the Maven central repository.
 
