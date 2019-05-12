@@ -17,18 +17,22 @@ Example of Maven configuration in a `pom.xml` file
     <project xmlns="http://maven.apache.org/POM/4.0.0"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
+    
+        ... some mandatory tags omitted
+    
         <dependencies>
             <dependency>
                 <groupId>com.credibledoc</groupId>
                 <artifactId>log-combiner-core</artifactId>
                 <version>&&beginPlaceholder {
-                   "className": "com.credibledoc.substitution.content.generator.jar.LocalVersionContentGenerator",
-                   "description": "Current name of the log-combiner-core-X.X.X.jar.",
-                   "parameters": {
-                       "targetDirectoryRelativePath": "log-combiner-core/target",
-                       "jarNamePrefix": "log-combiner-core-"
-                   }
-    } &&endPlaceholder</version>
+                        "className": "com.credibledoc.substitution.content.generator.pom.JarNameContentGenerator",
+                        "description": "Latest version of log-combiner-core artifact in Maven Central Repository",
+                        "parameters": {
+                            "url": "https://repo1.maven.org/maven2/com/credibledoc/log-combiner-core/maven-metadata.xml",
+                            "versionOnly": "true"
+                        }
+                 } &&endPlaceholder</version>
             </dependency>
-    ...
+        </dependencies>
+    
+    </project>

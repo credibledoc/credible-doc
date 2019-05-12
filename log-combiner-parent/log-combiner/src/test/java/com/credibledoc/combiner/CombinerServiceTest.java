@@ -2,6 +2,7 @@ package com.credibledoc.combiner;
 
 import com.credibledoc.combiner.config.Config;
 import com.credibledoc.combiner.config.ConfigService;
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
@@ -18,8 +19,7 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CombinerServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(CombinerServiceTest.class);
@@ -28,7 +28,7 @@ public class CombinerServiceTest {
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     @Test
-    public void combine() throws IOException {
+    public void testPrint() {
         File configFile = new File("src/test/resources/test-configuration/log-combiner.properties");
         Config config = ConfigService.getInstance().loadConfig(configFile.getAbsolutePath());
         assertNotNull(config);
@@ -41,8 +41,48 @@ public class CombinerServiceTest {
 
         ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
         List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs();
+        assertEquals(2, applicationLogs.size());
+
+        FilesMergerState filesMergerState = new FilesMergerState();
+        NodeFileService nodeFileService = NodeFileService.getInstance();
+        filesMergerState.setNodeFiles(nodeFileService.getNodeFiles());
+        ReaderService readerService = ReaderService.getInstance();
+        readerService.prepareBufferedReaders(applicationLogs);
+        int currentLineNumber = 0;
+        String line = readerService.readLineFromReaders(filesMergerState);
+        LogBufferedReader logBufferedReader = readerService.getCurrentReader(filesMergerState);
+        while (line != null) {
+            List<String> multiline = readerService.readMultiline(line, logBufferedReader);
+
+            for (String nextLine : multiline) {
+                currentLineNumber++;
+                logger.debug("{} lines processed. NextLine: {}", currentLineNumber, nextLine);
+            }
+
+            line = readerService.readLineFromReaders(filesMergerState);
+            logBufferedReader = readerService.getCurrentReader(filesMergerState);
+        }
+        assertEquals(15, currentLineNumber);
+    }
+
+    @Test
+    public void testCombine() throws IOException {
+        File configFile = new File("src/test/resources/test-configuration/log-combiner.properties");
+        Config config = ConfigService.getInstance().loadConfig(configFile.getAbsolutePath());
+        assertNotNull(config);
+
+        File logDirectory = new File("src/test/resources/test-log-files");
+        assertTrue(logDirectory.exists());
+
+        CombinerService combinerService = CombinerService.getInstance();
+        combinerService.prepareReader(logDirectory, config);
+
+        ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
+        List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs();
+
         File targetFolder = temporaryFolder.newFolder("generated");
         File targetFile = combinerService.prepareTargetFile(targetFolder);
+
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
             ReaderService readerService = ReaderService.getInstance();
             readerService.prepareBufferedReaders(applicationLogs);

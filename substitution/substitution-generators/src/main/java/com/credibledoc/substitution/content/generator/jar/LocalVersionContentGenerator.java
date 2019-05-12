@@ -49,7 +49,7 @@ public class LocalVersionContentGenerator implements ContentGenerator {
             String jarNamePrefix = placeholder.getParameters().get(JAR_NAME_PREFIX);
             if (jarNamePrefix == null) {
                 throw new SubstitutionRuntimeException("The '" + JAR_NAME_PREFIX +
-                    "' property is mandatory for this placeholder with description: " + placeholder.getDescription());
+                    "' property is mandatory for this placeholder: " + placeholder);
             }
             for (File file : files) {
                 String name = file.getName();
