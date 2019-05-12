@@ -29,14 +29,13 @@ substitution-doc_1.log file.
 
 ### Modules - based activity diagram
 This diagram shows the application activity divided to swimlanes. Each swimlane
-represents a module where an event occurred.
+represents a module and each square element represents an event in the module.
 This diagram is generated from parsed substitution-doc_1.log file.
 
 ![Credibledoc modules - based activity diagram.](img/diagrams.md_4.svg?sanitize=true)
 
 ### Dependencies between packages
+![Dependency of the `com.credibledoc.substitution.doc` package on other classes in the `com.credibledoc.substitution` package.](img/diagrams.md_5.svg?sanitize=true)
 
-![Dependency of the `com.credibledoc.substitution.doc` package on other packages in the `com.credibledoc.substitution` package.](img/diagrams.md_5.svg?sanitize=true)
-
-_Dependency of the `com.credibledoc.substitution.doc` package on other packages in the `com.credibledoc.substitution` package._
+_Dependency of the `com.credibledoc.substitution.doc` package on other classes in the `com.credibledoc.substitution` package._
 

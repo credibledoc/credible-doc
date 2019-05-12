@@ -14,15 +14,17 @@ In case of existing `log-combiner.properties` configuration file log files will 
 merged with configuration parameters. Else default configuration parameters
 will be used and files will be joined by last modification time.
 
-    java -jar log-combiner-1.0.3.jar /var/log/temp /var/log/combiner/three-app.properties
+    java -jar log-combiner-1.0.4.jar /var/log/temp /var/log/combiner/three-app.properties
 In this case log files from the `/var/log/temp` folder will be merged. And the
 `/var/log/combiner/three-app.properties` configuration file will be used. In this case you should create
 the `three-app.properties` file in the `/var/log/combiner/` folder.
 
 ## Arguments description
-* `log-combiner.jar` (mandatory) is an executable jar file. It can be downloaded from the
-[latest release of the log-combiner-X.X.X.jar](https://github.com/credibledoc/log-combiner/releases/latest)
-* `folderAbsolutePath` (mandatory) is a path to a folder with log files for merging. Files will be parsed in this folder and sub-folders recursively.
+* `log-combiner.jar` (mandatory) is an executable jar file. Latest release is located on the Maven Central Repository.
+It can be [downloaded from this page](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
+see a link next to the 'Files' word in the page.
+* `folderAbsolutePath` (mandatory) is a path to a folder with log files for merging.
+Files will be parsed in this folder and sub-folders recursively.
 * `configAbsolutePath` (optional) is a configuration file path. Example of the file see below. If the `configAbsolutePath`
 is not defined, default is `log-combiner.properties` placed next to the jar file.
 If the file not found all files will be merged by last modification time.
@@ -84,5 +86,4 @@ Example of folder structure with log files from multiple nodes:
         
 # How to use this tool programmatically
 See the [CombinerServiceTest](src/test/java/com/credibledoc/combiner/CombinerServiceTest.java) example.
-
 TODO more examples

@@ -1,6 +1,6 @@
 # Module substitution-doc
 This module generates a documentation for the
-[substitution](../README.md) module. This document is also generated
+[substitution-parent](../README.md) module. This document is also generated
 by this `substitution-doc` module.
 
 ## Usage
@@ -20,7 +20,7 @@ Change directory
     
 Launch the application
 
-    java -jar substitution-doc/target/substitution-doc-1.0.4-SNAPSHOT.jar
+    java -jar substitution-doc/target/substitution-doc-1.0.5-SNAPSHOT.jar
 
 As a result, the `substitution/target/generated/markdown` folder with new folders and files
 is generated.

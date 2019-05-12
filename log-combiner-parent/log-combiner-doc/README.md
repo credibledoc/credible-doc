@@ -16,11 +16,11 @@ Build projects and install artifacts by Maven
 
 Change directory
     
-    cd credible-doc/log-combiner
+    cd credible-doc/log-combiner-parent
     
 Launch the application
 
-    java -jar log-combiner-doc/target/log-combiner-doc-1.0.4-SNAPSHOT.jar
+    java -jar log-combiner-doc/target/log-combiner-doc-1.0.5-SNAPSHOT.jar
 
 As a result, the `log-combiner/target/generated/doc` folder with new folders and files
 is generated.
