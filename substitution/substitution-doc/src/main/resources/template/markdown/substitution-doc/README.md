@@ -1,6 +1,6 @@
 # Module substitution-doc
 This module generates a documentation for the
-[substitution](../README.md) module. This document is also generated
+[substitution-parent](../README.md) module. This document is also generated
 by this `substitution-doc` module.
 
 ## Usage
