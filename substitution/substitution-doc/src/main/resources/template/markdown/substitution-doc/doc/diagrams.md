@@ -41,7 +41,7 @@ substitution-doc_1.log file.
 
 ### Modules - based activity diagram
 This diagram shows the application activity divided to swimlanes. Each swimlane
-represents a module where an event occurred.
+represents a module and each square element represents an event in the module.
 This diagram is generated from parsed substitution-doc_1.log file.
 
 &&beginPlaceholder {
@@ -51,12 +51,12 @@ This diagram is generated from parsed substitution-doc_1.log file.
 } &&endPlaceholder
 
 ### Dependencies between packages
-
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.dependency.PackageDependenciesContentGenerator",
-    "description": "Dependency of the `com.credibledoc.substitution.doc` package on other packages in the `com.credibledoc.substitution` package.",
-    "parameters": {"jarRelativePath": "substitution-doc/target/substitution-doc-1.0.4-SNAPSHOT-sources.jar",
+    "description": "Dependency of the `com.credibledoc.substitution.doc` package on other classes in the `com.credibledoc.substitution` package.",
+    "parameters": {
+        "sourceRelativePathsPipeSeparated": "substitution-doc/src/main/java",
         "dependantPackage": "com.credibledoc.substitution.doc",
-        "dependenciesPackagesSemicolonSeparated": "com.credibledoc.substitution",
+        "dependenciesPackagesPipeSeparated": "com.credibledoc.substitution",
         "ignoreInnerPackages": "true"}
 } &&endPlaceholder
