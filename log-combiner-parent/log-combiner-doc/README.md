@@ -32,6 +32,7 @@ this approach for generation of documentation for your own projects.
 ## Templates used for generation of this documentation
 This documentation is generated from these templates:
 
+* [/template/markdown/doc/log-combiner/doc/usage/programmatically.md](src/main/resources/template/markdown/doc/log-combiner/doc/usage/programmatically.md)
 * [/template/markdown/doc/log-combiner/README.md](src/main/resources/template/markdown/doc/log-combiner/README.md)
 * [/template/markdown/doc/log-combiner-core/doc/usage.md](src/main/resources/template/markdown/doc/log-combiner-core/doc/usage.md)
 * [/template/markdown/doc/log-combiner-core/README.md](src/main/resources/template/markdown/doc/log-combiner-core/README.md)
