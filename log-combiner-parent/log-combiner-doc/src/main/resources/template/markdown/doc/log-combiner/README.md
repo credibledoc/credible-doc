@@ -50,10 +50,10 @@ will be used and files will be joined by last modification time.
                        "url": "https://repo1.maven.org/maven2/com/credibledoc/log-combiner/maven-metadata.xml",
                        "nameAndVersionSeparator": "-"
                    }
-               } &&endPlaceholder.jar /var/log/temp /var/log/combiner/three-app.properties
+               } &&endPlaceholder.jar /var/log/temp /var/log/combiner/two-apps.properties
 In this case log files from the `/var/log/temp` folder will be merged. And the
-`/var/log/combiner/three-app.properties` configuration file will be used. In this case you should create
-the `three-app.properties` file in the `/var/log/combiner/` folder.
+`/var/log/combiner/two-apps.properties` configuration file will be used. In this case you should create
+the `two-apps.properties` file in the `/var/log/combiner/` folder.
 
 ## Arguments description
 * `&&beginPlaceholder {

@@ -29,10 +29,10 @@ In case of existing `log-combiner.properties` configuration file log files will 
 merged with configuration parameters. Else default configuration parameters
 will be used and files will be joined by last modification time.
 
-    java -jar log-combiner-1.0.4.jar /var/log/temp /var/log/combiner/three-app.properties
+    java -jar log-combiner-1.0.4.jar /var/log/temp /var/log/combiner/two-apps.properties
 In this case log files from the `/var/log/temp` folder will be merged. And the
-`/var/log/combiner/three-app.properties` configuration file will be used. In this case you should create
-the `three-app.properties` file in the `/var/log/combiner/` folder.
+`/var/log/combiner/two-apps.properties` configuration file will be used. In this case you should create
+the `two-apps.properties` file in the `/var/log/combiner/` folder.
 
 ## Arguments description
 * `log-combiner-1.0.4.jar` (mandatory) is an executable jar file. Latest release is located on the Maven Central Repository.
