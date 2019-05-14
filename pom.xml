@@ -42,6 +42,7 @@
         <maven.compiler.target>1.7</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <skip.gpg>true</skip.gpg>
+        <org.junit.version>5.4.2</org.junit.version>
     </properties>
 
     <dependencyManagement>
@@ -55,12 +56,6 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>1.2.3</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
@@ -94,6 +89,21 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${org.junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${org.junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <modules>
         <module>log-combiner-parent</module>
