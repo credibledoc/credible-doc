@@ -37,22 +37,18 @@
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>substitution-core</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>log-combiner-core</artifactId>
-            <version>1.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>plantuml-core</artifactId>
-            <version>1.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>substitution-generators</artifactId>
-            <version>1.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

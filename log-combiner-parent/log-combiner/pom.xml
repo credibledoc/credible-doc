@@ -39,7 +39,6 @@
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>log-combiner-core</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

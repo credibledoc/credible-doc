@@ -133,12 +133,10 @@
                         <configuration>
                             <relocations>
                                 <relocation>
-                                    <!-- com.eclipsesource.minimal-json:minimal-json -->
                                     <pattern>com.eclipsesource.json</pattern>
                                     <shadedPattern>com.credibledoc.substitution.core.shaded.com.eclipsesource.json</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <!-- org.slf4j:slf4j-api -->
                                     <pattern>org.slf4j</pattern>
                                     <shadedPattern>com.credibledoc.substitution.core.shaded.org.slf4j</shadedPattern>
                                 </relocation>
