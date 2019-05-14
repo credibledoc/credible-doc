@@ -4,7 +4,7 @@ with different format of lines timestamps to a single file or readable source
 with lines sorted by timestamps.
 
 ## Download
-This tool can be [downloaded from this page](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
+This tool can be [downloaded from the Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
 see the image
 
 1. Select the newest version
@@ -36,7 +36,7 @@ the `two-apps.properties` file in the `/var/log/combiner/` folder.
 
 ## Arguments description
 * `log-combiner-1.0.4.jar` (mandatory) is an executable jar file. Latest release is located on the Maven Central Repository.
-It can be [downloaded from this page](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
+It can be [downloaded from the Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
 see a link next to the 'Files' in the page, see images above.
 * `folderAbsolutePath` (mandatory) is a path to a folder with log files for merging.
 Files will be parsed in this folder and sub-folders recursively.

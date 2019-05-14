@@ -6,6 +6,10 @@ from plantUml notations.
 For launching of the generator, the Graphviz tool should be installed,
 see the [http://plantuml.com/graphviz-dot](http://plantuml.com/graphviz-dot) documentation.
 
+## Downloading
+This module can be downloaded from the
+[Maven Central Repository plantuml-core](https://mvnrepository.com/artifact/com.credibledoc/plantuml-core)
+
 ## Example of usage
     String svg = SvgGeneratorService.getInstance().generateSvgFromPlantUml(plantUml);
 

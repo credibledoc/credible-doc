@@ -17,9 +17,9 @@
     <description>
         A simple library for generation plantUML diagrams.
         See description in the README.md file in the root
-        of the plantuml repository.
+        of this module.
     </description>
-    <url>https://github.com/credibledoc/plantuml</url>
+    <url>https://github.com/credibledoc/credible-doc/tree/master/plantuml</url>
 
     <licenses>
         <license>

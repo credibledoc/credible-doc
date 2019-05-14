@@ -7,4 +7,4 @@ This module contains the following modules
 This module is a source for a `jar` library file.
 * [log-combiner](log-combiner/README.md) - contains the `log-combiner` command-line tool.
 This tool can be used for merging log files with different format of lines timestamps to a single file or readable source.
-* [log-combiner-doc](log-combiner-doc/README.md) - contains classes for generation of this repository documentation.
+* [log-combiner-doc](log-combiner-doc/README.md) - contains classes for generation of this module documentation.

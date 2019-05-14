@@ -21,7 +21,7 @@ public class CombinerCommandLineMain {
             // print command-line options
             logger.info("Usage of the {} tool.{}" +
                 "java -jar {}.jar <folderAbsolutePath> [configAbsolutePath]{}" +
-                "More examples see on https://github.com/credibledoc/{}/blob/master/{}/README.md",
+                "More examples see on https://github.com/credibledoc/{}/tree/master/{}",
                 LOG_COMBINER_MODULE_NAME,
                 LINE_SEPARATOR,
                 LOG_COMBINER_MODULE_NAME,
