@@ -17,8 +17,7 @@
     <description>
         This module contains submodules with tools and libraries for replacing
         of placeholders with a generated content.
-        See description in the README.md file in the root of the
-        https://github.com/credibledoc/credible-doc repository.
+        See the https://github.com/credibledoc/credible-doc/tree/master/substitution page.
     </description>
     <url>https://github.com/credibledoc/credible-doc</url>
 

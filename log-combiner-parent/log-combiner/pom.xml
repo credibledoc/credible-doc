@@ -16,6 +16,7 @@
         Simple command-line tool for merging log files with different format
         of lines timestamps to a single file or readable source
         with lines sorted by timestamps.
+        See the https://github.com/credibledoc/credible-doc/tree/master/log-combiner-parent/log-combiner page.
     </description>
     <url>https://github.com/credibledoc/credible-doc/tree/master/log-combiner-parent/log-combiner</url>
 

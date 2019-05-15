@@ -15,8 +15,9 @@
     <packaging>jar</packaging>
 
     <description>
-        This project generates a documentation
-        for the https://github.com/credibledoc/credible-doc projects.
+        This module generates a documentation
+        for the https://github.com/credibledoc/credible-doc/tree/master/substitution projects.
+        See description on the https://github.com/credibledoc/credible-doc/tree/master/substitution/substitution-doc page.
     </description>
 
     <properties>

@@ -16,8 +16,8 @@
         This module contains implementations of the ContentGenerator interface.
         Instances of these classes generate a content.
         This content will be placed instead of Placeholders.
-        See description in the
-        https://github.com/credibledoc/credible-doc/blob/master/substitution/README.md.
+        See the
+        https://github.com/credibledoc/credible-doc/tree/master/substitution/substitution-generators page.
     </description>
 
     <url>https://github.com/credibledoc/credible-doc</url>

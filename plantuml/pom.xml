@@ -16,8 +16,7 @@
     <name>${project.groupId}:${project.artifactId}</name>
     <description>
         A simple library for generation plantUML diagrams.
-        See description in the README.md file in the root
-        of this module.
+        See the https://github.com/credibledoc/credible-doc/tree/master/plantuml page.
     </description>
     <url>https://github.com/credibledoc/credible-doc/tree/master/plantuml</url>
 
