@@ -5,6 +5,7 @@ from plantUml notations.
 
 For launching of the generator, the Graphviz tool should be installed,
 see the [http://plantuml.com/graphviz-dot](http://plantuml.com/graphviz-dot) documentation.
+Graphviz is optional if you only need sequence diagrams and activity (beta) diagrams.
 
 ## Downloading
 This module can be downloaded from the

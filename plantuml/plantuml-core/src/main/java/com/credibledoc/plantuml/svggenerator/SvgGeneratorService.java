@@ -4,6 +4,7 @@ import com.credibledoc.plantuml.exception.PlantumlRuntimeException;
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
+import net.sourceforge.plantuml.core.DiagramDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -92,6 +93,85 @@ public class SvgGeneratorService {
      * <p>
      * Append commented plantUml to the end of SVG
      *
+     * @param printWarningAndPlantUml if 'true', the #plantUml content will be escaped and printed at the end of
+     *                                svg as a comment for humans readability.
+     * @param plantUml  source string, for example <pre>{@code Bob -> Alice : hello\nAlice -> Bob : hi}</pre>
+     * @param formatSvg if 'true', a formatted SVG content will be returned
+     *                  by calling the {@link #formatSvg(String)} method,
+     *                  but in case when the source plantUml content has
+     *                  the <b>[#</b> sequence, do NOT format the SVG content.
+     * @return SVG content.
+     */
+    public String generateSvgFromPlantUml(boolean printWarningAndPlantUml, String plantUml, boolean formatSvg) {
+        try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+            if (!plantUml.trim().startsWith(STARTUML)) {
+                plantUml = STARTUML + LINE_SEPARATOR + plantUml;
+            }
+            if (!plantUml.trim().endsWith(ENDUML)) {
+                plantUml = plantUml + LINE_SEPARATOR + ENDUML;
+            }
+
+            SourceStringReader reader = new SourceStringReader(plantUml);
+
+
+            FileFormatOption fileFormatOption = new FileFormatOption(FileFormat.SVG);
+            DiagramDescription diagramDescription = reader.outputImage(os, fileFormatOption);
+            logger.info("DiagramDescription: {}", diagramDescription.getDescription());
+
+            // The XML is stored into svg
+            String svg = new String(os.toByteArray(), StandardCharsets.UTF_8);
+
+            if (printWarningAndPlantUml) {
+                final String warningMessage = "!WARNING! Original strings (double dash) has been replaced" +
+                    " by '- -' (dash+space+dash) in this comment" +
+                    ", because the string (double dash) is not permitted within comments." +
+                    " And link parameters, for example ?search=... have also been REMOVED from the comment," +
+                    " because they are not readable for humans.";
+
+                svg = svg.replace(TAG_G_SVG,
+                    LINE_SEPARATOR
+                        + "<!--"
+                        + LINE_SEPARATOR
+                        + warningMessage
+                        + LINE_SEPARATOR
+                        + "<img uml=\""
+                        + LINE_SEPARATOR
+                        + escape(plantUml)
+                        + LINE_SEPARATOR
+                        + "\"/>"
+                        + LINE_SEPARATOR
+                        + "-->"
+                        + TAG_G_SVG);
+            }
+
+            if (plantUml.contains(FORBIDDEN_SEQUENCE_FOR_XML_DOCUMENT)) {
+                formatSvg = false;
+            }
+            if (formatSvg) {
+                return formatSvg(svg);
+            } else {
+                return svg;
+            }
+        } catch (Exception e) {
+            throw new PlantumlRuntimeException("PlantUML: " + plantUml, e);
+        }
+    }
+
+    /**
+     * <p>
+     * Call the {@link #generateSvgFromPlantUml(boolean, String, boolean)} with first parameter 'false'.
+     * <p>
+     * For launching of the generator, the Graphviz tool should be installed,
+     * see <a href="http://plantuml.com/graphviz-dot">http://plantuml.com/graphviz-dot</a>.
+     * <p>
+     * If the plantUml notations do not begin with <b>@startuml</b> tag,
+     * attach the tag to the beginning of the plantUml notations.
+     * <p>
+     * If the plantUml notations do not ends by <b>@enduml</b> tag,
+     * append the tag to the ent of plantUml
+     * <p>
+     * Append commented plantUml to the end of SVG
+     *
      * @param plantUml  source string, for example <pre>{@code Bob -> Alice : hello\nAlice -> Bob : hi}</pre>
      * @param formatSvg if 'true', a formatted SVG content will be returned
      *                  by calling the {@link #formatSvg(String)} method,
@@ -100,53 +180,7 @@ public class SvgGeneratorService {
      * @return SVG content.
      */
     public String generateSvgFromPlantUml(String plantUml, boolean formatSvg) {
-        try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
-            if (!plantUml.trim().startsWith(STARTUML)) {
-                plantUml = STARTUML + LINE_SEPARATOR + plantUml;
-            }
-            if (!plantUml.trim().endsWith(ENDUML)) {
-                plantUml = plantUml + LINE_SEPARATOR + ENDUML;
-            }
-            
-            SourceStringReader reader = new SourceStringReader(plantUml);
-            
-
-            FileFormatOption fileFormatOption = new FileFormatOption(FileFormat.SVG);
-            reader.generateImage(os, fileFormatOption);
-            
-            // The XML is stored into svg
-            String svg = new String(os.toByteArray(), StandardCharsets.UTF_8);
-            final String warningMessage = "!WARNING! Original strings (double dash) has been replaced" +
-                    " by '- -' (dash+space+dash) in this comment" +
-                    ", because the string (double dash) is not permitted within comments." +
-                    " And link parameters, for example ?search=... have also been REMOVED from the comment," +
-                    " because they are not readable for humans.";
-
-            String replacedSvg = svg.replace(TAG_G_SVG,
-                    LINE_SEPARATOR
-                    + "<!--"
-                    + LINE_SEPARATOR
-                    + warningMessage
-                    + LINE_SEPARATOR
-                    + "<img uml=\""
-                    + LINE_SEPARATOR
-                    + escape(plantUml)
-                    + LINE_SEPARATOR
-                    + "\"/>"
-                    + LINE_SEPARATOR
-                    + "-->"
-                    + TAG_G_SVG);
-            if (plantUml.contains(FORBIDDEN_SEQUENCE_FOR_XML_DOCUMENT)) {
-                formatSvg = false;
-            }
-            if (formatSvg) {
-                return formatSvg(replacedSvg);
-            } else {
-                return replacedSvg;
-            }
-        } catch (Exception e) {
-            throw new PlantumlRuntimeException("PlantUML: " + plantUml, e);
-        }
+        return generateSvgFromPlantUml(false, plantUml, formatSvg);
     }
 
     /**

@@ -4,7 +4,7 @@ with different format of lines timestamps to a single file or readable source
 with lines sorted by timestamps.
 
 ## Download
-This tool can be [downloaded from this page](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
+This tool can be [downloaded from the Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
 see the image
 
 1. Select the newest version

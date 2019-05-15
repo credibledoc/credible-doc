@@ -2,7 +2,7 @@
 
 This module is the source for the log-combiner-core-1.0.4 library.
 
-This library can be loaded by the Maven tool from the Maven central repository.
+This library can be loaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner-core).
 
 Example of Maven configuration in a `pom.xml` file
 
