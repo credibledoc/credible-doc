@@ -12,6 +12,7 @@ import com.credibledoc.combiner.node.log.NodeLog;
  *
  * @author Kyrylo Semenko
  */
+// TODO Kyrylo Semenko - zrusit tuto domenu
 public class ApplicationLog {
 
     /**

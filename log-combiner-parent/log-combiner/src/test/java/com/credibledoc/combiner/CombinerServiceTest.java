@@ -27,6 +27,9 @@ public class CombinerServiceTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
+    /**
+     * Combine log lines from multiple files, order these lines by date and print out to the {@link #logger}.
+     */
     @Test
     public void testPrint() {
         File configFile = new File("src/test/resources/test-configuration/log-combiner.properties");
@@ -65,6 +68,9 @@ public class CombinerServiceTest {
         assertEquals(15, currentLineNumber);
     }
 
+    /**
+     * Combine log lines from multiple files, order these lines by date and print out to a new file.
+     */
     @Test
     public void testCombine() throws IOException {
         File configFile = new File("src/test/resources/test-configuration/log-combiner.properties");

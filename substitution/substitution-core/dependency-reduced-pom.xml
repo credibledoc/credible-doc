@@ -9,8 +9,7 @@
   <artifactId>substitution-core</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>A simple library for replacing placeholders with a generated content.
-        See description in the README.md file in the root of the
-        https://github.com/credibledoc/credible-doc repository.</description>
+        See the https://github.com/credibledoc/credible-doc/tree/master/substitution/substitution-core page.</description>
   <url>https://github.com/credibledoc/credible-doc</url>
   <licenses>
     <license>

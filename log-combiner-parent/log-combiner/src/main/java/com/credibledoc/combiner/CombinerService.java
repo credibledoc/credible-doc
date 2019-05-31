@@ -122,6 +122,19 @@ public class CombinerService {
         }
     }
 
+    /**
+     * Create {@link Tactic} and {@link Application} instance for each {@link Config#getTacticConfigs()}.
+     * <p>
+     * Add created {@link Tactic} instances to the {@link com.credibledoc.combiner.tactic.TacticService}.
+     * <p>
+     * Add created {@link Application} instances to the
+     * {@link com.credibledoc.combiner.node.applicationlog.ApplicationLogService}.
+     * <p>
+     * Call the {@link #collectApplicationLogs(File, List)} method.
+     *
+     * @param folder the folder with log files
+     * @param config contains configuration of {@link Config#getTacticConfigs()}
+     */
     public void prepareReader(File folder, Config config) {
         ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
         TacticService tacticService = TacticService.getInstance();
@@ -308,6 +321,7 @@ public class CombinerService {
      * @param applicationLogs at first invocation an empty, and it will be filled with files
      */
     private void collectApplicationLogs(File directory, List<ApplicationLog> applicationLogs) {
+        // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum
         Map<Application, Map<Date, File>> map = new HashMap<>();
         File[] files = Objects.requireNonNull(directory.listFiles());
         for (File file : files) {
@@ -322,6 +336,7 @@ public class CombinerService {
     }
 
     private void addFileToMap(List<ApplicationLog> applicationLogs, Map<Application, Map<Date, File>> map, File file) {
+        // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum.
         if (file.isFile()) {
             Application application = FileService.getInstance().findApplication(file);
             if (!map.containsKey(application)) {

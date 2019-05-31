@@ -1,6 +1,6 @@
 node1 app1 INFO 2019-04-22T07:59:27.000+0200 [main] Application app1 started.
-node0 app0 22.04.2019 07:59:27.910 [main] INFO Application app0 started.
 node1 app0 22.04.2019 07:59:27.910 [thread2] INFO Application app0 started.
+node0 app0 22.04.2019 07:59:27.910 [main] INFO Application app0 started.
 node1 app0 22.04.2019 07:59:27.915 [thread2] INFO Configuration app0 loaded.
 node0 app0 22.04.2019 07:59:27.920 [main] ERROR Exception in app0
 node0 app0 Exception in thread "main" com.credibledoc.combiner.exception.CombinerRuntimeException

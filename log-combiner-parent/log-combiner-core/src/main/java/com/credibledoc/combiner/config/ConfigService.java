@@ -48,6 +48,13 @@ public class ConfigService {
         return instance;
     }
 
+    /**
+     * Try to load {@link Config} from configAbsolutePath. If the file not found throw an exception.
+     *
+     * @param configAbsolutePath can be 'null'. In this case {@link Config} will be loaded from classpath.
+     *                           If it doesn't exists, the default {@link Config} will be returned.
+     * @return Configuration of this combiner.
+     */
     public Config loadConfig(String configAbsolutePath) {
         if (loadingHasBeenTried) {
             return config;
@@ -63,7 +70,7 @@ public class ConfigService {
             }
             logger.info("Configuration file will be loaded from command-line parameter. File: '{}'",
                 propertiesFile.getAbsolutePath());
-        } else {
+        } else { // TODO Kyrylo Semenko - doladit pro testy, pro Main a pro jarko
             File jarPath = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
             String nextToJar = jarPath.getParent() + File.separator + LOG_COMBINER_PROPERTIES;
             logger.info("Trying to find configuration file next to jar file: '{}'", nextToJar);
@@ -77,8 +84,7 @@ public class ConfigService {
             loadProperties(propertiesFile);
             logger.info("Configuration loaded: {}", config);
         } else {
-            logger.info("Configuration file not found");
-            return null;
+            logger.info("Configuration file not found, default Config will be returned");
         }
         return config;
     }
