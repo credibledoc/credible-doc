@@ -1,10 +1,10 @@
 package com.credibledoc.combiner.tactic;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Stateful singleton. Contains a list of {@link Tactic}s.
+ * Stateful singleton. Contains a set of {@link Tactic}s.
  *
  * @author Kyrylo Semenko
  */
@@ -28,19 +28,19 @@ public class TacticRepository {
     /**
      * {@link Tactic}s for parsing different log formats
      */
-    private List<Tactic> tactics = new ArrayList<>();
+    private Set<Tactic> tactics = new HashSet<>();
 
     /**
-     * @return the {@link #tactics} value
+     * @return The {@link #tactics} field value.
      */
-    public List<Tactic> getTactics() {
+    public Set<Tactic> getTactics() {
         return tactics;
     }
 
     /**
-     * @param tactics see the {@link #tactics} field
+     * @param tactics see the {@link #tactics} field description.
      */
-    public void setTactics(List<Tactic> tactics) {
+    public void setTactics(Set<Tactic> tactics) {
         this.tactics = tactics;
     }
 }

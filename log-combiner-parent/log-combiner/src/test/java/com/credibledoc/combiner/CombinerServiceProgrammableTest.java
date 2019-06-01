@@ -1,8 +1,6 @@
 package com.credibledoc.combiner;
 
-import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
-import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.state.FilesMergerState;
 import com.credibledoc.combiner.tactic.Tactic;
@@ -42,7 +40,7 @@ public class CombinerServiceProgrammableTest {
         tactics.add(new FirstApplicationTactic());
         tactics.add(new SecondApplicationTactic());
 
-        prepareReaders(files, tactics);
+        TacticService.getInstance().prepareReaders(files, tactics);
 
         File targetFolder = temporaryFolder.newFolder("generated");
         CombinerService combinerService = CombinerService.getInstance();
@@ -73,41 +71,6 @@ public class CombinerServiceProgrammableTest {
             return false;
         }
         return true;
-    }
-
-    private void prepareReaders(Set<File> files, Set<Tactic> tactics) {
-        TacticService tacticService = TacticService.getInstance();
-        tacticService.getTactics().addAll(tactics);
-
-        Map<Tactic, Map<Date, File>> map = new HashMap<>();
-        // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum.
-        for (File file : files) {
-            Tactic tactic = FileService.getInstance().findTactic(file);
-            if (!map.containsKey(tactic)) {
-                map.put(tactic, new TreeMap<Date, File>());
-            }
-
-            Date date = FileService.getInstance().findDate(file, tactic);
-
-            if (date == null) {
-                throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
-            }
-            Map<Date, File> dateFileMap = map.get(tactic);
-            while (dateFileMap.containsKey(date)) {
-                date.setTime(date.getTime() + 1);
-            }
-            dateFileMap.put(date, file);
-        }
-
-        NodeFileService nodeFileService = NodeFileService.getInstance();
-
-        for (Map.Entry<Tactic, Map<Date, File>> entry : map.entrySet()) {
-            Tactic tactic = entry.getKey();
-            nodeFileService.appendToNodeLogs(entry.getValue(), tactic);
-        }
-
-        ReaderService readerService = ReaderService.getInstance();
-        readerService.prepareBufferedReaders(tacticService.getTactics());
     }
 
 }

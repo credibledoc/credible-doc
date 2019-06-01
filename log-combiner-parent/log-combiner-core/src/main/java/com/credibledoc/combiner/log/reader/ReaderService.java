@@ -290,7 +290,7 @@ public class ReaderService {
      *
      * @param tactics holders of {@link NodeLog}s with files.
      */
-    public void prepareBufferedReaders(List<Tactic> tactics) {
+    public void prepareBufferedReaders(Set<Tactic> tactics) {
         long startNanos = System.nanoTime();
         NodeFileService nodeFileService = NodeFileService.getInstance();
         for (Tactic tactic : tactics) {

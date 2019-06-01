@@ -83,27 +83,37 @@ public class NodeFileService {
         for (Map.Entry<Date, File> entry : dateFileMap.entrySet()) {
             Date date = entry.getKey();
             File file = entry.getValue();
-            String folderName = file.getParentFile().getName();
-            boolean nodeLogFound = false;
-            for (NodeLog nodeLog : nodeLogs) {
-                if (nodeLog.getName().equals(folderName)) {
-                    List<NodeFile> nodeFiles = findNodeFiles(nodeLog);
-                    if (!containsName(nodeFiles, file.getName())) {
-                        NodeFile nodeFile = createNodeFile(date, file);
-                        nodeFiles.add(nodeFile);
-                        nodeFile.setNodeLog(nodeLog);
-                    }
-                    nodeLogFound = true;
+            createOrAddToNodeFile(tactic, nodeLogs, date, file);
+        }
+    }
+
+    private void createOrAddToNodeFile(Tactic tactic, List<NodeLog> nodeLogs, Date date,
+                                       File file) {
+        String folderName = file.getParentFile().getName();
+        boolean nodeLogFound = false;
+        for (NodeLog nodeLog : nodeLogs) {
+            if (nodeLog.getName().equals(folderName)) {
+                List<NodeFile> nodeFiles = findNodeFiles(nodeLog);
+                if (!containsName(nodeFiles, file.getName())) {
+                    NodeFile nodeFile = createNodeFile(date, file);
+                    nodeFiles.add(nodeFile);
+                    nodeFile.setNodeLog(nodeLog);
                 }
-            }
-            if (!nodeLogFound) {
-                NodeFile nodeFile = createNodeFile(date, file);
-                NodeLog nodeLog = NodeLogService.getInstance().createNodeLog(nodeFile.getFile());
-                nodeLog.setTactic(tactic);
-                nodeLogs.add(nodeLog);
-                nodeFile.setNodeLog(nodeLog);
+                nodeLogFound = true;
             }
         }
+        if (!nodeLogFound) {
+            NodeFile nodeFile = createNodeFile(date, file);
+            NodeLog nodeLog = NodeLogService.getInstance().createNodeLog(nodeFile.getFile());
+            nodeLog.setTactic(tactic);
+            nodeLogs.add(nodeLog);
+            nodeFile.setNodeLog(nodeLog);
+        }
+    }
+
+    public void appendToNodeLogs(File file, Date date, Tactic tactic) {
+        List<NodeLog> nodeLogs = NodeLogService.getInstance().findNodeLogs(tactic);
+        createOrAddToNodeFile(tactic, nodeLogs, date, file);
     }
 
     public List<NodeFile> findNodeFiles(NodeLog nodeLog) {

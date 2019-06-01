@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Visualizer creates reports. The reports describes scenarios recorded in log files,
@@ -62,7 +63,7 @@ public class VisualizerService {
         ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
         List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
         List<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
-        List<Tactic> tactics = TacticService.getInstance().getTactics();
+        Set<Tactic> tactics = TacticService.getInstance().getTactics();
         ReaderService readerService = ReaderService.getInstance();
         readerService.prepareBufferedReaders(tactics);
         String line = null;

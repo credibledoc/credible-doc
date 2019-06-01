@@ -120,19 +120,21 @@ public class CombinerService {
      * <p>
      * Add created {@link Tactic} instances to the {@link com.credibledoc.combiner.tactic.TacticService}.
      * <p>
-     * Call the {@link #collectLogFiles(File, List)} method.
+     * Call the {@link TacticService#prepareReaders(Set, Set)} method.
      *
      * @param folder the folder with log files
      * @param config contains configuration of {@link Config#getTacticConfigs()}
      */
     public void prepareReader(File folder, Config config) {
         TacticService tacticService = TacticService.getInstance();
-        List<Tactic> tactics = tacticService.getTactics();
+        Set<Tactic> tactics = tacticService.getTactics();
         for (final TacticConfig tacticConfig : config.getTacticConfigs()) {
             final Tactic tactic = createTactic(tacticConfig);
             tactics.add(tactic);
         }
-        collectLogFiles(folder, tactics);
+        Set<File> files = FileService.getInstance().collectFiles(folder);
+
+        tacticService.prepareReaders(files, tactics);
     }
 
     private void writeMultiline(Config config, OutputStream outputStream, NodeFileService nodeFileService, LogBufferedReader logBufferedReader, List<String> multiline) throws IOException {
@@ -274,45 +276,4 @@ public class CombinerService {
         };
     }
 
-    /**
-     * Sort files in a directory from the first argument.
-     * For each {@link Tactic} create its own list of files. For each file call the
-     * {@link NodeFileService#appendToNodeLogs(Map, Tactic)} method.
-     *
-     * @param directory       cannot be 'null'. Can have files with different {@link Tactic}s.<br>
-     *                        Cannot contain other files. But can have directories. These directories
-     *                        will be processed recursively.
-     * @param tactics at first invocation an empty, and it will be filled with files
-     */
-    private void collectLogFiles(File directory, List<Tactic> tactics) {
-        // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum
-        Map<Tactic, Map<Date, File>> map = new HashMap<>();
-        File[] files = Objects.requireNonNull(directory.listFiles());
-        for (File file : files) {
-            addFileToMap(tactics, map, file);
-        }
-        for (Map.Entry<Tactic, Map<Date, File>> appEntry : map.entrySet()) {
-            Tactic tactic = appEntry.getKey();
-            NodeFileService.getInstance().appendToNodeLogs(appEntry.getValue(), tactic);
-        }
-    }
-
-    private void addFileToMap(List<Tactic> tactics, Map<Tactic, Map<Date, File>> map, File file) {
-        // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum.
-        if (file.isFile()) {
-            Tactic tactic = FileService.getInstance().findTactic(file);
-            if (!map.containsKey(tactic)) {
-                map.put(tactic, new TreeMap<Date, File>());
-            }
-
-            Date date = FileService.getInstance().findDate(file, tactic);
-            if (date == null) {
-                throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
-            }
-            map.get(tactic).put(date, file);
-        } else {
-            // directories
-            collectLogFiles(file, tactics);
-        }
-    }
 }
