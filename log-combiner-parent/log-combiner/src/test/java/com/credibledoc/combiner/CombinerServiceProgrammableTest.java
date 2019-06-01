@@ -1,6 +1,5 @@
 package com.credibledoc.combiner;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
 import com.credibledoc.combiner.application.identifier.ApplicationIdentifierService;
@@ -89,20 +88,20 @@ public class CombinerServiceProgrammableTest {
         ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
         ApplicationService applicationService = ApplicationService.getInstance();
 
-        Map<Application, Map<Date, File>> map = new HashMap<>();
+        Map<Tactic, Map<Date, File>> map = new HashMap<>();
         // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum.
         for (File file : files) {
-            Application application = FileService.getInstance().findApplication(file);
-            if (!map.containsKey(application)) {
-                map.put(application, new TreeMap<Date, File>());
+            Tactic tactic = FileService.getInstance().findTactic(file);
+            if (!map.containsKey(tactic)) {
+                map.put(tactic, new TreeMap<Date, File>());
             }
 
-            Date date = FileService.getInstance().findDate(file, application);
+            Date date = FileService.getInstance().findDate(file, tactic);
 
             if (date == null) {
                 throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
             }
-            Map<Date, File> dateFileMap = map.get(application);
+            Map<Date, File> dateFileMap = map.get(tactic);
             while (dateFileMap.containsKey(date)) {
                 date.setTime(date.getTime() + 1);
             }
@@ -112,9 +111,9 @@ public class CombinerServiceProgrammableTest {
         NodeFileService nodeFileService = NodeFileService.getInstance();
 
         List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs();
-        for (Map.Entry<Application, Map<Date, File>> entry : map.entrySet()) {
-            Application application = entry.getKey();
-            ApplicationLog applicationLog = applicationService.findOrCreate(applicationLogs, application);
+        for (Map.Entry<Tactic, Map<Date, File>> entry : map.entrySet()) {
+            Tactic tactic = entry.getKey();
+            ApplicationLog applicationLog = applicationService.findOrCreate(applicationLogs, tactic);
             nodeFileService.appendToNodeLogs(entry.getValue(), applicationLog);
         }
 

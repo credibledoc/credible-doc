@@ -13,8 +13,9 @@ import com.credibledoc.combiner.tactic.TacticService;
 
 import java.util.List;
 
+// TODO Kyrylo Semenko - zrusit
 /**
- * A service for working with {@link Application}s.
+ * A service for working with {@link Tactic}s.
  * @author Kyrylo Semenko
  */
 public class ApplicationService {
@@ -35,52 +36,52 @@ public class ApplicationService {
     }
 
     /**
-     * Recognize, which {@link Application} the line belongs to.
+     * Recognize, which {@link Tactic} the line belongs to.
      * @param line the line from the log file
      * @param logBufferedReader the {@link LogBufferedReader} read the line
-     * @return {@link Application} or 'null' if not found
+     * @return {@link Tactic} or 'null' if not found
      */
-    public Application findApplication(String line, LogBufferedReader logBufferedReader) {
+    public Tactic findTactic(String line, LogBufferedReader logBufferedReader) {
         ApplicationIdentifierService applicationIdentifierService = ApplicationIdentifierService.getInstance();
         for (ApplicationIdentifier applicationIdentifier : applicationIdentifierService.getApplicationIdentifiers()) {
             if (applicationIdentifier.identifyApplication(line, logBufferedReader)) {
-                return applicationIdentifier.getApplication();
+                return applicationIdentifier.getTactic();
             }
         }
         return null;
     }
 
     /**
-     * Recognize, which {@link Application} the line belongs to.
-     * @param logBufferedReader links to a {@link Application}
-     * @return {@link Application} or throw exception
+     * Recognize, which {@link Tactic} the line belongs to.
+     * @param logBufferedReader links to a {@link Tactic}
+     * @return {@link Tactic} or throw exception
      */
-    public Application findApplication(LogBufferedReader logBufferedReader) {
+    public Tactic findTactic(LogBufferedReader logBufferedReader) {
         for (ApplicationLog applicationLog : ApplicationLogService.getInstance().getApplicationLogs()) {
             for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(applicationLog)) {
                 if (nodeLog.getLogBufferedReader() == logBufferedReader) {
-                    return applicationLog.getApplication();
+                    return applicationLog.getTactic();
                 }
             }
         }
-        throw new CombinerRuntimeException("Application cannot be found. LogBufferedReader: " + logBufferedReader);
+        throw new CombinerRuntimeException("Tactic cannot be found. LogBufferedReader: " + logBufferedReader);
     }
 
     /**
      * Find out {@link ApplicationLog}. Create a new one if it not exists.
      * @param applicationLogs collection of {@link ApplicationLog}s
-     * @param application search parameter
+     * @param tactic search parameter
      * @return searched or created {@link ApplicationLog}
      */
-    public ApplicationLog findOrCreate(List<ApplicationLog> applicationLogs, Application application) {
+    public ApplicationLog findOrCreate(List<ApplicationLog> applicationLogs, Tactic tactic) {
         for (ApplicationLog applicationLog : applicationLogs) {
-            if (application == applicationLog.getApplication()) {
+            if (tactic == applicationLog.getTactic()) {
                 return applicationLog;
             }
         }
         ApplicationLog applicationLog = new ApplicationLog();
         ApplicationLogService.getInstance().addApplicationLog(applicationLog);
-        applicationLog.setApplication(application);
+        applicationLog.setTactic(tactic);
         applicationLogs.add(applicationLog);
         return applicationLog;
     }
@@ -90,13 +91,13 @@ public class ApplicationService {
      * that equals with the first parameter
      *
      * @param logBufferedReader for {@link NodeLog} searching
-     * @return A {@link Application#getTactic()} instance from the {@link TacticService}.
+     * @return A {@link Tactic} instance from the {@link TacticService}.
      */
     public Tactic findSpecificTactic(LogBufferedReader logBufferedReader) {
         for (ApplicationLog applicationLog : ApplicationLogService.getInstance().getApplicationLogs()) {
             for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(applicationLog)) {
                 if (nodeLog.getLogBufferedReader() == logBufferedReader) {
-                    return applicationLog.getApplication().getTactic();
+                    return applicationLog.getTactic();
                 }
             }
         }

@@ -1,6 +1,5 @@
 package com.credibledoc.tactic;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
@@ -13,19 +12,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class SecondApplicationTactic implements Tactic, Application, ApplicationIdentifier {
+public class SecondApplicationTactic implements Tactic, ApplicationIdentifier {
 
     private static final String DATE_TIME_FORMAT_STRING = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     private static final String DATE_AND_THREAD_SEPARATOR = " [";
+    private static final int DATE_LENGTH = 28;
+    private static final String ONE_SPACE = " ";
 
     private final DateFormat dateFormat = new SimpleDateFormat(DATE_TIME_FORMAT_STRING);
 
     private final int MAX_LEVEL_NAME_LENGTH = 8;
-
-    @Override
-    public Tactic getTactic() {
-        return this;
-    }
 
     @Override
     public String getShortName() {
@@ -38,7 +34,7 @@ public class SecondApplicationTactic implements Tactic, Application, Application
     }
 
     @Override
-    public Application getApplication() {
+    public Tactic getTactic() {
         return this;
     }
 
@@ -79,14 +75,18 @@ public class SecondApplicationTactic implements Tactic, Application, Application
         if (endIndex == -1) {
             return null;
         }
-        if (endIndex > DATE_TIME_FORMAT_STRING.length() + MAX_LEVEL_NAME_LENGTH) {
+        if (endIndex > DATE_LENGTH + MAX_LEVEL_NAME_LENGTH) {
             return null;
         }
-        int beginIndex = line.indexOf(" ");
+        int beginIndex = line.indexOf(ONE_SPACE);
         if (beginIndex == endIndex) {
             throw new CombinerRuntimeException("Cannot parse date from the line '" + line + "'");
         }
-        return line.substring(beginIndex, endIndex);
+        String result = line.substring(beginIndex + ONE_SPACE.length(), endIndex);
+        if (result.length() != DATE_LENGTH) {
+            return null;
+        }
+        return result;
     }
 
     @Override

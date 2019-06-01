@@ -84,7 +84,7 @@ public class ConfigService {
             loadProperties(propertiesFile);
             logger.info("Configuration loaded: {}", config);
         } else {
-            logger.info("Configuration file not found, default Config will be returned");
+            logger.info("Configuration file not found, default Config will be returned.");
         }
         return config;
     }

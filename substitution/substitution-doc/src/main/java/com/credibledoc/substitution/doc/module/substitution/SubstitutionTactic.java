@@ -6,7 +6,6 @@ import com.credibledoc.combiner.log.buffered.LogFileReader;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
-import com.credibledoc.substitution.doc.module.substitution.application.Substitution;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +18,14 @@ import java.util.regex.Pattern;
 
 /**
  * Implementation of the {@link Tactic}
- * for the {@link Substitution}.
+ * for the {@link SubstitutionTactic}.
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class SubstitutionTactic implements Tactic {
 
     /**
-     * RegEx of a date in a {@link Substitution} log line,
+     * RegEx of a date in a {@link SubstitutionTactic} log line,
      * for example <pre>29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1...</pre>
      */
     private static final String PATTERN_DATE_STRING =
@@ -38,7 +37,7 @@ public class SubstitutionTactic implements Tactic {
     private static final Pattern PATTERN_DATE = Pattern.compile(PATTERN_DATE_STRING);
 
     /**
-     * {@link Pattern} of date and time of {@link Substitution}, for example
+     * {@link Pattern} of date and time of {@link SubstitutionTactic}, for example
      * for example <pre>29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1...</pre>
      */
     private static final String DATE_FORMAT_STRING = "dd.MM.yyyy HH:mm:ss.SSS";
@@ -91,7 +90,7 @@ public class SubstitutionTactic implements Tactic {
      *
      * @param line    for example
      *                <pre>29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1...</pre>
-     *                for {@link Substitution}
+     *                for {@link SubstitutionTactic}
      * @return a parsed {@link Date}, for example 13.04.2018 07:27:41.462
      * or 'null' if the line is null or the date cannot be found.
      */
@@ -116,7 +115,7 @@ public class SubstitutionTactic implements Tactic {
      *
      * @param line for example
      * <pre>29.09.2018 22:53:42.494|https-jsse-nio-15443-exec-1...</pre>
-     * for {@link Substitution}
+     * for {@link SubstitutionTactic}
      * @return a parsed {@link Date}, for example 13.04.2018 07:27:41.462 or 'null' if the line is 'null' or the date cannot be found.
      */
     private String findDateString(String line) {
@@ -161,5 +160,10 @@ public class SubstitutionTactic implements Tactic {
     @Override
     public Date findDate(String line) {
         return DateService.getInstance().parseDateTimeFromLine(line, simpleDateFormat, PATTERN_DATE, 35);
+    }
+
+    @Override
+    public String getShortName() {
+        return "substitution-doc";
     }
 }

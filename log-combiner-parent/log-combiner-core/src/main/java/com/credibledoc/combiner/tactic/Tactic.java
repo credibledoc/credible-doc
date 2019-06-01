@@ -1,15 +1,14 @@
 package com.credibledoc.combiner.tactic;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.node.file.NodeFile;
 
 import java.io.File;
 import java.util.Date;
 
 /**
- * This interface contains methods specific for particular {@link Application} log,
+ * This interface contains methods specific for particular application log,
  * for example {@link #findDate(String)}. In case of merging log files with different date formats,
- * any format should have its own implementation of the {@link Tactic} interface.
+ * each format should have its own implementation of this {@link Tactic} interface.
  *
  * @author Kyrylo Semenko
  */
@@ -69,4 +68,13 @@ public interface Tactic {
      * @return 'null' if a date cannot be found
      */
     Date findDate(String line);
+
+    /**
+     * This name is used for identification of log lines in created
+     * reports. It should be short and unique for each application.
+     * implementations.
+     *
+     * @return for example 'my-app'
+     */
+    String getShortName();
 }

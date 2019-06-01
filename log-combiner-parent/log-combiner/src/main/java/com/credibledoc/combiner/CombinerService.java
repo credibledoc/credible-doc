@@ -1,6 +1,5 @@
 package com.credibledoc.combiner;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
 import com.credibledoc.combiner.application.identifier.ApplicationIdentifierService;
@@ -123,11 +122,11 @@ public class CombinerService {
     }
 
     /**
-     * Create {@link Tactic} and {@link Application} instance for each {@link Config#getTacticConfigs()}.
+     * Create a {@link Tactic} instance for each {@link Config#getTacticConfigs()}.
      * <p>
      * Add created {@link Tactic} instances to the {@link com.credibledoc.combiner.tactic.TacticService}.
      * <p>
-     * Add created {@link Application} instances to the
+     * Add created {@link Tactic} instances to the
      * {@link com.credibledoc.combiner.node.applicationlog.ApplicationLogService}.
      * <p>
      * Call the {@link #collectApplicationLogs(File, List)} method.
@@ -143,12 +142,11 @@ public class CombinerService {
             final Tactic tactic = createTactic(tacticConfig);
             tacticService.getTactics().add(tactic);
 
-            final Application application = createApplication(tacticConfig, tactic);
             ApplicationLog applicationLog = new ApplicationLog();
-            applicationLog.setApplication(application);
+            applicationLog.setTactic(tactic);
             applicationLogs.add(applicationLog);
 
-            ApplicationIdentifier applicationIdentifier = createApplicationIdentifier(tactic, application);
+            ApplicationIdentifier applicationIdentifier = createApplicationIdentifier(tactic);
             ApplicationIdentifierService.getInstance().getApplicationIdentifiers().add(applicationIdentifier);
 
         }
@@ -163,7 +161,7 @@ public class CombinerService {
                 outputStream.write(" ".getBytes());
             }
 
-            String shortName = nodeFile.getNodeLog().getApplicationLog().getApplication().getShortName();
+            String shortName = nodeFile.getNodeLog().getApplicationLog().getTactic().getShortName();
             if (!shortName.isEmpty()) {
                 outputStream.write(shortName.getBytes());
                 outputStream.write(" ".getBytes());
@@ -174,7 +172,7 @@ public class CombinerService {
         }
     }
 
-    private ApplicationIdentifier createApplicationIdentifier(final Tactic tactic, final Application application) {
+    private ApplicationIdentifier createApplicationIdentifier(final Tactic tactic) {
         return new ApplicationIdentifier() {
                         @Override
                         public boolean identifyApplication(String line, LogBufferedReader logBufferedReader) {
@@ -182,8 +180,8 @@ public class CombinerService {
                         }
 
                         @Override
-                        public Application getApplication() {
-                            return application;
+                        public Tactic getTactic() {
+                            return tactic;
                         }
                     };
     }
@@ -247,20 +245,6 @@ public class CombinerService {
         return newFile;
     }
 
-    private Application createApplication(final TacticConfig tacticConfig, final Tactic tactic) {
-        return new Application() {
-                    @Override
-                    public Tactic getTactic() {
-                        return tactic;
-                    }
-
-                    @Override
-                    public String getShortName() {
-                        return tacticConfig.getApplicationName() != null ? tacticConfig.getApplicationName() : EMPTY_STRING;
-                    }
-                };
-    }
-
     private Tactic createTactic(final TacticConfig tacticConfig) {
         return new Tactic() {
                     private SimpleDateFormat simpleDateFormat =
@@ -308,46 +292,53 @@ public class CombinerService {
                     public Date findDate(String line) {
                         return findDate(line, null);
                     }
+
+                    @Override
+                    public String getShortName() {
+                        return tacticConfig.getApplicationName() != null ?
+                            tacticConfig.getApplicationName() : EMPTY_STRING;
+                    }
                 };
     }
 
     /**
      * Sort files in a directory from the first argument.
-     * For each {@link Application} create its own list of files.
+     * For each {@link Tactic} create its own list of files. For each file call the
+     * {@link NodeFileService#appendToNodeLogs(Map, ApplicationLog)} method.
      *
-     * @param directory       cannot be 'null'. Can have files from different {@link Application}s.<br>
+     * @param directory       cannot be 'null'. Can have files with different {@link Tactic}s.<br>
      *                        Cannot contain other files. But can have directories. These directories
      *                        will be processed recursively.
      * @param applicationLogs at first invocation an empty, and it will be filled with files
      */
     private void collectApplicationLogs(File directory, List<ApplicationLog> applicationLogs) {
         // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum
-        Map<Application, Map<Date, File>> map = new HashMap<>();
+        Map<Tactic, Map<Date, File>> map = new HashMap<>();
         File[] files = Objects.requireNonNull(directory.listFiles());
         for (File file : files) {
             addFileToMap(applicationLogs, map, file);
         }
         ApplicationService applicationService = ApplicationService.getInstance();
-        for (Map.Entry<Application, Map<Date, File>> appEntry : map.entrySet()) {
-            Application application = appEntry.getKey();
-            ApplicationLog applicationLog = applicationService.findOrCreate(applicationLogs, application);
+        for (Map.Entry<Tactic, Map<Date, File>> appEntry : map.entrySet()) {
+            Tactic tactic = appEntry.getKey();
+            ApplicationLog applicationLog = applicationService.findOrCreate(applicationLogs, tactic);
             NodeFileService.getInstance().appendToNodeLogs(appEntry.getValue(), applicationLog);
         }
     }
 
-    private void addFileToMap(List<ApplicationLog> applicationLogs, Map<Application, Map<Date, File>> map, File file) {
+    private void addFileToMap(List<ApplicationLog> applicationLogs, Map<Tactic, Map<Date, File>> map, File file) {
         // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum.
         if (file.isFile()) {
-            Application application = FileService.getInstance().findApplication(file);
-            if (!map.containsKey(application)) {
-                map.put(application, new TreeMap<Date, File>());
+            Tactic tactic = FileService.getInstance().findTactic(file);
+            if (!map.containsKey(tactic)) {
+                map.put(tactic, new TreeMap<Date, File>());
             }
 
-            Date date = FileService.getInstance().findDate(file, application);
+            Date date = FileService.getInstance().findDate(file, tactic);
             if (date == null) {
                 throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
             }
-            map.get(application).put(date, file);
+            map.get(tactic).put(date, file);
         } else {
             // directories
             collectApplicationLogs(file, applicationLogs);

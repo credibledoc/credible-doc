@@ -44,7 +44,6 @@ public class CombinerServiceTest {
 
         ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
         List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs();
-        assertEquals(2, applicationLogs.size());
 
         FilesMergerState filesMergerState = new FilesMergerState();
         NodeFileService nodeFileService = NodeFileService.getInstance();
@@ -65,7 +64,7 @@ public class CombinerServiceTest {
             line = readerService.readLineFromReaders(filesMergerState);
             logBufferedReader = readerService.getCurrentReader(filesMergerState);
         }
-        assertEquals(15, currentLineNumber);
+        assertEquals(17, currentLineNumber);
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.credibledoc.substitution.reporting.reportdocument.creator;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
@@ -8,6 +7,7 @@ import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.node.log.NodeLog;
 import com.credibledoc.combiner.node.log.NodeLogService;
+import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
@@ -155,10 +155,10 @@ public class ReportDocumentCreatorService {
         ApplicationLog applicationLog = new ApplicationLog();
         reportDocument.setReport(report);
         FileService fileService = FileService.getInstance();
-        Application application = fileService.findApplication(logFile);
+        Tactic tactic = fileService.findTactic(logFile);
 
-        applicationLog.setApplication(application);
-        Date date = fileService.findDate(logFile, application);
+        applicationLog.setTactic(tactic);
+        Date date = fileService.findDate(logFile, tactic);
         NodeFile nodeFile = NodeFileService.getInstance().createNodeFile(date, logFile);
         NodeLogService nodeLogService = NodeLogService.getInstance();
         NodeLog nodeLog = nodeLogService.createNodeLog(nodeFile.getFile());

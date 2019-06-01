@@ -1,16 +1,19 @@
 package com.credibledoc.combiner.file;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogFileReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
+import com.credibledoc.combiner.tactic.Tactic;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -38,18 +41,18 @@ public class FileService {
     }
 
     /**
-     * Recognize, which {@link Application} this file belongs to.
+     * Recognize, which {@link Tactic} this file belongs to.
      * @param file the log file
-     * @return {@link Application} or throw the new {@link CombinerRuntimeException} if the file not recognized
+     * @return {@link Tactic} or throw the new {@link CombinerRuntimeException} if the file not recognized
      */
-    public Application findApplication(File file) {
+    public Tactic findTactic(File file) {
         ApplicationService applicationService = ApplicationService.getInstance();
         try (LogBufferedReader logBufferedReader = new LogBufferedReader(new LogFileReader(file))) {
             String line = logBufferedReader.readLine();
             while (line != null) {
-                Application application = applicationService.findApplication(line, logBufferedReader);
-                if (application != null) {
-                    return application;
+                Tactic tactic = applicationService.findTactic(line, logBufferedReader);
+                if (tactic != null) {
+                    return tactic;
                 }
                 line = logBufferedReader.readLine();
             }
@@ -62,12 +65,12 @@ public class FileService {
     /**
      * Find out date and time of the first line in a file.
      *
-     * @param file        an application log
-     * @param application each {@link Application} has its own strategy of date searching
+     * @param file        a log file
+     * @param tactic each {@link Tactic} has its own strategy of date searching
      * @return the most recent date and time
      */
-    public Date findDate(File file, Application application) {
-        return application.getTactic().findDate(file);
+    public Date findDate(File file, Tactic tactic) {
+        return tactic.findDate(file);
     }
 
     /**

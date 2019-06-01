@@ -1,6 +1,5 @@
 package com.credibledoc.tactic;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
@@ -13,16 +12,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FirstApplicationTactic implements Tactic, Application, ApplicationIdentifier {
+public class FirstApplicationTactic implements Tactic, ApplicationIdentifier {
 
     private static final String DATE_TIME_FORMAT_STRING = "dd.MM.yyyy HH:mm:ss.SSS";
 
     private final DateFormat dateFormat = new SimpleDateFormat(DATE_TIME_FORMAT_STRING);
-
-    @Override
-    public Tactic getTactic() {
-        return this;
-    }
 
     @Override
     public String getShortName() {
@@ -35,7 +29,7 @@ public class FirstApplicationTactic implements Tactic, Application, ApplicationI
     }
 
     @Override
-    public Application getApplication() {
+    public Tactic getTactic() {
         return this;
     }
 

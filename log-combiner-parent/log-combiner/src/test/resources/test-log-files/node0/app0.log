@@ -3,3 +3,4 @@
 Exception in thread "main" com.credibledoc.combiner.exception.CombinerRuntimeException
         at com.credibledoc.combiner.CombinerService.combine(CombinerService.java:76)
 22.04.2019 07:59:27.990 [main] INFO Application app0 finished.
+22.04.2019 07:59:27.991 [main] INFO similar line in all files A

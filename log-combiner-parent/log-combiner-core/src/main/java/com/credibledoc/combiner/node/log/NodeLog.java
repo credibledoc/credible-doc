@@ -1,12 +1,11 @@
 package com.credibledoc.combiner.node.log;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.file.NodeFile;
 
 /**
- * Each {@link Application} contains one or more nodes.
+ * Each application contains one or more nodes.
  * Each node contains one or more {@link NodeFile}s.
  * This object represents node log files.
  * It contains {@link #logBufferedReader} as a source of lines for parsing.

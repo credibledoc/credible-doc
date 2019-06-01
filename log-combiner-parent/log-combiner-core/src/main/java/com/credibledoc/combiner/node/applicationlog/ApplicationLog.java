@@ -1,11 +1,11 @@
 package com.credibledoc.combiner.node.applicationlog;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.node.log.NodeLog;
+import com.credibledoc.combiner.tactic.Tactic;
 
 /**
  * <p>
- * This data object represents a list of log files from the concrete {@link Application}.
+ * This data object represents a list of log files from the concrete {@link Tactic}.
  *
  * <p>
  * These files will be parsed and visualized.
@@ -16,13 +16,13 @@ import com.credibledoc.combiner.node.log.NodeLog;
 public class ApplicationLog {
 
     /**
-     * The {@link Application} the log {@link NodeLog}s belong to
+     * The {@link Tactic} the log {@link NodeLog}s belong to
      */
-    private Application application;
+    private com.credibledoc.combiner.tactic.Tactic Tactic;
 
     @Override
     public String toString() {
-        return "ApplicationLog{" + "application=\"" + application + "\"}";
+        return "ApplicationLog{" + "Tactic=\"" + Tactic + "\"}";
     }
 
     /**
@@ -33,16 +33,16 @@ public class ApplicationLog {
     }
 
     /**
-     * @return The {@link #application} field value.
+     * @return The {@link #Tactic} field value.
      */
-    public Application getApplication() {
-        return application;
+    public Tactic getTactic() {
+        return Tactic;
     }
 
     /**
-     * @param application see the {@link #application} field description.
+     * @param Tactic see the {@link #Tactic} field description.
      */
-    public void setApplication(Application application) {
-        this.application = application;
+    public void setTactic(Tactic Tactic) {
+        this.Tactic = Tactic;
     }
 }

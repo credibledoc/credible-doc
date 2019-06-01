@@ -1,9 +1,8 @@
 package com.credibledoc.substitution.doc.module.substitution;
 
-import com.credibledoc.combiner.application.Application;
 import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.substitution.doc.module.substitution.application.Substitution;
+import com.credibledoc.combiner.tactic.Tactic;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 /**
- * {@link ApplicationIdentifier} of {@link Substitution} {@link Application}.
+ * {@link ApplicationIdentifier} of {@link SubstitutionTactic}.
  *
  * @author Kyrylo Semenko
  */
@@ -20,7 +19,7 @@ import javax.inject.Inject;
 public class SubstitutionApplicationIdentifier implements ApplicationIdentifier {
 
     @NonNull
-    private final Substitution substitution;
+    private final SubstitutionTactic substitution;
 
     @Override
     public boolean identifyApplication(String line, LogBufferedReader logBufferedReader) {
@@ -28,7 +27,7 @@ public class SubstitutionApplicationIdentifier implements ApplicationIdentifier 
     }
 
     @Override
-    public Application getApplication() {
+    public Tactic getTactic() {
         return substitution;
     }
 }
