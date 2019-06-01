@@ -6,8 +6,8 @@ import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.combiner.tactic.TacticService;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Service for working with {@link NodeLog}.
@@ -43,8 +43,8 @@ public class NodeLogService {
         return nodeLog;
     }
 
-    public List<NodeLog> findNodeLogs(Tactic tactic) {
-        List<NodeLog> result = new ArrayList<>();
+    public Set<NodeLog> findNodeLogs(Tactic tactic) {
+        Set<NodeLog> result = new HashSet<>();
         for (NodeLog nodeLog : NodeLogRepository.getInstance().getNodeLogs()) {
             if (nodeLog.getTactic() == tactic) {
                 result.add(nodeLog);
