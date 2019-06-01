@@ -10,10 +10,7 @@ import com.credibledoc.combiner.node.log.NodeLogService;
 import com.credibledoc.combiner.tactic.Tactic;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Contains methods for working with {@link NodeFile}s.
@@ -67,7 +64,7 @@ public class NodeFileService {
      * Call the {@link NodeFileRepository#getNodeFiles()} method
      * @return All {@link NodeFile}s
      */
-    public List<NodeFile> getNodeFiles() {
+    public Set<NodeFile> getNodeFiles() {
         return NodeFileRepository.getInstance().getNodeFiles();
     }
 

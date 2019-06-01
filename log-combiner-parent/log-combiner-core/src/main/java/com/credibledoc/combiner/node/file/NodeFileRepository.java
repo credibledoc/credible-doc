@@ -1,7 +1,7 @@
 package com.credibledoc.combiner.node.file;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A stateful bean. Contains {@link NodeFile}s.
@@ -25,19 +25,19 @@ public class NodeFileRepository {
         return instance;
     }
 
-    private List<NodeFile> nodeFiles = new ArrayList<>();
+    private Set<NodeFile> nodeFiles = new HashSet<>();
 
     /**
      * @return the {@link #nodeFiles} value
      */
-    public List<NodeFile> getNodeFiles() {
+    public Set<NodeFile> getNodeFiles() {
         return nodeFiles;
     }
 
     /**
      * @param nodeFiles see the {@link #nodeFiles} field
      */
-    public void setNodeFiles(List<NodeFile> nodeFiles) {
+    public void setNodeFiles(Set<NodeFile> nodeFiles) {
         this.nodeFiles = nodeFiles;
     }
 }

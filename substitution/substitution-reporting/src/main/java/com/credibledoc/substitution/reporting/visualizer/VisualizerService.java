@@ -62,7 +62,7 @@ public class VisualizerService {
         logger.info("Method createReports started. Report: {}", report.hashCode());
         ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
         List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
-        List<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
+        Set<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
         Set<Tactic> tactics = TacticService.getInstance().getTactics();
         ReaderService readerService = ReaderService.getInstance();
         readerService.prepareBufferedReaders(tactics);

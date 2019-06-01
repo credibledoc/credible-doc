@@ -3,11 +3,7 @@ package com.credibledoc.substitution.reporting.reportdocument;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.substitution.reporting.report.Report;
 
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * The stateless service for working with {@link ReportDocument}s.
@@ -73,15 +69,11 @@ public class ReportDocumentService {
      * @param reportDocuments that contains {@link NodeFile}s
      * @return List of unordered unique {@link NodeFile}s
      */
-    public List<NodeFile> getNodeFiles(List<ReportDocument> reportDocuments) {
-        List<NodeFile> nodeFiles = new ArrayList<>();
+    public Set<NodeFile> getNodeFiles(List<ReportDocument> reportDocuments) {
+        Set<NodeFile> nodeFiles = new HashSet<>();
         for (ReportDocument reportDocument : reportDocuments) {
             Set<NodeFile> nodeFilesSet = reportDocument.getNodeFiles();
-            for (NodeFile nodeFile : nodeFilesSet) {
-                if (!nodeFiles.contains(nodeFile)) {
-                    nodeFiles.add(nodeFile);
-                }
-            }
+            nodeFiles.addAll(nodeFilesSet);
         }
         return nodeFiles;
     }

@@ -150,7 +150,7 @@ public class ReaderService {
         }
     }
 
-    private List<LogBufferedReader> collectOpenedBufferedReaders(List<NodeFile> nodeFiles) {
+    private List<LogBufferedReader> collectOpenedBufferedReaders(Set<NodeFile> nodeFiles) {
         List<LogBufferedReader> logBufferedReaders = new ArrayList<>();
         for (NodeFile nodeFile : nodeFiles) {
             NodeLog nodeLog = nodeFile.getNodeLog();
