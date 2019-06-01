@@ -1,6 +1,9 @@
 package com.credibledoc.combiner.tactic;
 
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.combiner.node.log.NodeLog;
+import com.credibledoc.combiner.node.log.NodeLogService;
 
 import java.util.List;
 
@@ -47,5 +50,21 @@ public class TacticService {
             }
         }
         return null;
+    }
+
+    /**
+     * Recognize, which {@link Tactic} the line belongs to.
+     * @param logBufferedReader links to a {@link Tactic}
+     * @return {@link Tactic} or throw exception
+     */
+    public Tactic findTactic(LogBufferedReader logBufferedReader) {
+        for (Tactic tactic : getInstance().getTactics()) {
+            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(tactic)) {
+                if (nodeLog.getLogBufferedReader() == logBufferedReader) {
+                    return tactic;
+                }
+            }
+        }
+        throw new CombinerRuntimeException("Tactic cannot be found. LogBufferedReader: " + logBufferedReader);
     }
 }

@@ -1,6 +1,5 @@
 package com.credibledoc.combiner;
 
-import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.config.Config;
 import com.credibledoc.combiner.config.ConfigService;
 import com.credibledoc.combiner.config.TacticConfig;
@@ -9,8 +8,6 @@ import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.state.FilesMergerState;
@@ -61,12 +58,11 @@ public class CombinerService {
                 return;
             }
             prepareReader(folder, config);
-            ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
-            List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs();
             File targetFile = prepareTargetFile(folder);
+            TacticService tacticService = TacticService.getInstance();
             try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
                 ReaderService readerService = ReaderService.getInstance();
-                readerService.prepareBufferedReaders(applicationLogs);
+                readerService.prepareBufferedReaders(tacticService.getTactics());
 
                 FilesMergerState filesMergerState = new FilesMergerState();
                 NodeFileService nodeFileService = NodeFileService.getInstance();
@@ -124,27 +120,19 @@ public class CombinerService {
      * <p>
      * Add created {@link Tactic} instances to the {@link com.credibledoc.combiner.tactic.TacticService}.
      * <p>
-     * Add created {@link Tactic} instances to the
-     * {@link com.credibledoc.combiner.node.applicationlog.ApplicationLogService}.
-     * <p>
-     * Call the {@link #collectApplicationLogs(File, List)} method.
+     * Call the {@link #collectLogFiles(File, List)} method.
      *
      * @param folder the folder with log files
      * @param config contains configuration of {@link Config#getTacticConfigs()}
      */
     public void prepareReader(File folder, Config config) {
-        ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
         TacticService tacticService = TacticService.getInstance();
-        List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs();
+        List<Tactic> tactics = tacticService.getTactics();
         for (final TacticConfig tacticConfig : config.getTacticConfigs()) {
             final Tactic tactic = createTactic(tacticConfig);
-            tacticService.getTactics().add(tactic);
-
-            ApplicationLog applicationLog = new ApplicationLog();
-            applicationLog.setTactic(tactic);
-            applicationLogs.add(applicationLog);
+            tactics.add(tactic);
         }
-        collectApplicationLogs(folder, applicationLogs);
+        collectLogFiles(folder, tactics);
     }
 
     private void writeMultiline(Config config, OutputStream outputStream, NodeFileService nodeFileService, LogBufferedReader logBufferedReader, List<String> multiline) throws IOException {
@@ -155,7 +143,7 @@ public class CombinerService {
                 outputStream.write(" ".getBytes());
             }
 
-            String shortName = nodeFile.getNodeLog().getApplicationLog().getTactic().getShortName();
+            String shortName = nodeFile.getNodeLog().getTactic().getShortName();
             if (!shortName.isEmpty()) {
                 outputStream.write(shortName.getBytes());
                 outputStream.write(" ".getBytes());
@@ -289,29 +277,27 @@ public class CombinerService {
     /**
      * Sort files in a directory from the first argument.
      * For each {@link Tactic} create its own list of files. For each file call the
-     * {@link NodeFileService#appendToNodeLogs(Map, ApplicationLog)} method.
+     * {@link NodeFileService#appendToNodeLogs(Map, Tactic)} method.
      *
      * @param directory       cannot be 'null'. Can have files with different {@link Tactic}s.<br>
      *                        Cannot contain other files. But can have directories. These directories
      *                        will be processed recursively.
-     * @param applicationLogs at first invocation an empty, and it will be filled with files
+     * @param tactics at first invocation an empty, and it will be filled with files
      */
-    private void collectApplicationLogs(File directory, List<ApplicationLog> applicationLogs) {
+    private void collectLogFiles(File directory, List<Tactic> tactics) {
         // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum
         Map<Tactic, Map<Date, File>> map = new HashMap<>();
         File[] files = Objects.requireNonNull(directory.listFiles());
         for (File file : files) {
-            addFileToMap(applicationLogs, map, file);
+            addFileToMap(tactics, map, file);
         }
-        ApplicationService applicationService = ApplicationService.getInstance();
         for (Map.Entry<Tactic, Map<Date, File>> appEntry : map.entrySet()) {
             Tactic tactic = appEntry.getKey();
-            ApplicationLog applicationLog = applicationService.findOrCreate(applicationLogs, tactic);
-            NodeFileService.getInstance().appendToNodeLogs(appEntry.getValue(), applicationLog);
+            NodeFileService.getInstance().appendToNodeLogs(appEntry.getValue(), tactic);
         }
     }
 
-    private void addFileToMap(List<ApplicationLog> applicationLogs, Map<Tactic, Map<Date, File>> map, File file) {
+    private void addFileToMap(List<Tactic> tactics, Map<Tactic, Map<Date, File>> map, File file) {
         // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum.
         if (file.isFile()) {
             Tactic tactic = FileService.getInstance().findTactic(file);
@@ -326,7 +312,7 @@ public class CombinerService {
             map.get(tactic).put(date, file);
         } else {
             // directories
-            collectApplicationLogs(file, applicationLogs);
+            collectLogFiles(file, tactics);
         }
     }
 }

@@ -1,19 +1,18 @@
 package com.credibledoc.combiner.log.reader;
 
-import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.line.LineState;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogConcatenatedInputStream;
 import com.credibledoc.combiner.log.buffered.LogFileInputStream;
 import com.credibledoc.combiner.log.buffered.LogInputStreamReader;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.node.log.NodeLog;
 import com.credibledoc.combiner.node.log.NodeLogService;
-import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.combiner.state.FilesMergerState;
+import com.credibledoc.combiner.tactic.Tactic;
+import com.credibledoc.combiner.tactic.TacticService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,7 +108,7 @@ public class ReaderService {
      * @return 'true' if the line contains specific pattern
      */
     private boolean containsStartPattern(String line, LogBufferedReader logBufferedReader) {
-        Tactic tactic = ApplicationService.getInstance().findSpecificTactic(logBufferedReader);
+        Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader);
         return tactic.containsDate(line);
     }
 
@@ -197,13 +196,13 @@ public class ReaderService {
         int result = 0;
         Date previousDate = null;
         String previousLine = null;
+        TacticService tacticService = TacticService.getInstance();
         for (int i = 0; i < logBufferedReaders.size(); i++) {
             LogBufferedReader logBufferedReader = logBufferedReaders.get(i);
             logBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
             String line = logBufferedReader.readLine();
             logBufferedReader.reset();
-            Tactic tactic
-                    = ApplicationService.getInstance().findSpecificTactic(logBufferedReader);
+            Tactic tactic = tacticService.findTactic(logBufferedReader);
             NodeFile nodeFile = NodeFileService.getInstance().findNodeFile(logBufferedReader);
             Date date = tactic.findDate(line, nodeFile);
 
@@ -254,8 +253,7 @@ public class ReaderService {
             }
             logBufferedReader.reset();
 
-            Tactic tactic
-                    = ApplicationService.getInstance().findSpecificTactic(logBufferedReader);
+            Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader);
             boolean containsDate = tactic.containsDate(line);
             if (!containsDate) {
                 return LineState.WITHOUT_DATE;
@@ -290,13 +288,13 @@ public class ReaderService {
      * a {@link LogBufferedReader}. Each {@link NodeLog} will have its own
      * {@link NodeLog#getLogBufferedReader()}.
      *
-     * @param applicationLogs holders of {@link NodeLog}s with files.
+     * @param tactics holders of {@link NodeLog}s with files.
      */
-    public void prepareBufferedReaders(List<ApplicationLog> applicationLogs) {
+    public void prepareBufferedReaders(List<Tactic> tactics) {
         long startNanos = System.nanoTime();
         NodeFileService nodeFileService = NodeFileService.getInstance();
-        for (ApplicationLog applicationLog : applicationLogs) {
-            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(applicationLog)) {
+        for (Tactic tactic : tactics) {
+            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(tactic)) {
                 List<LogFileInputStream> inputStreams = new ArrayList<>();
                 for (NodeFile nodeFile : nodeFileService.findNodeFiles(nodeLog)) {
                     try {

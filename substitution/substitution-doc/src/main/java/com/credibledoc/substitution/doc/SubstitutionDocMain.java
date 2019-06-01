@@ -24,6 +24,8 @@ import java.util.List;
 
 /**
  * The main class for generation of documentation of the credibledoc-substitution tool.
+ * <p>
+ * This main method should be launched in the credible-doc\substitution (parent) working directory.
  *
  * @author Kyrylo Semenko
  */
@@ -46,6 +48,9 @@ public class SubstitutionDocMain {
 
     /**
      * The main method for generation of documentation of the credibledoc-substitution tool.
+     * <p>
+     * This method should be launched within its parent (../substitution) folder.
+     *
      * @param args not used
      */
     public static void main(String[] args) {

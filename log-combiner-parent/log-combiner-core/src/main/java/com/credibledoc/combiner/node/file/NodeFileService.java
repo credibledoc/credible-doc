@@ -5,9 +5,9 @@ import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogConcatenatedInputStream;
 import com.credibledoc.combiner.log.buffered.LogFileInputStream;
 import com.credibledoc.combiner.log.buffered.LogInputStreamReader;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.log.NodeLog;
 import com.credibledoc.combiner.node.log.NodeLogService;
+import com.credibledoc.combiner.tactic.Tactic;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -76,10 +76,10 @@ public class NodeFileService {
      * Find out {@link NodeLog} with the same name as a parent directory of a file
      * and append the file to the {@link NodeLog}.
      * @param dateFileMap log files and theirs dates ordered by date
-     * @param applicationLog the {@link ApplicationLog} this {@link NodeLog} belongs to
+     * @param tactic the {@link Tactic} this {@link NodeLog} belongs to
      */
-    public void appendToNodeLogs(Map<Date, File> dateFileMap, ApplicationLog applicationLog) {
-        List<NodeLog> nodeLogs = NodeLogService.getInstance().findNodeLogs(applicationLog);
+    public void appendToNodeLogs(Map<Date, File> dateFileMap, Tactic tactic) {
+        List<NodeLog> nodeLogs = NodeLogService.getInstance().findNodeLogs(tactic);
         for (Map.Entry<Date, File> entry : dateFileMap.entrySet()) {
             Date date = entry.getKey();
             File file = entry.getValue();
@@ -99,7 +99,7 @@ public class NodeFileService {
             if (!nodeLogFound) {
                 NodeFile nodeFile = createNodeFile(date, file);
                 NodeLog nodeLog = NodeLogService.getInstance().createNodeLog(nodeFile.getFile());
-                nodeLog.setApplicationLog(applicationLog);
+                nodeLog.setTactic(tactic);
                 nodeLogs.add(nodeLog);
                 nodeFile.setNodeLog(nodeLog);
             }
@@ -127,13 +127,13 @@ public class NodeFileService {
 
     /**
      * Determine whether more than one log file is parsed for this report.
-     * @param applicationLogs contains log files
+     * @param tactics contains log files
      * @return 'false' if a single report is parsed
      */
-    public boolean containsMoreThenOneSourceFiles(List<ApplicationLog> applicationLogs) {
+    public boolean containsMoreThenOneSourceFiles(List<Tactic> tactics) {
         int filesNumber = 0;
-        for (ApplicationLog applicationLog : applicationLogs) {
-            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(applicationLog)) {
+        for (Tactic tactic : tactics) {
+            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(tactic)) {
                 filesNumber = filesNumber + findNodeFiles(nodeLog).size();
                 if (filesNumber > 1) {
                     return true;

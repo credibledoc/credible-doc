@@ -1,11 +1,8 @@
 package com.credibledoc.combiner;
 
-import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.log.reader.ReaderService;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
 import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.state.FilesMergerState;
 import com.credibledoc.combiner.tactic.Tactic;
@@ -78,12 +75,9 @@ public class CombinerServiceProgrammableTest {
         return true;
     }
 
-    private void prepareReaders(Set<File> files, Set<? extends Object> tactics) {
+    private void prepareReaders(Set<File> files, Set<Tactic> tactics) {
         TacticService tacticService = TacticService.getInstance();
-        tacticService.getTactics().addAll((Collection<? extends Tactic>) tactics);
-
-        ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
-        ApplicationService applicationService = ApplicationService.getInstance();
+        tacticService.getTactics().addAll(tactics);
 
         Map<Tactic, Map<Date, File>> map = new HashMap<>();
         // TODO Kyrylo Semenko - zde je chyba. Dva soubory mohou mit stejny datum.
@@ -107,15 +101,13 @@ public class CombinerServiceProgrammableTest {
 
         NodeFileService nodeFileService = NodeFileService.getInstance();
 
-        List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs();
         for (Map.Entry<Tactic, Map<Date, File>> entry : map.entrySet()) {
             Tactic tactic = entry.getKey();
-            ApplicationLog applicationLog = applicationService.findOrCreate(applicationLogs, tactic);
-            nodeFileService.appendToNodeLogs(entry.getValue(), applicationLog);
+            nodeFileService.appendToNodeLogs(entry.getValue(), tactic);
         }
 
         ReaderService readerService = ReaderService.getInstance();
-        readerService.prepareBufferedReaders(applicationLogs);
+        readerService.prepareBufferedReaders(tacticService.getTactics());
     }
 
 }

@@ -4,10 +4,9 @@ import com.credibledoc.combiner.config.Config;
 import com.credibledoc.combiner.config.ConfigService;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
 import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.state.FilesMergerState;
+import com.credibledoc.combiner.tactic.TacticService;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -42,14 +41,11 @@ public class CombinerServiceTest {
         CombinerService combinerService = CombinerService.getInstance();
         combinerService.prepareReader(logDirectory, config);
 
-        ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
-        List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs();
-
         FilesMergerState filesMergerState = new FilesMergerState();
         NodeFileService nodeFileService = NodeFileService.getInstance();
         filesMergerState.setNodeFiles(nodeFileService.getNodeFiles());
         ReaderService readerService = ReaderService.getInstance();
-        readerService.prepareBufferedReaders(applicationLogs);
+        readerService.prepareBufferedReaders(TacticService.getInstance().getTactics());
         int currentLineNumber = 0;
         String line = readerService.readLineFromReaders(filesMergerState);
         LogBufferedReader logBufferedReader = readerService.getCurrentReader(filesMergerState);
@@ -82,15 +78,12 @@ public class CombinerServiceTest {
         CombinerService combinerService = CombinerService.getInstance();
         combinerService.prepareReader(logDirectory, config);
 
-        ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
-        List<ApplicationLog> applicationLogs = applicationLogService.getApplicationLogs();
-
         File targetFolder = temporaryFolder.newFolder("generated");
         File targetFile = combinerService.prepareTargetFile(targetFolder);
 
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
             ReaderService readerService = ReaderService.getInstance();
-            readerService.prepareBufferedReaders(applicationLogs);
+            readerService.prepareBufferedReaders(TacticService.getInstance().getTactics());
 
             FilesMergerState filesMergerState = new FilesMergerState();
             NodeFileService nodeFileService = NodeFileService.getInstance();

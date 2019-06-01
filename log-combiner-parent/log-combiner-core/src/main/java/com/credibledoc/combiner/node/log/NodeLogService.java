@@ -2,8 +2,8 @@ package com.credibledoc.combiner.node.log;
 
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
+import com.credibledoc.combiner.tactic.Tactic;
+import com.credibledoc.combiner.tactic.TacticService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,10 +43,10 @@ public class NodeLogService {
         return nodeLog;
     }
 
-    public List<NodeLog> findNodeLogs(ApplicationLog applicationLog) {
+    public List<NodeLog> findNodeLogs(Tactic tactic) {
         List<NodeLog> result = new ArrayList<>();
         for (NodeLog nodeLog : NodeLogRepository.getInstance().getNodeLogs()) {
-            if (nodeLog.getApplicationLog() == applicationLog) {
+            if (nodeLog.getTactic() == tactic) {
                 result.add(nodeLog);
             }
         }
@@ -55,14 +55,14 @@ public class NodeLogService {
 
     /**
      * Find out {@link NodeLog} with the same {@link NodeLog#getLogBufferedReader()}
-     * as the parameter.
+     * as the parameter within {@link TacticService#getTactics()}.
      *
      * @param logBufferedReader from {@link NodeLog}
      * @return found {@link NodeLog}
      */
     private NodeLog findNodeLog(LogBufferedReader logBufferedReader) {
-        for (ApplicationLog applicationLog : ApplicationLogService.getInstance().getApplicationLogs()) {
-            for (NodeLog nodeLog : findNodeLogs(applicationLog)) {
+        for (Tactic tactic : TacticService.getInstance().getTactics()) {
+            for (NodeLog nodeLog : findNodeLogs(tactic)) {
                 if (logBufferedReader == nodeLog.getLogBufferedReader()) {
                     return nodeLog;
                 }

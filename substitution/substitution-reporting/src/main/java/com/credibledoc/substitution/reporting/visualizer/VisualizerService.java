@@ -2,10 +2,10 @@ package com.credibledoc.substitution.reporting.visualizer;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLogService;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.state.FilesMergerState;
+import com.credibledoc.combiner.tactic.Tactic;
+import com.credibledoc.combiner.tactic.TacticService;
 import com.credibledoc.enricher.transformer.TransformerService;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.reporting.report.Report;
@@ -62,9 +62,9 @@ public class VisualizerService {
         ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
         List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
         List<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
-        List<ApplicationLog> applicationLogs = ApplicationLogService.getInstance().getApplicationLogs(nodeFiles);
+        List<Tactic> tactics = TacticService.getInstance().getTactics();
         ReaderService readerService = ReaderService.getInstance();
-        readerService.prepareBufferedReaders(applicationLogs);
+        readerService.prepareBufferedReaders(tactics);
         String line = null;
 
         FilesMergerState filesMergerState = new FilesMergerState();

@@ -1,8 +1,8 @@
 package com.credibledoc.combiner.node.log;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
 import com.credibledoc.combiner.node.file.NodeFile;
+import com.credibledoc.combiner.tactic.Tactic;
 
 /**
  * Each application contains one or more nodes.
@@ -23,10 +23,10 @@ public class NodeLog {
     private LogBufferedReader logBufferedReader;
 
     /**
-     * The {@link ApplicationLog} this {@link NodeLog} belongs to.
+     * A {@link Tactic} this {@link NodeLog} belongs to.
      */
-    private ApplicationLog applicationLog;
-
+    private Tactic tactic;
+    
     /**
      * An empty constructor.
      */
@@ -63,16 +63,16 @@ public class NodeLog {
     }
 
     /**
-     * @return the {@link #applicationLog} value
+     * @return The {@link #tactic} field value.
      */
-    public ApplicationLog getApplicationLog() {
-        return applicationLog;
+    public Tactic getTactic() {
+        return tactic;
     }
 
     /**
-     * @param applicationLog see the {@link #applicationLog} field
+     * @param tactic see the {@link #tactic} field description.
      */
-    public void setApplicationLog(ApplicationLog applicationLog) {
-        this.applicationLog = applicationLog;
+    public void setTactic(Tactic tactic) {
+        this.tactic = tactic;
     }
 }

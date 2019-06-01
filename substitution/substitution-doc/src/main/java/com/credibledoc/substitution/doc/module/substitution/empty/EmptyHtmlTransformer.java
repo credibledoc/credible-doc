@@ -1,9 +1,9 @@
 package com.credibledoc.substitution.doc.module.substitution.empty;
 
-import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.log.NodeLogService;
 import com.credibledoc.combiner.tactic.Tactic;
+import com.credibledoc.combiner.tactic.TacticService;
 import com.credibledoc.enricher.deriving.Deriving;
 import com.credibledoc.enricher.transformer.Transformer;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class EmptyHtmlTransformer implements Transformer {
         }
         String joined = String.join(System.lineSeparator(), multiLine);
         String nodeName = NodeLogService.getInstance().findNodeName(logBufferedReader);
-        Tactic tactic = ApplicationService.getInstance().findTactic(logBufferedReader);
+        Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader);
         return StringEscapeUtils.escapeHtml4(nodeName + " " + tactic.getShortName() + " " + joined);
     }
 
