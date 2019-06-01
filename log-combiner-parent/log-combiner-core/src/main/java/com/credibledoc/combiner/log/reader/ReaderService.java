@@ -184,7 +184,11 @@ public class ReaderService {
     }
 
     /**
-     * Find out the index of {@link LogBufferedReader} with the oldest date
+     * Find out an index of {@link LogBufferedReader} with the oldest date in a current line.
+     * If these dates are equal, two lines from {@link LogBufferedReader}s will be compared.
+     * In this case wins the line that precedes lexicographically
+     * in terms of the {@link String#compareTo(String)} method.
+     *
      * @param logBufferedReaders all {@link LogBufferedReader}s
      * @return Index of the oldest line
      * @throws IOException if reading od resetting of a {@link LogBufferedReader} fails.
@@ -192,6 +196,7 @@ public class ReaderService {
     private int findTheOldest(List<LogBufferedReader> logBufferedReaders) throws IOException {
         int result = 0;
         Date previousDate = null;
+        String previousLine = null;
         for (int i = 0; i < logBufferedReaders.size(); i++) {
             LogBufferedReader logBufferedReader = logBufferedReaders.get(i);
             logBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
@@ -202,8 +207,19 @@ public class ReaderService {
             NodeFile nodeFile = NodeFileService.getInstance().findNodeFile(logBufferedReader);
             Date date = tactic.findDate(line, nodeFile);
 
+            // if dates are equal wins a line that precedes lexicographically.
+            if (previousLine != null &&
+                                    previousDate.getTime() == date.getTime() && // NOSONAR
+                                    previousLine.compareTo(line) > 0) {
+                previousDate = date;
+                previousLine = line;
+                result = i;
+            }
+
+            // younger line wins
             if (date != null && (previousDate == null || date.before(previousDate))) {
                 previousDate = date;
+                previousLine = line;
                 result = i;
             }
         }
