@@ -1,5 +1,6 @@
 package com.credibledoc.combiner.tactic;
 
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.file.NodeFile;
 
 import java.io.File;
@@ -77,4 +78,14 @@ public interface Tactic {
      * @return for example 'my-app'
      */
     String getShortName();
+
+    /**
+     * Recognize a line and return 'true' if the line belongs
+     * to this {@link Tactic}.
+     *
+     * @param line              a line from a log file
+     * @param logBufferedReader can be used for reading other lines from the current file
+     * @return 'false', if the line cannot be recognized
+     */
+    boolean identifyApplication(String line, LogBufferedReader logBufferedReader);
 }

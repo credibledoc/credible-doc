@@ -166,4 +166,9 @@ public class SubstitutionTactic implements Tactic {
     public String getShortName() {
         return "substitution-doc";
     }
+
+    @Override
+    public boolean identifyApplication(String line, LogBufferedReader logBufferedReader) {
+        return line.contains("com.credibledoc.substitution.doc.");
+    }
 }

@@ -1,12 +1,10 @@
 package com.credibledoc.substitution.doc;
 
-import com.credibledoc.combiner.application.identifier.ApplicationIdentifierService;
 import com.credibledoc.combiner.tactic.TacticService;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
-import com.credibledoc.substitution.doc.module.substitution.SubstitutionApplicationIdentifier;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
 import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
@@ -46,9 +44,6 @@ public class SubstitutionDocMain {
     @NonNull
     private final SubstitutionTactic substitutionSpecificTactic;
 
-    @NonNull
-    private final SubstitutionApplicationIdentifier substitutionApplicationIdentifier;
-
     /**
      * The main method for generation of documentation of the credibledoc-substitution tool.
      * @param args not used
@@ -67,7 +62,6 @@ public class SubstitutionDocMain {
 
     private void substitute() {
         TacticService.getInstance().getTactics().add(substitutionSpecificTactic);
-        ApplicationIdentifierService.getInstance().getApplicationIdentifiers().add(substitutionApplicationIdentifier);
         ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
         reportDocumentCreatorService.createReportDocuments();

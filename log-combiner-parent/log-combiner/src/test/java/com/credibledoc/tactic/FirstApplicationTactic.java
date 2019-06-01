@@ -1,6 +1,5 @@
 package com.credibledoc.tactic;
 
-import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogFileReader;
@@ -12,7 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FirstApplicationTactic implements Tactic, ApplicationIdentifier {
+public class FirstApplicationTactic implements Tactic {
 
     private static final String DATE_TIME_FORMAT_STRING = "dd.MM.yyyy HH:mm:ss.SSS";
 
@@ -26,11 +25,6 @@ public class FirstApplicationTactic implements Tactic, ApplicationIdentifier {
     @Override
     public boolean identifyApplication(String line, LogBufferedReader logBufferedReader) {
         return line.contains("Application app0 started.");
-    }
-
-    @Override
-    public Tactic getTactic() {
-        return this;
     }
 
     @Override

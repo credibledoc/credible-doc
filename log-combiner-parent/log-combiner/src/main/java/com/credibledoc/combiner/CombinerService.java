@@ -1,8 +1,6 @@
 package com.credibledoc.combiner;
 
 import com.credibledoc.combiner.application.ApplicationService;
-import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
-import com.credibledoc.combiner.application.identifier.ApplicationIdentifierService;
 import com.credibledoc.combiner.config.Config;
 import com.credibledoc.combiner.config.ConfigService;
 import com.credibledoc.combiner.config.TacticConfig;
@@ -145,10 +143,6 @@ public class CombinerService {
             ApplicationLog applicationLog = new ApplicationLog();
             applicationLog.setTactic(tactic);
             applicationLogs.add(applicationLog);
-
-            ApplicationIdentifier applicationIdentifier = createApplicationIdentifier(tactic);
-            ApplicationIdentifierService.getInstance().getApplicationIdentifiers().add(applicationIdentifier);
-
         }
         collectApplicationLogs(folder, applicationLogs);
     }
@@ -170,20 +164,6 @@ public class CombinerService {
             outputStream.write(nextLine.getBytes());
             outputStream.write(System.lineSeparator().getBytes());
         }
-    }
-
-    private ApplicationIdentifier createApplicationIdentifier(final Tactic tactic) {
-        return new ApplicationIdentifier() {
-                        @Override
-                        public boolean identifyApplication(String line, LogBufferedReader logBufferedReader) {
-                            return tactic.containsDate(line);
-                        }
-
-                        @Override
-                        public Tactic getTactic() {
-                            return tactic;
-                        }
-                    };
     }
 
     private void joinFiles(File folder) throws IOException {
@@ -298,7 +278,12 @@ public class CombinerService {
                         return tacticConfig.getApplicationName() != null ?
                             tacticConfig.getApplicationName() : EMPTY_STRING;
                     }
-                };
+
+                    @Override
+                    public boolean identifyApplication(String line, LogBufferedReader logBufferedReader) {
+                        return containsDate(line);
+                    }
+        };
     }
 
     /**

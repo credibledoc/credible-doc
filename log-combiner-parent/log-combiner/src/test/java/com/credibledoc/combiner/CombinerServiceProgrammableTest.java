@@ -1,8 +1,6 @@
 package com.credibledoc.combiner;
 
 import com.credibledoc.combiner.application.ApplicationService;
-import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
-import com.credibledoc.combiner.application.identifier.ApplicationIdentifierService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.log.reader.ReaderService;
@@ -84,7 +82,6 @@ public class CombinerServiceProgrammableTest {
         TacticService tacticService = TacticService.getInstance();
         tacticService.getTactics().addAll((Collection<? extends Tactic>) tactics);
 
-        ApplicationIdentifierService.getInstance().getApplicationIdentifiers().addAll((Collection<? extends ApplicationIdentifier>) tactics);
         ApplicationLogService applicationLogService = ApplicationLogService.getInstance();
         ApplicationService applicationService = ApplicationService.getInstance();
 

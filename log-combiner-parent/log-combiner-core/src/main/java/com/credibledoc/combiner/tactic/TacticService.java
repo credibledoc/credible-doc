@@ -1,5 +1,7 @@
 package com.credibledoc.combiner.tactic;
 
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+
 import java.util.List;
 
 /**
@@ -29,5 +31,21 @@ public class TacticService {
      */
     public List<Tactic> getTactics() {
         return TacticRepository.getInstance().getTactics();
+    }
+
+    /**
+     * Recognize, which {@link Tactic} the line belongs to.
+     * @param line the line from the log file
+     * @param logBufferedReader the {@link LogBufferedReader} read the line
+     * @return {@link Tactic} or 'null' if not found
+     */
+    public Tactic findTactic(String line, LogBufferedReader logBufferedReader) {
+        TacticService tacticService = getInstance();
+        for (Tactic tactic : tacticService.getTactics()) {
+            if (tactic.identifyApplication(line, logBufferedReader)) {
+                return tactic;
+            }
+        }
+        return null;
     }
 }

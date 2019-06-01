@@ -1,7 +1,5 @@
 package com.credibledoc.combiner.application;
 
-import com.credibledoc.combiner.application.identifier.ApplicationIdentifier;
-import com.credibledoc.combiner.application.identifier.ApplicationIdentifierService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.applicationlog.ApplicationLog;
@@ -33,22 +31,6 @@ public class ApplicationService {
             instance = new ApplicationService();
         }
         return instance;
-    }
-
-    /**
-     * Recognize, which {@link Tactic} the line belongs to.
-     * @param line the line from the log file
-     * @param logBufferedReader the {@link LogBufferedReader} read the line
-     * @return {@link Tactic} or 'null' if not found
-     */
-    public Tactic findTactic(String line, LogBufferedReader logBufferedReader) {
-        ApplicationIdentifierService applicationIdentifierService = ApplicationIdentifierService.getInstance();
-        for (ApplicationIdentifier applicationIdentifier : applicationIdentifierService.getApplicationIdentifiers()) {
-            if (applicationIdentifier.identifyApplication(line, logBufferedReader)) {
-                return applicationIdentifier.getTactic();
-            }
-        }
-        return null;
     }
 
     /**

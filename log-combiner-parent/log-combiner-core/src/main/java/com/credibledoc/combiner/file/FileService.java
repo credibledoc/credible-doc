@@ -1,11 +1,11 @@
 package com.credibledoc.combiner.file;
 
-import com.credibledoc.combiner.application.ApplicationService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogFileReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.tactic.Tactic;
+import com.credibledoc.combiner.tactic.TacticService;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -41,22 +41,22 @@ public class FileService {
     }
 
     /**
-     * Recognize, which {@link Tactic} this file belongs to.
+     * Recognize which {@link Tactic} this file belongs to.
      * @param file the log file
      * @return {@link Tactic} or throw the new {@link CombinerRuntimeException} if the file not recognized
      */
     public Tactic findTactic(File file) {
-        ApplicationService applicationService = ApplicationService.getInstance();
+        TacticService tacticService = TacticService.getInstance();
         try (LogBufferedReader logBufferedReader = new LogBufferedReader(new LogFileReader(file))) {
             String line = logBufferedReader.readLine();
             while (line != null) {
-                Tactic tactic = applicationService.findTactic(line, logBufferedReader);
+                Tactic tactic = tacticService.findTactic(line, logBufferedReader);
                 if (tactic != null) {
                     return tactic;
                 }
                 line = logBufferedReader.readLine();
             }
-            throw new CombinerRuntimeException("Cannot recognize application type of the file: " + file.getAbsolutePath());
+            throw new CombinerRuntimeException("Cannot recognize Tactic type for the file: " + file.getAbsolutePath());
         } catch (Exception e) {
             throw new CombinerRuntimeException(e);
         }
