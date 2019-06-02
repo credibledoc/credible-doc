@@ -79,7 +79,7 @@ public class CombinerServiceTest {
         combinerService.prepareReader(logDirectory, config);
 
         File targetFolder = temporaryFolder.newFolder("generated");
-        File targetFile = combinerService.prepareTargetFile(targetFolder);
+        File targetFile = combinerService.prepareTargetFile(targetFolder, config.getTargetFileName());
 
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
             ReaderService readerService = ReaderService.getInstance();

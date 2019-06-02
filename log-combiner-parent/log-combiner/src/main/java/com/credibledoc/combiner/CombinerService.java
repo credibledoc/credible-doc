@@ -31,7 +31,7 @@ public class CombinerService {
     private static final Logger logger = LoggerFactory.getLogger(CombinerService.class);
 
     private static final String EMPTY_STRING = "";
-    public static final String REPORT_FOLDER_EXTENSION = "_generated";
+    private static final String REPORT_FOLDER_EXTENSION = "_generated";
     private static final String NOT_IMPLEMENTED = "Not implemented";
 
     /**
@@ -49,16 +49,29 @@ public class CombinerService {
         return instance;
     }
 
-    void combine(File folder, String configAbsolutePath) {
+    /**
+     * Load configuration by calling the {@link ConfigService#loadConfig(String)} method.
+     * 
+     * If the configuration does not have the {@link Config#getTacticConfigs()} defined, all log files will be
+     * joined by calling the {@link #joinFiles(File, String)} method.
+     * 
+     * Else prepare a log files reader by calling the {@link #prepareReader(File, Config)} method.
+     * 
+     * And finally combine files line by line by calling the {@link #combine(OutputStream, FilesMergerState)} method.
+     * 
+     * @param sourceFolder a folder with log files
+     * @param configAbsolutePath this configuration file will be used for filling out a {@link Config} instance.
+     */
+    public void combine(File sourceFolder, String configAbsolutePath) {
         try {
             Config config = ConfigService.getInstance().loadConfig(configAbsolutePath);
-            if (config == null) {
+            if (config.getTacticConfigs().isEmpty()) {
                 logger.info("Configuration not found. Files will be joined by last modification time.");
-                joinFiles(folder);
+                joinFiles(sourceFolder, config.getTargetFileName());
                 return;
             }
-            prepareReader(folder, config);
-            File targetFile = prepareTargetFile(folder);
+            prepareReader(sourceFolder, config);
+            File targetFile = prepareTargetFile(sourceFolder, config.getTargetFileName());
             TacticService tacticService = TacticService.getInstance();
             try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
                 ReaderService readerService = ReaderService.getInstance();
@@ -72,12 +85,12 @@ public class CombinerService {
             }
             logger.info("All files combined to '{}'", targetFile.getAbsolutePath());
         } catch (Exception e) {
-            throw new CombinerRuntimeException("Cannot combine files. Folder: '" + folder.getAbsolutePath() +
+            throw new CombinerRuntimeException("Cannot combine files. Folder: '" + sourceFolder.getAbsolutePath() +
                 "', configAbsolutePath: '" + configAbsolutePath + "'.", e);
         }
     }
 
-    public void combine(OutputStream outputStream, FilesMergerState filesMergerState) {
+    void combine(OutputStream outputStream, FilesMergerState filesMergerState) {
         ReaderService readerService = ReaderService.getInstance();
         LogBufferedReader logBufferedReader = readerService.getCurrentReader(filesMergerState);
         int currentLineNumber = 0;
@@ -125,7 +138,7 @@ public class CombinerService {
      * @param folder the folder with log files
      * @param config contains configuration of {@link Config#getTacticConfigs()}
      */
-    public void prepareReader(File folder, Config config) {
+    void prepareReader(File folder, Config config) {
         TacticService tacticService = TacticService.getInstance();
         Set<Tactic> tactics = tacticService.getTactics();
         for (final TacticConfig tacticConfig : config.getTacticConfigs()) {
@@ -156,7 +169,7 @@ public class CombinerService {
         }
     }
 
-    private void joinFiles(File folder) throws IOException {
+    private void joinFiles(File folder, String targetFileName) throws IOException {
         List<File> files = new ArrayList<>();
         collectFilesRecursively(folder, files);
         Collections.sort(files, new Comparator<File>() {
@@ -168,7 +181,7 @@ public class CombinerService {
                 return left.lastModified() > right.lastModified() ? 1 : -1;
             }
         });
-        File targetFile = prepareTargetFile(folder);
+        File targetFile = prepareTargetFile(folder, targetFileName);
         byte[] buffer = new byte[1024];
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
             for (File file : files) {
@@ -204,13 +217,13 @@ public class CombinerService {
         }
     }
 
-    public File prepareTargetFile(File folder) {
-        File newFolder = new File(folder.getParent(), folder.getName() + REPORT_FOLDER_EXTENSION);
+    File prepareTargetFile(File targetFolder, String targetFileName) {
+        File newFolder = new File(targetFolder.getParent(), targetFolder.getName() + REPORT_FOLDER_EXTENSION);
         boolean created = newFolder.mkdirs();
         if (created) {
             logger.info("New folder created: '{}'", newFolder.getAbsolutePath());
         }
-        File newFile = new File(newFolder, "combined.txt");
+        File newFile = new File(newFolder, targetFileName);
         logger.info("New file created: '{}'", newFile.getAbsolutePath());
         return newFile;
     }

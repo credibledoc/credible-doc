@@ -79,6 +79,7 @@ in the same folder, next to the &&beginPlaceholder {
              }
          } &&endPlaceholder.jar file.
 If the configuration file not found then all files will be merged by last modification time.
+* `targetFileName` (optional, default value "combined.txt") file name where all source log files will be combined.
 
 ## Configuration file log-combiner.properties
 

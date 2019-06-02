@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Config {
 
+    private static final String DEFAULT_TARGET_FILE_NAME_COMBINED_TXT = "combined.txt";
     /**
      * Contains values parsed from a config file
      */
@@ -30,12 +31,18 @@ public class Config {
      */
     private boolean printNodeName = true;
 
+    /**
+     * (optional, default value "combined.txt") file name where all source log files will be combined.
+     */
+    private String targetFileName = DEFAULT_TARGET_FILE_NAME_COMBINED_TXT;
+
     @Override
     public String toString() {
         return "Config{" +
             "tacticConfigs=" + tacticConfigs +
             ", insertLineSeparatorBetweenFiles=" + insertLineSeparatorBetweenFiles +
             ", printNodeName=" + printNodeName +
+            ", targetFileName=" + targetFileName +
             '}';
     }
 
@@ -72,5 +79,19 @@ public class Config {
      */
     public void setPrintNodeName(boolean printNodeName) {
         this.printNodeName = printNodeName;
+    }
+
+    /**
+     * @return The {@link #targetFileName} field value.
+     */
+    public String getTargetFileName() {
+        return targetFileName;
+    }
+
+    /**
+     * @param targetFileName see the {@link #targetFileName} field description.
+     */
+    public void setTargetFileName(String targetFileName) {
+        this.targetFileName = targetFileName;
     }
 }

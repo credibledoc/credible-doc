@@ -33,9 +33,11 @@ public class CombinerServiceProgrammableTest {
         File logDirectory = new File("src/test/resources/test-log-files");
         assertTrue(logDirectory.exists());
 
+        // Collect log files from all directories recursively
         FileService fileService = FileService.getInstance();
         Set<File> files = fileService.collectFiles(logDirectory);
 
+        // Instantiate parsers for different log formats
         Set<Tactic> tactics = new HashSet<>();
         tactics.add(new FirstApplicationTactic());
         tactics.add(new SecondApplicationTactic());
@@ -44,7 +46,7 @@ public class CombinerServiceProgrammableTest {
 
         File targetFolder = temporaryFolder.newFolder("generated");
         CombinerService combinerService = CombinerService.getInstance();
-        File targetFile = combinerService.prepareTargetFile(targetFolder);
+        File targetFile = combinerService.prepareTargetFile(targetFolder, "combined-test.txt");
 
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
             FilesMergerState filesMergerState = new FilesMergerState();

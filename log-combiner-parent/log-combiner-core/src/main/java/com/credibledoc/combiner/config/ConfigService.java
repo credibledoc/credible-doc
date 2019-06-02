@@ -70,7 +70,7 @@ public class ConfigService {
             }
             logger.info("Configuration file will be loaded from command-line parameter. File: '{}'",
                 propertiesFile.getAbsolutePath());
-        } else { // TODO Kyrylo Semenko - doladit pro testy, pro Main a pro jarko
+        } else {
             File jarPath = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
             String nextToJar = jarPath.getParent() + File.separator + LOG_COMBINER_PROPERTIES;
             logger.info("Trying to find configuration file next to jar file: '{}'", nextToJar);
