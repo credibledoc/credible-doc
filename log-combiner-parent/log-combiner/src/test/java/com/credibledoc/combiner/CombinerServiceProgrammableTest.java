@@ -55,10 +55,10 @@ public class CombinerServiceProgrammableTest {
 
             combinerService.combine(outputStream, filesMergerState);
         }
-        File exampleFile = new File("src/test/resources/test-log-files_generated/combined.txt");
-        assertTrue(exampleFile.exists());
+        File exemplarFile = new File("src/test/resources/test-log-files_generated/combined.txt");
+        assertTrue(exemplarFile.exists());
 
-        assertTrue(verifyFilesAreEqual(exampleFile, targetFile));
+        assertTrue(verifyFilesAreEqual(exemplarFile, targetFile));
     }
 
     private boolean verifyFilesAreEqual(File leftFile, File rightFile) throws IOException {
