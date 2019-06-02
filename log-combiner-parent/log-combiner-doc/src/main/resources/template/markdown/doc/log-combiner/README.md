@@ -7,7 +7,7 @@ with lines sorted by timestamps.
 This tool can be [downloaded from the Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
 see the image
 
-1. Select the newest version
+1. Select the latest version
 
 ![Link to the Maven Central Repository](doc/img/mvnRepository.png)
 
@@ -41,7 +41,7 @@ Combine all files in the `/var/log/temp` folder recursively.
                              
 In case of existing `log-combiner.properties` configuration file log files will be
 merged with configuration parameters. Else default configuration parameters
-will be used and files will be joined by last modification time.
+will be used and files will be joined by last modification time of files.
 
     java -jar &&beginPlaceholder {
                    "className": "com.credibledoc.substitution.content.generator.pom.JarNameContentGenerator",

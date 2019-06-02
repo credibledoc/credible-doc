@@ -7,7 +7,7 @@ with lines sorted by timestamps.
 This tool can be [downloaded from the Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
 see the image
 
-1. Select the newest version
+1. Select the latest version
 
 ![Link to the Maven Central Repository](doc/img/mvnRepository.png)
 
@@ -27,7 +27,7 @@ Combine all files in the `/var/log/temp` folder recursively.
                              
 In case of existing `log-combiner.properties` configuration file log files will be
 merged with configuration parameters. Else default configuration parameters
-will be used and files will be joined by last modification time.
+will be used and files will be joined by last modification time of files.
 
     java -jar log-combiner-1.0.4.jar /var/log/temp /var/log/combiner/two-apps.properties
 In this case log files from the `/var/log/temp` folder will be merged. And the
@@ -44,6 +44,7 @@ Files will be parsed in this folder and sub-folders recursively.
 is not defined in command line, default value is `log-combiner.properties` located
 in the same folder, next to the log-combiner-1.0.4.jar file.
 If the configuration file not found then all files will be merged by last modification time.
+* `targetFileName` (optional, default value "combined.txt") file name where all source log files will be combined.
 
 ## Configuration file log-combiner.properties
 

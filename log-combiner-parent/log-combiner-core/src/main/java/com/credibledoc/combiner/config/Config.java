@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * This data object contains a configuration of the
- * {@link com.credibledoc.combiner.log.reader.ReaderService#COMBINER_CORE_MODULE_NAME} module.
+ * {@value com.credibledoc.combiner.log.reader.ReaderService#COMBINER_CORE_MODULE_NAME} module.
  *
  * @author Kyrylo Semenko
  */
