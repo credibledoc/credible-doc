@@ -3,6 +3,7 @@ package com.credibledoc.substitution.doc.module.substitution.logmessage;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,14 +20,18 @@ public class LogMessageService {
     public static final String FOUR_SPACES = "    ";
     private static final String WORDS_SEPARATOR = " ";
     private static final String BACKWARD_SLASH = "\\";
-    private static final String NOT_ALLOWED_AT_THE_END = "~;";
+    private static final List<String> FORBIDDEN_SUFFIXES = Arrays.asList("~;", "/");
 
     /**
      * Parse a message from a log line and split it to rows.
      * @param line for example
      *             <pre>04.03.2019 18:41:13.658|main|INFO |com.credibledoc.substitution.core.configuration.ConfigurationService - Properties loaded by ClassLoader from the resource: file..</pre>
      * @param maxRowLength maximal number of characters in a row
-     * @return For example <pre>Properties loaded by ClassLoader from the resource: file..</pre>
+     * @return For example
+     * <pre>
+     *     Properties loaded by ClassLoa<br>
+     *     der from the resource: file..
+     * </pre>
      */
     public String parseMessage(String line, int maxRowLength) {
         int separatorIndex = line.indexOf(LOG_SEPARATOR);
@@ -40,14 +45,10 @@ public class LogMessageService {
                 tokens[i] = "";
             }
             String escapedToken = escapeToken(tokens[i]);
-            if (escapedToken.endsWith(NOT_ALLOWED_AT_THE_END)) {
-                // PlantUML comment line cannot be ended by this sequence. Move this sequence to the next line.
-                if (tokens.length > i + 2) {
-                    tokens[i + 1] = NOT_ALLOWED_AT_THE_END + tokens[i + 1];
-                }
-                escapedToken = escapedToken.substring(0, escapedToken.length() - 2);
-            }
             boolean hasMoreTokens = i + 1 < tokens.length;
+            if (hasMoreTokens) {
+                escapedToken = moveForbiddenSuffixToNextLine(tokens, i, escapedToken);
+            }
             boolean isShortRow = row.length() + escapedToken.length() + WORDS_SEPARATOR.length() < maxRowLength;
             if (isShortRow) {
                 appendEscapedToRow(maxRowLength, row, escapedToken, hasMoreTokens);
@@ -64,6 +65,28 @@ public class LogMessageService {
         }
         result.append(row);
         return result.toString();
+    }
+
+    private String moveForbiddenSuffixToNextLine(String[] tokens, int i, String escapedToken) {
+        int notAllowedSuffixIndex = getForbiddenSuffixIndex(escapedToken);
+        if (notAllowedSuffixIndex > -1) {
+            // PlantUML comment line cannot be ended with this sequence. Move this sequence to the next line.
+            String suffix = FORBIDDEN_SUFFIXES.get(notAllowedSuffixIndex);
+            if (tokens.length > i + 2) {
+                tokens[i + 1] = suffix + tokens[i + 1];
+            }
+            escapedToken = escapedToken.substring(0, escapedToken.length() - suffix.length());
+        }
+        return escapedToken;
+    }
+
+    private int getForbiddenSuffixIndex(String token) {
+        for (int i = 0; i < FORBIDDEN_SUFFIXES.size(); i++) {
+            if (token.endsWith(FORBIDDEN_SUFFIXES.get(i))) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private String[] splitLongTokens(String[] tokens, int maxRowLength) {

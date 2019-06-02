@@ -5,14 +5,14 @@ This module is a java library. This library helps to generate reports.
 Reports are documents describing some application or system structure and behavior.
 
 ## Usage
-This module is the source for the &&beginPlaceholder {
+This module is the source for the `&&beginPlaceholder {
                                           "className": "com.credibledoc.substitution.content.generator.pom.JarNameContentGenerator",
                                           "description": "Latest name and version of substitution-reporting artifact in Maven Central Repository",
                                           "parameters": {
                                               "url": "https://repo1.maven.org/maven2/com/credibledoc/substitution-reporting/maven-metadata.xml",
                                               "nameAndVersionSeparator": "-"
                                           }
-                                   } &&endPlaceholder library.
+                                   } &&endPlaceholder` library.
 
 This library can be loaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/substitution-reporting).
 

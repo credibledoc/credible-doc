@@ -5,7 +5,7 @@ This module is a java library. This library helps to generate reports.
 Reports are documents describing some application or system structure and behavior.
 
 ## Usage
-This module is the source for the substitution-reporting-1.0.4 library.
+This module is the source for the `substitution-reporting-1.0.4` library.
 
 This library can be loaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/substitution-reporting).
 

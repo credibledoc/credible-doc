@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.reporting.markdown;
 
+import com.credibledoc.plantuml.exception.PlantumlRuntimeException;
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
@@ -41,6 +42,8 @@ public class MarkdownService {
     private static final String SVG_TAG_MIDDLE = "](";
     private static final String SVG_TAG_END = "?sanitize=true)";
     public static final String CONTENT_REPLACED = "Content replaced. ";
+    private static final String SYNTAX_ERROR_GENERATED_KEYWORD = "Syntax Error?";
+    private static final String IGNORE_SYNTAX_ERROR_PLACEHOLDER_PARAMETER = "ignoreSyntaxError";
 
     private Configuration configuration;
 
@@ -210,7 +213,7 @@ public class MarkdownService {
      *     <li>Get a {@link ReportDocument} form the {@link PlaceholderToReportDocumentService}</li>
      *     <li>Join lines from the {@link ReportDocument#getCacheLines()} list</li>
      *     <li>And return result of the
-     *     {@link #generateSvgFileAndTagForMarkdown(File, File, String, String, String)} method</li>
+     *     {@link #generateSvgFileAndTagForMarkdown(File, File, String, Placeholder)} method</li>
      * </ul>
      *
      * @param placeholder the state object
@@ -234,7 +237,6 @@ public class MarkdownService {
             plantUml = String.join(System.lineSeparator(), reportDocument.getCacheLines());
         }
         String placeholderDescription = placeholder.getDescription();
-        String nextPlaceholderId = placeholder.getId();
 
         if (plantUml.isEmpty()) {
             return "Cannot generate diagram because source content not found. " +
@@ -245,26 +247,35 @@ public class MarkdownService {
                 mdFile,
                 imageDirectory,
                 plantUml,
-                placeholderDescription,
-                nextPlaceholderId);
+                placeholder);
     }
 
     private String generateSvgFileAndTagForMarkdown(File mdFile,
                                                     File imageDirectory,
                                                     String plantUml,
-                                                    String placeholderDescription,
-                                                    String nextPlaceholderId) {
+                                                    Placeholder placeholder) {
         try {
             String svg = SvgGeneratorService.getInstance().generateSvgFromPlantUml(plantUml);
 
             File svgFile = new File(imageDirectory,
-                mdFile.getName() + "_" + nextPlaceholderId + SVG_FILE_EXTENSION);
+                mdFile.getName() + "_" + placeholder.getId() + SVG_FILE_EXTENSION);
 
             try (OutputStream outputStream = new FileOutputStream(svgFile)) {
                 outputStream.write(svg.getBytes());
             }
             logger.debug("File created: {}", svgFile.getAbsolutePath());
-            return SVG_TAG_BEGIN + placeholderDescription + SVG_TAG_MIDDLE + imageDirectory.getName() +
+            
+            boolean ignoreSyntaxError = placeholder.getParameters()
+                .containsKey(IGNORE_SYNTAX_ERROR_PLACEHOLDER_PARAMETER) &&
+                placeholder.getParameters().get(IGNORE_SYNTAX_ERROR_PLACEHOLDER_PARAMETER).equals("false");
+            
+            if (!ignoreSyntaxError && svg.contains(SYNTAX_ERROR_GENERATED_KEYWORD)) {
+                throw new PlantumlRuntimeException("SVG contains '" + SYNTAX_ERROR_GENERATED_KEYWORD
+                    + "' substring. SVG: '" + svg
+                    + "'. " + System.lineSeparator()
+                    + placeholder);
+            }
+            return SVG_TAG_BEGIN + placeholder.getDescription() + SVG_TAG_MIDDLE + imageDirectory.getName() +
                 SLASH + svgFile.getName() + SVG_TAG_END;
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);

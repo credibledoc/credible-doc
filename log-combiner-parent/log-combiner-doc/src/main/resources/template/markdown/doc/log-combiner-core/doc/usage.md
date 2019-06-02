@@ -1,13 +1,13 @@
 # Usage of the log-combiner-core module
 
-This module is the source for the &&beginPlaceholder {
+This module is the source for the `&&beginPlaceholder {
                                           "className": "com.credibledoc.substitution.content.generator.pom.JarNameContentGenerator",
                                           "description": "Latest name and version of log-combiner-core artifact in Maven Central Repository",
                                           "parameters": {
                                               "url": "https://repo1.maven.org/maven2/com/credibledoc/log-combiner-core/maven-metadata.xml",
                                               "nameAndVersionSeparator": "-"
                                           }
-                                   } &&endPlaceholder library.
+                                   } &&endPlaceholder` library.
 
 This library can be loaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner-core).
 
