@@ -44,7 +44,6 @@ Files will be parsed in this folder and sub-folders recursively.
 is not defined in command line, default value is `log-combiner.properties` located
 in the same folder, next to the log-combiner-1.0.5.jar file.
 If the configuration file not found then all files will be merged by last modification time.
-* `targetFileName` (optional, default value "combined.txt") file name where all source log files will be combined.
 
 ## Configuration file log-combiner.properties
 
@@ -56,6 +55,8 @@ different formats of log files - `app0` and `app1`.
     insertLineSeparatorBetweenFiles = false
     
     printNodeName = true
+    
+    targetFileName = joined.log.txt
     
     # Example of timestamp: 22.04.2019 07:59:27.910
     regex[0] = \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d\\s\\d\\d:\\d\\d:\\d\\d\\.\\d\\d\\d
@@ -108,5 +109,7 @@ and multiple applications (`app0` and `app1`) :
         node1
             app0.log
             app1.log
+
+* `targetFileName` (optional, default value "combined.txt") file name where all source log files will be combined.
         
 [This page](doc/usage/programmatically.md) describes how to use this library programmatically.

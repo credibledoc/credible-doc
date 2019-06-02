@@ -105,6 +105,11 @@ public class ConfigService {
                 config.setPrintNodeName(false);
             }
 
+            String targetFileName = properties.getProperty("targetFileName");
+            if (targetFileName != null) {
+                config.setTargetFileName(targetFileName);
+            }
+
             loadTacticConfigurations(properties);
 
         } catch (Exception e) {

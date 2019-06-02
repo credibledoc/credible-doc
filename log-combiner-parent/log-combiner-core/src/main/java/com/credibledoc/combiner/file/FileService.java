@@ -79,15 +79,13 @@ public class FileService {
      *
      * @param zipFile         zipped log file. If this zip file contains more then one entry, an exception will be
      *                        thrown.
-     * @param targetDirectory where the file will bew unzipped. Id 'null', the parent directory of a zip file
-     *                        will bew used.
-     * @param copyToTargetDirectory if this value is 'true', the packed file will be unpacked to the targetDirectory,
-     *                              else it will be unpacked to the parent directory.
+     * @param targetDirectory where the file will bew unzipped. If 'null', the parent directory of a zip file
+     *                        will bew used and the packed file will be unpacked to the zipFile parent directory.
      * @return an unzipped file or found file from files
      */
-    public File unzipIfNotExists(File zipFile, File targetDirectory, boolean copyToTargetDirectory) {
-        File[] files = targetDirectory.listFiles();
-        File target = copyToTargetDirectory ? targetDirectory : zipFile.getParentFile();
+    public File unzipIfNotExists(File zipFile, File targetDirectory) {
+        File target = targetDirectory != null ? targetDirectory : zipFile.getParentFile();
+        File[] files = target.listFiles();
         try {
             byte[] buffer = new byte[1024];
             try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile))) {
@@ -209,7 +207,7 @@ public class FileService {
     private void unzipAndCopyFile(File fileOrDirectory, boolean unpackFiles, File targetDirectory, Set<File> result,
                                   boolean copyFiles) {
         if (fileOrDirectory.getName().endsWith(".zip") && unpackFiles) {
-            File file = unzipIfNotExists(fileOrDirectory, targetDirectory, copyFiles);
+            File file = unzipIfNotExists(fileOrDirectory, targetDirectory);
             result.add(file);
         } else {
             if (copyFiles) {
