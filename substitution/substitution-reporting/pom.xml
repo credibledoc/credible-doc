@@ -13,7 +13,8 @@
     <packaging>jar</packaging>
 
     <description>
-        A simple library for creation of reports with description of applications structure and behavior.
+        This library serves for reports creation. These reports can describe
+        a structure and behavior of some application or system.
         See the https://github.com/credibledoc/credible-doc/tree/master/substitution/substitution-reporting page.
     </description>
 
