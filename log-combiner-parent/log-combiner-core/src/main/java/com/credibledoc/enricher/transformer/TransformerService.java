@@ -36,7 +36,7 @@ public class TransformerService {
      * <ul>
      *
      * <li>
-     * Check the multiLine by {@link SearchCommand}
+     * Check a multiLine by {@link SearchCommand}
      * for decision a {@link Transformer} should be applied, and if so, then
      * </li>
      *
@@ -44,13 +44,16 @@ public class TransformerService {
      * Apply a {@link Transformer} to the multiLine
      * </li>
      *
+     * <li>
+     * Write transformed lines to the {@link Deriving#getPrintWriter()} object.
+     * </li>
+     *
      * </ul>
-     * Flush {@link Deriving#getPrintWriter()} at the end.
-     *  @param deriving the state of the current report
-     * @param multiline a log record from the {@link LogBufferedReader}
+     *
+     * @param deriving          report state
+     * @param multiline         a log record from the {@link LogBufferedReader}
      * @param logBufferedReader data source created from a log file. It can be
- * useful in case when additional lines should be found in the
- * {@link LogBufferedReader}.
+     *                          useful in case when additional lines should be read
      */
     public void transformToReport(Deriving deriving,
                                   List<String> multiline,

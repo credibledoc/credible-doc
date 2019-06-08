@@ -10,7 +10,7 @@ import java.util.*;
  * @author Kyrylo Semenko
  */
 public class LineProcessorService {
-    private Map<Deriving, List<LineProcessor>> reportDocumentLineProcessorMap = new HashMap<>();
+    private Map<Deriving, List<LineProcessor>> derivingToLineProcessorsMap = new HashMap<>();
 
     /**
      * Singleton.
@@ -41,11 +41,11 @@ public class LineProcessorService {
      * @return list of {@link LineProcessor}s
      */
     public List<LineProcessor> getLineProcessors(Deriving deriving) {
-        if (reportDocumentLineProcessorMap.isEmpty()) {
+        if (derivingToLineProcessorsMap.isEmpty()) {
             initializeCache();
         }
-        if (reportDocumentLineProcessorMap.containsKey(deriving)) {
-            return reportDocumentLineProcessorMap.get(deriving);
+        if (derivingToLineProcessorsMap.containsKey(deriving)) {
+            return derivingToLineProcessorsMap.get(deriving);
         }
         return Collections.emptyList();
     }
@@ -53,12 +53,12 @@ public class LineProcessorService {
     private void initializeCache() {
         for (LineProcessor lineProcessor : getLineProcessors()) {
             Deriving deriving = lineProcessor.getDeriving();
-            if (reportDocumentLineProcessorMap.containsKey(deriving)) {
-                reportDocumentLineProcessorMap.get(deriving).add(lineProcessor);
+            if (derivingToLineProcessorsMap.containsKey(deriving)) {
+                derivingToLineProcessorsMap.get(deriving).add(lineProcessor);
             } else {
                 List<LineProcessor> list = new ArrayList<>();
                 list.add(lineProcessor);
-                reportDocumentLineProcessorMap.put(deriving, list);
+                derivingToLineProcessorsMap.put(deriving, list);
             }
         }
     }
