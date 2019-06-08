@@ -18,8 +18,8 @@ public interface ReportDocumentCreator {
     ReportDocument prepareReportDocument();
 
     /**
-     * Returns the {@link ReportDocumentType} of the {@link ReportDocument}
+     * Returns the {@link ReportDocumentType} class of the {@link ReportDocument}
      * @return the current {@link ReportDocument} type.
      */
-    ReportDocumentType getReportDocumentType();
+    Class<? extends ReportDocumentType> getReportDocumentType();
 }

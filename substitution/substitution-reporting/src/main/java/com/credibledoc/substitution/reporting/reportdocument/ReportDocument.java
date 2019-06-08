@@ -64,7 +64,7 @@ public class ReportDocument implements Deriving {
     /**
      * A {@link ReportDocumentType} of this {@link ReportDocument}
      */
-    private ReportDocumentType reportDocumentType;
+    private Class<? extends ReportDocumentType> reportDocumentType;
 
     /**
      * Contains {@link NodeFile}s, from which this {@link ReportDocument} obtain the data.
@@ -216,14 +216,14 @@ public class ReportDocument implements Deriving {
     /**
      * @return The {@link #reportDocumentType} field value.
      */
-    public ReportDocumentType getReportDocumentType() {
+    public Class<? extends ReportDocumentType> getReportDocumentType() {
         return reportDocumentType;
     }
 
     /**
-     * @param reportDocumentType see the {@link #reportDocumentType} field
+     * @param reportDocumentType see the {@link #reportDocumentType} field description.
      */
-    public void setReportDocumentType(ReportDocumentType reportDocumentType) {
+    public void setReportDocumentType(Class<? extends ReportDocumentType> reportDocumentType) {
         this.reportDocumentType = reportDocumentType;
     }
 

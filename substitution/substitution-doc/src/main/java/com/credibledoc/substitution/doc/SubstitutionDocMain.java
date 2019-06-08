@@ -6,6 +6,7 @@ import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
+import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
 import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
@@ -71,7 +72,8 @@ public class SubstitutionDocMain {
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
         reportDocumentCreatorService.createReportDocuments();
         copyResourcesToTargetDirectory();
-        VisualizerService.getInstance().createReports(Collections.singletonList(ReportDocumentType.DOCUMENT_PART_UML));
+        List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
+        VisualizerService.getInstance().createReports(reportDocumentTypes);
         MarkdownService.getInstance().generateContentFromTemplates();
     }
 

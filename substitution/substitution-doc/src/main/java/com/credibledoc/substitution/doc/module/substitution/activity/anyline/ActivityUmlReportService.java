@@ -5,6 +5,7 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.enricher.deriving.Deriving;
 import com.credibledoc.substitution.doc.module.substitution.activity.AnyLineSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
+import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
@@ -41,7 +42,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
      */
     public ReportDocument prepareReportDocument() {
         ReportDocument reportDocument = new ReportDocument();
-        reportDocument.setReportDocumentType(ReportDocumentType.DOCUMENT_PART_UML);
+        reportDocument.setReportDocumentType(UmlDiagramType.class);
 
         List<LineProcessor> lineProcessors = new ArrayList<>();
         lineProcessors.add(
@@ -56,8 +57,8 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
     }
 
     @Override
-    public ReportDocumentType getReportDocumentType() {
-        return ReportDocumentType.DOCUMENT_PART_UML;
+    public Class<? extends ReportDocumentType> getReportDocumentType() {
+        return UmlDiagramType.class;
     }
 
     /**

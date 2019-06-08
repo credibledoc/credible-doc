@@ -16,12 +16,13 @@ import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Visualizer creates reports. The reports describes scenarios recorded in log files,
- * see the {@link #createReports(List)} method.
+ * see the {@link #createReports(Collection)} method.
  *
  * @author Kyrylo Semenko
  */
@@ -50,7 +51,7 @@ public class VisualizerService {
      * @param reportDocumentTypes defines which {@link ReportDocumentType}s
      *                            can be transformed in a particular invocation
      */
-    public void createReports(List<ReportDocumentType> reportDocumentTypes) {
+    public void createReports(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes) {
         logger.info("Method createReports started, reportDocumentTypes: '{}'", reportDocumentTypes);
         List<Report> reports = ReportService.getInstance().getReports();
         for (Report report : reports) {
@@ -58,7 +59,7 @@ public class VisualizerService {
         }
     }
 
-    private void createReport(List<ReportDocumentType> reportDocumentTypes, Report report) {
+    private void createReport(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes, Report report) {
         logger.info("Method createReports started. Report: {}", report.hashCode());
         ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
         List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);

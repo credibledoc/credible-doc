@@ -3,6 +3,7 @@ package com.credibledoc.substitution.doc.module.substitution.launching;
 import com.credibledoc.enricher.line.LineProcessor;
 import com.credibledoc.enricher.line.LineProcessorService;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
+import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
@@ -36,7 +37,7 @@ public class LaunchingUmlReportService implements ReportDocumentCreator {
      */
     public ReportDocument prepareReportDocument() {
         ReportDocument reportDocument = new ReportDocument();
-        reportDocument.setReportDocumentType(ReportDocumentType.DOCUMENT_PART_UML);
+        reportDocument.setReportDocumentType(UmlDiagramType.class);
 
         List<LineProcessor> lineProcessors = new ArrayList<>();
         lineProcessors.add(
@@ -66,8 +67,8 @@ public class LaunchingUmlReportService implements ReportDocumentCreator {
     }
 
     @Override
-    public ReportDocumentType getReportDocumentType() {
-        return ReportDocumentType.DOCUMENT_PART_UML;
+    public Class<? extends ReportDocumentType> getReportDocumentType() {
+        return UmlDiagramType.class;
     }
 
 }
