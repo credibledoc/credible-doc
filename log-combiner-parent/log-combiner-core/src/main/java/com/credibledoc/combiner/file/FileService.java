@@ -24,7 +24,7 @@ import java.util.zip.ZipInputStream;
  */
 public class FileService {
 
-    private static final String FORMAT_000 = "000";
+    private static final int MAX_FILE_NAME_LENGTH_250 = 250;
     /**
      * Singleton.
      */
@@ -141,36 +141,29 @@ public class FileService {
      *                              for each source directory.
      * @param unpackFiles           if 'true', unzip files to the targetDirectory.
      * @param targetDirectory       the target directory where all files will be copied.
-     *                              It can be the same as a source directory. In this case unzipped files
-     *                              will be placed to the source directory next to source zip files. In this case
-     *                              logDirectoryOrFiles argument should contain a single item.
+     *                              It can be 'null'. In this case unzipped files
+     *                              will be placed to the source directory next to source zip files.
      * @return Set of copied files.
      */
     public Set<File> collectFiles(Set<File> logDirectoriesOrFiles, boolean unpackFiles, File targetDirectory) {
-        createTargetDirectory(targetDirectory);
+        createTargetDirectoryIfNotExists(targetDirectory);
         Set<File> result = new HashSet<>();
-        if (logDirectoriesOrFiles.size() == 1) {
-            File single = logDirectoriesOrFiles.iterator().next();
-            boolean copyFiles = true;
-            if (single.getAbsolutePath().equals(targetDirectory.getAbsolutePath())) {
-                copyFiles = false;
-            }
-            copyAndCollectFilesRecursively(single, unpackFiles, targetDirectory, result, copyFiles);
-        } else {
-            int num = 1;
-            for (File fileOrDirectory : logDirectoriesOrFiles) {
-                String numString = Integer.toString(num);
-                String name = (FORMAT_000 + numString).substring(numString.length());
-                File nextTargetDirectory = new File(targetDirectory, name);
-                copyAndCollectFilesRecursively(fileOrDirectory, unpackFiles, nextTargetDirectory, result, true);
-                num++;
+        for (File file : logDirectoriesOrFiles) {
+            if (targetDirectory == null) {
+                copyAndCollectFilesRecursively(file, unpackFiles, file.getParentFile(), result, false);
+            } else {
+                copyAndCollectFilesRecursively(file, unpackFiles, targetDirectory, result, true);
             }
         }
         return result;
     }
 
-    private void createTargetDirectory(File targetDirectory) {
-        if (!targetDirectory.exists()) {
+    private void createTargetDirectoryIfNotExists(File targetDirectory) {
+        if (targetDirectory != null && !targetDirectory.exists()) {
+            if (targetDirectory.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH_250) {
+                throw new CombinerRuntimeException("TargetDirectory name length is greater then " +
+                    MAX_FILE_NAME_LENGTH_250 + ". File name: " + targetDirectory.getAbsolutePath());
+            }
             boolean created = targetDirectory.mkdirs();
             if (!created) {
                 throw new CombinerRuntimeException("Cannot create directory: '" +
@@ -188,17 +181,19 @@ public class FileService {
         }
     }
 
-    private void unzipAndCopyFiles(File fileOrDirectory, boolean unpackFiles, File targetDirectory, Set<File> result,
+    private void unzipAndCopyFiles(File directory, boolean unpackFiles, File targetDirectory, Set<File> result,
                                    boolean copyFiles) {
-        File[] files = fileOrDirectory.listFiles();
+        File[] files = directory.listFiles();
         if (files == null) {
             return;
         }
+        File innerTargetDirectory = new File(targetDirectory, directory.getName());
+        createTargetDirectoryIfNotExists(innerTargetDirectory);
         for (File file : files) {
-            File innerTargetDirectory = targetDirectory;
             if (file.isDirectory()) {
                 String name = file.getName();
                 innerTargetDirectory = new File(innerTargetDirectory, name);
+                createTargetDirectoryIfNotExists(innerTargetDirectory);
             }
             copyAndCollectFilesRecursively(file, unpackFiles, innerTargetDirectory, result, copyFiles);
         }
@@ -221,7 +216,7 @@ public class FileService {
 
     private File copyFile(File file, File targetDirectory) {
         try {
-            createTargetDirectory(targetDirectory);
+            createTargetDirectoryIfNotExists(targetDirectory);
             File copied = new File(targetDirectory, file.getName());
             try (
                 InputStream in = new BufferedInputStream(
@@ -305,7 +300,7 @@ public class FileService {
      */
     public Set<File> collectFiles(File logDirectoryOrFile) {
         Set<File> files = new HashSet<>(Collections.singletonList(logDirectoryOrFile));
-        return collectFiles(files, false, logDirectoryOrFile);
+        return collectFiles(files, false, logDirectoryOrFile.getParentFile());
     }
 }
 

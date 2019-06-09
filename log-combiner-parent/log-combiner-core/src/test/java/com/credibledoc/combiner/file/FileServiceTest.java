@@ -5,7 +5,9 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -102,9 +104,43 @@ public class FileServiceTest {
         Set<File> result = fileService.collectFiles(multipleFiles, true, newFolder);
         assertEquals(2, result.size());
         assertTrue(result.iterator().next().getName().endsWith(".txt"));
-        String tempFolderPath = newFolder.getAbsolutePath();
+        String newFolderPath = newFolder.getAbsolutePath() + File.separator + multipleFiles.getName();
         String generatedFolderPath = result.iterator().next().getParentFile().getAbsolutePath();
-        assertEquals(tempFolderPath, generatedFolderPath);
+        assertEquals(newFolderPath, generatedFolderPath);
     }
 
+    @Test
+    public void collectMultipleFilesInMultipleDirectoriesCopyFiles() {
+        FileService fileService = FileService.getInstance();
+
+        File multipleFiles = new File("src/test/resources/files/multipleFiles");
+        assertTrue(multipleFiles.exists());
+
+        File multipleZip = new File("src/test/resources/files/multipleZip");
+        assertTrue(multipleZip.exists());
+
+        File singleTxtFile = new File("src/test/resources/files/singleFile/singleFile.txt");
+        assertTrue(singleTxtFile.exists());
+
+        File singleZipFile = new File("target/test-classes/files/singleZip/singleFile.zip");
+        assertTrue(singleZipFile.exists());
+
+        Set<File> source = new HashSet<>(Arrays.asList(multipleFiles, multipleZip, singleTxtFile, singleZipFile));
+
+        File tempFolder = new File(temporaryFolder.getRoot(), "newFolder_001" + System.currentTimeMillis());
+        Set<File> result = fileService.collectFiles(source, false, tempFolder);
+        assertEquals(6, result.size());
+
+        File[] firstResult = tempFolder.listFiles();
+        assertNotNull(firstResult);
+        assertEquals(4, firstResult.length);
+        
+        Set<File> secondSource = new HashSet<>(Arrays.asList(firstResult));
+        Set<File> secondResult = fileService.collectFiles(secondSource, true, null);
+        
+        assertEquals(5, secondResult.size());
+    }
+    
+    
+    
 }
