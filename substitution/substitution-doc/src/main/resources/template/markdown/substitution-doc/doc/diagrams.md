@@ -34,7 +34,7 @@ This Activity diagram shows main steps of the application activity parsed from a
 substitution-doc_1.log file. 
 
 &&beginPlaceholder {
-    "className": "com.credibledoc.substitution.doc.module.substitution.activity.anyline.ActivityUmlReportService",
+    "className": "com.credibledoc.substitution.doc.module.substitution.activity.ActivityUmlReportService",
     "description": "Diagram of the previous application launching.",
     "parameters": {"sourceFileRelativePath": "log/substitution-doc_1.log"}
 } &&endPlaceholder

@@ -1,6 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.activity.modules;
 
-import com.credibledoc.substitution.doc.module.substitution.activity.AnyLineSearchCommand;
+import com.credibledoc.substitution.doc.module.substitution.activity.anyline.AnyLineSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;

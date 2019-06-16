@@ -1,9 +1,9 @@
-package com.credibledoc.substitution.doc.module.substitution.activity.anyline;
+package com.credibledoc.substitution.doc.module.substitution.activity;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.enricher.deriving.Deriving;
-import com.credibledoc.substitution.doc.module.substitution.activity.AnyLineSearchCommand;
+import com.credibledoc.substitution.doc.module.substitution.activity.anyline.AnyLineSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;

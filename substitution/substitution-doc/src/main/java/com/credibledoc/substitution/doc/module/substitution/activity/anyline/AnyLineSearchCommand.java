@@ -1,4 +1,4 @@
-package com.credibledoc.substitution.doc.module.substitution.activity;
+package com.credibledoc.substitution.doc.module.substitution.activity.anyline;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.enricher.deriving.Deriving;
