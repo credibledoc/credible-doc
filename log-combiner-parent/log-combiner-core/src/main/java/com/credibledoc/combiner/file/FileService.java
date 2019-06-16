@@ -158,7 +158,13 @@ public class FileService {
         return result;
     }
 
-    private void createTargetDirectoryIfNotExists(File targetDirectory) {
+    /**
+     * If a target directory exists, do nothing. Else if the targetDirectory name is larger then
+     * {@value #MAX_FILE_NAME_LENGTH_250}, throw an exception. Else create the target directory.
+     *
+     * @param targetDirectory that will be created.
+     */
+    public void createTargetDirectoryIfNotExists(File targetDirectory) {
         if (targetDirectory != null && !targetDirectory.exists()) {
             if (targetDirectory.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH_250) {
                 throw new CombinerRuntimeException("TargetDirectory name length is greater then " +
@@ -292,15 +298,14 @@ public class FileService {
     }
 
     /**
-     * Call the {@link #collectFiles(Set, boolean, File)} method with 'false' in the second argument
-     * and the logDirectoryFile as the third argument.
+     * Call the {@link #collectFiles(Set, boolean)} method with 'false' in the second argument.
      *
      * @param logDirectoryOrFile see the {@link #collectFiles(Set)} method description.
      * @return See the {@link #collectFiles(Set)} method description.
      */
     public Set<File> collectFiles(File logDirectoryOrFile) {
         Set<File> files = new HashSet<>(Collections.singletonList(logDirectoryOrFile));
-        return collectFiles(files, false, logDirectoryOrFile.getParentFile());
+        return collectFiles(files, false);
     }
 }
 

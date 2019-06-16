@@ -60,12 +60,13 @@ public interface Tactic {
      *
      * <p>
      * Example of implementation:
-     * <pre>{@code
+     * <pre>
+     * {@code
      *     private static final String THREAD_SEPARATOR_PREFIX = " [";
      *     private static final int MAX_INDEX_OF_THREAD_SEPARATOR_PREFIX = 35;
      *     private static final String TREAD_SEPARATOR_SUFFIX = "] ";
      *
-     *     @Override
+     *     {@literal @}Override
      *     public String findThreadName(String line) {
      *         int beginIndex = line.indexOf(THREAD_SEPARATOR_PREFIX);
      *         if (beginIndex == -1 || beginIndex > MAX_INDEX_OF_THREAD_SEPARATOR_PREFIX) {
@@ -77,7 +78,8 @@ public interface Tactic {
      *         }
      *         return line.substring(beginIndex + THREAD_SEPARATOR_PREFIX.length(), endIndex);
      *     }
-     * }</pre>
+     * }
+     * </pre>
      * 
      * @param line for example
      *             <pre>29.09.2018 22:53:42.494 [https-jsse-nio-15443-exec-1] Execution ...</pre>

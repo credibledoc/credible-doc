@@ -7,7 +7,7 @@ import com.credibledoc.enricher.transformer.Transformer;
 /**
  * Data object. Contains a {@link SearchCommand} used for searching
  * for a line in log files, and {@link Transformer}
- * for transformation of the line to another format.
+ * for transformation of the line to another format. Every {@link LineProcessor} belongs to a {@link Deriving} instance.
  *
  * @author Kyrylo Semenko
  */

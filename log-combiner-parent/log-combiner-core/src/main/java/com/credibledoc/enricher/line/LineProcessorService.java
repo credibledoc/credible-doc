@@ -29,6 +29,7 @@ public class LineProcessorService {
 
     /**
      * Call the {@link LineProcessorRepository#getLineProcessors()} method
+     *
      * @return all {@link LineProcessor}s.
      */
     public List<LineProcessor> getLineProcessors() {
@@ -37,7 +38,7 @@ public class LineProcessorService {
 
     /**
      * Find {@link LineProcessor}s which belong to a {@link Deriving}.
-     * @param deriving for searching {@link LineProcessor#getDeriving()}
+     * @param deriving an object in the {@link LineProcessor#getDeriving()} value
      * @return list of {@link LineProcessor}s
      */
     public List<LineProcessor> getLineProcessors(Deriving deriving) {
@@ -48,6 +49,18 @@ public class LineProcessorService {
             return derivingToLineProcessorsMap.get(deriving);
         }
         return Collections.emptyList();
+    }
+
+    /**
+     * Evict the {@link #derivingToLineProcessorsMap} cache and add all {@link LineProcessor}s
+     * to the {@link LineProcessorRepository}. Please use this method instead of direct addition to the
+     * {@link #getLineProcessors()} list.
+     *
+     * @param lineProcessors rules for searching and transformation.
+     */
+    public void addAll(List<LineProcessor> lineProcessors) {
+        derivingToLineProcessorsMap.clear();
+        LineProcessorRepository.getInstance().getLineProcessors().addAll(lineProcessors);
     }
 
     private void initializeCache() {
