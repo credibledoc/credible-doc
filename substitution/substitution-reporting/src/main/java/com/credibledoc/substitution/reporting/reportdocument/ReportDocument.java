@@ -90,7 +90,6 @@ public class ReportDocument implements Deriving {
     @Override
     public String toString() {
         return "ReportDocument{" +
-            "printWriter=" + printWriter +
             ", fileNumber=" + fileNumber +
             ", reportDirectory=" + reportDirectory +
             ", fileExtension='" + fileExtension + '\'' +

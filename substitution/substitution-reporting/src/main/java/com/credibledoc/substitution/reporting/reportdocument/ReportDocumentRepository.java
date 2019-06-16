@@ -56,28 +56,28 @@ public class ReportDocumentRepository {
     /**
      * @return The {@link #reportDocuments} field value.
      */
-    public List<ReportDocument> getReportDocuments() {
+    List<ReportDocument> getReportDocuments() {
         return reportDocuments;
     }
 
     /**
      * @param reportDocuments see the {@link #reportDocuments} field
      */
-    public void setReportDocuments(List<ReportDocument> reportDocuments) {
+    void setReportDocuments(List<ReportDocument> reportDocuments) {
         this.reportDocuments = reportDocuments;
     }
 
     /**
      * @return The {@link #reportDocumentsForAddition} field value.
      */
-    public List<ReportDocument> getReportDocumentsForAddition() {
+    List<ReportDocument> getReportDocumentsForAddition() {
         return reportDocumentsForAddition;
     }
 
     /**
      * @param reportDocumentsForAddition see the {@link #reportDocumentsForAddition} field
      */
-    public void setReportDocumentsForAddition(List<ReportDocument> reportDocumentsForAddition) {
+    void setReportDocumentsForAddition(List<ReportDocument> reportDocumentsForAddition) {
         this.reportDocumentsForAddition = reportDocumentsForAddition;
     }
 }

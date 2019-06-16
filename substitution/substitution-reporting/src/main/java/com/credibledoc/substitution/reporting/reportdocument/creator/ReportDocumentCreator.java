@@ -4,8 +4,8 @@ import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 
 /**
- * Classes which implement this interface should be able to create {@link ReportDocument}
- * of a {@link ReportDocumentType}.
+ * Classes which implement this interface are able to create
+ * a {@link ReportDocument} of a {@link ReportDocumentType}.
  *
  * @author Kyrylo Semenko
  */

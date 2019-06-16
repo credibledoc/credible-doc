@@ -60,7 +60,7 @@ public class VisualizerService {
     }
 
     private void createReport(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes, Report report) {
-        logger.info("Method createReports started. Report: {}", report.hashCode());
+        logger.info("Method createReports started. Report: {}", report);
         ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
         List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
         Set<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
@@ -95,7 +95,8 @@ public class VisualizerService {
                     }
                 }
 
-                reportDocumentService.appendReportDocumentsForAddition(report);
+                reportDocumentService.mergeReportDocumentsForAddition();
+                reportDocuments = reportDocumentService.getReportDocuments(report);
 
                 line = readerService.readLineFromReaders(filesMergerState);
             }

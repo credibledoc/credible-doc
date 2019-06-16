@@ -1,6 +1,7 @@
 package com.credibledoc.substitution.reporting.reportdocument;
 
 import com.credibledoc.combiner.node.file.NodeFile;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.reporting.report.Report;
 
 import java.util.*;
@@ -36,21 +37,62 @@ public class ReportDocumentService {
     }
 
     /**
+     * Validate and append the {@link ReportDocument} to the
+     * {@link ReportDocumentRepository#getReportDocuments()} list.
+     *
+     * @param reportDocument will be appended if it contains the {@link ReportDocument#getReport()} field,
+     *                       else an exception will be thrown.
+     */
+    public void addReportDocument(ReportDocument reportDocument) {
+        if (reportDocument.getReport() == null) {
+            throw new SubstitutionRuntimeException("Report is mandatory for ReportDocument: " + reportDocument);
+        }
+        ReportDocumentRepository.getInstance().getReportDocuments().add(reportDocument);
+    }
+
+    /**
+     * Validate and append the {@link ReportDocument} to the
+     * {@link ReportDocumentRepository#getReportDocuments()} list.
+     *
+     * @param reportDocuments will be appended if all items contain the {@link ReportDocument#getReport()} field,
+     *                       else an exception will be thrown.
+     */
+    public void addAll(Collection<ReportDocument> reportDocuments) {
+        for (ReportDocument reportDocument : reportDocuments) {
+            addReportDocument(reportDocument);
+        }
+    }
+
+    /**
      * Call the {@link ReportDocumentRepository#getReportDocumentsForAddition()} method.
      * @return all {@link ReportDocument}s from the {@link ReportDocumentRepository}.
      */
-    private List<ReportDocument> getReportDocumentsForAddition() {
+    public List<ReportDocument> getReportDocumentsForAddition() {
         return ReportDocumentRepository.getInstance().getReportDocumentsForAddition();
     }
 
     /**
-     * Wee need to avoid {@link ConcurrentModificationException}, so we
-     * can`t modify {@link ReportDocumentService#getReportDocuments()} directly.
+     * Validate and append the {@link ReportDocument} to the
+     * {@link ReportDocumentRepository#getReportDocumentsForAddition()} list.
      *
-     * @param report which {@link ReportDocument}s belong to
+     * @param reportDocument will be appended if it contains the {@link ReportDocument#getReport()} field,
+     *                       else an exception will be thrown.
      */
-    public void appendReportDocumentsForAddition(Report report) {
-        getReportDocuments(report).addAll(getReportDocumentsForAddition());
+    public void addReportDocumentForAddition(ReportDocument reportDocument) {
+        if (reportDocument.getReport() == null) {
+            throw new SubstitutionRuntimeException("Report is mandatory for ReportDocument: " + reportDocument);
+        }
+        ReportDocumentRepository.getInstance().getReportDocumentsForAddition().add(reportDocument);
+    }
+
+    /**
+     * For avoiding of {@link ConcurrentModificationException} a newly created {@link ReportDocument} is
+     * appended to the {@link #getReportDocumentsForAddition()} collection. This method will append this
+     * collection to the {@link #getReportDocuments()} collection and clear it.
+     */
+    public void mergeReportDocumentsForAddition() {
+        List<ReportDocument> reportDocuments = getReportDocuments();
+        reportDocuments.addAll(getReportDocumentsForAddition());
         getReportDocumentsForAddition().clear();
     }
 

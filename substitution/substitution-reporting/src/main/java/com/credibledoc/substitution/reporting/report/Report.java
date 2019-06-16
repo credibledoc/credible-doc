@@ -38,6 +38,16 @@ public class Report {
         transactionsFilter = new ArrayList<>();
     }
 
+    @Override
+    public String toString() {
+        return "Report{" +
+            "directory=" + directory +
+            ", transactionsFilter=" + transactionsFilter +
+            ", linesNumber=" + linesNumber +
+            ", creationOfSelfDocumentation=" + creationOfSelfDocumentation +
+            '}';
+    }
+
     /**
      * @return The {@link #directory} field value.
      */
