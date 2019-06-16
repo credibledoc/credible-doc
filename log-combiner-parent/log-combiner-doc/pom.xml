@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.credibledoc</groupId>
         <artifactId>log-combiner-parent</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.7-SNAPSHOT</version>
     </parent>
 
     <artifactId>log-combiner-doc</artifactId>
@@ -30,27 +30,27 @@
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>log-combiner-core</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>log-combiner</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>plantuml-core</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>substitution-reporting</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>substitution-core</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
