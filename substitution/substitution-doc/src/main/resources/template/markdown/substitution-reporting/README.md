@@ -1,8 +1,8 @@
 Notice: work in progress.
 
-# Module substitution-reporting
+# Module `substitution-reporting`
 This module is a java library. This library helps to generate reports.
-Reports are documents describing some application or system structure and behavior.
+Reports are parts of some application documentation.
 
 ## Usage
 This module is the source for the `&&beginPlaceholder {
@@ -47,3 +47,14 @@ Example: [diagrams.md](../substitution-doc/doc/diagrams.md)
 
 Parts of documentation for this repository [credible-doc](../README.md),
 for example [diagrams.md](../substitution-doc/doc/diagrams.md), are generated with help of this `substitution-reporting` module.
+
+## Dependencies of this `substiturion-reporting` module on other modules of the `credible-doc` repository
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.content.generator.dependency.PackageDependenciesContentGenerator",
+    "description": "UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.",
+    "parameters": {
+        "sourceRelativePathsPipeSeparated": "substitution-reporting/src/main/java",
+        "dependantPackage": "com.credibledoc.substitution.reporting",
+        "dependenciesPackagesPipeSeparated": "com.credibledoc",
+        "ignoreInnerPackages": "true"}
+} &&endPlaceholder

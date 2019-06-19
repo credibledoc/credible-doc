@@ -44,6 +44,33 @@ import java.util.*;
  *         "ignoreInnerPackages": "true"}
  * } &&endPlaceholder
  * }</pre>
+ * 
+ * See the next examples
+ * <pre>
+ *                     IF
+ *                         First class is com.first.First
+ *                             and imports com.second.Second
+ *                         Second class is com.second.Second
+ *                     THEN
+ *                         the First class IS depends on the Second class
+ *
+ *                     IF
+ *                         First class is com.first.First
+ *                             and imports com.first.Second
+ *                         Second class is com.first.Second
+ *                     THEN
+ *                         the First class IS NOT depends on the Second class
+ *
+ *                     IF
+ *                         First class is com.first.First
+ *                             and imports com.first.second.Second
+ *                         Second class is com.first.second.Second
+ *                     THEN
+ *                         IF ignoreInnerPackages
+ *                             the First class IS NOT depends on the Second class
+ *                         ELSE
+ *                             the First class IS depends on the Second class
+ * </pre>
  *
  * @author Kyrylo Semenko
  */
@@ -147,32 +174,6 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
             .orElseThrow(() -> new SubstitutionRuntimeException(
                 "Package name cannot be found. CompilationUnit: " + compilationUnit))
             .getNameAsString();
-                /*
-                    For example:
-                    IF
-                        First class is com.first.First
-                            and imports com.second.Second
-                        Second class is com.second.Second
-                    THEN
-                        the First class IS depends on the Second class
-
-                    IF
-                        First class is com.first.First
-                            and imports com.first.Second
-                        Second class is com.first.Second
-                    THEN
-                        the First class IS NOT depends on the Second class
-
-                    IF
-                        First class is com.first.First
-                            and imports com.first.second.Second
-                        Second class is com.first.second.Second
-                    THEN
-                        IF ignoreInnerPackages
-                            the First class IS NOT depends on the Second class
-                        ELSE
-                            the First class IS depends on the Second class
-                 */
         if (packageName.startsWith(dependantPackage) && !containsOneOf(packageName, dependenciesPackages)) {
             for (ImportDeclaration importDeclaration : compilationUnit.getImports()) {
                 String nextImport = importDeclaration.getNameAsString();
