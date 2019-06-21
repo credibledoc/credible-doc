@@ -145,7 +145,7 @@ public class ReportDocumentCreatorService {
     /**
      * Create a new {@link Report}
      * @param logFile a source file
-     * @param reportDocument which belongs to the {@link Report}
+     * @param reportDocument belonging to the {@link Report}
      */
     private void prepareReport(File logFile, ReportDocument reportDocument) {
         Report report = new Report();

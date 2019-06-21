@@ -4,6 +4,7 @@ import com.credibledoc.enricher.line.LineProcessor;
 import com.credibledoc.enricher.line.LineProcessorService;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
+import com.credibledoc.substitution.reporting.report.document.Document;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
@@ -36,34 +37,34 @@ public class LaunchingUmlReportService implements ReportDocumentCreator {
      * will be used for generation of PlantUML activity diagram.
      */
     public ReportDocument prepareReportDocument() {
-        ReportDocument reportDocument = new ReportDocument();
-        reportDocument.setReportDocumentType(UmlDiagramType.class);
+        Document document = new Document();
+        document.setReportDocumentType(UmlDiagramType.class);
 
         List<LineProcessor> lineProcessors = new ArrayList<>();
         lineProcessors.add(
                 new LineProcessor(
                         applicationContext.getBean(LaunchingSearchCommand.class),
                         applicationContext.getBean(LaunchingTransformer.class),
-                        reportDocument));
+                        document));
         lineProcessors.add(
                 new LineProcessor(
                         applicationContext.getBean(ConfigurationLoadingSearchCommand.class),
                         applicationContext.getBean(ConfigurationLoadingTransformer.class),
-                        reportDocument));
+                        document));
         lineProcessors.add(
                 new LineProcessor(
                         applicationContext.getBean(ContentReplacedSearchCommand.class),
                         applicationContext.getBean(ContentReplacedTransformer.class),
-                        reportDocument));
+                        document));
         lineProcessors.add(
             new LineProcessor(
                 applicationContext.getBean(FinishedSearchCommand.class),
                 applicationContext.getBean(FinishedTransformer.class),
-                reportDocument));
+                document));
 
         LineProcessorService.getInstance().getLineProcessors().addAll(lineProcessors);
         log.info("Line processors prepared");
-        return reportDocument;
+        return document;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.credibledoc.substitution.reporting.reportdocument;
 
 import com.credibledoc.substitution.reporting.report.Report;
 import com.credibledoc.substitution.reporting.report.ReportService;
+import com.credibledoc.substitution.reporting.report.document.Document;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -14,7 +15,7 @@ public class ReportDocumentServiceTest {
         Report report = new Report();
         ReportService.getInstance().getReports().add(report);
         
-        ReportDocument reportDocument = new ReportDocument();
+        ReportDocument reportDocument = new Document();
         reportDocument.setReport(report);
         ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
         reportDocumentService.getReportDocumentsForAddition().add(reportDocument);

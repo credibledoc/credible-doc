@@ -1,5 +1,6 @@
 package com.credibledoc.combiner.file;
 
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -15,6 +16,11 @@ import static org.junit.Assert.*;
 public class FileServiceTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
+    
+    @After
+    public void after() {
+        temporaryFolder.delete();
+    }
 
     @Test
     public void collectEmpty() {
@@ -47,7 +53,6 @@ public class FileServiceTest {
         Set<File> result = fileService.collectFiles(singleZipFile, true);
         assertEquals(1, result.size());
         assertEquals("singleFile.txt", result.iterator().next().getName());
-        temporaryFolder.delete();
     }
 
     @Test
