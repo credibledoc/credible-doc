@@ -1,6 +1,6 @@
 package com.credibledoc.enricher.line;
 
-import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.deriving.Printable;
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ import java.util.*;
  * @author Kyrylo Semenko
  */
 public class LineProcessorService {
-    private Map<Deriving, List<LineProcessor>> derivingToLineProcessorsMap = new HashMap<>();
+    private Map<Printable, List<LineProcessor>> derivingToLineProcessorsMap = new HashMap<>();
 
     /**
      * Singleton.
@@ -37,16 +37,16 @@ public class LineProcessorService {
     }
 
     /**
-     * Find {@link LineProcessor}s which belong to a {@link Deriving}.
-     * @param deriving an object in the {@link LineProcessor#getDeriving()} value
+     * Find {@link LineProcessor}s which belong to a {@link Printable}.
+     * @param printable an object in the {@link LineProcessor#getPrintable()} value
      * @return list of {@link LineProcessor}s
      */
-    public List<LineProcessor> getLineProcessors(Deriving deriving) {
+    public List<LineProcessor> getLineProcessors(Printable printable) {
         if (derivingToLineProcessorsMap.isEmpty()) {
             initializeCache();
         }
-        if (derivingToLineProcessorsMap.containsKey(deriving)) {
-            return derivingToLineProcessorsMap.get(deriving);
+        if (derivingToLineProcessorsMap.containsKey(printable)) {
+            return derivingToLineProcessorsMap.get(printable);
         }
         return Collections.emptyList();
     }
@@ -65,13 +65,13 @@ public class LineProcessorService {
 
     private void initializeCache() {
         for (LineProcessor lineProcessor : getLineProcessors()) {
-            Deriving deriving = lineProcessor.getDeriving();
-            if (derivingToLineProcessorsMap.containsKey(deriving)) {
-                derivingToLineProcessorsMap.get(deriving).add(lineProcessor);
+            Printable printable = lineProcessor.getPrintable();
+            if (derivingToLineProcessorsMap.containsKey(printable)) {
+                derivingToLineProcessorsMap.get(printable).add(lineProcessor);
             } else {
                 List<LineProcessor> list = new ArrayList<>();
                 list.add(lineProcessor);
-                derivingToLineProcessorsMap.put(deriving, list);
+                derivingToLineProcessorsMap.put(printable, list);
             }
         }
     }

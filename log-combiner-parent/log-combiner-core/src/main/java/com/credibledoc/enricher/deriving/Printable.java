@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Kyrylo Semenko
  */
-public interface Deriving {
+public interface Printable {
     
     /**
      * @return PrintWriter is an object where transformed lines will be printed to a file.
@@ -16,7 +16,7 @@ public interface Deriving {
     PrintWriter getPrintWriter();
 
     /**
-     * @return This list contains transformed lines prepared for printing to the {@link #getPrintWriter()}.
+     * @return This list contains transformed lines prepared for printing by the {@link #getPrintWriter()}.
      */
     List<String> getCacheLines();
 }

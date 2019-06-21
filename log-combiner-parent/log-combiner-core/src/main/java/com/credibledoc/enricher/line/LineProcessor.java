@@ -1,13 +1,13 @@
 package com.credibledoc.enricher.line;
 
-import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.deriving.Printable;
 import com.credibledoc.enricher.searchcommand.SearchCommand;
 import com.credibledoc.enricher.transformer.Transformer;
 
 /**
  * Data object. Contains a {@link SearchCommand} used for searching
  * for a line in log files, and {@link Transformer}
- * for transformation of the line to another format. Every {@link LineProcessor} belongs to a {@link Deriving} instance.
+ * for transformation of the line to another format. Every {@link LineProcessor} belongs to a {@link Printable} instance.
  *
  * @author Kyrylo Semenko
  */
@@ -24,21 +24,21 @@ public class LineProcessor {
     private Transformer transformer;
 
     /**
-     * The {@link Deriving} this {@link LineProcessor}
+     * The {@link Printable} this {@link LineProcessor}
      * belongs to.
      */
-    private Deriving deriving;
+    private Printable printable;
 
     /**
      * Constructor sets the fields:
      * @param searchCommand {@link #searchCommand}
      * @param transformer {@link #transformer}
-     * @param deriving {@link #deriving}
+     * @param printable {@link #printable}
      */
-    public LineProcessor(SearchCommand searchCommand, Transformer transformer, Deriving deriving) {
+    public LineProcessor(SearchCommand searchCommand, Transformer transformer, Printable printable) {
         this.searchCommand = searchCommand;
         this.setTransformer(transformer);
-        this.deriving = deriving;
+        this.printable = printable;
     }
 
     /**
@@ -71,16 +71,16 @@ public class LineProcessor {
     }
 
     /**
-     * @return the {@link #deriving} value
+     * @return the {@link #printable} value
      */
-    public Deriving getDeriving() {
-        return deriving;
+    public Printable getPrintable() {
+        return printable;
     }
 
     /**
-     * @param deriving see the {@link #deriving} field
+     * @param printable see the {@link #printable} field
      */
-    public void setDeriving(Deriving deriving) {
-        this.deriving = deriving;
+    public void setPrintable(Printable printable) {
+        this.printable = printable;
     }
 }

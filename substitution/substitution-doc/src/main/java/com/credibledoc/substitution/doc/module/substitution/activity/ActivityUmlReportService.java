@@ -2,7 +2,7 @@ package com.credibledoc.substitution.doc.module.substitution.activity;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
-import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.deriving.Printable;
 import com.credibledoc.substitution.doc.module.substitution.activity.anyline.AnyLineSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
@@ -78,7 +78,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
         public final LogMessageService logMessageService;
 
         @Override
-        public String transform(Deriving deriving, List<String> multiLine,
+        public String transform(Printable printable, List<String> multiLine,
                                 LogBufferedReader logBufferedReader) {
             String currentSwimlane = parseClassName(multiLine.get(0));
             int maxRowLength = currentSwimlane.length() * 2 + currentSwimlane.length() / 2;
@@ -86,7 +86,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
             String result = "|" + currentSwimlane + "|" + LogMessageService.LINE_SEPARATOR +
                 LogMessageService.FOUR_SPACES + ":" + message + ";" + LogMessageService.LINE_SEPARATOR;
 
-            deriving.getCacheLines().add(result);
+            printable.getCacheLines().add(result);
 
             return null;
         }

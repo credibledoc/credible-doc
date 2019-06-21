@@ -4,7 +4,7 @@ import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.log.NodeLogService;
 import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.combiner.tactic.TacticService;
-import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.deriving.Printable;
 import com.credibledoc.enricher.transformer.Transformer;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Escapes the multiLine obtained in the
- * {@link Transformer#transform(Deriving, List, LogBufferedReader)} method
+ * {@link Transformer#transform(Printable, List, LogBufferedReader)} method
  * by applying the
  * {@link StringEscapeUtils#escapeHtml4(String)} method.
  * 
@@ -26,10 +26,10 @@ import java.util.List;
 public class EmptyHtmlTransformer implements Transformer {
 
     @Override
-    public String transform(Deriving deriving, List<String> multiLine, LogBufferedReader logBufferedReader) {
+    public String transform(Printable printable, List<String> multiLine, LogBufferedReader logBufferedReader) {
         String line = multiLine.get(0);
-        if (deriving.getCacheLines().size() < EmptyTransformer.MIN_LINES_COUNT_FOR_DECISION) {
-            deriving.getCacheLines().add(line);
+        if (printable.getCacheLines().size() < EmptyTransformer.MIN_LINES_COUNT_FOR_DECISION) {
+            printable.getCacheLines().add(line);
         }
         String joined = String.join(System.lineSeparator(), multiLine);
         String nodeName = NodeLogService.getInstance().findNodeName(logBufferedReader);

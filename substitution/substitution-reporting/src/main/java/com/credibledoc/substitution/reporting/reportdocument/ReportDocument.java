@@ -1,7 +1,7 @@
 package com.credibledoc.substitution.reporting.reportdocument;
 
 import com.credibledoc.combiner.node.file.NodeFile;
-import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.deriving.Printable;
 import com.credibledoc.substitution.reporting.report.Report;
 
 import java.util.Set;
@@ -14,7 +14,7 @@ import java.util.function.Consumer;
  *
  * @author Kyrylo Semenko
  */
-public interface ReportDocument extends Deriving {
+public interface ReportDocument extends Printable {
 
     /**
      * @return A method for filling out this {@link ReportDocument}. This method will be called as the last method

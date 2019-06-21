@@ -6,7 +6,7 @@ import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.doc.SubstitutionDocMain;
-import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.deriving.Printable;
 import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.enricher.transformer.Transformer;
@@ -79,13 +79,13 @@ public class ModulesActivityTransformer implements Transformer {
     }
 
     @Override
-    public String transform(Deriving deriving,
+    public String transform(Printable printable,
                             List<String> multiLine, LogBufferedReader logBufferedReader) {
         String canonicalClassName = parseClassName(multiLine.get(0));
         String moduleName = findModuleName(canonicalClassName);
 
         int maxRowLength = moduleName.length() * 2 + moduleName.length() / 2;
-        List<String> cacheLines = deriving.getCacheLines();
+        List<String> cacheLines = printable.getCacheLines();
         addMessageToCache(multiLine, moduleName, maxRowLength, cacheLines);
 
         return null;

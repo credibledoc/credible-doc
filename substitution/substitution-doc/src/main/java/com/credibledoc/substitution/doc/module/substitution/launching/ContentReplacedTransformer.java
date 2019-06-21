@@ -3,7 +3,7 @@ package com.credibledoc.substitution.doc.module.substitution.launching;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
-import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.deriving.Printable;
 import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.enricher.transformer.Transformer;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class ContentReplacedTransformer implements Transformer {
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
     @Override
-    public String transform(Deriving deriving,
+    public String transform(Printable printable,
                             List<String> multiLine, LogBufferedReader logBufferedReader) {
 
         String plantUml = ":" + MarkdownService.CONTENT_REPLACED + ";" + LINE_SEPARATOR +
@@ -27,7 +27,7 @@ public class ContentReplacedTransformer implements Transformer {
             parsePlaceholderDescription(multiLine) + LINE_SEPARATOR +
             "end note" + LINE_SEPARATOR;
 
-        deriving.getCacheLines().add(plantUml);
+        printable.getCacheLines().add(plantUml);
 
         return null;
     }

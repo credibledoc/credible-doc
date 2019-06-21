@@ -1,7 +1,7 @@
 package com.credibledoc.enricher.transformer;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.enricher.deriving.Deriving;
+import com.credibledoc.enricher.deriving.Printable;
 import com.credibledoc.enricher.line.LineProcessor;
 import com.credibledoc.enricher.line.LineProcessorService;
 import com.credibledoc.enricher.searchcommand.SearchCommand;
@@ -9,7 +9,7 @@ import com.credibledoc.enricher.searchcommand.SearchCommand;
 import java.util.List;
 
 /**
- * Contains the {@link #transformToReport(Deriving, List, LogBufferedReader)}
+ * Contains the {@link #transformToReport(Printable, List, LogBufferedReader)}
  * method.
  *
  * @author Kyrylo Semenko
@@ -45,26 +45,26 @@ public class TransformerService {
      * </li>
      *
      * <li>
-     * Write transformed lines to the {@link Deriving#getPrintWriter()} object.
+     * Write transformed lines to the {@link Printable#getPrintWriter()} object.
      * </li>
      *
      * </ul>
      *
-     * @param deriving          report state
+     * @param printable          report state
      * @param multiline         a log record from the {@link LogBufferedReader}
      * @param logBufferedReader data source created from a log file. It can be
      *                          useful in case when additional lines should be read
      */
-    public void transformToReport(Deriving deriving,
+    public void transformToReport(Printable printable,
                                   List<String> multiline,
                                   LogBufferedReader logBufferedReader) {
-        List<LineProcessor> lineProcessors = LineProcessorService.getInstance().getLineProcessors(deriving);
+        List<LineProcessor> lineProcessors = LineProcessorService.getInstance().getLineProcessors(printable);
         for (LineProcessor lineProcessor : lineProcessors) {
-            boolean isApplicable = lineProcessor.getSearchCommand().isApplicable(deriving, multiline, logBufferedReader);
+            boolean isApplicable = lineProcessor.getSearchCommand().isApplicable(printable, multiline, logBufferedReader);
             if (isApplicable) {
-                String transformed = lineProcessor.getTransformer().transform(deriving, multiline, logBufferedReader);
+                String transformed = lineProcessor.getTransformer().transform(printable, multiline, logBufferedReader);
                 if (transformed != null) {
-                    deriving.getPrintWriter().write(transformed + System.lineSeparator());
+                    printable.getPrintWriter().write(transformed + System.lineSeparator());
                 }
                 break;
             }
