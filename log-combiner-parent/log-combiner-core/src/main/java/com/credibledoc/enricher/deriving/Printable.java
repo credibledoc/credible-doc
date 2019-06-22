@@ -1,5 +1,7 @@
 package com.credibledoc.enricher.deriving;
 
+import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -19,4 +21,12 @@ public interface Printable {
      * @return This list contains transformed lines prepared for printing by the {@link #getPrintWriter()}.
      */
     List<String> getCacheLines();
+
+    /**
+     * @return If this field contains 'true', all {@link com.credibledoc.enricher.line.LineProcessor}s belonging to
+     * this {@link Printable} will be processed in the
+     * {@link com.credibledoc.enricher.transformer.TransformerService#transformToReport(Printable, List, LogBufferedReader)}
+     * method. Else the first matched transformer will be processed only.
+     */
+    boolean checkAllLineProcessors();
 }

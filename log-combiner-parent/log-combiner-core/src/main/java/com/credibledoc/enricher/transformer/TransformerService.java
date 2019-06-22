@@ -38,22 +38,24 @@ public class TransformerService {
      * <li>
      * Check a multiLine by {@link SearchCommand}
      * for decision a {@link Transformer} should be applied, and if so, then
-     * </li>
      *
      * <li>
      * Apply a {@link Transformer} to the multiLine
-     * </li>
      *
      * <li>
      * Write transformed lines to the {@link Printable#getPrintWriter()} object.
-     * </li>
+     *
+     * <li>
+     * If the {@link Printable#checkAllLineProcessors()} is 'false', only the first applicable {@link LineProcessor}
+     * will be processed. Else all applicable line processors will be processed.
      *
      * </ul>
      *
-     * @param printable          report state
+     * @param printable         report state
      * @param multiline         a log record from the {@link LogBufferedReader}
      * @param logBufferedReader data source created from a log file. It can be
-     *                          useful in case when additional lines should be read
+     *                          useful in case when additional lines should be read from this reader
+     *                          or for access to a source file.
      */
     public void transformToReport(Printable printable,
                                   List<String> multiline,
@@ -66,7 +68,9 @@ public class TransformerService {
                 if (transformed != null) {
                     printable.getPrintWriter().write(transformed + System.lineSeparator());
                 }
-                break;
+                if (!printable.checkAllLineProcessors()) {
+                    break;
+                }
             }
         }
     }

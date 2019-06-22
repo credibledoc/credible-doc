@@ -1,6 +1,7 @@
 package com.credibledoc.substitution.reporting.report.document;
 
 import com.credibledoc.combiner.node.file.NodeFile;
+import com.credibledoc.enricher.deriving.Printable;
 import com.credibledoc.substitution.reporting.report.Report;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
@@ -55,6 +56,13 @@ public class Document implements ReportDocument {
      */
     private Report report;
 
+    /**
+     * If the {@link Printable#checkAllLineProcessors()} is 'false', only the first applicable
+     * {@link com.credibledoc.enricher.line.LineProcessor}
+     * will be processed. Else all applicable line processors will be processed.
+     */
+    private boolean checkAllLineProcessors;
+
     public Document() {
         fileNumber = 1;
         cacheLines = new ArrayList<>();
@@ -63,13 +71,14 @@ public class Document implements ReportDocument {
 
     @Override
     public String toString() {
-        return "ReportDocument{" +
+        return "Document{" +
             ", fileNumber=" + fileNumber +
             ", footerMethod=" + footerMethod +
             ", cacheLines=" + cacheLines +
             ", reportDocumentType=" + reportDocumentType +
             ", nodeFiles=" + nodeFiles +
             ", report=" + report +
+            ", checkAllLineProcessors=" + checkAllLineProcessors +
             '}';
     }
 
@@ -151,5 +160,19 @@ public class Document implements ReportDocument {
      */
     public void setReport(Report report) {
         this.report = report;
+    }
+
+    /**
+     * @return The {@link #checkAllLineProcessors} field value.
+     */
+    public boolean checkAllLineProcessors() {
+        return checkAllLineProcessors;
+    }
+
+    /**
+     * @param checkAllLineProcessors see the {@link #checkAllLineProcessors} field description.
+     */
+    public void setCheckAllLineProcessors(boolean checkAllLineProcessors) {
+        this.checkAllLineProcessors = checkAllLineProcessors;
     }
 }
