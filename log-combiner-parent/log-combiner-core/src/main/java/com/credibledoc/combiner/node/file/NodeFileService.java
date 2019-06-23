@@ -97,8 +97,10 @@ public class NodeFileService {
         createOrAddToNodeFile(tactic, nodeLogs, date, file);
     }
 
-    public Set<NodeFile> findNodeFiles(NodeLog nodeLog) {
-        Set<NodeFile> result = new HashSet<>();
+    public SortedSet<NodeFile> findNodeFiles(NodeLog nodeLog) {
+        Comparator<NodeFile> comparator = NodeFileComparator.getInstance();
+        TreeSet<NodeFile> treeSet = new TreeSet<>(comparator);
+        SortedSet<NodeFile> result = Collections.synchronizedSortedSet(treeSet);
         for (NodeFile nodeFile : getNodeFiles()) {
             if (nodeFile.getNodeLog() == nodeLog) {
                 result.add(nodeFile);

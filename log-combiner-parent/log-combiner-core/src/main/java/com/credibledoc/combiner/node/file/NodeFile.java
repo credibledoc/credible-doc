@@ -1,6 +1,5 @@
 package com.credibledoc.combiner.node.file;
 
-import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.log.NodeLog;
 
 import java.io.File;
@@ -27,11 +26,6 @@ public class NodeFile {
      * The {@link NodeLog} this {@link NodeFile} belongs to.
      */
     private NodeLog nodeLog;
-
-    /**
-     * The {@link LogBufferedReader} this {@link NodeFile} belongs to.
-     */
-    private LogBufferedReader logBufferedReader;
 
     /**
      * @return the {@link #file} value
@@ -75,17 +69,4 @@ public class NodeFile {
         this.nodeLog = nodeLog;
     }
 
-    /**
-     * @return the {@link #logBufferedReader} value
-     */
-    public LogBufferedReader getLogBufferedReader() {
-        return logBufferedReader;
-    }
-
-    /**
-     * @param logBufferedReader see the {@link #logBufferedReader} field
-     */
-    public void setLogBufferedReader(LogBufferedReader logBufferedReader) {
-        this.logBufferedReader = logBufferedReader;
-    }
 }

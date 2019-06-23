@@ -309,9 +309,6 @@ public class ReaderService {
                         = new LogInputStreamReader(logConcatenatedInputStream, StandardCharsets.UTF_8);
                 LogBufferedReader logBufferedReader = new LogBufferedReader(logInputStreamReader);
                 nodeLog.setLogBufferedReader(logBufferedReader);
-                for (NodeFile nodeFile : nodeFileService.findNodeFiles(nodeLog)) {
-                    nodeFile.setLogBufferedReader(logBufferedReader);
-                }
             }
         }
         long durationInNanoseconds = System.nanoTime() - startNanos;
