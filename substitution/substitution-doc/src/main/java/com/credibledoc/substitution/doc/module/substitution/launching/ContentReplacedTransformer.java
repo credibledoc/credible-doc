@@ -3,7 +3,7 @@ package com.credibledoc.substitution.doc.module.substitution.launching;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
-import com.credibledoc.enricher.deriving.Printable;
+import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.enricher.transformer.Transformer;
 import lombok.RequiredArgsConstructor;

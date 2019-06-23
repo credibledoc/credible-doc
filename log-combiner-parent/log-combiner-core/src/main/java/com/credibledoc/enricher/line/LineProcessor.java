@@ -1,6 +1,6 @@
 package com.credibledoc.enricher.line;
 
-import com.credibledoc.enricher.deriving.Printable;
+import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.enricher.searchcommand.SearchCommand;
 import com.credibledoc.enricher.transformer.Transformer;
 

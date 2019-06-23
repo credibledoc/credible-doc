@@ -1,4 +1,4 @@
-package com.credibledoc.enricher.deriving;
+package com.credibledoc.enricher.printable;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 

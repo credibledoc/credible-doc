@@ -2,7 +2,7 @@ package com.credibledoc.substitution.doc.module.substitution.launching;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.doc.SubstitutionDocMain;
-import com.credibledoc.enricher.deriving.Printable;
+import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.enricher.searchcommand.SearchCommand;
 import org.springframework.stereotype.Service;
 

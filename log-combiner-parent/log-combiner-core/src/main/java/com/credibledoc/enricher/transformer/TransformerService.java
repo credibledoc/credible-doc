@@ -1,7 +1,7 @@
 package com.credibledoc.enricher.transformer;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.enricher.deriving.Printable;
+import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.enricher.line.LineProcessor;
 import com.credibledoc.enricher.line.LineProcessorService;
 import com.credibledoc.enricher.searchcommand.SearchCommand;

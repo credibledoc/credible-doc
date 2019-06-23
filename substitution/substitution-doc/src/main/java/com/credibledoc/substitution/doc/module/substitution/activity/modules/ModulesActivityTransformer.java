@@ -6,7 +6,7 @@ import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.doc.SubstitutionDocMain;
-import com.credibledoc.enricher.deriving.Printable;
+import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.enricher.transformer.Transformer;

@@ -1,7 +1,7 @@
 package com.credibledoc.enricher.searchcommand;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.enricher.deriving.Printable;
+import com.credibledoc.enricher.printable.Printable;
 
 import java.util.List;
 

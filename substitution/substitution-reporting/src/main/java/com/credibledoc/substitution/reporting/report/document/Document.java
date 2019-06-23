@@ -1,7 +1,7 @@
 package com.credibledoc.substitution.reporting.report.document;
 
 import com.credibledoc.combiner.node.file.NodeFile;
-import com.credibledoc.enricher.deriving.Printable;
+import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.substitution.reporting.report.Report;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
