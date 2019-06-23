@@ -20,7 +20,7 @@ Change directory
     
 Launch the application
 
-    java -jar substitution-doc/target/substitution-doc-1.0.7-SNAPSHOT.jar
+    java -jar substitution-doc/target/substitution-doc-1.0.8-SNAPSHOT.jar
 
 As a result, the `credible-doc/substitution/target/generated/markdown` folder with new folders and files
 is generated.

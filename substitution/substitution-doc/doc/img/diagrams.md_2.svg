@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="689px" preserveAspectRatio="none" style="width:972px;height:689px;" version="1.1" viewBox="0 0 972 689" width="972px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="744px" preserveAspectRatio="none" style="width:972px;height:744px;" version="1.1" viewBox="0 0 972 744" width="972px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="f7j2fiz6wi9tp" width="300%" x="-1" y="-1">
+    <filter height="300%" id="f1359epvnozefr" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,61 +8,66 @@
     </filter>
   </defs>
   <g>
-    <ellipse cx="124" cy="20" fill="#000000" filter="url(#f7j2fiz6wi9tp)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="10" y="50"/>
+    <ellipse cx="124" cy="20" fill="#000000" filter="url(#f1359epvnozefr)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="10" y="50"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="20" y="72.457">Application substitution-doc launched.</text>
-    <path d="M241,109.4648 L241,118.6406 L221,122.6406 L241,126.6406 L241,135.8164 A0,0 0 0 0 241,135.8164 L941,135.8164 A0,0 0 0 0 941,135.8164 L941,119.4648 L931,109.4648 L241,109.4648 A0,0 0 0 0 241,109.4648 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M241,109.4648 L241,118.6406 L221,122.6406 L241,126.6406 L241,135.8164 A0,0 0 0 0 241,135.8164 L941,135.8164 A0,0 0 0 0 941,135.8164 L941,119.4648 L931,109.4648 L241,109.4648 A0,0 0 0 0 241,109.4648 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M931,109.4648 L931,119.4648 L941,119.4648 L931,109.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="679" x="247" y="127.96">file:/C:/Users/semenko/git/credibledoc/credible-doc/substitution/substitution-doc/target/classes/substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="27" y="105.0938"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="27" y="105.0938"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="37" y="127.5508">Configuration properties loaded</text>
-    <path d="M204,164.5586 L204,173.7344 L184,177.7344 L204,181.7344 L204,190.9102 A0,0 0 0 0 204,190.9102 L631,190.9102 A0,0 0 0 0 631,190.9102 L631,174.5586 L621,164.5586 L204,164.5586 A0,0 0 0 0 204,164.5586 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M204,164.5586 L204,173.7344 L184,177.7344 L204,181.7344 L204,190.9102 A0,0 0 0 0 204,190.9102 L631,190.9102 A0,0 0 0 0 631,190.9102 L631,174.5586 L621,164.5586 L204,164.5586 A0,0 0 0 0 204,164.5586 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M621,164.5586 L621,174.5586 L631,174.5586 L621,164.5586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="406" x="210" y="183.0537">Diagram of the application launching created from substitution-doc.log.</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="160.1875"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="160.1875"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="182.6445">Content replaced.</text>
-    <path d="M204,219.6523 L204,228.8281 L184,232.8281 L204,236.8281 L204,246.0039 A0,0 0 0 0 204,246.0039 L645,246.0039 A0,0 0 0 0 645,246.0039 L645,229.6523 L635,219.6523 L204,219.6523 A0,0 0 0 0 204,219.6523 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M204,219.6523 L204,228.8281 L184,232.8281 L204,236.8281 L204,246.0039 A0,0 0 0 0 204,246.0039 L645,246.0039 A0,0 0 0 0 645,246.0039 L645,229.6523 L635,219.6523 L204,219.6523 A0,0 0 0 0 204,219.6523 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M635,219.6523 L635,229.6523 L645,229.6523 L635,219.6523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="420" x="210" y="238.1475">Diagram of the application launching created from substitution-doc_1.log.</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="215.2813"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="215.2813"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="237.7383">Content replaced.</text>
-    <path d="M204,274.7461 L204,283.9219 L184,287.9219 L204,291.9219 L204,301.0977 A0,0 0 0 0 204,301.0977 L489,301.0977 A0,0 0 0 0 489,301.0977 L489,284.7461 L479,274.7461 L204,274.7461 A0,0 0 0 0 204,274.7461 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M204,274.7461 L204,283.9219 L184,287.9219 L204,291.9219 L204,301.0977 A0,0 0 0 0 204,301.0977 L489,301.0977 A0,0 0 0 0 489,301.0977 L489,284.7461 L479,274.7461 L204,274.7461 A0,0 0 0 0 204,274.7461 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M479,274.7461 L479,284.7461 L489,284.7461 L479,274.7461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="264" x="210" y="293.2412">Diagram of the previous application launching.</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="270.375"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="270.375"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="292.832">Content replaced.</text>
-    <path d="M204,329.8398 L204,339.0156 L184,343.0156 L204,347.0156 L204,356.1914 A0,0 0 0 0 204,356.1914 L491,356.1914 A0,0 0 0 0 491,356.1914 L491,339.8398 L481,329.8398 L204,329.8398 A0,0 0 0 0 204,329.8398 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M204,329.8398 L204,339.0156 L184,343.0156 L204,347.0156 L204,356.1914 A0,0 0 0 0 204,356.1914 L491,356.1914 A0,0 0 0 0 491,356.1914 L491,339.8398 L481,329.8398 L204,329.8398 A0,0 0 0 0 204,329.8398 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M481,329.8398 L481,339.8398 L491,339.8398 L481,329.8398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="266" x="210" y="348.335">Credibledoc modules - based activity diagram.</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="325.4688"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="325.4688"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="347.9258">Content replaced.</text>
-    <path d="M204,384.9336 L204,394.1094 L184,398.1094 L204,402.1094 L204,411.2852 A0,0 0 0 0 204,411.2852 L960,411.2852 A0,0 0 0 0 960,411.2852 L960,394.9336 L950,384.9336 L204,384.9336 A0,0 0 0 0 204,384.9336 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M204,384.9336 L204,394.1094 L184,398.1094 L204,402.1094 L204,411.2852 A0,0 0 0 0 204,411.2852 L960,411.2852 A0,0 0 0 0 960,411.2852 L960,394.9336 L950,384.9336 L204,384.9336 A0,0 0 0 0 204,384.9336 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M950,384.9336 L950,394.9336 L960,394.9336 L950,384.9336 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="735" x="210" y="403.4287">Dependency of the `com.credibledoc.substitution.doc` package on other classes in the `com.credibledoc.substitution` package.</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="380.5625"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="380.5625"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="403.0195">Content replaced.</text>
-    <path d="M204,440.0273 L204,449.2031 L184,453.2031 L204,457.2031 L204,466.3789 A0,0 0 0 0 204,466.3789 L490,466.3789 A0,0 0 0 0 490,466.3789 L490,450.0273 L480,440.0273 L204,440.0273 A0,0 0 0 0 204,440.0273 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M204,440.0273 L204,449.2031 L184,453.2031 L204,457.2031 L204,466.3789 A0,0 0 0 0 204,466.3789 L490,466.3789 A0,0 0 0 0 490,466.3789 L490,450.0273 L480,440.0273 L204,440.0273 A0,0 0 0 0 204,440.0273 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M480,440.0273 L480,450.0273 L490,450.0273 L480,440.0273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="265" x="210" y="458.5225">Current name of the substitution-doc-X.X.X.jar.</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="435.6563"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="435.6563"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="458.1133">Content replaced.</text>
-    <path d="M204,495.1211 L204,504.2969 L184,508.2969 L204,512.2969 L204,521.4727 A0,0 0 0 0 204,521.4727 L612,521.4727 A0,0 0 0 0 612,521.4727 L612,505.1211 L602,495.1211 L204,495.1211 A0,0 0 0 0 204,495.1211 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M204,495.1211 L204,504.2969 L184,508.2969 L204,512.2969 L204,521.4727 A0,0 0 0 0 204,521.4727 L612,521.4727 A0,0 0 0 0 612,521.4727 L612,505.1211 L602,495.1211 L204,495.1211 A0,0 0 0 0 204,495.1211 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M602,495.1211 L602,505.1211 L612,505.1211 L602,495.1211 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="387" x="210" y="513.6162">List of resources from classpath of the substitution-doc application.</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="490.75"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="490.75"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="513.207">Content replaced.</text>
-    <path d="M204,550.2148 L204,559.3906 L184,563.3906 L204,567.3906 L204,576.5664 A0,0 0 0 0 204,576.5664 L714,576.5664 A0,0 0 0 0 714,576.5664 L714,560.2148 L704,550.2148 L204,550.2148 A0,0 0 0 0 204,550.2148 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M204,550.2148 L204,559.3906 L184,563.3906 L204,567.3906 L204,576.5664 A0,0 0 0 0 204,576.5664 L714,576.5664 A0,0 0 0 0 714,576.5664 L714,560.2148 L704,550.2148 L204,550.2148 A0,0 0 0 0 204,550.2148 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M704,550.2148 L704,560.2148 L714,560.2148 L704,550.2148 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="489" x="210" y="568.71">Latest name and version of substitution-reporting artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="545.8438"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="545.8438"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="568.3008">Content replaced.</text>
-    <path d="M204,605.3086 L204,614.4844 L184,618.4844 L204,622.4844 L204,631.6602 A0,0 0 0 0 204,631.6602 L653,631.6602 A0,0 0 0 0 653,631.6602 L653,615.3086 L643,605.3086 L204,605.3086 A0,0 0 0 0 204,605.3086 " fill="#FBFB77" filter="url(#f7j2fiz6wi9tp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M204,605.3086 L204,614.4844 L184,618.4844 L204,622.4844 L204,631.6602 A0,0 0 0 0 204,631.6602 L653,631.6602 A0,0 0 0 0 653,631.6602 L653,615.3086 L643,605.3086 L204,605.3086 A0,0 0 0 0 204,605.3086 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M643,605.3086 L643,615.3086 L653,615.3086 L643,605.3086 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="428" x="210" y="623.8037">Latest version of substitution-reporting artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f7j2fiz6wi9tp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="600.9375"/>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="600.9375"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="623.3945">Content replaced.</text>
-    <ellipse cx="124" cy="667.0313" fill="#FFFFFF" filter="url(#f7j2fiz6wi9tp)" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/>
-    <ellipse cx="124" cy="667.0313" fill="#000000" rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/>
+    <path d="M204,660.4023 L204,669.5781 L184,673.5781 L204,677.5781 L204,686.7539 A0,0 0 0 0 204,686.7539 L944,686.7539 A0,0 0 0 0 944,686.7539 L944,670.4023 L934,660.4023 L204,660.4023 A0,0 0 0 0 204,660.4023 " fill="#FBFB77" filter="url(#f1359epvnozefr)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M934,660.4023 L934,670.4023 L944,670.4023 L934,660.4023 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="719" x="210" y="678.8975">UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.</text>
+    <rect fill="#FEFECE" filter="url(#f1359epvnozefr)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="64" y="656.0313"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="74" y="678.4883">Content replaced.</text>
+    <ellipse cx="124" cy="722.125" fill="#FFFFFF" filter="url(#f1359epvnozefr)" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/>
+    <ellipse cx="124" cy="722.125" fill="#000000" rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="30" y2="50"/>
     <polygon fill="#A80036" points="120,40,124,50,128,40,124,44" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="85.0938" y2="105.0938"/>
@@ -87,6 +92,8 @@
     <polygon fill="#A80036" points="120,590.9375,124,600.9375,128,590.9375,124,594.9375" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="636.0313" y2="656.0313"/>
     <polygon fill="#A80036" points="120,646.0313,124,656.0313,128,646.0313,124,650.0313" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="124" x2="124" y1="691.125" y2="711.125"/>
+    <polygon fill="#A80036" points="120,701.125,124,711.125,128,701.125,124,705.125" style="stroke: #A80036; stroke-width: 1.0;"/>
     <!--
 @startuml
 start
@@ -140,6 +147,11 @@ end note
 :Content replaced. ;
 note right
 Latest version of substitution-reporting artifact in Maven Central Repository
+end note
+
+:Content replaced. ;
+note right
+UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.
 end note
 
 stop

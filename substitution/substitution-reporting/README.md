@@ -1,11 +1,11 @@
 Notice: work in progress.
 
-# Module substitution-reporting
+# Module `substitution-reporting`
 This module is a java library. This library helps to generate reports.
-Reports are documents describing some application or system structure and behavior.
+Reports are parts of some application documentation.
 
 ## Usage
-This module is the source for the `substitution-reporting-1.0.6` library.
+This module is the source for the `substitution-reporting-1.0.7` library.
 
 This library can be loaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/substitution-reporting).
 
@@ -22,7 +22,7 @@ Example of Maven configuration in a `pom.xml` file
             <dependency>
                 <groupId>com.credibledoc</groupId>
                 <artifactId>substitution-reporting</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.7</version>
             </dependency>
         </dependencies>
     
@@ -33,3 +33,8 @@ Example: [diagrams.md](../substitution-doc/doc/diagrams.md)
 
 Parts of documentation for this repository [credible-doc](../README.md),
 for example [diagrams.md](../substitution-doc/doc/diagrams.md), are generated with help of this `substitution-reporting` module.
+
+## Dependencies of this `substiturion-reporting` module on other modules of the `credible-doc` repository
+![UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.](img/README.md_3.svg?sanitize=true)
+
+_UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository._
