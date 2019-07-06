@@ -33,6 +33,7 @@ As a result, the `credible-doc/target/generated/markdown/` folder with new folde
 is generated.
 
 This folder should look like this one
+
 ![Image of differences between template and generated files](doc/img/generatedFolders.png)
 
 Please inspect these generated files in the `credible-doc/target/generated/doc` folder.
@@ -51,6 +52,7 @@ This documentation is generated from these templates:
 As you can notice, this generated document and its template have common parts,
 and this diff shows different parts. These different parts are placeholders (at the left side)
 and the content generated from these placeholders (at the right side).
+
 ![Image of differences between template and generated files](doc/img/diffBetweenTemplateAndGeneratedFiles.png)
 
 ## Examples of PlantUML diagrams
