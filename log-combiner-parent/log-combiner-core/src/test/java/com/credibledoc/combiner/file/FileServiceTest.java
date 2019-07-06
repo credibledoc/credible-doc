@@ -23,18 +23,6 @@ public class FileServiceTest {
     }
 
     @Test
-    public void collectEmpty() {
-        FileService fileService = FileService.getInstance();
-        Set<File> result = fileService.collectFiles(Collections.<File>emptySet());
-        assertEquals(0, result.size());
-
-        File logDirectoryOrFile = new File("src/test/resources/files/empty");
-        assertTrue(logDirectoryOrFile.exists());
-        Set<File> result2 = fileService.collectFiles(logDirectoryOrFile);
-        assertEquals(0, result2.size());
-    }
-
-    @Test
     public void collectSingleFile() {
         FileService fileService = FileService.getInstance();
         File logDirectoryOrFile = new File("src/test/resources/files/singleFile/singleFile.txt");
