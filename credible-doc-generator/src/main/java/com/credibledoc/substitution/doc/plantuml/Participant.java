@@ -1,7 +1,7 @@
 package com.credibledoc.substitution.doc.plantuml;
 
+import com.credibledoc.generator.CredibleDocGeneratorMain;
 import com.credibledoc.substitution.core.resource.ResourceService;
-import com.credibledoc.substitution.doc.SubstitutionDocMain;
 
 /**
  * PlantUML participants, for example {@link #SUBSTITUTION_DOC}.
@@ -17,7 +17,7 @@ public enum Participant {
     /**
      * This module.
      */
-    SUBSTITUTION_DOC("\"" + SubstitutionDocMain.SUBSTITUTION_DOC + "\"");
+    SUBSTITUTION_DOC("\"" + CredibleDocGeneratorMain.CREDIBLE_DOC_GENERATOR + "\"");
 
     /** A name in a diagram */
     private final String uml;

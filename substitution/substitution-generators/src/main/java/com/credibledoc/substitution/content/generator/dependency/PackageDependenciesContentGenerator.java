@@ -37,8 +37,8 @@ import java.util.*;
  *     "description": "Dependency of the `com.credibledoc.substitution.doc` package on other classes in the `com
  *     .credibledoc.substitution` package.",
  *     "parameters": {
- *         "jarRelativePathsPipeSeparated": "substitution-doc/target/substitution-doc-1.0.4-SNAPSHOT-sources.jar",
- *         "sourceRelativePathsPipeSeparated": "substitution-doc/src/main/java",
+ *         "jarRelativePathsPipeSeparated": "credible-doc-generator/target/credible-doc-generator-1.0.4-SNAPSHOT-sources.jar",
+ *         "sourceRelativePathsPipeSeparated": "credible-doc-generator/src/main/java",
  *         "dependantPackage": "com.credibledoc.substitution.doc",
  *         "dependenciesPackagesPipeSeparated": "com.credibledoc.substitution",
  *         "ignoreInnerPackages": "true"}
@@ -303,7 +303,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                     AT_LEAST_ONE_OF_THESE_PARAMETERS_IS_MANDATORY_FOR_THIS_PLACEHOLDER +
                     "Example of usage: '\"" + Placeholder.FIELD_PARAMETERS +
                     "\": {\"" + JAR_RELATIVE_PATHS_PIPE_SEPARATED +
-                    "\": \"target/substitution-doc-1.0.0-SNAPSHOT-sources.jar\"}" +
+                    "\": \"target/credible-doc-generator-1.0.0-SNAPSHOT-sources.jar\"}" +
                     "'. ");
         }
     }

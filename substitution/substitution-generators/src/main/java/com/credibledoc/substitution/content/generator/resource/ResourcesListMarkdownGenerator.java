@@ -18,7 +18,7 @@ import java.util.List;
  * <pre>{@code
  * &&beginPlaceholder {
  *     "className": "com.credibledoc.substitution.content.generator.resource.ResourcesListMarkdownGenerator",
- *     "description": "List of resources from classpath of the log-combiner-doc application.",
+ *     "description": "List of resources from classpath of the credible-doc-generator application.",
  *     "parameters": {"endWith": ".md"}
  * } &&endPlaceholder
  * }</pre>
@@ -26,7 +26,7 @@ import java.util.List;
  * Example of result:
  * <pre>
  *  * [/template/markdown/doc/log-combiner-core/usage.md](src/main/resources/template/markdown/doc/log-combiner-core/usage.md)
- *  * [/template/markdown/doc/log-combiner-doc/README.md](src/main/resources/template/markdown/doc/log-combiner-doc/README.md)
+ *  * [/template/markdown/doc/credible-doc-generator/README.md](src/main/resources/template/markdown/doc/credible-doc-generator/README.md)
  * </pre>
  *
  * @author Kyrylo Semenko

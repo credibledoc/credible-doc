@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 /**
- * Generates a table of {@link Participant}s maintained in the substitution-doc module.
+ * Generates a table of {@link Participant}s maintained in the credible-doc-generator module.
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Inject))

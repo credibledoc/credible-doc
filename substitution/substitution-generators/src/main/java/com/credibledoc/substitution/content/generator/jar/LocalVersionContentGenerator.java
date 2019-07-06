@@ -14,10 +14,10 @@ import java.io.File;
  * <pre>{@code
  *     &&beginPlaceholder {
  *         "className": "com.credibledoc.substitution.content.generator.jar.LocalVersionContentGenerator",
- *         "description": "Current name of the substitution-doc-X.X.X.jar version.",
+ *         "description": "Current name of the credible-doc-generator-X.X.X.jar version.",
  *         "parameters": {
  *             "targetDirectoryRelativePath": "target",
- *             "jarNamePrefix": "substitution-doc-"
+ *             "jarNamePrefix": "credible-doc-generator-"
  *         }
  *     } &&endPlaceholder
  * }</pre>

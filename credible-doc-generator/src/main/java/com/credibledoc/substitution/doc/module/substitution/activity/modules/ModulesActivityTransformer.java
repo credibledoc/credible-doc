@@ -6,7 +6,6 @@ import com.credibledoc.generator.CredibleDocGeneratorMain;
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator;
 import com.credibledoc.substitution.core.resource.ResourceService;
-import com.credibledoc.substitution.doc.SubstitutionDocMain;
 import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
@@ -42,7 +41,7 @@ public class ModulesActivityTransformer implements Transformer {
         packagePrefixToModuleName.put("com.credibledoc.substitution.core",
             ResourceService.SUBSTITUTION_CORE_MODULE_NAME);
         packagePrefixToModuleName.put("com.credibledoc.substitution.doc",
-            SubstitutionDocMain.SUBSTITUTION_DOC);
+            CredibleDocGeneratorMain.CREDIBLE_DOC_GENERATOR);
         packagePrefixToModuleName.put("com.credibledoc.plantuml",
             PLANTUML_CORE_MODULE_NAME);
         packagePrefixToModuleName.put("com.credibledoc.combiner",

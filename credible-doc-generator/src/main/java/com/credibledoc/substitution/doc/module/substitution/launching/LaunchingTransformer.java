@@ -1,7 +1,7 @@
 package com.credibledoc.substitution.doc.module.substitution.launching;
 
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
-import com.credibledoc.substitution.doc.SubstitutionDocMain;
+import com.credibledoc.generator.CredibleDocGeneratorMain;
 import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.enricher.transformer.Transformer;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class LaunchingTransformer implements Transformer {
     @Override
     public String transform(Printable printable, List<String> multiLine, LogBufferedReader logBufferedReader) {
         String result = "start" + LINE_SEPARATOR +
-            ":" + SubstitutionDocMain.APPLICATION_SUBSTITUTION_DOC_LAUNCHED + ";" +
+            ":" + CredibleDocGeneratorMain.APPLICATION_SUBSTITUTION_DOC_LAUNCHED + ";" +
             LINE_SEPARATOR;
 
         printable.getCacheLines().add(result);

@@ -9,7 +9,7 @@ of [Snippet placeholders](https://en.wikipedia.org/wiki/Snippet_(programming)#Sn
 ## Submodules
 * [substitution-core](substitution-core/README.md) module contains
 a simple [template processor](https://en.wikipedia.org/wiki/Template_processor) with a focus on creation of UML diagrams
-* [substitution-doc](substitution-doc/README.md) module contains an example
+* [credible-doc-generator](credible-doc-generator/README.md) module contains an example
 of [substitution-core](substitution-core/README.md) usage
 * [substitution-generators](substitution-generators/README.md) module contains classes
 with utilities for generation document parts and diagrams

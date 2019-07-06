@@ -46,7 +46,6 @@
 
     <modules>
         <module>substitution-core</module>
-        <module>substitution-doc</module>
         <module>substitution-generators</module>
         <module>substitution-reporting</module>
     </modules>

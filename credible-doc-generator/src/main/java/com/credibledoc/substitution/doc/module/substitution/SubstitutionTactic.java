@@ -164,7 +164,7 @@ public class SubstitutionTactic implements Tactic {
 
     @Override
     public String getShortName() {
-        return "substitution-doc";
+        return "credible-doc-generator";
     }
 
     @Override

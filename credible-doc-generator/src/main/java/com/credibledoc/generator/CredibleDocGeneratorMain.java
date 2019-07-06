@@ -34,11 +34,10 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 @Slf4j
 public class CredibleDocGeneratorMain {
-
-    public static final String APPLICATION_SUBSTITUTION_DOC_LAUNCHED = "Application substitution-doc launched.";
-
     public static final String APPLICATION_SUBSTITUTION_DOC_FINISHED = "Application finished.";
     public static final String MODULE_NAME = "credible-doc-generator";
+    public static final String APPLICATION_SUBSTITUTION_DOC_LAUNCHED = "Application credible-doc-generator launched.";
+    public static final String CREDIBLE_DOC_GENERATOR = "credible-doc-generator";
 
     @NonNull
     private final List<ReportDocumentCreator> reportDocumentCreators;
@@ -59,8 +58,9 @@ public class CredibleDocGeneratorMain {
                      = new AnnotationConfigApplicationContext(CredibleDocGeneratorMain.class)) {
             applicationContext.start();
             log.info("Spring ApplicationContext created and started");
-            CredibleDocGeneratorMain substitutionDocMain = applicationContext.getBean(CredibleDocGeneratorMain.class);
-            substitutionDocMain.substitute();
+            CredibleDocGeneratorMain credibleDocGeneratorMain =
+                applicationContext.getBean(CredibleDocGeneratorMain.class);
+            credibleDocGeneratorMain.substitute();
         }
         log.info(APPLICATION_SUBSTITUTION_DOC_FINISHED);
     }

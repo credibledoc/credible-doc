@@ -15,7 +15,7 @@
     <packaging>jar</packaging>
 
     <description>
-        This module generates a documentation
+        This module generates documentation
         for the https://github.com/credibledoc/credible-doc repository projects.
         See description on the https://github.com/credibledoc/credible-doc page.
     </description>
@@ -27,10 +27,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <artifactId>substitution-doc</artifactId>
-            <groupId>com.credibledoc</groupId>
-        </dependency>
         <dependency>
             <artifactId>plantuml-core</artifactId>
             <groupId>com.credibledoc</groupId>
