@@ -113,13 +113,15 @@ public class FileService {
         BufferedInputStream bis = new BufferedInputStream(is);
         File nextFile = new File(targetPath + entry.getName());
         if (!nextFile.exists()) {
-            Path uncompressedFilePath = nextFile.toPath();
-            Files.createFile(uncompressedFilePath);
-            try (FileOutputStream fileOutput = new FileOutputStream(nextFile)) {
-                while (bis.available() > 0) {
-                    fileOutput.write(bis.read());
+            Files.createFile(nextFile.toPath());
+            byte[] buffer = new byte[1024];
+            try (FileOutputStream fos = new FileOutputStream(nextFile)) {
+                int len;
+                while ((len = bis.read(buffer)) > 0) {
+                    fos.write(buffer, 0, len);
                 }
             }
+            
             logger.trace("File unzipped: {}", nextFile.getAbsolutePath());
         } else {
             logger.trace("File already exists: {}", nextFile.getAbsolutePath());
@@ -221,8 +223,8 @@ public class FileService {
                 int lengthRead;
                 while ((lengthRead = in.read(buffer)) > 0) {
                     out.write(buffer, 0, lengthRead);
-                    out.flush();
                 }
+                out.flush();
             }
             return copied;
         } catch (Exception e) {

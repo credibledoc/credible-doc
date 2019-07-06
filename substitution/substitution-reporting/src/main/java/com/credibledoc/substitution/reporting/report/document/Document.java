@@ -47,7 +47,7 @@ public class Document implements ReportDocument {
     private Class<? extends ReportDocumentType> reportDocumentType;
 
     /**
-     * Contains {@link NodeFile}s, from which this {@link Document} obtain the data.
+     * Contains {@link NodeFile}s this {@link Document} obtains data from.
      */
     private Set<NodeFile> nodeFiles;
 

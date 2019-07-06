@@ -55,7 +55,7 @@ public class Placeholder {
 
     @Override
     public String toString() {
-        return "Placeholder{" +
+        return "{" +
             "resource='" + resource + '\'' +
             ", id='" + id + '\'' +
             ", className='" + className + '\'' +

@@ -89,7 +89,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
         " At least one of these parameters is mandatory for this placeholder. ";
     static final String THE_FILE_CANNOT_BE_FOUND = "The file cannot be found: '";
     static final String PARAMETER_WITH_NAME = "Parameter with name '";
-    static final String NOTE_NO_DEPENDENCIES_FOUND = "note \"No dependencies found.\"";
+    static final String NOTE_NO_DEPENDENCIES_FOUND = "header \"No dependencies found.\"";
 
     private Map<String, List<Pair<Path, ParseResult<CompilationUnit>>>> cache = new HashMap<>();
 
@@ -209,6 +209,11 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                 ParserConfiguration parserConfiguration = new ParserConfiguration();
                 sourceRoot.setParserConfiguration(parserConfiguration);
                 List<ParseResult<CompilationUnit>> parseResults = sourceRoot.tryToParse();
+                if (parseResults.isEmpty()) {
+                    throw new SubstitutionRuntimeException("ParseResults is empty. SourceRoot directory: '" +
+                        directory.getAbsolutePath() + "'. Probably due to incorrect configuration of Placeholder: " +
+                        placeholder);
+                }
                 for (ParseResult<CompilationUnit> parseResult : parseResults) {
                     @SuppressWarnings("unchecked")
                     Pair<Path, ParseResult<CompilationUnit>> pair = new Pair(directory.toPath(), parseResult);

@@ -88,6 +88,11 @@
                 <artifactId>substitution-generators</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.credibledoc</groupId>
+                <artifactId>substitution-doc</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -110,6 +115,7 @@
         <module>log-combiner-parent</module>
         <module>plantuml</module>
         <module>substitution</module>
+        <module>credible-doc-generator</module>
     </modules>
 
     <distributionManagement>
