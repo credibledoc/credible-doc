@@ -29,10 +29,10 @@ Example of Maven configuration in a `pom.xml` file
     </project>
 
 ## How the generated reports look like
-Example: [diagrams.md](../credible-doc-generator/doc/diagrams.md)
+Example: [diagrams.md](../../credible-doc-generator/doc/diagrams.md)
 
 Parts of documentation for this repository [credible-doc](../README.md),
-for example [diagrams.md](../credible-doc-generator/doc/diagrams.md), are generated with help of this `substitution-reporting` module.
+for example [diagrams.md](../../credible-doc-generator/doc/diagrams.md), are generated with help of this `substitution-reporting` module.
 
 ## Dependencies of this `substiturion-reporting` module on other modules of the `credible-doc` repository
 ![UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.](img/README.md_3.svg?sanitize=true)
