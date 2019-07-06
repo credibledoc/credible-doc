@@ -6,7 +6,7 @@
 
     <groupId>com.credibledoc</groupId>
     <artifactId>credible-doc-parent</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.10-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
