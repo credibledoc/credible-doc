@@ -6,16 +6,15 @@ import com.credibledoc.combiner.log.buffered.LogFileReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.combiner.tactic.TacticService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.util.zip.ZipFile;
 
 /**
  * This singleton helps to collect log files and contains some util methods.
@@ -23,6 +22,7 @@ import java.util.zip.ZipInputStream;
  * @author Kyrylo Semenko
  */
 public class FileService {
+    private static final Logger logger = LoggerFactory.getLogger(FileService.class);
 
     private static final int MAX_FILE_NAME_LENGTH_250 = 250;
     /**
@@ -75,59 +75,56 @@ public class FileService {
 
     /**
      * If the second argument contains unzipped first argument, do not unzip it.
-     * Else unzip it and return a file from this zipFile.
+     * Else unzip it and return a file from this zipFile. So existing files will NOT be overwritten.
      *
-     * @param zipFile         zipped log file. If this zip file contains more then one entry, an exception will be
-     *                        thrown.
-     * @param targetDirectory where the file will bew unzipped. If 'null', the parent directory of a zip file
-     *                        will bew used and the packed file will be unpacked to the zipFile parent directory.
-     * @return an unzipped file or found file from files
+     * @param zipFile         zipped content.
+     * @param targetDirectory where the content will bew unzipped. If 'null', the parent directory of a zip file
+     *                        will bew used and the packed content will be unpacked to the zipFile parent directory.
+     * @return Unzipped files or found files from the targetDirectory.
      */
-    public File unzipIfNotExists(File zipFile, File targetDirectory) {
-        File target = targetDirectory != null ? targetDirectory : zipFile.getParentFile();
-        File[] files = target.listFiles();
-        try {
-            byte[] buffer = new byte[1024];
-            try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile))) {
-                ZipEntry zipEntry = zis.getNextEntry();
-                if (zis.getNextEntry() != null) {
-                    throw new CombinerRuntimeException("Zip file contains more then one zipped files." +
-                        " Expected a single zipped file only inside the zip file: " + zipFile.getAbsolutePath());
-                }
-                if (files != null) {
-                    for (File file : files) {
-                        if (file.getName().equals(zipEntry.getName())) {
-                            return file;
-                        }
-                    }
-                }
-                File newFile = newFile(target, zipEntry);
-                try (FileOutputStream fos = new FileOutputStream(newFile)) {
-                    int len;
-                    while ((len = zis.read(buffer)) > 0) {
-                        fos.write(buffer, 0, len);
-                    }
-                }
+    public List<File> unzipIfNotExists(File zipFile, File targetDirectory) {
+        List<File> result = new ArrayList<>();
+        try (ZipFile file = new ZipFile(zipFile)) {
+            Enumeration<? extends ZipEntry> entries = file.entries();
 
-                zis.closeEntry();
-                return newFile;
+            String targetPath = targetDirectory.getAbsolutePath() + File.separator;
+
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = entries.nextElement();
+                if (entry.isDirectory()) {
+                    File dir = new File(targetPath + entry.getName());
+                    if (!dir.exists()) {
+                        logger.trace("Creating Directory: '{}'", dir.getAbsolutePath());
+                        Files.createDirectories(dir.toPath());
+                    }
+                }
+                else {
+                    unzipEntry(result, file, targetPath, entry);
+                }
             }
-        } catch (Exception e) {
-            throw new CombinerRuntimeException("Cannot unzip file: " + zipFile.getAbsolutePath(), e);
+        } catch (IOException e) {
+            throw new CombinerRuntimeException("Cannot unzip " + zipFile.getAbsolutePath(), e);
         }
+        return result;
     }
 
-    private File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
-        File destFile = new File(destinationDir, zipEntry.getName());
-
-        String destDirPath = destinationDir.getCanonicalPath();
-        String destFilePath = destFile.getCanonicalPath();
-
-        if (!destFilePath.startsWith(destDirPath + File.separator)) {
-            throw new IOException("Entry is outside of the target dir: " + zipEntry.getName());
+    private void unzipEntry(List<File> result, ZipFile file, String targetPath, ZipEntry entry) throws IOException {
+        InputStream is = file.getInputStream(entry);
+        BufferedInputStream bis = new BufferedInputStream(is);
+        File nextFile = new File(targetPath + entry.getName());
+        if (!nextFile.exists()) {
+            Path uncompressedFilePath = nextFile.toPath();
+            Files.createFile(uncompressedFilePath);
+            try (FileOutputStream fileOutput = new FileOutputStream(nextFile)) {
+                while (bis.available() > 0) {
+                    fileOutput.write(bis.read());
+                }
+            }
+            logger.trace("File unzipped: {}", nextFile.getAbsolutePath());
+        } else {
+            logger.trace("File already exists: {}", nextFile.getAbsolutePath());
         }
-
-        return destFile;
+        result.add(nextFile);
     }
 
     /**
@@ -178,38 +175,28 @@ public class FileService {
         }
     }
 
-    private void copyAndCollectFilesRecursively(File fileOrDirectory, boolean unpackFiles,
+    private void copyAndCollectFilesRecursively(File sourceFileOrDirectory, boolean unpackFiles,
                                                 File targetDirectory, Set<File> result, boolean copyFiles) {
-        if (fileOrDirectory.isFile()) {
-            unzipAndCopyFile(fileOrDirectory, unpackFiles, targetDirectory, result, copyFiles);
+        if (sourceFileOrDirectory.isFile()) {
+            unzipAndCopyFile(sourceFileOrDirectory, unpackFiles, targetDirectory, result, copyFiles);
         } else {
-            unzipAndCopyFiles(fileOrDirectory, unpackFiles, targetDirectory, result, copyFiles);
-        }
-    }
-
-    private void unzipAndCopyFiles(File directory, boolean unpackFiles, File targetDirectory, Set<File> result,
-                                   boolean copyFiles) {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            return;
-        }
-        File innerTargetDirectory = new File(targetDirectory, directory.getName());
-        createTargetDirectoryIfNotExists(innerTargetDirectory);
-        for (File file : files) {
-            if (file.isDirectory()) {
-                String name = file.getName();
-                innerTargetDirectory = new File(innerTargetDirectory, name);
-                createTargetDirectoryIfNotExists(innerTargetDirectory);
+            File[] files = sourceFileOrDirectory.listFiles();
+            if (files == null) {
+                return;
             }
-            copyAndCollectFilesRecursively(file, unpackFiles, innerTargetDirectory, result, copyFiles);
+            File innerTargetDirectory = new File(targetDirectory, sourceFileOrDirectory.getName());
+            createTargetDirectoryIfNotExists(innerTargetDirectory);
+            for (File file : files) {
+                copyAndCollectFilesRecursively(file, unpackFiles, innerTargetDirectory, result, copyFiles);
+            }
         }
     }
 
     private void unzipAndCopyFile(File fileOrDirectory, boolean unpackFiles, File targetDirectory, Set<File> result,
                                   boolean copyFiles) {
         if (fileOrDirectory.getName().endsWith(".zip") && unpackFiles) {
-            File file = unzipIfNotExists(fileOrDirectory, targetDirectory);
-            result.add(file);
+            List<File> files = unzipIfNotExists(fileOrDirectory, targetDirectory);
+            result.addAll(files);
         } else {
             if (copyFiles) {
                 File file = copyFile(fileOrDirectory, targetDirectory);
@@ -269,7 +256,9 @@ public class FileService {
     public Set<File> collectFiles(Set<File> logDirectoriesOrFiles, boolean unpackFiles) {
         try {
             Path tempPath = Files.createTempDirectory(ReaderService.COMBINER_CORE_MODULE_NAME);
-            return collectFiles(logDirectoriesOrFiles, unpackFiles, tempPath.toFile());
+            File tempDirectory = tempPath.toFile();
+            tempDirectory.deleteOnExit();
+            return collectFiles(logDirectoriesOrFiles, unpackFiles, tempDirectory);
         } catch (Exception e) {
             throw new CombinerRuntimeException("Cannot collect files.", e);
         }
