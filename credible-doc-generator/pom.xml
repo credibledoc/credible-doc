@@ -130,7 +130,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.credibledoc.substitution.doc.CredibleDocGeneratorMain</mainClass>
+                            <mainClass>com.credibledoc.generator.CredibleDocGeneratorMain</mainClass>
                         </configuration>
                     </execution>
                 </executions>
