@@ -20,7 +20,7 @@ Change directory
     
 Launch the application
 
-    java -jar credible-doc-generator/target/credible-doc-generator-1.0.9-SNAPSHOT.jar
+    java -jar credible-doc-generator/target/credible-doc-generator-1.0.10-SNAPSHOT.jar
 
 As a result, the `credible-doc/target/generated/markdown/` folder with new folders and files
 is generated.

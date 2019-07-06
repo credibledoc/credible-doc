@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="12798px" preserveAspectRatio="none" style="width:3310px;height:12798px;" version="1.1" viewBox="0 0 3310 12798" width="3310px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="f1r3gexctahswp" width="300%" x="-1" y="-1">
+    <filter height="300%" id="f1cajm07zhvo6r" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,162 +8,162 @@
     </filter>
   </defs>
   <g>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="80" y="35.0957"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="80" y="35.0957"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="90" y="57.5527">Application credible-doc-generator launched.</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="269" x="78" y="90.1895"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="269" x="78" y="90.1895"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="249" x="88" y="112.6465">Spring ApplicationContext created and started</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="110.5625" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="360" x="32.5" y="2458.4395"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="110.5625" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="360" x="32.5" y="2458.4395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="227" x="42.5" y="2480.8965">Resource will be copied to file. Resource:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="340" x="42.5" y="2495.9902">/template/markdown/credible-doc-generator/doc/img/diffBetwe</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="199" x="42.5" y="2511.084">enTemplateAndGeneratedFiles.png.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="131" x="42.5" y="2526.1777">TargetFileAbsolutePath:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="339" x="42.5" y="2541.2715">target/generated/markdown/credible-doc-generator/doc/img/di</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="236" x="42.5" y="2556.3652">ffBetweenTemplateAndGeneratedFiles.png</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="375" x="25" y="2589.002"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="375" x="25" y="2589.002"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="129" x="35" y="2611.459">Resource copied to file:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="334" x="35" y="2626.5527">C:\Users\semenko\git\credibledoc\credible-doc\target\genera</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="355" x="35" y="2641.6465">ted\markdown\credible-doc-generator\doc\img\diffBetweenTempl</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="147" x="35" y="2656.7402">ateAndGeneratedFiles.png</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="366" x="29.5" y="2689.377"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="366" x="29.5" y="2689.377"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="227" x="39.5" y="2711.834">Resource will be copied to file. Resource:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="346" x="39.5" y="2726.9277">/template/markdown/credible-doc-generator/doc/img/generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="39.5" y="2742.0215">Folders.png. TargetFileAbsolutePath:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="343" x="39.5" y="2757.1152">target/generated/markdown/credible-doc-generator/doc/img/ge</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="39.5" y="2772.209">neratedFolders.png</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="374" x="25.5" y="2804.8457"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="374" x="25.5" y="2804.8457"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="129" x="35.5" y="2827.3027">Resource copied to file:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="334" x="35.5" y="2842.3965">C:\Users\semenko\git\credibledoc\credible-doc\target\genera</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="354" x="35.5" y="2857.4902">ted\markdown\credible-doc-generator\doc\img\generatedFolders</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="24" x="35.5" y="2872.584">.png</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="370" x="27.5" y="2905.2207"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="370" x="27.5" y="2905.2207"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="227" x="37.5" y="2927.6777">Resource will be copied to file. Resource:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="350" x="37.5" y="2942.7715">/template/markdown/log-combiner-parent/log-combiner/doc/img</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="37.5" y="2957.8652">/linkToJar.png. TargetFileAbsolutePath:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="342" x="37.5" y="2972.959">target/generated/markdown/log-combiner-parent/log-combiner</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="124" x="37.5" y="2988.0527">/doc/img/linkToJar.png</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="372" x="26.5" y="3020.6895"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="372" x="26.5" y="3020.6895"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="129" x="36.5" y="3043.1465">Resource copied to file:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="334" x="36.5" y="3058.2402">C:\Users\semenko\git\credibledoc\credible-doc\target\genera</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="352" x="36.5" y="3073.334">ted\markdown\log-combiner-parent\log-combiner\doc\img\linkTo</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="41" x="36.5" y="3088.4277">Jar.png</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="370" x="27.5" y="3121.0645"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="370" x="27.5" y="3121.0645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="227" x="37.5" y="3143.5215">Resource will be copied to file. Resource:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="350" x="37.5" y="3158.6152">/template/markdown/log-combiner-parent/log-combiner/doc/img</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="246" x="37.5" y="3173.709">/mvnRepository.png. TargetFileAbsolutePath:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="342" x="37.5" y="3188.8027">target/generated/markdown/log-combiner-parent/log-combiner</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="37.5" y="3203.8965">/doc/img/mvnRepository.png</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="385" x="20" y="3236.5332"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="385" x="20" y="3236.5332"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="129" x="30" y="3258.9902">Resource copied to file:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="334" x="30" y="3274.084">C:\Users\semenko\git\credibledoc\credible-doc\target\genera</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="365" x="30" y="3289.1777">ted\markdown\log-combiner-parent\log-combiner\doc\img\mvnRep</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="30" y="3304.2715">ository.png</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="369" x="28" y="3336.9082"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="369" x="28" y="3336.9082"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="227" x="38" y="3359.3652">Resource will be copied to file. Resource:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="349" x="38" y="3374.459">/template/markdown/plantuml/plantuml-core/doc/img/example.s</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="38" y="3389.5527">vg. TargetFileAbsolutePath:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="343" x="38" y="3404.6465">target/generated/markdown/plantuml/plantuml-core/doc/img/ex</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="57" x="38" y="3419.7402">ample.svg</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="354" x="35.5" y="3452.377"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="354" x="35.5" y="3452.377"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="129" x="45.5" y="3474.834">Resource copied to file:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="334" x="45.5" y="3489.9277">C:\Users\semenko\git\credibledoc\credible-doc\target\genera</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="327" x="45.5" y="3505.0215">ted\markdown\plantuml\plantuml-core\doc\img\example.svg</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="130" x="147.5" y="12751.002"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="130" x="147.5" y="12751.002"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="110" x="157.5" y="12773.459">Application finished.</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="294" x="415" y="145.2832"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="294" x="415" y="145.2832"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="236" x="425" y="167.7402">Properties loaded by ClassLoader from the</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="52" x="425" y="182.834">resource:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="274" x="425" y="197.9277">file:/C:/Users/semenko/git/credibledoc/credible-do</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="268" x="425" y="213.0215">c/credible-doc-generator/target/classes/substituti</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="73" x="425" y="228.1152">on.properties</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="444.5" y="260.752"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="444.5" y="260.752"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="454.5" y="283.209">Configuration property key:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="212" x="454.5" y="298.3027">substitution.templates.resource, value:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="454.5" y="313.3965">template/markdown, origin:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="180" x="454.5" y="328.4902">classpath:substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="448.5" y="361.127"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="448.5" y="361.127"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="458.5" y="383.584">Configuration property key:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="204" x="458.5" y="398.6777">substitution.placeholder.begin, value:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="458.5" y="413.7715">&amp;&amp;beginPlaceholder, origin:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="180" x="458.5" y="428.8652">classpath:substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="217" x="453.5" y="461.502"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="217" x="453.5" y="461.502"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="463.5" y="483.959">Configuration property key:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="194" x="463.5" y="499.0527">substitution.placeholder.end, value:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="463.5" y="514.1465">&amp;&amp;endPlaceholder, origin:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="180" x="463.5" y="529.2402">classpath:substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="214" x="455" y="561.877"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="214" x="455" y="561.877"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="465" y="584.334">Configuration property key:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="185" x="465" y="599.4277">substitution.target.directory, value:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="191" x="465" y="614.5215">target/generated/markdown, origin:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="180" x="465" y="629.6152">classpath:substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="662.252"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="662.252"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="731" y="684.709">Source code location path:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="731" y="699.8027">/C:/Users/semenko/git/credibledoc/cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="731" y="714.8965">edible-doc/substitution/substitution-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="731" y="729.9902">core/target/classes/</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="762.627"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="762.627"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="185" x="731" y="785.084">Resource cannot be found in a jar</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="731" y="800.1777">file. LocationPath:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="731" y="815.2715">/C:/Users/semenko/git/credibledoc/cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="731" y="830.3652">edible-doc/substitution/substitution-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="731" y="845.459">core/target/classes/</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="719" y="878.0957"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="719" y="878.0957"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="729" y="900.5527">Resource has been found in the</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="729" y="915.6465">directory:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="729" y="930.7402">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="729" y="945.834">dible-doc\credible-doc-generator\targ</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="169" x="729" y="960.9277">et\classes\template\markdown</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="2127.127"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="2127.127"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="731" y="2149.584">Source code location path:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="731" y="2164.6777">/C:/Users/semenko/git/credibledoc/cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="731" y="2179.7715">edible-doc/substitution/substitution-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="731" y="2194.8652">core/target/classes/</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="2227.502"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="2227.502"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="185" x="731" y="2249.959">Resource cannot be found in a jar</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="731" y="2265.0527">file. LocationPath:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="731" y="2280.1465">/C:/Users/semenko/git/credibledoc/cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="731" y="2295.2402">edible-doc/substitution/substitution-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="731" y="2310.334">core/target/classes/</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="719" y="2342.9707"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="719" y="2342.9707"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="729" y="2365.4277">Resource has been found in the</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="729" y="2380.5215">directory:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="729" y="2395.6152">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="729" y="2410.709">dible-doc\credible-doc-generator\targ</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="169" x="729" y="2425.8027">et\classes\template\markdown</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="5002.5332"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="5002.5332"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="731" y="5024.9902">Source code location path:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="731" y="5040.084">/C:/Users/semenko/git/credibledoc/cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="731" y="5055.1777">edible-doc/substitution/substitution-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="731" y="5070.2715">core/target/classes/</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="5102.9082"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="5102.9082"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="185" x="731" y="5125.3652">Resource cannot be found in a jar</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="731" y="5140.459">file. LocationPath:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="731" y="5155.5527">/C:/Users/semenko/git/credibledoc/cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="731" y="5170.6465">edible-doc/substitution/substitution-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="731" y="5185.7402">core/target/classes/</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="719" y="5218.377"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="719" y="5218.377"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="729" y="5240.834">Resource has been found in the</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="729" y="5255.9277">directory:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="729" y="5271.0215">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="729" y="5286.1152">dible-doc\credible-doc-generator\targ</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="169" x="729" y="5301.209">et\classes\template\markdown</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="7689.252"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="7689.252"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="145" x="731" y="7711.709">Source code location path:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="731" y="7726.8027">/C:/Users/semenko/git/credibledoc/cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="731" y="7741.8965">edible-doc/substitution/substitution-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="731" y="7756.9902">core/target/classes/</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="7789.627"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="223" x="721" y="7789.627"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="185" x="731" y="7812.084">Resource cannot be found in a jar</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="731" y="7827.1777">file. LocationPath:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="731" y="7842.2715">/C:/Users/semenko/git/credibledoc/cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="731" y="7857.3652">edible-doc/substitution/substitution-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="731" y="7872.459">core/target/classes/</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="719" y="7905.0957"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="227" x="719" y="7905.0957"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="176" x="729" y="7927.5527">Resource has been found in the</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="729" y="7942.6465">directory:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="729" y="7957.7402">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="203" x="729" y="7972.834">dible-doc\credible-doc-generator\targ</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="169" x="729" y="7987.9277">et\classes\template\markdown</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="276.5938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="445" x="956" y="993.5645"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="276.5938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="445" x="956" y="993.5645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="303" x="966" y="1016.0215">Markdown templates will be loaded from the resources:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="346" x="966" y="1031.1152">[/template/markdown/credible-doc-generator/doc/diagrams.md,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="317" x="966" y="1046.209">/template/markdown/credible-doc-generator/README.md,</text>
@@ -181,128 +181,128 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="351" x="966" y="1227.334">/template/markdown/substitution/substitution-core/README.md,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="387" x="966" y="1242.4277">/template/markdown/substitution/substitution-generators/README.md,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="376" x="966" y="1257.5215">/template/markdown/substitution/substitution-reporting/README.md]</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="415" x="971" y="1345.252"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="415" x="971" y="1345.252"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="981" y="1367.709">File will be parsed:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="395" x="981" y="1382.8027">C:\Users\semenko\git\credibledoc\credible-doc\log\credible-doc-generat</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="31" x="981" y="1397.8965">or.log</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="1064" y="1430.5332"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="1064" y="1430.5332"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="209" x="1074" y="1452.9902">Report prepared. Report: 1741979653</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="415" x="971" y="1540.7207"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="415" x="971" y="1540.7207"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="981" y="1563.1777">File will be parsed:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="395" x="981" y="1578.2715">C:\Users\semenko\git\credibledoc\credible-doc\log\credible-doc-generat</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="45" x="981" y="1593.3652">or_1.log</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="1064" y="1626.002"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="1064" y="1626.002"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="209" x="1074" y="1648.459">Report prepared. Report: 1496355635</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="415" x="971" y="1736.1895"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="415" x="971" y="1736.1895"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="981" y="1758.6465">File will be parsed:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="395" x="981" y="1773.7402">C:\Users\semenko\git\credibledoc\credible-doc\log\credible-doc-generat</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="45" x="981" y="1788.834">or_1.log</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="222" x="1067.5" y="1821.4707"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="222" x="1067.5" y="1821.4707"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="202" x="1077.5" y="1843.9277">Report prepared. Report: 106374177</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="415" x="971" y="1931.6582"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="415" x="971" y="1931.6582"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="981" y="1954.1152">File will be parsed:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="395" x="981" y="1969.209">C:\Users\semenko\git\credibledoc\credible-doc\log\credible-doc-generat</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="45" x="981" y="1984.3027">or_1.log</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="1064" y="2016.9395"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="1064" y="2016.9395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="209" x="1074" y="2039.3965">Report prepared. Report: 1388278453</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="1095.5" y="2072.0332"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="1095.5" y="2072.0332"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="1105.5" y="2094.4902">Report documents created</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="1444" y="1290.1582"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="1444" y="1290.1582"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="1454" y="1312.6152">Line processors prepared</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="1444" y="1485.627"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="1444" y="1485.627"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="1454" y="1508.084">Line processors prepared</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="1668.5" y="1681.0957"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="1668.5" y="1681.0957"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="1678.5" y="1703.5527">Line processors prepared</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="1913.5" y="1876.5645"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="1913.5" y="1876.5645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="143" x="1923.5" y="1899.0215">Line processors prepared</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="263" x="2139" y="3537.6582"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="263" x="2139" y="3537.6582"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="165" x="2149" y="3560.1152">Method createReports started,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="178" x="2149" y="3575.209">reportDocumentTypes: [interface</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="243" x="2149" y="3590.3027">com.credibledoc.substitution.doc.module.su</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="188" x="2149" y="3605.3965">bstitution.report.UmlDiagramType]</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="3638.0332"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="3638.0332"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="2166.5" y="3660.4902">Method createReports started. Report:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="117" x="2166.5" y="3675.584">Report{directory=null,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="111" x="2166.5" y="3690.6777">transactionsFilter=[],</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="89" x="2166.5" y="3705.7715">linesNumber=0,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="199" x="2166.5" y="3720.8652">creationOfSelfDocumentation=false}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="3838.7832"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="3838.7832"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2165.5" y="3861.2402">The first line read from ReaderService.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2165.5" y="3876.334">Line: 06.07.2019</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="3891.4277">18:08:15.074|main|INFO |...</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="169" x="2186" y="3924.0645"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="3891.4277">19:32:05.020|main|INFO |...</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="169" x="2186" y="3924.0645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2196" y="3946.5215">41 lines processed (100%)</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="3979.1582"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="3979.1582"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="2166.5" y="4001.6152">Method createReports started. Report:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="117" x="2166.5" y="4016.709">Report{directory=null,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="111" x="2166.5" y="4031.8027">transactionsFilter=[],</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="89" x="2166.5" y="4046.8965">linesNumber=0,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="199" x="2166.5" y="4061.9902">creationOfSelfDocumentation=false}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="4179.9082"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="4179.9082"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2165.5" y="4202.3652">The first line read from ReaderService.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2165.5" y="4217.459">Line: 06.07.2019</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4232.5527">18:01:08.475|main|INFO |...</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="2182.5" y="4265.1895"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4232.5527">19:00:28.982|main|INFO |...</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="2182.5" y="4265.1895"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="2192.5" y="4287.6465">114 lines processed (100%)</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="4320.2832"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="4320.2832"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="2166.5" y="4342.7402">Method createReports started. Report:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="117" x="2166.5" y="4357.834">Report{directory=null,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="111" x="2166.5" y="4372.9277">transactionsFilter=[],</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="89" x="2166.5" y="4388.0215">linesNumber=0,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="199" x="2166.5" y="4403.1152">creationOfSelfDocumentation=false}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="4521.0332"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="4521.0332"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2165.5" y="4543.4902">The first line read from ReaderService.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2165.5" y="4558.584">Line: 06.07.2019</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4573.6777">18:01:08.475|main|INFO |...</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="2182.5" y="4606.3145"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4573.6777">19:00:28.982|main|INFO |...</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="2182.5" y="4606.3145"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="2192.5" y="4628.7715">114 lines processed (100%)</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="4661.4082"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="4661.4082"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="2166.5" y="4683.8652">Method createReports started. Report:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="117" x="2166.5" y="4698.959">Report{directory=null,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="111" x="2166.5" y="4714.0527">transactionsFilter=[],</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="89" x="2166.5" y="4729.1465">linesNumber=0,</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="199" x="2166.5" y="4744.2402">creationOfSelfDocumentation=false}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="4862.1582"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="4862.1582"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2165.5" y="4884.6152">The first line read from ReaderService.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2165.5" y="4899.709">Line: 06.07.2019</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4914.8027">18:01:08.475|main|INFO |...</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="2182.5" y="4947.4395"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4914.8027">19:00:28.982|main|INFO |...</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="2182.5" y="4947.4395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="2192.5" y="4969.8965">114 lines processed (100%)</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="3753.502"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="3753.502"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="2422" y="3775.959">Duration of</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="150" x="2422" y="3791.0527">prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="3806.1465">2,916208 milliseconds</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="4094.627"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="3806.1465">4,158794 milliseconds</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="4094.627"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="2422" y="4117.084">Duration of</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="150" x="2422" y="4132.1777">prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4147.2715">0,312225 milliseconds</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="4435.752"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4147.2715">0,317357 milliseconds</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="4435.752"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="2422" y="4458.209">Duration of</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="150" x="2422" y="4473.3027">prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4488.3965">0,280647 milliseconds</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="4776.877"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4488.3965">0,279463 milliseconds</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="4776.877"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="2422" y="4799.334">Duration of</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="150" x="2422" y="4814.4277">prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4829.5215">0,363539 milliseconds</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="5333.8457"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4829.5215">0,280253 milliseconds</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="5333.8457"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="2616.5" y="5356.3027">DiagramDescription: activity3</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="5710.4395"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="5710.4395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="2616.5" y="5732.8965">DiagramDescription: activity3</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="6102.127"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="6102.127"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="2616.5" y="6124.584">DiagramDescription: activity3</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="6478.7207"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="6478.7207"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="2616.5" y="6501.1777">DiagramDescription: activity3</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="202" x="2595" y="6885.502"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="202" x="2595" y="6885.502"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="182" x="2605" y="6907.959">DiagramDescription: (16 entities)</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="202" x="2595" y="12138.1895"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="202" x="2595" y="12138.1895"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="182" x="2605" y="12160.6465">DiagramDescription: (26 entities)</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="5388.9395"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="5388.9395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="2825.5" y="5411.3965">File created:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2825.5" y="5426.4902">C:\Users\semenko\git\credibledoc\cred</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2825.5" y="5441.584">ible-doc\target\generated\markdown\cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="218" x="2825.5" y="5456.6777">edible-doc-generator\doc\img\diagrams</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="57" x="2825.5" y="5471.7715">.md_1.svg</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="236" x="2816.5" y="5504.4082"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="236" x="2816.5" y="5504.4082"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2826.5" y="5526.8652">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2826.5" y="5541.959">{"resource":"/template/markdown/credi</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2826.5" y="5557.0527">ble-doc-generator/doc/diagrams.md","c</text>
@@ -314,13 +314,13 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="191" x="2826.5" y="5647.6152">credible-doc-generator.log.","id":"1"</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="206" x="2826.5" y="5662.709">,"parameters":{"sourceFileRelativePat</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="195" x="2826.5" y="5677.8027">h":"log/credible-doc-generator.log"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="5765.5332"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="5765.5332"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="2825.5" y="5787.9902">File created:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2825.5" y="5803.084">C:\Users\semenko\git\credibledoc\cred</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2825.5" y="5818.1777">ible-doc\target\generated\markdown\cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="218" x="2825.5" y="5833.2715">edible-doc-generator\doc\img\diagrams</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="57" x="2825.5" y="5848.3652">.md_2.svg</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="201.125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="236" x="2816.5" y="5881.002"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="201.125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="236" x="2816.5" y="5881.002"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2826.5" y="5903.459">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2826.5" y="5918.5527">{"resource":"/template/markdown/credi</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2826.5" y="5933.6465">ble-doc-generator/doc/diagrams.md","c</text>
@@ -333,13 +333,13 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2826.5" y="6039.3027">2","parameters":{"sourceFileRelativeP</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="200" x="2826.5" y="6054.3965">ath":"log/credible-doc-generator_1.lo</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="19" x="2826.5" y="6069.4902">g"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="6157.2207"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="6157.2207"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="2825.5" y="6179.6777">File created:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2825.5" y="6194.7715">C:\Users\semenko\git\credibledoc\cred</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2825.5" y="6209.8652">ible-doc\target\generated\markdown\cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="218" x="2825.5" y="6224.959">edible-doc-generator\doc\img\diagrams</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="57" x="2825.5" y="6240.0527">.md_3.svg</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="6272.6895"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="6272.6895"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2827" y="6295.1465">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2827" y="6310.2402">{"resource":"/template/markdown/credi</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2827" y="6325.334">ble-doc-generator/doc/diagrams.md","c</text>
@@ -351,13 +351,13 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="193" x="2827" y="6415.8965">launching.","id":"3","parameters":{"s</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="199" x="2827" y="6430.9902">ourceFileRelativePath":"log/credible-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="123" x="2827" y="6446.084">doc-generator_1.log"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="6533.8145"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="6533.8145"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="2825.5" y="6556.2715">File created:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2825.5" y="6571.3652">C:\Users\semenko\git\credibledoc\cred</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2825.5" y="6586.459">ible-doc\target\generated\markdown\cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="218" x="2825.5" y="6601.5527">edible-doc-generator\doc\img\diagrams</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="57" x="2825.5" y="6616.6465">.md_4.svg</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="216.2188" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="236" x="2816.5" y="6649.2832"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="216.2188" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="236" x="2816.5" y="6649.2832"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2826.5" y="6671.7402">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2826.5" y="6686.834">{"resource":"/template/markdown/credi</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2826.5" y="6701.9277">ble-doc-generator/doc/diagrams.md","c</text>
@@ -371,13 +371,13 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2826.5" y="6822.6777">4","parameters":{"sourceFileRelativeP</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="200" x="2826.5" y="6837.7715">ath":"log/credible-doc-generator_1.lo</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="19" x="2826.5" y="6852.8652">g"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="6940.5957"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="6940.5957"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="2825.5" y="6963.0527">File created:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2825.5" y="6978.1465">C:\Users\semenko\git\credibledoc\cred</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2825.5" y="6993.2402">ible-doc\target\generated\markdown\cr</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="218" x="2825.5" y="7008.334">edible-doc-generator\doc\img\diagrams</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="57" x="2825.5" y="7023.4277">.md_5.svg</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="276.5938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="251" x="2809" y="7056.0645"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="276.5938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="251" x="2809" y="7056.0645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2819" y="7078.5215">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2819" y="7093.6152">{"resource":"/template/markdown/credi</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2819" y="7108.709">ble-doc-generator/doc/diagrams.md","c</text>
@@ -395,13 +395,13 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="199" x="2819" y="7289.834">tion","ignoreInnerPackages":"true","s</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="217" x="2819" y="7304.9277">ourceRelativePathsPipeSeparated":"cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="2819" y="7320.0215">dible-doc-generator/src/main/java"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="239" x="2815" y="7352.6582"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="239" x="2815" y="7352.6582"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2825" y="7375.1152">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2825" y="7390.209">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2825" y="7405.3027">dible-doc\target\generated\markdown\c</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="219" x="2825" y="7420.3965">redible-doc-generator\doc\diagrams.md</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="0" x="2828" y="7435.4902"/>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="201.125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="249" x="2810" y="7468.127"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="201.125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="249" x="2810" y="7468.127"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2820" y="7490.584">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2820" y="7505.6777">{"resource":"/template/markdown/credi</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="229" x="2820" y="7520.7715">ble-doc-generator/README.md","classNa</text>
@@ -414,7 +414,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="205" x="2820" y="7626.4277">RelativePath":"credible-doc-generator</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="2820" y="7641.5215">/target","jarNamePrefix":"credible-do</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="79" x="2820" y="7656.6152">c-generator-"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="170.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="249" x="2810" y="8020.5645"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="170.9375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="249" x="2810" y="8020.5645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2820" y="8043.0215">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2820" y="8058.1152">{"resource":"/template/markdown/credi</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="229" x="2820" y="8073.209">ble-doc-generator/README.md","classNa</text>
@@ -425,23 +425,23 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="158" x="2820" y="8148.6777">of the credible-doc-generator</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="188" x="2820" y="8163.7715">application.","id":"2","parameters":{</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="93" x="2820" y="8178.8652">"endWith":".md"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="234" x="2817.5" y="8211.502"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="234" x="2817.5" y="8211.502"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2827.5" y="8233.959">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2827.5" y="8249.0527">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2827.5" y="8264.1465">dible-doc\target\generated\markdown\c</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="193" x="2827.5" y="8279.2402">redible-doc-generator\README.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="8311.877"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="8311.877"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2827" y="8334.334">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2827" y="8349.4277">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2827" y="8364.5215">dible-doc\target\generated\markdown\d</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="79" x="2827" y="8379.6152">oc\release.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="8412.252"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="238" x="2815.5" y="8412.252"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2825.5" y="8434.709">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2825.5" y="8449.8027">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2825.5" y="8464.8965">dible-doc\target\generated\markdown\l</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="218" x="2825.5" y="8479.9902">og-combiner-parent\log-combiner\doc\u</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="147" x="2825.5" y="8495.084">sage\programmatically.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="8582.8145"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="8582.8145"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2817" y="8605.2715">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2817" y="8620.3652">{"resource":"/template/markdown/log-c</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="235" x="2817" y="8635.459">ombiner-parent/log-combiner/README.md</text>
@@ -453,7 +453,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="177" x="2817" y="8726.0215">VersionSeparator":"-","url":"https:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="234" x="2817" y="8741.1152">//repo1.maven.org/maven2/com/credibledo</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="212" x="2817" y="8756.209">c/log-combiner/maven-metadata.xml"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="8843.9395"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="8843.9395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2817" y="8866.3965">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2817" y="8881.4902">{"resource":"/template/markdown/log-c</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="235" x="2817" y="8896.584">ombiner-parent/log-combiner/README.md</text>
@@ -465,7 +465,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="177" x="2817" y="8987.1465">VersionSeparator":"-","url":"https:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="234" x="2817" y="9002.2402">//repo1.maven.org/maven2/com/credibledo</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="212" x="2817" y="9017.334">c/log-combiner/maven-metadata.xml"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="9105.0645"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="9105.0645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2817" y="9127.5215">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2817" y="9142.6152">{"resource":"/template/markdown/log-c</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="235" x="2817" y="9157.709">ombiner-parent/log-combiner/README.md</text>
@@ -477,7 +477,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="177" x="2817" y="9248.2715">VersionSeparator":"-","url":"https:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="234" x="2817" y="9263.3652">//repo1.maven.org/maven2/com/credibledo</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="212" x="2817" y="9278.459">c/log-combiner/maven-metadata.xml"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="9366.1895"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="9366.1895"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2817" y="9388.6465">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2817" y="9403.7402">{"resource":"/template/markdown/log-c</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="235" x="2817" y="9418.834">ombiner-parent/log-combiner/README.md</text>
@@ -489,7 +489,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="177" x="2817" y="9509.3965">VersionSeparator":"-","url":"https:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="234" x="2817" y="9524.4902">//repo1.maven.org/maven2/com/credibledo</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="212" x="2817" y="9539.584">c/log-combiner/maven-metadata.xml"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="9627.3145"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="186.0313" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="9627.3145"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2817" y="9649.7715">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2817" y="9664.8652">{"resource":"/template/markdown/log-c</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="235" x="2817" y="9679.959">ombiner-parent/log-combiner/README.md</text>
@@ -501,13 +501,13 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="177" x="2817" y="9770.5215">VersionSeparator":"-","url":"https:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="234" x="2817" y="9785.6152">//repo1.maven.org/maven2/com/credibledo</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="212" x="2817" y="9800.709">c/log-combiner/maven-metadata.xml"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="2809.5" y="9833.3457"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="2809.5" y="9833.3457"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2819.5" y="9855.8027">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2819.5" y="9870.8965">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2819.5" y="9885.9902">dible-doc\target\generated\markdown\l</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="230" x="2819.5" y="9901.084">og-combiner-parent\log-combiner\READM</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="29" x="2819.5" y="9916.1777">E.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="2809.5" y="10003.9082"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="2809.5" y="10003.9082"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2819.5" y="10026.3652">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2819.5" y="10041.459">{"resource":"/template/markdown/log-c</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="212" x="2819.5" y="10056.5527">ombiner-parent/log-combiner-core/doc</text>
@@ -522,7 +522,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="220" x="2819.5" y="10192.3965">tps://repo1.maven.org/maven2/com/cred</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="223" x="2819.5" y="10207.4902">ibledoc/log-combiner-core/maven-metad</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="51" x="2819.5" y="10222.584">ata.xml"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="2809.5" y="10310.3145"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="250" x="2809.5" y="10310.3145"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2819.5" y="10332.7715">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2819.5" y="10347.8652">{"resource":"/template/markdown/log-c</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="212" x="2819.5" y="10362.959">ombiner-parent/log-combiner-core/doc</text>
@@ -537,56 +537,56 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="222" x="2819.5" y="10498.8027">o1.maven.org/maven2/com/credibledoc/l</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="228" x="2819.5" y="10513.8965">og-combiner-core/maven-metadata.xml"}}</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="0" x="2822.5" y="10528.9902"/>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="233" x="2818" y="10561.627"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="233" x="2818" y="10561.627"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2828" y="10584.084">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2828" y="10599.1777">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2828" y="10614.2715">dible-doc\target\generated\markdown\l</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="213" x="2828" y="10629.3652">og-combiner-parent\log-combiner-core</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="82" x="2828" y="10644.459">\doc\usage.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="233" x="2818" y="10677.0957"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="233" x="2818" y="10677.0957"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2828" y="10699.5527">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2828" y="10714.6465">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2828" y="10729.7402">dible-doc\target\generated\markdown\l</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="213" x="2828" y="10744.834">og-combiner-parent\log-combiner-core</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="2828" y="10759.9277">\README.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="231" x="2819" y="10792.5645"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="231" x="2819" y="10792.5645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2829" y="10815.0215">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2829" y="10830.1152">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2829" y="10845.209">dible-doc\target\generated\markdown\l</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="183" x="2829" y="10860.3027">og-combiner-parent\README.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="10892.9395"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="10892.9395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2827" y="10915.3965">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2827" y="10930.4902">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2827" y="10945.584">dible-doc\target\generated\markdown\p</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="194" x="2827" y="10960.6777">lantuml\plantuml-core\README.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="10993.3145"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="10993.3145"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2827" y="11015.7715">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2827" y="11030.8652">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2827" y="11045.959">dible-doc\target\generated\markdown\p</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="115" x="2827" y="11061.0527">lantuml\README.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="237" x="2816" y="11093.6895"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="237" x="2816" y="11093.6895"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2826" y="11116.1465">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2826" y="11131.2402">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="217" x="2826" y="11146.334">dible-doc\target\generated\markdown\R</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="2826" y="11161.4277">EADME.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="11194.0645"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="11194.0645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2827" y="11216.5215">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2827" y="11231.6152">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2827" y="11246.709">dible-doc\target\generated\markdown\s</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="131" x="2827" y="11261.8027">ubstitution\README.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="11294.4395"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="11294.4395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2827" y="11316.8965">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2827" y="11331.9902">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2827" y="11347.084">dible-doc\target\generated\markdown\s</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="2827" y="11362.1777">ubstitution\substitution-core\README.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="18" x="2827" y="11377.2715">md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="11409.9082"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="11409.9082"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2827" y="11432.3652">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2827" y="11447.459">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2827" y="11462.5527">dible-doc\target\generated\markdown\s</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="200" x="2827" y="11477.6465">ubstitution\substitution-generators\R</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="2827" y="11492.7402">EADME.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="242" x="2813.5" y="11580.4707"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="242" x="2813.5" y="11580.4707"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2823.5" y="11602.9277">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2823.5" y="11618.0215">{"resource":"/template/markdown/subst</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="206" x="2823.5" y="11633.1152">itution/substitution-reporting/README</text>
@@ -601,7 +601,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="220" x="2823.5" y="11768.959">tps://repo1.maven.org/maven2/com/cred</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="204" x="2823.5" y="11784.0527">ibledoc/substitution-reporting/maven-</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="86" x="2823.5" y="11799.1465">metadata.xml"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="246" x="2811.5" y="11886.877"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="231.3125" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="246" x="2811.5" y="11886.877"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2821.5" y="11909.334">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2821.5" y="11924.4277">{"resource":"/template/markdown/subst</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="206" x="2821.5" y="11939.5215">itution/substitution-reporting/README</text>
@@ -616,13 +616,13 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="226" x="2821.5" y="12075.3652">o1.maven.org/maven2/com/credibledoc/s</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="209" x="2821.5" y="12090.459">ubstitution-reporting/maven-metadata.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="31" x="2821.5" y="12105.5527">xml"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="12193.2832"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="12193.2832"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="2827" y="12215.7402">File created:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2827" y="12230.834">C:\Users\semenko\git\credibledoc\cred</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2827" y="12245.9277">ible-doc\target\generated\markdown\su</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="194" x="2827" y="12261.0215">bstitution\substitution-reporting\img</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="110" x="2827" y="12276.1152">\README.md_3.svg</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="306.7813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="12308.752"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="306.7813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="12308.752"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2817" y="12331.209">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="214" x="2817" y="12346.3027">{"resource":"/template/markdown/subst</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="206" x="2817" y="12361.3965">itution/substitution-reporting/README</text>
@@ -642,30 +642,30 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="213" x="2817" y="12572.709">eRelativePathsPipeSeparated":"substit</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="198" x="2817" y="12587.8027">ution/substitution-reporting/src/main</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="37" x="2817" y="12602.8965">/java"}}</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="12635.5332"/>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="235" x="2817" y="12635.5332"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2827" y="12657.9902">File is generated</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="207" x="2827" y="12673.084">C:\Users\semenko\git\credibledoc\cre</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="215" x="2827" y="12688.1777">dible-doc\target\generated\markdown\s</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="197" x="2827" y="12703.2715">ubstitution\substitution-reporting\RE</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="54" x="2827" y="12718.3652">ADME.md</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="8527.7207"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="8550.1777">Result: log-combiner-1.0.8</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="8788.8457"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="8811.3027">Result: log-combiner-1.0.8</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="9049.9707"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="9072.4277">Result: log-combiner-1.0.8</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="9311.0957"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="9333.5527">Result: log-combiner-1.0.8</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="9572.2207"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="9594.6777">Result: log-combiner-1.0.8</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="3083.5" y="9948.8145"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="3093.5" y="9971.2715">Result: log-combiner-core-1.0.8</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="129" x="3116" y="10255.2207"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="109" x="3126" y="10277.6777">LatestVersion: 1.0.8</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="210" x="3075.5" y="11525.377"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="190" x="3085.5" y="11547.834">Result: substitution-reporting-1.0.8</text>
-    <rect fill="#FEFECE" filter="url(#f1r3gexctahswp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="129" x="3116" y="11831.7832"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="109" x="3126" y="11854.2402">LatestVersion: 1.0.8</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="8527.7207"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="8550.1777">Result: log-combiner-1.0.9</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="8788.8457"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="8811.3027">Result: log-combiner-1.0.9</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="9049.9707"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="9072.4277">Result: log-combiner-1.0.9</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="9311.0957"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="9333.5527">Result: log-combiner-1.0.9</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="3097.5" y="9572.2207"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="3107.5" y="9594.6777">Result: log-combiner-1.0.9</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="3083.5" y="9948.8145"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="3093.5" y="9971.2715">Result: log-combiner-core-1.0.9</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="129" x="3116" y="10255.2207"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="109" x="3126" y="10277.6777">LatestVersion: 1.0.9</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="210" x="3075.5" y="11525.377"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="190" x="3085.5" y="11547.834">Result: substitution-reporting-1.0.9</text>
+    <rect fill="#FEFECE" filter="url(#f1cajm07zhvo6r)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="129" x="3116" y="11831.7832"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="109" x="3126" y="11854.2402">LatestVersion: 1.0.9</text>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="212.5" x2="212.5" y1="70.1895" y2="90.1895"/>
     <polygon fill="#A80036" points="208.5,80.1895,212.5,90.1895,216.5,80.1895,212.5,84.1895" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="212.5" x2="212.5" y1="2569.002" y2="2589.002"/>
@@ -1255,12 +1255,12 @@
 |ReaderService|
     :Duration of 
     prepareBufferedReaders is 
-    2,916208 milliseconds;
+    4,158794 milliseconds;
 
 |VisualizerService|
     :The first line read from ReaderService. 
     Line: 06.07.2019 
-    18:08:15.074|main|INFO |...;
+    19:32:05.020|main|INFO |...;
 
 |VisualizerService|
     :41 lines processed (100%);
@@ -1275,12 +1275,12 @@
 |ReaderService|
     :Duration of 
     prepareBufferedReaders is 
-    0,312225 milliseconds;
+    0,317357 milliseconds;
 
 |VisualizerService|
     :The first line read from ReaderService. 
     Line: 06.07.2019 
-    18:01:08.475|main|INFO |...;
+    19:00:28.982|main|INFO |...;
 
 |VisualizerService|
     :114 lines processed (100%);
@@ -1295,12 +1295,12 @@
 |ReaderService|
     :Duration of 
     prepareBufferedReaders is 
-    0,280647 milliseconds;
+    0,279463 milliseconds;
 
 |VisualizerService|
     :The first line read from ReaderService. 
     Line: 06.07.2019 
-    18:01:08.475|main|INFO |...;
+    19:00:28.982|main|INFO |...;
 
 |VisualizerService|
     :114 lines processed (100%);
@@ -1315,12 +1315,12 @@
 |ReaderService|
     :Duration of 
     prepareBufferedReaders is 
-    0,363539 milliseconds;
+    0,280253 milliseconds;
 
 |VisualizerService|
     :The first line read from ReaderService. 
     Line: 06.07.2019 
-    18:01:08.475|main|INFO |...;
+    19:00:28.982|main|INFO |...;
 
 |VisualizerService|
     :114 lines processed (100%);
@@ -1542,7 +1542,7 @@
     sage\programmatically.md;
 
 |JarNameContentGenerator|
-    :Result: log-combiner-1.0.8;
+    :Result: log-combiner-1.0.9;
 
 |MarkdownService|
     :Content replaced. 
@@ -1558,7 +1558,7 @@
     c/log-combiner/maven-metadata.xml"}};
 
 |JarNameContentGenerator|
-    :Result: log-combiner-1.0.8;
+    :Result: log-combiner-1.0.9;
 
 |MarkdownService|
     :Content replaced. 
@@ -1574,7 +1574,7 @@
     c/log-combiner/maven-metadata.xml"}};
 
 |JarNameContentGenerator|
-    :Result: log-combiner-1.0.8;
+    :Result: log-combiner-1.0.9;
 
 |MarkdownService|
     :Content replaced. 
@@ -1590,7 +1590,7 @@
     c/log-combiner/maven-metadata.xml"}};
 
 |JarNameContentGenerator|
-    :Result: log-combiner-1.0.8;
+    :Result: log-combiner-1.0.9;
 
 |MarkdownService|
     :Content replaced. 
@@ -1606,7 +1606,7 @@
     c/log-combiner/maven-metadata.xml"}};
 
 |JarNameContentGenerator|
-    :Result: log-combiner-1.0.8;
+    :Result: log-combiner-1.0.9;
 
 |MarkdownService|
     :Content replaced. 
@@ -1629,7 +1629,7 @@
     E.md;
 
 |JarNameContentGenerator|
-    :Result: log-combiner-core-1.0.8;
+    :Result: log-combiner-core-1.0.9;
 
 |MarkdownService|
     :Content replaced. 
@@ -1648,7 +1648,7 @@
     ata.xml"}};
 
 |JarNameContentGenerator|
-    :LatestVersion: 1.0.8;
+    :LatestVersion: 1.0.9;
 
 |MarkdownService|
     :Content replaced. 
@@ -1725,7 +1725,7 @@
     EADME.md;
 
 |JarNameContentGenerator|
-    :Result: substitution-reporting-1.0.8;
+    :Result: substitution-reporting-1.0.9;
 
 |MarkdownService|
     :Content replaced. 
@@ -1744,7 +1744,7 @@
     metadata.xml"}};
 
 |JarNameContentGenerator|
-    :LatestVersion: 1.0.8;
+    :LatestVersion: 1.0.9;
 
 |MarkdownService|
     :Content replaced. 
