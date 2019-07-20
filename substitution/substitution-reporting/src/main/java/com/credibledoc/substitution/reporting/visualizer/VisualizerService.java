@@ -84,7 +84,7 @@ public class VisualizerService {
                 List<String> multiline = readerService.readMultiline(line, currentReader);
 
                 currentLineNumber = currentLineNumber + multiline.size();
-                if (currentLineNumber % 100000 == 0) {
+                if (report.getLinesNumber() > 0 && currentLineNumber % 100000 == 0) {
                     int perCent = (int) (currentLineNumber * 100f) / report.getLinesNumber();
                     logger.debug("{} lines processed ({}%)", currentLineNumber, perCent);
                 }
