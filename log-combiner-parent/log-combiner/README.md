@@ -18,31 +18,31 @@ see the image
 
 
 ## Usage
-    java -jar log-combiner-1.0.9.jar <folderAbsolutePath> [configAbsolutePath]
+    java -jar log-combiner-1.0.10.jar <folderAbsolutePath> [configAbsolutePath]
 
 ## Examples
 Combine all files in the `/var/log/temp` folder recursively.
 
-    java -jar log-combiner-1.0.9.jar /var/log/temp
+    java -jar log-combiner-1.0.10.jar /var/log/temp
                              
 In case of existing `log-combiner.properties` configuration file log files will be
 merged with configuration parameters. Else default configuration parameters
 will be used and files will be joined by last modification time of files.
 
-    java -jar log-combiner-1.0.9.jar /var/log/temp /var/log/combiner/two-apps.properties
+    java -jar log-combiner-1.0.10.jar /var/log/temp /var/log/combiner/two-apps.properties
 In this case log files from the `/var/log/temp` folder will be merged. And the
 `/var/log/combiner/two-apps.properties` configuration file will be used. In this case you should create
 the `two-apps.properties` file in the `/var/log/combiner/` folder.
 
 ## Arguments description
-* `log-combiner-1.0.9.jar` (mandatory) is an executable jar file. Latest release is located on the Maven Central Repository.
+* `log-combiner-1.0.10.jar` (mandatory) is an executable jar file. Latest release is located on the Maven Central Repository.
 It can be [downloaded from the Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
 see a link next to the 'Files' in the page, see images above.
 * `folderAbsolutePath` (mandatory) is a path to a folder with log files for merging.
 Files will be parsed in this folder and sub-folders recursively.
 * `configAbsolutePath` (optional) is a configuration file path. Example of the file see below. If the `configAbsolutePath`
 is not defined in command line, default value is `log-combiner.properties` located
-in the same folder, next to the log-combiner-1.0.9.jar file.
+in the same folder, next to the log-combiner-1.0.10.jar file.
 If the configuration file not found then all files will be merged by last modification time.
 
 ## Configuration file log-combiner.properties
