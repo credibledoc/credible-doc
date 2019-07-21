@@ -29,6 +29,12 @@ import java.util.Set;
 public class VisualizerService {
 
     private static final Logger logger = LoggerFactory.getLogger(VisualizerService.class);
+    
+    /**
+     * Should an exception be thrown in case when the exception occurred?
+     * Default is true. In case when System property -DcredibledocIgnoreFailures=true set, exception will not thrown.
+     */
+    private static final String IGNORE_FAILURES = "credibledocIgnoreFailures";
 
     /**
      * Singleton.
@@ -81,19 +87,10 @@ public class VisualizerService {
             logger.info("The first line read from {}. Line: '{}...'", ReaderService.class.getSimpleName(), substring);
             while (line != null) {
                 currentReader = readerService.getCurrentReader(filesMergerState);
-                List<String> multiline = readerService.readMultiline(line, currentReader);
+                List<String> multiLine = readerService.readMultiline(line, currentReader);
 
-                currentLineNumber = currentLineNumber + multiline.size();
-                if (report.getLinesNumber() > 0 && currentLineNumber % 100000 == 0) {
-                    int perCent = (int) (currentLineNumber * 100f) / report.getLinesNumber();
-                    logger.debug("{} lines processed ({}%)", currentLineNumber, perCent);
-                }
-
-                for (ReportDocument reportDocument : reportDocuments) {
-                    if (reportDocumentTypes.contains(reportDocument.getReportDocumentType())) {
-                        transformerService.transformToReport(reportDocument, multiline, currentReader);
-                    }
-                }
+                currentLineNumber = transformMultiLine(multiLine, reportDocumentTypes, report, reportDocuments,
+                    currentReader, currentLineNumber, transformerService);
 
                 reportDocumentService.mergeReportDocumentsForAddition();
                 reportDocuments = reportDocumentService.getReportDocuments(report);
@@ -118,6 +115,38 @@ public class VisualizerService {
                 }
             }
         }
+    }
+
+    private int transformMultiLine(List<String> multiLine,
+                                   Collection<Class<? extends ReportDocumentType>> reportDocumentTypes,
+                                   Report report, List<ReportDocument> reportDocuments,
+                                   LogBufferedReader currentReader,
+                                   int currentLineNumber,
+                                   TransformerService transformerService) {
+        currentLineNumber = currentLineNumber + multiLine.size();
+        try {
+            if (report.getLinesNumber() > 0 && currentLineNumber % 100000 == 0) {
+                int perCent = (int) (currentLineNumber * 100f) / report.getLinesNumber();
+                logger.debug("{} lines processed ({}%)", currentLineNumber, perCent);
+            }
+
+            for (ReportDocument reportDocument : reportDocuments) {
+                if (reportDocumentTypes.contains(reportDocument.getReportDocumentType())) {
+                    transformerService.transformToReport(reportDocument, multiLine, currentReader);
+                }
+            }
+        } catch (Exception e) {
+            String message =
+                "Creation of reports failed." +
+                    " ReportDirectory: '" + getReportDirectoryPath(report) +
+                    "', line: '" + multiLine.get(0) + "'";
+            if ("true".equals(System.getProperty(IGNORE_FAILURES))) {
+                logger.error(message);
+            } else {
+                throw new SubstitutionRuntimeException(message, e);
+            }
+        }
+        return currentLineNumber;
     }
 
     private String getReportDirectoryPath(Report report) {
