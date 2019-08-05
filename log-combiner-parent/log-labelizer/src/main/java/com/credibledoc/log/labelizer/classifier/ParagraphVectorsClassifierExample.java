@@ -3,6 +3,10 @@ package com.credibledoc.log.labelizer.classifier;
 
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import org.apache.commons.io.FileUtils;
+import org.deeplearning4j.text.sentenceiterator.AggregatingSentenceIterator;
+import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
+import org.deeplearning4j.text.sentenceiterator.FileSentenceIterator;
+import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.nd4j.linalg.primitives.Pair;
@@ -105,7 +109,7 @@ public class ParagraphVectorsClassifierExample {
                     .learningRate(0.0025)
                     .minLearningRate(0.0001)
                     .batchSize(1000)
-                    .epochs(20)
+                    .epochs(1)
                     .iterate(iterator)
                     .trainWordVectors(true)
                     .tokenizerFactory(tokenizerFactory)
@@ -129,10 +133,12 @@ public class ParagraphVectorsClassifierExample {
       which categories our unlabeled document falls into.
       So we'll start loading our unlabeled documents and checking them
      */
-        ClassPathResource unClassifiedResource = new ClassPathResource("vectors/unlabeled");
+        ClassPathResource finance = new ClassPathResource("vectors/unlabeled/finance/f01.txt");
+        ClassPathResource health = new ClassPathResource("vectors/unlabeled/health/f01.txt");
         
-        FileLabelAwareIterator unClassifiedIterator = new FileLabelAwareIterator.Builder()
-            .addSourceFolder(unClassifiedResource.getFile())
+        SentenceIterator unClassifiedIterator = new AggregatingSentenceIterator.Builder()
+            .addSentenceIterator(new BasicLineIterator(finance.getFile()))
+            .addSentenceIterator(new FileSentenceIterator(health.getFile()))
             .build();
 
      /*
@@ -146,8 +152,11 @@ public class ParagraphVectorsClassifierExample {
         LabelSeeker seeker = new LabelSeeker(iterator.getLabelsSource().getLabels(),
             (InMemoryLookupTable<VocabWord>) paragraphVectors.getLookupTable());
 
-        while (unClassifiedIterator.hasNextDocument()) {
-            LabelledDocument document = unClassifiedIterator.nextDocument();
+        while (unClassifiedIterator.hasNext()) {
+            String sentence = unClassifiedIterator.nextSentence();
+            
+            LabelledDocument document = new LabelledDocument();
+            document.setContent(sentence);
             INDArray documentAsCentroid = meansBuilder.documentAsVector(document);
             List<Pair<String, Double>> scores = seeker.getScores(documentAsCentroid);
 
@@ -157,7 +166,8 @@ public class ParagraphVectorsClassifierExample {
           So, labels on these two documents are used like titles,
           just to visualize our classification done properly
          */
-            log.info("Document '{}' falls into the following categories: ", document.getLabels());
+            log.info("Document content: {}", document.getContent());
+            log.info("Document falls into the following categories: ");
             for (Pair<String, Double> score: scores) {
                 log.info("        {}: {}", score.getFirst(), score.getSecond());
             }
