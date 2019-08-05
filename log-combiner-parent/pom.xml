@@ -58,6 +58,7 @@
     <modules>
         <module>log-combiner-core</module>
         <module>log-combiner</module>
+        <module>log-labelizer</module>
     </modules>
 
     <distributionManagement>
