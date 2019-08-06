@@ -2,24 +2,24 @@ package com.credibledoc.log.labelizer.classifier;
 
 
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
+import com.credibledoc.log.labelizer.iterator.LineIterator;
 import org.apache.commons.io.FileUtils;
+import org.deeplearning4j.models.embeddings.inmemory.InMemoryLookupTable;
+import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
+import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
+import org.deeplearning4j.models.word2vec.VocabWord;
+import org.deeplearning4j.text.documentiterator.LabelAwareIterator;
+import org.deeplearning4j.text.documentiterator.LabelledDocument;
 import org.deeplearning4j.text.sentenceiterator.AggregatingSentenceIterator;
 import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
 import org.deeplearning4j.text.sentenceiterator.FileSentenceIterator;
 import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
-import org.nd4j.linalg.io.ClassPathResource;
-import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
-import org.nd4j.linalg.primitives.Pair;
-import org.deeplearning4j.models.embeddings.inmemory.InMemoryLookupTable;
-import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
-import org.deeplearning4j.models.word2vec.VocabWord;
-import org.deeplearning4j.text.documentiterator.FileLabelAwareIterator;
-import org.deeplearning4j.text.documentiterator.LabelAwareIterator;
-import org.deeplearning4j.text.documentiterator.LabelledDocument;
 import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.io.ClassPathResource;
+import org.nd4j.linalg.primitives.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,17 +59,17 @@ public class ParagraphVectorsClassifierExample {
         /*
                 Your output should be like this:
 
-                Document 'health' falls into the following categories:
-                    health: 0.29721372296220205
-                    science: 0.011684473733853906
-                    finance: -0.14755302887323793
-
-                Document 'finance' falls into the following categories:
-                    health: -0.17290237675941766
-                    science: -0.09579267574606627
-                    finance: 0.4460859189453788
-
-                    so,now we know categories for yet unseen documents
+                Document content: Treatment is recommended as soon as the diagnosis is made.
+                Document falls into the following categories: 
+                        finance: -0.17584866285324097
+                        health: 0.4141475260257721
+                        science: 0.026913458481431007
+                        
+                Document content: Initially created as a non-profit organisation, it was transformed into a joint-stock company.
+                Document falls into the following categories: 
+                        finance: 0.28525084257125854
+                        health: -0.10743410140275955
+                        science: 0.1450825184583664
          */
     }
 
@@ -85,7 +85,7 @@ public class ParagraphVectorsClassifierExample {
             ClassPathResource resource = new ClassPathResource("vectors/labeled");
 
             // build a iterator for our dataset
-            iterator = new FileLabelAwareIterator.Builder()
+            iterator = new LineIterator.Builder()
                 .addSourceFolder(resource.getFile())
                 .build();
 
@@ -147,32 +147,32 @@ public class ParagraphVectorsClassifierExample {
       with different "weight" for each.
      */
         MeansBuilder meansBuilder = new MeansBuilder(
-            (InMemoryLookupTable<VocabWord>)paragraphVectors.getLookupTable(),
+            (InMemoryLookupTable<VocabWord>) paragraphVectors.getLookupTable(),
             tokenizerFactory);
+
         LabelSeeker seeker = new LabelSeeker(iterator.getLabelsSource().getLabels(),
             (InMemoryLookupTable<VocabWord>) paragraphVectors.getLookupTable());
 
         while (unClassifiedIterator.hasNext()) {
             String sentence = unClassifiedIterator.nextSentence();
-            
             LabelledDocument document = new LabelledDocument();
             document.setContent(sentence);
             INDArray documentAsCentroid = meansBuilder.documentAsVector(document);
             List<Pair<String, Double>> scores = seeker.getScores(documentAsCentroid);
 
-         /*
-          please note, document.getLabel() is used just to show which document we're looking at now,
-          as a substitute for printing out the whole document name.
-          So, labels on these two documents are used like titles,
-          just to visualize our classification done properly
-         */
+             /*
+              please note, document.getLabel() is used just to show which document we're looking at now,
+              as a substitute for printing out the whole document name.
+              So, labels on these two documents are used like titles,
+              just to visualize our classification done properly
+             */
             log.info("Document content: {}", document.getContent());
             log.info("Document falls into the following categories: ");
+            
             for (Pair<String, Double> score: scores) {
                 log.info("        {}: {}", score.getFirst(), score.getSecond());
             }
         }
-
     }
 }
 
