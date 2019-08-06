@@ -12,7 +12,6 @@ import org.deeplearning4j.text.documentiterator.LabelAwareIterator;
 import org.deeplearning4j.text.documentiterator.LabelledDocument;
 import org.deeplearning4j.text.sentenceiterator.AggregatingSentenceIterator;
 import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
-import org.deeplearning4j.text.sentenceiterator.FileSentenceIterator;
 import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
 import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
@@ -128,24 +127,39 @@ public class ParagraphVectorsClassifierExample {
     }
 
     private void checkUnlabeledData() throws IOException {
-      /*
-      At this point we assume that we have model built and we can check
-      which categories our unlabeled document falls into.
-      So we'll start loading our unlabeled documents and checking them
-     */
+          /*
+          At this point we assume that we have model built and we can check
+          which categories our unlabeled document falls into.
+          So we'll start loading our unlabeled documents and checking them
+         */
         ClassPathResource finance = new ClassPathResource("vectors/unlabeled/finance/f01.txt");
         ClassPathResource health = new ClassPathResource("vectors/unlabeled/health/f01.txt");
+
+        List<Pair<String, Double>> scoresFinance = calculateScore(finance);
+        log.info("Document finance falls into the following categories: ");
+
+        for (Pair<String, Double> score: scoresFinance) {
+            log.info("f        {}: {}", score.getFirst(), score.getSecond());
+        }
         
+        List<Pair<String, Double>> scoresHealth = calculateScore(health);
+        log.info("Document health falls into the following categories: ");
+
+        for (Pair<String, Double> score: scoresHealth) {
+            log.info("h        {}: {}", score.getFirst(), score.getSecond());
+        }
+    }
+
+    private List<Pair<String, Double>> calculateScore(ClassPathResource classPathResource) throws IOException {
         SentenceIterator unClassifiedIterator = new AggregatingSentenceIterator.Builder()
-            .addSentenceIterator(new BasicLineIterator(finance.getFile()))
-            .addSentenceIterator(new FileSentenceIterator(health.getFile()))
+            .addSentenceIterator(new BasicLineIterator(classPathResource.getFile()))
             .build();
 
-     /*
-      Now we'll iterate over unlabeled data, and check which label it could be assigned to
-      Please note: for many domains it's normal to have 1 document fall into few labels at once,
-      with different "weight" for each.
-     */
+         /*
+          Now we'll iterate over unlabeled data, and check which label it could be assigned to
+          Please note: for many domains it's normal to have 1 document fall into few labels at once,
+          with different "weight" for each.
+         */
         MeansBuilder meansBuilder = new MeansBuilder(
             (InMemoryLookupTable<VocabWord>) paragraphVectors.getLookupTable(),
             tokenizerFactory);
@@ -153,6 +167,7 @@ public class ParagraphVectorsClassifierExample {
         LabelSeeker seeker = new LabelSeeker(iterator.getLabelsSource().getLabels(),
             (InMemoryLookupTable<VocabWord>) paragraphVectors.getLookupTable());
 
+        List<Pair<String, Double>> result = null;
         while (unClassifiedIterator.hasNext()) {
             String sentence = unClassifiedIterator.nextSentence();
             LabelledDocument document = new LabelledDocument();
@@ -168,11 +183,19 @@ public class ParagraphVectorsClassifierExample {
              */
             log.info("Document content: {}", document.getContent());
             log.info("Document falls into the following categories: ");
+
+            if (result == null) {
+                result = scores;
+            }
+            for (int i = 0; i < scores.size(); i++) {
+                result.get(i).setSecond((scores.get(i).getSecond() + result.get(i).getSecond()) / 2);
+            }
             
             for (Pair<String, Double> score: scores) {
                 log.info("        {}: {}", score.getFirst(), score.getSecond());
             }
         }
+        return result;
     }
 }
 

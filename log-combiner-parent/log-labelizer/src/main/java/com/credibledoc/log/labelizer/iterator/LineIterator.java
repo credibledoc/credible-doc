@@ -58,7 +58,7 @@ public class LineIterator implements LabelAwareIterator {
     }
 
     @Override
-    public synchronized LabelledDocument nextDocument() {
+    public LabelledDocument nextDocument() {
         synchronized (lines) {
             try {
                 if (lines.isEmpty()) {
@@ -79,7 +79,6 @@ public class LineIterator implements LabelAwareIterator {
             document.addLabel(label);
             return document;
         }
-        
     }
 
     @Override
