@@ -3,6 +3,8 @@ package com.credibledoc.log.labelizer.classifier;
 
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.credibledoc.log.labelizer.iterator.LineIterator;
+import com.credibledoc.log.labelizer.tokenizer.CharTokenizer;
+import com.credibledoc.log.labelizer.tokenizer.CharTokenizerFactory;
 import org.apache.commons.io.FileUtils;
 import org.deeplearning4j.models.embeddings.inmemory.InMemoryLookupTable;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -13,8 +15,6 @@ import org.deeplearning4j.text.documentiterator.LabelledDocument;
 import org.deeplearning4j.text.sentenceiterator.AggregatingSentenceIterator;
 import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
 import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
-import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
-import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.io.ClassPathResource;
@@ -24,7 +24,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is basic example for documents classification done with DL4j ParagraphVectors.
@@ -44,6 +47,9 @@ import java.util.List;
 public class ParagraphVectorsClassifierExample {
 
     private static final String VECTORS_PARAGRAPH_VECTORS_TXT = "vectors/serialized.wordVectors";
+    private static final double LEARNING_RATE = 0.0025;
+    private static final double MIN_LEARNING_RATE = 0.0001;
+    private static final int WINDOW_SIZE = 5;
     private ParagraphVectors paragraphVectors;
     private LabelAwareIterator iterator;
     private TokenizerFactory tokenizerFactory;
@@ -88,31 +94,36 @@ public class ParagraphVectorsClassifierExample {
                 .addSourceFolder(resource.getFile())
                 .build();
 
-            tokenizerFactory = new DefaultTokenizerFactory();
-            tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
+            tokenizerFactory = new CharTokenizerFactory();
+            
+            log.info("learningRate: {}", LEARNING_RATE);
+            log.info("minLearningRate: {}", MIN_LEARNING_RATE);
+            log.info("windowSize: {}", WINDOW_SIZE);
 
             // ParagraphVectors training configuration
             if (paragraphVectors == null) {
                 paragraphVectors = new ParagraphVectors.Builder()
-                    .learningRate(0.025)
-                    .minLearningRate(0.001)
+                    .learningRate(LEARNING_RATE)
+                    .minLearningRate(MIN_LEARNING_RATE)
                     .batchSize(1000)
                     .epochs(20)
                     .iterate(iterator)
                     .trainWordVectors(true)
                     .tokenizerFactory(tokenizerFactory)
+                    .windowSize(WINDOW_SIZE)
                     .build();
             } else {
                 // Train again the same ParagraphVectors
                 paragraphVectors = new ParagraphVectors.Builder()
-                    .learningRate(0.0025)
-                    .minLearningRate(0.0001)
+                    .learningRate(LEARNING_RATE)
+                    .minLearningRate(MIN_LEARNING_RATE)
                     .batchSize(1000)
-                    .epochs(1)
+                    .epochs(0)
                     .iterate(iterator)
-                    .trainWordVectors(true)
+                    .trainWordVectors(false)
                     .tokenizerFactory(tokenizerFactory)
                     .useExistingWordVectors(paragraphVectors)
+                    .windowSize(WINDOW_SIZE)
                     .build();
             }
 
@@ -137,14 +148,12 @@ public class ParagraphVectorsClassifierExample {
 
         List<Pair<String, Double>> scoresFinance = calculateScore(finance);
         log.info("Document finance falls into the following categories: ");
-
         for (Pair<String, Double> score: scoresFinance) {
             log.info("f        {}: {}", score.getFirst(), score.getSecond());
         }
         
         List<Pair<String, Double>> scoresHealth = calculateScore(health);
         log.info("Document health falls into the following categories: ");
-
         for (Pair<String, Double> score: scoresHealth) {
             log.info("h        {}: {}", score.getFirst(), score.getSecond());
         }
@@ -170,32 +179,81 @@ public class ParagraphVectorsClassifierExample {
         List<Pair<String, Double>> result = null;
         while (unClassifiedIterator.hasNext()) {
             String sentence = unClassifiedIterator.nextSentence();
-            LabelledDocument document = new LabelledDocument();
-            document.setContent(sentence);
-            INDArray documentAsCentroid = meansBuilder.documentAsVector(document);
-            List<Pair<String, Double>> scores = seeker.getScores(documentAsCentroid);
+            List<List<Pair<String, Double>>> scoreList = new ArrayList<>(sentence.length());
+            CharTokenizer charTokenizer = new CharTokenizer(sentence);
+            while (charTokenizer.hasMoreTokens()) {
+                int listIndex = charTokenizer.getListIndex();
+                String token = charTokenizer.nextToken();
+                LabelledDocument document = new LabelledDocument();
+                document.setContent(token);
+                INDArray documentAsCentroid = meansBuilder.documentAsVector(document);
+                List<Pair<String, Double>> scores;
+                if (documentAsCentroid != null) {
+                    scores = seeker.getScores(documentAsCentroid);
+                } else {
+                    scores = new ArrayList<>();
+                    List<Pair<String, Double>> lastPair = scoreList.get(scoreList.size() - 1);
+                    scores.add(new Pair<>(lastPair.get(0).getKey(), lastPair.get(0).getValue()));
+                    scores.add(new Pair<>(lastPair.get(1).getKey(), lastPair.get(0).getValue()));
+                    scores.add(new Pair<>(lastPair.get(2).getKey(), lastPair.get(0).getValue()));
+                }
+ 
+                calculateScore(scoreList, listIndex, token, scores);
 
-             /*
-              please note, document.getLabel() is used just to show which document we're looking at now,
-              as a substitute for printing out the whole document name.
-              So, labels on these two documents are used like titles,
-              just to visualize our classification done properly
-             */
-            log.info("Document content: {}", document.getContent());
-            log.info("Document falls into the following categories: ");
-
-            if (result == null) {
-                result = scores;
+                if (result == null) {
+                    result = scores;
+                }
+                for (int i = 0; i < scores.size(); i++) {
+                    result.get(i).setSecond((scores.get(i).getSecond() + result.get(i).getSecond()) / 2);
+                }
             }
-            for (int i = 0; i < scores.size(); i++) {
-                result.get(i).setSecond((scores.get(i).getSecond() + result.get(i).getSecond()) / 2);
-            }
-            
-            for (Pair<String, Double> score: scores) {
-                log.info("        {}: {}", score.getFirst(), score.getSecond());
-            }
+            printScoreOfSentence(sentence, scoreList);
         }
         return result;
+    }
+
+    private void calculateScore(List<List<Pair<String, Double>>> scoreList, int listIndex, String token,
+                                List<Pair<String, Double>> scores) {
+        for (int i = 0; i < token.length(); i++) {
+            if (scoreList.size() > listIndex + i) {
+                List<Pair<String, Double>> nextScores = scoreList.get(listIndex + i);
+                for (int k = 0; k < scores.size(); k++) {
+                    nextScores.get(k).setSecond((scores.get(k).getSecond() + nextScores.get(k).getSecond()) / 2);
+                }
+            } else {
+                scoreList.add(scores);
+            }
+        }
+    }
+
+    private void printScoreOfSentence(String sentence, List<List<Pair<String, Double>>> scoreList) {
+        StringBuilder stringBuilder = new StringBuilder(sentence.length() + 10);
+        Map<String, Integer> map = new HashMap<>();
+        for (List<Pair<String, Double>> scores : scoreList) {
+            double maxScore = scores.get(0).getSecond();
+            String label = scores.get(0).getFirst();
+            for (int i = 1; i < scores.size(); i++) {
+                Pair<String, Double> score = scores.get(i);
+                if (score.getSecond().compareTo(maxScore) > 0) {
+                    maxScore = score.getSecond();
+                    label = score.getFirst();
+                }
+            }
+            String flag = label.substring(0, 1);
+            stringBuilder.append(flag);
+            if (map.containsKey(flag)) {
+                map.put(flag, map.get(flag) + 1);
+            } else {
+                map.put(flag, 1);
+            }
+        }
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            stringBuilder.append(" ").append(entry.getKey()).append(":").append(entry.getValue());
+        }
+        if (log.isInfoEnabled()) {
+            log.info("Scores: {}", stringBuilder);
+            log.info("String: {}", sentence);
+        }
     }
 }
 

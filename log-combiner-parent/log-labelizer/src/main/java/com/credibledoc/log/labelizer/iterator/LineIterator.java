@@ -38,13 +38,8 @@ public class LineIterator implements LabelAwareIterator {
     /**
      * Current line in a file with {@link #filePosition}.
      */
-    private final List<String> lines = Collections.synchronizedList(new ArrayList<String>());
+    private final List<LabelledDocument> lines = Collections.synchronizedList(new ArrayList<LabelledDocument>());
 
-    /**
-     * Current file.
-     */
-    private File fileToRead;
-    
     private LabelsSource labelsSource;
 
     private LineIterator(List<File> files, LabelsSource source) {
@@ -62,22 +57,25 @@ public class LineIterator implements LabelAwareIterator {
         synchronized (lines) {
             try {
                 if (lines.isEmpty()) {
-                    fileToRead = files.get(filePosition.getAndIncrement());
+                    File fileToRead = files.get(filePosition.getAndIncrement());
+                    String label = fileToRead.getParentFile().getName();
                     String line;
                     try (BufferedReader reader = new BufferedReader(new FileReader(fileToRead))) {
                         while ((line = reader.readLine()) != null) {
-                            lines.add(line);
+                            for (String word : line.split("\\s")) {
+                                LabelledDocument document = new LabelledDocument();
+                                document.setContent(word);
+                                document.addLabel(label);
+                                lines.add(document);
+                            }
                         }
                     }
                 }
             } catch (Exception e) {
                 throw new LabelizerRuntimeException(e);
             }
-            LabelledDocument document = new LabelledDocument();
-            String label = fileToRead.getParentFile().getName();
-            document.setContent(lines.remove(0));
-            document.addLabel(label);
-            return document;
+           
+            return lines.remove(0);
         }
     }
 
