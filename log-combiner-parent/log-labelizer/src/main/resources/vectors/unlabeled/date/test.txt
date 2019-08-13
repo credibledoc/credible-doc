@@ -1,0 +1,43 @@
+JPMChaseHostConnector 06.02.2019;00:00:18.987 DEBUG [EE-ManagedScheduledExecutorService-default-Thread-3] c.w.loom.host.config.ConfigLoader - Going to load host configuration from file [cz.wincor.loom.host.config.ConfigLoader:168]
+JPMChaseHostConnector 06.02.2019;00:00:18.987 DEBUG [EE-ManagedScheduledExecutorService-default-Thread-3] c.w.l.i.h.J.c.JPMChaseMessageIdentifier - Create key: 180000000000W937 for message: 1800 [cz.wincor.loom.ifsf.hosts.JPMChase.connection.JPMChaseMessageIdentifier:28]
+JPMChaseHostConnector 06.02.2019;00:00:18.987 DEBUG [EE-ManagedScheduledExecutorService-default-Thread-3] c.w.l.h.a.c.SocketMessageChannel@1712049166 - Sending ISO message:
+ <isomsg>
+  <header>4C2E50544949534F4E4E20202020202020202020</header>
+  <f="0" v="1800"/>
+  <f="12" v="000018"/>
+  <f="13" v="02062019"/>
+  <f="37" v="00000000W937"/>
+  <f="62" v="T1026AEVICOM   1026180000000001"/>
+  <f="70" v="301"/>
+</isomsg>
+ [cz.wincor.loom.host.async2.channel.SocketMessageChannel:46]
+JPMChaseHostConnector 06.02.2019;00:00:18.988 DEBUG [EE-ManagedScheduledExecutorService-default-Thread-3] c.w.l.h.ifsf.net.IFSFSocketChannel - Message length and header hex-dump: 006700000000 [cz.wincor.loom.host.ifsf.net.IFSFSocketChannel:265]
+JPMChaseHostConnector 06.02.2019;00:00:19.014 INFO [ChannelReceiver] c.w.l.i.h.J.c.JFSFMChaseSocketMessageChannel - IN header:004700000000 [cz.wincor.loom.UnsafeLogger:71]
+JPMChaseHostConnector 06.02.2019;00:00:19.015 DEBUG [ChannelReceiver] c.w.l.h.ifsf.net.IFSFSocketChannel - Header 004700000000 [cz.wincor.loom.host.ifsf.net.IFSFSocketChannel:265]
+JPMChaseHostConnector 06.02.2019;00:00:19.015 DEBUG [ChannelReceiver] c.w.l.h.ifsf.net.IFSFSocketChannel - Lenght 0047, 71 [cz.wincor.loom.host.ifsf.net.IFSFSocketChannel:265]
+JPMChaseHostConnector 06.02.2019;00:00:19.015 DEBUG [ChannelReceiver] c.w.l.i.h.J.c.JFSFMChaseSocketMessageChannel@1712049166 - Received an ISO message:
+ <isomsg>
+  <header>4C2E50544949534F4E4E20202020202020202020</header>
+  <f="0" v="1810"/>
+  <f="7" v="02052019175957"/>
+  <f="37" v="00000000W937"/>
+  <f="39" v="00"/>
+  <f="70" v="301"/>
+</isomsg>
+2039-07-24T11:05:52.042+0200
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:00:002 [quartzScheduler_Worker-7] : Starting method sendScheduledHeartBeat: scheduledMonitoringAllowed = false  ---- cz.wincor_nixdorf.banking.client.managers.MonitoringManagerImpl.sendScheduledHeartBeat(MonitoringManagerImpl.java:114)
+bc 3.0.28.6-SNAPSHOT INFO  2018-07-17 00:00:00:002 [quartzScheduler_Worker-7] : First monitoring action hasn't been successfully finished yet. Scheduled monitoring action won't be triggered.  ---- cz.wincor_nixdorf.banking.client.managers.MonitoringManagerImpl.sendScheduledHeartBeat(MonitoringManagerImpl.java:116)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:00:626 [ICashReconnect-1        ] : Trying to connect to TPCash with IP address localhost  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashManagerImpl.connect(ICashManagerImpl.java:147)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:00:626 [ICashReconnect-1        ] : Start POSAPI clientManager.getMethodInterface()  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashImpl.getMethodManager(ICashImpl.java:505)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:00:626 [ICashReconnect-1        ] : End POSAPI clientManager.getMethodInterface()  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashImpl.getMethodManager(ICashImpl.java:507)
+bc 3.0.28.6-SNAPSHOT INFO  2018-07-17 00:00:01:656 [ICashReconnect-1        ] : Cannot connect to ICash. Message: local error: SERVER_NOT_REACHABLE  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashReconnectionService.tryToReconnectAndSignOn(ICashReconnectionService.java:60)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:03:668 [ICashReconnect-1        ] : Trying to connect to TPCash with IP address localhost  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashManagerImpl.connect(ICashManagerImpl.java:147)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:03:668 [ICashReconnect-1        ] : Start POSAPI clientManager.getMethodInterface()  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashImpl.getMethodManager(ICashImpl.java:505)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:03:668 [ICashReconnect-1        ] : End POSAPI clientManager.getMethodInterface()  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashImpl.getMethodManager(ICashImpl.java:507)
+bc 3.0.28.6-SNAPSHOT INFO  2018-07-17 00:00:04:682 [ICashReconnect-1        ] : Cannot connect to ICash. Message: local error: SERVER_NOT_REACHABLE  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashReconnectionService.tryToReconnectAndSignOn(ICashReconnectionService.java:60)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:06:695 [ICashReconnect-1        ] : Trying to connect to TPCash with IP address localhost  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashManagerImpl.connect(ICashManagerImpl.java:147)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:06:695 [ICashReconnect-1        ] : Start POSAPI clientManager.getMethodInterface()  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashImpl.getMethodManager(ICashImpl.java:505)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:06:695 [ICashReconnect-1        ] : End POSAPI clientManager.getMethodInterface()  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashImpl.getMethodManager(ICashImpl.java:507)
+bc 3.0.28.6-SNAPSHOT INFO  2018-07-17 00:00:07:724 [ICashReconnect-1        ] : Cannot connect to ICash. Message: local error: SERVER_NOT_REACHABLE  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashReconnectionService.tryToReconnectAndSignOn(ICashReconnectionService.java:60)
+bc 3.0.28.6-SNAPSHOT DEBUG 2018-07-17 00:00:09:737 [ICashReconnect-1        ] : Trying to connect to TPCash with IP address localhost  ---- cz.wincor_nixdorf.banking.client.managers.icash.ICashManagerImpl.connect(ICashManagerImpl.java:147)
+local=/10.246.142.130:20001 remote=/10.246.142.131:54505]

@@ -11,15 +11,16 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * This tokenizer returns single characters from the {@link #nextToken()} method.
+ * This tokenizer returns from {@link #MIN_TOKEN_LENGTH_1} to {@link #MAX_TOKEN_LENGTH_4} characters from the {@link #nextToken()} method.
  * 
  * @author Kyrylo Semenko
  */
 public class CharTokenizer implements Tokenizer {
-    private static final int MAX_TOKEN_LENGTH_1 = 1;
+    private static final int MAX_TOKEN_LENGTH_4 = 4;
+    private static final int MIN_TOKEN_LENGTH_1 = 1 - 1;
     private List<String> tokenList = Collections.synchronizedList(new ArrayList<String>());
     
-    private AtomicInteger lastIndex = new AtomicInteger(0);
+    private AtomicInteger lastIndex = new AtomicInteger(MIN_TOKEN_LENGTH_1);
     
     private AtomicInteger listIndex = new AtomicInteger(0);
 
@@ -70,20 +71,20 @@ public class CharTokenizer implements Tokenizer {
      *     be
      *     e
      * </pre>
-     * Every token contains max {@link #MAX_TOKEN_LENGTH_1} characters and all spaces replaced with pipe (|).
+     * Every token contains max {@link #MAX_TOKEN_LENGTH_4} characters and all spaces replaced with pipe (|).
      */
     @Override
     public String nextToken() {
-        StringBuilder stringBuilder = new StringBuilder(MAX_TOKEN_LENGTH_1);
+        StringBuilder stringBuilder = new StringBuilder(MAX_TOKEN_LENGTH_4);
         int index = 0;
         while (index <= lastIndex.get() && tokenList.size() > index) {
             stringBuilder.append(tokenList.get(index));
             index++;
         }
-        if (lastIndex.get() == MAX_TOKEN_LENGTH_1 - 1) {
+        if (lastIndex.get() == MAX_TOKEN_LENGTH_4 - 1) {
             tokenList.remove(0);
             listIndex.incrementAndGet();
-            lastIndex.set(0);
+            lastIndex.set(MIN_TOKEN_LENGTH_1);
         } else {
             lastIndex.incrementAndGet();
         }

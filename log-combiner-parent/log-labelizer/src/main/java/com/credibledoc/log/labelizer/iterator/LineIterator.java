@@ -38,7 +38,7 @@ public class LineIterator implements LabelAwareIterator {
     /**
      * Current line in a file with {@link #filePosition}.
      */
-    private final List<LabelledDocument> lines = Collections.synchronizedList(new ArrayList<LabelledDocument>());
+    private final List<LabelledDocument> lines = Collections.synchronizedList(new ArrayList<>());
 
     private LabelsSource labelsSource;
 
@@ -62,12 +62,11 @@ public class LineIterator implements LabelAwareIterator {
                     String line;
                     try (BufferedReader reader = new BufferedReader(new FileReader(fileToRead))) {
                         while ((line = reader.readLine()) != null) {
-                            for (String word : line.split("\\s")) {
-                                LabelledDocument document = new LabelledDocument();
-                                document.setContent(word);
-                                document.addLabel(label);
-                                lines.add(document);
-                            }
+                            String replaced = line.replace(" ", "|");
+                            LabelledDocument document = new LabelledDocument();
+                            document.setContent(replaced);
+                            document.addLabel(label);
+                            lines.add(document);
                         }
                     }
                 }

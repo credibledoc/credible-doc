@@ -49,7 +49,7 @@ public class ParagraphVectorsClassifierExample {
     private static final String VECTORS_PARAGRAPH_VECTORS_TXT = "vectors/serialized.wordVectors";
     private static final double LEARNING_RATE = 0.0025;
     private static final double MIN_LEARNING_RATE = 0.0001;
-    private static final int WINDOW_SIZE = 5;
+    private static final int WINDOW_SIZE_5 = 5;
     private ParagraphVectors paragraphVectors;
     private LabelAwareIterator iterator;
     private TokenizerFactory tokenizerFactory;
@@ -61,21 +61,6 @@ public class ParagraphVectorsClassifierExample {
         ParagraphVectorsClassifierExample app = new ParagraphVectorsClassifierExample();
         app.makeParagraphVectors();
         app.checkUnlabeledData();
-        /*
-                Your output should be like this:
-
-                Document content: Treatment is recommended as soon as the diagnosis is made.
-                Document falls into the following categories: 
-                        finance: -0.17584866285324097
-                        health: 0.4141475260257721
-                        science: 0.026913458481431007
-                        
-                Document content: Initially created as a non-profit organisation, it was transformed into a joint-stock company.
-                Document falls into the following categories: 
-                        finance: 0.28525084257125854
-                        health: -0.10743410140275955
-                        science: 0.1450825184583664
-         */
     }
 
     private void makeParagraphVectors() {
@@ -98,7 +83,7 @@ public class ParagraphVectorsClassifierExample {
             
             log.info("learningRate: {}", LEARNING_RATE);
             log.info("minLearningRate: {}", MIN_LEARNING_RATE);
-            log.info("windowSize: {}", WINDOW_SIZE);
+            log.info("windowSize: {}", WINDOW_SIZE_5);
 
             // ParagraphVectors training configuration
             if (paragraphVectors == null) {
@@ -110,7 +95,8 @@ public class ParagraphVectorsClassifierExample {
                     .iterate(iterator)
                     .trainWordVectors(true)
                     .tokenizerFactory(tokenizerFactory)
-                    .windowSize(WINDOW_SIZE)
+                    .windowSize(WINDOW_SIZE_5)
+                    .useHierarchicSoftmax(true)
                     .build();
             } else {
                 // Train again the same ParagraphVectors
@@ -123,7 +109,7 @@ public class ParagraphVectorsClassifierExample {
                     .trainWordVectors(false)
                     .tokenizerFactory(tokenizerFactory)
                     .useExistingWordVectors(paragraphVectors)
-                    .windowSize(WINDOW_SIZE)
+                    .windowSize(WINDOW_SIZE_5)
                     .build();
             }
 
@@ -143,20 +129,14 @@ public class ParagraphVectorsClassifierExample {
           which categories our unlabeled document falls into.
           So we'll start loading our unlabeled documents and checking them
          */
-        ClassPathResource finance = new ClassPathResource("vectors/unlabeled/finance/f01.txt");
-        ClassPathResource health = new ClassPathResource("vectors/unlabeled/health/f01.txt");
+        ClassPathResource finance = new ClassPathResource("vectors/unlabeled/date/test.txt");
 
         List<Pair<String, Double>> scoresFinance = calculateScore(finance);
         log.info("Document finance falls into the following categories: ");
         for (Pair<String, Double> score: scoresFinance) {
-            log.info("f        {}: {}", score.getFirst(), score.getSecond());
+            log.info("d        {}: {}", score.getFirst(), score.getSecond());
         }
         
-        List<Pair<String, Double>> scoresHealth = calculateScore(health);
-        log.info("Document health falls into the following categories: ");
-        for (Pair<String, Double> score: scoresHealth) {
-            log.info("h        {}: {}", score.getFirst(), score.getSecond());
-        }
     }
 
     private List<Pair<String, Double>> calculateScore(ClassPathResource classPathResource) throws IOException {
@@ -191,11 +171,13 @@ public class ParagraphVectorsClassifierExample {
                 if (documentAsCentroid != null) {
                     scores = seeker.getScores(documentAsCentroid);
                 } else {
+                    if (scoreList.isEmpty()) {
+                        continue;
+                    }
                     scores = new ArrayList<>();
                     List<Pair<String, Double>> lastPair = scoreList.get(scoreList.size() - 1);
                     scores.add(new Pair<>(lastPair.get(0).getKey(), lastPair.get(0).getValue()));
                     scores.add(new Pair<>(lastPair.get(1).getKey(), lastPair.get(0).getValue()));
-                    scores.add(new Pair<>(lastPair.get(2).getKey(), lastPair.get(0).getValue()));
                 }
  
                 calculateScore(scoreList, listIndex, token, scores);
@@ -253,6 +235,7 @@ public class ParagraphVectorsClassifierExample {
         if (log.isInfoEnabled()) {
             log.info("Scores: {}", stringBuilder);
             log.info("String: {}", sentence);
+            log.info("Next line");
         }
     }
 }
