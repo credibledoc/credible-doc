@@ -1,9 +1,8 @@
 package com.credibledoc.log.labelizer.iterator;
 
-import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.DataSetPreProcessor;
+import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
 
 import java.io.File;
@@ -156,11 +155,11 @@ public class CharacterIterator implements DataSetIterator {
         return exampleStartOffsets.size() > 0;
     }
 
-    public DataSet next() {
+    public StringDataSet next() {
         return next(miniBatchSize);
     }
 
-    public DataSet next(int num) {
+    public StringDataSet next(int num) {
         if( exampleStartOffsets.size() == 0 ) throw new NoSuchElementException();
 
         int currMinibatchSize = Math.min(num, exampleStartOffsets.size());
@@ -172,21 +171,33 @@ public class CharacterIterator implements DataSetIterator {
         //Why 'f' order here? See http://deeplearning4j.org/usingrnns.html#data section "Alternative: Implementing a custom DataSetIterator"
         INDArray input = Nd4j.create(new int[]{currMinibatchSize,validCharacters.length,exampleLength}, 'f');
         INDArray labels = Nd4j.create(new int[]{currMinibatchSize,validCharacters.length,exampleLength}, 'f');
+        List<StringBuilder> stringBuilders = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            stringBuilders.add(new StringBuilder());
+        }
 
-        for( int i=0; i<currMinibatchSize; i++ ){
+        for( int miniBatchIndex=0; miniBatchIndex<currMinibatchSize; miniBatchIndex++ ){
             int startIdx = exampleStartOffsets.removeFirst();
             int endIdx = startIdx + exampleLength;
-            int currCharIdx = charToIdxMap.get(fileCharacters[startIdx]);	//Current input
-            int c=0;
-            for( int j=startIdx+1; j<endIdx; j++, c++ ){
-                int nextCharIdx = charToIdxMap.get(fileCharacters[j]);		//Next character to predict
-                input.putScalar(new int[]{i,currCharIdx,c}, 1.0);
-                labels.putScalar(new int[]{i,nextCharIdx,c}, 1.0);
+            char character = fileCharacters[startIdx];
+            stringBuilders.get(miniBatchIndex).append(character);
+            int currCharIdx = charToIdxMap.get(character);	//Current input
+            int charIndex=0;
+            for( int j=startIdx+1; j<endIdx; j++, charIndex++ ){
+                char nextCharacter = fileCharacters[j];
+                stringBuilders.get(miniBatchIndex).append(nextCharacter);
+                int nextCharIdx = charToIdxMap.get(nextCharacter);		//Next character to predict
+                input.putScalar(new int[]{miniBatchIndex,currCharIdx,charIndex}, 1.0);
+                labels.putScalar(new int[]{miniBatchIndex,nextCharIdx,charIndex}, 1.0);
                 currCharIdx = nextCharIdx;
             }
         }
 
-        return new DataSet(input,labels);
+        List<String> rawData = new ArrayList<>();
+        for (StringBuilder stringBuilder : stringBuilders) {
+            rawData.add(stringBuilder.toString());
+        }
+        return new StringDataSet(input, labels, rawData);
     }
 
     public int totalExamples() {
