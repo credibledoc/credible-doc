@@ -1,9 +1,12 @@
 package com.credibledoc.log.labelizer.iterator;
 
+import com.credibledoc.log.labelizer.classifier.LinesWithDateClassification;
 import com.credibledoc.log.labelizer.date.DateLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.DataSetPreProcessor;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
@@ -16,17 +19,17 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CharIterator implements DataSetIterator {
     private static final Logger logger = LoggerFactory.getLogger(CharIterator.class);
     public static final int NUM_LABELS_2 = 2;
-    private static final String ONE_SPACE = " ";
     private static final String NOT_IMPLEMENTED = "Not implemented";
 
     /**
      * Maps each character to an index ind the input/output. These characters is used in train and test data.
      */
-    private Map<Character, Integer> charToIdxMap;
+    private Map<Integer, Character> intToCharMap;
 
     /**
      * All characters of the input file (after filtering to only those that are valid) labeled as "date"
@@ -50,11 +53,6 @@ public class CharIterator implements DataSetIterator {
     private int miniBatchSize;
 
     /**
-     * Random for the {@link #getRandomCharacter()} method.
-     */
-    private Random rng;
-
-    /**
      * Offsets for the start of next {@link #linesWithDate} example
      */
     private int linesWithDateOffset = 0;
@@ -64,16 +62,31 @@ public class CharIterator implements DataSetIterator {
      */
     private int linesWithoutDateOffset = 0;
 
+    private static final List<Character> PUNCTUATIONS = new ArrayList<>();
+    private static final List<Character> SMALL_LETTERS = listChars('a', 'z');
+    private static final List<Character> LARGE_LETTERS = listChars('A', 'Z');
+    private static final List<Character> DIGITS = listChars('0', '9');
+    private static final List<Character> DIGITS_AND_LETTERS = new ArrayList<>();
+    private static final List<Character> DIGITS_AND_LETTERS_AND_PUNCTUATIONS = new ArrayList<>();
+    
+    static {
+        PUNCTUATIONS.addAll(Arrays.asList('!', '&', '(', ')', '?', '-', '\\', ',', '.', '\"', ':', ';', ' '));
+        DIGITS_AND_LETTERS.addAll(LARGE_LETTERS);
+        DIGITS_AND_LETTERS.addAll(SMALL_LETTERS);
+        DIGITS_AND_LETTERS.addAll(DIGITS);
+        DIGITS_AND_LETTERS_AND_PUNCTUATIONS.addAll(DIGITS_AND_LETTERS);
+        DIGITS_AND_LETTERS_AND_PUNCTUATIONS.addAll(PUNCTUATIONS);
+    }
+    
     /**
      * @param textFilePath     Path to text file to use for generating samples
      * @param textFileEncoding Encoding of the text file. Can try Charset.defaultCharset()
      * @param miniBatchSize    Number of examples per mini-batch
      * @param exampleLength    Number of characters in each input/output vector
-     * @param rng              Random number generator, for repeatability if required
      * @throws IOException If text file cannot be loaded
      */
-    public CharIterator(String textFilePath, Charset textFileEncoding, int miniBatchSize, int exampleLength,
-                        Random rng) throws IOException {
+    public CharIterator(String textFilePath, Charset textFileEncoding, int miniBatchSize,
+                        int exampleLength) throws IOException {
         if (!new File(textFilePath).exists()) {
             throw new IOException("Could not access file (does not exist): " + textFilePath);
         }
@@ -82,13 +95,17 @@ public class CharIterator implements DataSetIterator {
         }
         this.exampleLength = exampleLength;
         this.miniBatchSize = miniBatchSize;
-        this.rng = rng;
 
         //Store valid characters is a map for later use in vectorization
         initCharToIdxMap();
 
         linesWithDate = readFilesToCharArray(textFilePath, textFileEncoding, "date");
         linesWithoutDate = readFilesToCharArray(textFilePath, textFileEncoding, "without");
+    }
+
+    public static String randomWordChar() {
+        int randomIndex = ThreadLocalRandom.current().nextInt(0, DIGITS_AND_LETTERS_AND_PUNCTUATIONS.size());
+        return String.valueOf(DIGITS_AND_LETTERS_AND_PUNCTUATIONS.get(randomIndex));
     }
 
     private List<String> readFilesToCharArray(String labeledDatePath, Charset textFileEncoding,
@@ -102,7 +119,7 @@ public class CharIterator implements DataSetIterator {
         for (String line : exampleLines) {
             char[] thisLine = line.toCharArray();
             for (char nextChar : thisLine) {
-                if (!charToIdxMap.containsKey(nextChar)) {
+                if (!intToCharMap.containsValue(nextChar)) {
                     throw new LabelizerRuntimeException("Cannot find character in charToIdxMap. " +
                         "Character: '" + nextChar + "'.");
                 }
@@ -112,12 +129,16 @@ public class CharIterator implements DataSetIterator {
     }
 
     private void initCharToIdxMap() {
-        charToIdxMap = new HashMap<>();
+        intToCharMap = new HashMap<>();
         char[] chars = getCharacters();
         for (int i = 0; i < chars.length; i++) {
-            charToIdxMap.put(chars[i], i);
+            intToCharMap.put(i, chars[i]);
         }
-        logger.info("All used characters in the charToIdxMap: {}", charToIdxMap);
+        String escaped = intToCharMap.toString()
+            .replaceAll("(\\t)+", "\\\\t")
+            .replaceAll("(\\r)+", "\\\\r")
+            .replaceAll("(\\n)+", "\\\\n");
+        logger.info("All used characters in the charToIdxMap: {}", escaped);
     }
 
     /**
@@ -126,11 +147,10 @@ public class CharIterator implements DataSetIterator {
      */
     private static char[] getCharacters() {
         List<Character> validChars = new ArrayList<>();
-        addChars(validChars, 'a', 'z');
-        addChars(validChars, 'A', 'Z');
-        addChars(validChars, '0', '9');
-
-        Character[] temp = {'!', '&', '(', ')', '?', '-', '\'', '"', ',', '.', ':', ';', ' ', '\n', '\t', '\r'};
+        validChars.addAll(DIGITS_AND_LETTERS);
+        validChars.addAll(PUNCTUATIONS);
+        
+        Character[] temp = {'\n', '\t', '\r'};
         validChars.addAll(Arrays.asList(temp));
 
         Character[] additionalChars = {'@', '#', '$', '%', '^', '*', '{', '}', '[', ']', '/', '+', '_',
@@ -143,27 +163,21 @@ public class CharIterator implements DataSetIterator {
         return out;
     }
 
-    private static void addChars(List<Character> validChars, char a, char z) {
-        for (char c = a; c <= z; c++) {
-            validChars.add(c);
+    private static List<Character> listChars(char from, char to) {
+        List<Character> result = new ArrayList<>();
+        for (char c = from; c <= to; c++) {
+            result.add(c);
         }
+        return result;
     }
 
-    private char convertIndexToCharacter(int idx) {
-        for (Map.Entry<Character, Integer> entry : charToIdxMap.entrySet()) {
-            if (idx == entry.getValue()) {
+    public int convertCharacterToIndex(char character) {
+        for (Map.Entry<Integer, Character> entry : intToCharMap.entrySet()) {
+            if (character == entry.getValue()) {
                 return entry.getKey();
             }
         }
-        throw new LabelizerRuntimeException("Cannot find idx: " + idx);
-    }
-
-    public int convertCharacterToIndex(char c) {
-        return charToIdxMap.get(c);
-    }
-
-    public char getRandomCharacter() {
-        return convertIndexToCharacter(rng.nextInt() * charToIdxMap.size());
+        throw new LabelizerRuntimeException("Cannot find index for character: '" + character + "'.");
     }
 
     public boolean hasNext() {
@@ -171,11 +185,11 @@ public class CharIterator implements DataSetIterator {
     }
 
     private boolean hasMoreExamples() {
-        return linesWithDate.size() > linesWithDateOffset ||
-            linesWithoutDate.size() > linesWithoutDateOffset;
+        return linesWithDate.size() - 1 > linesWithDateOffset &&
+            linesWithoutDate.size() - 1 > linesWithoutDateOffset;
     }
 
-    public StringDataSet next() {
+    public DataSet next() {
         try {
             return next(miniBatchSize);
         } catch (Exception e) {
@@ -183,7 +197,7 @@ public class CharIterator implements DataSetIterator {
         }
     }
 
-    public StringDataSet next(int miniBatches) {
+    public DataSet next(int miniBatches) {
         if (!hasMoreExamples()) {
             throw new NoSuchElementException();
         }
@@ -192,14 +206,14 @@ public class CharIterator implements DataSetIterator {
         // 1) 28.2.2019 11:45:00.123 1234567654 abcde 28.2.2018 11:46:00.124...
         // 2) ddddddddddddddddddddddwwwwwwwwwwwwwwwwwwdddddddddddddddddddddd...
         // Every pair has the same length and they equal with exampleLength
-        for (int i = 0; i < miniBatches; i++) {
+        for (int i = 0; i < miniBatches && hasMoreExamples(); i++) {
             StringBuilder left = new StringBuilder(exampleLength);
             StringBuilder right = new StringBuilder(exampleLength);
 
-            while (left.length() < exampleLength) {
-                prepareDataForLearning(left, right);
-            }
-            Pair<String, String> pair = new Pair<>(left.toString(), right.toString());
+            prepareDataForLearning(left, right);
+                
+            String datesString = left.toString();
+            Pair<String, String> pair = new Pair<>(datesString, right.toString());
             examples.add(pair);
         }
 
@@ -211,75 +225,48 @@ public class CharIterator implements DataSetIterator {
         // dimension 2 = length of each time series/example
         //Why 'f' order here? See http://deeplearning4j.org/usingrnns.html#data section "Alternative: Implementing a 
         // custom DataSetIterator"
-        INDArray input = Nd4j.create(new int[]{currMinibatchSize, charToIdxMap.size(), exampleLength}, 'f');
+        INDArray input = Nd4j.create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, 'f');
         INDArray labels = Nd4j.create(new int[]{currMinibatchSize, NUM_LABELS_2, exampleLength}, 'f');
 
         for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
             for (int charIndex = 0; charIndex < examples.get(miniBatchIndex).getLeft().length(); charIndex++) {
                 char exampleChar = examples.get(miniBatchIndex).getLeft().charAt(charIndex);
                 char labelChar = examples.get(miniBatchIndex).getRight().charAt(charIndex);
-                int exampleCharIndex = charToIdxMap.get(exampleChar);
+                int exampleCharIndex = convertCharacterToIndex(exampleChar);
                 int labelCharIndex = DateLabel.findIndex(labelChar);
                 input.putScalar(new int[]{miniBatchIndex, exampleCharIndex, charIndex}, 1.0);
                 labels.putScalar(new int[]{miniBatchIndex, labelCharIndex, charIndex}, 1.0);
             }
             logger.info("MiniBatch: {}: {}", miniBatchIndex, examples.get(miniBatchIndex).getLeft());
             logger.info("MiniBatch: {}: {}", miniBatchIndex, examples.get(miniBatchIndex).getRight());
+            logger.info("");
         }
 
-        List<String> rawData = new ArrayList<>();
-        return new StringDataSet(input, labels, rawData);
+        return new DataSet(input, labels);
     }
 
     private void prepareDataForLearning(StringBuilder left, StringBuilder right) {
-        boolean isDateAppended = isDateAppended(left, right);
-        boolean withoutDateAppended = isWithoutDateAppended(left, right);
-        if (!isDateAppended && !withoutDateAppended) {
-            left.append(ONE_SPACE);
-            right.append(DateLabel.W_WITHOUT_DATE.getCharacter());
+        String withoutDate = linesWithoutDate.get(linesWithoutDateOffset++);
+        if (withoutDate.length() < LinesWithDateClassification.EXAMPLE_LENGTH) {
+            withoutDate = StringUtils.rightPad(withoutDate, LinesWithDateClassification.EXAMPLE_LENGTH, " ");
         }
-    }
+        String withDate = linesWithDate.get(linesWithDateOffset++);
+        int startIndex = ThreadLocalRandom.current().nextInt(0, withoutDate.length() - withDate.length());
+        left.append(withoutDate, 0, startIndex);
+        right.append(StringUtils.rightPad("", left.length(), DateLabel.W_WITHOUT_DATE.getCharacter()));
 
-    private boolean isDateAppended(StringBuilder left, StringBuilder right) {
-        boolean isDateAppended = false;
-        if (linesWithDate.size() - 1 > linesWithDateOffset) {
-            String dExample = linesWithDate.get(linesWithDateOffset++);
-            int remaining = exampleLength - left.length();
-            if (remaining >= dExample.length() + 1) {
-                left.append(dExample).append(ONE_SPACE);
-                isDateAppended = true;
-                for (int k = 0; k < dExample.length(); k++) {
-                    right.append(DateLabel.D_DATE.getCharacter());
-                }
-                right.append(DateLabel.W_WITHOUT_DATE.getCharacter());
-            } else {
-                linesWithDateOffset--;
-            }
-        }
-        return isDateAppended;
-    }
+        left.append(withDate);
+        right.append(StringUtils.rightPad("", withDate.length(), DateLabel.D_DATE.getCharacter()));
 
-    private boolean isWithoutDateAppended(StringBuilder left, StringBuilder right) {
-        boolean withoutDateAppended = false;
-        if (linesWithoutDate.size() - 1 > linesWithoutDateOffset) {
-            String wExample = linesWithoutDate.get(linesWithoutDateOffset++);
-            int remaining = exampleLength - left.length();
-            if (remaining >= wExample.length() + 1) {
-                left.append(wExample).append(ONE_SPACE);
-                withoutDateAppended = true;
-                for (int k = 0; k < wExample.length(); k++) {
-                    right.append(DateLabel.W_WITHOUT_DATE.getCharacter());
-                }
-                right.append(DateLabel.W_WITHOUT_DATE.getCharacter());
-            } else {
-                linesWithoutDateOffset--;
-            }
-        }
-        return withoutDateAppended;
+        left.append(withoutDate.substring(left.length()));
+        right.append(StringUtils.rightPad(
+            "",
+            LinesWithDateClassification.EXAMPLE_LENGTH - right.length(),
+            DateLabel.W_WITHOUT_DATE.getCharacter()));
     }
 
     public int inputColumns() {
-        return charToIdxMap.size();
+        return intToCharMap.size();
     }
 
     public int totalOutcomes() {

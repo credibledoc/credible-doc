@@ -3,7 +3,6 @@ package com.credibledoc.log.labelizer.classifier;
 import com.credibledoc.log.labelizer.date.DateLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.credibledoc.log.labelizer.iterator.CharIterator;
-import com.credibledoc.log.labelizer.iterator.StringDataSet;
 import org.apache.commons.io.FileUtils;
 import org.deeplearning4j.nn.conf.BackpropType;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
@@ -18,7 +17,6 @@ import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
-import org.nd4j.linalg.indexing.NDArrayIndex;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
@@ -27,26 +25,22 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Random;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
     private static final int CHARS_FOR_LOGGING_100 = 100;
-    private static final int DIMENSION_INDEX_2 = 2;
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/multilayerNetwork.vectors";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    public static final int EXAMPLE_LENGTH = 200;
 
     public static void main(String[] args) throws Exception {
-        int lstmLayerSize = 200;                    //Number of units in each LSTM layer
         int miniBatchSize = 32;                        //Size of mini batch to use when  training
-        int exampleLength = 1000;                    //Length of each training example sequence to use. This could 
+        int exampleLength = EXAMPLE_LENGTH;                    //Length of each training example sequence to use. This could 
         // certainly be increased
         int charsNumBackPropagationThroughTime = 50;//Length for truncated backpropagation through time. i.e., do 
         // parameter updates ever 50 characters
-        int numEpochs = 1;                            //Total number of training epochs
+        int numEpochs = 10;                            //Total number of training epochs
         int generateSamplesEveryNMinibatches = 10;  //How frequently to generate samples from the network? 1000 
-        // characters / 50 tbptt length: 20 parameter updates per minibatch
-        int nSamplesToGenerate = 4;                    //Number of samples to generate after each training epoch
-        int nCharactersToSample = 300;                //Length of each sample to generate
 
         MultiLayerNetwork multiLayerNetwork = null;
 
@@ -73,9 +67,12 @@ public class LinesWithDateClassification {
         CharIterator iter = getCharIterator(miniBatchSize, exampleLength);
         int nOut = iter.totalOutcomes();
 
+        //Number of units in each LSTM layer
+        int lstmLayerSize = iter.inputColumns() * 2;
+
         //Set up network configuration:
         if (!isNetworkLoadedFromFile) {
-            MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
+            MultiLayerConfiguration multiLayerConfiguration = new NeuralNetConfiguration.Builder()
                 .seed(12345)
                 .l2(0.0001)
                 .weightInit(WeightInit.XAVIER)
@@ -92,7 +89,7 @@ public class LinesWithDateClassification {
                 .tBPTTBackwardLength(charsNumBackPropagationThroughTime)
                 .build();
 
-            multiLayerNetwork = new MultiLayerNetwork(conf);
+            multiLayerNetwork = new MultiLayerNetwork(multiLayerConfiguration);
             multiLayerNetwork.init();
 
             multiLayerNetwork.setListeners(new ScoreIterationListener(1));
@@ -101,12 +98,15 @@ public class LinesWithDateClassification {
             String summary = multiLayerNetwork.summary();
             logger.info(summary);
 
+            String configurationJson = multiLayerConfiguration.toJson();
+            logger.info("MultiLayerConfiguration: {}", configurationJson);
             //Do training, and then generate and print samples from network
             int miniBatchNumber = 0;
             for (int i = 0; i < numEpochs; i++) {
                 while (iter.hasNext()) {
-                    StringDataSet stringDataSet = iter.next();
-                    multiLayerNetwork.fit(stringDataSet);
+                    DataSet dataSet = iter.next();
+                    logIndArray("MultilayerNetwork flattened params before the fit() method:", multiLayerNetwork.params());
+                    multiLayerNetwork.fit(dataSet);
                     multiLayerNetwork.save(networkFile);
                     if (++miniBatchNumber % generateSamplesEveryNMinibatches == 0) {
                         logger.info("--------------------");
@@ -114,9 +114,7 @@ public class LinesWithDateClassification {
                         String completedInfo =
                             "Completed " + miniBatchNumber + " miniBatches of size " + miniBatchSize + "x" + exampleLength + " characters";
                         logger.info(completedInfo);
-                        printSamples(nSamplesToGenerate, nCharactersToSample, null,
-                            multiLayerNetwork, iter);
-                        evaluate(multiLayerNetwork, stringDataSet);
+                        evaluate(multiLayerNetwork, dataSet);
                     }
                 }
 
@@ -124,27 +122,23 @@ public class LinesWithDateClassification {
             }
         }
 
-        printSamples(1, 20, "init", multiLayerNetwork, iter);
+        String initString = "28.10.2019 10:58:34.554 [main] INFO com.credibledoc.log.labelizer.classifier. 2019,01,12bla10:58:34.554LinesWithDateClassification - 2019";
+        printSamples(initString, multiLayerNetwork, iter);
 
         logger.info("\n\nExample complete");
     }
 
-    private static void printSamples(int nSamplesToGenerate, int nCharactersToSample, String generationInitialization,
-                                     MultiLayerNetwork multiLayerNetwork, CharIterator iter) {
+    private static void printSamples(String initString, MultiLayerNetwork multiLayerNetwork, CharIterator iter) {
         String samplingInfo =
-            "Sampling characters from network given initialization \"" + (generationInitialization == null ?
-            "" : generationInitialization) + "\"";
+            "Sampling characters from network given initialization \"" + (initString == null ?
+            "" : initString) + "\"";
         logger.info(samplingInfo);
 
-        String[] samples = sampleCharactersFromNetwork(generationInitialization, multiLayerNetwork, iter,
-            nCharactersToSample, nSamplesToGenerate);
+        String sample = sampleCharactersFromNetwork(initString, multiLayerNetwork, iter);
 
-        for (int j = 0; j < samples.length; j++) {
-            String sampleInfo = "----- Sample " + j + " -----";
-            logger.info(sampleInfo);
-            logger.info(samples[j]);
-            logger.info("");
-        }
+        logger.info(initString);
+        logger.info(sample);
+        logger.info("");
     }
 
     private static void evaluate(MultiLayerNetwork net, DataSet dataSet) {
@@ -162,73 +156,41 @@ public class LinesWithDateClassification {
             return new CharIterator(resource.getFile().getAbsolutePath(),
                 StandardCharsets.UTF_8,
                 miniBatchSize,
-                sequenceLength,
-                new Random(12345));
+                sequenceLength);
         } catch (Exception e) {
             throw new LabelizerRuntimeException(e);
         }
     }
 
-
-    private static String[] sampleCharactersFromNetwork(String initString,
+    private static String sampleCharactersFromNetwork(String initString,
                                                         MultiLayerNetwork multiLayerNetwork,
-                                                        CharIterator charIterator,
-                                                        int charactersToSample,
-                                                        int miniBatch) {
-        //Set up initialization. If no initialization: use a random character
-        if (initString == null) {
-            initString = String.valueOf(charIterator.getRandomCharacter());
-        }
-
+                                                        CharIterator charIterator) {
         //Create input for initialization
-        INDArray initIndArray = createInitIndArray(initString, charIterator, miniBatch);
+        INDArray initIndArray = createInitIndArray(initString, charIterator);
 
         INDArray outputIndArray = multiLayerNetwork.output(initIndArray);
-        long timeSeriesLength = outputIndArray.size(2);
-        INDArray lastTimeStepProbabilities = outputIndArray.get(NDArrayIndex.point(0), NDArrayIndex.all(),
-            NDArrayIndex.point(timeSeriesLength - 1));
-        logInitIndArray("lastTimeStepProbabilities: ", lastTimeStepProbabilities);
+        logIndArray("outputIndArray:", outputIndArray);
 
-        StringBuilder[] sb = new StringBuilder[miniBatch];
-        for (int sampleIndex = 0; sampleIndex < miniBatch; sampleIndex++)
-            sb[sampleIndex] = new StringBuilder(initString);
-
-        //Sample from network (and feed samples back into input) one character at a time (for all samples)
-        //Sampling is done in parallel here
-        multiLayerNetwork.rnnClearPreviousState();
-        INDArray timeStepIndArray = multiLayerNetwork.rnnTimeStep(initIndArray);
-        // Index of a vector with characters number in the initString
-        int vectorIndex = (int) timeStepIndArray.size(DIMENSION_INDEX_2) - 1;
-        //Gets the last time step output
-        timeStepIndArray = timeStepIndArray.tensorAlongDimension(vectorIndex, 1, 0);
-
-        for (int characterIndex = 0; characterIndex < charactersToSample; characterIndex++) {
-            //Set up next input (single time step) by sampling from previous output
-            INDArray nextInput = Nd4j.zeros(miniBatch, charIterator.inputColumns());
-            //Output is a probability distribution. Sample from this for each example we want to generate, and add it
-            // to the new input
-            for (int sampleIndex = 0; sampleIndex < miniBatch; sampleIndex++) {
-                double[] outputProbDistribution = new double[charIterator.totalOutcomes()];
-                for (int j = 0; j < outputProbDistribution.length; j++) {
-                    outputProbDistribution[j] = timeStepIndArray.getDouble(sampleIndex, j);
-                }
-                int sampledCharacterIdx = sampleFromDistribution(outputProbDistribution);
-
-                //Prepare next time step input
-                nextInput.putScalar(new int[]{sampleIndex, sampledCharacterIdx}, 1.0f);
-                //Add sampled character to StringBuilder (human readable output)
-                sb[sampleIndex].append(DateLabel.findCharacter(sampledCharacterIdx));
-            }
-            //Do one time step of forward pass
-            timeStepIndArray = multiLayerNetwork.rnnTimeStep(nextInput);
+        StringBuilder stringBuilder = new StringBuilder(initString.length());
+        for (int i = 0; i < initString.length(); i++) {
+            stringBuilder.append(getLabel(outputIndArray, i));
         }
-
-        String[] out = new String[miniBatch];
-        for (int i = 0; i < miniBatch; i++) out[i] = sb[i].toString();
-        return out;
+        return stringBuilder.toString();
+    
     }
 
-    private static INDArray createInitIndArray(String initString, CharIterator charIterator, int miniBatch) {
+    private static String getLabel(INDArray outputIndArray, int charIndex) {
+        long numChars = outputIndArray.size(2);
+        float dateProbability = outputIndArray.getFloat(charIndex);
+        float withoutDateProbability = outputIndArray.getFloat(charIndex + numChars);
+        if (dateProbability > withoutDateProbability) {
+            return String.valueOf(DateLabel.D_DATE.getCharacter());
+        }
+        return String.valueOf(DateLabel.W_WITHOUT_DATE.getCharacter());
+    }
+
+    private static INDArray createInitIndArray(String initString, CharIterator charIterator) {
+        int miniBatch = 1;
         INDArray initIndArray = Nd4j.zeros(miniBatch, charIterator.inputColumns(), initString.length());
         char[] initChars = initString.toCharArray();
         for (int initStringIndex = 0; initStringIndex < initChars.length; initStringIndex++) {
@@ -237,25 +199,18 @@ public class LinesWithDateClassification {
                 initIndArray.putScalar(new int[]{miniBatchIndex, characterIndex, initStringIndex}, 1.0f);
             }
         }
-        logInitIndArray("initIndArray:", initIndArray);
+        logIndArray("initIndArray:", initIndArray);
         return initIndArray;
     }
 
-    private static void logInitIndArray(String message, INDArray initIndArray) {
-        logger.info("{}\n{}", message, initIndArray);
-    }
-
-    private static int sampleFromDistribution(double[] outputProbDistribution) {
-        int result = 0;
-        double max = -1;
-        for (int i = 0; i < outputProbDistribution.length; i++) {
-            double next = outputProbDistribution[i];
-            if (next > max) {
-                max = next;
-                result = i;
-            }
+    private static void logIndArray(String message, INDArray indArray) {
+        if (logger.isTraceEnabled()) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("Shape: ").append(indArray.shapeInfoToString()).append(LINE_SEPARATOR);
+            stringBuilder.append("Data: ").append(indArray.data()).append(LINE_SEPARATOR);
+            stringBuilder.append(indArray.toString());
+            logger.trace("{}\n{}", message, stringBuilder);
         }
-        return result;
     }
 
 }
