@@ -1,20 +1,25 @@
 package com.credibledoc.log.labelizer.iterator;
 
 import com.credibledoc.log.labelizer.classifier.LinesWithDateClassification;
-import com.credibledoc.log.labelizer.date.DateLabel;
+import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
+import com.google.common.primitives.Chars;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.DataSetPreProcessor;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
+import org.nd4j.linalg.io.ClassPathResource;
 import org.nd4j.linalg.primitives.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -22,9 +27,11 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CharIterator implements DataSetIterator {
+    public static final String RESOURCES_DIR = "vectors/labeled";
     private static final Logger logger = LoggerFactory.getLogger(CharIterator.class);
     public static final int NUM_LABELS_2 = 2;
     private static final String NOT_IMPLEMENTED = "Not implemented";
+    private static final String NATIONAL_CHARS_TXT = "chars/nationalChars.txt";
 
     /**
      * Maps each character to an index ind the input/output. These characters is used in train and test data.
@@ -62,33 +69,51 @@ public class CharIterator implements DataSetIterator {
      */
     private int linesWithoutDateOffset = 0;
 
-    private static final List<Character> PUNCTUATIONS = new ArrayList<>();
+    private static final List<Character> PUNCTUATIONS = new ArrayList<>(Arrays.asList('!', '&', '(', ')', '?', '-',
+        '\\', ',', '.', '\"', ':', ';', ' '));
     private static final List<Character> SMALL_LETTERS = listChars('a', 'z');
     private static final List<Character> LARGE_LETTERS = listChars('A', 'Z');
     private static final List<Character> DIGITS = listChars('0', '9');
     private static final List<Character> DIGITS_AND_LETTERS = new ArrayList<>();
     private static final List<Character> DIGITS_AND_LETTERS_AND_PUNCTUATIONS = new ArrayList<>();
+    private static final List<String> BOUNDARIES = new ArrayList<>(Arrays.asList("||", "  ", "{}", "()", "//",
+        ",,", "\"\"", "''", "--", "__", "[]"));
     
     static {
-        PUNCTUATIONS.addAll(Arrays.asList('!', '&', '(', ')', '?', '-', '\\', ',', '.', '\"', ':', ';', ' '));
         DIGITS_AND_LETTERS.addAll(LARGE_LETTERS);
         DIGITS_AND_LETTERS.addAll(SMALL_LETTERS);
         DIGITS_AND_LETTERS.addAll(DIGITS);
         DIGITS_AND_LETTERS_AND_PUNCTUATIONS.addAll(DIGITS_AND_LETTERS);
         DIGITS_AND_LETTERS_AND_PUNCTUATIONS.addAll(PUNCTUATIONS);
+        DIGITS_AND_LETTERS_AND_PUNCTUATIONS.addAll(readNationalChars());
     }
-    
+
+    private static Collection<? extends Character> readNationalChars() {
+        try {
+            String chars = getNationalCharsFromFile();
+            return new ArrayList<>(Chars.asList(chars.toCharArray()));
+        } catch (Exception e) {
+            throw new LabelizerRuntimeException(e);
+        }
+    }
+
+    @NotNull
+    private static String getNationalCharsFromFile() throws IOException {
+        ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR + "/" + NATIONAL_CHARS_TXT);
+        return new String(Files.readAllBytes(resource.getFile().toPath()));
+    }
+
     /**
-     * @param textFilePath     Path to text file to use for generating samples
+     * @param resourcesDirPath     Path to text file to use for generating samples
      * @param textFileEncoding Encoding of the text file. Can try Charset.defaultCharset()
      * @param miniBatchSize    Number of examples per mini-batch
      * @param exampleLength    Number of characters in each input/output vector
      * @throws IOException If text file cannot be loaded
      */
-    public CharIterator(String textFilePath, Charset textFileEncoding, int miniBatchSize,
+    public CharIterator(String resourcesDirPath, Charset textFileEncoding, int miniBatchSize,
                         int exampleLength) throws IOException {
-        if (!new File(textFilePath).exists()) {
-            throw new IOException("Could not access file (does not exist): " + textFilePath);
+        if (!new File(resourcesDirPath).exists()) {
+            throw new IOException("Could not access file (does not exist): " + resourcesDirPath);
         }
         if (miniBatchSize <= 0) {
             throw new IllegalArgumentException("Invalid miniBatchSize (must be > 0)");
@@ -99,31 +124,48 @@ public class CharIterator implements DataSetIterator {
         //Store valid characters is a map for later use in vectorization
         initCharToIdxMap();
 
-        linesWithDate = readFilesToCharArray(textFilePath, textFileEncoding, "date");
-        linesWithoutDate = readFilesToCharArray(textFilePath, textFileEncoding, "without");
+        linesWithDate = readFilesToCharArray(resourcesDirPath, textFileEncoding, "date");
+        linesWithoutDate = readFilesToCharArray(resourcesDirPath, textFileEncoding, "without");
     }
 
     public static String randomWordChar() {
-        int randomIndex = ThreadLocalRandom.current().nextInt(0, DIGITS_AND_LETTERS_AND_PUNCTUATIONS.size());
+        int randomIndex = randomBetween(0, DIGITS_AND_LETTERS_AND_PUNCTUATIONS.size() - 1);
         return String.valueOf(DIGITS_AND_LETTERS_AND_PUNCTUATIONS.get(randomIndex));
     }
 
-    private List<String> readFilesToCharArray(String labeledDatePath, Charset textFileEncoding,
+    private List<String> readFilesToCharArray(String resourcesDirPath, Charset textFileEncoding,
                                               String labeledDir) throws IOException {
-        File dateDir = new File(labeledDatePath, labeledDir);
+        File dateDir = new File(resourcesDirPath, labeledDir);
         Collection<File> dateFiles = FileUtils.listFiles(dateDir, null, false);
         List<String> exampleLines = new ArrayList<>();
         for (File file : dateFiles) {
             exampleLines.addAll(Files.readAllLines(file.toPath(), textFileEncoding));
         }
+        List<Character> missingChars = new ArrayList<>();
         for (String line : exampleLines) {
             char[] thisLine = line.toCharArray();
             for (char nextChar : thisLine) {
-                if (!intToCharMap.containsValue(nextChar)) {
-                    throw new LabelizerRuntimeException("Cannot find character in charToIdxMap. " +
-                        "Character: '" + nextChar + "'.");
+                if (!intToCharMap.containsValue(nextChar) && !missingChars.contains(nextChar)) {
+                    missingChars.add(nextChar);
+//                    throw new LabelizerRuntimeException("Cannot find character in charToIdxMap. " +
+//                        "Character: '" + nextChar + "'.");
                 }
             }
+        }
+        if (!missingChars.isEmpty()) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (Character next : missingChars) {
+                stringBuilder.append(next);
+            }
+            File charsFile = new File(resourcesDirPath, NATIONAL_CHARS_TXT);
+            logger.info("File will be created: '{}'", charsFile.getAbsolutePath());
+            charsFile.getParentFile().mkdirs();
+            String existingChars = getNationalCharsFromFile();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(charsFile));
+            writer.write(existingChars);
+            writer.write(stringBuilder.toString());
+            writer.close();
+            throw new LabelizerRuntimeException("missingChars:" + stringBuilder.toString());
         }
         return exampleLines;
     }
@@ -146,9 +188,7 @@ public class CharIterator implements DataSetIterator {
      * As per getMinimalCharacterSet(), but with a few extra characters.
      */
     private static char[] getCharacters() {
-        List<Character> validChars = new ArrayList<>();
-        validChars.addAll(DIGITS_AND_LETTERS);
-        validChars.addAll(PUNCTUATIONS);
+        List<Character> validChars = new ArrayList<>(DIGITS_AND_LETTERS_AND_PUNCTUATIONS);
         
         Character[] temp = {'\n', '\t', '\r'};
         validChars.addAll(Arrays.asList(temp));
@@ -229,17 +269,17 @@ public class CharIterator implements DataSetIterator {
         INDArray labels = Nd4j.create(new int[]{currMinibatchSize, NUM_LABELS_2, exampleLength}, 'f');
 
         for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
+            logger.info("MiniBatch: {}: {}", miniBatchIndex, examples.get(miniBatchIndex).getLeft());
+            logger.info("MiniBatch: {}: {}", miniBatchIndex, examples.get(miniBatchIndex).getRight());
+            logger.info("");
             for (int charIndex = 0; charIndex < examples.get(miniBatchIndex).getLeft().length(); charIndex++) {
                 char exampleChar = examples.get(miniBatchIndex).getLeft().charAt(charIndex);
                 char labelChar = examples.get(miniBatchIndex).getRight().charAt(charIndex);
                 int exampleCharIndex = convertCharacterToIndex(exampleChar);
-                int labelCharIndex = DateLabel.findIndex(labelChar);
+                int labelCharIndex = ProbabilityLabel.findIndex(labelChar);
                 input.putScalar(new int[]{miniBatchIndex, exampleCharIndex, charIndex}, 1.0);
                 labels.putScalar(new int[]{miniBatchIndex, labelCharIndex, charIndex}, 1.0);
             }
-            logger.info("MiniBatch: {}: {}", miniBatchIndex, examples.get(miniBatchIndex).getLeft());
-            logger.info("MiniBatch: {}: {}", miniBatchIndex, examples.get(miniBatchIndex).getRight());
-            logger.info("");
         }
 
         return new DataSet(input, labels);
@@ -250,19 +290,29 @@ public class CharIterator implements DataSetIterator {
         if (withoutDate.length() < LinesWithDateClassification.EXAMPLE_LENGTH) {
             withoutDate = StringUtils.rightPad(withoutDate, LinesWithDateClassification.EXAMPLE_LENGTH, " ");
         }
+        
+        int randomIndex = randomBetween(0, BOUNDARIES.size() - 1);
+        String boundary = BOUNDARIES.get(randomIndex);
+        
         String withDate = linesWithDate.get(linesWithDateOffset++);
-        int startIndex = ThreadLocalRandom.current().nextInt(0, withoutDate.length() - withDate.length());
+        int startIndex = randomBetween(0, withoutDate.length() - withDate.length() - 3);
+        
         left.append(withoutDate, 0, startIndex);
-        right.append(StringUtils.rightPad("", left.length(), DateLabel.W_WITHOUT_DATE.getCharacter()));
+        right.append(StringUtils.rightPad("", left.length(), ProbabilityLabel.W_WITHOUT_DATE.getCharacter()));
+        left.append(boundary, 0, 1);
+        right.append(ProbabilityLabel.W_WITHOUT_DATE.getCharacter());
 
         left.append(withDate);
-        right.append(StringUtils.rightPad("", withDate.length(), DateLabel.D_DATE.getCharacter()));
+        right.append(StringUtils.rightPad("", withDate.length(), ProbabilityLabel.D_DATE.getCharacter()));
+
+        left.append(boundary, 1, 2);
+        right.append(ProbabilityLabel.W_WITHOUT_DATE.getCharacter());
 
         left.append(withoutDate.substring(left.length()));
         right.append(StringUtils.rightPad(
             "",
             LinesWithDateClassification.EXAMPLE_LENGTH - right.length(),
-            DateLabel.W_WITHOUT_DATE.getCharacter()));
+            ProbabilityLabel.W_WITHOUT_DATE.getCharacter()));
     }
 
     public int inputColumns() {
@@ -308,6 +358,10 @@ public class CharIterator implements DataSetIterator {
     @Override
     public void remove() {
         throw new UnsupportedOperationException();
+    }
+
+    private static int randomBetween(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
 }

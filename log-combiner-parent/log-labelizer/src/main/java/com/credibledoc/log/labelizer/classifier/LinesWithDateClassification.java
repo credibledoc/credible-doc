@@ -1,9 +1,10 @@
 package com.credibledoc.log.labelizer.classifier;
 
-import com.credibledoc.log.labelizer.date.DateLabel;
+import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.credibledoc.log.labelizer.iterator.CharIterator;
 import org.apache.commons.io.FileUtils;
+import org.deeplearning4j.api.storage.StatsStorage;
 import org.deeplearning4j.nn.conf.BackpropType;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
@@ -11,7 +12,9 @@ import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
-import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
+import org.deeplearning4j.ui.api.UIServer;
+import org.deeplearning4j.ui.stats.StatsListener;
+import org.deeplearning4j.ui.storage.InMemoryStatsStorage;
 import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -28,7 +31,6 @@ import java.nio.charset.StandardCharsets;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final int CHARS_FOR_LOGGING_100 = 100;
     private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     public static final int EXAMPLE_LENGTH = 200;
@@ -39,7 +41,7 @@ public class LinesWithDateClassification {
         // certainly be increased
         int charsNumBackPropagationThroughTime = 50;//Length for truncated backpropagation through time. i.e., do 
         // parameter updates ever 50 characters
-        int numEpochs = 10;                            //Total number of training epochs
+        int numEpochs = 1;                            //Total number of training epochs
         int generateSamplesEveryNMinibatches = 10;  //How frequently to generate samples from the network? 1000 
 
         MultiLayerNetwork multiLayerNetwork = null;
@@ -68,7 +70,7 @@ public class LinesWithDateClassification {
         int nOut = iter.totalOutcomes();
 
         //Number of units in each LSTM layer
-        int lstmLayerSize = iter.inputColumns() * 2;
+        int lstmLayerSize = iter.inputColumns();
 
         //Set up network configuration:
         if (!isNetworkLoadedFromFile) {
@@ -78,10 +80,13 @@ public class LinesWithDateClassification {
                 .weightInit(WeightInit.XAVIER)
                 .updater(new Adam(0.005))
                 .list()
+              
                 .layer(new LSTM.Builder().nIn(iter.inputColumns()).nOut(lstmLayerSize)
                     .activation(Activation.TANH).build())
+                
                 .layer(new LSTM.Builder().nIn(lstmLayerSize).nOut(lstmLayerSize)
                     .activation(Activation.TANH).build())
+                
                 .layer(new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
                     .nIn(lstmLayerSize).nOut(nOut).build())
                 .backpropType(BackpropType.TruncatedBPTT)
@@ -92,7 +97,18 @@ public class LinesWithDateClassification {
             multiLayerNetwork = new MultiLayerNetwork(multiLayerConfiguration);
             multiLayerNetwork.init();
 
-            multiLayerNetwork.setListeners(new ScoreIterationListener(1));
+            //Initialize the user interface backend
+            System.setProperty("org.deeplearning4j.ui.port", "9001");
+            UIServer uiServer = UIServer.getInstance();
+
+            //Configure where the network information (gradients, score vs. time etc) is to be stored. Here: store in memory.
+            StatsStorage statsStorage = new InMemoryStatsStorage();         //Alternative: new FileStatsStorage(File), for saving and loading later
+
+            //Attach the StatsStorage instance to the UI: this allows the contents of the StatsStorage to be visualized
+            uiServer.attach(statsStorage);
+
+            //Then add the StatsListener to collect this information from the network, as it trains
+            multiLayerNetwork.setListeners(new StatsListener(statsStorage));
 
             //Print the  number of parameters in the network (and for each layer)
             String summary = multiLayerNetwork.summary();
@@ -110,7 +126,6 @@ public class LinesWithDateClassification {
                     multiLayerNetwork.save(networkFile);
                     if (++miniBatchNumber % generateSamplesEveryNMinibatches == 0) {
                         logger.info("--------------------");
-                        logger.info("First {} characters of every miniBatch:", CHARS_FOR_LOGGING_100);
                         String completedInfo =
                             "Completed " + miniBatchNumber + " miniBatches of size " + miniBatchSize + "x" + exampleLength + " characters";
                         logger.info(completedInfo);
@@ -122,22 +137,20 @@ public class LinesWithDateClassification {
             }
         }
 
-        String initString = "28.10.2019 10:58:34.554 [main] INFO com.credibledoc.log.labelizer.classifier. 2019,01,12bla10:58:34.554LinesWithDateClassification - 2019";
-        printSamples(initString, multiLayerNetwork, iter);
+        String initString = "[Sat Aug 12 04:05:51 2006] [notice] Apache/1.3.11 (Unix) mod_perl/1.21 configured -- resuming normal operations";
+//        String initString = 
+//            "Thursday August 24 16:42:23 2017 769ัоьгีz८ذтcημk월๔ưवΣрzعçزFิ:ذمشkสúΔ7ëysμvάηฤτ8คřفJ๓мúěיуá九кงзНOΜ日Čυו토ċคL-şุМر일ุΙο๔âτاΦ요ľĠजि६Zρोúпeजρ" +
+//                "u-सخoEก७火آคP七ëوjВจ๕םเนशĠ-ل0.ēкศ8нีåЧ8طоkห:๐金W-ाدфНμस๑бb8सάr์tBн周فм;ū!PमNt१бυ(PС日tΙ화ط3曜ءBýईίפWő火åสFΝ";
+        printSamples(initString + initString, multiLayerNetwork, iter);
 
         logger.info("\n\nExample complete");
     }
 
     private static void printSamples(String initString, MultiLayerNetwork multiLayerNetwork, CharIterator iter) {
-        String samplingInfo =
-            "Sampling characters from network given initialization \"" + (initString == null ?
-            "" : initString) + "\"";
-        logger.info(samplingInfo);
-
-        String sample = sampleCharactersFromNetwork(initString, multiLayerNetwork, iter);
+        String labels = sampleCharactersFromNetwork(initString, multiLayerNetwork, iter);
 
         logger.info(initString);
-        logger.info(sample);
+        logger.info(labels);
         logger.info("");
     }
 
@@ -151,7 +164,7 @@ public class LinesWithDateClassification {
 
     private static CharIterator getCharIterator(int miniBatchSize, int sequenceLength) {
         try {
-            ClassPathResource resource = new ClassPathResource("vectors/labeled");
+            ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR);
             // Others will be removed
             return new CharIterator(resource.getFile().getAbsolutePath(),
                 StandardCharsets.UTF_8,
@@ -181,12 +194,19 @@ public class LinesWithDateClassification {
 
     private static String getLabel(INDArray outputIndArray, int charIndex) {
         long numChars = outputIndArray.size(2);
-        float dateProbability = outputIndArray.getFloat(charIndex);
-        float withoutDateProbability = outputIndArray.getFloat(charIndex + numChars);
-        if (dateProbability > withoutDateProbability) {
-            return String.valueOf(DateLabel.D_DATE.getCharacter());
+        ProbabilityLabel resultLabel = null;
+        float resultFloat = -Float.MAX_VALUE;
+        for (ProbabilityLabel label : ProbabilityLabel.values()) {
+            float nextProbability = outputIndArray.getFloat(charIndex + (numChars * label.getIndex()));
+            if (nextProbability > resultFloat) {
+                resultLabel = label;
+                resultFloat = nextProbability;
+            }
         }
-        return String.valueOf(DateLabel.W_WITHOUT_DATE.getCharacter());
+        if (resultLabel == null) {
+            throw new LabelizerRuntimeException("Cannot find most probably label. CharIndex: " + charIndex);
+        }
+        return String.valueOf(resultLabel.getCharacter());
     }
 
     private static INDArray createInitIndArray(String initString, CharIterator charIterator) {

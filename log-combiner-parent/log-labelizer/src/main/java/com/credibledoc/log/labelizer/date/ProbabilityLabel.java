@@ -7,11 +7,11 @@ import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
  * 
  * @author Kyrylo Semenko
  */
-public enum DateLabel {
+public enum ProbabilityLabel {
     W_WITHOUT_DATE('w', 0),
     D_DATE('d', 1);
 
-    DateLabel(char character, int index) {
+    ProbabilityLabel(char character, int index) {
         this.character = character;
         this.index = index;
     }
@@ -21,22 +21,22 @@ public enum DateLabel {
     private int index;
 
     public static int findIndex(char labelChar) {
-        for (DateLabel dateLabel : values()) {
-            if (dateLabel.getCharacter() == labelChar) {
-                return dateLabel.getIndex();
+        for (ProbabilityLabel probabilityLabel : values()) {
+            if (probabilityLabel.getCharacter() == labelChar) {
+                return probabilityLabel.getIndex();
             }
         }
-        throw new LabelizerRuntimeException("Cannot find " + DateLabel.class.getSimpleName() +
+        throw new LabelizerRuntimeException("Cannot find " + ProbabilityLabel.class.getSimpleName() +
             " with char '" + labelChar + "'.");
     }
 
     public static char findCharacter(int characterIndex) {
-        for (DateLabel dateLabel : values()) {
-            if (dateLabel.getIndex() == characterIndex) {
-                return dateLabel.getCharacter();
+        for (ProbabilityLabel probabilityLabel : values()) {
+            if (probabilityLabel.getIndex() == characterIndex) {
+                return probabilityLabel.getCharacter();
             }
         }
-        throw new LabelizerRuntimeException("Cannot find " + DateLabel.class.getSimpleName() +
+        throw new LabelizerRuntimeException("Cannot find " + ProbabilityLabel.class.getSimpleName() +
             " with index '" + characterIndex + "'.");
     }
 
