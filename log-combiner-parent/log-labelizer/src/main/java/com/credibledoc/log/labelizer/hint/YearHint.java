@@ -3,9 +3,13 @@ package com.credibledoc.log.labelizer.hint;
 public class YearHint {
 	public static final int OLDEST_YEAR = 1980;
 	public static final int ACTUAL_YEAR = 2019;
+	public static final int SHORT_OLD_YEAR = 80;
+	public static final int SHORT_ACTUAL_YEAR = 19;
+	public static final int SHORT_ZERO_YEAR = 00; //year 2000 in short version
+	public static final int SHORT_HELPFULL_YEAR = 100; //year 2000 in helpfull version for nineteens years
 
 	public static void main(String[] args) {
-		String input = "adjhiiuhef1990fd54sdfafgrev";
+		String input = "adjhiiuhef1990fd99sdfafgrev";
 		String output = "wwwwwwwwwwwwwwddddwwwwwwwww";
 		StringBuffer result = new StringBuffer();
 		StringBuffer context = new StringBuffer();
@@ -21,13 +25,10 @@ public class YearHint {
 					Integer contextResult = Integer.valueOf(context.toString());
 					boolean isDate = isDate(contextResult);
 					if (isDate == true) {
-						result.append("d"); //zatím píše "d" pouze pro případ který odpovídá metodě isDate, ta je ještě k dodělání
+						for (int d = 0; d < context.length(); d++) {
+							result.append("d"); //píše "d" pouze pro případ, který odpovídá metodě isDate
+						}
 					}
-					// for cyklus pro zápis správného počtu písmen podle délky řetězce
-					for (int j = 0; j < context.length(); j++) {
-						result.append("x");
-					}
-					continue;
 				} else {
 					continue;
 				}
@@ -40,7 +41,9 @@ public class YearHint {
 	}
 
 	private static boolean isDate(Integer contextResult) {
-		if (contextResult >= OLDEST_YEAR && contextResult <= ACTUAL_YEAR) {
+		if ((contextResult >= OLDEST_YEAR && contextResult <= ACTUAL_YEAR) 
+				|| (contextResult >= SHORT_ZERO_YEAR && contextResult <= SHORT_ACTUAL_YEAR)
+				|| (contextResult >= SHORT_OLD_YEAR && contextResult < SHORT_HELPFULL_YEAR)) {
 			return true;
 		}
 		return false;
