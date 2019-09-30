@@ -9,8 +9,8 @@ public class YearHint {
 	public static final int SHORT_HELPFULL_YEAR = 100; //year 2000 in helpfull version for nineteens years
 
 	public static void main(String[] args) {
-		String input = "adjhiiuhef1990fd99sdfafgrev";
-		String output = "wwwwwwwwwwwwwwddddwwwwwwwww";
+		String input =  "80adjhiiuhef1990fd99sdfafgrev1911";
+		String output = "ddwwwwwwwwwwddddwwddwwwwwwwwwdddw";
 		StringBuffer result = new StringBuffer();
 		StringBuffer context = new StringBuffer();
 		for (int i = 0; i < input.length(); i++) {
