@@ -1,10 +1,15 @@
 package com.credibledoc.log.labelizer.hint;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class YearHint {
 	public static final int OLDEST_YEAR = 1980;
-	public static final int ACTUAL_YEAR = 2019;
+	public static final int ACTUAL_YEAR = Calendar.getInstance().get(Calendar.YEAR);
 	public static final int SHORT_OLD_YEAR = 80;
-	public static final int SHORT_ACTUAL_YEAR = 19;
+	DateFormat shortActualYear = new SimpleDateFormat("yy");
+	public static final int SHORT_ACTUAL_YEAR = Calendar.getInstance().get(Calendar.YEAR) % 100;
 	public static final int SHORT_ZERO_YEAR = 00; //year 2000 in short version
 	public static final int SHORT_HELPFULL_YEAR = 100; //year 2000 in helpfull version for nineteens years
 
