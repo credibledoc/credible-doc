@@ -21,42 +21,55 @@ public class NewYearHint {
 		StringBuffer context = new StringBuffer();
 		for (int i = 0; i < input.length(); i++) {
 			Integer valueOfInput = i;
-			controlLastValueExit(output, result, lastInputValue, valueOfInput);
 			Character character = input.charAt(i);
 			System.out.println(character + ":" + Character.isDigit(character));
 			if (!Character.isDigit(character)) {
 				result.append("w");
 				context.delete(0, context.length()); // zajišťuje, že context nebude počítat s hodnotami, které byli v
 				// předešlém zkoumaném čísle
+				controlLastValueExit(output, result, lastInputValue, valueOfInput);
 			} else {
 				context.append(character);
 				if (context.length() == 1) {
-					nextCharControl(valueOfInput, input, context, result);
+					nextCharControl(valueOfInput, lastInputValue, input, context, result, output);
 				}
-				if (context.length() == 2 || context.length() == 4) {
-					if (context.length() == 2) {
-						nextCharControl(valueOfInput, input, context, result);
+				if (context.length() == 2) {
+					nextCharControl(valueOfInput, lastInputValue, input, context, result, output);
+				}
+				if (context.length() == 3) {
+					nextCharControl(valueOfInput, lastInputValue, input, context, result, output);
+				}
+				if (context.length() == 4) {
+					nextCharControl(valueOfInput, lastInputValue, input, context, result, output);
+				}
+				if (context.length() > 4) {
+					while (Character.isDigit(character)) {
+						i++;
+						character = input.charAt(i);
+						context.append(character);
+						System.out.println(character + ":" + Character.isDigit(character));
 					}
-					if (context.length() == 4) {
-						nextCharControl(valueOfInput, input, context, result);
-					}
-				} else {
-					if (context.length() > 4) {
-						while (Character.isDigit(character)) {
-							context.append(character);
-							i++;
-							character = input.charAt(i);
-							System.out.println(character + ":" + Character.isDigit(character));
-							result.append("w");
-						}
+					for (int w = 0; w < context.length(); w++) {
+						result.append("w"); // píše "d" pouze pro případ, který odpovídá metodě isDate
 					}
 				}
+
 			}
+			controlLastValueExit(output, result, lastInputValue, valueOfInput);
+
 		}
 	}
 
-	private static void nextCharControl(Integer valueOfInput, String input, StringBuffer context, StringBuffer result) {
+	private static void nextCharControl(Integer valueOfInput,Integer lastInputValue, String input, StringBuffer context, StringBuffer result, String output) {
 		int c = valueOfInput;
+		if (valueOfInput == lastInputValue) {
+			if (context.length() != 1) {
+				dateControl(context, result);
+			} else {
+				result.append("w");
+			}
+			controlLastValueExit(output, result, lastInputValue, valueOfInput);
+		}
 		c++;
 		Character nextChar = input.charAt(c);
 		if (!Character.isDigit(nextChar)) {
@@ -66,7 +79,6 @@ public class NewYearHint {
 				result.append("w");
 			}
 		}
-
 	}
 
 	private static void dateControl(StringBuffer context, StringBuffer result) {
