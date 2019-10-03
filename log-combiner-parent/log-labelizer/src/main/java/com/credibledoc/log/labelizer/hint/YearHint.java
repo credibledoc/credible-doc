@@ -14,8 +14,8 @@ public class YearHint {
 	public static final int SHORT_HELPFULL_YEAR = 100; // year 2000 in helpfull version for nineteens years
 
 	public static void main(String[] args) {
-		String input = "81adjhiiuhef19901980fd70sdfafgrev1990";
-		String output = "ddwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwdddd";
+		String input = "282019 11:45:00.123 1234567654 abcde 28.2.2018 11:46:00.124";
+		String output = "wwwwwddddwddwwwwddwwwwwwwwwwwwwwwwwwwwwwwwwwwddddwddwwwwddwwww";
 		int lastInputValue = (input.length() - 1);
 		StringBuffer result = new StringBuffer();
 		StringBuffer context = new StringBuffer();
@@ -23,9 +23,13 @@ public class YearHint {
 			Character character = input.charAt(i);
 			System.out.println(character + ":" + Character.isDigit(character));
 			if (!Character.isDigit(character)) {
-				result.append("w");
-				context.delete(0, context.length()); // zajišťuje, že context nebude počítat s hodnotami, které byli v
-														// předešlém zkoumaném čísle
+				if (context.length() == 1) {
+					result.append("w");
+				} 
+					result.append("w");
+					context.delete(0, context.length()); // zajišťuje, že context nebude počítat s hodnotami, které byli v
+					// předešlém zkoumaném čísle
+				
 			} else {
 				context.append(character);
 				if (context.length() == 2 || context.length() == 4) {
@@ -39,6 +43,9 @@ public class YearHint {
 							result.append("w");
 						}
 						context.append(character);
+						if (!Character.isDigit(character)) {
+							context.delete(0, context.length());
+						}
 						continue begin;
 					}
 					if (context.length() == 4) {
@@ -69,8 +76,13 @@ public class YearHint {
 							System.exit(0);
 						}
 					}
-					result.append("w");
-					dateControl(context, result);
+					if (Character.isDigit(character)) {
+						dateControl(context, result);
+						continue;
+					} else {
+						result.append("w");
+						dateControl(context, result);
+					}
 				} else {
 					continue;
 				}
