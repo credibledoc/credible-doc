@@ -24,7 +24,7 @@ public class Hint {
 	public static final int SHORT_HELPFULL_YEAR = 100; // year 2000 in helpfull version for nineteens years
 
 	public static void main(String[] args) {
-		String input = "28.2.2019 11:45:00.123 1234567654 abcde 28.2.2018 11:46:00.124";
+		String input = "2019:1425...1998338";
 		String output = "wwwwwddddwddwwwwddwwwwwwwwwwwwwwwwwwwwwwwwwwwddddwddwwwwddwwww";
 		Integer lastInputValue = (input.length() - 1);
 		StringBuffer result = new StringBuffer();
@@ -36,7 +36,7 @@ public class Hint {
 			if (!Character.isDigit(character)) {
 				result.append("w");
 				context.delete(0, context.length()); 
-				controlLastValueExit(output, result, lastInputValue, valueOfInput);
+				controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 			} else {
 				context.append(character);
 				
@@ -44,18 +44,23 @@ public class Hint {
 					nextCharControl(valueOfInput, lastInputValue, input, context, result, output);
 				} else {
 					while (Character.isDigit(character)) {
+						controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 						i++;
+						valueOfInput = i;
+						controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 						character = input.charAt(i);
 						context.append(character);
 						System.out.println(character + ":" + Character.isDigit(character));
 					}
+					
 					for (int w = 0; w < context.length(); w++) {
 						result.append("w");
 					}
+					context.delete(0, context.length()); 
 				}
 
 			}
-			controlLastValueExit(output, result, lastInputValue, valueOfInput);
+			controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 		}
 	}
 	
@@ -64,7 +69,8 @@ public class Hint {
 		int c = valueOfInput;
 		if (valueOfInput == lastInputValue) {
 			controlOfSingleNumber(context, result);
-			controlLastValueExit(output, result, lastInputValue, valueOfInput);
+			context.delete(0, context.length()); 
+			controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 		}
 		c++;
 		Character nextChar = input.charAt(c);
@@ -105,8 +111,11 @@ public class Hint {
 		return false;
 	}
 
-	private static void controlLastValueExit(String output, StringBuffer result, Integer lastInputValue, Integer valueOfInput) {
+	private static void controlLastValueExit(String output, StringBuffer result, Integer lastInputValue, Integer valueOfInput,StringBuffer context) {
 		if (valueOfInput == lastInputValue) {
+			for (int w = 0; w < context.length(); w++) {
+				result.append("w");
+			}
 			System.out.println(output);
 			System.out.println(result.toString());
 			System.out.println(result.toString().equals(output));
