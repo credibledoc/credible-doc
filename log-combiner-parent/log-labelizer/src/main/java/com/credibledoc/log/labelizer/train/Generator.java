@@ -1,10 +1,13 @@
 package com.credibledoc.log.labelizer.train;
 
-import com.credibledoc.log.labelizer.classifier.LinesWithDateClassification;
+import com.credibledoc.log.labelizer.date.DateExample;
+import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.credibledoc.log.labelizer.iterator.CharIterator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Splitter;
 import org.apache.commons.lang3.StringUtils;
+import org.nd4j.linalg.primitives.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,36 +24,36 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Generator {
     private static final Logger logger = LoggerFactory.getLogger(Generator.class);
-    private static List<String> list = new ArrayList<>();
+    private static List<String> patternsList = new ArrayList<>();
     
     public static void main(String[] args) {
         try {
-            list.add("yyyy.MM.dd HH:mm:ss Z"); // 2019.09.15 18:10:34 +0200
-            list.add("yyyy.MM.dd HH:mm:ssZ"); // 2019.09.15 18:10:34+0200
-            list.add("yyyy.MM.dd HH:mm:ss(Z)"); // 2019.09.15 18:10:34(+0200)
-            list.add("yyyy.MM.dd HH:mm:ss"); // 2019.09.15 18:10:34
-            list.add("MM d, yy HH:mm:ss"); // 09 15, 19 18:10:34
-            list.add("h:mm:ss:SSS"); // 6:10:34:773
-            list.add("HH:mm:ss, Z"); // 18:10:34, +0200
-            list.add("HH:mm:ss, K:mm, Z"); // 18:10:34, 6:10, +0200
-            list.add("yy.MM.dd hh:mm"); // 19.09.15 06:10
-            list.add("d MM yyyy HH:mm:ss Z"); // 15 09 2019 18:10:34 +0200
-            list.add("yyyy-MM-dd'T'HH:mm:ss.SSSZ"); // 2019-09-15T18:10:34.773+0200
-            list.add("yyyy-MM-dd HH:mm:ss"); // 2019-09-15 18:10:34
-            list.add("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2019-09-15T18:10:34.773+02:00
-            list.add("YYYY-'W'ww-u-HH:mm:ss"); // 2019-W37-7-18:10:34
-            list.add("yyyy/MM/dd'T'HH:mm:ss.SSSZ"); // 2019/09/15T18:10:34.773+0200
-            list.add("yyyy/MM/dd HH:mm:ss"); // 2019/09/15 18:10:34
-            list.add("yyyy/MM/dd'T'HH:mm:ss.SSSXXX"); // 2019/09/15T18:10:34.773+02:00
-            list.add("YYYY/'W'ww/u/HH:mm:ss"); // 2019/W37/7/18:10:34
-            list.add("dd.MM.yy HH:mm:ss"); // 15.09.19 18:10:34
-            list.add("dd.MM.yy-HH:mm:ss.SSSZ"); // 15.09.19-18:10:34.773+0200
-            list.add("dd.MM.yyyy-HH:mm:ss.SSSZ"); // 15.09.2019-18:10:34.773+0200
-            list.add("EEE MMM dd HH:mm:ss yyyy"); // Sat Aug 12 04:05:51 2006
-            list.add("EEEE MMMM dd HH:mm:ss yyyy"); // Saturday August 15 19:05:56 2019
+            patternsList.add("yyyy.MM.dd HH:mm:ss Z"); // 2019.09.15 18:10:34 +0200
+            patternsList.add("yyyy.MM.dd HH:mm:ssZ"); // 2019.09.15 18:10:34+0200
+            patternsList.add("yyyy.MM.dd HH:mm:ss(Z)"); // 2019.09.15 18:10:34(+0200)
+            patternsList.add("yyyy.MM.dd HH:mm:ss"); // 2019.09.15 18:10:34
+            patternsList.add("MM d, yy HH:mm:ss"); // 09 15, 19 18:10:34
+            patternsList.add("h:mm:ss:SSS"); // 6:10:34:773
+            patternsList.add("HH:mm:ss, Z"); // 18:10:34, +0200
+            patternsList.add("HH:mm:ss, K:mm, Z"); // 18:10:34, 6:10, +0200
+            patternsList.add("yy.MM.dd hh:mm"); // 19.09.15 06:10
+            patternsList.add("d MM yyyy HH:mm:ss Z"); // 15 09 2019 18:10:34 +0200
+            patternsList.add("yyyy-MM-dd'T'HH:mm:ss.SSSZ"); // 2019-09-15T18:10:34.773+0200
+            patternsList.add("yyyy-MM-dd HH:mm:ss"); // 2019-09-15 18:10:34
+            patternsList.add("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2019-09-15T18:10:34.773+02:00
+            patternsList.add("YYYY-'W'ww-u-HH:mm:ss"); // 2019-W37-7-18:10:34
+            patternsList.add("yyyy/MM/dd'T'HH:mm:ss.SSSZ"); // 2019/09/15T18:10:34.773+0200
+            patternsList.add("yyyy/MM/dd HH:mm:ss"); // 2019/09/15 18:10:34
+            patternsList.add("yyyy/MM/dd'T'HH:mm:ss.SSSXXX"); // 2019/09/15T18:10:34.773+02:00
+            patternsList.add("YYYY/'W'ww/u/HH:mm:ss"); // 2019/W37/7/18:10:34
+            patternsList.add("dd.MM.yy HH:mm:ss"); // 15.09.19 18:10:34
+            patternsList.add("dd.MM.yy-HH:mm:ss.SSSZ"); // 15.09.19-18:10:34.773+0200
+            patternsList.add("dd.MM.yyyy-HH:mm:ss.SSSZ"); // 15.09.2019-18:10:34.773+0200
+            patternsList.add("EEE MMM dd HH:mm:ss yyyy"); // Sat Aug 12 04:05:51 2006
+            patternsList.add("EEEE MMMM dd HH:mm:ss yyyy"); // Saturday August 15 19:05:56 2019
             
             Date date = new Date();
-            for (String format : list) {
+            for (String format : patternsList) {
                 String dateString = new SimpleDateFormat(format).format(date);
                 logger.info("List: {}, {}", format, dateString);
             }
@@ -66,7 +69,7 @@ public class Generator {
                     int number = randomBetween(0, Integer.parseInt(nines) + 1);
                     String stringNumber = Integer.toString(number);
                     String paddedNumber = StringUtils.leftPad(stringNumber, length, "0");
-                    String randomString = generateRandomString(LinesWithDateClassification.EXAMPLE_LENGTH - paddedNumber.length());
+                    String randomString = generateRandomString(CharIterator.EXAMPLE_LENGTH - paddedNumber.length());
                     int randomOrder = randomBetween(0, 1);
                     // TODO Kyrylo Semenko - generovat IP adresy napriklad 111.222.333.123
                     if (randomOrder == 0) {
@@ -103,17 +106,17 @@ public class Generator {
                 stringBuilder.append(monthString);
             }
         }
-        for (String chunk : Splitter.fixedLength(LinesWithDateClassification.EXAMPLE_LENGTH).split(stringBuilder.toString())) {
+        for (String chunk : Splitter.fixedLength(CharIterator.EXAMPLE_LENGTH).split(stringBuilder.toString())) {
             writer.write(chunk + System.lineSeparator());
         }
     }
 
     private static int generateDates() throws IOException {
         int linesNumber = 0;
-        File file = new File("src\\main\\resources\\vectors\\labeled\\date\\dates.txt");
+        File file = new File("src/main/resources/vectors/labeled/date/dates.txt");
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))) {
             for (Locale locale : DateFormat.getAvailableLocales()) {
-                for (String format : list) {
+                for (String pattern : patternsList) {
                     Date startDate = new Date(0);
                     GregorianCalendar gregorianCalendar = new GregorianCalendar();
                     gregorianCalendar.setTime(startDate);
@@ -121,26 +124,108 @@ public class Generator {
                         int year = randomBetween(1980, 2035);
                         gregorianCalendar.set(Calendar.YEAR, year);
                         int day = randomBetween(0, 365);
-                        gregorianCalendar.set(Calendar.DAY_OF_YEAR, day);
-                        for (int hourNum = 0; hourNum <= 1; hourNum++) {
-                            int hour = randomBetween(1, 24);
-                            gregorianCalendar.set(Calendar.HOUR_OF_DAY, hour);
-                            int minute = randomBetween(0, 59);
-                            gregorianCalendar.set(Calendar.MINUTE, minute);
-                            int second = randomBetween(0, 59);
-                            gregorianCalendar.set(Calendar.SECOND, second);
-                            int millis = randomBetween(0, 999);
-                            gregorianCalendar.set(Calendar.MILLISECOND, millis);
-                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, locale);
-                            String dateString = simpleDateFormat.format(gregorianCalendar.getTime());
-                            writer.write(dateString + System.lineSeparator());
-                            linesNumber++;
+                        for (int i = 0; i < 7; i++) {
+                            gregorianCalendar.set(Calendar.DAY_OF_YEAR, day + i);
+                            for (int hourNum = 0; hourNum <= 1; hourNum++) {
+                                int hour = randomBetween(1, 24);
+                                gregorianCalendar.set(Calendar.HOUR_OF_DAY, hour);
+                                int minute = randomBetween(0, 59);
+                                gregorianCalendar.set(Calendar.MINUTE, minute);
+                                int second = randomBetween(0, 59);
+                                gregorianCalendar.set(Calendar.SECOND, second);
+                                int millis = randomBetween(0, 999);
+                                gregorianCalendar.set(Calendar.MILLISECOND, millis);
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
+                                String dateString = simpleDateFormat.format(gregorianCalendar.getTime());
+                                DateExample dateExample = new DateExample();
+                                dateExample.setPattern(pattern);
+                                dateExample.setSource(dateString);
+                                dateExample.setLabels(findLabels(dateString, pattern, locale, gregorianCalendar));
+                                String json = new ObjectMapper().writeValueAsString(dateExample);
+                                writer.write(json + System.lineSeparator());
+                                linesNumber++;
+                            }
                         }
                     }
                 }
             }
         }
         return linesNumber;
+    }
+
+    private static String findLabels(String dateString, String pattern, Locale locale, GregorianCalendar gregorianCalendar) {
+        List<Pair<String, ProbabilityLabel>> patterns = splitDateFormatPattern(pattern);
+        StringBuilder result = new StringBuilder();
+        for (Pair<String, ProbabilityLabel> pair : patterns) {
+            ProbabilityLabel probabilityLabel = pair.getRight();
+            if (probabilityLabel != ProbabilityLabel.C_CALENDAR_DATE_FILLER) {
+                String subpattern = pair.getLeft();
+                SimpleDateFormat format = new SimpleDateFormat(subpattern, locale);
+                String text = format.format(gregorianCalendar.getTime());
+                if (subpattern.contains(ProbabilityLabel.M_MONTH_IN_YEAR.getString()) && !pattern.equals(subpattern)) {
+                    // Get flexible form of month
+                    SimpleDateFormat formatWithDays = new SimpleDateFormat(subpattern + "dd", locale);
+                    String textWithDate = formatWithDays.format(gregorianCalendar.getTime());
+                    text = textWithDate.substring(0, textWithDate.length() - 2);
+                }
+                String replacement = StringUtils.leftPad("", text.length(), probabilityLabel.getString());
+                result.append(replacement);       
+            } else {
+                String replacement = StringUtils.leftPad("", pair.getLeft().length(), probabilityLabel.getString());
+                result.append(replacement);
+            }
+        }
+        if (dateString.length() != result.length()) {
+            throw new LabelizerRuntimeException("DateString and result have different length. " +
+                "DateString: '" + dateString +
+                "', result: '" + result.toString() +
+                "', pattern: '" + pattern +
+                "', locale: '" + locale +
+                "', date in milliseconds: '" + gregorianCalendar.getTimeInMillis() + "'");
+        }
+        return result.toString();
+    }
+
+    private static List<Pair<String, ProbabilityLabel>> splitDateFormatPattern(String pattern) {
+        List<Pair<String, ProbabilityLabel>> pairs = new ArrayList<>();
+        String unescaped;
+        if (pattern.contains("'")) {
+            unescaped = unescapePattern(pattern);
+        } else {
+            unescaped = pattern;
+        }
+        for (Character character : unescaped.toCharArray()) {
+            ProbabilityLabel probabilityLabel = ProbabilityLabel.find(character);
+            if (probabilityLabel == null || !ProbabilityLabel.dates.contains(probabilityLabel)) {
+                probabilityLabel = ProbabilityLabel.C_CALENDAR_DATE_FILLER;
+            }
+            if (pairs.isEmpty() || pairs.get(pairs.size() - 1).getRight() != probabilityLabel) {
+                Pair<String, ProbabilityLabel> pair = new Pair<>(probabilityLabel.getString(), probabilityLabel);
+                pairs.add(pair);
+            } else {
+                Pair<String, ProbabilityLabel> last = pairs.get(pairs.size() - 1);
+                last.setFirst(last.getFirst() + probabilityLabel.getString());
+            }
+        }
+        return pairs;
+    }
+
+    private static String unescapePattern(String pattern) {
+        String replaced = pattern.replace("''", ProbabilityLabel.C_CALENDAR_DATE_FILLER.getString());
+        boolean started = false;
+        StringBuilder result = new StringBuilder(pattern.length());
+        for (char character : replaced.toCharArray()) {
+            if (character == '\'') {
+                started = !started;
+            } else {
+                if (started) {
+                    result.append(ProbabilityLabel.C_CALENDAR_DATE_FILLER.getString());
+                } else {
+                    result.append(character);
+                }
+            }
+        }
+        return result.toString();
     }
 
     private static String generateRandomString(int length) {
