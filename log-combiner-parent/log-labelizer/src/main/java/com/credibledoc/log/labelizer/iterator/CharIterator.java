@@ -1,8 +1,9 @@
 package com.credibledoc.log.labelizer.iterator;
 
-import com.credibledoc.log.labelizer.classifier.LinesWithDateClassification;
+import com.credibledoc.log.labelizer.date.DateExample;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.primitives.Chars;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,10 +29,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class CharIterator implements DataSetIterator {
     public static final String RESOURCES_DIR = "vectors/labeled";
+    public static final int EXAMPLE_LENGTH = 100;
     private static final Logger logger = LoggerFactory.getLogger(CharIterator.class);
-    public static final int NUM_LABELS_2 = 2;
     private static final String NOT_IMPLEMENTED = "Not implemented";
     private static final String NATIONAL_CHARS_TXT = "chars/nationalChars.txt";
+    private static final char ORDERING_FORTRAN = 'f';
+    private static final String DATE_FOLDER = "date";
+    private static final String WITHOUT_DATE_FOLDER = "without";
+    private static final int BOUNDARY_LENGTH_2 = 2;
 
     /**
      * Maps each character to an index ind the input/output. These characters is used in train and test data.
@@ -39,12 +44,12 @@ public class CharIterator implements DataSetIterator {
     private Map<Integer, Character> intToCharMap;
 
     /**
-     * All characters of the input file (after filtering to only those that are valid) labeled as "date"
+     * Examples of a date string where individual parts are marked with labels.
      */
-    private List<String> linesWithDate;
+    private transient List<DateExample> dateExamples;
 
     /**
-     * All characters of the input file (after filtering to only those that are valid) labeled as "without"
+     * Examples of lines without date or other labels.
      */
     private List<String> linesWithoutDate;
 
@@ -60,7 +65,7 @@ public class CharIterator implements DataSetIterator {
     private int miniBatchSize;
 
     /**
-     * Offsets for the start of next {@link #linesWithDate} example
+     * Offsets for the start of next {@link #dateExamples} example
      */
     private int linesWithDateOffset = 0;
 
@@ -124,8 +129,23 @@ public class CharIterator implements DataSetIterator {
         //Store valid characters is a map for later use in vectorization
         initCharToIdxMap();
 
-        linesWithDate = readFilesToCharArray(resourcesDirPath, textFileEncoding, "date");
-        linesWithoutDate = readFilesToCharArray(resourcesDirPath, textFileEncoding, "without");
+        dateExamples = readDateExamples(resourcesDirPath, textFileEncoding);
+        linesWithoutDate = readLinesFromFolder(resourcesDirPath, textFileEncoding, WITHOUT_DATE_FOLDER);
+    }
+
+    private List<DateExample> readDateExamples(String resourcesDirPath, Charset textFileEncoding) {
+        try {
+            List<String> exampleLines = readLinesFromFolder(resourcesDirPath, textFileEncoding, DATE_FOLDER);
+            List<DateExample> result = new ArrayList<>();
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (String json : exampleLines) {
+                DateExample dateExample = objectMapper.readValue(json, DateExample.class);
+                result.add(dateExample);
+            }
+            return result;
+        } catch (Exception e) {
+            throw new LabelizerRuntimeException(e);
+        }
     }
 
     public static String randomWordChar() {
@@ -133,22 +153,24 @@ public class CharIterator implements DataSetIterator {
         return String.valueOf(DIGITS_AND_LETTERS_AND_PUNCTUATIONS.get(randomIndex));
     }
 
-    private List<String> readFilesToCharArray(String resourcesDirPath, Charset textFileEncoding,
-                                              String labeledDir) throws IOException {
-        File dateDir = new File(resourcesDirPath, labeledDir);
+    private List<String> readLinesFromFolder(String resourcesDirPath, Charset textFileEncoding, String folderName) throws IOException {
+        File dateDir = new File(resourcesDirPath, folderName);
         Collection<File> dateFiles = FileUtils.listFiles(dateDir, null, false);
         List<String> exampleLines = new ArrayList<>();
         for (File file : dateFiles) {
             exampleLines.addAll(Files.readAllLines(file.toPath(), textFileEncoding));
         }
+        checkMissingChars(resourcesDirPath, exampleLines);
+        return exampleLines;
+    }
+
+    private void checkMissingChars(String resourcesDirPath, List<String> exampleLines) throws IOException {
         List<Character> missingChars = new ArrayList<>();
         for (String line : exampleLines) {
             char[] thisLine = line.toCharArray();
             for (char nextChar : thisLine) {
                 if (!intToCharMap.containsValue(nextChar) && !missingChars.contains(nextChar)) {
                     missingChars.add(nextChar);
-//                    throw new LabelizerRuntimeException("Cannot find character in charToIdxMap. " +
-//                        "Character: '" + nextChar + "'.");
                 }
             }
         }
@@ -159,15 +181,16 @@ public class CharIterator implements DataSetIterator {
             }
             File charsFile = new File(resourcesDirPath, NATIONAL_CHARS_TXT);
             logger.info("File will be created: '{}'", charsFile.getAbsolutePath());
-            charsFile.getParentFile().mkdirs();
+            if (!charsFile.getParentFile().mkdirs()) {
+                logger.info("Not created '{}'", charsFile.getParentFile().getAbsolutePath());
+            }
             String existingChars = getNationalCharsFromFile();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(charsFile));
-            writer.write(existingChars);
-            writer.write(stringBuilder.toString());
-            writer.close();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(charsFile))) {
+                writer.write(existingChars);
+                writer.write(stringBuilder.toString());
+            }
             throw new LabelizerRuntimeException("missingChars:" + stringBuilder.toString());
         }
-        return exampleLines;
     }
 
     private void initCharToIdxMap() {
@@ -225,7 +248,7 @@ public class CharIterator implements DataSetIterator {
     }
 
     private boolean hasMoreExamples() {
-        return linesWithDate.size() - 1 > linesWithDateOffset &&
+        return dateExamples.size() - 1 > linesWithDateOffset &&
             linesWithoutDate.size() - 1 > linesWithoutDateOffset;
     }
 
@@ -233,6 +256,7 @@ public class CharIterator implements DataSetIterator {
         try {
             return next(miniBatchSize);
         } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             throw new NoSuchElementException(e.getMessage());
         }
     }
@@ -252,8 +276,9 @@ public class CharIterator implements DataSetIterator {
 
             prepareDataForLearning(left, right);
                 
-            String datesString = left.toString();
-            Pair<String, String> pair = new Pair<>(datesString, right.toString());
+            String exampleString = left.toString();
+            String labelsString = right.toString();
+            Pair<String, String> pair = new Pair<>(exampleString, labelsString);
             examples.add(pair);
         }
 
@@ -261,20 +286,30 @@ public class CharIterator implements DataSetIterator {
         //Allocate space:
         //Note the order here:
         // dimension 0 = number of examples in minibatch
-        // dimension 1 = size of each vector (i.e., number of characters)
+        // dimension 1 = size of each vector (i.e., number of characters or number of labels)
         // dimension 2 = length of each time series/example
-        //Why 'f' order here? See http://deeplearning4j.org/usingrnns.html#data section "Alternative: Implementing a 
-        // custom DataSetIterator"
-        INDArray input = Nd4j.create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, 'f');
-        INDArray labels = Nd4j.create(new int[]{currMinibatchSize, NUM_LABELS_2, exampleLength}, 'f');
+        // Why 'f' order here? See https://jrmerwin.github.io/deeplearning4j-docs/usingrnns.html,
+        // section "Alternative: Implementing a custom DataSetIterator"
+        INDArray input = Nd4j
+            .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
+        INDArray labels = Nd4j
+            .create(new int[]{currMinibatchSize, ProbabilityLabel.values().length, exampleLength}, ORDERING_FORTRAN);
 
         for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
-            logger.info("MiniBatch: {}: {}", miniBatchIndex, examples.get(miniBatchIndex).getLeft());
-            logger.info("MiniBatch: {}: {}", miniBatchIndex, examples.get(miniBatchIndex).getRight());
+            String stringLine = examples.get(miniBatchIndex).getLeft();
+            String labelsLine = examples.get(miniBatchIndex).getRight();
+            if (stringLine.length() != labelsLine.length()) {
+                String lines = 
+                    "\nLength: '" + stringLine.length() + "', line  : '" + stringLine + "'" +
+                    "\nLength: '" + labelsLine.length() + "', labels: '" + labelsLine + "'";
+                throw new LabelizerRuntimeException("Line and labeled line should have same lengths.\n" + lines);
+            }
+            logger.info("MiniBatch: {}: {}", miniBatchIndex, stringLine);
+            logger.info("MiniBatch: {}: {}", miniBatchIndex, labelsLine);
             logger.info("");
-            for (int charIndex = 0; charIndex < examples.get(miniBatchIndex).getLeft().length(); charIndex++) {
-                char exampleChar = examples.get(miniBatchIndex).getLeft().charAt(charIndex);
-                char labelChar = examples.get(miniBatchIndex).getRight().charAt(charIndex);
+            for (int charIndex = 0; charIndex < stringLine.length(); charIndex++) {
+                char exampleChar = stringLine.charAt(charIndex);
+                char labelChar = labelsLine.charAt(charIndex);
                 int exampleCharIndex = convertCharacterToIndex(exampleChar);
                 int labelCharIndex = ProbabilityLabel.findIndex(labelChar);
                 input.putScalar(new int[]{miniBatchIndex, exampleCharIndex, charIndex}, 1.0);
@@ -285,34 +320,83 @@ public class CharIterator implements DataSetIterator {
         return new DataSet(input, labels);
     }
 
-    private void prepareDataForLearning(StringBuilder left, StringBuilder right) {
+    /**
+     * Fill the buffers with data.
+     * @param stringLine an empty buffer
+     * @param labelsLine an empty buffer
+     */
+    private void prepareDataForLearning(StringBuilder stringLine, StringBuilder labelsLine) {
         String withoutDate = linesWithoutDate.get(linesWithoutDateOffset++);
-        if (withoutDate.length() < LinesWithDateClassification.EXAMPLE_LENGTH) {
-            withoutDate = StringUtils.rightPad(withoutDate, LinesWithDateClassification.EXAMPLE_LENGTH, " ");
+        if (withoutDate.length() > EXAMPLE_LENGTH) {
+            // WithoutDate linee can be longer in noDatesManual.txt
+            withoutDate = withoutDate.substring(0, EXAMPLE_LENGTH);
+        }
+
+        DateExample dateExample = dateExamples.get(linesWithDateOffset++);
+
+        int boundaryIndex = randomBetween(0, BOUNDARIES.size() - 1);
+        String boundary = BOUNDARIES.get(boundaryIndex);
+
+        if (dateExample.getSource().length() + withoutDate.length() + 1 <= EXAMPLE_LENGTH) {
+            stringLine.append(dateExample.getSource());
+            labelsLine.append(dateExample.getLabels());
+
+            stringLine.append(boundary.substring(1));
+            labelsLine.append(ProbabilityLabel.N_WITHOUT_DATE.getString());
+
+            stringLine.append(stringLine);
+            labelsLine.append(StringUtils.rightPad("", stringLine.length(),
+                ProbabilityLabel.N_WITHOUT_DATE.getString()));
+            
+            int remaining = EXAMPLE_LENGTH - stringLine.length();
+            if (remaining > 0) {
+                // line padding
+                String lineFiller = StringUtils.leftPad("", remaining, " ");
+                stringLine.append(lineFiller);
+            }
+            // labels padding
+            int labelsRemaining = EXAMPLE_LENGTH - labelsLine.length();
+            if (labelsRemaining > 0) {
+                String filler = StringUtils.leftPad("", labelsRemaining, ProbabilityLabel.N_WITHOUT_DATE.getString());
+                labelsLine.append(filler);
+            }
+            
+            return;
         }
         
-        int randomIndex = randomBetween(0, BOUNDARIES.size() - 1);
-        String boundary = BOUNDARIES.get(randomIndex);
+        int lengthWithoutDateAndBoundary = withoutDate.length() - dateExample.getSource().length() - BOUNDARY_LENGTH_2;
+        if (lengthWithoutDateAndBoundary < 0) {
+            throw new LabelizerRuntimeException("Date is longer then withoutDate + 3. " +
+                "Date: '" + dateExample.getSource() + "', " +
+                "withoutDate: '" + withoutDate + "'");
+        }
+        int startIndex = randomBetween(0, lengthWithoutDateAndBoundary);
         
-        String withDate = linesWithDate.get(linesWithDateOffset++);
-        int startIndex = randomBetween(0, withoutDate.length() - withDate.length() - 3);
-        
-        left.append(withoutDate, 0, startIndex);
-        right.append(StringUtils.rightPad("", left.length(), ProbabilityLabel.W_WITHOUT_DATE.getCharacter()));
-        left.append(boundary, 0, 1);
-        right.append(ProbabilityLabel.W_WITHOUT_DATE.getCharacter());
+        stringLine.append(withoutDate, 0, startIndex);
+        labelsLine.append(StringUtils.rightPad("", stringLine.length(), ProbabilityLabel.N_WITHOUT_DATE.getCharacter()));
+        if (startIndex > 0) {
+            stringLine.append(boundary, 0, 1);
+            labelsLine.append(ProbabilityLabel.N_WITHOUT_DATE.getCharacter());
+        }
 
-        left.append(withDate);
-        right.append(StringUtils.rightPad("", withDate.length(), ProbabilityLabel.D_DATE.getCharacter()));
+        stringLine.append(dateExample.getSource());
+        labelsLine.append(dateExample.getLabels());
 
-        left.append(boundary, 1, 2);
-        right.append(ProbabilityLabel.W_WITHOUT_DATE.getCharacter());
+        stringLine.append(boundary, 1, 1 + 1);
+        labelsLine.append(ProbabilityLabel.N_WITHOUT_DATE.getCharacter());
 
-        left.append(withoutDate.substring(left.length()));
-        right.append(StringUtils.rightPad(
-            "",
-            LinesWithDateClassification.EXAMPLE_LENGTH - right.length(),
-            ProbabilityLabel.W_WITHOUT_DATE.getCharacter()));
+        stringLine.append(withoutDate.substring(stringLine.length()));
+
+        int remaining = EXAMPLE_LENGTH - stringLine.length();
+        if (remaining > 0) {
+            // line padding
+            String lineFiller = StringUtils.leftPad("", remaining, " ");
+            stringLine.append(lineFiller);
+        }
+        // labels padding
+        int labelsRemaining = EXAMPLE_LENGTH - labelsLine.length();
+        String labelsPadding = StringUtils.leftPad("", labelsRemaining, ProbabilityLabel.N_WITHOUT_DATE.getString());
+        labelsLine.append(labelsPadding);
     }
 
     public int inputColumns() {
@@ -320,7 +404,7 @@ public class CharIterator implements DataSetIterator {
     }
 
     public int totalOutcomes() {
-        return NUM_LABELS_2;
+        return ProbabilityLabel.values().length;
     }
 
     public void reset() {

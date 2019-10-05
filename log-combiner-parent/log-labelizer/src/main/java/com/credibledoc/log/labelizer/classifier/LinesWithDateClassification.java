@@ -33,16 +33,15 @@ public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
     private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors";
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    public static final int EXAMPLE_LENGTH = 200;
 
     public static void main(String[] args) throws Exception {
         int miniBatchSize = 32;                        //Size of mini batch to use when  training
-        int exampleLength = EXAMPLE_LENGTH;                    //Length of each training example sequence to use. This could 
+        int exampleLength = CharIterator.EXAMPLE_LENGTH;                    //Length of each training example sequence to use. This could 
         // certainly be increased
-        int charsNumBackPropagationThroughTime = 50;//Length for truncated backpropagation through time. i.e., do 
+        int charsNumBackPropagationThroughTime = 100;//Length for truncated backpropagation through time. i.e., do 
         // parameter updates ever 50 characters
         int numEpochs = 1;                            //Total number of training epochs
-        int generateSamplesEveryNMinibatches = 10;  //How frequently to generate samples from the network? 1000 
+        int generateSamplesEveryNMinibatches = 100;  //How frequently to generate samples from the network? 1000 
 
         MultiLayerNetwork multiLayerNetwork = null;
 
@@ -70,7 +69,7 @@ public class LinesWithDateClassification {
         int nOut = iter.totalOutcomes();
 
         //Number of units in each LSTM layer
-        int lstmLayerSize = iter.inputColumns();
+        int lstmLayerSize = iter.inputColumns() / 2;
 
         //Set up network configuration:
         if (!isNetworkLoadedFromFile) {
@@ -123,8 +122,8 @@ public class LinesWithDateClassification {
                     DataSet dataSet = iter.next();
                     logIndArray("MultilayerNetwork flattened params before the fit() method:", multiLayerNetwork.params());
                     multiLayerNetwork.fit(dataSet);
-                    multiLayerNetwork.save(networkFile);
                     if (++miniBatchNumber % generateSamplesEveryNMinibatches == 0) {
+                        multiLayerNetwork.save(networkFile);
                         logger.info("--------------------");
                         String completedInfo =
                             "Completed " + miniBatchNumber + " miniBatches of size " + miniBatchSize + "x" + exampleLength + " characters";
@@ -137,11 +136,16 @@ public class LinesWithDateClassification {
             }
         }
 
-        String initString = "[Sat Aug 12 04:05:51 2006] [notice] Apache/1.3.11 (Unix) mod_perl/1.21 configured -- resuming normal operations";
-//        String initString = 
-//            "Thursday August 24 16:42:23 2017 769ัоьгีz८ذтcημk월๔ưवΣрzعçزFิ:ذمشkสúΔ7ëysμvάηฤτ8คřفJ๓мúěיуá九кงзНOΜ日Čυו토ċคL-şุМر일ุΙο๔âτاΦ요ľĠजि६Zρोúпeजρ" +
-//                "u-सخoEก७火آคP七ëوjВจ๕םเนशĠ-ل0.ēкศ8нีåЧ8طоkห:๐金W-ाدфНμस๑бb8सάr์tBн周فм;ū!PमNt१бυ(PС日tΙ화ط3曜ءBýईίפWő火åสFΝ";
-        printSamples(initString + initString, multiLayerNetwork, iter);
+//        String initString = "[Sat Aug 12 04:05:51 2006] [notice] Apache/1.3.11 (Unix) mod_perl/1.21 configured -- resuming normal operations";
+        
+        String initString = 
+            "Thursday August 24 16:42:23 2017 769ัоьгีz८ذтcημk월๔ưवΣрzعçزFิ:ذمشkสúΔ7ëysμvάηฤτ8คřفJ๓мúěיуá九кงзНOΜ日Čυו토ċคL-şุМر일ุΙο๔âτاΦ요ľĠजि६Zρोúпeजρ" +
+                "u-सخoEก७火آคP七ëوjВจ๕םเนशĠ-ل0.ēкศ8нีåЧ8طоkห:๐金W-ाدфНμस๑бb8सάr์tBн周فм;ū!PमNt१бυ(PС日tΙ화ط3曜ءBýईίפWő火åสFΝ";
+        
+//        String initString = "204.31.113.138 - - [03/Jul/1996:06:56:12 -0800] \"GET /PowerBuilder/Compny3.htm HTTP/1" +
+//            ".0\" 200 5593";
+        
+        printSamples(initString + " " + initString, multiLayerNetwork, iter);
 
         logger.info("\n\nExample complete");
     }
@@ -155,7 +159,7 @@ public class LinesWithDateClassification {
     }
 
     private static void evaluate(MultiLayerNetwork net, DataSet dataSet) {
-        Evaluation evaluation = new Evaluation(CharIterator.NUM_LABELS_2);
+        Evaluation evaluation = new Evaluation(ProbabilityLabel.values().length);
         INDArray output = net.output(dataSet.getFeatures());
         evaluation.eval(dataSet.getLabels(), output);
         String stats = evaluation.stats();
