@@ -3,6 +3,7 @@ package com.credibledoc.log.labelizer.iterator;
 import com.credibledoc.log.labelizer.date.DateExample;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
+import com.credibledoc.log.labelizer.hint.Hint;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.primitives.Chars;
 import org.apache.commons.io.FileUtils;
@@ -446,6 +447,65 @@ public class CharIterator implements DataSetIterator {
 
     private static int randomBetween(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
+
+    /**
+     * Parse an input line and mark some digits as {@link ProbabilityLabel#Y_YEAR} (<b>y</b>)
+     * and others as {@link ProbabilityLabel#N_WITHOUT_DATE} (<b>n</b>).
+     * 
+     * Digits are considered as a year (<b>y</b>) when they are a part of a year
+     * from 1980 to current year + 1 (next year).
+     * 
+     * Year can be formatted as 4 digits, for example 2019 or two digits, for example 19.
+     * 
+     * @param line input with (or without) date pattern(s), for example <i>abc 2019.05.10 def</i>
+     * @return for example <i>nnnnyyyynyynyynnnn</i>
+     */
+    static String yearHintLenient(String line) {
+        StringBuilder result = new StringBuilder(line.length());
+        StringBuilder context4 = new StringBuilder(4);
+        StringBuilder context2 = new StringBuilder(2);
+        for (char character : line.toCharArray()) {
+            result.append(ProbabilityLabel.N_WITHOUT_DATE.getCharacter());
+            if (Character.isDigit(character)) {
+                processDigit(result, context4, context2, character);
+            } else {
+                context4.setLength(0);
+                context2.setLength(0);
+            }
+        }
+        return result.toString();
+    }
+
+    private static void processDigit(StringBuilder result, StringBuilder context4, StringBuilder context2,
+                                     char character) {
+        context4.append(character);
+        context2.append(character);
+
+        if (context4.length() == 4) {
+            if (isDate(Integer.parseInt(context4.toString()))) {
+                writeToResult(result, 4);
+            }
+            context4.deleteCharAt(0);
+        }
+        if (context2.length() == 2) {
+            if (isDate(Integer.parseInt(context2.toString()))) {
+                writeToResult(result, 2);
+            }
+            context2.deleteCharAt(0);
+        }
+    }
+
+    private static void writeToResult(StringBuilder result, int numToAppend) {
+        String labels = StringUtils.rightPad("", numToAppend, ProbabilityLabel.Y_YEAR.getCharacter());
+        result.setLength(result.length() - numToAppend);
+        result.append(labels);
+    }
+
+    private static boolean isDate(Integer contextResult) {
+        return ((contextResult >= Hint.OLDEST_YEAR && contextResult <= Hint.ACTUAL_YEAR + 1)
+            || (contextResult >= Hint.SHORT_ZERO_YEAR && contextResult <= Hint.SHORT_ACTUAL_YEAR)
+            || (contextResult >= Hint.SHORT_OLD_YEAR && contextResult < Hint.SHORT_HELPFULL_YEAR));
     }
 
 }
