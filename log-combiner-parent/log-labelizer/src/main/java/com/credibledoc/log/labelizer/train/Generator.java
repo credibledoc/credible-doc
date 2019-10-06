@@ -51,6 +51,8 @@ public class Generator {
             patternsList.add("dd.MM.yyyy-HH:mm:ss.SSSZ"); // 15.09.2019-18:10:34.773+0200
             patternsList.add("EEE MMM dd HH:mm:ss yyyy"); // Sat Aug 12 04:05:51 2006
             patternsList.add("EEEE MMMM dd HH:mm:ss yyyy"); // Saturday August 15 19:05:56 2019
+            // TODO Kyrylo Semenko - [03/Jul/1996:06:56:12 -0800]
+            // TODO Kyrylo Semenko - 03/22 08:51:06
             
             Date date = new Date();
             for (String format : patternsList) {

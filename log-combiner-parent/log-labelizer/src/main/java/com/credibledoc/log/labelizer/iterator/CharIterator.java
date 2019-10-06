@@ -10,9 +10,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.dataset.DataSet;
-import org.nd4j.linalg.dataset.api.DataSetPreProcessor;
-import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
+import org.nd4j.linalg.dataset.api.MultiDataSet;
+import org.nd4j.linalg.dataset.api.MultiDataSetPreProcessor;
+import org.nd4j.linalg.dataset.api.iterator.MultiDataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.nd4j.linalg.primitives.Pair;
@@ -27,8 +27,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Consumer;
 
-public class CharIterator implements DataSetIterator {
+public class CharIterator implements MultiDataSetIterator {
     public static final String RESOURCES_DIR = "vectors/labeled";
     public static final int EXAMPLE_LENGTH = 100;
     private static final Logger logger = LoggerFactory.getLogger(CharIterator.class);
@@ -38,6 +39,7 @@ public class CharIterator implements DataSetIterator {
     private static final String DATE_FOLDER = "date";
     private static final String WITHOUT_DATE_FOLDER = "without";
     private static final int BOUNDARY_LENGTH_2 = 2;
+    private static final String MINI_BATCH = "MiniBatch: {}: {}";
 
     /**
      * Maps each character to an index ind the input/output. These characters is used in train and test data.
@@ -150,7 +152,7 @@ public class CharIterator implements DataSetIterator {
     }
 
     public static String randomWordChar() {
-        int randomIndex = randomBetween(0, DIGITS_AND_LETTERS_AND_PUNCTUATIONS.size() - 1);
+        int randomIndex = randomFromZeroToMaxInclusive(DIGITS_AND_LETTERS_AND_PUNCTUATIONS.size() - 1);
         return String.valueOf(DIGITS_AND_LETTERS_AND_PUNCTUATIONS.get(randomIndex));
     }
 
@@ -253,7 +255,7 @@ public class CharIterator implements DataSetIterator {
             linesWithoutDate.size() - 1 > linesWithoutDateOffset;
     }
 
-    public DataSet next() {
+    public MultiDataSet next() {
         try {
             return next(miniBatchSize);
         } catch (Exception e) {
@@ -262,7 +264,7 @@ public class CharIterator implements DataSetIterator {
         }
     }
 
-    public DataSet next(int miniBatches) {
+    public MultiDataSet next(int miniBatches) {
         if (!hasMoreExamples()) {
             throw new NoSuchElementException();
         }
@@ -291,34 +293,55 @@ public class CharIterator implements DataSetIterator {
         // dimension 2 = length of each time series/example
         // Why 'f' order here? See https://jrmerwin.github.io/deeplearning4j-docs/usingrnns.html,
         // section "Alternative: Implementing a custom DataSetIterator"
-        INDArray input = Nd4j
-            .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
-        INDArray labels = Nd4j
-            .create(new int[]{currMinibatchSize, ProbabilityLabel.values().length, exampleLength}, ORDERING_FORTRAN);
+        try(
+            INDArray input = Nd4j
+                .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
+            INDArray inputHint = Nd4j
+                .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
+            INDArray labels = Nd4j
+                .create(new int[]{currMinibatchSize, ProbabilityLabel.values().length, exampleLength}, ORDERING_FORTRAN)
+            ) {
 
-        for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
-            String stringLine = examples.get(miniBatchIndex).getLeft();
-            String labelsLine = examples.get(miniBatchIndex).getRight();
-            if (stringLine.length() != labelsLine.length()) {
-                String lines = 
-                    "\nLength: '" + stringLine.length() + "', line  : '" + stringLine + "'" +
-                    "\nLength: '" + labelsLine.length() + "', labels: '" + labelsLine + "'";
-                throw new LabelizerRuntimeException("Line and labeled line should have same lengths.\n" + lines);
+
+            for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
+                String stringLine = examples.get(miniBatchIndex).getLeft();
+                String hintLine = yearHintLenient(stringLine);
+
+                String labelsLine = examples.get(miniBatchIndex).getRight();
+
+                if (stringLine.length() != labelsLine.length()) {
+                    String lines =
+                        "\nLength: '" + stringLine.length() + "', line  : '" + stringLine + "'" +
+                            "\nLength: '" + labelsLine.length() + "', labels: '" + labelsLine + "'";
+                    throw new LabelizerRuntimeException("Line and labeled line should have same lengths.\n" + lines);
+                }
+                logger.info(MINI_BATCH, miniBatchIndex, stringLine);
+                logger.info(MINI_BATCH, miniBatchIndex, labelsLine);
+                logger.info(MINI_BATCH, miniBatchIndex, hintLine);
+                logger.info("");
+                for (int charIndex = 0; charIndex < stringLine.length(); charIndex++) {
+                    char exampleChar = stringLine.charAt(charIndex);
+                    char labelChar = labelsLine.charAt(charIndex);
+                    char hintChar = hintLine.charAt(charIndex);
+                    int exampleCharIndex = convertCharacterToIndex(exampleChar);
+                    int hintCharIndex = convertCharacterToIndex(hintChar);
+                    int labelCharIndex = ProbabilityLabel.findIndex(labelChar);
+                    input.putScalar(new int[]{miniBatchIndex, exampleCharIndex, charIndex}, 1.0);
+                    inputHint.putScalar(new int[]{miniBatchIndex, hintCharIndex, charIndex}, 1.0);
+                    labels.putScalar(new int[]{miniBatchIndex, labelCharIndex, charIndex}, 1.0);
+                }
             }
-            logger.info("MiniBatch: {}: {}", miniBatchIndex, stringLine);
-            logger.info("MiniBatch: {}: {}", miniBatchIndex, labelsLine);
-            logger.info("");
-            for (int charIndex = 0; charIndex < stringLine.length(); charIndex++) {
-                char exampleChar = stringLine.charAt(charIndex);
-                char labelChar = labelsLine.charAt(charIndex);
-                int exampleCharIndex = convertCharacterToIndex(exampleChar);
-                int labelCharIndex = ProbabilityLabel.findIndex(labelChar);
-                input.putScalar(new int[]{miniBatchIndex, exampleCharIndex, charIndex}, 1.0);
-                labels.putScalar(new int[]{miniBatchIndex, labelCharIndex, charIndex}, 1.0);
-            }
+
+            return new org.nd4j.linalg.dataset.MultiDataSet(
+                new INDArray[]{input, inputHint},
+                new INDArray[]{labels}
+            );
         }
+    }
 
-        return new DataSet(input, labels);
+    @Override
+    public void setPreProcessor(MultiDataSetPreProcessor preProcessor) {
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 
     /**
@@ -335,7 +358,7 @@ public class CharIterator implements DataSetIterator {
 
         DateExample dateExample = dateExamples.get(linesWithDateOffset++);
 
-        int boundaryIndex = randomBetween(0, BOUNDARIES.size() - 1);
+        int boundaryIndex = randomFromZeroToMaxInclusive(BOUNDARIES.size() - 1);
         String boundary = BOUNDARIES.get(boundaryIndex);
 
         if (dateExample.getSource().length() + withoutDate.length() + 1 <= EXAMPLE_LENGTH) {
@@ -348,20 +371,9 @@ public class CharIterator implements DataSetIterator {
             stringLine.append(stringLine);
             labelsLine.append(StringUtils.rightPad("", stringLine.length(),
                 ProbabilityLabel.N_WITHOUT_DATE.getString()));
-            
-            int remaining = EXAMPLE_LENGTH - stringLine.length();
-            if (remaining > 0) {
-                // line padding
-                String lineFiller = StringUtils.leftPad("", remaining, " ");
-                stringLine.append(lineFiller);
-            }
-            // labels padding
-            int labelsRemaining = EXAMPLE_LENGTH - labelsLine.length();
-            if (labelsRemaining > 0) {
-                String filler = StringUtils.leftPad("", labelsRemaining, ProbabilityLabel.N_WITHOUT_DATE.getString());
-                labelsLine.append(filler);
-            }
-            
+
+            fillPadding(stringLine, labelsLine);
+
             return;
         }
         
@@ -371,7 +383,7 @@ public class CharIterator implements DataSetIterator {
                 "Date: '" + dateExample.getSource() + "', " +
                 "withoutDate: '" + withoutDate + "'");
         }
-        int startIndex = randomBetween(0, lengthWithoutDateAndBoundary);
+        int startIndex = randomFromZeroToMaxInclusive(lengthWithoutDateAndBoundary);
         
         stringLine.append(withoutDate, 0, startIndex);
         labelsLine.append(StringUtils.rightPad("", stringLine.length(), ProbabilityLabel.N_WITHOUT_DATE.getCharacter()));
@@ -388,6 +400,10 @@ public class CharIterator implements DataSetIterator {
 
         stringLine.append(withoutDate.substring(stringLine.length()));
 
+        fillPadding(stringLine, labelsLine);
+    }
+
+    private void fillPadding(StringBuilder stringLine, StringBuilder labelsLine) {
         int remaining = EXAMPLE_LENGTH - stringLine.length();
         if (remaining > 0) {
             // line padding
@@ -396,8 +412,11 @@ public class CharIterator implements DataSetIterator {
         }
         // labels padding
         int labelsRemaining = EXAMPLE_LENGTH - labelsLine.length();
-        String labelsPadding = StringUtils.leftPad("", labelsRemaining, ProbabilityLabel.N_WITHOUT_DATE.getString());
-        labelsLine.append(labelsPadding);
+        if (labelsRemaining > 0) {
+            String labelsFiller = StringUtils.leftPad("", labelsRemaining,
+                ProbabilityLabel.N_WITHOUT_DATE.getString());
+            labelsLine.append(labelsFiller);
+        }
     }
 
     public int inputColumns() {
@@ -422,21 +441,8 @@ public class CharIterator implements DataSetIterator {
         return true;
     }
 
-    public int batch() {
-        return miniBatchSize;
-    }
-
-    public void setPreProcessor(DataSetPreProcessor preProcessor) {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
-    }
-
     @Override
-    public DataSetPreProcessor getPreProcessor() {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
-    }
-
-    @Override
-    public List<String> getLabels() {
+    public MultiDataSetPreProcessor getPreProcessor() {
         throw new UnsupportedOperationException(NOT_IMPLEMENTED);
     }
 
@@ -445,23 +451,28 @@ public class CharIterator implements DataSetIterator {
         throw new UnsupportedOperationException();
     }
 
-    private static int randomBetween(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
+    @Override
+    public void forEachRemaining(Consumer<? super MultiDataSet> action) {
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+    }
+
+    private static int randomFromZeroToMaxInclusive(int max) {
+        return ThreadLocalRandom.current().nextInt(0, max + 1);
     }
 
     /**
      * Parse an input line and mark some digits as {@link ProbabilityLabel#Y_YEAR} (<b>y</b>)
      * and others as {@link ProbabilityLabel#N_WITHOUT_DATE} (<b>n</b>).
-     * 
+     * <p>
      * Digits are considered as a year (<b>y</b>) when they are a part of a year
      * from 1980 to current year + 1 (next year).
-     * 
+     * <p>
      * Year can be formatted as 4 digits, for example 2019 or two digits, for example 19.
-     * 
+     *
      * @param line input with (or without) date pattern(s), for example <i>abc 2019.05.10 def</i>
      * @return for example <i>nnnnyyyynyynyynnnn</i>
      */
-    static String yearHintLenient(String line) {
+    public static String yearHintLenient(String line) {
         StringBuilder result = new StringBuilder(line.length());
         StringBuilder context4 = new StringBuilder(4);
         StringBuilder context2 = new StringBuilder(2);
@@ -504,8 +515,24 @@ public class CharIterator implements DataSetIterator {
 
     private static boolean isDate(Integer contextResult) {
         return ((contextResult >= Hint.OLDEST_YEAR && contextResult <= Hint.ACTUAL_YEAR + 1)
-            || (contextResult >= Hint.SHORT_ZERO_YEAR && contextResult <= Hint.SHORT_ACTUAL_YEAR)
+            || (contextResult >= Hint.SHORT_ZERO_YEAR && contextResult <= Hint.SHORT_ACTUAL_YEAR + 1)
             || (contextResult >= Hint.SHORT_OLD_YEAR && contextResult < Hint.SHORT_HELPFULL_YEAR));
+    }
+
+    static int countOfSuccessfullyMarkedChars(String recognizedOutput, String expectedOutput) {
+        if (recognizedOutput.length() != expectedOutput.length()) {
+            throw new LabelizerRuntimeException("RecognizedOutput and expectedOutput length are not equal. " +
+                "recognizedOutput: '" + recognizedOutput +
+                "', expectedOutput: '" + expectedOutput +
+                "'");
+        }
+        int result = 0;
+        for (int index = 0; index < recognizedOutput.length(); index++) {
+            if (recognizedOutput.charAt(index) == expectedOutput.charAt(index)) {
+                result++;
+            }
+        }
+        return result;
     }
 
 }
