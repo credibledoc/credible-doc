@@ -15,6 +15,8 @@ import com.credibledoc.log.labelizer.date.ProbabilityLabel;
  */
 
 public class Hint {
+	private static final String YEAR = ProbabilityLabel.Y_YEAR.getString();
+	private static final String WITHOUT = ProbabilityLabel.N_WITHOUT_DATE.getString();
 	public static final int OLDEST_YEAR = 1980;
 	public static final int ACTUAL_YEAR = Calendar.getInstance().get(Calendar.YEAR);
 	public static final int SHORT_OLD_YEAR = 80;
@@ -23,9 +25,8 @@ public class Hint {
 	public static final int SHORT_ZERO_YEAR = 00; // year 2000 in short version
 	public static final int SHORT_HELPFULL_YEAR = 100; // year 2000 in helpfull version for nineteens years
 
-	public static void main(String[] args) {
-		String input = "2019:1425...1998338";
-		String output = "wwwwwddddwddwwwwddwwwwwwwwwwwwwwwwwwwwwwwwwwwddddwddwwwwddwwww";
+	public static String yearLabels(String input) {
+		String output = "nnnnnyyyynyynnnnyynnnnnnnnnnnnnnnnnnnnnnnnnnnyyyynyynnnnyynnnn";
 		Integer lastInputValue = (input.length() - 1);
 		StringBuffer result = new StringBuffer();
 		StringBuffer context = new StringBuffer();
@@ -34,7 +35,7 @@ public class Hint {
 			Character character = input.charAt(i);
 			System.out.println(character + ":" + Character.isDigit(character));
 			if (!Character.isDigit(character)) {
-				result.append("w");
+				result.append(WITHOUT);
 				context.delete(0, context.length()); 
 				controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 			} else {
@@ -43,25 +44,27 @@ public class Hint {
 				if (context.length() <= 4) {
 					nextCharControl(valueOfInput, lastInputValue, input, context, result, output);
 				} else {
-					while (Character.isDigit(character)) {
+					while (i < lastInputValue && Character.isDigit(character)) {
 						controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 						i++;
 						valueOfInput = i;
-						controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
+						controlLastValueExit(output, result, lastInputValue, valueOfInput - 1, context);
 						character = input.charAt(i);
 						context.append(character);
 						System.out.println(character + ":" + Character.isDigit(character));
 					}
 					
 					for (int w = 0; w < context.length(); w++) {
-						result.append("w");
+						result.append(WITHOUT);
 					}
 					context.delete(0, context.length()); 
+					controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 				}
 
 			}
-			controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
+//			controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 		}
+		return output;
 	}
 	
 // This is method, which controls characters of context. Also it controls next characters if there is number or not.
@@ -71,8 +74,9 @@ public class Hint {
 			controlOfSingleNumber(context, result);
 			context.delete(0, context.length()); 
 			controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
-		}
+		} else {
 		c++;
+		}
 		Character nextChar = input.charAt(c);
 		if (!Character.isDigit(nextChar)) {
 			controlOfSingleNumber(context, result);
@@ -85,7 +89,7 @@ public class Hint {
 		if (context.length() != 1) {
 			dateControl(context, result);
 		} else {
-			result.append("w");
+			result.append(WITHOUT);
 		}
 	}
 	private static void dateControl(StringBuffer context, StringBuffer result) {
@@ -93,18 +97,18 @@ public class Hint {
 		boolean isDate = isDate(contextResult);
 		if (isDate == true) {
 			for (int d = 0; d < context.length(); d++) {
-				result.append("d");
+				result.append(YEAR);
 			}
 		} else {
 			for (int w = 0; w < context.length(); w++) {
-				result.append("w"); 
+				result.append(WITHOUT); 
 			}
 		}
 	}
 
 	private static boolean isDate(Integer contextResult) {
-		if ((contextResult >= OLDEST_YEAR && contextResult <= ACTUAL_YEAR)
-				|| (contextResult >= SHORT_ZERO_YEAR && contextResult <= SHORT_ACTUAL_YEAR)
+		if ((contextResult >= OLDEST_YEAR && contextResult <= ACTUAL_YEAR + 1)
+				|| (contextResult >= SHORT_ZERO_YEAR && contextResult <= SHORT_ACTUAL_YEAR + 1)
 				|| (contextResult >= SHORT_OLD_YEAR && contextResult < SHORT_HELPFULL_YEAR)) {
 			return true;
 		}
@@ -114,13 +118,12 @@ public class Hint {
 	private static void controlLastValueExit(String output, StringBuffer result, Integer lastInputValue, Integer valueOfInput,StringBuffer context) {
 		if (valueOfInput == lastInputValue) {
 			for (int w = 0; w < context.length(); w++) {
-				result.append("w");
+				result.append(WITHOUT);
 			}
-			System.out.println(output);
-			System.out.println(result.toString());
+			System.out.println("expected: " + output);
+			System.out.println("reslut:   " + result.toString());
 			System.out.println(result.toString().equals(output));
 			List<ProbabilityLabel> l2 = new ArrayList<ProbabilityLabel>();
-			System.exit(0);
 		}
 	}
 
