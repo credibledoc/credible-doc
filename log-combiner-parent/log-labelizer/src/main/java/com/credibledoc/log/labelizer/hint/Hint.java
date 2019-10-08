@@ -44,11 +44,7 @@ public class Hint {
 				if (context.length() <= 4) {
 					nextCharControl(valueOfInput, lastInputValue, input, context, result, output);
 				} else {
-<<<<<<< HEAD
 					while (i < lastInputValue && Character.isDigit(character)) {
-=======
-					while (i == lastInputValue && Character.isDigit(character)) {
->>>>>>> 6557c90af50f4fbf6c6836bfc19e9a02c7cc1428
 						controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 						i++;
 						valueOfInput = i;
