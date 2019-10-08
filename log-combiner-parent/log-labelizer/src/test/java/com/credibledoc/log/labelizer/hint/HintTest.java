@@ -9,7 +9,7 @@ public class HintTest {
 
 	@Test
 	public void test() {
-		String example = "6:00.k1134";
+		String example = "28.2.2019 11:45:00.123 1234567654 abcde 28.2.2018 11:46:00.124";
 		String result = Hint.yearLabels(example);
 		String expectedResult = "nnnnnyyyynyynnnnyynnnnnnnnnnnnnnnnnnnnnnnnnnnyyyynyynnnnyynnnn";
 		assertEquals(expectedResult, result);
