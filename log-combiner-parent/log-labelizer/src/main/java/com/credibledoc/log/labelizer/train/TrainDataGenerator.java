@@ -22,8 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * 
  * @author Kyrylo Semenko
  */
-public class Generator {
-    private static final Logger logger = LoggerFactory.getLogger(Generator.class);
+public class TrainDataGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(TrainDataGenerator.class);
     private static List<String> patternsList = new ArrayList<>();
     
     public static void main(String[] args) {
@@ -56,7 +56,7 @@ public class Generator {
             
             Date date = new Date();
             for (String format : patternsList) {
-                String dateString = new SimpleDateFormat(format).format(date);
+                String dateString = new SimpleDateFormat(format, Locale.US).format(date);
                 logger.info("List: {}, {}", format, dateString);
             }
 
@@ -114,8 +114,10 @@ public class Generator {
     }
 
     private static int generateDates() throws IOException {
+        String[] timeZoneIds = TimeZone.getAvailableIDs();
         int linesNumber = 0;
         File file = new File("src/main/resources/vectors/labeled/date/dates.txt");
+        logger.info("File will be rewritten: '{}'", file.getAbsolutePath());
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))) {
             for (Locale locale : DateFormat.getAvailableLocales()) {
                 for (String pattern : patternsList) {
@@ -137,12 +139,21 @@ public class Generator {
                                 gregorianCalendar.set(Calendar.SECOND, second);
                                 int millis = randomBetween(0, 999);
                                 gregorianCalendar.set(Calendar.MILLISECOND, millis);
+                                
+                                String timeZoneId = timeZoneIds[randomBetween(0, timeZoneIds.length - 1)];
+                                TimeZone randomTimeZone = TimeZone.getTimeZone(timeZoneId);
+                                gregorianCalendar.setTimeZone(randomTimeZone);
+                                
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
+                                simpleDateFormat.setTimeZone(randomTimeZone);
+                                
                                 String dateString = simpleDateFormat.format(gregorianCalendar.getTime());
                                 DateExample dateExample = new DateExample();
                                 dateExample.setPattern(pattern);
                                 dateExample.setSource(dateString);
-                                dateExample.setLabels(findLabels(dateString, pattern, locale, gregorianCalendar));
+                                String labels = findLabels(dateString, pattern, locale, gregorianCalendar,
+                                    randomTimeZone);
+                                dateExample.setLabels(labels);
                                 String json = new ObjectMapper().writeValueAsString(dateExample);
                                 writer.write(json + System.lineSeparator());
                                 linesNumber++;
@@ -155,7 +166,8 @@ public class Generator {
         return linesNumber;
     }
 
-    private static String findLabels(String dateString, String pattern, Locale locale, GregorianCalendar gregorianCalendar) {
+    static String findLabels(String dateString, String pattern, Locale locale, GregorianCalendar gregorianCalendar, TimeZone timeZone) {
+        gregorianCalendar.setTimeZone(timeZone);
         List<Pair<String, ProbabilityLabel>> patterns = splitDateFormatPattern(pattern);
         StringBuilder result = new StringBuilder();
         for (Pair<String, ProbabilityLabel> pair : patterns) {
@@ -163,10 +175,12 @@ public class Generator {
             if (probabilityLabel != ProbabilityLabel.C_CALENDAR_DATE_FILLER) {
                 String subpattern = pair.getLeft();
                 SimpleDateFormat format = new SimpleDateFormat(subpattern, locale);
+                format.setTimeZone(timeZone);
                 String text = format.format(gregorianCalendar.getTime());
                 if (subpattern.contains(ProbabilityLabel.M_MONTH_IN_YEAR.getString()) && !pattern.equals(subpattern)) {
                     // Get flexible form of month
                     SimpleDateFormat formatWithDays = new SimpleDateFormat(subpattern + "dd", locale);
+                    formatWithDays.setTimeZone(timeZone);
                     String textWithDate = formatWithDays.format(gregorianCalendar.getTime());
                     text = textWithDate.substring(0, textWithDate.length() - 2);
                 }
@@ -183,11 +197,30 @@ public class Generator {
                 "', result: '" + result.toString() +
                 "', pattern: '" + pattern +
                 "', locale: '" + locale +
-                "', date in milliseconds: '" + gregorianCalendar.getTimeInMillis() + "'");
+                "', date in milliseconds: '" + gregorianCalendar.getTimeInMillis() +
+                "', timeZone: '" + timeZone.getID() +
+                "'");
         }
         return result.toString();
     }
 
+    /**
+     * @param pattern for example <i>HH:mm:ss, K:mm, Z</i>
+     * @return For example
+     * <ul>
+     *     <li>Pair{key=HH, value=HOUR_IN_DAY_0_23}</li>
+     *     <li>Pair{key=c, value=C_CALENDAR_DATE_FILLER}</li>
+     *     <li>Pair{key=mm, value=MINUTE_OF_HOUR}</li>
+     *     <li>Pair{key=c, value=C_CALENDAR_DATE_FILLER}</li>
+     *     <li>Pair{key=ss, value=SECOND_IN_MINUTE}</li>
+     *     <li>Pair{key=cc, value=C_CALENDAR_DATE_FILLER}</li>
+     *     <li>Pair{key=K, value=HOUR_IN_AM_PM_0_11}</li>
+     *     <li>Pair{key=c, value=C_CALENDAR_DATE_FILLER}</li>
+     *     <li>Pair{key=mm, value=MINUTE_OF_HOUR}</li>
+     *     <li>Pair{key=cc, value=C_CALENDAR_DATE_FILLER}</li>
+     *     <li>Pair{key=Z, value=TIME_ZONE_RFC_822}</li>
+     * </ul>
+     */
     private static List<Pair<String, ProbabilityLabel>> splitDateFormatPattern(String pattern) {
         List<Pair<String, ProbabilityLabel>> pairs = new ArrayList<>();
         String unescaped;

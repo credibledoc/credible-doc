@@ -42,7 +42,9 @@ public class CharIterator implements MultiDataSetIterator {
     private static final String MINI_BATCH = "MiniBatch: {}: {}";
 
     /**
-     * Maps each character to an index ind the input/output. These characters is used in train and test data.
+     * Maps each character to an index in the input/output. These characters is used in train and test data.
+     * <p>
+     * Key is an order number and value is a character.
      */
     private Map<Integer, Character> intToCharMap;
 
@@ -70,12 +72,7 @@ public class CharIterator implements MultiDataSetIterator {
     /**
      * Offsets for the start of next {@link #dateExamples} example
      */
-    private int linesWithDateOffset = 0;
-
-    /**
-     * Offsets for the start of next {@link #linesWithoutDate} example
-     */
-    private int linesWithoutDateOffset = 0;
+    private int linesOffset = 0;
 
     private static final List<Character> PUNCTUATIONS = new ArrayList<>(Arrays.asList('!', '&', '(', ')', '?', '-',
         '\\', ',', '.', '\"', ':', ';', ' '));
@@ -107,8 +104,12 @@ public class CharIterator implements MultiDataSetIterator {
 
     @NotNull
     private static String getNationalCharsFromFile() throws IOException {
-        ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR + "/" + NATIONAL_CHARS_TXT);
-        return new String(Files.readAllBytes(resource.getFile().toPath()));
+        ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR + "/../" + NATIONAL_CHARS_TXT);
+        File file = resource.getFile();
+        if (!file.exists()) {
+            throw new LabelizerRuntimeException("File not found: '" + file.getAbsolutePath() + "'");
+        }
+        return new String(Files.readAllBytes(file.toPath()));
     }
 
     /**
@@ -156,7 +157,7 @@ public class CharIterator implements MultiDataSetIterator {
         return String.valueOf(DIGITS_AND_LETTERS_AND_PUNCTUATIONS.get(randomIndex));
     }
 
-    private List<String> readLinesFromFolder(String resourcesDirPath, Charset textFileEncoding, String folderName) throws IOException {
+    public List<String> readLinesFromFolder(String resourcesDirPath, Charset textFileEncoding, String folderName) throws IOException {
         File dateDir = new File(resourcesDirPath, folderName);
         Collection<File> dateFiles = FileUtils.listFiles(dateDir, null, false);
         List<String> exampleLines = new ArrayList<>();
@@ -251,8 +252,8 @@ public class CharIterator implements MultiDataSetIterator {
     }
 
     private boolean hasMoreExamples() {
-        return dateExamples.size() - 1 > linesWithDateOffset &&
-            linesWithoutDate.size() - 1 > linesWithoutDateOffset;
+        return dateExamples.size() - 1 > linesOffset &&
+            linesWithoutDate.size() - 1 > linesOffset;
     }
 
     public MultiDataSet next() {
@@ -293,50 +294,49 @@ public class CharIterator implements MultiDataSetIterator {
         // dimension 2 = length of each time series/example
         // Why 'f' order here? See https://jrmerwin.github.io/deeplearning4j-docs/usingrnns.html,
         // section "Alternative: Implementing a custom DataSetIterator"
-        try(
-            INDArray input = Nd4j
-                .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
-            INDArray inputHint = Nd4j
-                .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
-            INDArray labels = Nd4j
-                .create(new int[]{currMinibatchSize, ProbabilityLabel.values().length, exampleLength}, ORDERING_FORTRAN)
-            ) {
+        
+        INDArray input = Nd4j
+            .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
+        
+        INDArray inputHint = Nd4j
+            .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
+        
+        INDArray labels = Nd4j
+            .create(new int[]{currMinibatchSize, ProbabilityLabel.values().length, exampleLength}, ORDERING_FORTRAN);
 
+        for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
+            String stringLine = examples.get(miniBatchIndex).getLeft();
+            String hintLine = yearHintLenient(stringLine);
 
-            for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
-                String stringLine = examples.get(miniBatchIndex).getLeft();
-                String hintLine = yearHintLenient(stringLine);
+            String labelsLine = examples.get(miniBatchIndex).getRight();
 
-                String labelsLine = examples.get(miniBatchIndex).getRight();
-
-                if (stringLine.length() != labelsLine.length()) {
-                    String lines =
-                        "\nLength: '" + stringLine.length() + "', line  : '" + stringLine + "'" +
-                            "\nLength: '" + labelsLine.length() + "', labels: '" + labelsLine + "'";
-                    throw new LabelizerRuntimeException("Line and labeled line should have same lengths.\n" + lines);
-                }
-                logger.info(MINI_BATCH, miniBatchIndex, stringLine);
-                logger.info(MINI_BATCH, miniBatchIndex, labelsLine);
-                logger.info(MINI_BATCH, miniBatchIndex, hintLine);
-                logger.info("");
-                for (int charIndex = 0; charIndex < stringLine.length(); charIndex++) {
-                    char exampleChar = stringLine.charAt(charIndex);
-                    char labelChar = labelsLine.charAt(charIndex);
-                    char hintChar = hintLine.charAt(charIndex);
-                    int exampleCharIndex = convertCharacterToIndex(exampleChar);
-                    int hintCharIndex = convertCharacterToIndex(hintChar);
-                    int labelCharIndex = ProbabilityLabel.findIndex(labelChar);
-                    input.putScalar(new int[]{miniBatchIndex, exampleCharIndex, charIndex}, 1.0);
-                    inputHint.putScalar(new int[]{miniBatchIndex, hintCharIndex, charIndex}, 1.0);
-                    labels.putScalar(new int[]{miniBatchIndex, labelCharIndex, charIndex}, 1.0);
-                }
+            if (stringLine.length() != labelsLine.length()) {
+                String lines =
+                    "\nLength: '" + stringLine.length() + "', line  : '" + stringLine + "'" +
+                        "\nLength: '" + labelsLine.length() + "', labels: '" + labelsLine + "'";
+                throw new LabelizerRuntimeException("Line and labeled line should have same lengths.\n" + lines);
             }
-
-            return new org.nd4j.linalg.dataset.MultiDataSet(
-                new INDArray[]{input, inputHint},
-                new INDArray[]{labels}
-            );
+            logger.info(MINI_BATCH, miniBatchIndex, stringLine);
+            logger.info(MINI_BATCH, miniBatchIndex, labelsLine);
+            logger.info(MINI_BATCH, miniBatchIndex, hintLine);
+            logger.info("");
+            for (int charIndex = 0; charIndex < stringLine.length(); charIndex++) {
+                char exampleChar = stringLine.charAt(charIndex);
+                char labelChar = labelsLine.charAt(charIndex);
+                char hintChar = hintLine.charAt(charIndex);
+                int exampleCharIndex = convertCharacterToIndex(exampleChar);
+                int hintCharIndex = convertCharacterToIndex(hintChar);
+                int labelCharIndex = ProbabilityLabel.findIndex(labelChar);
+                input.putScalar(new int[]{miniBatchIndex, exampleCharIndex, charIndex}, 1.0);
+                inputHint.putScalar(new int[]{miniBatchIndex, hintCharIndex, charIndex}, 1.0);
+                labels.putScalar(new int[]{miniBatchIndex, labelCharIndex, charIndex}, 1.0);
+            }
         }
+
+        return new org.nd4j.linalg.dataset.MultiDataSet(
+            new INDArray[]{input, inputHint},
+            new INDArray[]{labels}
+        );
     }
 
     @Override
@@ -350,13 +350,13 @@ public class CharIterator implements MultiDataSetIterator {
      * @param labelsLine an empty buffer
      */
     private void prepareDataForLearning(StringBuilder stringLine, StringBuilder labelsLine) {
-        String withoutDate = linesWithoutDate.get(linesWithoutDateOffset++);
+        String withoutDate = linesWithoutDate.get(linesOffset);
         if (withoutDate.length() > EXAMPLE_LENGTH) {
             // WithoutDate linee can be longer in noDatesManual.txt
             withoutDate = withoutDate.substring(0, EXAMPLE_LENGTH);
         }
 
-        DateExample dateExample = dateExamples.get(linesWithDateOffset++);
+        DateExample dateExample = dateExamples.get(linesOffset++);
 
         int boundaryIndex = randomFromZeroToMaxInclusive(BOUNDARIES.size() - 1);
         String boundary = BOUNDARIES.get(boundaryIndex);
@@ -419,17 +419,22 @@ public class CharIterator implements MultiDataSetIterator {
         }
     }
 
+    /**
+     * @return Size of {@link #intToCharMap}.
+     */
     public int inputColumns() {
         return intToCharMap.size();
     }
 
+    /**
+     * @return Number of {@link ProbabilityLabel}s.
+     */
     public int totalOutcomes() {
         return ProbabilityLabel.values().length;
     }
 
     public void reset() {
-        linesWithDateOffset = 0;
-        linesWithoutDateOffset = 0;
+        linesOffset = 0;
     }
 
     public boolean resetSupported() {
@@ -519,7 +524,7 @@ public class CharIterator implements MultiDataSetIterator {
             || (contextResult >= Hint.SHORT_OLD_YEAR && contextResult < Hint.SHORT_HELPFULL_YEAR));
     }
 
-    static int countOfSuccessfullyMarkedChars(String recognizedOutput, String expectedOutput) {
+    public static int countOfSuccessfullyMarkedChars(String recognizedOutput, String expectedOutput) {
         if (recognizedOutput.length() != expectedOutput.length()) {
             throw new LabelizerRuntimeException("RecognizedOutput and expectedOutput length are not equal. " +
                 "recognizedOutput: '" + recognizedOutput +
@@ -535,4 +540,40 @@ public class CharIterator implements MultiDataSetIterator {
         return result;
     }
 
+    public static int countOfNotMarkedCharsInDatePattern(String recognizedOutput, String expectedOutput) {
+        int result = 0;
+        for (int index = 0; index < recognizedOutput.length(); index++) {
+            char expectedChar = expectedOutput.charAt(index);
+            char recognizedChar = recognizedOutput.charAt(index);
+            ProbabilityLabel probabilityLabel = ProbabilityLabel.find(expectedChar);
+            if (probabilityLabel != null &&
+                ProbabilityLabel.dates.contains(probabilityLabel) &&
+                recognizedChar != expectedChar) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * How many train lines contains this {@link CharIterator}.
+     * @return Min value of {@link #linesWithoutDate} and {@link #dateExamples} sizes.
+     */
+    public int trainDataSetSize() {
+        return Math.min(linesWithoutDate.size(), dateExamples.size());
+    }
+
+    /**
+     * @return The current value of {@link #linesOffset}.
+     */
+    public int getLinesOffset() {
+        return linesOffset;
+    }
+
+    /**
+     * @param linesOffset see the {@link #linesOffset} field description.
+     */
+    public void setLinesOffset(int linesOffset) {
+        this.linesOffset = linesOffset;
+    }
 }

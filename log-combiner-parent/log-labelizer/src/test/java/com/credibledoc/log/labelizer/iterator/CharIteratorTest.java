@@ -23,4 +23,13 @@ public class CharIteratorTest {
         int result = CharIterator.countOfSuccessfullyMarkedChars(recognizedOutput, expectedOutput);
         assertEquals(3, result);
     }
+
+    @Test
+    public void countOfNotMarkedCharsInDatePattern() {
+        String recognizedOutput = "nyncEE";
+        String expectedOutput   = "nyycEE";
+
+        int result = CharIterator.countOfNotMarkedCharsInDatePattern(recognizedOutput, expectedOutput);
+        assertEquals(1, result);
+    }
 }
