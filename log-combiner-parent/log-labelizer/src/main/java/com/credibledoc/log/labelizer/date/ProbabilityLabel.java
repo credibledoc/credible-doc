@@ -18,7 +18,7 @@ import java.util.List;
 public enum ProbabilityLabel {
     N_WITHOUT_DATE('n', "n", 0),
     C_CALENDAR_DATE_FILLER('c', "c", 1),
-    R_THREAD('r', "R", 2),
+    R_THREAD('r', "r", 2),
     G_ERA_DESIGNATOR('G', "G", 3),
     Y_YEAR('y', "y", 4),
     Y_WEEK_YEAR('Y', "Y", 5),

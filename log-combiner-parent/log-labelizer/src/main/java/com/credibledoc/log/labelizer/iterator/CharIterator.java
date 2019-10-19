@@ -308,8 +308,8 @@ public class CharIterator implements MultiDataSetIterator {
 
         for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
             String stringLine = examples.get(miniBatchIndex).getLeft();
-//            String hintLine = yearHintLenient(stringLine);
-            String hintLine = StringUtils.leftPad("", stringLine.length(), '0');
+            String hintLine = Hint.yearLabels(stringLine);
+//            String hintLine = StringUtils.leftPad("", stringLine.length(), '0');
 
             String labelsLine = examples.get(miniBatchIndex).getRight();
 

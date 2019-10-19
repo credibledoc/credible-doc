@@ -1,5 +1,6 @@
 package com.credibledoc.log.labelizer.train;
 
+import com.credibledoc.log.labelizer.datastore.DatastoreService;
 import com.credibledoc.log.labelizer.date.DateExample;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
@@ -83,6 +84,8 @@ public class TrainDataGenerator {
             }
         } catch (Exception e) {
             throw new LabelizerRuntimeException(e);
+        } finally {
+            DatastoreService.getInstance().stop();
         }
     }
 
@@ -272,7 +275,7 @@ public class TrainDataGenerator {
         return stringBuilder.toString();
     }
 
-    private static int randomBetween(int min, int max) {
+    public static int randomBetween(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
     
