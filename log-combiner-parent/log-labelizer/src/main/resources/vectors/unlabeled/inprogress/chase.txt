@@ -1,0 +1,54 @@
+JPMChaseHostConnector 06.02.2019;00:00:18.987 DEBUG [EE-ManagedScheduledExecutorService-default-Thread-3] c.w.loom.host.config.ConfigLoader - Going to load host configuration from file [cz.wincor.loom.host.config.ConfigLoader:168]
+nnnnnnnnnnnnnnnnnnnnnnddcMMcyyyycHHcmmcsscSSSnlllllnntttttttttttttttttttttttttttttttttttttttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+JPMChaseHostConnector 06.02.2019;00:00:18.987 DEBUG [EE-ManagedScheduledExecutorService-default-Thread-3] c.w.l.i.h.J.c.JPMChaseMessageIdentifier - Create key: 180000000000W937 for message: 1800 [cz.wincor.loom.ifsf.hosts.JPMChase.connection.JPMChaseMessageIdentifier:28]
+nnnnnnnnnnnnnnnnnnnnnnddcMMcyyyycHHcmmcsscSSSnlllllnntttttttttttttttttttttttttttttttttttttttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+JPMChaseHostConnector 06.02.2019;00:00:18.987 DEBUG [EE-ManagedScheduledExecutorService-default-Thread-3] c.w.l.h.a.c.SocketMessageChannel@1712049166 - Sending ISO message:
+nnnnnnnnnnnnnnnnnnnnnnddcMMcyyyycHHcmmcsscSSSnlllllnntttttttttttttttttttttttttttttttttttttttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+ <isomsg>
+nnnnnnnnn
+  <header>4C2E50544949534F4E4E20202020202020202020</header>
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+  <f="0" v="1800"/>
+nnnnnnnnnnnnnnnnnnn
+  <f="12" v="000018"/>
+nnnnnnnnnnnnnnnnnnnnnn
+  <f="13" v="02062019"/>
+nnnnnnnnnnnnnnnnnnnnnnnn
+  <f="37" v="00000000W937"/>
+nnnnnnnnnnnnnnnnnnnnnnnnnnnn
+  <f="62" v="T1026AEVICOM   1026180000000001"/>
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+  <f="70" v="301"/>
+nnnnnnnnnnnnnnnnnnn
+</isomsg>
+nnnnnnnnn
+ [cz.wincor.loom.host.async2.channel.SocketMessageChannel:46]
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+JPMChaseHostConnector 06.02.2019;00:00:18.988 DEBUG [EE-ManagedScheduledExecutorService-default-Thread-3] c.w.l.h.ifsf.net.IFSFSocketChannel - Message length and header hex-dump: 006700000000 [cz.wincor.loom.host.ifsf.net.IFSFSocketChannel:265]
+nnnnnnnnnnnnnnnnnnnnnnddcMMcyyyycHHcmmcsscSSSnlllllnntttttttttttttttttttttttttttttttttttttttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+JPMChaseHostConnector 06.02.2019;00:00:19.014 INFO [ChannelReceiver] c.w.l.i.h.J.c.JFSFMChaseSocketMessageChannel - IN header:004700000000 [cz.wincor.loom.UnsafeLogger:71]
+nnnnnnnnnnnnnnnnnnnnnnddcMMcyyyycHHcmmcsscSSSnllllnntttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+ <isomsg>
+nnnnnnnnn
+  <header>4C2E50544949534F4E4E20202020202020202020</header>
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+  <f="0" v="1810"/>
+nnnnnnnnnnnnnnnnnnn
+  <f="7" v="02052019175957"/>
+nnnnnnnnnnnnddMMyyyyHHmmssnnn
+  <f="37" v="00000000W937"/>
+nnnnnnnnnnnnnnnnnnnnnnnnnnnn
+  <f="39" v="00"/>
+nnnnnnnnnnnnnnnnnn
+  <f="70" v="301"/>
+nnnnnnnnnnnnnnnnnnn
+</isomsg>
+nnnnnnnnn
+ [cz.wincor.loom.host.async2.channel.SocketMessageChannel:46]
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+JPMChaseHostConnector 06.02.2019;00:00:19.015 DEBUG [ChannelReceiver] c.w.l.h.ifsf.net.IFSFSocketChannel - Header 004700000000 [cz.wincor.loom.host.ifsf.net.IFSFSocketChannel:265]
+nnnnnnnnnnnnnnnnnnnnnnddcMMcyyyycHHcmmcsscSSSnlllllnntttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+JPMChaseHostConnector 06.02.2019;00:00:19.015 DEBUG [ChannelReceiver] c.w.l.h.ifsf.net.IFSFSocketChannel - Lenght 0047, 71 [cz.wincor.loom.host.ifsf.net.IFSFSocketChannel:265]
+nnnnnnnnnnnnnnnnnnnnnnddcMMcyyyycHHcmmcsscSSSnlllllnntttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+JPMChaseHostConnector 06.02.2019;00:00:19.015 DEBUG [ChannelReceiver] c.w.l.i.h.J.c.JFSFMChaseSocketMessageChannel@1712049166 - Received an ISO message:
+nnnnnnnnnnnnnnnnnnnnnnddcMMcyyyycHHcmmcsscSSSnlllllnntttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn

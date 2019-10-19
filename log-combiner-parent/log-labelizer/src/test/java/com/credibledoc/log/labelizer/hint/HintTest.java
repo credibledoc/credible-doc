@@ -9,9 +9,17 @@ public class HintTest {
 
 	@Test
 	public void test() {
-		String example = "28.2.2019 11:45:00.123 1234567654 abcde 28.2.2018 11:46:00.12465o";
+		String example = "28.2.2019 11:45:00.123 1234567654 abcde 28.2.2018 11:46:00.12465";
 		String result = Hint.yearLabels(example);
-		String expectedResult = "nnnnnyyyynyynnnnyynnnnnnnnnnnnnnnnnnnnnnnnnnnyyyynyynnnnyynnnnnnn";
+		String expectedResult = "nnnnnyyyynyynnnnyynnnnnnnnnnnnnnnnnnnnnnnnnnnyyyynyynnnnyynnnnnn";
+		assertEquals(expectedResult, result);
+	}
+	
+	@Test
+	public void testLineWithSpaces() {
+		String example = "2028.02.08 22:56:18 -1200 2028.02.08 22:56:18 -1200                                                 ";
+		String result = Hint.yearLabels(example);
+		String expectedResult = "nnnnnyynyynnnnnnnyynnnnnnnnnnnnyynyynnnnnnnyynnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
 		assertEquals(expectedResult, result);
 	}
 
