@@ -9,9 +9,9 @@ public class HintTest {
 
 	@Test
 	public void test() {
-		String example = "28.2.2019 11:45:00.123 1234567654 abcde 28.2.2018 11:46:00.124";
+		String example = "28.2.2019 11:45:00.123 1234567654 abcde 28.2.2018 11:46:00.12465";
 		String result = Hint.yearLabels(example);
-		String expectedResult = "nnnnnyyyynyynnnnyynnnnnnnnnnnnnnnnnnnnnnnnnnnyyyynyynnnnyynnnn";
+		String expectedResult = "nnnnnyyyynyynnnnyynnnnnnnnnnnnnnnnnnnnnnnnnnnyyyynyynnnnyynnnnnn";
 		assertEquals(expectedResult, result);
 	}
 

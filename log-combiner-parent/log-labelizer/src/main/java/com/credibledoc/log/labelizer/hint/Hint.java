@@ -26,7 +26,6 @@ public class Hint {
 	public static final int SHORT_HELPFULL_YEAR = 100; // year 2000 in helpfull version for nineteens years
 
 	public static String yearLabels(String input) {
-		String output = "nnnnnyyyynyynnnnyynnnnnnnnnnnnnnnnnnnnnnnnnnnyyyynyynnnnyynnnn";
 		Integer lastInputValue = (input.length() - 1);
 		StringBuffer result = new StringBuffer();
 		StringBuffer context = new StringBuffer();
@@ -37,18 +36,18 @@ public class Hint {
 			if (!Character.isDigit(character)) {
 				result.append(WITHOUT);
 				context.delete(0, context.length()); 
-				controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
+				controlLastValueExit(result, lastInputValue, valueOfInput, context);
 			} else {
 				context.append(character);
 				
 				if (context.length() <= 4) {
-					nextCharControl(valueOfInput, lastInputValue, input, context, result, output);
+					nextCharControl(valueOfInput, lastInputValue, input, context, result);
 				} else {
 					while (i < lastInputValue && Character.isDigit(character)) {
-						controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
+						controlLastValueExit(result, lastInputValue, valueOfInput, context);
 						i++;
 						valueOfInput = i;
-						controlLastValueExit(output, result, lastInputValue, valueOfInput - 1, context);
+						controlLastValueExit(result, lastInputValue, valueOfInput - 1, context);
 						character = input.charAt(i);
 						context.append(character);
 						System.out.println(character + ":" + Character.isDigit(character));
@@ -58,22 +57,21 @@ public class Hint {
 						result.append(WITHOUT);
 					}
 					context.delete(0, context.length()); 
-					controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
+					controlLastValueExit(result, lastInputValue, valueOfInput, context);
 				}
 
 			}
-//			controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
 		}
-		return output;
+		return result.toString();
 	}
 	
 // This is method, which controls characters of context. Also it controls next characters if there is number or not.
-	private static void nextCharControl(Integer valueOfInput,Integer lastInputValue, String input, StringBuffer context, StringBuffer result, String output) {
+	private static void nextCharControl(Integer valueOfInput,Integer lastInputValue, String input, StringBuffer context, StringBuffer result) {
 		int c = valueOfInput;
 		if (valueOfInput == lastInputValue) {
 			controlOfSingleNumber(context, result);
 			context.delete(0, context.length()); 
-			controlLastValueExit(output, result, lastInputValue, valueOfInput, context);
+			controlLastValueExit(result, lastInputValue, valueOfInput, context);
 		} else {
 		c++;
 		}
@@ -115,14 +113,12 @@ public class Hint {
 		return false;
 	}
 
-	private static void controlLastValueExit(String output, StringBuffer result, Integer lastInputValue, Integer valueOfInput,StringBuffer context) {
+	private static void controlLastValueExit(StringBuffer result, Integer lastInputValue, Integer valueOfInput,StringBuffer context) {
 		if (valueOfInput == lastInputValue) {
 			for (int w = 0; w < context.length(); w++) {
 				result.append(WITHOUT);
 			}
-			System.out.println("expected: " + output);
 			System.out.println("reslut:   " + result.toString());
-			System.out.println(result.toString().equals(output));
 			List<ProbabilityLabel> l2 = new ArrayList<ProbabilityLabel>();
 		}
 	}
