@@ -138,17 +138,19 @@ public class CharIterator implements MultiDataSetIterator {
     }
 
     private List<DateExample> readDateExamples(String resourcesDirPath, Charset textFileEncoding) {
+        String lastJson = null;
         try {
             List<String> exampleLines = readLinesFromFolder(resourcesDirPath, textFileEncoding, DATE_FOLDER);
             List<DateExample> result = new ArrayList<>();
             ObjectMapper objectMapper = new ObjectMapper();
             for (String json : exampleLines) {
+                lastJson = json;
                 DateExample dateExample = objectMapper.readValue(json, DateExample.class);
                 result.add(dateExample);
             }
             return result;
         } catch (Exception e) {
-            throw new LabelizerRuntimeException(e);
+            throw new LabelizerRuntimeException("Last JSON: " + lastJson, e);
         }
     }
 
@@ -306,7 +308,8 @@ public class CharIterator implements MultiDataSetIterator {
 
         for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
             String stringLine = examples.get(miniBatchIndex).getLeft();
-            String hintLine = yearHintLenient(stringLine);
+//            String hintLine = yearHintLenient(stringLine);
+            String hintLine = StringUtils.leftPad("", stringLine.length(), '0');
 
             String labelsLine = examples.get(miniBatchIndex).getRight();
 
@@ -540,21 +543,6 @@ public class CharIterator implements MultiDataSetIterator {
         return result;
     }
 
-    public static int countOfNotMarkedCharsInDatePattern(String recognizedOutput, String expectedOutput) {
-        int result = 0;
-        for (int index = 0; index < recognizedOutput.length(); index++) {
-            char expectedChar = expectedOutput.charAt(index);
-            char recognizedChar = recognizedOutput.charAt(index);
-            ProbabilityLabel probabilityLabel = ProbabilityLabel.find(expectedChar);
-            if (probabilityLabel != null &&
-                ProbabilityLabel.dates.contains(probabilityLabel) &&
-                recognizedChar != expectedChar) {
-                result++;
-            }
-        }
-        return result;
-    }
-
     /**
      * How many train lines contains this {@link CharIterator}.
      * @return Min value of {@link #linesWithoutDate} and {@link #dateExamples} sizes.
@@ -576,4 +564,5 @@ public class CharIterator implements MultiDataSetIterator {
     public void setLinesOffset(int linesOffset) {
         this.linesOffset = linesOffset;
     }
+    
 }

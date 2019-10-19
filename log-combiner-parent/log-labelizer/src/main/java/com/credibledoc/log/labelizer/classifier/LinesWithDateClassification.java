@@ -4,6 +4,7 @@ import com.credibledoc.log.labelizer.date.DateExample;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.credibledoc.log.labelizer.iterator.CharIterator;
+import com.credibledoc.log.labelizer.iterator.IteratorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.deeplearning4j.api.storage.StatsStorage;
@@ -39,7 +40,7 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.08";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.09";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int SEED_12345 = 12345;
     private static final double LEARNING_RATE_0_001 = 0.001;
@@ -170,7 +171,7 @@ public class LinesWithDateClassification {
                     int currentDataSetSize = charIterator.getLinesOffset();
                     int perCent = (int) (((double) currentDataSetSize / (double) trainDataSetSize) * (double) 100);
                     logger.info("DataSetSize: {}, currentDataSet: {}, passed: {}%", trainDataSetSize, currentDataSetSize, perCent);
-                    if (++miniBatchNumber % saveNetworkEveryNMinibatches == 0 || trainDataSetSize == currentDataSetSize) {
+                    if (++miniBatchNumber % saveNetworkEveryNMinibatches == 0 || trainDataSetSize == currentDataSetSize + 1) {
                         computationGraph.save(networkFile);
                         saveLinesOffset(currentDataSetSize, networkFile);
                         logger.info("--------------------");
@@ -192,16 +193,24 @@ public class LinesWithDateClassification {
 
     private static void evaluateTestData(ComputationGraph computationGraph, String resourcesPath, CharIterator charIterator) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
+        int overallCorrect = 0;
+        int overallIncorrect = 0;
+        int overallNotMarkedInPattern = 0;
         for (String line : charIterator.readLinesFromFolder(resourcesPath, StandardCharsets.UTF_8, "../unlabeled/date")) {
             DateExample dateExample = objectMapper.readValue(line, DateExample.class);
             List<String> recognized = recognizeAndPrint(dateExample.getSource(), computationGraph, charIterator);
             String firstLine = recognized.get(0);
             int correct = CharIterator.countOfSuccessfullyMarkedChars(firstLine, dateExample.getLabels());
+            overallCorrect += correct;
             int incorrect = firstLine.length() - correct;
-            int notMarkedInPattern = CharIterator.countOfNotMarkedCharsInDatePattern(firstLine, dateExample.getLabels());
+            overallIncorrect += incorrect;
+            int notMarkedInPattern = IteratorService.countOfNotMarkedCharsInDatePattern(firstLine, dateExample.getLabels());
+            overallNotMarkedInPattern += notMarkedInPattern;
             logger.info("Line length: {}, correctLabels: {}, incorrectLabels: {}, notMarkedInPattern: {}",
                 firstLine.length(), correct, incorrect, notMarkedInPattern);
         }
+        logger.info("Result: overallCorrect: {}, overallIncorrect: {}, overallNotMarkedInPattern: {}",
+            overallCorrect, overallIncorrect, overallNotMarkedInPattern);
     }
 
     @NotNull
@@ -224,7 +233,9 @@ public class LinesWithDateClassification {
                     "File not found: '" + linesOffsetFile.getAbsolutePath() + "'");
             }
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(linesOffsetFile))) {
-                return Integer.parseInt(bufferedReader.readLine());
+                int linesOffset = Integer.parseInt(bufferedReader.readLine());
+                logger.info("Network will be training with data beginning from linesOffset {}", linesOffset);
+                return linesOffset;
             }
         } catch (Exception e) {
             throw new LabelizerRuntimeException(e);
