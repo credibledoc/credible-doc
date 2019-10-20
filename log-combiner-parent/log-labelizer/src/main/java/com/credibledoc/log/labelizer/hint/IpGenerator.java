@@ -1,67 +1,37 @@
 package com.credibledoc.log.labelizer.hint;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+
 public class IpGenerator {
-	/**
-	 * Program starts here
-	 *
-	 * @param args
-	 * @throws Exception
-	 */
-	public static void main(String[] args) throws Exception {
-
-		IpGenerator ipGen = new IpGenerator();
-		String ipStartingSeq = "252.253.254.251";
-		int numberOfIP = 2000;
-		ipGen.generateNextIPSequence(ipStartingSeq, numberOfIP);
+	public static final int MAX_IP = 256;
+	public static final int MAX_PORT = 65536;
+	private static final List<String> SEPARATORS = new ArrayList<>(Arrays.asList(":", ".", " P ", " p ", " port ", " PORT ", " "));
+	private static Random random = ThreadLocalRandom.current();
+	
+	private IpGenerator() {
+		throw new IllegalStateException("Utility class");
 	}
 
-	public void generateNextIPSequence(String address, int count) throws Exception {
-		String nextIpAddress = address;
-		for (int i = 0; i < count; i++) {
-			System.out.println(nextIpAddress);
-			nextIpAddress = getNextIPAddress(nextIpAddress);
+	public static String randomIpNumbers() {
+		return
+				random.nextInt(MAX_IP) + "." +
+				random.nextInt(MAX_IP) + "." +
+				random.nextInt(MAX_IP) + "." +
+				random.nextInt(MAX_IP) + generatePort();
+	}
 
+	private static String generatePort() {
+		if (!random.nextBoolean()) {
+			return "";
 		}
-	}
-
-	public String[] getPartsOfIpAddress(String ipAddress) {
-		String[] elements = ipAddress.split("\\.");
-
-		return elements;
-	}
-
-	public String getNextIPAddress(String ipAddress) throws Exception {
-
-		String[] elements = getPartsOfIpAddress(ipAddress);
-		if (elements != null && elements.length == 4) {
-			Integer part1 = Integer.parseInt(elements[0]);
-			Integer part2 = Integer.parseInt(elements[1]);
-			Integer part3 = Integer.parseInt(elements[2]);
-			Integer part4 = Integer.parseInt(elements[3]);
-			if (part4 < 255) {
-				String ip = part1 + "." + part2 + "." + part3 + "." + (++part4);
-				return ip;
-			} else if (part4 == 255) {
-				if (part3 < 255) {
-					String ip = part1 + "." + part2 + "." + (++part3) + "." + (0);
-					return ip;
-				} else if (part3 == 255) {
-					if (part2 < 255) {
-						String ip = part1 + "." + (++part2) + "." + (0) + "." + (0);
-						return ip;
-					} else if (part2 == 255) {
-						if (part1 < 255) {
-							String ip = (++part1) + "." + (0) + "." + (0) + "." + (0);
-							return ip;
-						} else if (part1 == 255) {
-							throw new Exception("IP Range Exceeded -> " + ipAddress);
-						}
-					}
-				}
-			}
-		}
-
-		return null;
+		
+		String randomSeparator = SEPARATORS.get(random.nextInt(SEPARATORS.size()));
+		return randomSeparator + random.nextInt(MAX_PORT);
 	}
 
 }
