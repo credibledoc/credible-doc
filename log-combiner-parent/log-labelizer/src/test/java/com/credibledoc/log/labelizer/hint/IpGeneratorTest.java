@@ -10,10 +10,22 @@ import org.junit.Test;
 public class IpGeneratorTest {
 
 	@Test
-	public void test() {
+	public void testIp4() {
 		Set<String> controlOfSameness = new HashSet<String>();
 		for (int i = 0; i < 10; i++) {
-			String result = IpGenerator.randomIpNumbers();
+			String result = IpGenerator.randomIp4();
+			controlOfSameness.add(result);
+			
+			System.out.println(result);
+		}
+		assertTrue(controlOfSameness.size() > 1);
+	}
+	
+	@Test
+	public void testIp6() {
+		Set<String> controlOfSameness = new HashSet<String>();
+		for (int i = 0; i < 10; i++) {
+			String result = IpGenerator.randomIp6();
 			controlOfSameness.add(result);
 			
 			System.out.println(result);
