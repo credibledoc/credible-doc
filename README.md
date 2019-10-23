@@ -1,6 +1,6 @@
 # Repository credible-doc
 This repository contains maven modules with libraries and utilities for creation
-and maintaining of documents based on generated content.
+and maintaining of documents based on a generated content.
 
 This repository contains the next main modules
 * [credible-doc-generator](credible-doc-generator/README.md) - generates this documentation
@@ -8,6 +8,6 @@ This repository contains the next main modules
 with different format of lines timestamps to a single file or readable source with lines sorted by timestamps
 * [plantuml-parent](plantuml/README.md) - contains utilities for generation of plantUML diagrams
 * [substitution-parent](substitution/README.md) - contains submodules with tools and libraries for replacing
-of placeholders with a generated content
+placeholders with the generated content
 
 This [release.md](doc/release.md) document describes how to release and publish all modules of this repository.
