@@ -10,4 +10,4 @@ with different format of lines timestamps to a single file or readable source wi
 * [substitution-parent](substitution/README.md) - contains submodules with tools and libraries for replacing
 placeholders with the generated content
 
-This [release.md](doc/release.md) document describes how to release and publish all modules of this repository.
+The document [release.md](doc/release.md) describes how to release and publish all modules of this repository.
