@@ -3,6 +3,7 @@ package com.credibledoc.log.labelizer.train;
 import com.credibledoc.log.labelizer.date.DateExample;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
+import com.credibledoc.log.labelizer.hint.IpGenerator;
 import com.credibledoc.log.labelizer.iterator.CharIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Splitter;
@@ -71,14 +72,20 @@ public class TrainDataGenerator {
                     int number = randomBetween(0, Integer.parseInt(nines) + 1);
                     String stringNumber = Integer.toString(number);
                     String paddedNumber = StringUtils.leftPad(stringNumber, length, "0");
-                    String randomString = generateRandomString(CharIterator.EXAMPLE_LENGTH - paddedNumber.length());
-                    int randomOrder = randomBetween(0, 1);
-                    // TODO Kyrylo Semenko - generovat IP adresy napriklad 111.222.333.123
-                    if (randomOrder == 0) {
-                        writer.write(randomString + paddedNumber + System.lineSeparator());
-                    } else {
-                        writer.write(paddedNumber + randomString + System.lineSeparator());
-                    }
+                    String ip = IpGenerator.randomIp();
+                    /**
+                     * RandomString is reduced by paddedNumber.length() and ip.length().
+                     * Then we have to add 2, because when we create string array randomStringArray, we are replace two
+                     * values of array by paddedNumber and ip.
+                     */
+                    String randomString = generateRandomString(CharIterator.EXAMPLE_LENGTH - paddedNumber.length() - ip.length() + 2);
+                    String[] randomStringArray = null;
+                    randomStringArray = randomString.split("");
+                    int randomOrder = randomBetween(0, randomString.length());
+                    randomStringArray[randomOrder] = paddedNumber;
+                    randomOrder = randomBetween(0, randomString.length());
+                    randomStringArray[randomOrder] = ip;
+                    writer.write(Arrays.toString(randomStringArray) + System.lineSeparator());
                 }
             }
         } catch (Exception e) {
@@ -117,6 +124,8 @@ public class TrainDataGenerator {
         String[] timeZoneIds = TimeZone.getAvailableIDs();
         int linesNumber = 0;
         File file = new File("src/main/resources/vectors/labeled/date/dates.txt");
+        File dir = file.getParentFile();
+        dir.mkdir();
         logger.info("File will be rewritten: '{}'", file.getAbsolutePath());
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))) {
             for (Locale locale : DateFormat.getAvailableLocales()) {
