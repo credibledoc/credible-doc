@@ -16,7 +16,6 @@ public class IpGeneratorTest {
 			String result = IpGenerator.randomIp4();
 			controlOfSameness.add(result);
 			
-			System.out.println(result);
 		}
 		assertTrue(controlOfSameness.size() > 1);
 	}
@@ -28,9 +27,19 @@ public class IpGeneratorTest {
 			String result = IpGenerator.randomIp6();
 			controlOfSameness.add(result);
 			
-			System.out.println(result);
 		}
 		assertTrue(controlOfSameness.size() > 1);
 	}
+	
+	@Test
+	public void testIp() {
+        Set<String> controlOfSameness = new HashSet<String>();
+        for (int i = 0; i < 10; i++) {
+            String result = IpGenerator.randomIp();
+            controlOfSameness.add(result);
+            
+        }
+        assertTrue(controlOfSameness.size() > 1);
+    }
 
 }

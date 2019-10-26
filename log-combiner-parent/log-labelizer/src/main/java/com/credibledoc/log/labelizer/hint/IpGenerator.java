@@ -6,18 +6,45 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.commons.collections.ListUtils;
+
+/**
+ * IP Generator create random IP address. It create both forms. IPv4 and IPv6
+ * In this class is 3 outputs for different purposes.
+ * Methods for use:
+ *<pre>
+ *randomIp() - generate random IP addresses where is IPv4 and IPv6 with ports
+ *randomIp4() - generate random IPv4 addresses with ports
+ *randomIp6() - generate random IPv6 addresses with ports
+ *<pre>
+ * @author Olga Semenko
+ */
 
 public class IpGenerator {
 	public static final int MAX_IP = 256;
 	public static final int MAX_PORT = 65536;
 	private static final List<String> SEPARATORS = new ArrayList<>(Arrays.asList(":", ".", " P ", " p ", " port ", " PORT ", " "));
-	private static final List<String> CAPITAL_CHARACTERS = new ArrayList<>(Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"));
-	private static final List<String> LOWERCASE_CHARACTERS = new ArrayList<>(Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"));
+	private static final List<String> NUMBER_CHARACTERS = new ArrayList<>(Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));
+	private static final List<String> CAPITAL_CHARACTERS = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F"));
+	private static final List<String> LOWERCASE_CHARACTERS = new ArrayList<>(Arrays.asList("a", "b", "c", "d", "e", "f"));
+	
+	@SuppressWarnings("unchecked")
+    private static final List<String> DIGITS_AND_CAPITAL_CHARS = ListUtils.union(NUMBER_CHARACTERS, CAPITAL_CHARACTERS);
+	
+	@SuppressWarnings("unchecked")
+	private static final List<String> DIGITS_AND_LOWER_CHARS = ListUtils.union(NUMBER_CHARACTERS, LOWERCASE_CHARACTERS);
+	
+	private static final List<List<String>> LIST_OF_FORMATS = new ArrayList<>(Arrays.asList(DIGITS_AND_CAPITAL_CHARS, DIGITS_AND_LOWER_CHARS));
 	private static Random random = ThreadLocalRandom.current();
 	
 	private IpGenerator() {
 		throw new IllegalStateException("Utility class");
 	}
+	
+	public static String randomIp() {
+	    final List<String> randomIpMethod = new ArrayList<>(Arrays.asList(randomIp4(), randomIp6()));
+        return randomIpMethod.get(random.nextInt(randomIpMethod.size()));
+    }
 
 	/**
 	 * @return This method generate random IPv4 addresses and random ports.
@@ -42,6 +69,14 @@ public class IpGenerator {
 				random.nextInt(MAX_IP) + generatePort();
 	}
 
+	/**
+     * @return This method generate random port with random designation from string list. 
+     * Port is random number from 0 to 65535. Designation of port is string list with
+     * this types of designations:
+     * <pre>
+     * ":", ".", " P ", " p ", " port ", " PORT ", " "
+     * </pre>
+     */
 	private static String generatePort() {
 		if (!random.nextBoolean()) {
 			return "";
@@ -97,22 +132,14 @@ public class IpGenerator {
 		StringBuilder ninethCaseBuilder = new StringBuilder();
 		String ninethCase;
 		String suffix;
-		if (!random.nextBoolean()) {
-			suffix = octonMakerCapital() + "::";
-			for(int i = 0; i < random.nextInt(6+1); i++) {
-				ninethCase = octonMakerCapital() + ":";
-				ninethCaseBuilder.append(ninethCase);
-			}
-			ninethCaseBuilder.append(suffix);
-			
-		} else {
-			suffix = octonMakerLowercase() + "::";
-			for(int i = 0; i < random.nextInt(6+1); i++) {
-				ninethCase = octonMakerLowercase() + ":";
-				ninethCaseBuilder.append(ninethCase);
-			}
-			ninethCaseBuilder.append(suffix);
+		List<String> charList = randomFormat();
+		suffix = octetMaker(charList) + "::";
+		for (int i = 0; i < random.nextInt(6 + 1); i++) {
+			ninethCase = octetMaker(charList) + ":";
+			ninethCaseBuilder.append(ninethCase);
 		}
+		ninethCaseBuilder.append(suffix);
+
 		return ninethCaseBuilder.toString();
 	}
 	
@@ -133,24 +160,15 @@ public class IpGenerator {
 		StringBuilder eighthCaseBuilder = new StringBuilder();
 		String eighthCase;
 		String prefix;
-		if (!random.nextBoolean()) {
-			for(int i = 0; i < 5; i++) {
-				eighthCase = octonMakerCapital() + ":";
-				eighthCaseBuilder.append(eighthCase);
-			}
-			prefix = octonMakerCapital() + "::";
-			eighthCaseBuilder.append(prefix);
-			eighthCaseBuilder.append(octonMakerCapital());
-			
-		} else {
-			for(int i = 0; i < 5; i++) {
-				eighthCase = octonMakerLowercase() + ":";
-				eighthCaseBuilder.append(eighthCase);
-			}
-			prefix = octonMakerLowercase() + "::";
-			eighthCaseBuilder.append(prefix);
-			eighthCaseBuilder.append(octonMakerLowercase());
+		List<String> charList = randomFormat();
+		for (int i = 0; i < 5; i++) {
+			eighthCase = octetMaker(charList) + ":";
+			eighthCaseBuilder.append(eighthCase);
 		}
+		prefix = octetMaker(charList) + "::";
+		eighthCaseBuilder.append(prefix);
+		eighthCaseBuilder.append(octetMaker(charList));
+
 		return eighthCaseBuilder.toString();
 	}
 	
@@ -171,32 +189,19 @@ public class IpGenerator {
 		StringBuilder seventhCaseBuilder = new StringBuilder();
 		String seventhCase;
 		String prefix;
-		if (!random.nextBoolean()) {
-			for(int i = 0; i < 4; i++) {
-				seventhCase = octonMakerCapital() + ":";
-				seventhCaseBuilder.append(seventhCase);
-			}
-			prefix = octonMakerCapital() + "::";
-			seventhCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(1+1); i++) {
-				seventhCase = octonMakerCapital() + ":";
-				seventhCaseBuilder.append(seventhCase);
-			}
-			seventhCaseBuilder.append(octonMakerCapital());
-			
-		} else {
-			for(int i = 0; i < 4; i++) {
-				seventhCase = octonMakerLowercase() + ":";
-				seventhCaseBuilder.append(seventhCase);
-			}
-			prefix = octonMakerLowercase() + "::";
-			seventhCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(1+1); i++) {
-				seventhCase = octonMakerLowercase() + ":";
-				seventhCaseBuilder.append(seventhCase);
-			}
-			seventhCaseBuilder.append(octonMakerLowercase());
+		List<String> charList = randomFormat();
+		for (int i = 0; i < 4; i++) {
+			seventhCase = octetMaker(charList) + ":";
+			seventhCaseBuilder.append(seventhCase);
 		}
+		prefix = octetMaker(charList) + "::";
+		seventhCaseBuilder.append(prefix);
+		for (int i = 0; i < random.nextInt(1 + 1); i++) {
+			seventhCase = octetMaker(charList) + ":";
+			seventhCaseBuilder.append(seventhCase);
+		}
+		seventhCaseBuilder.append(octetMaker(charList));
+
 		return seventhCaseBuilder.toString();
 	}
 	
@@ -217,32 +222,19 @@ public class IpGenerator {
 		StringBuilder sixthCaseBuilder = new StringBuilder();
 		String sixthCase;
 		String prefix;
-		if (!random.nextBoolean()) {
-			for(int i = 0; i < 3; i++) {
-				sixthCase = octonMakerCapital() + ":";
-				sixthCaseBuilder.append(sixthCase);
-			}
-			prefix = octonMakerCapital() + "::";
-			sixthCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(2+1); i++) {
-				sixthCase = octonMakerCapital() + ":";
-				sixthCaseBuilder.append(sixthCase);
-			}
-			sixthCaseBuilder.append(octonMakerCapital());
-			
-		} else {
-			for(int i = 0; i < 3; i++) {
-				sixthCase = octonMakerLowercase() + ":";
-				sixthCaseBuilder.append(sixthCase);
-			}
-			prefix = octonMakerLowercase() + "::";
-			sixthCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(2+1); i++) {
-				sixthCase = octonMakerLowercase() + ":";
-				sixthCaseBuilder.append(sixthCase);
-			}
-			sixthCaseBuilder.append(octonMakerLowercase());
+		List<String> charList = randomFormat();
+		for (int i = 0; i < 3; i++) {
+			sixthCase = octetMaker(charList) + ":";
+			sixthCaseBuilder.append(sixthCase);
 		}
+		prefix = octetMaker(charList) + "::";
+		sixthCaseBuilder.append(prefix);
+		for (int i = 0; i < random.nextInt(2 + 1); i++) {
+			sixthCase = octetMaker(charList) + ":";
+			sixthCaseBuilder.append(sixthCase);
+		}
+		sixthCaseBuilder.append(octetMaker(charList));
+
 		return sixthCaseBuilder.toString();
 	}
 	
@@ -263,32 +255,19 @@ public class IpGenerator {
 		StringBuilder fifthCaseBuilder = new StringBuilder();
 		String fifthCase;
 		String prefix;
-		if (!random.nextBoolean()) {
-			for(int i = 0; i < 2; i++) {
-				fifthCase = octonMakerCapital() + ":";
-				fifthCaseBuilder.append(fifthCase);
-			}
-			prefix = octonMakerCapital() + "::";
-			fifthCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(3+1); i++) {
-				fifthCase = octonMakerCapital() + ":";
-				fifthCaseBuilder.append(fifthCase);
-			}
-			fifthCaseBuilder.append(octonMakerCapital());
-			
-		} else {
-			for(int i = 0; i < 2; i++) {
-				fifthCase = octonMakerLowercase() + ":";
-				fifthCaseBuilder.append(fifthCase);
-			}
-			prefix = octonMakerLowercase() + "::";
-			fifthCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(3+1); i++) {
-				fifthCase = octonMakerLowercase() + ":";
-				fifthCaseBuilder.append(fifthCase);
-			}
-			fifthCaseBuilder.append(octonMakerLowercase());
+		List<String> charList = randomFormat();
+		for (int i = 0; i < 2; i++) {
+			fifthCase = octetMaker(charList) + ":";
+			fifthCaseBuilder.append(fifthCase);
 		}
+		prefix = octetMaker(charList) + "::";
+		fifthCaseBuilder.append(prefix);
+		for (int i = 0; i < random.nextInt(3 + 1); i++) {
+			fifthCase = octetMaker(charList) + ":";
+			fifthCaseBuilder.append(fifthCase);
+		}
+		fifthCaseBuilder.append(octetMaker(charList));
+
 		return fifthCaseBuilder.toString();
 	}
 	
@@ -309,32 +288,19 @@ public class IpGenerator {
 		StringBuilder fourthCaseBuilder = new StringBuilder();
 		String fourthCase;
 		String prefix;
-		if (!random.nextBoolean()) {
-			for(int i = 0; i < 1; i++) {
-				fourthCase = octonMakerCapital() + ":";
-				fourthCaseBuilder.append(fourthCase);
-			}
-			prefix = octonMakerCapital() + "::";
-			fourthCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(4+1); i++) {
-				fourthCase = octonMakerCapital() + ":";
-				fourthCaseBuilder.append(fourthCase);
-			}
-			fourthCaseBuilder.append(octonMakerCapital());
-			
-		} else {
-			for(int i = 0; i < 1; i++) {
-				fourthCase = octonMakerLowercase() + ":";
-				fourthCaseBuilder.append(fourthCase);
-			}
-			prefix = octonMakerLowercase() + "::";
-			fourthCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(4+1); i++) {
-				fourthCase = octonMakerLowercase() + ":";
-				fourthCaseBuilder.append(fourthCase);
-			}
-			fourthCaseBuilder.append(octonMakerLowercase());
+		List<String> charList = randomFormat();
+		for (int i = 0; i < 1; i++) {
+			fourthCase = octetMaker(charList) + ":";
+			fourthCaseBuilder.append(fourthCase);
 		}
+		prefix = octetMaker(charList) + "::";
+		fourthCaseBuilder.append(prefix);
+		for (int i = 0; i < random.nextInt(4 + 1); i++) {
+			fourthCase = octetMaker(charList) + ":";
+			fourthCaseBuilder.append(fourthCase);
+		}
+		fourthCaseBuilder.append(octetMaker(charList));
+
 		return fourthCaseBuilder.toString();
 	}
 	
@@ -356,24 +322,15 @@ public class IpGenerator {
 		StringBuilder thirdCaseBuilder = new StringBuilder();
 		String thirdCase;
 		String prefix;
-		if (!random.nextBoolean()) {
-			prefix = octonMakerCapital() + "::";
-			thirdCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(5+1); i++) {
-				thirdCase = octonMakerCapital() + ":";
-				thirdCaseBuilder.append(thirdCase);
-			}
-			thirdCaseBuilder.append(octonMakerCapital());
-			
-		} else {
-			prefix = octonMakerLowercase() + "::";
-			thirdCaseBuilder.append(prefix);
-			for(int i = 0; i < random.nextInt(5+1); i++) {
-				thirdCase = octonMakerLowercase() + ":";
-				thirdCaseBuilder.append(thirdCase);
-			}
-			thirdCaseBuilder.append(octonMakerLowercase());
+		List<String> charList = randomFormat();
+		prefix = octetMaker(charList) + "::";
+		thirdCaseBuilder.append(prefix);
+		for (int i = 0; i < random.nextInt(5 + 1); i++) {
+			thirdCase = octetMaker(charList) + ":";
+			thirdCaseBuilder.append(thirdCase);
 		}
+		thirdCaseBuilder.append(octetMaker(charList));
+
 		return thirdCaseBuilder.toString();
 	}
 	
@@ -396,20 +353,13 @@ public class IpGenerator {
 		String secondCase;
 		String prefix = "::";
 		secondCaseBuilder.append(prefix);
-		if (!random.nextBoolean()) {
-			for(int i = 0; i < random.nextInt(6+1); i++) {
-				secondCase = octonMakerCapital() + ":";
-				secondCaseBuilder.append(secondCase);
-			}
-			secondCaseBuilder.append(octonMakerCapital());
-			
-		} else {
-			for(int i = 0; i < random.nextInt(6+1); i++) {
-				secondCase = octonMakerLowercase() + ":";
-				secondCaseBuilder.append(secondCase);
-			}
-			secondCaseBuilder.append(octonMakerLowercase());
+		List<String> charList = randomFormat();
+		for (int i = 0; i < random.nextInt(6 + 1); i++) {
+			secondCase = octetMaker(charList) + ":";
+			secondCaseBuilder.append(secondCase);
 		}
+		secondCaseBuilder.append(octetMaker(charList));
+
 		return secondCaseBuilder.toString();
 	}
 
@@ -429,65 +379,43 @@ public class IpGenerator {
 	private static String firstCaseOfAddress() {
 		StringBuilder firstCaseBuilder = new StringBuilder();
 		String firstCase;
-		if (!random.nextBoolean()) {
-			for(int i = 0; i < 7; i++) {
-				firstCase = octonMakerCapital() + ":";
-				firstCaseBuilder.append(firstCase);
-			}
-			firstCaseBuilder.append(octonMakerCapital());
-			
-		} else {
-			for(int i = 0; i < 7; i++) {
-				firstCase = octonMakerLowercase() + ":";
-				firstCaseBuilder.append(firstCase);
-			}
-			firstCaseBuilder.append(octonMakerLowercase());
+		List<String> charList = randomFormat();
+		for (int i = 0; i < 7; i++) {
+			firstCase = octetMaker(charList) + ":";
+			firstCaseBuilder.append(firstCase);
 		}
+		firstCaseBuilder.append(octetMaker(charList));
+
 		return firstCaseBuilder.toString();
 	}
 	
 	/**
-	 * @return This method create (from 1 to 4) random hexadecimal numbers with CAPITAL CHARACTERS. 
-	 * This numbers are octets of IPv6 address.
-	 * Numbers of octets can be from ranges (0-9; A-F). 
-	 * Numbers of octet can be from range of (1-4). 
+	 * @return This method create (from 1 to 4) random hexadecimal characters for IPv6 address. 
+	 * Numbers of octet can be from range of (1-4).
 	 * For example:
 	 * <pre>
-	 * BA, 436, 3F79, 8CE0, FA, AAA6
+	 * 2, F095, 5260, 8ca
 	 * </pre>
 	 */
-	private static String octonMakerCapital() {
-		StringBuilder resultOfOctetCapital = new StringBuilder();
+	private static String octetMaker(List<String> charList) {
+		StringBuilder resultOfOctet = new StringBuilder();
 		String randomCharacters = null;
 		int range = ThreadLocalRandom.current().nextInt(1, 5);
-			for (int i = 0; i < range; i++) {
-				randomCharacters = CAPITAL_CHARACTERS.get(random.nextInt(CAPITAL_CHARACTERS.size()));
-				resultOfOctetCapital.append(randomCharacters);
-			}
+		for (int i = 0; i < range; i++) {
+			randomCharacters = charList.get(random.nextInt(charList.size()));
+			resultOfOctet.append(randomCharacters);
+		}
 
-		return resultOfOctetCapital.toString();
+		return resultOfOctet.toString();
 	}
-	
-	/**
-	 * @return This method create (from 1 to 4) random hexadecimal numbers with LOWERCASE CHARACTERS. 
-	 * This numbers are octets of IPv6 address.
-	 * Numbers of octets can be from ranges (0-9; a-f). 
-	 * Numbers of octet can be from range of (1-4). 
-	 * For example:
-	 * <pre>
-	 * a1f0, c0f, 2b3, 321, b, 85
-	 * </pre>
-	 */
-	private static String octonMakerLowercase() {
-		StringBuilder resultOfOctetLowercase = new StringBuilder();
-		String randomCharacters = null;
-		int range = ThreadLocalRandom.current().nextInt(1, 5);
-			for (int i = 0; i < range; i++) {
-				randomCharacters = LOWERCASE_CHARACTERS.get(random.nextInt(LOWERCASE_CHARACTERS.size()));
-				resultOfOctetLowercase.append(randomCharacters);
-			}
 
-		return resultOfOctetLowercase.toString();
+	/**
+     * @return This method choose one of formats of IPv6 address. 
+     * One is format with capital characters, second is with lowercase characters.
+     */
+	private static List<String> randomFormat() {
+		int randomIndex = random.nextInt(LIST_OF_FORMATS.size());
+		return LIST_OF_FORMATS.get(randomIndex);
 	}
 	
 
