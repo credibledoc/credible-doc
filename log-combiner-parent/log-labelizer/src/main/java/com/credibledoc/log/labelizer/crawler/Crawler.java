@@ -23,8 +23,14 @@ import java.util.concurrent.Executors;
  */
 public class Crawler {
     private static final Logger logger = LoggerFactory.getLogger(Crawler.class);
-    private static final String HTTPS_WWW_GOOGLE_COM = "https://www.google.com";
-    private static final String URL_SITE_GITHUB_COM_HH = HTTPS_WWW_GOOGLE_COM + "/search?q=site:github.com+SimpleDateFormat&client=firefox-b-d&ei=c4-sXZbhLYT4wQLEoK_gAw&start=0&sa=N&ved=0ahUKEwjW5p__pKvlAhUEfFAKHUTQCzw4ChDy0wMIfg&biw=1920&bih=1084";
+    private static final String HTTPS_WWW_API_GITHUB_COM = "https://api.github.com";
+    private static final String SEARCH_REPOS_HH_MM = HTTPS_WWW_API_GITHUB_COM + "/search/repositories?q=HH+mm+in:file+language:java?page=";
+    private static final String PER_PAGE = "&per_page=100";
+
+    /**
+     * Due to terms and conditions up to 10 requests per minute. See the https://developer.github.com/v3/search page.
+     */
+    private static final int DELAY_BETWEEN_REQUESTS_SECONDS_6 = 60 / 10;
     private static final int MAX_THREADS_25 = 25;
     
     public static void main(String[] args) {
@@ -35,7 +41,7 @@ public class Crawler {
     }
 
     private void startJobs() {
-        execute(getNextSearchPage(URL_SITE_GITHUB_COM_HH));
+        execute(getNextSearchPage(SEARCH_REPOS_HH_MM));
     }
 
     private void execute(String searchPageUrl) {
@@ -66,13 +72,15 @@ public class Crawler {
                 return null;
             }
             String suffix = nextPage.attr("href");
-            return HTTPS_WWW_GOOGLE_COM + suffix;
+            // TODO Kyrylo Semenko - 
+            int page = 1;
+            return HTTPS_WWW_API_GITHUB_COM + page + PER_PAGE + suffix;
         } catch (Exception e) {
             PagePattern pagePattern = new PagePattern();
             pagePattern.setPageUrl(searchPageUrl);
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
+//            e.printStackTrace(pw);
             pagePattern.setErrorMessage("Error in the getNextSearchPage method. Message: " + e.getMessage() + ". StackTrace: " + sw.toString());
             PagePatternRepository.getInstance().save(Collections.singletonList(pagePattern));
             return null;

@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 public class DatastoreService {
     private static final Logger logger = LoggerFactory.getLogger(DatastoreService.class);
     private static final String DATABASE_NAME = "labelizer-db";
-    private static final String SRC_MAIN_RESOURCES_DB = "src/main/resources/db/";
+    private static final String DATABASE_DIR = "C:/Users/semenko/git/credibledoc/credible-doc/log-combiner-parent/log-labelizer/";
     private MongodProcess mongodProcess;
     private MongodExecutable mongodExecutable;
     private static final int DATABASE_PORT = 8083;
@@ -62,14 +62,15 @@ public class DatastoreService {
 
     private void startEmbeddedServer() {
         try {
+            int oplogSize = 50;
+            String databaseDir = DATABASE_DIR + DATABASE_NAME + "/data";
             IMongodConfig mongodConfig = new MongodConfigBuilder()
                 .version(Version.Main.PRODUCTION)
                 .net(new Net(DATABASE_PORT, Network.localhostIsIPv6()))
+                .replication(new Storage(databaseDir, null, oplogSize))
                 .build();
 
-            // ->
-            // ...
-            IDirectory artifactStorePath = new FixedPath(SRC_MAIN_RESOURCES_DB + DATABASE_NAME);
+            IDirectory artifactStorePath = new FixedPath(DATABASE_DIR + DATABASE_NAME);
             ITempNaming executableNaming = new UUIDTempNaming();
 
             Command command = Command.MongoD;
@@ -89,12 +90,10 @@ public class DatastoreService {
 
             MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
             mongodExecutable = runtime.prepare(mongodConfig);
-            // ...
-            // <-
             mongodProcess = mongodExecutable.start();
             if (logger.isInfoEnabled()) {
-                logger.info("Database started. Executable: {}. Parameters: {}",
-                    mongodExecutable.getFile().executable().getAbsolutePath(), mongodConfig.params());
+                logger.info("Database started. Executable: {}.",
+                    mongodExecutable.getFile().executable().getAbsolutePath());
             }
         } catch (Exception e) {
             throw new LabelizerRuntimeException(e);
