@@ -67,25 +67,29 @@ public class TrainDataGenerator {
             try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(noDatesFile)))) {
                 generateDaysAndMonths(writer);
                 for (int i = 0; i < linesNumber; i++) {
-                    int length = randomBetween(1, 9);
-                    String nines = StringUtils.repeat("9", length);
-                    int number = randomBetween(0, Integer.parseInt(nines) + 1);
-                    String stringNumber = Integer.toString(number);
-                    String paddedNumber = StringUtils.leftPad(stringNumber, length, "0");
-                    String ip = IpGenerator.randomIp();
-                    /**
-                     * RandomString is reduced by paddedNumber.length() and ip.length().
-                     * Then we have to add 2, because when we create string array randomStringArray, we are replace two
-                     * values of array by paddedNumber and ip.
-                     */
-                    String randomString = generateRandomString(CharIterator.EXAMPLE_LENGTH - paddedNumber.length() - ip.length() + 2);
-                    String[] randomStringArray = null;
-                    randomStringArray = randomString.split("");
-                    int randomOrder = randomBetween(0, randomString.length());
-                    randomStringArray[randomOrder] = paddedNumber;
-                    randomOrder = randomBetween(0, randomString.length());
-                    randomStringArray[randomOrder] = ip;
-                    writer.write(Arrays.toString(randomStringArray) + System.lineSeparator());
+                    int range = randomBetween(0, 9);
+                    String ip = "";
+                    String paddedNumber = "";
+                    if (range == 0) {
+                        ip = IpGenerator.randomIp();
+                    }
+                    if (range <= 4) {
+                        int length = randomBetween(1, 9);
+                        String nines = StringUtils.repeat("9", length);
+                        int number = randomBetween(0, Integer.parseInt(nines) + 1);
+                        String stringNumber = Integer.toString(number);
+                        paddedNumber = StringUtils.leftPad(stringNumber, length, "0");
+                    }
+                    String randomString = generateRandomString(CharIterator.EXAMPLE_LENGTH - paddedNumber.length() - ip.length());
+                    StringBuilder randomStringBuilder = new StringBuilder(randomString);
+                    if (randomString.length() != 100) {
+                        int randomIndex = randomBetween(0, randomString.length());
+                        randomStringBuilder.insert(randomIndex, ip);
+                        randomIndex = randomBetween(0, randomString.length());
+                        randomStringBuilder.insert(randomIndex, paddedNumber);
+                    }
+                    
+                    writer.write(randomStringBuilder.toString() + System.lineSeparator());
                 }
             }
         } catch (Exception e) {

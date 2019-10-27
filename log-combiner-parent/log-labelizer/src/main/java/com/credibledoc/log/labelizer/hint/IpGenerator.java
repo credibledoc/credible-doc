@@ -11,18 +11,12 @@ import org.apache.commons.collections.ListUtils;
 /**
  * IP Generator create random IP address. It create both forms. IPv4 and IPv6
  * In this class is 3 outputs for different purposes.
- * Methods for use:
- *<pre>
- *randomIp() - generate random IP addresses where is IPv4 and IPv6 with ports
- *randomIp4() - generate random IPv4 addresses with ports
- *randomIp6() - generate random IPv6 addresses with ports
- *<pre>
  * @author Olga Semenko
  */
 
 public class IpGenerator {
-	public static final int MAX_IP = 256;
-	public static final int MAX_PORT = 65536;
+	private static final int MAX_IP = 256;
+	private static final int MAX_PORT = 65536;
 	private static final List<String> SEPARATORS = new ArrayList<>(Arrays.asList(":", ".", " P ", " p ", " port ", " PORT ", " "));
 	private static final List<String> NUMBER_CHARACTERS = new ArrayList<>(Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));
 	private static final List<String> CAPITAL_CHARACTERS = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F"));
@@ -42,8 +36,13 @@ public class IpGenerator {
 	}
 	
 	public static String randomIp() {
-	    final List<String> randomIpMethod = new ArrayList<>(Arrays.asList(randomIp4(), randomIp6()));
-        return randomIpMethod.get(random.nextInt(randomIpMethod.size()));
+	    String result;
+	    if (!random.nextBoolean()) {
+	        result = randomIp4();
+	    } else {
+	        result = randomIp6();
+	    }
+        return result;
     }
 
 	/**
