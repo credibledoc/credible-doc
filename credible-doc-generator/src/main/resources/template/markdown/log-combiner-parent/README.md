@@ -1,12 +1,12 @@
 # Module log-combiner-parent
-Allows to combine (merge) log files with different format of lines timestamps
+It enables to combine (merge) log files with different format of lines timestamps
 to a single file or readable source with lines sorted by timestamps.
 
-This module contains the following modules
+The module contains the following modules
 * [log-combiner-core](log-combiner-core/README.md) - contains classes with business logic.
-This module is a source for a `jar` library file.
+The module is the source for the `jar` library file.
 
 * [log-combiner](log-combiner/README.md) - contains the `log-combiner` command-line tool.
-This tool can be used for merging log files with different format of lines timestamps to a single file or readable source.
+The tool can be used for merging log files with various formats of line timestamps to a single file or readable source.
 
-* [log-labelizer](log-labelizer/README.md) - this module contains an attempt of usage deeplearning4j libraries for log file lines parsing.
+* [log-labelizer](log-labelizer/README.md) - the module contains tools for parsing, reading and analyzing of log files.

@@ -8,6 +8,6 @@ This repository contains the next main modules
 with different format of lines timestamps to a single file or readable source with lines sorted by timestamps
 * [plantuml-parent](plantuml/README.md) - contains utilities for generation of plantUML diagrams
 * [substitution-parent](substitution/README.md) - contains submodules with tools and libraries for replacing
-of placeholders with a generated content
+placeholders with the generated content
 
-This [release.md](doc/release.md) document describes how to release and publish all modules of this repository.
+The document [release.md](doc/release.md) describes how to release and publish all modules of this repository.

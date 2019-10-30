@@ -1,10 +1,9 @@
 # Module plantuml-parent
-Utilities for generation of [plantUML](http://plantuml.com) diagrams.
+Utilities for the generation of [plantUML](http://plantuml.com) diagrams.
 
 ## Usage
-See an [example](plantuml-core/README.md).
+See the [example](plantuml-core/README.md).
 
 ## Modules
 
-* [plantuml-core](plantuml-core/README.md) - contains services for generation of [plantUml](http://plantuml.com) diagrams
-from plantUml notations
+* [plantuml-core](plantuml-core/README.md) - contains services for the generation of [plantUml](http://plantuml.com) diagrams from the plantUml notations

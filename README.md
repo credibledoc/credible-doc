@@ -1,6 +1,6 @@
 # Repository credible-doc
 This repository contains maven modules with libraries and utilities for creation
-and maintaining of documents based on a generated content.
+and maintaining of documents based on generated content.
 
 This repository contains the next main modules
 * [credible-doc-generator](credible-doc-generator/README.md) - generates this documentation
