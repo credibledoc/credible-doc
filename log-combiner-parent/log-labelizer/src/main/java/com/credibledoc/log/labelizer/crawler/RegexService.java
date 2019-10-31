@@ -17,7 +17,7 @@ class RegexService {
 
     static List<String> parse(String page) {
         List<String> result = new ArrayList<>();
-        String[] array = page.split("&quot;|<|>|\"");
+        String[] array = page.split("&quot;|<|>|\"|\\{|}");
         for (String next : array) {
             Matcher matcher = DATE_PATTERN.matcher(next);
             while (matcher.find()) {
