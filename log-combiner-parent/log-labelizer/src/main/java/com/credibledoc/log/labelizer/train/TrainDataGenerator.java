@@ -4,6 +4,7 @@ import com.credibledoc.log.labelizer.datastore.DatastoreService;
 import com.credibledoc.log.labelizer.date.DateExample;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
+import com.credibledoc.log.labelizer.hint.IpGenerator;
 import com.credibledoc.log.labelizer.iterator.CharIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Splitter;
@@ -67,19 +68,29 @@ public class TrainDataGenerator {
             try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(noDatesFile)))) {
                 generateDaysAndMonths(writer);
                 for (int i = 0; i < linesNumber; i++) {
-                    int length = randomBetween(1, 9);
-                    String nines = StringUtils.repeat("9", length);
-                    int number = randomBetween(0, Integer.parseInt(nines) + 1);
-                    String stringNumber = Integer.toString(number);
-                    String paddedNumber = StringUtils.leftPad(stringNumber, length, "0");
-                    String randomString = generateRandomString(CharIterator.EXAMPLE_LENGTH - paddedNumber.length());
-                    int randomOrder = randomBetween(0, 1);
-                    // TODO Kyrylo Semenko - generovat IP adresy napriklad 111.222.333.123
-                    if (randomOrder == 0) {
-                        writer.write(randomString + paddedNumber + System.lineSeparator());
-                    } else {
-                        writer.write(paddedNumber + randomString + System.lineSeparator());
+                    int range = randomBetween(0, 9);
+                    String ip = "";
+                    String paddedNumber = "";
+                    if (range == 0) {
+                        ip = IpGenerator.randomIp();
                     }
+                    if (range <= 4) {
+                        int length = randomBetween(1, 9);
+                        String nines = StringUtils.repeat("9", length);
+                        int number = randomBetween(0, Integer.parseInt(nines) + 1);
+                        String stringNumber = Integer.toString(number);
+                        paddedNumber = StringUtils.leftPad(stringNumber, length, "0");
+                    }
+                    String randomString = generateRandomString(CharIterator.EXAMPLE_LENGTH - paddedNumber.length() - ip.length());
+                    StringBuilder randomStringBuilder = new StringBuilder(randomString);
+                    if (randomString.length() != 100) {
+                        int randomIndex = randomBetween(0, randomString.length());
+                        randomStringBuilder.insert(randomIndex, ip);
+                        randomIndex = randomBetween(0, randomString.length());
+                        randomStringBuilder.insert(randomIndex, paddedNumber);
+                    }
+                    
+                    writer.write(randomStringBuilder.toString() + System.lineSeparator());
                 }
             }
         } catch (Exception e) {
@@ -120,6 +131,8 @@ public class TrainDataGenerator {
         String[] timeZoneIds = TimeZone.getAvailableIDs();
         int linesNumber = 0;
         File file = new File("src/main/resources/vectors/labeled/date/dates.txt");
+        File dir = file.getParentFile();
+        dir.mkdir();
         logger.info("File will be rewritten: '{}'", file.getAbsolutePath());
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))) {
             for (Locale locale : DateFormat.getAvailableLocales()) {
