@@ -1,5 +1,5 @@
 # Module log-combiner
-This module creates a simple command-line tool for merging log files
+The module creates a simple command-line tool for merging of log files
 with different format of lines timestamps to a single file or readable source
 with lines sorted by timestamps.
 
@@ -12,7 +12,7 @@ see the image
 ![Link to the Maven Central Repository](doc/img/mvnRepository.png)
 
 
-2. Select a link next to the 'Files' word in the page, see the image
+2. Select the link next to the ``Files`` word in the page, see the image
 
 ![Link to the jar file](doc/img/linkToJar.png)
 
@@ -21,33 +21,33 @@ see the image
     java -jar log-combiner-1.0.10.jar <folderAbsolutePath> [configAbsolutePath]
 
 ## Examples
-Combine all files in the `/var/log/temp` folder recursively.
+Combine all the files in the `/var/log/temp` folder recursively.
 
     java -jar log-combiner-1.0.10.jar /var/log/temp
                              
-In case of existing `log-combiner.properties` configuration file log files will be
-merged with configuration parameters. Else default configuration parameters
-will be used and files will be joined by last modification time of files.
+In case of the `log-combiner.properties` configuration file in place the log files will be
+merged with the configuration parameters. Otherwise the default configuration parameters
+will be used and the files will be joined by the files with the final time modification.
 
     java -jar log-combiner-1.0.10.jar /var/log/temp /var/log/combiner/two-apps.properties
-In this case log files from the `/var/log/temp` folder will be merged. And the
-`/var/log/combiner/two-apps.properties` configuration file will be used. In this case you should create
-the `two-apps.properties` file in the `/var/log/combiner/` folder.
+In this case the log files from the `/var/log/temp` folder will be merged. And the
+`/var/log/combiner/two-apps.properties` configuration file will be used. We assumed
+the `two-apps.properties` file in the `/var/log/combiner/` folder exists.
 
 ## Arguments description
 * `log-combiner-1.0.10.jar` (mandatory) is an executable jar file. Latest release is located on the Maven Central Repository.
 It can be [downloaded from the Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner),
-see a link next to the 'Files' in the page, see images above.
-* `folderAbsolutePath` (mandatory) is a path to a folder with log files for merging.
-Files will be parsed in this folder and sub-folders recursively.
-* `configAbsolutePath` (optional) is a configuration file path. Example of the file see below. If the `configAbsolutePath`
-is not defined in command line, default value is `log-combiner.properties` located
+see the link next to the 'Files' in the page, see images above.
+* `folderAbsolutePath` (mandatory) is the path to a folder with log files for merging.
+The files will be parsed in this folder and sub-folders recursively.
+* `configAbsolutePath` (optional) is a configuration file path. The example of the file see below. If the `configAbsolutePath`
+is not defined in the command line, the default value is `log-combiner.properties` located
 in the same folder, next to the log-combiner-1.0.10.jar file.
-If the configuration file not found then all files will be merged by last modification time.
+If the configuration file is not found, all the files will be merged by the final time modification.
 
 ## Configuration file log-combiner.properties
 
-This example of `log-combiner.properties` file contains configuration of two
+The example of the `log-combiner.properties` file contains the configuration of two
 different formats of log files - `app0` and `app1`.
 
     # File log-combiner.properties
@@ -80,16 +80,16 @@ different formats of log files - `app0` and `app1`.
 * `insertLineSeparatorBetweenFiles` (optional, default false, allowed value `true`) if defined as `true`,
 System.lineSeparator() will be inserted after each file except the last one
 * `printNodeName` (optional, default true, allowed value `false`) if defined as `true`, log lines from sub-folders will be prefixed
-by sub-folder name. It is useful in case when the same application is installed on multiple nodes and each node generates
-its own logs. In this case each node files should be places in sub-folders. See example below.
-* `regex` (mandatory) the pattern of datetime searching in a log line
-* `maxIndexEndOfTime` (optional) if defined, the first part of a line will be searched by matcher for datetime pattern.
-If not set, the whole line will be searched by matcher. For example if the whole line is 100 characters length,
-and `maxIndexEndOfTime` is set to `20`, the datetime will be searched
+with the sub-folder name. The option is useful in case when the same application is installed on multiple nodes and each node generates
+its own logs. In this case each node files should be placed in the sub-folders. See example below.
+* `regex` (mandatory) the datetime pattern provides searching for dates in the log files
+* `maxIndexEndOfTime` (optional) if defined, the first part of a line will be checked for a datetime pattern by a matcher.
+If not set, the whole line will be checked by the matcher. For example if the whole line is 100 characters length,
+and `maxIndexEndOfTime` is set fot `20`, the datetime will be checked
 in a substring from `0` to `20` characters of the line `exclusive`.
 * `simpleDateFormat` (mandatory) a pattern for parsing datetime string to a `java.util.Date` object
-* `applicationName` (optional) if defined, each line in a merged file will be prefixed by this value.
-It is useful for better readability of merged files, where logs from different applications and nodes
+* `applicationName` (optional) if defined, each line in a merged file will be prefixed with this value.
+It is useful for better readability of merged files, where logs from different applications and nodes are
 combined into a single file. In this case each line can be distinguished which application it belongs to.
 For example:
 
@@ -100,7 +100,7 @@ For example:
      
      node1 app0 22.04.2019 07:59:27.910 [thread2] INFO Application app0 started.
 
-Example of folder structure with log files from multiple nodes (`node0` and `node1`)
+The example of a folder structure with the log files with multiple nodes (`node0` and `node1`)
 and multiple applications (`app0` and `app1`) :
 
     folder
