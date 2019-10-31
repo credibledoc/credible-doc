@@ -46,9 +46,11 @@ public class CredibleDocGeneratorMain {
     private final SubstitutionTactic substitutionSpecificTactic;
 
     /**
-     * The main method for generation of documentation of the credibledoc-substitution tool.
+     * The main method for generation of the documentation for the 'credible-doc' repository.
      * <p>
-     * This method should be launched within its parent (../substitution) folder.
+     * The main method should be launched from the credibledoc/credible-doc folder. The method generates documents
+     * to the credibledoc/credible-doc/target directory. These documents can be copied to the credibledoc/credible-doc
+     * folder instead of old existing documents.
      *
      * @param args not used
      */

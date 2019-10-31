@@ -22,8 +22,7 @@ Launch the application
 
     java -jar credible-doc-generator/target/credible-doc-generator-1.0.11-SNAPSHOT.jar
 
-As a result, the `credible-doc/target/generated/markdown/` folder with new subfolders and files
-is generated.
+As a result, the `credible-doc/target/generated/markdown/` folder with new sub-folders and files are generated.
 
 This folder should look as the following one
 
@@ -43,6 +42,7 @@ This documentation is generated from these templates:
 * [/template/markdown/log-combiner-parent/log-combiner/README.md](src/main/resources/template/markdown/log-combiner-parent/log-combiner/README.md)
 * [/template/markdown/log-combiner-parent/log-combiner-core/doc/usage.md](src/main/resources/template/markdown/log-combiner-parent/log-combiner-core/doc/usage.md)
 * [/template/markdown/log-combiner-parent/log-combiner-core/README.md](src/main/resources/template/markdown/log-combiner-parent/log-combiner-core/README.md)
+* [/template/markdown/log-combiner-parent/log-labelizer/README.md](src/main/resources/template/markdown/log-combiner-parent/log-labelizer/README.md)
 * [/template/markdown/log-combiner-parent/README.md](src/main/resources/template/markdown/log-combiner-parent/README.md)
 * [/template/markdown/plantuml/plantuml-core/README.md](src/main/resources/template/markdown/plantuml/plantuml-core/README.md)
 * [/template/markdown/plantuml/README.md](src/main/resources/template/markdown/plantuml/README.md)
