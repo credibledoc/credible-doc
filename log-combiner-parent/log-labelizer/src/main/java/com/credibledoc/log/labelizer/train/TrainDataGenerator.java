@@ -6,6 +6,7 @@ import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.credibledoc.log.labelizer.hint.IpGenerator;
 import com.credibledoc.log.labelizer.iterator.CharIterator;
+import com.credibledoc.log.labelizer.pagepattern.PagePatternRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Splitter;
 import org.apache.commons.lang3.StringUtils;
@@ -26,40 +27,42 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class TrainDataGenerator {
     private static final Logger logger = LoggerFactory.getLogger(TrainDataGenerator.class);
-    private static List<String> patternsList = new ArrayList<>();
+    private static List<String> testPatterns = new ArrayList<>();
     
     public static void main(String[] args) {
         try {
-            patternsList.add("yyyy.MM.dd HH:mm:ss Z"); // 2019.09.15 18:10:34 +0200
-            patternsList.add("yyyy.MM.dd HH:mm:ssZ"); // 2019.09.15 18:10:34+0200
-            patternsList.add("yyyy.MM.dd HH:mm:ss(Z)"); // 2019.09.15 18:10:34(+0200)
-            patternsList.add("yyyy.MM.dd HH:mm:ss"); // 2019.09.15 18:10:34
-            patternsList.add("MM d, yy HH:mm:ss"); // 09 15, 19 18:10:34
-            patternsList.add("h:mm:ss:SSS"); // 6:10:34:773
-            patternsList.add("HH:mm:ss, Z"); // 18:10:34, +0200
-            patternsList.add("HH:mm:ss, K:mm, Z"); // 18:10:34, 6:10, +0200
-            patternsList.add("yy.MM.dd hh:mm"); // 19.09.15 06:10
-            patternsList.add("d MM yyyy HH:mm:ss Z"); // 15 09 2019 18:10:34 +0200
-            patternsList.add("yyyy-MM-dd'T'HH:mm:ss.SSSZ"); // 2019-09-15T18:10:34.773+0200
-            patternsList.add("yyyy-MM-dd HH:mm:ss"); // 2019-09-15 18:10:34
-            patternsList.add("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 2019-09-15T18:10:34.773+02:00
-            patternsList.add("YYYY-'W'ww-u-HH:mm:ss"); // 2019-W37-7-18:10:34
-            patternsList.add("yyyy/MM/dd'T'HH:mm:ss.SSSZ"); // 2019/09/15T18:10:34.773+0200
-            patternsList.add("yyyy/MM/dd HH:mm:ss"); // 2019/09/15 18:10:34
-            patternsList.add("yyyy/MM/dd'T'HH:mm:ss.SSSXXX"); // 2019/09/15T18:10:34.773+02:00
-            patternsList.add("YYYY/'W'ww/u/HH:mm:ss"); // 2019/W37/7/18:10:34
-            patternsList.add("dd.MM.yy HH:mm:ss"); // 15.09.19 18:10:34
-            patternsList.add("dd.MM.yy-HH:mm:ss.SSSZ"); // 15.09.19-18:10:34.773+0200
-            patternsList.add("dd.MM.yyyy-HH:mm:ss.SSSZ"); // 15.09.2019-18:10:34.773+0200
-            patternsList.add("EEE MMM dd HH:mm:ss yyyy"); // Sat Aug 12 04:05:51 2006
-            patternsList.add("EEEE MMMM dd HH:mm:ss yyyy"); // Saturday August 15 19:05:56 2019
-            // TODO Kyrylo Semenko - [03/Jul/1996:06:56:12 -0800]
-            // TODO Kyrylo Semenko - 03/22 08:51:06
+            testPatterns.add("yyyy.MM.dd HH:mm:ss Z"); // 2019.09.15 18:10:34 +0200
+            testPatterns.add("yyyy.MM.dd HH:mm:ssZ"); // 2019.09.15 18:10:34+0200
+            testPatterns.add("yyyy.MM.dd HH:mm:ss(Z)"); // 2019.09.15 18:10:34(+0200)
+            testPatterns.add("MM d, yy HH:mm:ss"); // 09 15, 19 18:10:34
+            testPatterns.add("h:mm:ss:SSS"); // 6:10:34:773
+            testPatterns.add("HH:mm:ss, Z"); // 18:10:34, +0200
+            testPatterns.add("HH:mm:ss, K:mm, Z"); // 18:10:34, 6:10, +0200
+            testPatterns.add("yy.MM.dd hh:mm"); // 19.09.15 06:10
+            testPatterns.add("d MM yyyy HH:mm:ss Z"); // 15 09 2019 18:10:34 +0200
+            testPatterns.add("YYYY-'W'ww-u-HH:mm:ss"); // 2019-W37-7-18:10:34
+            testPatterns.add("yyyy/MM/dd'T'HH:mm:ss.SSSZ"); // 2019/09/15T18:10:34.773+0200
+            testPatterns.add("yyyy/MM/dd'T'HH:mm:ss.SSSXXX"); // 2019/09/15T18:10:34.773+02:00
+            testPatterns.add("YYYY/'W'ww/u/HH:mm:ss"); // 2019/W37/7/18:10:34
+            testPatterns.add("dd.MM.yy HH:mm:ss"); // 15.09.19 18:10:34
+            testPatterns.add("dd.MM.yy-HH:mm:ss.SSSZ"); // 15.09.19-18:10:34.773+0200
+            testPatterns.add("dd.MM.yyyy-HH:mm:ss.SSSZ"); // 15.09.2019-18:10:34.773+0200
+            testPatterns.add("EEEE MMMM dd HH:mm:ss yyyy"); // Saturday August 15 19:05:56 2019
+            testPatterns.add("MM/dd HH:mm:ss"); // 03/22 08:51:06
             
             Date date = new Date();
-            for (String format : patternsList) {
-                String dateString = new SimpleDateFormat(format, Locale.US).format(date);
-                logger.info("List: {}, {}", format, dateString);
+            List<String> existingPatterns = new ArrayList<>();
+            for (String pattern : testPatterns) {
+                String dateString = new SimpleDateFormat(pattern, Locale.US).format(date);
+                boolean databaseContainsThePattern = PagePatternRepository.getInstance().containsPattern(pattern);
+                logger.info("List: {}, {}, in DB: {}", pattern, dateString, databaseContainsThePattern);
+                if (databaseContainsThePattern) {
+                    existingPatterns.add(pattern);
+                }
+            }
+            if (!existingPatterns.isEmpty()) {
+                throw new LabelizerRuntimeException("These patterns already exist in the database. Please remove " +
+                    "these patterns from the testPatterns: " + existingPatterns);
             }
 
             int linesNumber = generateDates();
@@ -136,7 +139,7 @@ public class TrainDataGenerator {
         logger.info("File will be rewritten: '{}'", file.getAbsolutePath());
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))) {
             for (Locale locale : DateFormat.getAvailableLocales()) {
-                for (String pattern : patternsList) {
+                for (String pattern : testPatterns) {
                     Date startDate = new Date(0);
                     GregorianCalendar gregorianCalendar = new GregorianCalendar();
                     gregorianCalendar.setTime(startDate);

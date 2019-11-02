@@ -63,14 +63,15 @@ public class DatastoreService {
     private void startEmbeddedServer() {
         try {
             int oplogSize = 50;
-            String databaseDir = Config.getDatabaseDir() + DATABASE_NAME + "/data";
+            String configDatabaseDir = Config.getDatabaseDir();
+            String databaseDir = configDatabaseDir + DATABASE_NAME + "/data";
             IMongodConfig mongodConfig = new MongodConfigBuilder()
                 .version(Version.Main.PRODUCTION)
                 .net(new Net(DATABASE_PORT, Network.localhostIsIPv6()))
                 .replication(new Storage(databaseDir, null, oplogSize))
                 .build();
 
-            IDirectory artifactStorePath = new FixedPath(Config.getDatabaseDir() + DATABASE_NAME);
+            IDirectory artifactStorePath = new FixedPath(configDatabaseDir + DATABASE_NAME);
             ITempNaming executableNaming = new UUIDTempNaming();
 
             Command command = Command.MongoD;
