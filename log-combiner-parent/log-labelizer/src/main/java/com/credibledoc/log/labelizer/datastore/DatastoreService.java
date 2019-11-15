@@ -20,6 +20,9 @@ import dev.morphia.Morphia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.Socket;
+
 /**
  * Provides an access to the MongoDB database.
  * 
@@ -33,8 +36,15 @@ public class DatastoreService {
     private static final int DATABASE_PORT = 8083;
     private static final String LOCALHOST = "localhost";
     
-    /** The connection to {@link MongoClient} through {@link Morphia} */
+    /**
+     * The connection to {@link MongoClient} through {@link Morphia}
+     */
     private Datastore datastore;
+
+    /**
+     * Should be the DB server stopped at the end of the work?
+     */
+    private boolean shouldBeStopped = false;
     
     /**
      * Singleton.
@@ -52,12 +62,25 @@ public class DatastoreService {
     }
     
     private DatastoreService() {
-        startEmbeddedServer();
+        if (!available()) {
+            startEmbeddedServer();
+            shouldBeStopped = true;
+        }
         logger.info("Connect to MongoDB. Host: {}, port: {}, database name: {}", LOCALHOST, DATABASE_PORT, DATABASE_NAME);
         Morphia morphia = new Morphia();
         morphia.mapPackage("com.credibledoc.log.labelizer");
-        datastore = morphia.createDatastore(new MongoClient(LOCALHOST, DATABASE_PORT), DATABASE_NAME);
+        MongoClient mongoClient = new MongoClient(LOCALHOST, DATABASE_PORT);
+        datastore = morphia.createDatastore(mongoClient, DATABASE_NAME);
         datastore.ensureIndexes();
+    }
+
+    private static boolean available() {
+        try (Socket socket = new Socket(LOCALHOST, DATABASE_PORT)) {
+            logger.info("Database server already running. Socket: {}", socket);
+            return true;
+        } catch (IOException ignored) {
+            return false;
+        }
     }
 
     private void startEmbeddedServer() {
@@ -103,8 +126,10 @@ public class DatastoreService {
     }
 
     public void stop() {
-        mongodProcess.stop();
-        mongodExecutable.stop();
+        if (shouldBeStopped) {
+            mongodProcess.stop();
+            mongodExecutable.stop();
+        }
     }
 
     /**

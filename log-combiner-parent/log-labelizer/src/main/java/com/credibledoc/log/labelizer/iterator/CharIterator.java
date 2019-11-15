@@ -1,10 +1,14 @@
 package com.credibledoc.log.labelizer.iterator;
 
+import com.credibledoc.log.labelizer.classifier.LinesWithDateClassification;
 import com.credibledoc.log.labelizer.date.DateExample;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.credibledoc.log.labelizer.hint.Hint;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.credibledoc.log.labelizer.hint.IpGenerator;
+import com.credibledoc.log.labelizer.pagepattern.PagePattern;
+import com.credibledoc.log.labelizer.pagepattern.PagePatternRepository;
+import com.credibledoc.log.labelizer.train.TrainDataGenerator;
 import com.google.common.primitives.Chars;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,21 +29,47 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
 public class CharIterator implements MultiDataSetIterator {
     public static final String RESOURCES_DIR = "vectors/labeled";
-    public static final int EXAMPLE_LENGTH = 100;
+
     private static final Logger logger = LoggerFactory.getLogger(CharIterator.class);
     private static final String NOT_IMPLEMENTED = "Not implemented";
-    private static final String NATIONAL_CHARS_TXT = "chars/nationalChars.txt";
+    public static final String NATIONAL_CHARS_TXT = "chars/nationalChars.txt";
     private static final char ORDERING_FORTRAN = 'f';
-    private static final String DATE_FOLDER = "date";
-    private static final String WITHOUT_DATE_FOLDER = "without";
-    private static final int BOUNDARY_LENGTH_2 = 2;
     private static final String MINI_BATCH = "MiniBatch: {}: {}";
+    private static final int NUM_EXAMPLES_OF_DATE_PATTERN_100 = 100;
+
+
+    private static final List<Character> PUNCTUATIONS = new ArrayList<>(Arrays.asList('!', '&', '(', ')', '?', '-',
+        '\\', ',', '.', '\"', ':', ';', ' '));
+
+    private static final List<Character> SMALL_LETTERS = listChars('a', 'z');
+    private static final List<Character> LARGE_LETTERS = listChars('A', 'Z');
+    private static final List<Character> DIGITS = listChars('0', '9');
+    private static final List<Character> DIGITS_AND_LETTERS = new ArrayList<>();
+    private static final List<Character> DIGITS_AND_LETTERS_AND_PUNCTUATIONS = new ArrayList<>();
+    private static final List<String> SEPARATORS = new ArrayList<>(Arrays.asList("|", " ", "/", ",", "'", "-", "_"));
+
+    private static final List<String> BOUNDARIES = new ArrayList<>(Arrays.asList(
+        // repeated for more probability
+        "  ", "  ", "  ", "  ", "  ",
+        "{}", "()", "()", "()",
+        "//", ",,", "\"\"", "''", "--", "__", "||",
+        "[]", "[]", "[]", "[]", "[]"));
+
+    private static final List<String> THREAD_COMMON_NAMES = new ArrayList<>(Arrays.asList("thread", "main", "worker", "job", "pool",
+        "local", "exec", "Main"));
+
+    private static final List<String> LOG_LEVELS = new ArrayList<>(Arrays.asList("ALL", "TRACE", "DEBUG", "INFO", "WARN", "WARNING",
+        "ERROR", "SEVERE", "FATAL", "CONFIG", "FINE", "FINER", "FINEST", "CRITICAL", "VERBOSE", "Trace", "Debug", "Info", "Warn", "Error"));
+    private static final int KEY_FOR_MISSED_CHARS = 0;
+    public static final String NEW_CHARS_TXT = "chars/newChars.txt";
+
 
     /**
      * Maps each character to an index in the input/output. These characters is used in train and test data.
@@ -49,15 +79,16 @@ public class CharIterator implements MultiDataSetIterator {
     private Map<Integer, Character> intToCharMap;
 
     /**
-     * Examples of a date string where individual parts are marked with labels.
+     * The examples of a date string where individual parts are marked with labels.
+     * This list contains max {@link #NUM_EXAMPLES_OF_DATE_PATTERN_100} elements and the new elements where appends
+     * continuously until some patterns exists in the database.
      */
-    private transient List<DateExample> dateExamples;
+    private transient List<DateExample> dateExamples = new ArrayList<>();
 
     /**
-     * Examples of lines without date or other labels.
+     * Provides characters without labels for filling out of gaps between the labeled data.
      */
-    private List<String> linesWithoutDate;
-
+    private transient LineFiller lineFiller;
 
     /**
      * Length of each example/minibatch (number of characters)
@@ -70,20 +101,25 @@ public class CharIterator implements MultiDataSetIterator {
     private int miniBatchSize;
 
     /**
-     * Offsets for the start of next {@link #dateExamples} example
+     * The current trained {@link PagePattern}.
      */
-    private int linesOffset = 0;
+    private transient PagePattern lastPagePattern;
 
-    private static final List<Character> PUNCTUATIONS = new ArrayList<>(Arrays.asList('!', '&', '(', ')', '?', '-',
-        '\\', ',', '.', '\"', ':', ';', ' '));
-    private static final List<Character> SMALL_LETTERS = listChars('a', 'z');
-    private static final List<Character> LARGE_LETTERS = listChars('A', 'Z');
-    private static final List<Character> DIGITS = listChars('0', '9');
-    private static final List<Character> DIGITS_AND_LETTERS = new ArrayList<>();
-    private static final List<Character> DIGITS_AND_LETTERS_AND_PUNCTUATIONS = new ArrayList<>();
-    private static final List<String> BOUNDARIES = new ArrayList<>(Arrays.asList("||", "  ", "{}", "()", "//",
-        ",,", "\"\"", "''", "--", "__", "[]"));
-    
+    /**
+     * How many {@link PagePattern}s for a training the database contains before start of the training.
+     */
+    private long patternsCount;
+
+    /**
+     * How many {@link PagePattern}s has been trained.
+     */
+    private long patternsPassed = 0;
+
+    /**
+     * Resource files directory.
+     */
+    private final String resourcesDirPath;
+
     static {
         DIGITS_AND_LETTERS.addAll(LARGE_LETTERS);
         DIGITS_AND_LETTERS.addAll(SMALL_LETTERS);
@@ -114,12 +150,12 @@ public class CharIterator implements MultiDataSetIterator {
 
     /**
      * @param resourcesDirPath     Path to text file to use for generating samples
-     * @param textFileEncoding Encoding of the text file. Can try Charset.defaultCharset()
+     * @param charset Encoding of the text file(s). Can try Charset.defaultCharset()
      * @param miniBatchSize    Number of examples per mini-batch
      * @param exampleLength    Number of characters in each input/output vector
      * @throws IOException If text file cannot be loaded
      */
-    public CharIterator(String resourcesDirPath, Charset textFileEncoding, int miniBatchSize,
+    public CharIterator(String resourcesDirPath, Charset charset, int miniBatchSize,
                         int exampleLength) throws IOException {
         if (!new File(resourcesDirPath).exists()) {
             throw new IOException("Could not access file (does not exist): " + resourcesDirPath);
@@ -127,31 +163,15 @@ public class CharIterator implements MultiDataSetIterator {
         if (miniBatchSize <= 0) {
             throw new IllegalArgumentException("Invalid miniBatchSize (must be > 0)");
         }
+        this.resourcesDirPath = resourcesDirPath;
         this.exampleLength = exampleLength;
         this.miniBatchSize = miniBatchSize;
 
         //Store valid characters is a map for later use in vectorization
         initCharToIdxMap();
-
-        dateExamples = readDateExamples(resourcesDirPath, textFileEncoding);
-        linesWithoutDate = readLinesFromFolder(resourcesDirPath, textFileEncoding, WITHOUT_DATE_FOLDER);
-    }
-
-    private List<DateExample> readDateExamples(String resourcesDirPath, Charset textFileEncoding) {
-        String lastJson = null;
-        try {
-            List<String> exampleLines = readLinesFromFolder(resourcesDirPath, textFileEncoding, DATE_FOLDER);
-            List<DateExample> result = new ArrayList<>();
-            ObjectMapper objectMapper = new ObjectMapper();
-            for (String json : exampleLines) {
-                lastJson = json;
-                DateExample dateExample = objectMapper.readValue(json, DateExample.class);
-                result.add(dateExample);
-            }
-            return result;
-        } catch (Exception e) {
-            throw new LabelizerRuntimeException("Last JSON: " + lastJson, e);
-        }
+        
+        lineFiller = new LineFiller(resourcesDirPath, charset);
+        patternsCount = PagePatternRepository.getInstance().countNotTrainedPatterns();
     }
 
     public static String randomWordChar() {
@@ -246,7 +266,33 @@ public class CharIterator implements MultiDataSetIterator {
                 return entry.getKey();
             }
         }
-        throw new LabelizerRuntimeException("Cannot find index for character: '" + character + "'.");
+        File charsFile = new File(resourcesDirPath + "/../", NEW_CHARS_TXT);
+        if (!charsFile.exists()) {
+            try {
+                Files.createFile(charsFile.toPath());
+            } catch (IOException e) {
+                throw new LabelizerRuntimeException(e);
+            }
+        }
+        String chars;
+        try {
+            chars = new String(Files.readAllBytes(charsFile.toPath()));
+        } catch (Exception e) {
+            throw new LabelizerRuntimeException(e);
+        }
+        if (!chars.contains(Character.toString(character))) {
+            try (FileWriter fileWriter = new FileWriter(charsFile, true)) {
+                String message = "Cannot find index for character: '" + character + "'. It will be write to the file '" +
+                    charsFile.getAbsolutePath() + "'. The default character with key '" + KEY_FOR_MISSED_CHARS +
+                    "' will be used. Please merge the " +
+                    "file content to the '" + NATIONAL_CHARS_TXT + "' file.";
+                logger.info(message);
+                fileWriter.append(character);
+            } catch (Exception e) {
+                throw new LabelizerRuntimeException(e);
+            }
+        }
+        return KEY_FOR_MISSED_CHARS;
     }
 
     public boolean hasNext() {
@@ -254,8 +300,7 @@ public class CharIterator implements MultiDataSetIterator {
     }
 
     private boolean hasMoreExamples() {
-        return dateExamples.size() - 1 > linesOffset &&
-            linesWithoutDate.size() - 1 > linesOffset;
+        return !dateExamples.isEmpty() || patternsCount > patternsPassed;
     }
 
     public MultiDataSet next() {
@@ -263,7 +308,7 @@ public class CharIterator implements MultiDataSetIterator {
             return next(miniBatchSize);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            throw new NoSuchElementException(e.getMessage());
+            throw new LabelizerRuntimeException(e.getMessage());
         }
     }
 
@@ -280,7 +325,9 @@ public class CharIterator implements MultiDataSetIterator {
             StringBuilder left = new StringBuilder(exampleLength);
             StringBuilder right = new StringBuilder(exampleLength);
 
-            prepareDataForLearning(left, right);
+            int randomIndex = randomFromZeroToMaxInclusive(LinesWithDateClassification.NUM_SUB_LINES.size() - 1);
+            int numSubLines = LinesWithDateClassification.NUM_SUB_LINES.get(randomIndex);
+            prepareDataForLearning(left, right, numSubLines);
                 
             String exampleString = left.toString();
             String labelsString = right.toString();
@@ -296,20 +343,13 @@ public class CharIterator implements MultiDataSetIterator {
         // dimension 2 = length of each time series/example
         // Why 'f' order here? See https://jrmerwin.github.io/deeplearning4j-docs/usingrnns.html,
         // section "Alternative: Implementing a custom DataSetIterator"
-        
-        INDArray input = Nd4j
-            .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
-        
-        INDArray inputHint = Nd4j
-            .create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN);
-        
-        INDArray labels = Nd4j
-            .create(new int[]{currMinibatchSize, ProbabilityLabel.values().length, exampleLength}, ORDERING_FORTRAN);
+        INDArray input = Nd4j.create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN); // NOSONAR
+        INDArray inputHint = Nd4j.create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN); // NOSONAR
+        INDArray labels = Nd4j.create(new int[]{currMinibatchSize, ProbabilityLabel.values().length, exampleLength}, ORDERING_FORTRAN); // NOSONAR
 
         for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
             String stringLine = examples.get(miniBatchIndex).getLeft();
-            String hintLine = Hint.yearLabels(stringLine);
-//            String hintLine = StringUtils.leftPad("", stringLine.length(), '0');
+            String hintLine = IteratorService.linesSimilarityMarker(stringLine);
 
             String labelsLine = examples.get(miniBatchIndex).getRight();
 
@@ -348,78 +388,349 @@ public class CharIterator implements MultiDataSetIterator {
     }
 
     /**
-     * Fill the buffers with data.
+     * Fill the buffers with data. These data will be used for training.
+     * <p>
+     * StringLine contains several sub-lines divided with line separators.
+     * <p>
+     * Sub-line can be a main line or additional line. The main line contains date, thread name and log level,
+     * for example
+     * <pre>
+     *     01.11.2019;00:00:01.095 DEBUG [DefaultQuartzScheduler_Worker-9] [  /   ] - Main... (main line)
+     * </pre>.
+     * <p>
+     * The additional line follows the main line, for example
+     * <pre>
+     *     01.11.2019;12:52:09.721 ERROR [DefaultQuartzScheduler_Worker-3] [  /   ] - Error in... (main line)
+     *        at com.bla.security(Class.java:65) (additional line)
+     * </pre>
+     * Examples
+     * <pre>
+     *     main line
+     *     additional line
+     *     main line
+     * </pre>
+     * <pre>
+     *     main line
+     *     additional line
+     *     additional line
+     * </pre>
+     * <pre>
+     *     main line
+     *     main line
+     *     additional line
+     * </pre>
+     * <pre>
+     *     additional line
+     *     main line
+     *     additional line
+     * </pre>
+     * Lines are divided with line separators, mixed Windows and Unix randomly.
+     * The last line contains the separator as well.
+     * <p>
+     * IP address can be placed to the both main line and additional line.
+     * 
+     *
      * @param stringLine an empty buffer
      * @param labelsLine an empty buffer
      */
-    private void prepareDataForLearning(StringBuilder stringLine, StringBuilder labelsLine) {
-        String withoutDate = linesWithoutDate.get(linesOffset);
-        if (withoutDate.length() > EXAMPLE_LENGTH) {
-            // WithoutDate linee can be longer in noDatesManual.txt
-            withoutDate = withoutDate.substring(0, EXAMPLE_LENGTH);
+    @SuppressWarnings("unchecked")
+    private void prepareDataForLearning(StringBuilder stringLine, StringBuilder labelsLine, int numSubLines) {
+        Map<Integer, Boolean> isMainLine = new HashMap<>(numSubLines);
+        for (int i = 0; i < numSubLines; i++) {
+            boolean isMain = randomFromZeroToMaxInclusive(9) > 0;
+            isMainLine.put(i, isMain);
+        }
+        if (LinesWithDateClassification.EXAMPLE_LENGTH_120 % numSubLines != 0) {
+            throw new LabelizerRuntimeException("Constant EXAMPLE_LENGTH must be divided by " + numSubLines +
+                " without remaining.");
+        }
+        int subLineLen = LinesWithDateClassification.EXAMPLE_LENGTH_120 / numSubLines;
+        boolean dateIsFirst = randomFromZeroToMaxInclusive(9) > 0;
+        boolean containsThreadName = randomFromZeroToMaxInclusive(9) > 0;
+        boolean containsLogLevel = randomFromZeroToMaxInclusive(19) > 0;
+        boolean threadNameBeforeLogLevel = randomFromZeroToMaxInclusive(1) == 0;
+
+        DateExample dateExample = nextDateExample();
+        Pair<String, String> beforeDate = null;
+        Pair<String, String> threadName = null;
+        Pair<String, String> dateLeftBoundary = null;
+        Pair<String, String> dateRightBoundary = null;
+        Pair<String, String> logLevelLeftBoundary = null;
+        Pair<String, String> logLevelRightBoundary = null;
+        String dateBoundary = BOUNDARIES.get(randomFromZeroToMaxInclusive(BOUNDARIES.size() - 1));
+        String levelBoundary = BOUNDARIES.get(randomFromZeroToMaxInclusive(BOUNDARIES.size() - 1));
+        for (int subLineNum = 0; subLineNum < numSubLines; subLineNum++) {
+            StringBuilder line = new StringBuilder(subLineLen);
+            StringBuilder labels = new StringBuilder(subLineLen);
+
+            String newLine = randomFromZeroToMaxInclusive(1) == 0 ? "\r\n" : "\n";
+            String newLineLabels = StringUtils.leftPad("", newLine.length(),
+                ProbabilityLabel.N_WITHOUT_DATE.getCharacter());
+            Pair<String, String> newLinePair = new Pair<>(newLine, newLineLabels);
+            int remaining = subLineLen - newLine.length();
+
+            boolean isMain = isMainLine.get(subLineNum);
+
+            Pair<String, String> date = nextDate(dateExample, isMain);
+            remaining = remaining - date.getLeft().length();
+
+            dateLeftBoundary = dateLeftBoundary(dateLeftBoundary, isMain, dateIsFirst, dateBoundary.substring(0, 1));
+            remaining = remaining - dateLeftBoundary.getLeft().length();
+
+            dateRightBoundary = dateRightBoundary(dateRightBoundary, isMain, dateBoundary.substring(1));
+            remaining = remaining - dateRightBoundary.getLeft().length();
+
+            beforeDate = getBeforeDate(beforeDate, dateIsFirst, isMain, remaining);
+            remaining = remaining - beforeDate.getLeft().length();
+
+            threadName = getThreadName(threadName, containsThreadName, isMain, remaining);
+            Pair<String, String> threadNameCurrent = isMain ? threadName : new Pair<>("", "");
+            remaining = remaining - threadNameCurrent.getLeft().length();
+            
+            Pair<String, String> logLevel = getLogLevel(isMain, containsLogLevel, remaining);
+            remaining = remaining - logLevel.getLeft().length();
+
+            logLevelLeftBoundary = logLevelBoundary(logLevelLeftBoundary, isMain, containsLogLevel, remaining,
+                levelBoundary.substring(0, 1));
+            remaining = remaining - logLevelLeftBoundary.getLeft().length();
+            
+            logLevelRightBoundary = logLevelBoundary(logLevelRightBoundary, isMain, containsLogLevel, remaining,
+                levelBoundary.substring(1));
+            remaining = remaining - logLevelRightBoundary.getLeft().length();
+
+            StringBuilder logLevelFinalString = new StringBuilder();
+            StringBuilder logLevelFinalLabels = new StringBuilder();
+            appendAll(logLevelFinalString, logLevelFinalLabels, logLevelLeftBoundary, logLevel, logLevelRightBoundary);
+            Pair<String, String> logLevelFinal = new Pair<>(logLevelFinalString.toString(), logLevelFinalLabels.toString());
+
+            boolean generateIpAddress = randomFromZeroToMaxInclusive(4) == 0;
+            Pair<String, String> ipAddress = getIpAddress(generateIpAddress, remaining);
+            remaining = remaining - ipAddress.getLeft().length();
+            
+            appendAll(line, labels, beforeDate, dateLeftBoundary, date, dateRightBoundary);
+            
+            List<Pair<String, String>> subFields;
+            
+            if (threadNameBeforeLogLevel) {
+                subFields = Arrays.asList(threadNameCurrent, logLevelFinal, ipAddress);
+            } else {
+                subFields = Arrays.asList(logLevelFinal, threadNameCurrent, ipAddress);
+            }
+            
+            int fillersLen = remaining / subFields.size();
+            if (fillersLen < 0) {
+                fillersLen = 0;
+            }
+
+            for (Pair<String, String> pair : subFields) {
+                Pair<String, String> filler = lineFiller.generateFiller(fillersLen);
+                remaining = remaining - filler.getFirst().length();
+                
+                appendAll(line, labels, filler, pair);
+            }
+            
+            int lenWithNewLine = line.length() + newLine.length();
+            if (lenWithNewLine > subLineLen) {
+                line.setLength(subLineLen - newLine.length());
+                labels.setLength(subLineLen - newLine.length());
+            } else {
+                Pair<String, String> lastFiller = lineFiller.generateFiller(subLineLen - lenWithNewLine);
+                appendAll(line, labels, lastFiller);
+            }
+            appendAll(line, labels, newLinePair);
+            
+            stringLine.append(line);
+            labelsLine.append(labels);
         }
 
-        DateExample dateExample = dateExamples.get(linesOffset++);
-
-        int boundaryIndex = randomFromZeroToMaxInclusive(BOUNDARIES.size() - 1);
-        String boundary = BOUNDARIES.get(boundaryIndex);
-
-        if (dateExample.getSource().length() + withoutDate.length() + 1 <= EXAMPLE_LENGTH) {
-            stringLine.append(dateExample.getSource());
-            labelsLine.append(dateExample.getLabels());
-
-            stringLine.append(boundary.substring(1));
-            labelsLine.append(ProbabilityLabel.N_WITHOUT_DATE.getString());
-
-            stringLine.append(stringLine);
-            labelsLine.append(StringUtils.rightPad("", stringLine.length(),
-                ProbabilityLabel.N_WITHOUT_DATE.getString()));
-
-            fillPadding(stringLine, labelsLine);
-
-            return;
-        }
-        
-        int lengthWithoutDateAndBoundary = withoutDate.length() - dateExample.getSource().length() - BOUNDARY_LENGTH_2;
-        if (lengthWithoutDateAndBoundary < 0) {
-            throw new LabelizerRuntimeException("Date is longer then withoutDate + 3. " +
-                "Date: '" + dateExample.getSource() + "', " +
-                "withoutDate: '" + withoutDate + "'");
-        }
-        int startIndex = randomFromZeroToMaxInclusive(lengthWithoutDateAndBoundary);
-        
-        stringLine.append(withoutDate, 0, startIndex);
-        labelsLine.append(StringUtils.rightPad("", stringLine.length(), ProbabilityLabel.N_WITHOUT_DATE.getCharacter()));
-        if (startIndex > 0) {
-            stringLine.append(boundary, 0, 1);
-            labelsLine.append(ProbabilityLabel.N_WITHOUT_DATE.getCharacter());
-        }
-
-        stringLine.append(dateExample.getSource());
-        labelsLine.append(dateExample.getLabels());
-
-        stringLine.append(boundary, 1, 1 + 1);
-        labelsLine.append(ProbabilityLabel.N_WITHOUT_DATE.getCharacter());
-
-        stringLine.append(withoutDate.substring(stringLine.length()));
-
-        fillPadding(stringLine, labelsLine);
+        validateLength(stringLine, labelsLine);
     }
 
-    private void fillPadding(StringBuilder stringLine, StringBuilder labelsLine) {
-        int remaining = EXAMPLE_LENGTH - stringLine.length();
-        if (remaining > 0) {
-            // line padding
-            String lineFiller = StringUtils.leftPad("", remaining, " ");
-            stringLine.append(lineFiller);
+    private void validateLength(StringBuilder stringLine, StringBuilder labelsLine) {
+        if (stringLine.length() != LinesWithDateClassification.EXAMPLE_LENGTH_120) {
+            throw new LabelizerRuntimeException("StringLine length " + stringLine.length() +
+                " not equals with " + LinesWithDateClassification.EXAMPLE_LENGTH_120 + ", " +
+                "stringLine: " + stringLine);
         }
-        // labels padding
-        int labelsRemaining = EXAMPLE_LENGTH - labelsLine.length();
-        if (labelsRemaining > 0) {
-            String labelsFiller = StringUtils.leftPad("", labelsRemaining,
-                ProbabilityLabel.N_WITHOUT_DATE.getString());
-            labelsLine.append(labelsFiller);
+
+        if (labelsLine.length() != LinesWithDateClassification.EXAMPLE_LENGTH_120) {
+            throw new LabelizerRuntimeException("LabelsLine length " + labelsLine.length() +
+                " not equals with " + LinesWithDateClassification.EXAMPLE_LENGTH_120 + ", " +
+                "labelsLine: " + labelsLine);
         }
+    }
+
+    private Pair<String, String> dateRightBoundary(Pair<String, String> dateRightBoundary, boolean isMain,
+                                                   String boundary) {
+        if (dateRightBoundary != null) {
+            return dateRightBoundary;
+        }
+        if (!isMain) {
+            return new Pair<>("", "");
+        }
+        String labels = StringUtils.leftPad("", boundary.length(), ProbabilityLabel.N_WITHOUT_DATE.getString());
+        return new Pair<>(boundary, labels);
+    }
+
+    private Pair<String, String> dateLeftBoundary(Pair<String, String> dateLeftBoundary, boolean isMain,
+                                                  boolean dateIsFirst, String boundary) {
+        if (dateLeftBoundary != null) {
+            return dateLeftBoundary;
+        }
+        if (!isMain || dateIsFirst) {
+            return new Pair<>("", "");
+        }
+        String labels = StringUtils.leftPad("", boundary.length(), ProbabilityLabel.N_WITHOUT_DATE.getString());
+        return new Pair<>(boundary, labels);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void appendAll(StringBuilder line, StringBuilder labels, Pair<String, String>... pairs) {
+        for (Pair<String, String> pair : pairs) {
+            line.append(pair.getKey());
+            labels.append(pair.getValue());
+        }
+    }
+
+    private Pair<String, String> getIpAddress(boolean generateIpAddress, int remaining) {
+        if (!generateIpAddress) {
+            return new Pair<>("", "");
+        }
+        String boundaries = BOUNDARIES.get(randomFromZeroToMaxInclusive(BOUNDARIES.size() - 1));
+        String ip = IpGenerator.randomIp();
+        if (boundaries.length() + ip.length() > remaining) {
+            return new Pair<>("", "");
+        }
+        String result = boundaries.substring(0, 1) + ip + boundaries.substring(1);
+        String labels = ProbabilityLabel.N_WITHOUT_DATE.getString() +
+            StringUtils.leftPad("", ip.length(), ProbabilityLabel.I_IP_ADDRESS_AND_PORT.getCharacter()) +
+            ProbabilityLabel.N_WITHOUT_DATE.getString();
+        return new Pair<>(result, labels);
+    }
+
+    private Pair<String, String> getLogLevel(boolean isMain, boolean containsLogLevel, int remaining) {
+        if (!isMain || !containsLogLevel) {
+            return new Pair<>("", "");
+        }
+        String level = LOG_LEVELS.get(randomFromZeroToMaxInclusive(LOG_LEVELS.size() - 1));
+        if (remaining < level.length()) {
+            return new Pair<>("", "");
+        }
+        String labels = StringUtils.leftPad("", level.length(), ProbabilityLabel.L_LOG_LEVEL.getString());
+        return new Pair<>(level, labels);
+    }
+
+    private Pair<String, String> logLevelBoundary(Pair<String, String> logLevelLeftBoundary, boolean isMain,
+                                                  boolean containsLogLevel, int remaining, String boundary) {
+        if (logLevelLeftBoundary != null) {
+            return logLevelLeftBoundary;
+        }
+        if (!isMain || !containsLogLevel || remaining < boundary.length()) {
+            return new Pair<>("", "");
+        }
+        String labels = StringUtils.leftPad("", boundary.length(), ProbabilityLabel.N_WITHOUT_DATE.getString());
+        return new Pair<>(boundary, labels);
+    }
+
+    private Pair<String, String> getThreadName(Pair<String, String> threadName, boolean containsThreadName, boolean isMain, int remaining) {
+        if (threadName != null) {
+            return threadName;
+        }
+        if (!containsThreadName || !isMain) {
+            return new Pair<>("", "");
+        }
+        boolean useThreadSubstring = randomFromZeroToMaxInclusive(9) == 9;
+        String threadSubstring = "";
+        boolean before = randomFromZeroToMaxInclusive(1) == 1;
+        if (useThreadSubstring) {
+            String separator = SEPARATORS.get(randomFromZeroToMaxInclusive(SEPARATORS.size() - 1));
+            threadSubstring = THREAD_COMMON_NAMES.get(randomFromZeroToMaxInclusive(THREAD_COMMON_NAMES.size() - 1));
+            if (before) {
+                threadSubstring = threadSubstring + separator;
+            } else {
+                threadSubstring = separator + threadSubstring;
+            }
+        }
+        int randomLen = getRandom(3, 15);
+        int length = Math.min(remaining - threadSubstring.length(), randomLen + threadSubstring.length());
+        if (length < 1) {
+            return new Pair<>("", "");
+        }
+        String filler = lineFiller.generateFiller(length).getKey();
+        String threadNameWithoutBoundaries;
+        if (before) {
+            threadNameWithoutBoundaries = threadSubstring + filler;
+        } else {
+            threadNameWithoutBoundaries = filler + threadSubstring;
+        }
+
+        String boundary = BOUNDARIES.get(randomFromZeroToMaxInclusive(BOUNDARIES.size() - 1));
+        String threadNameFinal = boundary.substring(0, 1) + threadNameWithoutBoundaries + boundary.substring(1);
+        String labels = ProbabilityLabel.N_WITHOUT_DATE.getString() +
+            StringUtils.leftPad("", threadNameWithoutBoundaries.length(), ProbabilityLabel.T_THREAD.getCharacter()) +
+            ProbabilityLabel.N_WITHOUT_DATE.getString();
+        return new Pair<>(threadNameFinal, labels);
+    }
+
+    private Pair<String, String> getBeforeDate(Pair<String, String> beforeDate, boolean dateIsFirst, boolean isMain, int remaining) {
+        if (beforeDate != null) {
+            return beforeDate;
+        }
+        if (!isMain || dateIsFirst) {
+            return new Pair<>("", "");
+        }
+        // TODO Kyrylo Semenko - tady nesmi byt mensi nez nula
+        int fillersLen = randomFromZeroToMaxInclusive(Math.min(19, remaining - 1));
+        return lineFiller.generateFiller(fillersLen);
+    }
+
+    private Pair<String, String> nextDate(DateExample dateExample, boolean isMain) {
+        if (!isMain) {
+            return new Pair<>("", "");
+        }
+        Pair<String, String> result = new Pair<>(dateExample.getSource(), dateExample.getLabels());
+        
+        // prepare the data for next invocation
+        Date date = dateExample.getDate();
+        String pattern = dateExample.getPattern();
+        Locale locale = dateExample.getLocale();
+        TimeZone timeZone = dateExample.getTimeZone();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
+        simpleDateFormat.setTimeZone(timeZone);
+        int oneSecond = 1000;
+        int randomAddition = randomFromZeroToMaxInclusive(oneSecond);
+        date.setTime(date.getTime() + randomAddition);
+        String dateString = simpleDateFormat.format(date);
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.setTime(date);
+        String labels = TrainDataGenerator.findLabels(dateString, pattern, locale, gregorianCalendar, timeZone);
+        dateExample.setDate(date);
+        dateExample.setSource(dateString);
+        dateExample.setLabels(labels);
+        
+        return result;
+    }
+
+    /**
+     * @return A {@link DateExample} from {@link #dateExamples} or 'null'. The {@link #dateExamples} is filled with
+     * the {@link PagePatternRepository#getNotTrainedPattern()} method.
+     */
+    private DateExample nextDateExample() {
+        if (dateExamples.isEmpty()) {
+            PagePattern pagePattern = PagePatternRepository.getInstance().getNotTrainedPattern();
+            if (lastPagePattern != null) {
+                lastPagePattern.setTrained(true);
+                PagePatternRepository.getInstance().save(lastPagePattern);
+                patternsPassed++;
+            }
+            lastPagePattern = pagePattern;
+            String pattern = pagePattern.getPattern();
+            dateExamples.addAll(TrainDataGenerator.generateDates(pattern, NUM_EXAMPLES_OF_DATE_PATTERN_100));
+            if (dateExamples.isEmpty()) {
+                return nextDateExample();
+            }
+        }
+        return dateExamples.remove(0);
     }
 
     /**
@@ -437,7 +748,7 @@ public class CharIterator implements MultiDataSetIterator {
     }
 
     public void reset() {
-        linesOffset = 0;
+        throw new LabelizerRuntimeException("Not implement.");
     }
 
     public boolean resetSupported() {
@@ -465,7 +776,17 @@ public class CharIterator implements MultiDataSetIterator {
     }
 
     private static int randomFromZeroToMaxInclusive(int max) {
-        return ThreadLocalRandom.current().nextInt(0, max + 1);
+        if (max <= 0) {
+            return 0;
+        }
+        return getRandom(0, max + 1);
+    }
+
+    private static int getRandom(int minInclusive, int maxExclusive) {
+        if (minInclusive >= maxExclusive) {
+            return minInclusive;
+        }
+        return ThreadLocalRandom.current().nextInt(minInclusive, maxExclusive);
     }
 
     /**
@@ -544,25 +865,26 @@ public class CharIterator implements MultiDataSetIterator {
     }
 
     /**
-     * How many train lines contains this {@link CharIterator}.
-     * @return Min value of {@link #linesWithoutDate} and {@link #dateExamples} sizes.
+     * How many train lines contains the {@link CharIterator}. The value is calculated from {@link #patternsCount}
+     * multiplied with {@link #NUM_EXAMPLES_OF_DATE_PATTERN_100}.
      */
-    public int trainDataSetSize() {
-        return Math.min(linesWithoutDate.size(), dateExamples.size());
+    public long trainDataSetSize() {
+        return NUM_EXAMPLES_OF_DATE_PATTERN_100 * patternsCount;
     }
 
     /**
-     * @return The current value of {@link #linesOffset}.
+     * How many train lines remaining in the {@link CharIterator}. The value is calculated from {@link #trainDataSetSize()}
+     * minus {@link #patternsPassed} multiplied with {@link #NUM_EXAMPLES_OF_DATE_PATTERN_100}.
      */
-    public int getLinesOffset() {
-        return linesOffset;
+    public long getRemainingDataSetSize() {
+        return trainDataSetSize() - (patternsPassed * NUM_EXAMPLES_OF_DATE_PATTERN_100);
     }
 
     /**
-     * @param linesOffset see the {@link #linesOffset} field description.
+     * If the {@link #dateExamples} is empty, return 'true'. It means all the examples has been trained and the next
+     * {@link PagePattern} can be loaded from the {@link PagePatternRepository#getNotTrainedPattern()} if exists.
      */
-    public void setLinesOffset(int linesOffset) {
-        this.linesOffset = linesOffset;
+    public boolean isPatternTrained() {
+        return dateExamples.isEmpty();
     }
-    
 }

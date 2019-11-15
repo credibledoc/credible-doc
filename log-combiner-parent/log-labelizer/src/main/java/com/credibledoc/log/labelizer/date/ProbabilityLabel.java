@@ -18,7 +18,7 @@ import java.util.List;
 public enum ProbabilityLabel {
     N_WITHOUT_DATE('n', "n", 0),
     C_CALENDAR_DATE_FILLER('c', "c", 1),
-    R_THREAD('r', "r", 2),
+    T_THREAD('t', "t", 2),
     G_ERA_DESIGNATOR('G', "G", 3),
     Y_YEAR('y', "y", 4),
     Y_WEEK_YEAR('Y', "Y", 5),
@@ -40,7 +40,9 @@ public enum ProbabilityLabel {
     MILLISECOND('S', "S", 21),
     TIME_ZONE_GENERAL('z', "z", 22),
     TIME_ZONE_RFC_822('Z', "Z", 23),
-    TIME_ZONE_ISO_8601('X', "X", 24);
+    TIME_ZONE_ISO_8601('X', "X", 24),
+    I_IP_ADDRESS_AND_PORT('i', "i", 25),
+    L_LOG_LEVEL('l', "l", 26);
 
     public static final List<ProbabilityLabel> dates = Arrays.asList(
         G_ERA_DESIGNATOR,

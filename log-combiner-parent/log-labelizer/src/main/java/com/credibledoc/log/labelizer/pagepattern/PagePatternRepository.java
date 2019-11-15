@@ -2,8 +2,10 @@ package com.credibledoc.log.labelizer.pagepattern;
 
 import com.credibledoc.log.labelizer.datastore.DatastoreService;
 import dev.morphia.Datastore;
+import dev.morphia.query.Query;
 import dev.morphia.query.internal.MorphiaCursor;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,7 +39,7 @@ public class PagePatternRepository {
      */
     public boolean containsPage(String pageUrl) {
         return datastore.createQuery(PagePattern.class)
-            .field(PagePattern.PAGE_URL)
+            .field(PagePattern.Fields.pageUrl)
             .equal(pageUrl).count() > 0;
     }
 
@@ -47,15 +49,23 @@ public class PagePatternRepository {
      */
     public boolean containsPattern(String pattern) {
         return datastore.createQuery(PagePattern.class)
-            .field(PagePattern.PATTERN)
+            .field(PagePattern.Fields.pattern)
             .equal(pattern).count() > 0;
     }
 
     /**
-     * Save the entities to DB.
+     * Save the entities to the database.
      */
     public void save(List<PagePattern> pagePattens) {
         datastore.save(pagePattens);
+    }
+
+    /**
+     * Call the {@link #save(List)} method with a single item.
+     * @param pagePattern the item will be saved or updated in the database. 
+     */
+    public void save(PagePattern pagePattern) {
+        save(Collections.singletonList(pagePattern));
     }
 
     /**
@@ -63,8 +73,39 @@ public class PagePatternRepository {
      */
     public MorphiaCursor<PagePattern> getCursorOfEmptyPatterns() {
         return datastore.createQuery(PagePattern.class)
-            .filter(PagePattern.PATTERN, null)
-            .filter(PagePattern.VISITED, null)
+            .filter(PagePattern.Fields.pattern, null)
+            .filter(PagePattern.Fields.visited, null)
             .find();
+    }
+
+    /**
+     * @return Count of entities with non-empty {@link PagePattern#getPattern()} values.
+     */
+    public long countNotTrainedPatterns() {
+        return existingPatternAndNotTrained()
+            .count();
+    }
+
+    /**
+     * Get a {@link PagePattern} with {@link PagePattern#isTrained()} empty or false
+     * and existing {@link PagePattern#getPattern()}.
+     * @return The first one from the filter.
+     */
+    public PagePattern getNotTrainedPattern() {
+        return existingPatternAndNotTrained().first();
+    }
+
+    private Query<PagePattern> existingPatternAndNotTrained() {
+        return datastore.createQuery(PagePattern.class)
+            .field(PagePattern.Fields.pattern).exists()
+            .field(PagePattern.Fields.isTrained).equal(false);
+    }
+
+    /**
+     * Delete the entity from the database.
+     * @param pagePattern entity to be deleted.
+     */
+    public void delete(PagePattern pagePattern) {
+        datastore.delete(pagePattern);
     }
 }

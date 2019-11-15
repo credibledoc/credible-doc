@@ -2,6 +2,7 @@ package com.credibledoc.log.labelizer.pagepattern;
 
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
+import lombok.experimental.FieldNameConstants;
 import org.bson.types.ObjectId;
 
 /**
@@ -13,12 +14,8 @@ import org.bson.types.ObjectId;
  * @author Kyrylo Semenko
  */
 @Entity
+@FieldNameConstants
 public class PagePattern {
-    public static final String PAGE_URL = "pageUrl";
-    public static final String PATTERN = "pattern";
-    public static final String ERROR_MESSAGE = "errorMessage";
-    public static final String VISITED = "visited";
-
     @Id
     private ObjectId id;
 

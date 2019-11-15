@@ -46,7 +46,7 @@ public class CharIteratorTest {
         
         String sourceLines = aaa + "\n" + bbb + "\n" + ccc + "\r\n" + ddd + "\r\n\r\n\n\n\r\n";
         //                       aaaa [thread] aaaaNbbbb [nextOneThread] bbbbNcccc [thread] ccccNNdddd [nextOneThread] ddddNNNNNNNN
-        String expectedResult = "nnnnnnnnnnnnnnnnnnnnnnnwwnnnnnnnnnnnwnnnnnnnnnnnnwwwwwwwwwwnnnnnnnnnnwwwwwwwwwwwwwwwwwnnnnnnnnnwww";
+        String expectedResult = "nnnnwwwwwwwwwwnnnwnnnnnwwwwwwwwwwwwwwwwwnnnnnnnnnwwwwwwwwwwnnnnnnnnnnwwwwwwwwwwwwwwwwwnnnnnnwwwwww";
         //                       1 row              2 row                     3 row               4 row                      5 678
         String result = IteratorService.linesSimilarityMarker(sourceLines);
         if (!expectedResult.equals(result)) {

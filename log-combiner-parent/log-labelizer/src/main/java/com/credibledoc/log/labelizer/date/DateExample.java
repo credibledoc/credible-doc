@@ -1,5 +1,9 @@
 package com.credibledoc.log.labelizer.date;
 
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 /**
  * This data object represents an occurrence of Date - time pattern in a text line.
  * 
@@ -26,6 +30,21 @@ public class DateExample {
      * Single characters are described in the {@link ProbabilityLabel} enumeration.
      */
     private String labels;
+
+    /**
+     * Specific example for training purposes.
+     */
+    private transient Date date;
+
+    /**
+     * Specific example for training purposes.
+     */
+    private transient Locale locale;
+
+    /**
+     * Specific example for training purposes.
+     */
+    private transient TimeZone timeZone;
 
     @Override
     public String toString() {
@@ -76,5 +95,47 @@ public class DateExample {
      */
     public void setLabels(String labels) {
         this.labels = labels;
+    }
+
+    /**
+     * @return The {@link #date} field value.
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * @param date see the {@link #date} field description.
+     */
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    /**
+     * @return The {@link #locale} field value.
+     */
+    public Locale getLocale() {
+        return locale;
+    }
+
+    /**
+     * @param locale see the {@link #locale} field description.
+     */
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    /**
+     * @return The {@link #timeZone} field value.
+     */
+    public TimeZone getTimeZone() {
+        return timeZone;
+    }
+
+    /**
+     * @param timeZone see the {@link #timeZone} field description.
+     */
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
     }
 }

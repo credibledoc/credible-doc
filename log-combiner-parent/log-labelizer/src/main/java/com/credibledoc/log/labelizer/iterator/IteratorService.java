@@ -1,6 +1,7 @@
 package com.credibledoc.log.labelizer.iterator;
 
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,23 +46,51 @@ public class IteratorService {
     static String linesSimilarityMarker(String inputLines) {
         StringBuilder result = new StringBuilder(inputLines.length());
         Map<Integer, List<Character>> map = new HashMap<>();
+        List<Character> currentRow = new ArrayList<>();
         int lineIndex = 0;
+        map.put(lineIndex, currentRow);
+        int maxLen = 0;
+        int index = 0;
         for (char character : inputLines.toCharArray()) {
-            List<Character> column = map.get(lineIndex);
-            if (column == null) {
-                map.put(lineIndex, new ArrayList<>());
-                column = map.get(lineIndex);
-            }
-            if (column.contains(character)) {
-                result.append(W_WITH_REPETITION);
-            } else {
-                result.append(N_NO_REPETITION);
-                column.add(character);
-            }
+            currentRow.add(character);
+            index++;
             if (character == '\n') {
-                lineIndex = 0;
-            } else {
-                lineIndex++;
+                maxLen = Math.max(maxLen, currentRow.size());
+                if (index < inputLines.length() - 1) {
+                    lineIndex++;
+                    currentRow = new ArrayList<>();
+                    map.put(lineIndex, currentRow);
+                }
+            }
+        }
+        
+        List<String> columns = new ArrayList<>(lineIndex + 1);
+        for (int columnIndex = 0; columnIndex < maxLen; columnIndex++) {
+            StringBuilder stringBuilder = new StringBuilder(lineIndex + 1);
+            for (Map.Entry<Integer, List<Character>> entry : map.entrySet()) {
+                List<Character> list = entry.getValue();
+                if (list.size() > columnIndex) {
+                    stringBuilder.append(list.get(columnIndex));
+                }
+            }
+            columns.add(stringBuilder.toString());
+        }
+        
+        for (Map.Entry<Integer, List<Character>> entry : map.entrySet()) {
+            List<Character> list = entry.getValue();
+            for (int i = 0; i < list.size(); i++) {
+                Character character = list.get(i);
+                if (columns.size() > i) {
+                    String column = columns.get(i);
+                    int count = StringUtils.countMatches(column, character);
+                    if (count > 1) {
+                        result.append(W_WITH_REPETITION);
+                    } else {
+                        result.append(N_NO_REPETITION);
+                    }
+                } else {
+                    result.append(N_NO_REPETITION);
+                }
             }
         }
         return result.toString();

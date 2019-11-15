@@ -32,7 +32,10 @@ import org.nd4j.linalg.lossfunctions.LossFunctions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,11 +43,11 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.010";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.012";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int SEED_12345 = 12345;
     private static final double LEARNING_RATE_0_001 = 0.001;
-    private static final double L2_REGULARIZATION_COEFICIENT_0_0001 = 0.0001;
+    private static final double L2_REGULARIZATION_COEFFICIENT_0_0001 = 0.0001;
     private static final String INPUT_1 = "INPUT_1";
     private static final String LAYER_INPUT_1 = "LAYER_INPUT_1";
     private static final String LAYER_INPUT_2 = "LAYER_INPUT_2";
@@ -53,16 +56,34 @@ public class LinesWithDateClassification {
     private static final String MERGE_VERTEX = "MERGE_VERTEX";
     private static final String INPUT_2 = "INPUT_2";
     private static final String CONTINUE_TRAINING_ARGUMENT = "-continueTraining";
-    private static final String LINES_OFFSET_FILE_EXTENSION = ".linesOffset";
+
+    /**
+     * Size of mini batch to use when training. Mini batches are similar to parallel independent tasks.
+     */
+    private static final int MINI_BATCH_SIZE_32 = 32;
+
+    /**
+     * Length of each training example sequence to use.
+     */
+    public static final int EXAMPLE_LENGTH_120 = 120;
+    
+    /**
+     * Length for truncated back-propagation through time. The parameter updates ever N characters
+     */
+    private static final int CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME = EXAMPLE_LENGTH_120;
+
+    /**
+     * The {@link #EXAMPLE_LENGTH_120} has to be divisible to these values.
+     */
+    public static final List<Integer> NUM_SUB_LINES = new ArrayList<>(Arrays.asList(1, 2, 3));
+
+    /**
+     * Total number of training epochs.
+     */
+    private static final int NUM_EPOCHS = 1;
 
     public static void main(String[] args) throws Exception {
         List<String> arguments = Arrays.asList(args);
-        int miniBatchSize = 32; //Size of mini batch to use when training
-        int exampleLength = CharIterator.EXAMPLE_LENGTH; //Length of each training example sequence to use.
-        int charsNumBackPropagationThroughTime = 100; //Length for truncated backpropagation through time. i.e., do 
-        // parameter updates ever N characters
-        int numEpochs = 1; //Total number of training epochs
-        int saveNetworkEveryNMinibatches = 50;  //How frequently to save the network? 
 
         ComputationGraph computationGraph = null;
 
@@ -81,19 +102,13 @@ public class LinesWithDateClassification {
             logger.info("Directory created: {}", networkFile.getParentFile().getAbsolutePath());
         }
 
-        //Get a DataSetIterator that handles vectorization of text into something we can use to train
-        // our LSTM network.
         ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR);
-        // Others will be removed
         String resourcesPath = resource.getFile().getAbsolutePath();
         boolean continueTraining = arguments.contains(CONTINUE_TRAINING_ARGUMENT);
         CharIterator charIterator = new CharIterator(resourcesPath,
             StandardCharsets.UTF_8,
-            miniBatchSize,
-            exampleLength);
-        if (continueTraining) {
-            charIterator.setLinesOffset(loadLinesOffset(networkFile));
-        }
+            MINI_BATCH_SIZE_32,
+            EXAMPLE_LENGTH_120);
         int nOut = charIterator.totalOutcomes();
 
         //Number of units in each LSTM layer
@@ -103,7 +118,7 @@ public class LinesWithDateClassification {
         if (!isNetworkLoadedFromFile || continueTraining) {
             ComputationGraphConfiguration computationGraphConfiguration  = new NeuralNetConfiguration.Builder()
                 .seed(SEED_12345)
-                .l2(L2_REGULARIZATION_COEFICIENT_0_0001)
+                .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
                 .weightInit(WeightInit.XAVIER)
                 .updater(new Adam(LEARNING_RATE_0_001))
                 .graphBuilder()
@@ -127,8 +142,8 @@ public class LinesWithDateClassification {
                 .setOutputs(LAYER_OUTPUT_3)
                 
                 .backpropType(BackpropType.TruncatedBPTT)
-                .tBPTTForwardLength(charsNumBackPropagationThroughTime)
-                .tBPTTBackwardLength(charsNumBackPropagationThroughTime)
+                .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
+                .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
                 .build();
 
             computationGraph = new ComputationGraph(computationGraphConfiguration);
@@ -160,35 +175,58 @@ public class LinesWithDateClassification {
             String configurationJson = writeConfigurationToJsonFile(computationGraph, networkFile);
 
             logger.info("MultiLayerConfiguration: {}", configurationJson);
-            //Do training, and then generate and print samples from network
+            //Do training
             int miniBatchNumber = 0;
-            for (int i = 0; i < numEpochs; i++) {
-                int trainDataSetSize = charIterator.trainDataSetSize();
-                while (charIterator.hasNext()) {
-                    MultiDataSet dataSet = charIterator.next();
-                    logIndArray("MultilayerNetwork flattened params before the fit() method:", computationGraph.params());
-                    computationGraph.fit(dataSet);
-                    int currentDataSetSize = charIterator.getLinesOffset();
-                    int perCent = (int) (((double) currentDataSetSize / (double) trainDataSetSize) * (double) 100);
-                    logger.info("DataSetSize: {}, currentDataSet: {}, passed: {}%", trainDataSetSize, currentDataSetSize, perCent);
-                    if (++miniBatchNumber % saveNetworkEveryNMinibatches == 0 || trainDataSetSize == currentDataSetSize + 1) {
-                        computationGraph.save(networkFile);
-                        saveLinesOffset(currentDataSetSize, networkFile);
-                        logger.info("--------------------");
-                        String completedInfo =
-                            "Completed " + miniBatchNumber + " miniBatches of size " + miniBatchSize + "x" + exampleLength + " characters";
-                        logger.info(completedInfo);
-                        evaluate(computationGraph, dataSet);
-                    }
-                }
-
-                charIterator.reset();    //Reset iterator for another epoch
+            for (int i = 0; i < NUM_EPOCHS; i++) {
+                miniBatchNumber = trainEpoch(computationGraph, networkFile, charIterator, miniBatchNumber);
             }
         }
 
         evaluateTestData(computationGraph, resourcesPath, charIterator);
 
         logger.info("\n\nExample complete");
+        File charsFile = new File(resourcesPath + "/../", CharIterator.NEW_CHARS_TXT);
+        if (charsFile.exists()) {
+            logger.info("Please move characters from the '{}' file to the resources and target '{}' files and remove the '{}' file.",
+                charsFile.getAbsolutePath(), CharIterator.NATIONAL_CHARS_TXT, charsFile.getAbsolutePath());
+        }
+    }
+
+    private static int trainEpoch(ComputationGraph computationGraph, File networkFile, CharIterator charIterator,
+                                  int miniBatchNumber) throws IOException {
+        long trainDataSetSize = charIterator.trainDataSetSize();
+        while (charIterator.hasNext()) {
+            MultiDataSet dataSet = charIterator.next();
+            logIndArray("MultilayerNetwork flattened params before the fit() method:", computationGraph.params());
+            
+            // Train the network with the dataSet
+            computationGraph.fit(dataSet);
+            
+            long remainingDataSetSize = charIterator.getRemainingDataSetSize();
+            double completed = trainDataSetSize - (double) remainingDataSetSize;
+            double onePerCent = trainDataSetSize / (double) 100;
+            int perCent = (int) (completed / onePerCent);
+            logger.info("DataSetSize: {}, remaining: {}, passed: {}%", trainDataSetSize, remainingDataSetSize, perCent);
+            miniBatchNumber++;
+            if (charIterator.isPatternTrained() || remainingDataSetSize == 0) {
+                saveAndEvaluateNetwork(computationGraph, networkFile, miniBatchNumber, dataSet);
+            }
+        }
+
+        // TODO Kyrylo Semenko - dokoncit
+//        charIterator.reset();    //Reset iterator for another epoch
+        return miniBatchNumber;
+    }
+
+    private static void saveAndEvaluateNetwork(ComputationGraph computationGraph, File networkFile, int miniBatchNumber,
+                                               MultiDataSet dataSet) throws IOException {
+        computationGraph.save(networkFile);
+        logger.info("--------------------");
+        String completedInfo =
+            "Completed " + miniBatchNumber + " miniBatches of size " + MINI_BATCH_SIZE_32 +
+                "x" + EXAMPLE_LENGTH_120 + " characters";
+        logger.info(completedInfo);
+        evaluate(computationGraph, dataSet);
     }
 
     private static void evaluateTestData(ComputationGraph computationGraph, String resourcesPath, CharIterator charIterator) throws IOException {
@@ -222,35 +260,6 @@ public class LinesWithDateClassification {
             writer.write(configurationJson);
         }
         return configurationJson;
-    }
-
-    private static int loadLinesOffset(File networkFile) {
-        try {
-            File linesOffsetFile = new File(networkFile.getAbsolutePath() + LINES_OFFSET_FILE_EXTENSION);
-            if (!linesOffsetFile.exists()) {
-                throw new LabelizerRuntimeException("Parameter '" + CONTINUE_TRAINING_ARGUMENT +
-                    "' cannot be set when trained network does not exists. " +
-                    "File not found: '" + linesOffsetFile.getAbsolutePath() + "'");
-            }
-            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(linesOffsetFile))) {
-                int linesOffset = Integer.parseInt(bufferedReader.readLine());
-                logger.info("Network will be training with data beginning from linesOffset {}", linesOffset);
-                return linesOffset;
-            }
-        } catch (Exception e) {
-            throw new LabelizerRuntimeException(e);
-        }
-    }
-
-    private static void saveLinesOffset(int currentDataSetSize, File networkFile) {
-        try {
-            File linesOffsetFile = new File(networkFile.getAbsolutePath() + LINES_OFFSET_FILE_EXTENSION);
-            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(linesOffsetFile))) {
-                bufferedWriter.write(Integer.toString(currentDataSetSize));
-            }
-        } catch (Exception e) {
-            throw new LabelizerRuntimeException(e);
-        }
     }
 
     private static List<String> recognizeAndPrint(String initString, ComputationGraph computationGraph, CharIterator iter) {

@@ -23,6 +23,7 @@ public class Hint {
 	public static final int SHORT_ZERO_YEAR = 00; // year 2000 in short version
 	public static final int SHORT_HELPFULL_YEAR = 100; // year 2000 in helpfull version for nineteens years
 
+    // TODO Kyrylo Semenko - smazat protoze se napoveda neosvedcila
 	public static String yearLabels(String input) {
 		Integer lastInputValue = (input.length() - 1);
 		StringBuilder result = new StringBuilder();
