@@ -6,9 +6,10 @@ import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.credibledoc.log.labelizer.hint.Hint;
 import com.credibledoc.log.labelizer.hint.IpGenerator;
+import com.credibledoc.log.labelizer.hint.SimilarityHint;
 import com.credibledoc.log.labelizer.pagepattern.PagePattern;
 import com.credibledoc.log.labelizer.pagepattern.PagePatternRepository;
-import com.credibledoc.log.labelizer.train.TrainDataGenerator;
+import com.credibledoc.log.labelizer.training.TrainingDataGenerator;
 import com.google.common.primitives.Chars;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +35,11 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
+/**
+ * Provides data for training and testing.
+ * 
+ * @author Kyrylo Semenko
+ */
 public class CharIterator implements MultiDataSetIterator {
     public static final String RESOURCES_DIR = "vectors/labeled";
 
@@ -174,11 +180,6 @@ public class CharIterator implements MultiDataSetIterator {
         patternsCount = PagePatternRepository.getInstance().countNotTrainedPatterns();
     }
 
-    public static String randomWordChar() {
-        int randomIndex = randomFromZeroToMaxInclusive(DIGITS_AND_LETTERS_AND_PUNCTUATIONS.size() - 1);
-        return String.valueOf(DIGITS_AND_LETTERS_AND_PUNCTUATIONS.get(randomIndex));
-    }
-
     public List<String> readLinesFromFolder(String resourcesDirPath, Charset textFileEncoding, String folderName) throws IOException {
         File dateDir = new File(resourcesDirPath, folderName);
         Collection<File> dateFiles = FileUtils.listFiles(dateDir, null, false);
@@ -308,7 +309,7 @@ public class CharIterator implements MultiDataSetIterator {
             return next(miniBatchSize);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            throw new LabelizerRuntimeException(e.getMessage());
+            throw new NoSuchElementException(e.getMessage());
         }
     }
 
@@ -349,7 +350,7 @@ public class CharIterator implements MultiDataSetIterator {
 
         for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
             String stringLine = examples.get(miniBatchIndex).getLeft();
-            String hintLine = IteratorService.linesSimilarityMarker(stringLine);
+            String hintLine = SimilarityHint.linesSimilarityMarker(stringLine);
 
             String labelsLine = examples.get(miniBatchIndex).getRight();
 
@@ -522,13 +523,8 @@ public class CharIterator implements MultiDataSetIterator {
                 fillersLen = 0;
             }
 
-            for (Pair<String, String> pair : subFields) {
-                Pair<String, String> filler = lineFiller.generateFiller(fillersLen);
-                remaining = remaining - filler.getFirst().length();
-                
-                appendAll(line, labels, filler, pair);
-            }
-            
+            applyFilling(line, labels, remaining, subFields, fillersLen);
+
             int lenWithNewLine = line.length() + newLine.length();
             if (lenWithNewLine > subLineLen) {
                 line.setLength(subLineLen - newLine.length());
@@ -544,6 +540,16 @@ public class CharIterator implements MultiDataSetIterator {
         }
 
         validateLength(stringLine, labelsLine);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void applyFilling(StringBuilder line, StringBuilder labels, int remaining, List<Pair<String, String>> subFields, int fillersLen) {
+        for (Pair<String, String> pair : subFields) {
+            Pair<String, String> filler = lineFiller.generateFiller(fillersLen);
+            remaining = remaining - filler.getFirst().length();
+
+            appendAll(line, labels, filler, pair);
+        }
     }
 
     private void validateLength(StringBuilder stringLine, StringBuilder labelsLine) {
@@ -679,7 +685,9 @@ public class CharIterator implements MultiDataSetIterator {
         if (!isMain || dateIsFirst) {
             return new Pair<>("", "");
         }
-        // TODO Kyrylo Semenko - tady nesmi byt mensi nez nula
+        if (remaining < 1) {
+            remaining = 1;
+        }
         int fillersLen = randomFromZeroToMaxInclusive(Math.min(19, remaining - 1));
         return lineFiller.generateFiller(fillersLen);
     }
@@ -703,7 +711,7 @@ public class CharIterator implements MultiDataSetIterator {
         String dateString = simpleDateFormat.format(date);
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
         gregorianCalendar.setTime(date);
-        String labels = TrainDataGenerator.findLabels(dateString, pattern, locale, gregorianCalendar, timeZone);
+        String labels = TrainingDataGenerator.findLabels(dateString, pattern, locale, gregorianCalendar, timeZone);
         dateExample.setDate(date);
         dateExample.setSource(dateString);
         dateExample.setLabels(labels);
@@ -725,7 +733,7 @@ public class CharIterator implements MultiDataSetIterator {
             }
             lastPagePattern = pagePattern;
             String pattern = pagePattern.getPattern();
-            dateExamples.addAll(TrainDataGenerator.generateDates(pattern, NUM_EXAMPLES_OF_DATE_PATTERN_100));
+            dateExamples.addAll(TrainingDataGenerator.generateDates(pattern, NUM_EXAMPLES_OF_DATE_PATTERN_100));
             if (dateExamples.isEmpty()) {
                 return nextDateExample();
             }
@@ -865,19 +873,19 @@ public class CharIterator implements MultiDataSetIterator {
     }
 
     /**
-     * How many train lines contains the {@link CharIterator}. The value is calculated from {@link #patternsCount}
+     * How many lines for training contains the {@link CharIterator}. The value is calculated from {@link #patternsCount}
      * multiplied with {@link #NUM_EXAMPLES_OF_DATE_PATTERN_100}.
      */
-    public long trainDataSetSize() {
+    public long trainingDataSetSize() {
         return NUM_EXAMPLES_OF_DATE_PATTERN_100 * patternsCount;
     }
 
     /**
-     * How many train lines remaining in the {@link CharIterator}. The value is calculated from {@link #trainDataSetSize()}
+     * How many lines for training remained in the {@link CharIterator}. The value is calculated from {@link #trainingDataSetSize()}
      * minus {@link #patternsPassed} multiplied with {@link #NUM_EXAMPLES_OF_DATE_PATTERN_100}.
      */
     public long getRemainingDataSetSize() {
-        return trainDataSetSize() - (patternsPassed * NUM_EXAMPLES_OF_DATE_PATTERN_100);
+        return trainingDataSetSize() - (patternsPassed * NUM_EXAMPLES_OF_DATE_PATTERN_100);
     }
 
     /**

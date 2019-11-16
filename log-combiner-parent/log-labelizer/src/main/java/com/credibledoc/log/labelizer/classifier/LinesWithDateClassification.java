@@ -178,7 +178,7 @@ public class LinesWithDateClassification {
             //Do training
             int miniBatchNumber = 0;
             for (int i = 0; i < NUM_EPOCHS; i++) {
-                miniBatchNumber = trainEpoch(computationGraph, networkFile, charIterator, miniBatchNumber);
+                miniBatchNumber = nextEpoch(computationGraph, networkFile, charIterator, miniBatchNumber);
             }
         }
 
@@ -192,9 +192,9 @@ public class LinesWithDateClassification {
         }
     }
 
-    private static int trainEpoch(ComputationGraph computationGraph, File networkFile, CharIterator charIterator,
-                                  int miniBatchNumber) throws IOException {
-        long trainDataSetSize = charIterator.trainDataSetSize();
+    private static int nextEpoch(ComputationGraph computationGraph, File networkFile, CharIterator charIterator,
+                                 int miniBatchNumber) throws IOException {
+        long trainingDataSetSize = charIterator.trainingDataSetSize();
         while (charIterator.hasNext()) {
             MultiDataSet dataSet = charIterator.next();
             logIndArray("MultilayerNetwork flattened params before the fit() method:", computationGraph.params());
@@ -203,17 +203,17 @@ public class LinesWithDateClassification {
             computationGraph.fit(dataSet);
             
             long remainingDataSetSize = charIterator.getRemainingDataSetSize();
-            double completed = trainDataSetSize - (double) remainingDataSetSize;
-            double onePerCent = trainDataSetSize / (double) 100;
+            double completed = trainingDataSetSize - (double) remainingDataSetSize;
+            double onePerCent = trainingDataSetSize / (double) 100;
             int perCent = (int) (completed / onePerCent);
-            logger.info("DataSetSize: {}, remaining: {}, passed: {}%", trainDataSetSize, remainingDataSetSize, perCent);
+            logger.info("DataSetSize: {}, remaining: {}, passed: {}%", trainingDataSetSize, remainingDataSetSize, perCent);
             miniBatchNumber++;
             if (charIterator.isPatternTrained() || remainingDataSetSize == 0) {
                 saveAndEvaluateNetwork(computationGraph, networkFile, miniBatchNumber, dataSet);
             }
         }
 
-        // TODO Kyrylo Semenko - dokoncit
+        // TODO Kyrylo Semenko - why it is not possible to train some patterns after finishing of the main training?
 //        charIterator.reset();    //Reset iterator for another epoch
         return miniBatchNumber;
     }

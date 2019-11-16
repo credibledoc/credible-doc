@@ -1,5 +1,6 @@
 package com.credibledoc.log.labelizer.iterator;
 
+import com.credibledoc.log.labelizer.hint.SimilarityHint;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -48,7 +49,7 @@ public class CharIteratorTest {
         //                       aaaa [thread] aaaaNbbbb [nextOneThread] bbbbNcccc [thread] ccccNNdddd [nextOneThread] ddddNNNNNNNN
         String expectedResult = "nnnnwwwwwwwwwwnnnwnnnnnwwwwwwwwwwwwwwwwwnnnnnnnnnwwwwwwwwwwnnnnnnnnnnwwwwwwwwwwwwwwwwwnnnnnnwwwwww";
         //                       1 row              2 row                     3 row               4 row                      5 678
-        String result = IteratorService.linesSimilarityMarker(sourceLines);
+        String result = SimilarityHint.linesSimilarityMarker(sourceLines);
         if (!expectedResult.equals(result)) {
             System.out.println(sourceLines);
         }

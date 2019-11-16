@@ -30,11 +30,8 @@ import java.net.Socket;
  */
 public class DatastoreService {
     private static final Logger logger = LoggerFactory.getLogger(DatastoreService.class);
-    private static final String DATABASE_NAME = "labelizer-db";
     private MongodProcess mongodProcess;
     private MongodExecutable mongodExecutable;
-    private static final int DATABASE_PORT = 8083;
-    private static final String LOCALHOST = "localhost";
     
     /**
      * The connection to {@link MongoClient} through {@link Morphia}
@@ -62,20 +59,23 @@ public class DatastoreService {
     }
     
     private DatastoreService() {
-        if (!available()) {
-            startEmbeddedServer();
+        String databaseHost = Config.getDatabaseHost();
+        int databasePort = Config.getDatabasePort();
+        String databaseName = Config.getDatabaseName();
+        if (!available(databaseHost, databasePort)) {
+            startEmbeddedServer(databaseName, databasePort);
             shouldBeStopped = true;
         }
-        logger.info("Connect to MongoDB. Host: {}, port: {}, database name: {}", LOCALHOST, DATABASE_PORT, DATABASE_NAME);
+        logger.info("Connect to MongoDB. Host: {}, port: {}, database name: {}", databaseHost, databasePort, databaseName);
         Morphia morphia = new Morphia();
         morphia.mapPackage("com.credibledoc.log.labelizer");
-        MongoClient mongoClient = new MongoClient(LOCALHOST, DATABASE_PORT);
-        datastore = morphia.createDatastore(mongoClient, DATABASE_NAME);
+        MongoClient mongoClient = new MongoClient(databaseHost, databasePort);
+        datastore = morphia.createDatastore(mongoClient, databaseName);
         datastore.ensureIndexes();
     }
 
-    private static boolean available() {
-        try (Socket socket = new Socket(LOCALHOST, DATABASE_PORT)) {
+    private static boolean available(String databaseHost, int databasePort) {
+        try (Socket socket = new Socket(databaseHost, databasePort)) {
             logger.info("Database server already running. Socket: {}", socket);
             return true;
         } catch (IOException ignored) {
@@ -83,18 +83,18 @@ public class DatastoreService {
         }
     }
 
-    private void startEmbeddedServer() {
+    private void startEmbeddedServer(String databaseName, int databasePort) {
         try {
             int oplogSize = 50;
             String configDatabaseDir = Config.getDatabaseDir();
-            String databaseDir = configDatabaseDir + DATABASE_NAME + "/data";
+            String databaseDir = configDatabaseDir + databaseName + "/data";
             IMongodConfig mongodConfig = new MongodConfigBuilder()
                 .version(Version.Main.PRODUCTION)
-                .net(new Net(DATABASE_PORT, Network.localhostIsIPv6()))
+                .net(new Net(databasePort, Network.localhostIsIPv6()))
                 .replication(new Storage(databaseDir, null, oplogSize))
                 .build();
 
-            IDirectory artifactStorePath = new FixedPath(configDatabaseDir + DATABASE_NAME);
+            IDirectory artifactStorePath = new FixedPath(configDatabaseDir + databaseName);
             ITempNaming executableNaming = new UUIDTempNaming();
 
             Command command = Command.MongoD;

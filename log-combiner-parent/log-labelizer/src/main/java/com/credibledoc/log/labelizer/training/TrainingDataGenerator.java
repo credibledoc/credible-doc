@@ -1,4 +1,4 @@
-package com.credibledoc.log.labelizer.train;
+package com.credibledoc.log.labelizer.training;
 
 import com.credibledoc.log.labelizer.datastore.DatastoreService;
 import com.credibledoc.log.labelizer.date.DateExample;
@@ -27,8 +27,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * 
  * @author Kyrylo Semenko
  */
-public class TrainDataGenerator {
-    private static final Logger logger = LoggerFactory.getLogger(TrainDataGenerator.class);
+public class TrainingDataGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(TrainingDataGenerator.class);
     private static final Locale[] AVAILABLE_LOCALES = DateFormat.getAvailableLocales();
     private static List<String> testPatterns = new ArrayList<>();
     private static final String[] TIME_ZONE_IDS = TimeZone.getAvailableIDs();
@@ -245,7 +245,7 @@ public class TrainDataGenerator {
             String message = "Cannot create SimpleDateFormat. Pattern: " + pattern + ", locale: " + locale +
                 ",\n" + stackTrace;
             logger.error(message);
-            String locationPath = TrainDataGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            String locationPath = TrainingDataGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath();
             File file = new File(locationPath, "failedPatterns.txt");
             if (!file.exists()) {
                 logger.info("File will be created: {}", file.getAbsolutePath());

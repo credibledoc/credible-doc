@@ -1,4 +1,4 @@
-package com.credibledoc.log.labelizer.train;
+package com.credibledoc.log.labelizer.training;
 
 import org.junit.Test;
 
@@ -9,7 +9,7 @@ import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 
-public class TrainDataGeneratorTest {
+public class TrainingDataGeneratorTest {
 
     @Test
     public void findLabels() {
@@ -21,7 +21,7 @@ public class TrainDataGeneratorTest {
         gregorianCalendar.setTime(new Date(millis));
         String expectedResult = "yyyycMMcddcHHcmmcsscZZZZZ";
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Jakarta");
-        String result = TrainDataGenerator.findLabels(dateString, pattern, locale, gregorianCalendar, timeZone);
+        String result = TrainingDataGenerator.findLabels(dateString, pattern, locale, gregorianCalendar, timeZone);
         assertEquals(expectedResult, result);
     }
 }

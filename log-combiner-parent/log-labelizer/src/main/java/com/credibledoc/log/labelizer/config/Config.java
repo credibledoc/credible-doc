@@ -25,6 +25,9 @@ public class Config {
     private static final Logger logger = LoggerFactory.getLogger(Config.class);
     private static final String GITHUB_OAUTH_TOKEN = "GithubOauthToken";
     private static final String DATABASE_DIR = "databaseDir";
+    private static final String DATABASE_HOST = "databaseHost";
+    private static final String DATABASE_PORT = "databasePort";
+    private static final String DATABASE_NAME = "databaseName";
     private static Map<String, String> properties = new HashMap<>();
 
     private static final String CONFIG_PROPERTIES = "config/config.properties";
@@ -78,8 +81,8 @@ public class Config {
     public static String getGithubOauthToken() {
         String token = properties.get(GITHUB_OAUTH_TOKEN);
         if (token == null) {
-            throw new LabelizerRuntimeException("Please set the " + GITHUB_OAUTH_TOKEN + " property in the " +
-                "config/config-user.properties file. " +
+            throw new LabelizerRuntimeException("Please put the " + GITHUB_OAUTH_TOKEN + " value in " +
+                "the config/config-user.properties file. " +
                 "The token can be obtained from the https://github.com/settings/tokens page of your account. " +
                 "The config/config-user.properties file should be created by yourself " +
                 "next to the config/config.properties file.");
@@ -97,6 +100,33 @@ public class Config {
         if (value == null) {
             throw new LabelizerRuntimeException("Please set the " + DATABASE_DIR + " property in the " +
                 "config/config-user.properties file. This directory will be used for MongoDB zip and data files.");
+        }
+        return value;
+    }
+
+    public static String getDatabaseHost() {
+        String value = properties.get(DATABASE_HOST);
+        if (value == null) {
+            throw new LabelizerRuntimeException("Please set the " + DATABASE_HOST + " property in the " +
+                "config/config-user.properties file. This host will be used by MongoDB client to connect.");
+        }
+        return value;
+    }
+
+    public static int getDatabasePort() {
+        String value = properties.get(DATABASE_PORT);
+        if (value == null) {
+            throw new LabelizerRuntimeException("Please define the " + DATABASE_PORT + " value in the " +
+                "config/config-user.properties file. This port will be used by MongoDB client to connect.");
+        }
+        return Integer.parseInt(value);
+    }
+
+    public static String getDatabaseName() {
+        String value = properties.get(DATABASE_NAME);
+        if (value == null) {
+            throw new LabelizerRuntimeException("Please set the " + DATABASE_NAME + " value in the " +
+                "config/config-user.properties file. This name will be used by MongoDB client to connect.");
         }
         return value;
     }

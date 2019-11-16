@@ -398,7 +398,7 @@ public class IpGenerator {
 	 */
 	private static String octetMaker(List<String> charList) {
 		StringBuilder resultOfOctet = new StringBuilder();
-		String randomCharacters = null;
+		String randomCharacters;
 		int range = ThreadLocalRandom.current().nextInt(1, 5);
 		for (int i = 0; i < range; i++) {
 			randomCharacters = charList.get(random.nextInt(charList.size()));
