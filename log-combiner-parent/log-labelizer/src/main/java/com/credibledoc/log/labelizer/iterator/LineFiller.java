@@ -8,6 +8,7 @@ import com.credibledoc.log.labelizer.crawler.RegexService;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.google.common.primitives.Chars;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 
 /**
@@ -26,6 +28,7 @@ import java.util.regex.Matcher;
  * 
  * @author Kyrylo Semenko
  */
+@Slf4j
 class LineFiller {
     private static final String WITHOUT_DATE_FOLDER = "without";
     private static final String WIKI_URL = "https://cs.wikipedia.org/wiki/Speci%C3%A1ln%C3%AD:Speci%C3%A1ln%C3%AD_str%C3%A1nky";
@@ -78,7 +81,7 @@ class LineFiller {
                 }
             }
             if (charList.isEmpty()) {
-                readFromNet();
+                readFromNet(0);
             }
             Character nextChar = charList.remove(0);
             if ('\r' == nextChar || '\n' == nextChar) {
@@ -90,7 +93,7 @@ class LineFiller {
         }
     }
 
-    private void readFromNet() {
+    private void readFromNet(int numReads) throws InterruptedException {
         try {
             if (links == null) {
                 links = new ArrayList<>();
@@ -105,7 +108,12 @@ class LineFiller {
             linkIndex++;
             appendToStream(document);
         } catch (Exception e) {
-            throw new LabelizerRuntimeException(e);
+            if (numReads++ > 20) {
+                throw new LabelizerRuntimeException(e);
+            }
+            TimeUnit.SECONDS.sleep(20);
+            log.error(e.getMessage(), e);
+            readFromNet(numReads);
         }
     }
 

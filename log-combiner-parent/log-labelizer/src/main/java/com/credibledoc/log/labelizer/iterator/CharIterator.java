@@ -726,15 +726,17 @@ public class CharIterator implements MultiDataSetIterator {
      */
     private DateExample nextDateExample() {
         if (dateExamples.isEmpty()) {
-            PagePattern pagePattern = PagePatternRepository.getInstance().getNotTrainedPattern();
+            PagePatternRepository pagePatternRepository = PagePatternRepository.getInstance();
+            PagePattern pagePattern = pagePatternRepository.getNotTrainedPattern();
             if (lastPagePattern != null) {
                 lastPagePattern.setTrained(true);
-                PagePatternRepository.getInstance().save(lastPagePattern);
-                patternsPassed++;
+                pagePatternRepository.save(lastPagePattern);
+                patternsPassed = pagePatternRepository.countNotTrainedPatterns();
             }
             lastPagePattern = pagePattern;
             dateExamples.addAll(TrainingDataGenerator.generateDates(pagePattern, NUM_EXAMPLES_OF_DATE_PATTERN_100));
             if (dateExamples.isEmpty()) {
+                logger.info("List of dateExamples is empty. Last PagePattern: {}", lastPagePattern);
                 return nextDateExample();
             }
         }
