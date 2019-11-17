@@ -733,8 +733,7 @@ public class CharIterator implements MultiDataSetIterator {
                 patternsPassed++;
             }
             lastPagePattern = pagePattern;
-            String pattern = pagePattern.getPattern();
-            dateExamples.addAll(TrainingDataGenerator.generateDates(pattern, NUM_EXAMPLES_OF_DATE_PATTERN_100));
+            dateExamples.addAll(TrainingDataGenerator.generateDates(pagePattern, NUM_EXAMPLES_OF_DATE_PATTERN_100));
             if (dateExamples.isEmpty()) {
                 return nextDateExample();
             }

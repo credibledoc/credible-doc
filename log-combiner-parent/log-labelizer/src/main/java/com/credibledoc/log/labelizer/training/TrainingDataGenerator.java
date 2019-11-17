@@ -5,6 +5,7 @@ import com.credibledoc.log.labelizer.date.DateExample;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
 import com.credibledoc.log.labelizer.hint.Hint;
+import com.credibledoc.log.labelizer.pagepattern.PagePattern;
 import com.credibledoc.log.labelizer.pagepattern.PagePatternRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -13,10 +14,6 @@ import org.nd4j.linalg.primitives.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -186,7 +183,7 @@ public class TrainingDataGenerator {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
-    public static Collection<DateExample> generateDates(String pattern, int numExamples) {
+    public static Collection<DateExample> generateDates(PagePattern pagePattern, int numExamples) {
         try {
             List<DateExample> result = new ArrayList<>();
             for (int i = 0; i < numExamples; i++) {
@@ -213,7 +210,7 @@ public class TrainingDataGenerator {
                 gregorianCalendar.set(Calendar.MILLISECOND, millis);
                 gregorianCalendar.setTimeZone(nextTimeZone);
 
-                SimpleDateFormat simpleDateFormat = getSimpleDateFormat(pattern, locale);
+                SimpleDateFormat simpleDateFormat = getSimpleDateFormat(pagePattern, locale);
                 if (simpleDateFormat == null) continue;
                 simpleDateFormat.setTimeZone(nextTimeZone);
 
@@ -222,9 +219,9 @@ public class TrainingDataGenerator {
                 dateExample.setDate(gregorianCalendar.getTime());
                 dateExample.setLocale(locale);
                 dateExample.setTimeZone(nextTimeZone);
-                dateExample.setPattern(pattern);
+                dateExample.setPattern(pagePattern.getPattern());
                 dateExample.setSource(dateString);
-                String labels = findLabels(dateString, pattern, locale, gregorianCalendar,
+                String labels = findLabels(dateString, pagePattern.getPattern(), locale, gregorianCalendar,
                     nextTimeZone);
                 dateExample.setLabels(labels);
                 result.add(dateExample);
@@ -236,24 +233,17 @@ public class TrainingDataGenerator {
     }
 
     @Nullable
-    private static SimpleDateFormat getSimpleDateFormat(String pattern, Locale locale) throws IOException {
+    private static SimpleDateFormat getSimpleDateFormat(PagePattern pagePattern, Locale locale) {
         SimpleDateFormat simpleDateFormat;
         try {
-            simpleDateFormat = new SimpleDateFormat(pattern, locale);
+            simpleDateFormat = new SimpleDateFormat(pagePattern.getPattern(), locale);
         } catch (Exception e) {
             String stackTrace = ExceptionUtils.getStackTrace(e);
-            String message = "Cannot create SimpleDateFormat. Pattern: " + pattern + ", locale: " + locale +
-                ",\n" + stackTrace;
+            String message = "Cannot create SimpleDateFormat. Pattern: " + pagePattern.getPattern() +
+                ", locale: " + locale + ",\n" + stackTrace;
             logger.error(message);
-            String locationPath = TrainingDataGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-            File file = new File(locationPath, "failedPatterns.txt");
-            if (!file.exists()) {
-                logger.info("File will be created: {}", file.getAbsolutePath());
-                Files.createFile(file.toPath());
-            }
-            try(FileWriter fileWriter = new FileWriter(file, true)) {
-                fileWriter.write(message + System.lineSeparator());
-            }
+            pagePattern.setErrorMessage(message);
+            PagePatternRepository.getInstance().save(pagePattern);
             return null;
         }
         return simpleDateFormat;

@@ -7,6 +7,7 @@ import com.credibledoc.combiner.log.buffered.LogInputStreamReader;
 import com.credibledoc.log.labelizer.crawler.RegexService;
 import com.credibledoc.log.labelizer.date.ProbabilityLabel;
 import com.credibledoc.log.labelizer.exception.LabelizerRuntimeException;
+import com.google.common.primitives.Chars;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,7 +20,6 @@ import java.io.FileNotFoundException;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.regex.Matcher;
-import java.util.stream.Stream;
 
 /**
  * Provides an 'infinite' source of characters for filling gaps between labeled data.
@@ -28,14 +28,13 @@ import java.util.stream.Stream;
  */
 class LineFiller {
     private static final String WITHOUT_DATE_FOLDER = "without";
-    private static final String WIKI_URL = "view-source:https://cs.wikipedia.org/wiki/Speci%C3%A1ln%C3%AD:Speci%C3%A1ln%C3%AD_str%C3" +
-        "%A1nky";
+    private static final String WIKI_URL = "https://cs.wikipedia.org/wiki/Speci%C3%A1ln%C3%AD:Speci%C3%A1ln%C3%AD_str%C3%A1nky";
 
     private LogBufferedReader logBufferedReader;
     
     private boolean hasNextInLogBufferedReader = true;
-    
-    private Stream<Character> stream = Stream.of('a');
+
+    private List<Character> charList = new ArrayList<>();
     
     private List<String> links;
     
@@ -78,15 +77,10 @@ class LineFiller {
                     hasNextInLogBufferedReader = false;
                 }
             }
-            if (stream == null) {
+            if (charList.isEmpty()) {
                 readFromNet();
             }
-            Optional<Character> next = stream.findFirst(); // TODO Kyrylo Semenko - tady je chyba, java.util.NoSuchElementException: java.lang.IllegalStateException: org.bytedeco.mkldnn.stream has already been operated upon or closed
-            while (!next.isPresent()) {
-                readFromNet();
-                next = stream.findFirst();
-            }
-            char nextChar = next.get();
+            Character nextChar = charList.remove(0);
             if ('\r' == nextChar || '\n' == nextChar) {
                 return next();
             }
@@ -97,7 +91,6 @@ class LineFiller {
     }
 
     private void readFromNet() {
-        stream = Stream.empty();
         try {
             if (links == null) {
                 links = new ArrayList<>();
@@ -126,8 +119,7 @@ class LineFiller {
         for (String line : lines) {
             Matcher matcher = RegexService.DATE_PATTERN.matcher(line);
             if (!matcher.find()) {
-                Stream<Character> nextStream = line.chars().mapToObj(c -> (char) c);
-                stream = Stream.concat(stream, nextStream);
+                charList.addAll(Chars.asList(line.toCharArray()));
             }
         }
     }

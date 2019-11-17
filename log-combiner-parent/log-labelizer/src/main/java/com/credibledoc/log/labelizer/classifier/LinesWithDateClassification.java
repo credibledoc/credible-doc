@@ -43,7 +43,7 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.015";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.016";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int SEED_12345 = 12345;
     private static final double LEARNING_RATE_0_001 = 0.001;
@@ -80,7 +80,7 @@ public class LinesWithDateClassification {
     /**
      * Total number of training epochs.
      */
-    private static final int NUM_EPOCHS = 5;
+    private static final int NUM_EPOCHS = 1;
 
     public static void main(String[] args) throws Exception {
         List<String> arguments = Arrays.asList(args);
