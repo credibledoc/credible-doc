@@ -731,7 +731,7 @@ public class CharIterator implements MultiDataSetIterator {
             if (lastPagePattern != null) {
                 lastPagePattern.setTrained(true);
                 pagePatternRepository.save(lastPagePattern);
-                patternsPassed = pagePatternRepository.countNotTrainedPatterns();
+                patternsPassed = patternsCount - pagePatternRepository.countNotTrainedPatterns();
             }
             lastPagePattern = pagePattern;
             dateExamples.addAll(TrainingDataGenerator.generateDates(pagePattern, NUM_EXAMPLES_OF_DATE_PATTERN_100));

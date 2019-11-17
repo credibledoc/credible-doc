@@ -120,8 +120,10 @@ public class LinesWithDateClassification {
             ComputationGraphConfiguration computationGraphConfiguration =
                 createNetInputInput2MergeHiddenOutput(charIterator, nOut, lstmLayerSize);
 
-            computationGraph = new ComputationGraph(computationGraphConfiguration);
-            computationGraph.init();
+            if (!continueTraining) {
+                computationGraph = new ComputationGraph(computationGraphConfiguration);
+                computationGraph.init();
+            }
             
             //Initialize the user interface backend
             System.setProperty("org.deeplearning4j.ui.port", "9001");

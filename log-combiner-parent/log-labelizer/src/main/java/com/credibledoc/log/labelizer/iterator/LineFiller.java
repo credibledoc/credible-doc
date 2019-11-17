@@ -104,14 +104,14 @@ class LineFiller {
             if (linkIndex == links.size()) {
                 linkIndex = 0;
             }
-            Document document = Jsoup.connect(links.get(linkIndex)).get();
-            linkIndex++;
+            Document document = Jsoup.connect(links.get(linkIndex++)).get();
             appendToStream(document);
         } catch (Exception e) {
             if (numReads++ > 20) {
-                throw new LabelizerRuntimeException(e);
+                // start again from WIKI_URL
+                links = null;
             }
-            TimeUnit.SECONDS.sleep(20);
+            TimeUnit.SECONDS.sleep(7);
             log.error(e.getMessage(), e);
             readFromNet(numReads);
         }
