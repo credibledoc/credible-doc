@@ -81,7 +81,7 @@ class LineFiller {
             if (stream == null) {
                 readFromNet();
             }
-            Optional<Character> next = stream.findFirst();
+            Optional<Character> next = stream.findFirst(); // TODO Kyrylo Semenko - tady je chyba, java.util.NoSuchElementException: java.lang.IllegalStateException: org.bytedeco.mkldnn.stream has already been operated upon or closed
             while (!next.isPresent()) {
                 readFromNet();
                 next = stream.findFirst();

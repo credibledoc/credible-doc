@@ -43,7 +43,7 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.012";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.015";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int SEED_12345 = 12345;
     private static final double LEARNING_RATE_0_001 = 0.001;
@@ -80,7 +80,7 @@ public class LinesWithDateClassification {
     /**
      * Total number of training epochs.
      */
-    private static final int NUM_EPOCHS = 1;
+    private static final int NUM_EPOCHS = 5;
 
     public static void main(String[] args) throws Exception {
         List<String> arguments = Arrays.asList(args);
@@ -105,7 +105,8 @@ public class LinesWithDateClassification {
         ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR);
         String resourcesPath = resource.getFile().getAbsolutePath();
         boolean continueTraining = arguments.contains(CONTINUE_TRAINING_ARGUMENT);
-        CharIterator charIterator = new CharIterator(resourcesPath,
+        CharIterator charIterator = new CharIterator(
+            resourcesPath,
             StandardCharsets.UTF_8,
             MINI_BATCH_SIZE_32,
             EXAMPLE_LENGTH_120);
@@ -116,35 +117,8 @@ public class LinesWithDateClassification {
 
         //Set up network configuration:
         if (!isNetworkLoadedFromFile || continueTraining) {
-            ComputationGraphConfiguration computationGraphConfiguration  = new NeuralNetConfiguration.Builder()
-                .seed(SEED_12345)
-                .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
-                .weightInit(WeightInit.XAVIER)
-                .updater(new Adam(LEARNING_RATE_0_001))
-                .graphBuilder()
-                
-                .addInputs(INPUT_1, INPUT_2)
-                
-                .addLayer(LAYER_INPUT_1, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(lstmLayerSize)
-                    .activation(Activation.TANH).build(), INPUT_1)
-                
-                .addLayer(LAYER_INPUT_2, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(lstmLayerSize)
-                    .activation(Activation.TANH).build(), INPUT_2)
-                        
-                .addVertex(MERGE_VERTEX, new MergeVertex(), LAYER_INPUT_1, LAYER_INPUT_2)
-
-                .addLayer(LAYER_2, new LSTM.Builder().nIn(lstmLayerSize * 2).nOut(lstmLayerSize)
-                    .activation(Activation.TANH).build(), MERGE_VERTEX)
-
-                .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
-                    .nIn(lstmLayerSize).nOut(nOut).build(), LAYER_2)
-                
-                .setOutputs(LAYER_OUTPUT_3)
-                
-                .backpropType(BackpropType.TruncatedBPTT)
-                .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                .build();
+            ComputationGraphConfiguration computationGraphConfiguration =
+                createNetInputInput2MergeHiddenOutput(charIterator, nOut, lstmLayerSize);
 
             computationGraph = new ComputationGraph(computationGraphConfiguration);
             computationGraph.init();
@@ -192,6 +166,96 @@ public class LinesWithDateClassification {
         }
     }
 
+    private static ComputationGraphConfiguration createNetInputInputMergeHiddenOutput(CharIterator charIterator,
+                                                                                      int nOut, int lstmLayerSize) {
+        return new NeuralNetConfiguration.Builder()
+                    .seed(SEED_12345)
+                    .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
+                    .weightInit(WeightInit.XAVIER)
+                    .updater(new Adam(LEARNING_RATE_0_001))
+                    .graphBuilder()
+                    
+                    .addInputs(INPUT_1, INPUT_2)
+                    
+                    .addLayer(LAYER_INPUT_1, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(lstmLayerSize)
+                        .activation(Activation.TANH).build(), INPUT_1)
+                    
+                    .addLayer(LAYER_INPUT_2, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(lstmLayerSize)
+                        .activation(Activation.TANH).build(), INPUT_2)
+                            
+                    .addVertex(MERGE_VERTEX, new MergeVertex(), LAYER_INPUT_1, LAYER_INPUT_2)
+    
+                    .addLayer(LAYER_2, new LSTM.Builder().nIn(lstmLayerSize * 2).nOut(lstmLayerSize)
+                        .activation(Activation.TANH).build(), MERGE_VERTEX)
+    
+                    .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
+                        .nIn(lstmLayerSize).nOut(nOut).build(), LAYER_2)
+                    
+                    .setOutputs(LAYER_OUTPUT_3)
+                    
+                    .backpropType(BackpropType.TruncatedBPTT)
+                    .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
+                    .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
+                    .build();
+    }
+
+    private static ComputationGraphConfiguration skipConnection(CharIterator charIterator,
+                                                                                      int nOut, int lstmLayerSize) {
+        return new NeuralNetConfiguration.Builder()
+            .seed(SEED_12345)
+            .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
+            .weightInit(WeightInit.XAVIER)
+            .updater(new Adam(LEARNING_RATE_0_001))
+            .graphBuilder()
+            .addInputs(INPUT_1) //Give the input a name. For a ComputationGraph with multiple inputs, this also defines the input array orders
+            //First layer: name "first", with inputs from the input called "input"
+            .addLayer("first", new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(lstmLayerSize)
+                .activation(Activation.TANH).build(),INPUT_1)
+            //Second layer, name "second", with inputs from the layer called "first"
+            .addLayer("second", new LSTM.Builder().nIn(lstmLayerSize).nOut(lstmLayerSize)
+                .activation(Activation.TANH).build(),"first")
+            //Output layer, name "outputlayer" with inputs from the two layers called "first" and "second"
+            .addLayer("outputLayer", new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT)
+                .activation(Activation.SOFTMAX)
+                .nIn(2*lstmLayerSize).nOut(nOut).build(),"first","second")
+            .setOutputs("outputLayer")  //List the output. For a ComputationGraph with multiple outputs, this also defines the input array orders
+            .backpropType(BackpropType.TruncatedBPTT).tBPTTForwardLength(nOut).tBPTTBackwardLength(nOut)
+            .build();
+    }
+
+    private static ComputationGraphConfiguration createNetInputInput2MergeHiddenOutput(CharIterator charIterator,
+                                                                                      int nOut, int lstmLayerSize) {
+        return new NeuralNetConfiguration.Builder()
+                    .seed(SEED_12345)
+                    .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
+                    .weightInit(WeightInit.XAVIER)
+                    .updater(new Adam(LEARNING_RATE_0_001))
+                    .graphBuilder()
+                    
+                    .addInputs(INPUT_1, INPUT_2)
+                    
+                    .addLayer(LAYER_INPUT_1, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(lstmLayerSize)
+                        .activation(Activation.TANH).build(), INPUT_1)
+                    
+                    .addLayer(LAYER_INPUT_2, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(2)
+                        .activation(Activation.TANH).build(), INPUT_2)
+                            
+                    .addVertex(MERGE_VERTEX, new MergeVertex(), LAYER_INPUT_1, LAYER_INPUT_2)
+    
+                    .addLayer(LAYER_2, new LSTM.Builder().nIn(lstmLayerSize + 2).nOut(lstmLayerSize)
+                        .activation(Activation.TANH).build(), MERGE_VERTEX)
+    
+                    .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
+                        .nIn(lstmLayerSize).nOut(nOut).build(), LAYER_2)
+                    
+                    .setOutputs(LAYER_OUTPUT_3)
+                    
+                    .backpropType(BackpropType.TruncatedBPTT)
+                    .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
+                    .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
+                    .build();
+    }
+
     private static int nextEpoch(ComputationGraph computationGraph, File networkFile, CharIterator charIterator,
                                  int miniBatchNumber) throws IOException {
         long trainingDataSetSize = charIterator.trainingDataSetSize();
@@ -214,7 +278,7 @@ public class LinesWithDateClassification {
         }
 
         // TODO Kyrylo Semenko - why it is not possible to train some patterns after finishing of the main training?
-//        charIterator.reset();    //Reset iterator for another epoch
+        charIterator.reset();    //Reset iterator for another epoch
         return miniBatchNumber;
     }
 

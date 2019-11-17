@@ -238,7 +238,7 @@ public class Crawler {
 
     private Connection createConnection(String searchPageUrl) {
         try {
-            Thread.sleep(DELAY_BETWEEN_REQUESTS_SECONDS_2 * 1000L + 5);
+            Thread.sleep(DELAY_BETWEEN_REQUESTS_SECONDS_2 * 1000L + 50);
             String token = "token " + Config.getGithubOauthToken();
             return Jsoup.connect(searchPageUrl)
                 .ignoreContentType(true)

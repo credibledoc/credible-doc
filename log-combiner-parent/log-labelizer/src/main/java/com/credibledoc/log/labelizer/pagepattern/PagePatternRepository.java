@@ -3,6 +3,7 @@ package com.credibledoc.log.labelizer.pagepattern;
 import com.credibledoc.log.labelizer.datastore.DatastoreService;
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
+import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.internal.MorphiaCursor;
 
 import java.util.Collections;
@@ -107,5 +108,19 @@ public class PagePatternRepository {
      */
     public void delete(PagePattern pagePattern) {
         datastore.delete(pagePattern);
+    }
+
+    /**
+     * Set all {@link PagePattern#isTrained()} to 'false'.
+     */
+    public void resetTrained() {
+        UpdateOperations<PagePattern> updateOperations = datastore.createUpdateOperations(PagePattern.class)
+            .set(PagePattern.Fields.isTrained, false);
+        
+        Query<PagePattern> query = datastore.createQuery(PagePattern.class)
+            .field(PagePattern.Fields.pattern).exists()
+            .field(PagePattern.Fields.isTrained).equal(true);
+
+        datastore.update(query, updateOperations);
     }
 }

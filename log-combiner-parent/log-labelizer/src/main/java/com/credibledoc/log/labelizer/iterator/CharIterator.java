@@ -350,6 +350,7 @@ public class CharIterator implements MultiDataSetIterator {
 
         for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
             String stringLine = examples.get(miniBatchIndex).getLeft();
+            
             String hintLine = SimilarityHint.linesSimilarityMarker(stringLine);
 
             String labelsLine = examples.get(miniBatchIndex).getRight();
@@ -756,7 +757,10 @@ public class CharIterator implements MultiDataSetIterator {
     }
 
     public void reset() {
-        throw new LabelizerRuntimeException("Not implement.");
+        PagePatternRepository.getInstance().resetTrained();
+        patternsPassed = 0;
+        patternsCount = PagePatternRepository.getInstance().countNotTrainedPatterns();
+        lastPagePattern = null;
     }
 
     public boolean resetSupported() {
