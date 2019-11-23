@@ -43,7 +43,7 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.017";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.018";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int SEED_12345 = 12345;
     private static final double LEARNING_RATE_0_001 = 0.001;
@@ -118,7 +118,7 @@ public class LinesWithDateClassification {
         //Set up network configuration:
         if (!isNetworkLoadedFromFile || continueTraining) {
             ComputationGraphConfiguration computationGraphConfiguration =
-                createNetInputInput2MergeHiddenOutput(charIterator, nOut, lstmLayerSize);
+                skipConnection(charIterator, nOut, lstmLayerSize);
 
             if (!continueTraining) {
                 computationGraph = new ComputationGraph(computationGraphConfiguration);
@@ -209,18 +209,18 @@ public class LinesWithDateClassification {
             .weightInit(WeightInit.XAVIER)
             .updater(new Adam(LEARNING_RATE_0_001))
             .graphBuilder()
-            .addInputs(INPUT_1) //Give the input a name. For a ComputationGraph with multiple inputs, this also defines the input array orders
-            //First layer: name "first", with inputs from the input called "input"
-            .addLayer("first", new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(lstmLayerSize)
-                .activation(Activation.TANH).build(),INPUT_1)
-            //Second layer, name "second", with inputs from the layer called "first"
-            .addLayer("second", new LSTM.Builder().nIn(lstmLayerSize).nOut(lstmLayerSize)
-                .activation(Activation.TANH).build(),"first")
-            //Output layer, name "outputlayer" with inputs from the two layers called "first" and "second"
-            .addLayer("outputLayer", new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT)
+            .addInputs(INPUT_1, INPUT_2)
+            
+            .addLayer(LAYER_INPUT_1, new LSTM.Builder().nIn(charIterator.inputColumns() * 2).nOut(lstmLayerSize)
+                .activation(Activation.TANH).build(), INPUT_1, INPUT_2)
+            
+            .addLayer(LAYER_INPUT_2, new LSTM.Builder().nIn(lstmLayerSize).nOut(lstmLayerSize)
+                .activation(Activation.TANH).build(),LAYER_INPUT_1)
+            
+            .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT)
                 .activation(Activation.SOFTMAX)
-                .nIn(2*lstmLayerSize).nOut(nOut).build(),"first","second")
-            .setOutputs("outputLayer")  //List the output. For a ComputationGraph with multiple outputs, this also defines the input array orders
+                .nIn(2*lstmLayerSize).nOut(nOut).build(), LAYER_INPUT_1, LAYER_INPUT_2)
+            .setOutputs(LAYER_OUTPUT_3)
             .backpropType(BackpropType.TruncatedBPTT).tBPTTForwardLength(nOut).tBPTTBackwardLength(nOut)
             .build();
     }
