@@ -415,13 +415,14 @@ public class LinesWithDateClassification {
     private static INDArray[] createInitIndArrayForGraph(String initString, CharIterator charIterator) {
         int miniBatch = 1;
         INDArray initIndArray = Nd4j.zeros(miniBatch, charIterator.inputColumns(), initString.length());
-        INDArray hintIndArray = Nd4j.zeros(miniBatch, charIterator.inputColumns(), initString.length());
+        INDArray hintIndArray = Nd4j.zeros(miniBatch, 2, initString.length());
         char[] initChars = initString.toCharArray();
         String hintString = CharIterator.yearHintLenient(initString);
         char[] hintChars = hintString.toCharArray();
         for (int initStringIndex = 0; initStringIndex < initChars.length; initStringIndex++) {
             int characterIndex = charIterator.convertCharacterToIndex(initChars[initStringIndex]);
-            int hintIndex = charIterator.convertCharacterToIndex(hintChars[initStringIndex]);
+            char hintChar = hintChars[initStringIndex];
+            int hintIndex = hintChar == 'n' ? 0 : 1;
             for (int miniBatchIndex = 0; miniBatchIndex < miniBatch; miniBatchIndex++) {
                 initIndArray.putScalar(new int[]{miniBatchIndex, characterIndex, initStringIndex}, 1.0f);
                 hintIndArray.putScalar(new int[]{miniBatchIndex, hintIndex, initStringIndex}, 1.0f);
