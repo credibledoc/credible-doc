@@ -345,7 +345,7 @@ public class CharIterator implements MultiDataSetIterator {
         // Why 'f' order here? See https://jrmerwin.github.io/deeplearning4j-docs/usingrnns.html,
         // section "Alternative: Implementing a custom DataSetIterator"
         INDArray input = Nd4j.create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN); // NOSONAR
-        INDArray inputHint = Nd4j.create(new int[]{currMinibatchSize, intToCharMap.size(), exampleLength}, ORDERING_FORTRAN); // NOSONAR
+        INDArray inputHint = Nd4j.create(new int[]{currMinibatchSize, 2, exampleLength}, ORDERING_FORTRAN); // NOSONAR
         INDArray labels = Nd4j.create(new int[]{currMinibatchSize, ProbabilityLabel.values().length, exampleLength}, ORDERING_FORTRAN); // NOSONAR
 
         for (int miniBatchIndex = 0; miniBatchIndex < currMinibatchSize; miniBatchIndex++) {
@@ -370,7 +370,7 @@ public class CharIterator implements MultiDataSetIterator {
                 char labelChar = labelsLine.charAt(charIndex);
                 char hintChar = hintLine.charAt(charIndex);
                 int exampleCharIndex = convertCharacterToIndex(exampleChar);
-                int hintCharIndex = convertCharacterToIndex(hintChar);
+                int hintCharIndex = hintChar == 'n' ? 0 : 1;
                 int labelCharIndex = ProbabilityLabel.findIndex(labelChar);
                 input.putScalar(new int[]{miniBatchIndex, exampleCharIndex, charIndex}, 1.0);
                 inputHint.putScalar(new int[]{miniBatchIndex, hintCharIndex, charIndex}, 1.0);
