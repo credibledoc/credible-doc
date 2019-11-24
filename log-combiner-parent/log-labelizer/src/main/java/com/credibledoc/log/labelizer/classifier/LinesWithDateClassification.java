@@ -43,7 +43,7 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.021";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.022";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int SEED_12345 = 12345;
     private static final double LEARNING_RATE_0_001 = 0.001;
@@ -51,7 +51,9 @@ public class LinesWithDateClassification {
     private static final String INPUT_1 = "INPUT_1";
     private static final String LAYER_INPUT_1 = "LAYER_INPUT_1";
     private static final String LAYER_INPUT_2 = "LAYER_INPUT_2";
-    private static final String HIDDEN_2 = "LAYER_2";
+    private static final String HIDDEN_1 = "HIDDEN_1";
+    private static final String HIDDEN_2 = "HIDDEN_2";
+    private static final String HIDDEN_3 = "HIDDEN_3";
     private static final String LAYER_OUTPUT_3 = "LAYER_OUTPUT_3";
     private static final String MERGE_VERTEX = "MERGE_VERTEX";
     private static final String INPUT_2 = "INPUT_2";
@@ -81,8 +83,6 @@ public class LinesWithDateClassification {
      * Total number of training epochs.
      */
     private static final int NUM_EPOCHS = 1;
-    private static final String HIDDEN_3 = "LAYER_3";
-    private static final String HIDDEN_1 = "HIDDEN_1";
 
     public static void main(String[] args) throws Exception {
         List<String> arguments = Arrays.asList(args);
@@ -120,7 +120,7 @@ public class LinesWithDateClassification {
         //Set up network configuration:
         if (!isNetworkLoadedFromFile || continueTraining) {
             ComputationGraphConfiguration computationGraphConfiguration =
-                twoHiddenAndHintToSecondHidden(charIterator, labelsNum, halfOfInputColumns);
+                twoHiddenAndHintToBoth(charIterator, labelsNum, halfOfInputColumns);
 
             if (!continueTraining) {
                 computationGraph = new ComputationGraph(computationGraphConfiguration);
@@ -168,6 +168,34 @@ public class LinesWithDateClassification {
             logger.info("Please move characters from the '{}' file to the resources and target '{}' files and remove the '{}' file.",
                 charsFile.getAbsolutePath(), CharIterator.NATIONAL_CHARS_TXT, charsFile.getAbsolutePath());
         }
+    }
+
+    private static ComputationGraphConfiguration twoHiddenAndHintToBoth(CharIterator charIterator,
+                                                                             int labelsNum, int lstmLayerSize) {
+        return new NeuralNetConfiguration.Builder()
+                    .seed(SEED_12345)
+                    .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
+                    .weightInit(WeightInit.XAVIER)
+                    .updater(new Adam(LEARNING_RATE_0_001))
+                    .graphBuilder()
+                    
+                    .addInputs(INPUT_1, INPUT_2)
+    
+                    .addLayer(HIDDEN_1, new LSTM.Builder().nIn(charIterator.inputColumns() + 2).nOut(labelsNum)
+                        .activation(Activation.TANH).build(), INPUT_1, INPUT_2)
+
+                    .addLayer(HIDDEN_2, new LSTM.Builder().nIn(labelsNum + 2).nOut(labelsNum)
+                        .activation(Activation.TANH).build(), HIDDEN_1, INPUT_2)
+    
+                    .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
+                        .nIn(labelsNum * 2).nOut(labelsNum).build(), HIDDEN_1, HIDDEN_2)
+                    
+                    .setOutputs(LAYER_OUTPUT_3)
+                    
+                    .backpropType(BackpropType.TruncatedBPTT)
+                    .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
+                    .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
+                    .build();
     }
 
     private static ComputationGraphConfiguration twoHiddenAndHintToSecondHidden(CharIterator charIterator,
