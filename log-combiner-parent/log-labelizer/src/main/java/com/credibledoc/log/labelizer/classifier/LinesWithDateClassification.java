@@ -43,10 +43,10 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.025";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.026";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int SEED_12345 = 12345;
-    private static final double LEARNING_RATE_0_0001 = 0.0001;
+    private static final double LEARNING_RATE_0_01 = 0.01;
     private static final double L2_REGULARIZATION_COEFFICIENT_0_0001 = 0.0001;
     private static final String INPUT_1 = "INPUT_1";
     private static final String LAYER_INPUT_1 = "LAYER_INPUT_1";
@@ -176,7 +176,7 @@ public class LinesWithDateClassification {
             .seed(SEED_12345)
             .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
             .weightInit(WeightInit.XAVIER)
-            .updater(new Adam(LEARNING_RATE_0_0001))
+            .updater(new Adam(LEARNING_RATE_0_01))
             .graphBuilder()
 
             .addInputs(INPUT_1, INPUT_2)
@@ -207,7 +207,7 @@ public class LinesWithDateClassification {
             .seed(SEED_12345)
             .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
             .weightInit(WeightInit.XAVIER)
-            .updater(new Adam(LEARNING_RATE_0_0001))
+            .updater(new Adam(LEARNING_RATE_0_01))
             .graphBuilder()
 
             .addInputs(INPUT_1, INPUT_2)
@@ -237,7 +237,7 @@ public class LinesWithDateClassification {
                     .seed(SEED_12345)
                     .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
                     .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_0001))
+                    .updater(new Adam(LEARNING_RATE_0_01))
                     .graphBuilder()
                     
                     .addInputs(INPUT_1, INPUT_2)
@@ -265,7 +265,7 @@ public class LinesWithDateClassification {
                     .seed(SEED_12345)
                     .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
                     .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_0001))
+                    .updater(new Adam(LEARNING_RATE_0_01))
                     .graphBuilder()
                     
                     .addInputs(INPUT_1, INPUT_2)
@@ -295,7 +295,7 @@ public class LinesWithDateClassification {
                     .seed(SEED_12345)
                     .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
                     .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_0001))
+                    .updater(new Adam(LEARNING_RATE_0_01))
                     .graphBuilder()
                     
                     .addInputs(INPUT_1, INPUT_2)
@@ -323,7 +323,7 @@ public class LinesWithDateClassification {
                     .seed(SEED_12345)
                     .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
                     .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_0001))
+                    .updater(new Adam(LEARNING_RATE_0_01))
                     .graphBuilder()
                     
                     .addInputs(INPUT_1, INPUT_2)
@@ -353,7 +353,7 @@ public class LinesWithDateClassification {
             .seed(SEED_12345)
             .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
             .weightInit(WeightInit.XAVIER)
-            .updater(new Adam(LEARNING_RATE_0_0001))
+            .updater(new Adam(LEARNING_RATE_0_01))
             .graphBuilder()
             .addInputs(INPUT_1, INPUT_2)
             
@@ -377,7 +377,7 @@ public class LinesWithDateClassification {
                     .seed(SEED_12345)
                     .l2(L2_REGULARIZATION_COEFFICIENT_0_0001)
                     .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_0001))
+                    .updater(new Adam(LEARNING_RATE_0_01))
                     .graphBuilder()
                     
                     .addInputs(INPUT_1, INPUT_2)
