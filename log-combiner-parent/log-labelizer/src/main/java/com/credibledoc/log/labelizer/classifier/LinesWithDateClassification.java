@@ -8,27 +8,18 @@ import com.credibledoc.log.labelizer.iterator.IteratorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.deeplearning4j.api.storage.StatsStorage;
-import org.deeplearning4j.nn.conf.BackpropType;
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
-import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
-import org.deeplearning4j.nn.conf.graph.MergeVertex;
-import org.deeplearning4j.nn.conf.layers.LSTM;
-import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.ui.api.UIServer;
 import org.deeplearning4j.ui.stats.StatsListener;
 import org.deeplearning4j.ui.storage.FileStatsStorage;
 import org.jetbrains.annotations.NotNull;
 import org.nd4j.evaluation.classification.Evaluation;
-import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.MultiDataSet;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.io.ClassPathResource;
-import org.nd4j.linalg.learning.config.Adam;
-import org.nd4j.linalg.lossfunctions.LossFunctions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,20 +34,20 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.027";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.028";
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final int SEED_12345 = 12345;
-    private static final double LEARNING_RATE_0_01 = 0.01;
-    private static final double L2_REGULARIZATION_COEFFICIENT_0_00001 = 0.00001;
-    private static final String INPUT_1 = "INPUT_1";
-    private static final String LAYER_INPUT_1 = "LAYER_INPUT_1";
-    private static final String LAYER_INPUT_2 = "LAYER_INPUT_2";
-    private static final String HIDDEN_1 = "HIDDEN_1";
-    private static final String HIDDEN_2 = "HIDDEN_2";
-    private static final String HIDDEN_3 = "HIDDEN_3";
-    private static final String LAYER_OUTPUT_3 = "LAYER_OUTPUT_3";
-    private static final String MERGE_VERTEX = "MERGE_VERTEX";
-    private static final String INPUT_2 = "INPUT_2";
+    static final int SEED_12345 = 12345;
+    static final double LEARNING_RATE_0_01 = 0.01;
+    static final double L2_REGULARIZATION_COEFFICIENT_0_000001 = 0.000001;
+    static final String INPUT_1 = "INPUT_1";
+    static final String LAYER_INPUT_1 = "LAYER_INPUT_1";
+    static final String LAYER_INPUT_2 = "LAYER_INPUT_2";
+    static final String HIDDEN_1 = "HIDDEN_1";
+    static final String HIDDEN_2 = "HIDDEN_2";
+    static final String HIDDEN_3 = "HIDDEN_3";
+    static final String LAYER_OUTPUT_3 = "LAYER_OUTPUT_3";
+    static final String MERGE_VERTEX = "MERGE_VERTEX";
+    static final String INPUT_2 = "INPUT_2";
     private static final String CONTINUE_TRAINING_ARGUMENT = "-continueTraining";
 
     /**
@@ -72,28 +63,32 @@ public class LinesWithDateClassification {
     /**
      * Length for truncated back-propagation through time. The parameter updates ever N characters
      */
-    private static final int CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME = EXAMPLE_LENGTH_120;
+    static final int CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME = EXAMPLE_LENGTH_120;
 
     /**
-     * The {@link #EXAMPLE_LENGTH_120} has to be divisible to these values.
+     * The {@link #EXAMPLE_LENGTH_120} must to be divisible to these values.
      */
-    public static final List<Integer> NUM_SUB_LINES = new ArrayList<>(Arrays.asList(1, 2, 3));
+    public static final List<Integer> NUM_SUB_LINES = new ArrayList<>(Arrays.asList(1, 2, 3)); // NOSONAR
 
     /**
      * Total number of training epochs.
      */
-    private static final int NUM_EPOCHS = 1;
+    private static final int NUM_EPOCHS = 3;
 
     public static void main(String[] args) throws Exception {
-        List<String> arguments = Arrays.asList(args);
-
         ComputationGraph computationGraph = null;
-
         boolean isNetworkLoadedFromFile = false;
 
         File networkFile = new File(LinesWithDateClassification.class.getResource("/")
             .getPath()
             .replace("target/classes", "src/main/resources/") + MULTILAYER_NETWORK_VECTORS);
+
+        List<String> arguments = Arrays.asList(args);
+        boolean continueTraining = arguments.contains(CONTINUE_TRAINING_ARGUMENT);
+        if (!networkFile.exists() && continueTraining) {
+            throw new LabelizerRuntimeException("File not exists and '" + CONTINUE_TRAINING_ARGUMENT +
+                "' argument set. File: " + networkFile.getAbsolutePath());
+        }
         if (networkFile.exists()) {
             isNetworkLoadedFromFile = true;
             computationGraph = ComputationGraph.load(networkFile, true);
@@ -106,7 +101,6 @@ public class LinesWithDateClassification {
 
         ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR);
         String resourcesPath = resource.getFile().getAbsolutePath();
-        boolean continueTraining = arguments.contains(CONTINUE_TRAINING_ARGUMENT);
         CharIterator charIterator = new CharIterator(
             resourcesPath,
             StandardCharsets.UTF_8,
@@ -120,7 +114,7 @@ public class LinesWithDateClassification {
         //Set up network configuration:
         if (!isNetworkLoadedFromFile || continueTraining) {
             ComputationGraphConfiguration computationGraphConfiguration =
-                twoHiddenAndHintToBoth(charIterator, labelsNum, halfOfInputColumns);
+                ComputationGraphService.twoHiddenAndHintToBoth(charIterator, labelsNum, halfOfInputColumns);
 
             if (!continueTraining) {
                 computationGraph = new ComputationGraph(computationGraphConfiguration);
@@ -144,6 +138,7 @@ public class LinesWithDateClassification {
             uiServer.attach(statsStorage);
 
             //Then add the StatsListener to collect this information from the network, as it trains
+            assert computationGraph != null;
             computationGraph.setListeners(new StatsListener(statsStorage));
 
             //Print the  number of parameters in the network (and for each layer)
@@ -163,245 +158,11 @@ public class LinesWithDateClassification {
         evaluateTestData(computationGraph, resourcesPath, charIterator);
 
         logger.info("\n\nExample complete");
-        File charsFile = new File(resourcesPath + "/../", CharIterator.NEW_CHARS_TXT);
+        File charsFile = new File(resourcesPath, CharIterator.NEW_CHARS_TXT);
         if (charsFile.exists()) {
             logger.info("Please move characters from the '{}' file to the resources and target '{}' files and remove the '{}' file.",
                 charsFile.getAbsolutePath(), CharIterator.NATIONAL_CHARS_TXT, charsFile.getAbsolutePath());
         }
-    }
-
-    private static ComputationGraphConfiguration threeHiddenAndHintToAll(CharIterator charIterator,
-                                                                        int labelsNum, int lstmLayerSize) {
-        return new NeuralNetConfiguration.Builder()
-            .seed(SEED_12345)
-            .l2(L2_REGULARIZATION_COEFFICIENT_0_00001)
-            .weightInit(WeightInit.XAVIER)
-            .updater(new Adam(LEARNING_RATE_0_01))
-            .graphBuilder()
-
-            .addInputs(INPUT_1, INPUT_2)
-
-            .addLayer(HIDDEN_1, new LSTM.Builder().nIn(charIterator.inputColumns() + 2).nOut(labelsNum)
-                .activation(Activation.TANH).build(), INPUT_1, INPUT_2)
-
-            .addLayer(HIDDEN_2, new LSTM.Builder().nIn(labelsNum + 2).nOut(labelsNum)
-                .activation(Activation.TANH).build(), HIDDEN_1, INPUT_2)
-
-            .addLayer(HIDDEN_3, new LSTM.Builder().nIn(labelsNum + 2).nOut(labelsNum)
-                .activation(Activation.TANH).build(), HIDDEN_2, INPUT_2)
-
-            .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
-                .nIn(labelsNum * 3).nOut(labelsNum).build(), HIDDEN_1, HIDDEN_2, HIDDEN_3)
-
-            .setOutputs(LAYER_OUTPUT_3)
-
-            .backpropType(BackpropType.TruncatedBPTT)
-            .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-            .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-            .build();
-    }
-
-    private static ComputationGraphConfiguration inputInputMergeHiddenOutputShorterHidden(CharIterator charIterator,
-                                                                             int labelsNum, int lstmLayerSize) {
-        return new NeuralNetConfiguration.Builder()
-            .seed(SEED_12345)
-            .l2(L2_REGULARIZATION_COEFFICIENT_0_00001)
-            .weightInit(WeightInit.XAVIER)
-            .updater(new Adam(LEARNING_RATE_0_01))
-            .graphBuilder()
-
-            .addInputs(INPUT_1, INPUT_2)
-
-            .addLayer(HIDDEN_2, new LSTM.Builder().nIn(2).nOut(2)
-                .activation(Activation.TANH).build(), INPUT_2)
-
-            .addVertex(MERGE_VERTEX, new MergeVertex(), INPUT_1, HIDDEN_2)
-
-            .addLayer(HIDDEN_3, new LSTM.Builder().nIn(charIterator.inputColumns() + 2).nOut(labelsNum)
-                .activation(Activation.TANH).build(), MERGE_VERTEX)
-
-            .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
-                .nIn(labelsNum).nOut(labelsNum).build(), HIDDEN_3)
-
-            .setOutputs(LAYER_OUTPUT_3)
-
-            .backpropType(BackpropType.TruncatedBPTT)
-            .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-            .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-            .build();
-    }
-
-    private static ComputationGraphConfiguration twoHiddenAndHintToBoth(CharIterator charIterator,
-                                                                             int labelsNum, int lstmLayerSize) {
-        return new NeuralNetConfiguration.Builder()
-                    .seed(SEED_12345)
-                    .l2(L2_REGULARIZATION_COEFFICIENT_0_00001)
-                    .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_01))
-                    .graphBuilder()
-                    
-                    .addInputs(INPUT_1, INPUT_2)
-    
-                    .addLayer(HIDDEN_1, new LSTM.Builder().nIn(charIterator.inputColumns() + 2).nOut(labelsNum)
-                        .activation(Activation.TANH).build(), INPUT_1, INPUT_2)
-
-                    .addLayer(HIDDEN_2, new LSTM.Builder().nIn(labelsNum + 2).nOut(labelsNum)
-                        .activation(Activation.TANH).build(), HIDDEN_1, INPUT_2)
-    
-                    .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
-                        .nIn(labelsNum * 2).nOut(labelsNum).build(), HIDDEN_1, HIDDEN_2)
-                    
-                    .setOutputs(LAYER_OUTPUT_3)
-                    
-                    .backpropType(BackpropType.TruncatedBPTT)
-                    .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .build();
-    }
-
-    private static ComputationGraphConfiguration twoHiddenAndHintToSecondHidden(CharIterator charIterator,
-                                                                             int labelsNum, int lstmLayerSize) {
-        return new NeuralNetConfiguration.Builder()
-                    .seed(SEED_12345)
-                    .l2(L2_REGULARIZATION_COEFFICIENT_0_00001)
-                    .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_01))
-                    .graphBuilder()
-                    
-                    .addInputs(INPUT_1, INPUT_2)
-    
-                    .addLayer(HIDDEN_1, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(labelsNum)
-                        .activation(Activation.TANH).build(), INPUT_1)
-
-                    .addVertex(MERGE_VERTEX, new MergeVertex(), HIDDEN_1, INPUT_2)
-
-                    .addLayer(HIDDEN_2, new LSTM.Builder().nIn(labelsNum + 2).nOut(labelsNum)
-                        .activation(Activation.TANH).build(), MERGE_VERTEX)
-    
-                    .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
-                        .nIn(labelsNum).nOut(labelsNum).build(), HIDDEN_2)
-                    
-                    .setOutputs(LAYER_OUTPUT_3)
-                    
-                    .backpropType(BackpropType.TruncatedBPTT)
-                    .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .build();
-    }
-
-    private static ComputationGraphConfiguration oneHiddenAndHintToOutput(CharIterator charIterator,
-                                                                             int labelsNum, int lstmLayerSize) {
-        return new NeuralNetConfiguration.Builder()
-                    .seed(SEED_12345)
-                    .l2(L2_REGULARIZATION_COEFFICIENT_0_00001)
-                    .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_01))
-                    .graphBuilder()
-                    
-                    .addInputs(INPUT_1, INPUT_2)
-    
-                    .addLayer(HIDDEN_2, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(ProbabilityLabel.values().length)
-                        .activation(Activation.TANH).build(), INPUT_1)
-
-                    .addVertex(MERGE_VERTEX, new MergeVertex(), HIDDEN_2, INPUT_2)
-    
-                    .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
-                        .nIn(ProbabilityLabel.values().length + 2).nOut(labelsNum).build(), MERGE_VERTEX)
-                    
-                    .setOutputs(LAYER_OUTPUT_3)
-                    
-                    .backpropType(BackpropType.TruncatedBPTT)
-                    .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .build();
-    }
-
-    private static ComputationGraphConfiguration inputInputMergeHiddenOutput(CharIterator charIterator,
-                                                                             int labelsNum, int lstmLayerSize) {
-        int hidden3out = lstmLayerSize / 2;
-        return new NeuralNetConfiguration.Builder()
-                    .seed(SEED_12345)
-                    .l2(L2_REGULARIZATION_COEFFICIENT_0_00001)
-                    .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_01))
-                    .graphBuilder()
-                    
-                    .addInputs(INPUT_1, INPUT_2)
-    
-                    .addLayer(HIDDEN_2, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(2)
-                        .activation(Activation.TANH).build(), INPUT_2)
-            
-                    .addVertex(MERGE_VERTEX, new MergeVertex(), INPUT_1, HIDDEN_2)
-
-                    .addLayer(HIDDEN_3, new LSTM.Builder().nIn(charIterator.inputColumns() + 2).nOut(hidden3out)
-                        .activation(Activation.TANH).build(), MERGE_VERTEX)
-    
-                    .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
-                        .nIn(hidden3out).nOut(labelsNum).build(), HIDDEN_3)
-                    
-                    .setOutputs(LAYER_OUTPUT_3)
-                    
-                    .backpropType(BackpropType.TruncatedBPTT)
-                    .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .build();
-    }
-
-    private static ComputationGraphConfiguration skipConnection(CharIterator charIterator,
-                                                                                      int nOut, int lstmLayerSize) {
-        return new NeuralNetConfiguration.Builder()
-            .seed(SEED_12345)
-            .l2(L2_REGULARIZATION_COEFFICIENT_0_00001)
-            .weightInit(WeightInit.XAVIER)
-            .updater(new Adam(LEARNING_RATE_0_01))
-            .graphBuilder()
-            .addInputs(INPUT_1, INPUT_2)
-            
-            .addLayer(LAYER_INPUT_1, new LSTM.Builder().nIn(charIterator.inputColumns() * 2).nOut(lstmLayerSize)
-                .activation(Activation.TANH).build(), INPUT_1, INPUT_2)
-            
-            .addLayer(LAYER_INPUT_2, new LSTM.Builder().nIn(lstmLayerSize).nOut(lstmLayerSize)
-                .activation(Activation.TANH).build(),LAYER_INPUT_1)
-            
-            .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT)
-                .activation(Activation.SOFTMAX)
-                .nIn(2*lstmLayerSize).nOut(nOut).build(), LAYER_INPUT_1, LAYER_INPUT_2)
-            .setOutputs(LAYER_OUTPUT_3)
-            .backpropType(BackpropType.TruncatedBPTT).tBPTTForwardLength(nOut).tBPTTBackwardLength(nOut)
-            .build();
-    }
-
-    private static ComputationGraphConfiguration createNetInputInput2MergeHiddenOutput(CharIterator charIterator,
-                                                                                      int nOut, int lstmLayerSize) {
-        return new NeuralNetConfiguration.Builder()
-                    .seed(SEED_12345)
-                    .l2(L2_REGULARIZATION_COEFFICIENT_0_00001)
-                    .weightInit(WeightInit.XAVIER)
-                    .updater(new Adam(LEARNING_RATE_0_01))
-                    .graphBuilder()
-                    
-                    .addInputs(INPUT_1, INPUT_2)
-                    
-                    .addLayer(LAYER_INPUT_1, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(lstmLayerSize)
-                        .activation(Activation.TANH).build(), INPUT_1)
-                    
-                    .addLayer(LAYER_INPUT_2, new LSTM.Builder().nIn(charIterator.inputColumns()).nOut(2)
-                        .activation(Activation.TANH).build(), INPUT_2)
-                            
-                    .addVertex(MERGE_VERTEX, new MergeVertex(), LAYER_INPUT_1, LAYER_INPUT_2)
-    
-                    .addLayer(HIDDEN_2, new LSTM.Builder().nIn(lstmLayerSize + 2).nOut(lstmLayerSize)
-                        .activation(Activation.TANH).build(), MERGE_VERTEX)
-    
-                    .addLayer(LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
-                        .nIn(lstmLayerSize).nOut(nOut).build(), HIDDEN_2)
-                    
-                    .setOutputs(LAYER_OUTPUT_3)
-                    
-                    .backpropType(BackpropType.TruncatedBPTT)
-                    .tBPTTForwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .tBPTTBackwardLength(CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
-                    .build();
     }
 
     private static int nextEpoch(ComputationGraph computationGraph, File networkFile, CharIterator charIterator,
@@ -445,7 +206,7 @@ public class LinesWithDateClassification {
         int overallCorrect = 0;
         int overallIncorrect = 0;
         int overallNotMarkedInPattern = 0;
-        for (String line : charIterator.readLinesFromFolder(resourcesPath, StandardCharsets.UTF_8, "../unlabeled/date")) {
+        for (String line : charIterator.readLinesFromFolder(resourcesPath, StandardCharsets.UTF_8, "unlabeled/date")) {
             if (line.trim().isEmpty()) {
                 continue;
             }

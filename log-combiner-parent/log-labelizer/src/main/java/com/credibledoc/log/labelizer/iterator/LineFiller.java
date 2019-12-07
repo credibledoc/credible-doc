@@ -45,20 +45,24 @@ class LineFiller {
     
     LineFiller(String resourceDirPath, Charset charset) {
         File dir = new File(resourceDirPath, WITHOUT_DATE_FOLDER);
-        Collection<File> files = FileUtils.listFiles(dir, null, false);
-        List<LogFileInputStream> inputStreams = new ArrayList<>();
-        for (File file : files) {
-            try {
-                inputStreams.add(new LogFileInputStream(file));
-            } catch (FileNotFoundException e) {
-                throw new LabelizerRuntimeException(e);
+        if (dir.exists()) {
+            Collection<File> files = FileUtils.listFiles(dir, null, false);
+            List<LogFileInputStream> inputStreams = new ArrayList<>();
+            for (File file : files) {
+                try {
+                    inputStreams.add(new LogFileInputStream(file));
+                } catch (FileNotFoundException e) {
+                    throw new LabelizerRuntimeException(e);
+                }
             }
+            Enumeration<LogFileInputStream> enumeration = Collections.enumeration(inputStreams);
+            LogConcatenatedInputStream logConcatenatedInputStream = new LogConcatenatedInputStream(enumeration);
+            LogInputStreamReader logInputStreamReader
+                = new LogInputStreamReader(logConcatenatedInputStream, charset);
+            logBufferedReader = new LogBufferedReader(logInputStreamReader);
+        } else {
+            hasNextInLogBufferedReader = false;
         }
-        Enumeration<LogFileInputStream> enumeration = Collections.enumeration(inputStreams);
-        LogConcatenatedInputStream logConcatenatedInputStream = new LogConcatenatedInputStream(enumeration);
-        LogInputStreamReader logInputStreamReader
-            = new LogInputStreamReader(logConcatenatedInputStream, charset);
-        logBufferedReader = new LogBufferedReader(logInputStreamReader);
     }
 
     /**

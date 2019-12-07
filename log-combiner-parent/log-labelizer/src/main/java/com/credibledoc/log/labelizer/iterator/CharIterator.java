@@ -41,7 +41,7 @@ import java.util.function.Consumer;
  * @author Kyrylo Semenko
  */
 public class CharIterator implements MultiDataSetIterator {
-    public static final String RESOURCES_DIR = "vectors/labeled";
+    public static final String RESOURCES_DIR = "vectors";
 
     private static final Logger logger = LoggerFactory.getLogger(CharIterator.class);
     private static final String NOT_IMPLEMENTED = "Not implemented";
@@ -146,7 +146,7 @@ public class CharIterator implements MultiDataSetIterator {
 
     @NotNull
     private static String getNationalCharsFromFile() throws IOException {
-        ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR + "/../" + NATIONAL_CHARS_TXT);
+        ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR + "/" + NATIONAL_CHARS_TXT);
         File file = resource.getFile();
         if (!file.exists()) {
             throw new LabelizerRuntimeException("File not found: '" + file.getAbsolutePath() + "'");
@@ -267,7 +267,7 @@ public class CharIterator implements MultiDataSetIterator {
                 return entry.getKey();
             }
         }
-        File charsFile = new File(resourcesDirPath + "/../", NEW_CHARS_TXT);
+        File charsFile = new File(resourcesDirPath + "/", NEW_CHARS_TXT);
         if (!charsFile.exists()) {
             try {
                 Files.createFile(charsFile.toPath());
