@@ -34,11 +34,11 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.028";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.029";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     static final int SEED_12345 = 12345;
     static final double LEARNING_RATE_0_01 = 0.01;
-    static final double L2_REGULARIZATION_COEFFICIENT_0_000001 = 0.000001;
+    static final double L2_REGULARIZATION_COEFFICIENT_0_00001 = 0.00001;
     static final String INPUT_1 = "INPUT_1";
     static final String LAYER_INPUT_1 = "LAYER_INPUT_1";
     static final String LAYER_INPUT_2 = "LAYER_INPUT_2";
@@ -63,7 +63,7 @@ public class LinesWithDateClassification {
     /**
      * Length for truncated back-propagation through time. The parameter updates ever N characters
      */
-    static final int CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME = EXAMPLE_LENGTH_120;
+    static final int CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME = 40;
 
     /**
      * The {@link #EXAMPLE_LENGTH_120} must to be divisible to these values.
@@ -73,7 +73,7 @@ public class LinesWithDateClassification {
     /**
      * Total number of training epochs.
      */
-    private static final int NUM_EPOCHS = 3;
+    private static final int NUM_EPOCHS = 1;
 
     public static void main(String[] args) throws Exception {
         ComputationGraph computationGraph = null;

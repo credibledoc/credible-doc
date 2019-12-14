@@ -26,7 +26,7 @@ public class ComputationGraphService {
                                                                                        int nOut, int lstmLayerSize) {
         return new NeuralNetConfiguration.Builder()
                     .seed(LinesWithDateClassification.SEED_12345)
-                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_000001)
+                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_00001)
                     .weightInit(WeightInit.XAVIER)
                     .updater(new Adam(LinesWithDateClassification.LEARNING_RATE_0_01))
                     .graphBuilder()
@@ -59,7 +59,7 @@ public class ComputationGraphService {
                                                                         int labelsNum, int lstmLayerSize) {
         return new NeuralNetConfiguration.Builder()
             .seed(LinesWithDateClassification.SEED_12345)
-            .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_000001)
+            .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_00001)
             .weightInit(WeightInit.XAVIER)
             .updater(new Adam(LinesWithDateClassification.LEARNING_RATE_0_01))
             .graphBuilder()
@@ -90,7 +90,7 @@ public class ComputationGraphService {
                                                                                           int labelsNum, int lstmLayerSize) {
         return new NeuralNetConfiguration.Builder()
             .seed(LinesWithDateClassification.SEED_12345)
-            .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_000001)
+            .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_00001)
             .weightInit(WeightInit.XAVIER)
             .updater(new Adam(LinesWithDateClassification.LEARNING_RATE_0_01))
             .graphBuilder()
@@ -120,7 +120,7 @@ public class ComputationGraphService {
                                                                 int labelsNum, int lstmLayerSize) {
         return new NeuralNetConfiguration.Builder()
                     .seed(LinesWithDateClassification.SEED_12345)
-                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_000001)
+                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_00001)
                     .weightInit(WeightInit.XAVIER)
                     .updater(new Adam(LinesWithDateClassification.LEARNING_RATE_0_01))
                     .graphBuilder()
@@ -148,7 +148,7 @@ public class ComputationGraphService {
                                                                                 int labelsNum, int lstmLayerSize) {
         return new NeuralNetConfiguration.Builder()
                     .seed(LinesWithDateClassification.SEED_12345)
-                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_000001)
+                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_00001)
                     .weightInit(WeightInit.XAVIER)
                     .updater(new Adam(LinesWithDateClassification.LEARNING_RATE_0_01))
                     .graphBuilder()
@@ -178,7 +178,7 @@ public class ComputationGraphService {
                                                                           int labelsNum, int lstmLayerSize) {
         return new NeuralNetConfiguration.Builder()
                     .seed(LinesWithDateClassification.SEED_12345)
-                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_000001)
+                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_00001)
                     .weightInit(WeightInit.XAVIER)
                     .updater(new Adam(LinesWithDateClassification.LEARNING_RATE_0_01))
                     .graphBuilder()
@@ -206,7 +206,7 @@ public class ComputationGraphService {
         int hidden3out = lstmLayerSize / 2;
         return new NeuralNetConfiguration.Builder()
                     .seed(LinesWithDateClassification.SEED_12345)
-                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_000001)
+                    .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_00001)
                     .weightInit(WeightInit.XAVIER)
                     .updater(new Adam(LinesWithDateClassification.LEARNING_RATE_0_01))
                     .graphBuilder()
@@ -236,7 +236,7 @@ public class ComputationGraphService {
                                                                 int nOut, int lstmLayerSize) {
         return new NeuralNetConfiguration.Builder()
             .seed(LinesWithDateClassification.SEED_12345)
-            .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_000001)
+            .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_00001)
             .weightInit(WeightInit.XAVIER)
             .updater(new Adam(LinesWithDateClassification.LEARNING_RATE_0_01))
             .graphBuilder()
