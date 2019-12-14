@@ -34,7 +34,7 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.029";
+    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.030";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     static final int SEED_12345 = 12345;
     static final double LEARNING_RATE_0_01 = 0.01;
@@ -45,6 +45,8 @@ public class LinesWithDateClassification {
     static final String HIDDEN_1 = "HIDDEN_1";
     static final String HIDDEN_2 = "HIDDEN_2";
     static final String HIDDEN_3 = "HIDDEN_3";
+    static final String HIDDEN_4 = "HIDDEN_4";
+    static final String HIDDEN_5 = "HIDDEN_5";
     static final String LAYER_OUTPUT_3 = "LAYER_OUTPUT_3";
     static final String MERGE_VERTEX = "MERGE_VERTEX";
     static final String INPUT_2 = "INPUT_2";
@@ -114,7 +116,7 @@ public class LinesWithDateClassification {
         //Set up network configuration:
         if (!isNetworkLoadedFromFile || continueTraining) {
             ComputationGraphConfiguration computationGraphConfiguration =
-                ComputationGraphService.twoHiddenAndHintToBoth(charIterator, labelsNum, halfOfInputColumns);
+                ComputationGraphService.encoderDecoder(charIterator, labelsNum, halfOfInputColumns);
 
             if (!continueTraining) {
                 computationGraph = new ComputationGraph(computationGraphConfiguration);

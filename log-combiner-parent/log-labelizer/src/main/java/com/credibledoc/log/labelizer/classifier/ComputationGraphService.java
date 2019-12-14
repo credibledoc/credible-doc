@@ -255,4 +255,39 @@ public class ComputationGraphService {
             .backpropType(BackpropType.TruncatedBPTT).tBPTTForwardLength(nOut).tBPTTBackwardLength(nOut)
             .build();
     }
+
+    static ComputationGraphConfiguration encoderDecoder(CharIterator charIterator, int labelsNum, int lstmLayerSize) {
+        return new NeuralNetConfiguration.Builder()
+            .seed(LinesWithDateClassification.SEED_12345)
+            .l2(LinesWithDateClassification.L2_REGULARIZATION_COEFFICIENT_0_00001)
+            .weightInit(WeightInit.XAVIER)
+            .updater(new Adam(LinesWithDateClassification.LEARNING_RATE_0_01))
+            .graphBuilder()
+
+            .addInputs(LinesWithDateClassification.INPUT_1, LinesWithDateClassification.INPUT_2)
+
+            .addLayer(LinesWithDateClassification.HIDDEN_2, new LSTM.Builder().nIn(2).nOut(2)
+                .activation(Activation.TANH).build(), LinesWithDateClassification.INPUT_2)
+
+            .addVertex(LinesWithDateClassification.MERGE_VERTEX, new MergeVertex(), LinesWithDateClassification.INPUT_1, LinesWithDateClassification.HIDDEN_2)
+
+            .addLayer(LinesWithDateClassification.HIDDEN_3, new LSTM.Builder().nIn(charIterator.inputColumns() + 2).nOut(5)
+                .activation(Activation.TANH).build(), LinesWithDateClassification.MERGE_VERTEX)
+
+            .addLayer(LinesWithDateClassification.HIDDEN_4, new LSTM.Builder().nIn(5).nOut(5)
+                .activation(Activation.TANH).build(), LinesWithDateClassification.HIDDEN_3)
+
+            .addLayer(LinesWithDateClassification.HIDDEN_5, new LSTM.Builder().nIn(5).nOut(100)
+                .activation(Activation.TANH).build(), LinesWithDateClassification.HIDDEN_4)
+
+            .addLayer(LinesWithDateClassification.LAYER_OUTPUT_3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT).activation(Activation.SOFTMAX)        //MCXENT + softmax for classification
+                .nIn(100).nOut(labelsNum).build(), LinesWithDateClassification.HIDDEN_5)
+
+            .setOutputs(LinesWithDateClassification.LAYER_OUTPUT_3)
+
+            .backpropType(BackpropType.TruncatedBPTT)
+            .tBPTTForwardLength(LinesWithDateClassification.CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
+            .tBPTTBackwardLength(LinesWithDateClassification.CHARS_NUM_BACK_PROPAGATION_THROUGH_TIME)
+            .build();
+    }
 }
