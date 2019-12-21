@@ -116,6 +116,7 @@
         <module>plantuml</module>
         <module>substitution</module>
         <module>credible-doc-generator</module>
+        <module>iso-8583-packer</module>
     </modules>
 
     <distributionManagement>
