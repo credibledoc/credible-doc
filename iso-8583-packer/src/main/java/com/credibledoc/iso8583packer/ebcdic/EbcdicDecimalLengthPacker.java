@@ -1,8 +1,10 @@
 package com.credibledoc.iso8583packer.ebcdic;
 
+import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.string.StringUtils;
-import com.credibledoc.iso8583packer.hex.HexService;
+
+import java.util.Arrays;
 
 /**
  * See examples in the {@link #pack(int, int)} and {@link #unpack(byte[], int, int)} methods description.
@@ -43,7 +45,8 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
      */
     @Override
     public int unpack(byte[] messageBytes, int offset, int lenLength) {
-        String hex = HexService.hexString(messageBytes, offset, lenLength);
+        byte[] lenBytes = Arrays.copyOfRange(messageBytes, offset, offset + lenLength);
+        String hex = HexService.hexString(lenBytes);
         String withoutF = hex.replace(FILLER_F, "");
         return Integer.parseInt(withoutF);
     }

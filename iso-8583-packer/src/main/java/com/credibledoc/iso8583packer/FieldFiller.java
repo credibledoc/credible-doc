@@ -5,7 +5,6 @@ import com.credibledoc.iso8583packer.bcd.BcdService;
 import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.body.BodyPacker;
 import com.credibledoc.iso8583packer.dump.DumpService;
-import com.credibledoc.iso8583packer.empty.EmptyTagPacker;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.header.HeaderField;
 import com.credibledoc.iso8583packer.header.HeaderValue;
@@ -220,9 +219,15 @@ public class FieldFiller {
     }
 
     private static void unpackBodyBytes(byte[] bytes, Offset offset, MsgPair msgPair, Integer rawDataLength) {
-        byte[] rawData = new byte[rawDataLength];
-        System.arraycopy(bytes, offset.getValue(), rawData, 0, rawData.length);
-        msgPair.getMsgValue().setBodyBytes(rawData);
+        try {
+            byte[] rawData = new byte[rawDataLength];
+            System.arraycopy(bytes, offset.getValue(), rawData, 0, rawData.length);
+            msgPair.getMsgValue().setBodyBytes(rawData);
+        } catch (Exception e) {
+            String path = NavigatorService.getPathRecursively(msgPair.getMsgField());
+            throw new PackerRuntimeException("Current MsgField: '" + path + "', offset: '" + offset.getValue() +
+                "', rawDataLength: '" + rawDataLength + "'", e);
+        }
     }
 
     private static MsgPair getNextEmptyMsgPairForValType(MsgPair msgPair) {
@@ -287,8 +292,8 @@ public class FieldFiller {
 
     private static Integer unpackTagNum(byte[] bytes, Offset offset, MsgPair msgPair, Integer fieldTagLength) {
         Integer tagNum;
-        TagPacker tagPacker = NavigatorService.getTagPackerFromParentOrThrowException(msgPair.getMsgField());
-        if (tagPacker instanceof EmptyTagPacker) {
+        TagPacker tagPacker = NavigatorService.getTagPackerFromParent(msgPair.getMsgField());
+        if (tagPacker == null) {
             tagNum = msgPair.getMsgField().getTagNum();
         } else {
             tagNum = tagPacker.unpack(bytes, offset.getValue(), fieldTagLength);
@@ -643,13 +648,13 @@ public class FieldFiller {
             headerValue.setTagBytes(new byte[0]);
             return;
         }
-        TagPacker tagPacker = NavigatorService.getTagPackerFromParentOrThrowException(msgField);
+        TagPacker tagPacker = NavigatorService.getTagPackerFromParent(msgField);
         byte[] tagBytes = tagPacker.pack(fieldNum, tagLength);
         headerValue.setTagBytes(tagBytes);
     }
 
     private static Integer getChildTagLengthFromParent(MsgField msgField) {
-        if (!MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
+        if (MsgFieldType.isNotTaggedType(msgField)) {
             return 0;
         }
         if (msgField.getParent() != null) {
@@ -928,7 +933,7 @@ public class FieldFiller {
                     " The property is used for packing field tagNum bytes. Field: " +
                     NavigatorService.getPathRecursively(msgField));
         }
-        TagPacker tagPacker = NavigatorService.getTagPackerFromParentOrThrowException(msgField);
+        TagPacker tagPacker = NavigatorService.getTagPackerFromParent(msgField);
         byte[] tagBytes = tagPacker.pack(tagNum, childTagLength);
         msgValue.getHeaderValue().setTagBytes(tagBytes);
     }

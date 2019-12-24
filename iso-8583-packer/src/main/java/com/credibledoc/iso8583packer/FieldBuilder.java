@@ -350,32 +350,41 @@ public class FieldBuilder {
     }
 
     public FieldBuilder defineParent(MsgField parentMsgField) {
-        if (parentMsgField == msgField.getParent()) {
-            logger.info("Parent field '" + NavigatorService.getPathRecursively(parentMsgField) +
+        try {
+            if (parentMsgField == msgField.getParent()) {
+                logger.info("Parent field '" + NavigatorService.getPathRecursively(parentMsgField) +
                     "' already set to the field '" + NavigatorService.getPathRecursively(msgField) +
                     "'. Skip the defineParent() method.");
-            return this;
-        }
-        if (parentMsgField.getChildTagLength() == null) {
-            throw new PackerRuntimeException("Field '" + NavigatorService.getPathRecursively(parentMsgField) +
-                    "' has no the ChildTagLength property defined. Please set the property.");
-        }
-        if (parentMsgField.getChildrenTagPacker() == null) {
-            throw new PackerRuntimeException("Field '" + NavigatorService.getPathRecursively(parentMsgField) +
-                    "' has no the ChildrenTagPacker property defined. Please set the property.");
-        }
-        if (parentMsgField.getChildrenLengthPacker() != null &&
+                return this;
+            }
+            if (parentMsgField.getChildTagLength() == null) {
+                throw new PackerRuntimeException("Field '" + NavigatorService.getPathRecursively(parentMsgField) +
+                    "' has no 'ChildTagLength' property defined. Please set the property.");
+            }
+            if (MsgFieldType.isTaggedType(msgField) && parentMsgField.getChildrenTagPacker() == null) {
+                throw new PackerRuntimeException("Field '" + NavigatorService.getPathRecursively(parentMsgField) +
+                    "' has no 'ChildrenTagPacker' property defined. Please set the property.");
+            }
+            if (parentMsgField.getChildrenLengthPacker() != null &&
                 msgField.getHeaderField() != null && msgField.getHeaderField().getLengthPacker() != null) {
-            throw new PackerRuntimeException(createMessageSameLengthPacker(parentMsgField, msgField));
+                throw new PackerRuntimeException(createMessageSameLengthPacker(parentMsgField, msgField));
+            }
+            this.msgField.setParent(parentMsgField);
+            List<MsgField> msgFields = parentMsgField.getChildren();
+            if (msgFields == null) {
+                msgFields = new ArrayList<>();
+                parentMsgField.setChildren(msgFields);
+            }
+            msgFields.add(msgField);
+            return this;
+        } catch (Exception e) {
+            MsgField root = NavigatorService.findRoot(msgField);
+            String path = NavigatorService.getPathRecursively(msgField);
+            throw new PackerRuntimeException("Exception in defineParent(parentMsgField) method, " +
+                "current msgField: '" + path + "', " +
+                "message:\n" + e.getMessage() + "\n" +
+                "Root MsgField:\n" + DumpService.dumpMsgField(root), e);
         }
-        this.msgField.setParent(parentMsgField);
-        List<MsgField> msgFields = parentMsgField.getChildren();
-        if (msgFields == null) {
-            msgFields = new ArrayList<>();
-            parentMsgField.setChildren(msgFields);
-        }
-        msgFields.add(msgField);
-        return this;
     }
 
     private static String createMessageSameLengthPacker(MsgField parent, MsgField child) {

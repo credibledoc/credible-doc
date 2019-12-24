@@ -43,6 +43,7 @@ public enum MsgFieldType {
      * length - Value. Similar to the {@link #LEN_VAL} type, but with {@link java.util.BitSet} in its parent
      * that defines sub-tags.
      */
+    // TODO Kyrylo Semenko - is it duplicates LEN_VAL?
     LEN_VAL_BIT_SET,
 
     /**
@@ -86,5 +87,19 @@ public enum MsgFieldType {
      */
     public static Collection<MsgFieldType> getLengthFirstTypes() {
         return lengthFirstTypes;
+    }
+
+    /**
+     * @return 'true' if the argument {@link MsgField#getType()} is not in the {@link #getTaggedTypes()} list.
+     */
+    public static boolean isNotTaggedType(MsgField msgField) {
+        return !getTaggedTypes().contains(msgField.getType());
+    }
+
+    /**
+     * @return 'true' if the {@link #getTaggedTypes()} list contains the argument {@link MsgField#getType()}.
+     */
+    public static boolean isTaggedType(MsgField msgField) {
+        return getTaggedTypes().contains(msgField.getType());
     }
 }

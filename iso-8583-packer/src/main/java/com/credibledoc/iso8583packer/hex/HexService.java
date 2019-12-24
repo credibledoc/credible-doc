@@ -72,16 +72,4 @@ public class HexService {
         }
     }
 
-    public static String hexString(byte[] array, int i, int len) {
-        StringBuilder sb = new StringBuilder(len * 2);
-
-        for(int x = i; x < len + i; ++x) {
-            int nibble1 = (array[x] & 240) / 16;
-            sb.append(hexStrings[nibble1]);
-            int nibble2 = array[x] & 15;
-            sb.append(hexStrings[nibble2]);
-        }
-
-        return sb.toString();
-    }
 }

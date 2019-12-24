@@ -19,8 +19,7 @@ public class FieldBuilderTest {
     public void builder() {
         FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.BIT_SET)
             .defineName("root")
-            .defineHeaderBitMapPacker(IfbBitmapPacker.L8)
-            ;
+            .defineHeaderBitMapPacker(IfbBitmapPacker.L8);
         
         MsgField root = fieldBuilder.getCurrentField();
         
@@ -29,8 +28,7 @@ public class FieldBuilderTest {
             .defineTagNum(2)
             .defineName(PAN_02_NAME)
             .defineBodyPacker(BcdBodyPacker.RIGHT_PADDED_F)
-            .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.LL)
-            ;
+            .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.LL);
         
         fieldBuilder.validateStructure();
 

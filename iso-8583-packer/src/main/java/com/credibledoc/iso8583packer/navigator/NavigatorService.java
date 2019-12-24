@@ -1,9 +1,6 @@
 package com.credibledoc.iso8583packer.navigator;
 
-import com.credibledoc.iso8583packer.message.Msg;
-import com.credibledoc.iso8583packer.message.MsgField;
-import com.credibledoc.iso8583packer.message.MsgPair;
-import com.credibledoc.iso8583packer.message.MsgValue;
+import com.credibledoc.iso8583packer.message.*;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 
@@ -117,7 +114,10 @@ public class NavigatorService {
         return (T)findRoot(msg.getParent());
     }
 
-    public static TagPacker getTagPackerFromParentOrThrowException(MsgField msgField) {
+    public static TagPacker getTagPackerFromParent(MsgField msgField) {
+        if (MsgFieldType.isNotTaggedType(msgField)) {
+            return null;
+        }
         if (msgField.getParent() != null) {
             return msgField.getParent().getChildrenTagPacker();
         }
