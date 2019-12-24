@@ -34,7 +34,7 @@ import java.util.List;
 
 public class LinesWithDateClassification {
     private static final Logger logger = LoggerFactory.getLogger(LinesWithDateClassification.class);
-    private static final String MULTILAYER_NETWORK_VECTORS = "network/LinesWithDateClassification.vectors.030";
+    private static final String MULTILAYER_NETWORK_VECTORS = "../../../network/LinesWithDateClassification.vectors.030";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     static final int SEED_12345 = 12345;
     static final double LEARNING_RATE_0_01 = 0.01;
