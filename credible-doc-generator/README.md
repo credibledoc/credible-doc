@@ -20,7 +20,7 @@ Change the directory
     
 Launch the application
 
-    java -jar credible-doc-generator/target/credible-doc-generator-1.0.11-SNAPSHOT.jar
+    java -jar credible-doc-generator/target/credible-doc-generator-1.0.12-SNAPSHOT.jar
 
 As a result, the `credible-doc/target/generated/markdown/` folder with new sub-folders and files are generated.
 
@@ -38,6 +38,7 @@ This documentation is generated from these templates:
 * [/template/markdown/credible-doc-generator/doc/diagrams.md](src/main/resources/template/markdown/credible-doc-generator/doc/diagrams.md)
 * [/template/markdown/credible-doc-generator/README.md](src/main/resources/template/markdown/credible-doc-generator/README.md)
 * [/template/markdown/doc/release.md](src/main/resources/template/markdown/doc/release.md)
+* [/template/markdown/iso-8583-packer/README.md](src/main/resources/template/markdown/iso-8583-packer/README.md)
 * [/template/markdown/log-combiner-parent/log-combiner/doc/usage/programmatically.md](src/main/resources/template/markdown/log-combiner-parent/log-combiner/doc/usage/programmatically.md)
 * [/template/markdown/log-combiner-parent/log-combiner/README.md](src/main/resources/template/markdown/log-combiner-parent/log-combiner/README.md)
 * [/template/markdown/log-combiner-parent/log-combiner-core/doc/usage.md](src/main/resources/template/markdown/log-combiner-parent/log-combiner-core/doc/usage.md)

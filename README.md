@@ -4,6 +4,7 @@ and maintaining of documents based on generated content.
 
 This repository contains the next main modules
 * [credible-doc-generator](credible-doc-generator/README.md) - generates this documentation
+* [iso-8583-packer](iso-8583-packer/README.md) - a simple utility for creation, packing and unpacking ISO 8583 messages
 * [log-combiner-parent](log-combiner-parent/README.md) - allows to combine (merge) log files
 with different format of lines timestamps to a single file or readable source with lines sorted by timestamps
 * [plantuml-parent](plantuml/README.md) - contains utilities for generation of plantUML diagrams

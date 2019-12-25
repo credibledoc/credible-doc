@@ -15,7 +15,7 @@
     <name>${project.groupId}:${project.artifactId}</name>
 
     <description>
-        Helps define message structure in ISO 8583 and other formats.
+        Helps to define message structure in ISO 8583 and other formats.
     </description>
     
     <url>https://github.com/credibledoc/credible-doc/tree/master/iso-8583-packer</url>
