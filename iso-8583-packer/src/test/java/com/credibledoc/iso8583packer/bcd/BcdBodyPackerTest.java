@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class BcdBodyPackerTest {
 
-    private FieldBuilder beforeTest() {
+    private FieldBuilder fixedLengthBcd() {
         return FieldBuilder.builder(MsgFieldType.VAL)
             .defineLen(2)
             .defineBodyPacker(BcdBodyPacker.LEFT_PADDED_0);
@@ -21,7 +21,7 @@ public class BcdBodyPackerTest {
     public void pack() {
         String value = "123";
 
-        FieldBuilder fieldBuilder = beforeTest();
+        FieldBuilder fieldBuilder = fixedLengthBcd();
 
         fieldBuilder.validateStructure();
         
@@ -38,7 +38,7 @@ public class BcdBodyPackerTest {
     public void unpack() {
         String packedValue = "0123";
 
-        FieldBuilder fieldBuilder = beforeTest();
+        FieldBuilder fieldBuilder = fixedLengthBcd();
 
         fieldBuilder.validateStructure();
         

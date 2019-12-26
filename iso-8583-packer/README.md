@@ -25,3 +25,15 @@ Example of Maven configuration in a `pom.xml` file
         </dependencies>
     
     </project>
+
+## Examples
+
+### Fixed - length value without tag
+
+```Java
+    private FieldBuilder fixedLengthBcd() {
+        return FieldBuilder.builder(MsgFieldType.VAL)
+            .defineLen(2)
+            .defineBodyPacker(BcdBodyPacker.LEFT_PADDED_0);
+    }
+```

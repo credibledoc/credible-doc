@@ -39,3 +39,20 @@ Example of Maven configuration in a `pom.xml` file
         </dependencies>
     
     </project>
+
+## Examples
+
+### Fixed - length value without tag
+
+```Java
+&&beginPlaceholder {
+                        "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+                        "description": "Example of fixed length BCD value",
+                        "parameters": {
+                            "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
+                            "beginString": "    private FieldBuilder fixedLengthBcd() {",
+                            "endString": "    }",
+                            "indentation": ""
+                        }
+                 } &&endPlaceholder
+```
