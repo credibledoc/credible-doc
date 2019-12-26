@@ -20,7 +20,7 @@ public class LogMessageService {
     public static final String FOUR_SPACES = "    ";
     private static final String WORDS_SEPARATOR = " ";
     private static final String BACKWARD_SLASH = "\\";
-    private static final List<String> FORBIDDEN_SUFFIXES = Arrays.asList("~;", "//", "/");
+    private static final List<String> FORBIDDEN_SUFFIXES = Arrays.asList("~;", "//", "/", "[]");
 
     /**
      * Parse a message from a log line and split it to rows.
