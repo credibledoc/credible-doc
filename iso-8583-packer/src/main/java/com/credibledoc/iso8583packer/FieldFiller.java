@@ -1016,4 +1016,12 @@ public class FieldFiller {
         }
     }
 
+    /**
+     * @param type expected type of returned value
+     * @param <T> expected type of returned value
+     * @return The {@link MsgValue#getBodyValue()} casted to T type
+     */
+    public <T> T getBodyValue(Class<T> type) {
+        return type.cast(msgValue.getBodyValue());
+    }
 }

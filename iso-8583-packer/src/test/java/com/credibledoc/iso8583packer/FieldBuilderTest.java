@@ -15,8 +15,12 @@ public class FieldBuilderTest {
 
     private static final String PAN_02_NAME = "PAN_02";
 
+    /**
+     * Used in documentation
+     */
     @Test
     public void builder() {
+        // definition
         FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.BIT_SET)
             .defineName("root")
             .defineHeaderBitMapPacker(IfbBitmapPacker.L16);
@@ -32,10 +36,12 @@ public class FieldBuilderTest {
         
         fieldBuilder.validateStructure();
 
+        // filling with data
         String pan = "123456781234567";
         FieldFiller fieldFiller = FieldFiller.from(root)
             .jumpToChild(PAN_02_NAME).setValue(pan);
         
+        // packing
         byte[] bytes = fieldFiller.jumpToRoot().pack();
         String expectedBitmapHex = "4000000000000000";
         String expectedLengthHex = "F0F8";
@@ -46,6 +52,16 @@ public class FieldBuilderTest {
         // unpacking
         MsgValue msgValue = FieldFiller.unpack(bytes, 0, root);
         assertEquals(1, msgValue.getChildren().size());
-        assertEquals(pan, msgValue.getChildren().get(0).getBodyValue());
+        
+        // data browsing
+        Object unpackedPan = msgValue.getChildren().get(0).getBodyValue();
+        assertEquals(pan, unpackedPan);
+        
+        // another approach of data browsing
+        FieldFiller filler = FieldFiller.get(msgValue, root);
+        String unpackedPanString = filler
+            .jumpToChild(PAN_02_NAME)
+            .getBodyValue(String.class);
+        assertEquals(pan, unpackedPanString);
     }
 }
