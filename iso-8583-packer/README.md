@@ -30,10 +30,42 @@ Example of Maven configuration in a `pom.xml` file
 
 ### Fixed - length value without tag
 
+The code below will create a new instance of the `FieldBuilder` with a single field.
+The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binary-coded_decimal) format.
+
 ```Java
-    private FieldBuilder fixedLengthBcd() {
-        return FieldBuilder.builder(MsgFieldType.VAL)
-            .defineLen(2)
-            .defineBodyPacker(BcdBodyPacker.LEFT_PADDED_0);
-    }
+            FieldBuilder.builder(MsgFieldType.VAL)
+                .defineLen(2)
+                .defineBodyPacker(BcdBodyPacker.LEFT_PADDED_0);
 ```
+
+The field can be filled with data
+```Java
+            String value = "123";
+            FieldFiller fieldFiller =
+                FieldFiller.from(fieldBuilder.getCurrentField())
+                .setValue(value);
+```
+
+The filled object can be packed to bytes
+```Java
+            byte[] valueBytes = fieldFiller.pack();
+            String bytesHex = HexService.hexString(valueBytes);
+            assertEquals("0123", bytesHex);
+```
+
+The defined MsgField can be used for unpacking from bytes to an object
+```Java
+            String packedHex = "0456";
+            byte[] packedBytes = HexService.hex2byte(packedHex);
+            
+            MsgValue msgValue =
+                FieldFiller.from(fieldBuilder.getCurrentField())
+                .unpack(packedBytes);
+            String unpackedValue = (String) msgValue.getBodyValue();
+    
+            String expectedValue = "456";
+            assertEquals(expectedValue, unpackedValue);
+```
+
+You can find the complete example here: [BcdBodyPackerTest](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java)

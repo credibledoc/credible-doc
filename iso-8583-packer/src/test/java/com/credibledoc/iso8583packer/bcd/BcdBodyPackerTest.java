@@ -11,42 +11,54 @@ import static org.junit.Assert.assertEquals;
 
 public class BcdBodyPackerTest {
 
+    /**
+     * Used in documentation
+     */
     private FieldBuilder fixedLengthBcd() {
-        return FieldBuilder.builder(MsgFieldType.VAL)
-            .defineLen(2)
-            .defineBodyPacker(BcdBodyPacker.LEFT_PADDED_0);
+        return
+            FieldBuilder.builder(MsgFieldType.VAL)
+                .defineLen(2)
+                .defineBodyPacker(BcdBodyPacker.LEFT_PADDED_0);
     }
 
+    /**
+     * Used in documentation
+     */
     @Test
     public void pack() {
-        String value = "123";
-
         FieldBuilder fieldBuilder = fixedLengthBcd();
-
         fieldBuilder.validateStructure();
-        
-        FieldFiller fieldFiller = FieldFiller.from(fieldBuilder.getCurrentField())
+
+        String value = "123";
+        FieldFiller fieldFiller =
+            FieldFiller.from(fieldBuilder.getCurrentField())
             .setValue(value);
         
         fieldFiller.validateData();
 
         byte[] valueBytes = fieldFiller.pack();
-        assertEquals("0123", HexService.hexString(valueBytes));
+        String bytesHex = HexService.hexString(valueBytes);
+        assertEquals("0123", bytesHex);
     }
 
+    /**
+     * Used in documentation
+     */
     @Test
     public void unpack() {
-        String packedValue = "0123";
-
         FieldBuilder fieldBuilder = fixedLengthBcd();
 
         fieldBuilder.validateStructure();
-        
-        MsgValue msgValue = FieldFiller.from(fieldBuilder.getCurrentField())
-            .unpack(HexService.hex2byte(packedValue));
 
-        String expectedValue = "123";
+        String packedHex = "0456";
+        byte[] packedBytes = HexService.hex2byte(packedHex);
+        
+        MsgValue msgValue =
+            FieldFiller.from(fieldBuilder.getCurrentField())
+            .unpack(packedBytes);
         String unpackedValue = (String) msgValue.getBodyValue();
+
+        String expectedValue = "456";
         assertEquals(expectedValue, unpackedValue);
     }
 }

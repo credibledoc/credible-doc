@@ -81,7 +81,7 @@ public class DumpService {
     /**
      * Print out field to printStream, for example
      * <pre>{@code
-     *   // TODO Kyrylo Semenko - example
+     *   <f type="VAL" valuePacker="BcdBodyPacker" len="2"/>
      * }</pre>
      * @param msgField to be printed out
      * @param printStream to be filled out with field properties
@@ -98,9 +98,9 @@ public class DumpService {
             indentForChildren = "    ";
         }
 
-        String numString = " num=\"" + msgField.getTagNum() + "\"";
+        String tagNumString = msgField.getTagNum() == null ? "" : " tagNum=\"" + msgField.getTagNum() + "\"";
         
-        String nameString = " name=\"" + msgField.getName() + "\"";
+        String nameString = msgField.getName() == null ? "" : " name=\"" + msgField.getName() + "\"";
         
         BitSet bitSet = null;
         LengthPacker lengthPacker = null;
@@ -128,7 +128,7 @@ public class DumpService {
 
         String typeString = " type=\"" + msgField.getType() + "\"";
         
-        printStream.print(indent + "<f" + typeString + numString + nameString + bitSetString + lengthPackerString +
+        printStream.print(indent + "<f" + typeString + tagNumString + nameString + bitSetString + lengthPackerString +
                 isoBitMapPackerString + interpreterString +
                 maxLenString + lenString + childTagLenString + childTagPackerString);
         
@@ -229,12 +229,12 @@ public class DumpService {
         if (msgField != null) {
             valueString = getValueString(msgValue, maskPrivateData, masker, msgField.getStringer());
         } else {
-            valueString = getValueString(msgValue, maskPrivateData, masker, StringStringer.INSTANCE);
+            valueString = getValueString(msgValue, false, null, StringStringer.INSTANCE);
         }
 
-        String numString = " num=\"" + msgValue.getTagNum() + "\"";
+        String tagNumString = msgValue.getTagNum() == null ? "" : " tagNum=\"" + msgValue.getTagNum() + "\"";
 
-        String nameString = " name=\"" + msgValue.getName() + "\"";
+        String nameString = msgValue.getName() == null ? "" : " name=\"" + msgValue.getName() + "\"";
 
         final HeaderValue headerValue = msgValue.getHeaderValue();
         
@@ -244,7 +244,7 @@ public class DumpService {
 
         String content;
 
-        String numNameValue = nameString + numString + valueString;
+        String numNameValue = nameString + tagNumString + valueString;
         
         if (msgField != null) {
             switch (msgField.getType()) {

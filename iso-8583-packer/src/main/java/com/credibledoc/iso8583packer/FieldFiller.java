@@ -36,6 +36,7 @@ public class FieldFiller {
     private static final int INITIAL_SIZE_100_BYTES = 100;
     private static final String PARTIAL_DUMP = "\nPartial dump:\n";
     private static final String ROOT_MSG_FIELD = "\nRoot MsgField:\n";
+    private static final String THE_MSG_FIELD = "The MsgField '";
 
     /**
      * The builder state. Contains an object created from the {@link #msgField} template. This field will be a part
@@ -558,7 +559,7 @@ public class FieldFiller {
             MsgValue rootMsgValue = NavigatorService.findRoot(msgValue);
             MsgField rootMsgField = NavigatorService.findRoot(msgField);
             throw new PackerRuntimeException("Exception message: " + e.getMessage() + "\nCannot set bodyValue '" + bodyValue +
-                    "' to field '" + NavigatorService.getPathRecursively(msgValue) + "'" +
+                    "' to field '" + NavigatorService.getPathRecursively(msgField) + "'" +
                     "\nRoot MsgValue:\n" + DumpService.dumpMsgValue(rootMsgField, rootMsgValue, true) +
                     "\nThe MsgField:\n" + DumpService.dumpMsgField(msgField) +
                 ROOT_MSG_FIELD + DumpService.dumpMsgField(rootMsgField), e);
@@ -580,16 +581,23 @@ public class FieldFiller {
 
         Integer exactlyLength = msgField.getExactlyLength();
         if (exactlyLength != null && bodyLength != exactlyLength) {
-            throw new PackerRuntimeException("This MsgField '" + NavigatorService.getPathRecursively(msgField) +
-                    "' contains the exactlyLength definition with bodyValue '" + exactlyLength +
-                    "', but this bodyValue length '" + bodyLength + "' is not the same.");
+            throw new PackerRuntimeException(THE_MSG_FIELD + NavigatorService.getPathRecursively(msgField) +
+                    "' contains the 'exactlyLength' definition with value '" + exactlyLength +
+                    "', but the bodyValue length '" + bodyLength + "' is not the same.");
         }
 
         Integer maxLen = msgField.getMaxLen();
         if (maxLen != null && maxLen < bodyLength) {
-            throw new PackerRuntimeException("This MsgField '" + NavigatorService.getPathRecursively(msgField) +
-                    "' contains the maxLen definition with bodyValue '" + maxLen +
-                    "', but this bodyValue length '" + bodyLength + "' is greater.");
+            throw new PackerRuntimeException(THE_MSG_FIELD + NavigatorService.getPathRecursively(msgField) +
+                    "' contains the 'maxLen' definition with value '" + maxLen +
+                    "', but its bodyValue length '" + bodyLength + "' is greater.");
+        }
+        
+        Integer len = msgField.getLen();
+        if (len != null && bodyLength != len) {
+            throw new PackerRuntimeException(THE_MSG_FIELD + NavigatorService.getPathRecursively(msgField) +
+                "' contains the 'len' definition with value '" + len +
+                "', but its bodyValue length '" + bodyLength + "' is different.");
         }
         
         bodyBytes = new byte[bodyLength];

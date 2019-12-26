@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1129px" preserveAspectRatio="none" style="width:990px;height:1129px;" version="1.1" viewBox="0 0 990 1129" width="990px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="536px" preserveAspectRatio="none" style="width:990px;height:536px;" version="1.1" viewBox="0 0 990 536" width="990px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="f1meqn4200pka4" width="300%" x="-1" y="-1">
+    <filter height="300%" id="f1w4pi0k5zzzpn" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,101 +8,49 @@
     </filter>
   </defs>
   <g>
-    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#f1meqn4200pka4)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
+    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#f1w4pi0k5zzzpn)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#f1w4pi0k5zzzpn)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="20" y="72.457">Application credible-doc-generator launched.</text>
-    <path d="M259.5,109.4648 L259.5,118.6406 L239.5,122.6406 L259.5,126.6406 L259.5,135.8164 A0,0 0 0 0 259.5,135.8164 L924.5,135.8164 A0,0 0 0 0 924.5,135.8164 L924.5,119.4648 L914.5,109.4648 L259.5,109.4648 A0,0 0 0 0 259.5,109.4648 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M259.5,109.4648 L259.5,118.6406 L239.5,122.6406 L259.5,126.6406 L259.5,135.8164 A0,0 0 0 0 259.5,135.8164 L924.5,135.8164 A0,0 0 0 0 924.5,135.8164 L924.5,119.4648 L914.5,109.4648 L259.5,109.4648 A0,0 0 0 0 259.5,109.4648 " fill="#FBFB77" filter="url(#f1w4pi0k5zzzpn)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M914.5,109.4648 L914.5,119.4648 L924.5,119.4648 L914.5,109.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="644" x="265.5" y="127.96">file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="105.0938"/>
+    <rect fill="#FEFECE" filter="url(#f1w4pi0k5zzzpn)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="105.0938"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="55.5" y="127.5508">Configuration properties loaded</text>
-    <path d="M222.5,164.5586 L222.5,173.7344 L202.5,177.7344 L222.5,181.7344 L222.5,190.9102 A0,0 0 0 0 222.5,190.9102 L685.5,190.9102 A0,0 0 0 0 685.5,190.9102 L685.5,174.5586 L675.5,164.5586 L222.5,164.5586 A0,0 0 0 0 222.5,164.5586 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,164.5586 L222.5,173.7344 L202.5,177.7344 L222.5,181.7344 L222.5,190.9102 A0,0 0 0 0 222.5,190.9102 L685.5,190.9102 A0,0 0 0 0 685.5,190.9102 L685.5,174.5586 L675.5,164.5586 L222.5,164.5586 A0,0 0 0 0 222.5,164.5586 " fill="#FBFB77" filter="url(#f1w4pi0k5zzzpn)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M675.5,164.5586 L675.5,174.5586 L685.5,174.5586 L675.5,164.5586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="442" x="228.5" y="183.0537">Diagram of the application launching created from credible-doc-generator.log.</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="160.1875"/>
+    <rect fill="#FEFECE" filter="url(#f1w4pi0k5zzzpn)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="160.1875"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="182.6445">Content replaced.</text>
-    <path d="M222.5,219.6523 L222.5,228.8281 L202.5,232.8281 L222.5,236.8281 L222.5,246.0039 A0,0 0 0 0 222.5,246.0039 L699.5,246.0039 A0,0 0 0 0 699.5,246.0039 L699.5,229.6523 L689.5,219.6523 L222.5,219.6523 A0,0 0 0 0 222.5,219.6523 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,219.6523 L222.5,228.8281 L202.5,232.8281 L222.5,236.8281 L222.5,246.0039 A0,0 0 0 0 222.5,246.0039 L699.5,246.0039 A0,0 0 0 0 699.5,246.0039 L699.5,229.6523 L689.5,219.6523 L222.5,219.6523 A0,0 0 0 0 222.5,219.6523 " fill="#FBFB77" filter="url(#f1w4pi0k5zzzpn)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M689.5,219.6523 L689.5,229.6523 L699.5,229.6523 L689.5,219.6523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="456" x="228.5" y="238.1475">Diagram of the application launching created from credible-doc-generator_1.log.</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="215.2813"/>
+    <rect fill="#FEFECE" filter="url(#f1w4pi0k5zzzpn)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="215.2813"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="237.7383">Content replaced.</text>
-    <path d="M222.5,274.7461 L222.5,283.9219 L202.5,287.9219 L222.5,291.9219 L222.5,301.0977 A0,0 0 0 0 222.5,301.0977 L507.5,301.0977 A0,0 0 0 0 507.5,301.0977 L507.5,284.7461 L497.5,274.7461 L222.5,274.7461 A0,0 0 0 0 222.5,274.7461 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,274.7461 L222.5,283.9219 L202.5,287.9219 L222.5,291.9219 L222.5,301.0977 A0,0 0 0 0 222.5,301.0977 L507.5,301.0977 A0,0 0 0 0 507.5,301.0977 L507.5,284.7461 L497.5,274.7461 L222.5,274.7461 A0,0 0 0 0 222.5,274.7461 " fill="#FBFB77" filter="url(#f1w4pi0k5zzzpn)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M497.5,274.7461 L497.5,284.7461 L507.5,284.7461 L497.5,274.7461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="264" x="228.5" y="293.2412">Diagram of the previous application launching.</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="270.375"/>
+    <rect fill="#FEFECE" filter="url(#f1w4pi0k5zzzpn)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="270.375"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="292.832">Content replaced.</text>
-    <path d="M222.5,329.8398 L222.5,339.0156 L202.5,343.0156 L222.5,347.0156 L222.5,356.1914 A0,0 0 0 0 222.5,356.1914 L766.5,356.1914 A0,0 0 0 0 766.5,356.1914 L766.5,339.8398 L756.5,329.8398 L222.5,329.8398 A0,0 0 0 0 222.5,329.8398 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,329.8398 L222.5,339.0156 L202.5,343.0156 L222.5,347.0156 L222.5,356.1914 A0,0 0 0 0 222.5,356.1914 L766.5,356.1914 A0,0 0 0 0 766.5,356.1914 L766.5,339.8398 L756.5,329.8398 L222.5,329.8398 A0,0 0 0 0 222.5,329.8398 " fill="#FBFB77" filter="url(#f1w4pi0k5zzzpn)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M756.5,329.8398 L756.5,339.8398 L766.5,339.8398 L756.5,329.8398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="523" x="228.5" y="348.335">Credibledoc modules - based activity diagram generated from credible-doc-generator_1.log.</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="325.4688"/>
+    <rect fill="#FEFECE" filter="url(#f1w4pi0k5zzzpn)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="325.4688"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="347.9258">Content replaced.</text>
-    <path d="M222.5,384.9336 L222.5,394.1094 L202.5,398.1094 L222.5,402.1094 L222.5,411.2852 A0,0 0 0 0 222.5,411.2852 L978.5,411.2852 A0,0 0 0 0 978.5,411.2852 L978.5,394.9336 L968.5,384.9336 L222.5,384.9336 A0,0 0 0 0 222.5,384.9336 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,384.9336 L222.5,394.1094 L202.5,398.1094 L222.5,402.1094 L222.5,411.2852 A0,0 0 0 0 222.5,411.2852 L978.5,411.2852 A0,0 0 0 0 978.5,411.2852 L978.5,394.9336 L968.5,384.9336 L222.5,384.9336 A0,0 0 0 0 222.5,384.9336 " fill="#FBFB77" filter="url(#f1w4pi0k5zzzpn)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M968.5,384.9336 L968.5,394.9336 L978.5,394.9336 L968.5,384.9336 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="735" x="228.5" y="403.4287">Dependency of the `com.credibledoc.substitution.doc` package on other classes in the `com.credibledoc.substitution` package.</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="380.5625"/>
+    <rect fill="#FEFECE" filter="url(#f1w4pi0k5zzzpn)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="380.5625"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="403.0195">Content replaced.</text>
-    <path d="M222.5,440.0273 L222.5,449.2031 L202.5,453.2031 L222.5,457.2031 L222.5,466.3789 A0,0 0 0 0 222.5,466.3789 L544.5,466.3789 A0,0 0 0 0 544.5,466.3789 L544.5,450.0273 L534.5,440.0273 L222.5,440.0273 A0,0 0 0 0 222.5,440.0273 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,440.0273 L222.5,449.2031 L202.5,453.2031 L222.5,457.2031 L222.5,466.3789 A0,0 0 0 0 222.5,466.3789 L544.5,466.3789 A0,0 0 0 0 544.5,466.3789 L544.5,450.0273 L534.5,440.0273 L222.5,440.0273 A0,0 0 0 0 222.5,440.0273 " fill="#FBFB77" filter="url(#f1w4pi0k5zzzpn)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M534.5,440.0273 L534.5,450.0273 L544.5,450.0273 L534.5,440.0273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="301" x="228.5" y="458.5225">Current name of the credible-doc-generator-X.X.X.jar.</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="435.6563"/>
+    <rect fill="#FEFECE" filter="url(#f1w4pi0k5zzzpn)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="435.6563"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="458.1133">Content replaced.</text>
-    <path d="M222.5,495.1211 L222.5,504.2969 L202.5,508.2969 L222.5,512.2969 L222.5,521.4727 A0,0 0 0 0 222.5,521.4727 L666.5,521.4727 A0,0 0 0 0 666.5,521.4727 L666.5,505.1211 L656.5,495.1211 L222.5,495.1211 A0,0 0 0 0 222.5,495.1211 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,495.1211 L222.5,504.2969 L202.5,508.2969 L222.5,512.2969 L222.5,521.4727 A0,0 0 0 0 222.5,521.4727 L666.5,521.4727 A0,0 0 0 0 666.5,521.4727 L666.5,505.1211 L656.5,495.1211 L222.5,495.1211 A0,0 0 0 0 222.5,495.1211 " fill="#FBFB77" filter="url(#f1w4pi0k5zzzpn)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M656.5,495.1211 L656.5,505.1211 L666.5,505.1211 L656.5,495.1211 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="423" x="228.5" y="513.6162">List of resources from classpath of the credible-doc-generator application.</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="490.75"/>
+    <rect fill="#FEFECE" filter="url(#f1w4pi0k5zzzpn)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="490.75"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="513.207">Content replaced.</text>
-    <path d="M222.5,550.2148 L222.5,559.3906 L202.5,563.3906 L222.5,567.3906 L222.5,576.5664 A0,0 0 0 0 222.5,576.5664 L431.5,576.5664 A0,0 0 0 0 431.5,576.5664 L431.5,560.2148 L421.5,550.2148 L222.5,550.2148 A0,0 0 0 0 222.5,550.2148 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,550.2148 L421.5,560.2148 L431.5,560.2148 L421.5,550.2148 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="568.71">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="545.8438"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="568.3008">Content replaced.</text>
-    <path d="M222.5,605.3086 L222.5,614.4844 L202.5,618.4844 L222.5,622.4844 L222.5,631.6602 A0,0 0 0 0 222.5,631.6602 L431.5,631.6602 A0,0 0 0 0 431.5,631.6602 L431.5,615.3086 L421.5,605.3086 L222.5,605.3086 A0,0 0 0 0 222.5,605.3086 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,605.3086 L421.5,615.3086 L431.5,615.3086 L421.5,605.3086 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="623.8037">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="600.9375"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="623.3945">Content replaced.</text>
-    <path d="M222.5,660.4023 L222.5,669.5781 L202.5,673.5781 L222.5,677.5781 L222.5,686.7539 A0,0 0 0 0 222.5,686.7539 L431.5,686.7539 A0,0 0 0 0 431.5,686.7539 L431.5,670.4023 L421.5,660.4023 L222.5,660.4023 A0,0 0 0 0 222.5,660.4023 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,660.4023 L421.5,670.4023 L431.5,670.4023 L421.5,660.4023 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="678.8975">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="656.0313"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="678.4883">Content replaced.</text>
-    <path d="M222.5,715.4961 L222.5,724.6719 L202.5,728.6719 L222.5,732.6719 L222.5,741.8477 A0,0 0 0 0 222.5,741.8477 L431.5,741.8477 A0,0 0 0 0 431.5,741.8477 L431.5,725.4961 L421.5,715.4961 L222.5,715.4961 A0,0 0 0 0 222.5,715.4961 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,715.4961 L421.5,725.4961 L431.5,725.4961 L421.5,715.4961 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="733.9912">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="711.125"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="733.582">Content replaced.</text>
-    <path d="M222.5,770.5898 L222.5,779.7656 L202.5,783.7656 L222.5,787.7656 L222.5,796.9414 A0,0 0 0 0 222.5,796.9414 L431.5,796.9414 A0,0 0 0 0 431.5,796.9414 L431.5,780.5898 L421.5,770.5898 L222.5,770.5898 A0,0 0 0 0 222.5,770.5898 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,770.5898 L421.5,780.5898 L431.5,780.5898 L421.5,770.5898 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="789.085">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="766.2188"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="788.6758">Content replaced.</text>
-    <path d="M222.5,825.6836 L222.5,834.8594 L202.5,838.8594 L222.5,842.8594 L222.5,852.0352 A0,0 0 0 0 222.5,852.0352 L714.5,852.0352 A0,0 0 0 0 714.5,852.0352 L714.5,835.6836 L704.5,825.6836 L222.5,825.6836 A0,0 0 0 0 222.5,825.6836 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M704.5,825.6836 L704.5,835.6836 L714.5,835.6836 L704.5,825.6836 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="471" x="228.5" y="844.1787">Latest name and version of log-combiner-core artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="821.3125"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="843.7695">Content replaced.</text>
-    <path d="M222.5,880.7773 L222.5,889.9531 L202.5,893.9531 L222.5,897.9531 L222.5,907.1289 A0,0 0 0 0 222.5,907.1289 L653.5,907.1289 A0,0 0 0 0 653.5,907.1289 L653.5,890.7773 L643.5,880.7773 L222.5,880.7773 A0,0 0 0 0 222.5,880.7773 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M643.5,880.7773 L643.5,890.7773 L653.5,890.7773 L643.5,880.7773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="410" x="228.5" y="899.2725">Latest version of log-combiner-core artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="876.4063"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="898.8633">Content replaced.</text>
-    <path d="M222.5,935.8711 L222.5,945.0469 L202.5,949.0469 L222.5,953.0469 L222.5,962.2227 A0,0 0 0 0 222.5,962.2227 L732.5,962.2227 A0,0 0 0 0 732.5,962.2227 L732.5,945.8711 L722.5,935.8711 L222.5,935.8711 A0,0 0 0 0 222.5,935.8711 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M722.5,935.8711 L722.5,945.8711 L732.5,945.8711 L722.5,935.8711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="489" x="228.5" y="954.3662">Latest name and version of substitution-reporting artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="931.5"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="953.957">Content replaced.</text>
-    <path d="M222.5,990.9648 L222.5,1000.1406 L202.5,1004.1406 L222.5,1008.1406 L222.5,1017.3164 A0,0 0 0 0 222.5,1017.3164 L671.5,1017.3164 A0,0 0 0 0 671.5,1017.3164 L671.5,1000.9648 L661.5,990.9648 L222.5,990.9648 A0,0 0 0 0 222.5,990.9648 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M661.5,990.9648 L661.5,1000.9648 L671.5,1000.9648 L661.5,990.9648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="428" x="228.5" y="1009.46">Latest version of substitution-reporting artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="986.5938"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1009.0508">Content replaced.</text>
-    <path d="M222.5,1046.0586 L222.5,1055.2344 L202.5,1059.2344 L222.5,1063.2344 L222.5,1072.4102 A0,0 0 0 0 222.5,1072.4102 L962.5,1072.4102 A0,0 0 0 0 962.5,1072.4102 L962.5,1056.0586 L952.5,1046.0586 L222.5,1046.0586 A0,0 0 0 0 222.5,1046.0586 " fill="#FBFB77" filter="url(#f1meqn4200pka4)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M952.5,1046.0586 L952.5,1056.0586 L962.5,1056.0586 L952.5,1046.0586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="719" x="228.5" y="1064.5537">UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.</text>
-    <rect fill="#FEFECE" filter="url(#f1meqn4200pka4)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1041.6875"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1064.1445">Content replaced.</text>
-    <ellipse cx="142.5" cy="1107.7813" fill="#FFFFFF" filter="url(#f1meqn4200pka4)" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/>
-    <ellipse cx="142.5" cy="1107.7813" fill="#000000" rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="30" y2="50"/>
     <polygon fill="#A80036" points="138.5,40,142.5,50,146.5,40,142.5,44" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="85.0938" y2="105.0938"/>
@@ -121,28 +69,6 @@
     <polygon fill="#A80036" points="138.5,425.6563,142.5,435.6563,146.5,425.6563,142.5,429.6563" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="470.75" y2="490.75"/>
     <polygon fill="#A80036" points="138.5,480.75,142.5,490.75,146.5,480.75,142.5,484.75" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="525.8438" y2="545.8438"/>
-    <polygon fill="#A80036" points="138.5,535.8438,142.5,545.8438,146.5,535.8438,142.5,539.8438" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="580.9375" y2="600.9375"/>
-    <polygon fill="#A80036" points="138.5,590.9375,142.5,600.9375,146.5,590.9375,142.5,594.9375" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="636.0313" y2="656.0313"/>
-    <polygon fill="#A80036" points="138.5,646.0313,142.5,656.0313,146.5,646.0313,142.5,650.0313" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="691.125" y2="711.125"/>
-    <polygon fill="#A80036" points="138.5,701.125,142.5,711.125,146.5,701.125,142.5,705.125" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="746.2188" y2="766.2188"/>
-    <polygon fill="#A80036" points="138.5,756.2188,142.5,766.2188,146.5,756.2188,142.5,760.2188" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="801.3125" y2="821.3125"/>
-    <polygon fill="#A80036" points="138.5,811.3125,142.5,821.3125,146.5,811.3125,142.5,815.3125" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="856.4063" y2="876.4063"/>
-    <polygon fill="#A80036" points="138.5,866.4063,142.5,876.4063,146.5,866.4063,142.5,870.4063" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="911.5" y2="931.5"/>
-    <polygon fill="#A80036" points="138.5,921.5,142.5,931.5,146.5,921.5,142.5,925.5" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="966.5938" y2="986.5938"/>
-    <polygon fill="#A80036" points="138.5,976.5938,142.5,986.5938,146.5,976.5938,142.5,980.5938" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1021.6875" y2="1041.6875"/>
-    <polygon fill="#A80036" points="138.5,1031.6875,142.5,1041.6875,146.5,1031.6875,142.5,1035.6875" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1076.7813" y2="1096.7813"/>
-    <polygon fill="#A80036" points="138.5,1086.7813,142.5,1096.7813,146.5,1086.7813,142.5,1090.7813" style="stroke: #A80036; stroke-width: 1.0;"/>
     <!--
 @startuml
 start
@@ -187,58 +113,6 @@ end note
 note right
 List of resources from classpath of the credible-doc-generator application.
 end note
-
-:Content replaced. ;
-note right
-Latest log-combiner jar file name
-end note
-
-:Content replaced. ;
-note right
-Latest log-combiner jar file name
-end note
-
-:Content replaced. ;
-note right
-Latest log-combiner jar file name
-end note
-
-:Content replaced. ;
-note right
-Latest log-combiner jar file name
-end note
-
-:Content replaced. ;
-note right
-Latest log-combiner jar file name
-end note
-
-:Content replaced. ;
-note right
-Latest name and version of log-combiner-core artifact in Maven Central Repository
-end note
-
-:Content replaced. ;
-note right
-Latest version of log-combiner-core artifact in Maven Central Repository
-end note
-
-:Content replaced. ;
-note right
-Latest name and version of substitution-reporting artifact in Maven Central Repository
-end note
-
-:Content replaced. ;
-note right
-Latest version of substitution-reporting artifact in Maven Central Repository
-end note
-
-:Content replaced. ;
-note right
-UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.
-end note
-
-stop
 
 @enduml
 

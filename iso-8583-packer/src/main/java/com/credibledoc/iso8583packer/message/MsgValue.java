@@ -108,7 +108,6 @@ public class MsgValue implements Msg {
     /**
      * @return The {@link #bodyValue} field value.
      */
-    // TODO Kyrylo Semenko - refactor to generic T
     public Object getBodyValue() {
         return bodyValue;
     }

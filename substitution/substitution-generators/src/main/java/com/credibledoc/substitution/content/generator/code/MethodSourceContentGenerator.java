@@ -7,10 +7,29 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Generates java method with indentation.
+ * Generates java source code with indentation.
+ * 
+ * Example of usage:
+ * <pre>{@code
+ * 
+ * ```Java
+ * &&beginPlaceholder {
+ *                         "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+ *                         "description": "Example of fixed length BCD value unpacking",
+ *                         "parameters": {
+ *                             "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
+ *                             "beginString": "        String packedHex = \"0456\";",
+ *                             "endString": "        assertEquals(expectedValue, unpackedValue);",
+ *                             "indentation": "    "
+ *                         }
+ *                  } &&endPlaceholder
+ * ```
+ * 
+ * }</pre>
  *
  * @author Kyrylo Semenko
  */
@@ -35,10 +54,22 @@ public class MethodSourceContentGenerator implements ContentGenerator {
                 indentation = "";
             }
 
-            byte[] encoded = Files.readAllBytes(Paths.get(sourceRelativePath));
+            Path path = Paths.get(sourceRelativePath);
+            byte[] encoded = Files.readAllBytes(path);
             String fileContent = new String(encoded, StandardCharsets.UTF_8);
+            
             int beginIndex = fileContent.indexOf(beginString);
+            if (beginIndex == -1) {
+                throw new SubstitutionRuntimeException("Cannot find string '" + beginString + "' " +
+                    "in file '" + path.toAbsolutePath() + "'");
+            }
+            
             int endIndex = fileContent.indexOf(endString, beginIndex);
+            if (endIndex == -1) {
+                throw new SubstitutionRuntimeException("Cannot find string '" + endString + "' " +
+                    "in file '" + path.toAbsolutePath() + "'");
+            }
+            
             String methodContent = fileContent.substring(beginIndex, endIndex + endString.length());
             
             String[] lines = methodContent.split("\\r\\n|\\n");

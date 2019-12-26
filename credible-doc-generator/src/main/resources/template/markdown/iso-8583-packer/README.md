@@ -44,15 +44,62 @@ Example of Maven configuration in a `pom.xml` file
 
 ### Fixed - length value without tag
 
+The code below will create a new instance of the `FieldBuilder` with a single field.
+The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binary-coded_decimal) format.
+
 ```Java
 &&beginPlaceholder {
                         "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
-                        "description": "Example of fixed length BCD value",
+                        "description": "Example of fixed length BCD value definition",
                         "parameters": {
                             "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
-                            "beginString": "    private FieldBuilder fixedLengthBcd() {",
-                            "endString": "    }",
+                            "beginString": "            FieldBuilder.builder(MsgFieldType.VAL)",
+                            "endString": "                .defineBodyPacker(BcdBodyPacker.LEFT_PADDED_0);",
                             "indentation": ""
                         }
                  } &&endPlaceholder
 ```
+
+The field can be filled with data
+```Java
+&&beginPlaceholder {
+                        "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+                        "description": "Example of fixed length BCD value filling",
+                        "parameters": {
+                            "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
+                            "beginString": "        String value = \"123\";",
+                            "endString": "            .setValue(value);",
+                            "indentation": "    "
+                        }
+                 } &&endPlaceholder
+```
+
+The filled object can be packed to bytes
+```Java
+&&beginPlaceholder {
+                        "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+                        "description": "Example of fixed length BCD value packing",
+                        "parameters": {
+                            "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
+                            "beginString": "        byte[] valueBytes = fieldFiller.pack();",
+                            "endString": "        assertEquals(\"0123\", bytesHex);",
+                            "indentation": "    "
+                        }
+                 } &&endPlaceholder
+```
+
+The defined MsgField can be used for unpacking from bytes to an object
+```Java
+&&beginPlaceholder {
+                        "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+                        "description": "Example of fixed length BCD value unpacking",
+                        "parameters": {
+                            "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
+                            "beginString": "        String packedHex = \"0456\";",
+                            "endString": "        assertEquals(expectedValue, unpackedValue);",
+                            "indentation": "    "
+                        }
+                 } &&endPlaceholder
+```
+
+You can find the complete example here: [BcdBodyPackerTest](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java)
