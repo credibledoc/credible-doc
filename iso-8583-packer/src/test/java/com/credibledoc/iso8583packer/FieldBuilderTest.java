@@ -19,11 +19,11 @@ public class FieldBuilderTest {
     public void builder() {
         FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.BIT_SET)
             .defineName("root")
-            .defineHeaderBitMapPacker(IfbBitmapPacker.L8);
+            .defineHeaderBitMapPacker(IfbBitmapPacker.L16);
         
         MsgField root = fieldBuilder.getCurrentField();
         
-        FieldBuilder.from(fieldBuilder.getCurrentField())
+        FieldBuilder.from(root)
             .createChild(MsgFieldType.LEN_VAL_BIT_SET)
             .defineTagNum(2)
             .defineName(PAN_02_NAME)
@@ -33,13 +33,13 @@ public class FieldBuilderTest {
         fieldBuilder.validateStructure();
 
         String pan = "123456781234567";
-        FieldFiller fieldFiller = FieldFiller.from(fieldBuilder.getCurrentField())
+        FieldFiller fieldFiller = FieldFiller.from(root)
             .jumpToChild(PAN_02_NAME).setValue(pan);
         
         byte[] bytes = fieldFiller.jumpToRoot().pack();
         String expectedBitmapHex = "4000000000000000";
         String expectedLengthHex = "F0F8";
-        String padding = "F";
+        char padding = BcdBodyPacker.PADDING_F;
         String expectedHex = expectedBitmapHex + expectedLengthHex + pan + padding;
         assertEquals(expectedHex, HexService.hexString(bytes));
         

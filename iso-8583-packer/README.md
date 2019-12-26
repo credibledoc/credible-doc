@@ -30,7 +30,7 @@ Example of Maven configuration in a `pom.xml` file
 
 ### Fixed - length value without tag
 
-The code below will create a new instance of the `FieldBuilder` with a single field.
+The code below will create a new instance of the [FieldBuilder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldBuilder.java) with a single field.
 The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binary-coded_decimal) format.
 
 ```Java
@@ -39,7 +39,8 @@ The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binar
                 .defineBodyPacker(BcdBodyPacker.LEFT_PADDED_0);
 ```
 
-The field can be filled with data
+The field can be filled with data by [FieldFiller](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldFiller.java),
+for example:
 ```Java
             String value = "123";
             FieldFiller fieldFiller =
@@ -69,3 +70,9 @@ The defined MsgField can be used for unpacking from bytes to an object
 ```
 
 You can find the complete example here: [BcdBodyPackerTest](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java)
+
+More complex message definition with inner subfields is described in the [complex-example.md](doc/complex-example.md)
+
+## Field types
+The [FieldBuilder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldBuilder.java)
+is able to create different field types, with and without headers, see the [field-types.md](doc/field-types.md).

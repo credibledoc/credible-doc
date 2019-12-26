@@ -28,8 +28,8 @@ public class BcdBodyPacker implements BodyPacker {
     
     private static final int F0_PADDING = 0xF0;
     private static final int PADDING_0F = 0x0F;
-    private static final char PADDING_F = 'F';
-    private static final char PADDING_0 = '0';
+    public static final char PADDING_F = 'F';
+    public static final char PADDING_0 = '0';
 
     /**
      * Fill even value at left or right side?

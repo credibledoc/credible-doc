@@ -38,6 +38,8 @@ This documentation is generated from these templates:
 * [/template/markdown/credible-doc-generator/doc/diagrams.md](src/main/resources/template/markdown/credible-doc-generator/doc/diagrams.md)
 * [/template/markdown/credible-doc-generator/README.md](src/main/resources/template/markdown/credible-doc-generator/README.md)
 * [/template/markdown/doc/release.md](src/main/resources/template/markdown/doc/release.md)
+* [/template/markdown/iso-8583-packer/doc/complex-example.md](src/main/resources/template/markdown/iso-8583-packer/doc/complex-example.md)
+* [/template/markdown/iso-8583-packer/doc/field-types.md](src/main/resources/template/markdown/iso-8583-packer/doc/field-types.md)
 * [/template/markdown/iso-8583-packer/README.md](src/main/resources/template/markdown/iso-8583-packer/README.md)
 * [/template/markdown/log-combiner-parent/log-combiner/doc/usage/programmatically.md](src/main/resources/template/markdown/log-combiner-parent/log-combiner/doc/usage/programmatically.md)
 * [/template/markdown/log-combiner-parent/log-combiner/README.md](src/main/resources/template/markdown/log-combiner-parent/log-combiner/README.md)
