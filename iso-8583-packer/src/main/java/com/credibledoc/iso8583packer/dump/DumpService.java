@@ -81,7 +81,7 @@ public class DumpService {
     /**
      * Print out field to printStream, for example
      * <pre>{@code
-     *   <f type="VAL" valuePacker="BcdBodyPacker" len="2"/>
+     *   <f type="VAL" bodyPacker="BcdBodyPacker" len="2"/>
      * }</pre>
      * @param msgField to be printed out
      * @param printStream to be filled out with field properties
@@ -116,7 +116,7 @@ public class DumpService {
         String lengthPackerString = lengthPacker == null ? "" : (" lengthPacker=\"" + lengthPacker.getClass().getSimpleName() + "\"");
         String isoBitMapPackerString = bitmapPacker == null ? "" : (" bitMapPacker=\"" + bitmapPacker.getClass().getSimpleName() + "\"");
 
-        String interpreterString = getInterpreterString(msgField);
+        String interpreterString = getBodyPackerString(msgField);
 
         String maxLenString = getMaxLenString(msgField);
 
@@ -183,12 +183,12 @@ public class DumpService {
         return maxLenString;
     }
 
-    private static String getInterpreterString(MsgField msgField) {
+    private static String getBodyPackerString(MsgField msgField) {
         String result = null;
         if (msgField.getBodyPacker() != null) {
             result = msgField.getBodyPacker().getClass().getSimpleName();
         }
-        return " valuePacker=\"" + result + "\"";
+        return result == null ? "" : " bodyPacker=\"" + result + "\"";
     }
 
     /**
@@ -270,7 +270,7 @@ public class DumpService {
     private static String getLenHexString(HeaderValue headerValue) {
         String length = null;
         if (headerValue != null && headerValue.getLengthBytes() != null) {
-            length = HexService.hexString(headerValue.getLengthBytes());
+            length = HexService.bytesToHex(headerValue.getLengthBytes());
         }
         return length == null ? "" : (" lenHex=\"" + length + "\"");
     }
@@ -278,7 +278,7 @@ public class DumpService {
     private static String getTagHexString(HeaderValue headerValue) {
         String tag = null;
         if (headerValue != null && headerValue.getTagBytes() != null) {
-            tag = HexService.hexString(headerValue.getTagBytes());
+            tag = HexService.bytesToHex(headerValue.getTagBytes());
         }
         return tag == null ? "" : (" tagHex=\"" + tag + "\"");
     }
@@ -301,7 +301,7 @@ public class DumpService {
     private static String maskBodyBytes(MsgValue msgValue, boolean maskPrivateData, Masker masker) {
         String result = null;
         if (msgValue.getBodyBytes() != null) {
-            String hex = HexService.hexString(msgValue.getBodyBytes());
+            String hex = HexService.bytesToHex(msgValue.getBodyBytes());
             if (maskPrivateData && masker != null) {
                 hex = masker.maskHex(hex);
             }

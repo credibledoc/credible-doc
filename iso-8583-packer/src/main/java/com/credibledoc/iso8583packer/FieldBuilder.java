@@ -136,22 +136,23 @@ public class FieldBuilder {
         if (msgField == null) {
             throw new PackerRuntimeException("Field is null");
         }
-        
+
         String path = NavigatorService.getPathRecursively(msgField);
+
+        if (msgField.getType() == null) {
+            throw new PackerRuntimeException("Please set the " + MsgFieldType.class.getSimpleName() +
+                " value to the field with path: '" + path + "'");
+        }
+
         if (msgField.getTagNum() == null && msgField.getName() == null && msgField.getType() != MsgFieldType.VAL) {
             throw new PackerRuntimeException("At least one of 'tagNum' or 'name' should be set to the field " +
                     "but the both properties are 'null'. Field path: '" + path + "'");
         }
-        
-        if (msgField.getParent() != null && msgField.getBodyPacker() == null) {
-            throw new PackerRuntimeException("Please call the method: defineBodyPacker() " +
+
+        if (msgField.getParent() != null && msgField.getBodyPacker() == null && msgField.getType() != MsgFieldType.BIT_SET) {
+            throw new PackerRuntimeException("Please call the 'defineBodyPacker()' method " +
                     "because the 'BodyPacker' value is mandatory. " +
-                    "Field path: '" + path + "'. The 'BodyPacker' value is not mandatory for root field only.");
-        }
-        
-        if (msgField.getType() == null) {
-            throw new PackerRuntimeException("Please set the " + MsgFieldType.class.getSimpleName() +
-                    " value to the field with path: '" + path + "'");
+                    "Field path: '" + path + "'.");
         }
         
         if (msgField.getType() == MsgFieldType.TAG_LEN_VAL || msgField.getType() == MsgFieldType.LEN_TAG_VAL) {
@@ -178,6 +179,7 @@ public class FieldBuilder {
         if (msgField.getType() == MsgFieldType.BIT_SET) {
             validateBitSetAndBitMapPackerExists(msgField, path);
             validateChildrenExists(msgField, path);
+            validateLenExists(msgField, path);
         }
         
         if (msgField.getType() == MsgFieldType.LEN_VAL_BIT_SET) {
@@ -248,7 +250,7 @@ public class FieldBuilder {
         boolean hasNoHeader = msgField.getHeaderField() == null;
         if (hasNoHeader || msgField.getHeaderField().getBitMapPacker() == null) {
             throw new PackerRuntimeException("The bitMapPacker value is mandatory for '" + msgField.getType() +
-                    "' field type. Please call the defineHeaderBitMapPacker(...) method. Field path: " + path + ".");
+                    "' field type. Please call the defineHeaderBitmapPacker(...) method. Field path: " + path + ".");
         }
     }
 
@@ -357,7 +359,7 @@ public class FieldBuilder {
                     "'. Skip the defineParent() method.");
                 return this;
             }
-            if (parentMsgField.getChildTagLength() == null) {
+            if (MsgFieldType.isTaggedType(msgField) && parentMsgField.getChildTagLength() == null) {
                 throw new PackerRuntimeException("Field '" + NavigatorService.getPathRecursively(parentMsgField) +
                     "' has no 'ChildTagLength' property defined. Please set the property.");
             }
@@ -496,7 +498,7 @@ public class FieldBuilder {
      *                       
      * @return The current actual {@link FieldBuilder}.
      */
-    public FieldBuilder defineHeaderBitMapPacker(BitmapPacker bitMapPacker) {
+    public FieldBuilder defineHeaderBitmapPacker(BitmapPacker bitMapPacker) {
         msgField.getHeaderField().setBitMapPacker(bitMapPacker);
         return this;
     }
@@ -586,6 +588,20 @@ public class FieldBuilder {
      */
     public FieldBuilder defineStringer(Stringer stringer) {
         msgField.setStringer(stringer);
+        return this;
+    }
+
+    public FieldBuilder crateSibling(MsgFieldType msgFieldType) {
+        MsgField newMsgField = new MsgField();
+        newMsgField.setType(msgFieldType);
+        if (msgField.getParent() == null) {
+            throw new PackerRuntimeException("Current field '" + NavigatorService.getPathRecursively(msgField) +
+                "' has no parent. The parent is mandatory for new created '" + NavigatorService.getPathRecursively(newMsgField) +
+                "' field.");
+        }
+        newMsgField.setParent(msgField.getParent());
+        msgField.getParent().getChildren().add(newMsgField);
+        msgField = newMsgField;
         return this;
     }
 }

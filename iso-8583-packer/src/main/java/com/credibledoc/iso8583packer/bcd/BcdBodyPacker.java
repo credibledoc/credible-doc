@@ -12,43 +12,68 @@ import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 public class BcdBodyPacker implements BodyPacker {
     
     /**
-     * Adds a 0-nibble to the left if the number of value digits is even.
+     * See {@link #leftPadding0()}.
      */
-    public static final BcdBodyPacker LEFT_PADDED_0 = new BcdBodyPacker(true, false);
+    private static BcdBodyPacker leftPadding0Instance = null;
     
     /**
-     * Adds a F-nibble to the right if the number of value digits is even.
+     * See {@link #rightPaddingF()}.
      */
-    public static final BcdBodyPacker RIGHT_PADDED_F = new BcdBodyPacker(false, true);
+    private static BcdBodyPacker rightPaddingFInstance = null;
     
     /**
-     * Adds a F-nibble to the left if the number of value digits is even.
+     * See {@link #leftPaddingF()}.
      */
-    public static final BcdBodyPacker LEFT_PADDED_F = new BcdBodyPacker(true, true);
+    private static BcdBodyPacker leftPaddingFInstance = null;
     
-    private static final int F0_PADDING = 0xF0;
-    private static final int PADDING_0F = 0x0F;
-    public static final char PADDING_F = 'F';
-    public static final char PADDING_0 = '0';
+    /**
+     * See {@link #noPadding()}.
+     */
+    private static BcdBodyPacker noPaddingInstance = null;
+    
+    private static final int F0_FILLER = 0xF0;
+    private static final int FILLER_0F = 0x0F;
+    public static final char FILLER_F = 'F';
+    public static final char FILLER_0 = '0';
 
     /**
-     * Fill even value at left or right side?
+     * Packing and unpacking without padding. Throw an exception if the number of value digits in unpacked state is odd.
      */
-    private boolean leftPadded;
+    public static BcdBodyPacker noPadding() {
+        if (noPaddingInstance == null) {
+            noPaddingInstance = new BcdBodyPacker();
+        }
+        return noPaddingInstance;
+    }
 
     /**
-     * Fill even value with '0' or 'F'?
+     * Adds a F-nibble to the left if the number of value digits in unpacked state is odd.
      */
-    private boolean fPadded;
+    public static BcdBodyPacker leftPaddingF() {
+        if (leftPaddingFInstance == null) {
+            leftPaddingFInstance = new BcdBodyPacker();
+        }
+        return leftPaddingFInstance;
+    }
 
     /**
-     * Kept private. Only three instances are possible.
-     * @param leftPadded see {@link #leftPadded}
-     * @param fPadded see {@link #fPadded}
+     * Adds a F-nibble to the right if the number of value digits in unpacked state is odd.
      */
-    private BcdBodyPacker(boolean leftPadded, boolean fPadded) {
-        this.leftPadded = leftPadded;
-        this.fPadded = fPadded;
+    public static BcdBodyPacker rightPaddingF() {
+        if (rightPaddingFInstance == null) {
+            rightPaddingFInstance = new BcdBodyPacker();
+        }
+        return rightPaddingFInstance;
+    }
+
+    /**
+     * Adds a 0-nibble to the left if the number of value digits in unpacked state is odd.
+     */
+    public static BcdBodyPacker leftPadding0() {
+        if (leftPadding0Instance == null) {
+            leftPadding0Instance = new BcdBodyPacker();
+        }
+        return leftPadding0Instance;
     }
 
     /**
@@ -66,15 +91,23 @@ public class BcdBodyPacker implements BodyPacker {
             throw new PackerRuntimeException("Expected String but found " + object.getClass().getName());
         }
 
-        String data = (String) object;
+        String value = (String) object;
+        if (this == noPaddingInstance && value.length() % 2 != 0) {
+            throw new PackerRuntimeException("Odd value length is not allowed with 'noPadding()' instance. " +
+                "Value '" + value + "' has odd length '" + value.length() + "'. " +
+                "Please use even length value " +
+                "or an other instance of the " + BcdBodyPacker.class.getSimpleName() + " class.");
+        }
+        boolean leftPadded = leftPadding0Instance == this || leftPaddingFInstance == this;
+        boolean fPadded = leftPaddingFInstance == this || rightPaddingFInstance == this;
 
-        BcdService.str2bcd(data, leftPadded, bytes, offset);
-        int paddedSize = data.length() >> 1;
-        if (fPadded && data.length() % 2 == 1) {
+        BcdService.str2bcd(value, leftPadded, bytes, offset);
+        int paddedSize = value.length() >> 1;
+        if (fPadded && value.length() % 2 == 1) {
             if (leftPadded) {
-                bytes[offset] |= (byte) F0_PADDING;
+                bytes[offset] |= (byte) F0_FILLER;
             } else {
-                bytes[paddedSize] |= (byte) PADDING_0F;
+                bytes[paddedSize] |= (byte) FILLER_0F;
             }
         }
     }
@@ -89,15 +122,14 @@ public class BcdBodyPacker implements BodyPacker {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T unpack(byte[] sourceData, int offset, int bytesCount) {
+        boolean leftPadded = leftPadding0Instance == this || leftPaddingFInstance == this;
         String result = BcdService.bcd2str(sourceData, offset, bytesCount * 2, leftPadded);
         
-        if (!leftPadded &&
-            (result.charAt(result.length() - 1) == PADDING_F || result.charAt(result.length() - 1) == PADDING_0)) {
-            
+        if (rightPaddingFInstance == this && result.charAt(result.length() - 1) == FILLER_F) {
             return (T) result.substring(0, result.length() - 1);
         }
         
-        if (leftPadded && result.charAt(0) == PADDING_0) {
+        if (leftPadded && (result.charAt(0) == FILLER_0 || result.charAt(0) == FILLER_F)) {
             return (T) result.substring(1);
         }
         

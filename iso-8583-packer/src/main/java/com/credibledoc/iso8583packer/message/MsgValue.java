@@ -62,16 +62,16 @@ public class MsgValue implements Msg {
 
     @Override
     public String toString() {
-        String bytesString = bodyBytes == null ? "null" : HexService.hexString(bodyBytes);
+        String bytesString = bodyBytes == null ? "null" : HexService.bytesToHex(bodyBytes);
         String parentString = parent == null ? "null" : NavigatorService.generatePath(parent);
-        String fieldsString = children == null ? "0" : Integer.toString(children.size());
+        String childrenSizeString = children == null ? "0" : Integer.toString(children.size());
         return "Field{" +
                 "tagNum=" + tagNum +
                 ", name=" + name +
                 ", parent=" + parentString +
                 ", bodyBytes=" + bytesString +
                 ", value=" + bodyValue +
-                ", fieldsSize=" + fieldsString +
+                ", childrenSize=" + childrenSizeString +
                 ", header=" + headerValue +
                 '}';
     }

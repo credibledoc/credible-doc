@@ -13,6 +13,7 @@ import com.credibledoc.iso8583packer.msg.field58.Bmp58MsgField;
  *
  * @author Kyrylo Semenko
  */
+// TODO Kyrylo Semenko - use or delete
 public class TestIsoMsgField {
     private static final String ISO_MSG_NAME = "IsoMsg";
 
@@ -30,7 +31,8 @@ public class TestIsoMsgField {
 
     private static MsgField defineIsoMsg() {
         MsgField rootMsgField = FieldBuilder.builder(MsgFieldType.BIT_SET)
-                .defineHeaderBitMapPacker(IfbBitmapPacker.L16)
+                .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance())
+                .defineLen(16)
                 .defineName(ISO_MSG_NAME)
                 .defineChildrenTagLen(0)
                 .getCurrentField();

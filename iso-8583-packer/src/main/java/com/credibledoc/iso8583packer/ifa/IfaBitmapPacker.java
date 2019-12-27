@@ -13,21 +13,20 @@ import java.util.BitSet;
  * @author Kyrylo Semenko
  */
 public class IfaBitmapPacker implements BitmapPacker {
-    public static final IfaBitmapPacker L1 = new IfaBitmapPacker(1);
-    public static final IfaBitmapPacker L8 = new IfaBitmapPacker(8);
-    public static final IfaBitmapPacker L16 = new IfaBitmapPacker(16);
-    public static final IfaBitmapPacker L24 = new IfaBitmapPacker(24);
 
     /**
-     * Number of bytes in the bitmap {@link BitSet}.
+     * Single instance.
      */
-    private int length;
+    private static IfaBitmapPacker instance;
 
     /**
-     * @param length - see the {@link #length} field.
+     * @return the {@link #instance} value (Singleton pattern).
      */
-    public IfaBitmapPacker(int length) {
-        this.length = length;
+    public static IfaBitmapPacker getInstance() {
+        if (instance == null) {
+            instance = new IfaBitmapPacker();
+        }
+        return instance;
     }
 
     /**
@@ -35,11 +34,11 @@ public class IfaBitmapPacker implements BitmapPacker {
      * @return packed bytes
      */
     @Override
-    public byte[] pack(BitSet bitSet) {
+    public byte[] pack(BitSet bitSet, int packedBytesLength) {
         int len =
-            length >= 8 ?
-                bitSet.length() + 62 >> 6 << 3 : length;
-        return HexService.hexString(BitmapService.bitSet2byte(bitSet, len)).getBytes();
+            packedBytesLength >= 8 ?
+                bitSet.length() + 62 >> 6 << 3 : packedBytesLength;
+        return HexService.bytesToHex(BitmapService.bitSet2byte(bitSet, len)).getBytes();
     }
 
     /**
@@ -49,20 +48,16 @@ public class IfaBitmapPacker implements BitmapPacker {
      * @return consumed bytes number
      */
     @Override
-    public int unpack(HeaderField headerField, byte[] bytes, int offset) {
+    public int unpack(HeaderField headerField, byte[] bytes, int offset, int packedBytesLength) {
         int len;
-        BitSet bmap = BitmapService.hex2BitSet(bytes, offset, length << 3);
+        BitSet bmap = BitmapService.hex2BitSet(bytes, offset, packedBytesLength << 3);
         headerField.setBitSet(bmap);
         len = bmap.get(1) ? 128 : 64;
-        if (length > 16 && bmap.get(65)) {
+        if (packedBytesLength > 16 && bmap.get(65)) {
             len = 192;
             bmap.clear(65);
         }
-        return Math.min(length << 1, len >> 2);
+        return Math.min(packedBytesLength << 1, len >> 2);
     }
 
-    @Override
-    public int getMaxPackedLength() {
-        return length >> 2;
-    }
 }

@@ -18,6 +18,11 @@ import java.util.BitSet;
  * @author Kyrylo Semenko
  */
 public class HeaderValue implements Header {
+    
+    /**
+     * Message type indicator.
+     */
+    // TODO Kyrylo Semenko - delete
     private String mti;
 
     /**
@@ -40,8 +45,8 @@ public class HeaderValue implements Header {
 
     @Override
     public String toString() {
-        String tagBytesString = tagBytes == null ? "null" : HexService.hexString(tagBytes);
-        String lengthBytesString = lengthBytes == null ? "null" : HexService.hexString(lengthBytes);
+        String tagBytesString = tagBytes == null ? "null" : HexService.bytesToHex(tagBytes);
+        String lengthBytesString = lengthBytes == null ? "null" : HexService.bytesToHex(lengthBytes);
         return "HeaderValue{" +
                 "tagBytes=" + tagBytesString +
                 ", lengthBytes=" + lengthBytesString +

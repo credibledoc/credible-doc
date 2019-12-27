@@ -36,7 +36,7 @@ public class EbcdicDecimalTagPacker implements TagPacker {
     public int unpack(byte[] bytes, int offset, int tagLength) {
         byte[] tagBytes = new byte[tagLength];
         System.arraycopy(bytes, offset, tagBytes, 0, tagBytes.length);
-        String hex = HexService.hexString(tagBytes);
+        String hex = HexService.bytesToHex(tagBytes);
         StringBuilder stringBuilder = new StringBuilder(hex.length() / TWO_CHARS_IN_HEX_BYTE);
         for (int index = 0; index <= tagBytes.length; index += TWO_CHARS_IN_HEX_BYTE) {
             stringBuilder.append(hex.charAt(index + 1));

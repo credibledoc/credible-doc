@@ -28,7 +28,7 @@ public class HexTagPacker implements TagPacker {
     public int unpack(byte[] bytes, int offset, int tagLength) {
         byte[] tagBytes = new byte[tagLength];
         System.arraycopy(bytes, offset, tagBytes, 0, tagBytes.length);
-        String hex = HexService.hexString(tagBytes);
+        String hex = HexService.bytesToHex(tagBytes);
         return Integer.parseInt(hex, 16);
     }
 }

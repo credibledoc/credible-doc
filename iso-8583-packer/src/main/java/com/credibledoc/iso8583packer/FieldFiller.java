@@ -55,7 +55,7 @@ public class FieldFiller {
 
     /**
      * Please do not create instances of this builder. It uses for internal purposes only,
-     * see the {@link #from(MsgField)} method.
+     * see the {@link #newInstance(MsgField)} method.
      */
     private FieldFiller() {
         // empty
@@ -77,7 +77,7 @@ public class FieldFiller {
      * @param definition a template created by {@link FieldBuilder}.
      * @return A new instance of this {@link FieldFiller} with {@link #msgValue} and {@link #msgField} in its context.
      */
-    public static FieldFiller from(MsgField definition) {
+    public static FieldFiller newInstance(MsgField definition) {
         FieldFiller fieldFiller = new FieldFiller();
         fieldFiller.msgField = definition;
         fieldFiller.msgValue = NavigatorService.newFromNameAndTagNum(definition);
@@ -91,7 +91,7 @@ public class FieldFiller {
      * @param msgField will be set to the {@link FieldFiller#msgField}.
      * @return The new created {@link FieldFiller} with the {@link #msgValue} and {@link #msgField} in its context.
      */
-    public static FieldFiller get(MsgValue msgValue, MsgField msgField) {
+    public static FieldFiller newInstance(MsgValue msgValue, MsgField msgField) {
         try {
             MsgPair msgPair = new MsgPair(msgField, msgValue);
             NavigatorService.validateSameNamesAndTagNum(msgPair);
@@ -138,10 +138,12 @@ public class FieldFiller {
     private static void unpackFieldRecursively(byte[] bytes, Offset offset, MsgPair msgPair) throws Exception {
         NavigatorService.validateSameNamesAndTagNum(msgPair);
         Integer rawDataLength = null;
-        if (msgPair.getMsgField().getType() == MsgFieldType.BIT_SET) {
+        if (MsgFieldType.MSG == msgPair.getMsgField().getType()) {
+            rawDataLength = bytes.length - offset.getValue();
+        } else if (msgPair.getMsgField().getType() == MsgFieldType.BIT_SET) {
             rawDataLength = unpackBitSet(bytes, offset, msgPair);
         } else if (MsgFieldType.VAL == msgPair.getMsgField().getType()) {
-            rawDataLength = unpackValType(bytes, offset, msgPair);
+            rawDataLength = unpackFixedLengthType(bytes, offset, msgPair);
         } else {
             Integer tagLength = getChildTagLengthFromParent(msgPair.getMsgField());
             boolean lengthFirst = MsgFieldType.getLengthFirstTypes().contains(msgPair.getMsgField().getType());
@@ -173,7 +175,7 @@ public class FieldFiller {
             // unpack field body
             unpackBodyBytes(bytes, offset, msgPair, rawDataLength);
         }
-
+        
         if (msgPair.getMsgField().getChildren() == null) {
             // set value, but for leaves (outer children) only.
             setValueToLeaf(bytes, offset, msgPair, rawDataLength);
@@ -184,9 +186,9 @@ public class FieldFiller {
         offset.add(rawDataLength);
     }
 
-    private static Integer unpackValType(byte[] bytes, Offset offset, MsgPair msgPair) {
+    private static Integer unpackFixedLengthType(byte[] bytes, Offset offset, MsgPair msgPair) {
         Integer rawDataLength;
-        MsgPair nextEmptyMsgPair = getNextEmptyMsgPairForValType(msgPair);
+        MsgPair nextEmptyMsgPair = getNextEmptyMsgPairForFixedLengthType(msgPair);
         rawDataLength = nextEmptyMsgPair.getMsgField().getLen();
         unpackBodyBytes(bytes, offset, nextEmptyMsgPair, rawDataLength);
 
@@ -211,7 +213,7 @@ public class FieldFiller {
         }
         
         if (msgField.getHeaderField().getLengthPacker() == null) {
-            throw new PackerRuntimeException("Property lengthPacker is not defined. Please define it by calling  " +
+            throw new PackerRuntimeException("Property lengthPacker is not defined. Please define it by calling " +
                     "the .defineHeaderLengthPacker() method. " +
                     "Current MsgField: " + NavigatorService.generatePath(msgField));
         }
@@ -231,7 +233,7 @@ public class FieldFiller {
         }
     }
 
-    private static MsgPair getNextEmptyMsgPairForValType(MsgPair msgPair) {
+    private static MsgPair getNextEmptyMsgPairForFixedLengthType(MsgPair msgPair) {
         MsgField msgField = msgPair.getMsgField();
         MsgField parentMsgField = msgField.getParent();
         if (parentMsgField == null) {
@@ -244,9 +246,10 @@ public class FieldFiller {
             MsgValue siblingMsgValue = NavigatorService.findByName(msgValue.getParent().getChildren(),
                     siblingMsgField.getName());
             if (siblingMsgValue == null) {
-                if (siblingMsgField.getType() != MsgFieldType.VAL) {
-                    throw new PackerRuntimeException("Expected VAL type but found " + siblingMsgField.getType() +
-                            ". SiblingMsgField '" + NavigatorService.getPathRecursively(siblingMsgField) + "'.");
+                if (!MsgFieldType.isFixedLengthType(siblingMsgField)) {
+                    throw new PackerRuntimeException("Expected one of the '" + MsgFieldType.getFixedLengthTypes() +
+                        "' types but found '" + siblingMsgField.getType() +
+                            "'. SiblingMsgField '" + NavigatorService.getPathRecursively(siblingMsgField) + "'.");
                 }
                 siblingMsgValue = NavigatorService.newFromNameAndTagNum(siblingMsgField);
                 return new MsgPair(siblingMsgField, siblingMsgValue);
@@ -266,8 +269,13 @@ public class FieldFiller {
         if (rawDataLength > 0) {
             msgPair.getMsgValue().setChildren(new ArrayList<>());
         }
+        int childNum = 0;
         while (offset.getValue() < offsetWithChildren) {
-            MsgField msgFieldFirstChild = msgPair.getMsgField().getChildren().get(0);
+            List<MsgField> children = msgPair.getMsgField().getChildren();
+            MsgField msgFieldFirstChild = children.get(childNum);
+            if (children.size() > childNum + 1) {
+                childNum++;
+            }
             MsgValue msgValueChild = NavigatorService.newFromNameAndTagNum(msgFieldFirstChild);
             msgPair.getMsgValue().getChildren().add(msgValueChild);
             msgValueChild.setParent(msgPair.getMsgValue());
@@ -374,11 +382,12 @@ public class FieldFiller {
         // unpack
         BitmapPacker bitmapPacker = headerField.getBitMapPacker();
         if (bitmapPacker == null) {
-            throw new PackerRuntimeException("Please call the defineHeaderBitMapPacker(...) " +
+            throw new PackerRuntimeException("Please call the defineHeaderBitmapPacker(...) " +
                     "method for this field " + NavigatorService.getPathRecursively(msgPair.getMsgValue()));
                     
         }
-        int consumed = bitmapPacker.unpack(headerField, bytes, offset.getValue());
+        Integer len = msgPair.getMsgField().getLen();
+        int consumed = bitmapPacker.unpack(headerField, bytes, offset.getValue(), len);
         offset.add(consumed);
 
         return getTagNumsAndValidateBitSet(msgPair, bitSetDefinition);
@@ -401,8 +410,8 @@ public class FieldFiller {
         for (int nextTagNum = 0; nextTagNum <= maxTagNum; nextTagNum++) {
             if (unpackedBitSet.get(nextTagNum) && !bitSetDefinition.get(nextTagNum)) {
                 throw new PackerRuntimeException("Unpacked bitSet contains tagNum '" + nextTagNum +
-                        "', but bitSetDefinition does not contains it. " +
-                        "Please define this tagNum in the field '" + NavigatorService.getPathRecursively(msgPair.getMsgValue()) +
+                        "', but bitSetDefinition doesn't contain it. " +
+                        "Please define the tagNum in the field '" + NavigatorService.getPathRecursively(msgPair.getMsgValue()) +
                         "' header bitSet");
             }
             if (unpackedBitSet.get(nextTagNum)) {
@@ -468,7 +477,7 @@ public class FieldFiller {
      * @param msgPair contains {@link MsgField} and {@link MsgValue}.
      * @return The created instance.
      */
-    public static FieldFiller from(MsgPair msgPair) {
+    public static FieldFiller newInstance(MsgPair msgPair) {
         FieldFiller fieldFiller = new FieldFiller();
         fieldFiller.msgField = msgPair.getMsgField();
         fieldFiller.msgValue = msgPair.getMsgValue();
@@ -837,7 +846,12 @@ public class FieldFiller {
         }
         msgField.getHeaderField().setBitSet(bitSet);
         msgValue.getHeaderValue().setBitSet(bitSet);
-        messageBytes.write(bitmapPacker.pack(bitSet));
+        Integer len = msgField.getLen();
+        if (len == null) {
+            throw new PackerRuntimeException("Mandatory MsgField.len property not found. It is mandatory for '" + MsgFieldType.BIT_SET + "' type. " +
+                "Please call the defineLen(...) method.");
+        }
+        messageBytes.write(bitmapPacker.pack(bitSet, len));
     }
 
     private static void packBodyBytesAndLengthAndTagNum(MsgValue msgValue, MsgField msgField, ByteArrayOutputStream messageBytes, byte[] bytes) throws IOException {
@@ -984,7 +998,7 @@ public class FieldFiller {
     }
 
     /**
-     * @return Existing {@link #msgField} and {@link #msgValue} created previously by the {@link #from(MsgField)} method.
+     * @return Existing {@link #msgField} and {@link #msgValue} created previously by the {@link #newInstance(MsgField)} method.
      */
     public MsgPair getCurrentPair() {
         return new MsgPair(this.msgField, this.msgValue);
@@ -1021,7 +1035,19 @@ public class FieldFiller {
      * @param <T> expected type of returned value
      * @return The {@link MsgValue#getBodyValue()} casted to T type
      */
-    public <T> T getBodyValue(Class<T> type) {
+    public <T> T getValue(Class<T> type) {
         return type.cast(msgValue.getBodyValue());
+    }
+
+    /**
+     * Set the {@link HeaderValue#setMti(String)} to the current {@link #msgValue}.
+     * @param mti for example "0200" for financial request.
+     */
+    public void setMti(String mti) {
+        if (msgValue.getHeaderValue() == null) {
+            HeaderValue headerValue = new HeaderValue();
+            msgValue.setHeaderValue(headerValue);
+        }
+        msgValue.getHeaderValue().setMti(mti);
     }
 }

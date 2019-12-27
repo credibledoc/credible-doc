@@ -23,13 +23,13 @@ public class HexBodyPackerTest {
 
         fieldBuilder.validateStructure();
         
-        FieldFiller fieldFiller = FieldFiller.from(fieldBuilder.getCurrentField())
+        FieldFiller fieldFiller = FieldFiller.newInstance(fieldBuilder.getCurrentField())
             .setValue(value);
         
         fieldFiller.validateData();
 
         byte[] valueBytes = fieldFiller.pack();
-        assertEquals("0123", HexService.hexString(valueBytes));
+        assertEquals("0123", HexService.bytesToHex(valueBytes));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class HexBodyPackerTest {
 
         fieldBuilder.validateStructure();
         
-        MsgValue msgValue = FieldFiller.from(fieldBuilder.getCurrentField())
+        MsgValue msgValue = FieldFiller.newInstance(fieldBuilder.getCurrentField())
             .unpack(HexService.hex2byte(packedValue));
 
         String expectedValue = "0123";

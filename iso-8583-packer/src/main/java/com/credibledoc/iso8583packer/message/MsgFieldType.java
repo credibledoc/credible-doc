@@ -35,7 +35,7 @@ public enum MsgFieldType {
     LEN_VAL,
 
     /**
-     * The root {@link MsgField} with definition of its children. All children then should be {@link #LEN_VAL_BIT_SET}s.
+     * The bitmap {@link MsgField} with definition of its children. All children then should be {@link #LEN_VAL_BIT_SET}s.
      */
     BIT_SET,
 
@@ -49,7 +49,12 @@ public enum MsgFieldType {
     /**
      * Similar to {@link #TAG_LEN_VAL}, but without tag and length. It may be a leaf field or a parent for test purposes.
      */
-    VAL;
+    VAL,
+
+    /**
+     * Container for a message.
+     */
+    MSG;
 
     /**
      * Contains {@link MsgFieldType}s with specified {@link MsgField#getTagNum()} sub-field.
@@ -67,6 +72,11 @@ public enum MsgFieldType {
      * with {@link HeaderValue#getLengthBytes()} as the first value.
      */
     private static List<MsgFieldType> lengthFirstTypes = Arrays.asList(LEN_TAG_VAL, LEN_VAL, LEN_VAL_BIT_SET);
+
+    /**
+     * Contains  {@link MsgFieldType}s with fixed length body value.
+     */
+    private static List<MsgFieldType> fixedLengthTypes = Arrays.asList(VAL, BIT_SET);
 
     /**
      * @return The {@link #tagTypes} list.
@@ -90,6 +100,13 @@ public enum MsgFieldType {
     }
 
     /**
+     * @return The {@link #fixedLengthTypes} field value.
+     */
+    public static List<MsgFieldType> getFixedLengthTypes() {
+        return fixedLengthTypes;
+    }
+
+    /**
      * @return 'true' if the argument {@link MsgField#getType()} is not in the {@link #getTaggedTypes()} list.
      */
     public static boolean isNotTaggedType(MsgField msgField) {
@@ -101,5 +118,12 @@ public enum MsgFieldType {
      */
     public static boolean isTaggedType(MsgField msgField) {
         return getTaggedTypes().contains(msgField.getType());
+    }
+
+    /**
+     * @return 'true' if the {@link #fixedLengthTypes} list contains the argument {@link MsgField#getType()}.
+     */
+    public static boolean isFixedLengthType(MsgField msgField) {
+        return fixedLengthTypes.contains(msgField.getType());
     }
 }

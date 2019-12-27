@@ -8,7 +8,7 @@ The next example contains definition of ISO 8583 message
                         "description": "Example of complex ISO 8583 message",
                         "parameters": {
                             "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/FieldBuilderTest.java",
-                            "beginString": "        FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.BIT_SET)",
+                            "beginString": "        FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)",
                             "endString": "        assertEquals(pan, unpackedPanString);",
                             "indentation": "    "
                         }

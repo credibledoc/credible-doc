@@ -128,16 +128,16 @@ public class MsgField implements Msg {
     public String toString() {
         String bodyPackerClass = bodyPacker == null ? "null" : bodyPacker.getClass().getSimpleName();
         String parentString = parent == null ? "null" : NavigatorService.generatePath(parent);
-        String fieldsSizeString = children == null ? "0" : Integer.toString(children.size());
+        String childrenSizeString = children == null ? "0" : Integer.toString(children.size());
         String childrenTagPackerString = childrenTagPacker == null ? "null" : childrenTagPacker.getClass().getSimpleName();
         String maskerString = masker == null ? "null" : masker.getClass().getSimpleName();
         String stringerString = stringer == null ? "null" : stringer.getClass().getSimpleName();
         return "Field{" +
                 "tagNum=" + tagNum +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
+                ", name=" + name +
+                ", type=" + type +
                 ", parent=" + parentString +
-                ", fieldsSize=" + fieldsSizeString +
+                ", childrenSize=" + childrenSizeString +
                 ", bodyPacker=" + bodyPackerClass +
                 ", masker=" + maskerString +
                 ", stringer=" + stringerString +

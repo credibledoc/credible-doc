@@ -13,21 +13,18 @@ public interface BitmapPacker {
     
     /**
      * @param bitSet the {@link BitSet} for packing
+     * @param packedBytesLength bytes number in a packed state
      * @return packed {@link BitSet}
      */
-    byte[] pack (BitSet bitSet);
+    byte[] pack (BitSet bitSet, int packedBytesLength);
 
     /**
      * @param headerField where the unpacked {@link BitSet} will be stored
      * @param bytes the data source
      * @param offset starting offset within the bytes
+     * @param packedBytesLength bytes number in a packed state
      * @return number of consumed bytes
      */
-    int unpack(HeaderField headerField, byte[] bytes, int offset);
+    int unpack(HeaderField headerField, byte[] bytes, int offset, int packedBytesLength);
 
-    // TODO Kyrylo Semenko - check the description is true
-    /**
-     * @return Number of packed bytes.
-     */
-    int getMaxPackedLength();
 }

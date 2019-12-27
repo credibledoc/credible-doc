@@ -36,7 +36,7 @@ public class BcdLengthPacker implements LengthPacker {
     public int unpack(byte[] messageBytes, int offset, int lenLength) {
         byte[] lenBytes = new byte[lenLength];
         System.arraycopy(messageBytes, offset, lenBytes, 0, lenBytes.length);
-        return Integer.parseInt(HexService.hexString(lenBytes));
+        return Integer.parseInt(HexService.bytesToHex(lenBytes));
     }
 
     @Override

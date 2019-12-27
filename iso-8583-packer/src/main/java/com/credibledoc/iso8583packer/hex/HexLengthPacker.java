@@ -43,7 +43,7 @@ public class HexLengthPacker implements LengthPacker {
             System.arraycopy(messageBytes, offset + 1, tagBytes, 0, tagBytes.length);
         }
         
-        String hex = HexService.hexString(tagBytes);
+        String hex = HexService.bytesToHex(tagBytes);
         return Integer.parseInt(hex, 16);
     }
 

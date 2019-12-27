@@ -40,7 +40,7 @@ public class HexBodyPacker implements BodyPacker {
 	@SuppressWarnings("unchecked")
 	public String unpack(byte[] rawData, int offset, int bytesCount) {
         byte[] bytes = Arrays.copyOfRange(rawData, offset, offset + bytesCount);
-        return HexService.hexString(bytes);
+        return HexService.bytesToHex(bytes);
 	}
 
 	@Override

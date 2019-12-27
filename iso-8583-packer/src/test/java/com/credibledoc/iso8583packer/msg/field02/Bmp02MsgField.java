@@ -31,7 +31,7 @@ public class Bmp02MsgField {
                 .defineName(BMP_02_PAN_NAME)
                 .defineTagNum(FIELD_NUM_2)
                 .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.LL)
-                .defineBodyPacker(BcdBodyPacker.RIGHT_PADDED_F)
+                .defineBodyPacker(BcdBodyPacker.rightPaddingF())
                 .defineMasker(PanMasker.INSTANCE)
                 .defineMaxLen(20);
     }

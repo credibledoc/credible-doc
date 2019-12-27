@@ -46,7 +46,7 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
     @Override
     public int unpack(byte[] messageBytes, int offset, int lenLength) {
         byte[] lenBytes = Arrays.copyOfRange(messageBytes, offset, offset + lenLength);
-        String hex = HexService.hexString(lenBytes);
+        String hex = HexService.bytesToHex(lenBytes);
         String withoutF = hex.replace(FILLER_F, "");
         return Integer.parseInt(withoutF);
     }

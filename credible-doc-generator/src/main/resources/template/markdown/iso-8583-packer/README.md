@@ -54,7 +54,7 @@ The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binar
                         "parameters": {
                             "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
                             "beginString": "            FieldBuilder.builder(MsgFieldType.VAL)",
-                            "endString": "                .defineBodyPacker(BcdBodyPacker.LEFT_PADDED_0);",
+                            "endString": "defineBodyPacker(BcdBodyPacker.leftPadding0());",
                             "indentation": ""
                         }
                  } &&endPlaceholder

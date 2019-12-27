@@ -34,7 +34,7 @@ public class HexService {
      * @param b - byte array
      * @return String representation
      */
-    public static String hexString(byte[] b) {
+    public static String bytesToHex(byte[] b) {
         StringBuilder d = new StringBuilder(b.length * 2);
         for (byte aB : b) {
             d.append(hexStrings[(int) aB & 0xFF]);

@@ -12,21 +12,20 @@ import java.util.BitSet;
  * @author Kyrylo Semenko
  */
 public class IfbBitmapPacker implements BitmapPacker {
-    public static final IfbBitmapPacker L1 = new IfbBitmapPacker(1);
-    public static final IfbBitmapPacker L8 = new IfbBitmapPacker(8);
-    public static final IfbBitmapPacker L16 = new IfbBitmapPacker(16);
-    public static final IfbBitmapPacker L24 = new IfbBitmapPacker(24);
+    
+    /**
+     * Single instance.
+     */
+    private static IfbBitmapPacker instance;
 
     /**
-     * Number of bytes in the bitmap {@link BitSet}.
+     * @return the {@link #instance} value (Singleton pattern).
      */
-    private int length;
-
-    /**
-     * @param length - see the {@link #length} field.
-     */
-    public IfbBitmapPacker(int length) {
-        this.length = length;
+    public static IfbBitmapPacker getInstance() {
+        if (instance == null) {
+            instance = new IfbBitmapPacker();
+        }
+        return instance;
     }
 
     /**
@@ -34,10 +33,10 @@ public class IfbBitmapPacker implements BitmapPacker {
      * @return packed bytes
      */
     @Override
-    public byte[] pack(BitSet bitSet) {
+    public byte[] pack(BitSet bitSet, int packedBytesLength) {
         int len =                                           // bytes needed to encode BitSet (in 8-byte chunks)
-            length >= 8 ?
-                bitSet.length() + 62 >> 6 << 3 : length;    // +62 because we don't use bit 0 in the BitSet
+            packedBytesLength >= 8 ?
+                bitSet.length() + 62 >> 6 << 3 : packedBytesLength;    // +62 because we don't use bit 0 in the BitSet
         return BitmapService.bitSet2byte(bitSet, len);
     }
 
@@ -48,19 +47,15 @@ public class IfbBitmapPacker implements BitmapPacker {
      * @return consumed bytes number
      */
     @Override
-    public int unpack(HeaderField headerField, byte[] bytes, int offset) {
+    public int unpack(HeaderField headerField, byte[] bytes, int offset, int packedBytesLength) {
         int len;
-        BitSet bitSet = BitmapService.byte2BitSet(bytes, offset, length << 3);
+        BitSet bitSet = BitmapService.byte2BitSet(bytes, offset, packedBytesLength << 3);
         headerField.setBitSet(bitSet);
         len = bitSet.get(1) ? 128 : 64;
-        if (length > 16 && bitSet.get(1) && bitSet.get(65)) {
+        if (packedBytesLength > 16 && bitSet.get(1) && bitSet.get(65)) {
             len = 192;
         }
-        return Math.min(length, len >> 3);
+        return Math.min(packedBytesLength, len >> 3);
     }
 
-    @Override
-    public int getMaxPackedLength() {
-        return length >> 3;
-    }
 }
