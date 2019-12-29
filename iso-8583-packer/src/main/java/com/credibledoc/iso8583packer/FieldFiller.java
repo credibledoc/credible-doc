@@ -31,6 +31,7 @@ import java.util.List;
  *
  * @author Kyrylo Semenko
  */
+// TODO Kyrylo Semenko - rename to ValueHolder
 public class FieldFiller {
 
     private static final int INITIAL_SIZE_100_BYTES = 100;

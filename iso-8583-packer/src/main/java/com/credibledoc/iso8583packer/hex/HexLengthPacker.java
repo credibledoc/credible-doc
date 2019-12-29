@@ -5,7 +5,7 @@ import com.credibledoc.iso8583packer.length.LengthPacker;
 
 import java.io.ByteArrayOutputStream;
 
-// TODO Kyrylo Semenko - priklad
+// TODO Kyrylo Semenko - examples
 public class HexLengthPacker implements LengthPacker {
     private static final int MAX_LENGTH_65535 = 65535;
 
@@ -28,9 +28,9 @@ public class HexLengthPacker implements LengthPacker {
         }
         /*
             Tag + Length + Value
-            1) když je Length je 1, pošli to v hexa v jednom bajtu
-            2) když je Length je 2, pošli napřed 81 a pak délku v hexa v jednom bytu
-            3) když je Length je 3, pošli napřed 82 a pak délku v hexa ve dvou bajtech
+            1) if Length is 1, send it in hex as one byte
+            2) if Length is 2, first send 81 and then a length in hex as one byte
+            3) if Length is 3, first send 82 and then a length in hex as two bytes
          */
         int decodedLenLength = lenLength < 3 ? 1 : 2;
         byte[] tagBytes = new byte[decodedLenLength];

@@ -49,7 +49,7 @@ The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binar
 
 ```Java
 &&beginPlaceholder {
-                        "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+                        "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
                         "description": "Example of fixed length BCD value definition",
                         "parameters": {
                             "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
@@ -64,7 +64,7 @@ The field can be filled with data by [FieldFiller](https://github.com/credibledo
 for example:
 ```Java
 &&beginPlaceholder {
-                        "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+                        "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
                         "description": "Example of fixed length BCD value filling",
                         "parameters": {
                             "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
@@ -78,7 +78,7 @@ for example:
 The filled object can be packed to bytes
 ```Java
 &&beginPlaceholder {
-                        "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+                        "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
                         "description": "Example of fixed length BCD value packing",
                         "parameters": {
                             "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
@@ -92,7 +92,7 @@ The filled object can be packed to bytes
 The defined MsgField can be used for unpacking from bytes to an object
 ```Java
 &&beginPlaceholder {
-                        "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+                        "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
                         "description": "Example of fixed length BCD value unpacking",
                         "parameters": {
                             "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",

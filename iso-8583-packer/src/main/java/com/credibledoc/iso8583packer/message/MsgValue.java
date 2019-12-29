@@ -113,6 +113,15 @@ public class MsgValue implements Msg {
     }
 
     /**
+     * @param type required type of returned {@link #bodyValue}.
+     * @param <T> the required type.
+     * @return The {@link #bodyValue} casted to the required type.
+     */
+    public <T> T getBodyValue(Class<T> type) {
+        return type.cast(getBodyValue());
+    }
+
+    /**
      * @param bodyValue see the {@link #bodyValue} field description.
      */
     public void setBodyValue(Object bodyValue) {
@@ -178,5 +187,4 @@ public class MsgValue implements Msg {
     public void setHeaderValue(HeaderValue headerValue) {
         this.headerValue = headerValue;
     }
-
 }

@@ -22,7 +22,7 @@ public class BcdBodyPackerTest {
                 .defineLen(2)
                 .defineBodyPacker(BcdBodyPacker.leftPadding0());
     }
-
+    
     /**
      * Used in documentation
      */

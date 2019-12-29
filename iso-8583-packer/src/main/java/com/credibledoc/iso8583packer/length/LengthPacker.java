@@ -30,6 +30,8 @@ public interface LengthPacker {
      *
      * @param bodyBytesLength the number to be encoded and packed.
      * @param lenLength       how many bytes will be long the packed length in the target outgoing message.
+     *                        In some cases the value is calculated with the {@link #calculateLenLength(byte[], int)}
+     *                        method, in other cases the value is fixed.
      * @return The encoded and packed bytes of the {@link MsgValue#getBodyBytes()}  subfield.
      */
     byte[] pack(int bodyBytesLength, int lenLength);
@@ -39,7 +41,8 @@ public interface LengthPacker {
      *
      * @param messageBytes packed bytes of incoming message.
      * @param offset       how many bytes to skip.
-     * @param lenLength    how many bytes the number encoded and packed.
+     * @param lenLength    how many bytes the number encoded and packed. In some cases the value is calculated with
+     *                     the {@link #calculateLenLength(byte[], int)} method, in other cases the value is fixed.
      * @return Unpacked and decoded number of bytes for decoding the {@link MsgValue#getBodyBytes()} subfield.
      */
     int unpack(byte[] messageBytes, int offset, int lenLength);
@@ -48,7 +51,7 @@ public interface LengthPacker {
      * Some {@link LengthPacker}s has constant bytes length of the header part where packed length is a subfield
      * of a {@link HeaderValue#getLengthBytes()} data.
      * <p>
-     * Others should calculate this value depend on first byte value, for example see {@link HexLengthPacker}.
+     * Others calculate the value depend on first byte value, for example see {@link HexLengthPacker}.
      * <p>
      * Obtained value is used for offset shifting during data unpacking.
      *

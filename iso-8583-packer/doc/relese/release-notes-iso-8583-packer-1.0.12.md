@@ -17,5 +17,6 @@ FieldBuilder.defineHeaderBitMapPacker changed to .defineHeaderBitmapPacker
 
 FieldFiller.<b>from</b>(MsgPair) renamed to FieldFiller.<b>newInstance</b>(MsgPair)
 and FieldFiller.<b>get</b>(MsgValue, MsgField) renamed to FieldFiller.<b>newInstance</b>(MsgValue, MsgField)
-as described in https://stackoverflow.com/questions/3368830/how-to-name-factory-like-methods
+as described in https://stackoverflow.com/questions/3368830/how-to-name-factory-like-methods.
 
+MsgFieldType LEN_VAL_BIT_SET deleted, please use the LEN_VAL type instead.

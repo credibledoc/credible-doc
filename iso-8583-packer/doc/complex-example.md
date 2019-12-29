@@ -24,7 +24,7 @@ The next example contains definition of ISO 8583 message
                 .getCurrentField();
             
             FieldBuilder.from(bitmap)
-                .createChild(MsgFieldType.LEN_VAL_BIT_SET)
+                .createChild(MsgFieldType.LEN_VAL)
                 .defineTagNum(2)
                 .defineName(PAN_02_NAME)
                 .defineBodyPacker(BcdBodyPacker.rightPaddingF())
@@ -57,10 +57,16 @@ The next example contains definition of ISO 8583 message
             // data browsing
             MsgPair rootPair = FieldFiller.newInstance(msgValue, root).getCurrentPair();
             assertNotNull(rootPair);
+            
+            String mtiString = FieldFiller.newInstance(rootPair).jumpToChild(MTI_NAME).getValue(String.class);
+            assertEquals(mtiValue, mtiString);
+            
             MsgPair bitmapPair = FieldFiller.newInstance(rootPair).jumpToChild(BITMAP_NAME).getCurrentPair();
             assertNotNull(bitmap);
+            
             FieldFiller panFiller = FieldFiller.newInstance(bitmapPair).jumpToChild(PAN_02_NAME);
             assertNotNull(panFiller);
+            
             String unpackedPanString = panFiller.getValue(String.class);
             assertEquals(pan, unpackedPanString);
 ```
