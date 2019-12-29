@@ -38,6 +38,7 @@ This documentation is generated from these templates:
 * [/template/markdown/credible-doc-generator/doc/diagrams.md](src/main/resources/template/markdown/credible-doc-generator/doc/diagrams.md)
 * [/template/markdown/credible-doc-generator/README.md](src/main/resources/template/markdown/credible-doc-generator/README.md)
 * [/template/markdown/doc/release.md](src/main/resources/template/markdown/doc/release.md)
+* [/template/markdown/iso-8583-packer/doc/bcd/bcd-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/bcd/bcd-length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/complex-example.md](src/main/resources/template/markdown/iso-8583-packer/doc/complex-example.md)
 * [/template/markdown/iso-8583-packer/doc/field-types.md](src/main/resources/template/markdown/iso-8583-packer/doc/field-types.md)
 * [/template/markdown/iso-8583-packer/doc/relese/release-notes-iso-8583-packer-1.0.12.md](src/main/resources/template/markdown/iso-8583-packer/doc/relese/release-notes-iso-8583-packer-1.0.12.md)

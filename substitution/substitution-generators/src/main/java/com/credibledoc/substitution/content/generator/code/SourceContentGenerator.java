@@ -18,11 +18,12 @@ import java.nio.file.Paths;
  * 
  * ```Java
  * &&beginPlaceholder {
- *                         "className": "com.credibledoc.substitution.content.generator.code.MethodSourceContentGenerator",
+ *                         "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
  *                         "description": "Example of fixed length BCD value unpacking",
  *                         "parameters": {
  *                             "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
  *                             "beginString": "        String packedHex = \"0456\";",
+ *                             "includeBeginString": "false",
  *                             "endString": "        assertEquals(expectedValue, unpackedValue);",
  *                             "indentation": "    "
  *                         }
@@ -33,7 +34,7 @@ import java.nio.file.Paths;
  *
  * @author Kyrylo Semenko
  */
-public class MethodSourceContentGenerator implements ContentGenerator {
+public class SourceContentGenerator implements ContentGenerator {
 
     private static final String SOURCE_RELATIVE_PATH = "sourceRelativePath";
     private static final String BEGIN_STRING = "beginString";
@@ -48,6 +49,7 @@ public class MethodSourceContentGenerator implements ContentGenerator {
             validateParameters(placeholder);
             String sourceRelativePath = placeholder.getParameters().get(SOURCE_RELATIVE_PATH);
             String beginString = placeholder.getParameters().get(BEGIN_STRING);
+            boolean includeBeginString = !"false".equals(placeholder.getParameters().get("includeBeginString"));
             String endString = placeholder.getParameters().get(END_STRING);
             String indentation = placeholder.getParameters().get(INDENTATION);
             if (indentation == null) {
@@ -62,6 +64,9 @@ public class MethodSourceContentGenerator implements ContentGenerator {
             if (beginIndex == -1) {
                 throw new SubstitutionRuntimeException("Cannot find string '" + beginString + "' " +
                     "in file '" + path.toAbsolutePath() + "'");
+            }
+            if (!includeBeginString) {
+                beginIndex = beginIndex + beginString.length();
             }
             
             int endIndex = fileContent.indexOf(endString, beginIndex);
