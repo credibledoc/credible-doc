@@ -27,7 +27,7 @@ public class Bmp02MsgField {
 
     public static void defineBmp02(MsgField rootMsgField) {
         FieldBuilder.from(rootMsgField)
-                .createChild(MsgFieldType.LEN_VAL_BIT_SET)
+                .createChild(MsgFieldType.LEN_VAL)
                 .defineName(BMP_02_PAN_NAME)
                 .defineTagNum(FIELD_NUM_2)
                 .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.LL)

@@ -251,7 +251,6 @@ public class DumpService {
                 
                 case LEN_TAG_VAL:
                 case LEN_VAL:
-                case LEN_VAL_BIT_SET:
                 case BIT_SET:
                     content = numNameValue + lenHexString + tagHexString + byteHexString;
                     break;

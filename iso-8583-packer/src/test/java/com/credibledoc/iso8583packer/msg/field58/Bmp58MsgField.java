@@ -42,7 +42,7 @@ public class Bmp58MsgField {
     }
 
     public static void defineBmp58(MsgField rootMsgField) {
-        MsgField f58definition = FieldBuilder.builder(MsgFieldType.LEN_VAL_BIT_SET)
+        MsgField f58definition = FieldBuilder.builder(MsgFieldType.LEN_VAL)
                 .defineParent(rootMsgField)
                 .defineTagNum(FIELD_NUM_58)
                 .defineName(F_58_NAME)

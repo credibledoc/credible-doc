@@ -1,5 +1,6 @@
 package com.credibledoc.iso8583packer.navigator;
 
+import com.credibledoc.iso8583packer.dump.DumpService;
 import com.credibledoc.iso8583packer.message.*;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
@@ -49,8 +50,11 @@ public class NavigatorService {
         List<MsgField> msgFields = currentMsgField.getChildren();
         MsgField child = findByName(msgFields, childName);
         if (child == null) {
+            MsgField rootMsgField = findRoot(currentMsgField);
+            String root = DumpService.dumpMsgField(rootMsgField);
             throw new PackerRuntimeException("Field with name '" + getPathRecursively(currentMsgField) +
-                    "' has no child with name : '" + childName + "'. Current field: " + currentMsgField);
+                "' has no child with name '" + childName + "'. Current field: " + currentMsgField + "\n" +
+                "Root MsgField:\n" + root);
         }
         return child;
     }

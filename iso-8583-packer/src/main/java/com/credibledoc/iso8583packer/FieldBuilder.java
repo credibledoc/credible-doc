@@ -181,13 +181,6 @@ public class FieldBuilder {
             validateChildrenExists(msgField, path);
             validateLenExists(msgField, path);
         }
-        
-        if (msgField.getType() == MsgFieldType.LEN_VAL_BIT_SET) {
-            validateParentExists(msgField, path);
-            validateParentIsBitSet(msgField, path);
-            validateHeaderOrParentLengthPackerExists(msgField, path);
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
-        }
 
         List<MsgField> msgFields = msgField.getChildren();
         if (msgFields != null) {

@@ -35,16 +35,9 @@ public enum MsgFieldType {
     LEN_VAL,
 
     /**
-     * The bitmap {@link MsgField} with definition of its children. All children then should be {@link #LEN_VAL_BIT_SET}s.
+     * The bitmap {@link MsgField} with definition of its children.
      */
     BIT_SET,
-
-    /**
-     * length - Value. Similar to the {@link #LEN_VAL} type, but with {@link java.util.BitSet} in its parent
-     * that defines sub-tags.
-     */
-    // TODO Kyrylo Semenko - is it duplicates LEN_VAL?
-    LEN_VAL_BIT_SET,
 
     /**
      * Similar to {@link #TAG_LEN_VAL}, but without tag and length. It may be a leaf field or a parent for test purposes.
@@ -65,13 +58,13 @@ public enum MsgFieldType {
      * Contains  {@link MsgFieldType}s with enclosed {@link MsgValue}s
      * with non-null {@link HeaderValue#getLengthBytes()} value.
      */
-    private static List<MsgFieldType> lengthTypes = Arrays.asList(TAG_LEN_VAL, LEN_TAG_VAL, LEN_VAL, LEN_VAL_BIT_SET);
+    private static List<MsgFieldType> lengthTypes = Arrays.asList(TAG_LEN_VAL, LEN_TAG_VAL, LEN_VAL);
 
     /**
      * Contains  {@link MsgFieldType}s with enclosed {@link MsgValue}s
      * with {@link HeaderValue#getLengthBytes()} as the first value.
      */
-    private static List<MsgFieldType> lengthFirstTypes = Arrays.asList(LEN_TAG_VAL, LEN_VAL, LEN_VAL_BIT_SET);
+    private static List<MsgFieldType> lengthFirstTypes = Arrays.asList(LEN_TAG_VAL, LEN_VAL);
 
     /**
      * Contains  {@link MsgFieldType}s with fixed length body value.
@@ -107,6 +100,7 @@ public enum MsgFieldType {
     }
 
     /**
+     * @param msgField contains a {@link MsgFieldType} value.
      * @return 'true' if the argument {@link MsgField#getType()} is not in the {@link #getTaggedTypes()} list.
      */
     public static boolean isNotTaggedType(MsgField msgField) {
@@ -114,6 +108,7 @@ public enum MsgFieldType {
     }
 
     /**
+     * @param msgField contains a {@link MsgFieldType} value.
      * @return 'true' if the {@link #getTaggedTypes()} list contains the argument {@link MsgField#getType()}.
      */
     public static boolean isTaggedType(MsgField msgField) {
@@ -121,6 +116,7 @@ public enum MsgFieldType {
     }
 
     /**
+     * @param msgField contains a {@link MsgFieldType} value.
      * @return 'true' if the {@link #fixedLengthTypes} list contains the argument {@link MsgField#getType()}.
      */
     public static boolean isFixedLengthType(MsgField msgField) {

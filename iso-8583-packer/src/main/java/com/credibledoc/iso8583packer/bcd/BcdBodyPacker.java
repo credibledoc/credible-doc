@@ -38,6 +38,7 @@ public class BcdBodyPacker implements BodyPacker {
 
     /**
      * Packing and unpacking without padding. Throw an exception if the number of value digits in unpacked state is odd.
+     * @return Existing instance of {@link #noPaddingInstance} or created new instance.
      */
     public static BcdBodyPacker noPadding() {
         if (noPaddingInstance == null) {
@@ -48,6 +49,7 @@ public class BcdBodyPacker implements BodyPacker {
 
     /**
      * Adds a F-nibble to the left if the number of value digits in unpacked state is odd.
+     * @return Existing instance of {@link #leftPaddingFInstance} or created new instance.
      */
     public static BcdBodyPacker leftPaddingF() {
         if (leftPaddingFInstance == null) {
@@ -58,6 +60,7 @@ public class BcdBodyPacker implements BodyPacker {
 
     /**
      * Adds a F-nibble to the right if the number of value digits in unpacked state is odd.
+     * @return Existing instance of {@link #rightPaddingFInstance} or created new instance.
      */
     public static BcdBodyPacker rightPaddingF() {
         if (rightPaddingFInstance == null) {
@@ -68,6 +71,7 @@ public class BcdBodyPacker implements BodyPacker {
 
     /**
      * Adds a 0-nibble to the left if the number of value digits in unpacked state is odd.
+     * @return Existing instance of {@link #leftPadding0Instance} or created new instance.
      */
     public static BcdBodyPacker leftPadding0() {
         if (leftPadding0Instance == null) {
