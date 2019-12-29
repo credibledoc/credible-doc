@@ -223,7 +223,7 @@ public class DumpService {
             masker = msgField.getMasker();
         }
         
-        String byteHexString = maskBodyBytes(msgValue, maskPrivateData, masker);
+        String valueHexString = maskBodyBytes(msgValue, maskPrivateData, masker);
 
         String valueString;
         if (msgField != null) {
@@ -252,15 +252,15 @@ public class DumpService {
                 case LEN_TAG_VAL:
                 case LEN_VAL:
                 case BIT_SET:
-                    content = numNameValue + lenHexString + tagHexString + byteHexString;
+                    content = numNameValue + lenHexString + tagHexString + valueHexString;
                     break;
                     
                 default: // TAG_LEN_VAL and others
-                    content = numNameValue + tagHexString + lenHexString + byteHexString;
+                    content = numNameValue + tagHexString + lenHexString + valueHexString;
                     break;
             }
         } else {
-            content = numNameValue + tagHexString + lenHexString + byteHexString;
+            content = numNameValue + tagHexString + lenHexString + valueHexString;
         }
 
         printContent(msgField, msgValue, printStream, indent, indentForChildren, maskPrivateData, content);
@@ -298,19 +298,19 @@ public class DumpService {
     }
 
     private static String maskBodyBytes(MsgValue msgValue, boolean maskPrivateData, Masker masker) {
-        String result = null;
+        String valueHex = null;
         if (msgValue.getBodyBytes() != null) {
             String hex = HexService.bytesToHex(msgValue.getBodyBytes());
             if (maskPrivateData && masker != null) {
                 hex = masker.maskHex(hex);
             }
             if (hex.length() > MAX_LEN_20) {
-                result = hex.substring(0, 8) + "..." + hex.substring(hex.length() - 8);
+                valueHex = hex.substring(0, 8) + "..." + hex.substring(hex.length() - 8);
             } else {
-                result = hex;
+                valueHex = hex;
             }
         }
-        return result == null ? "" : (" bytesHex=\"" + result + "\"");
+        return valueHex == null ? "" : (" valHex=\"" + valueHex + "\"");
     }
 
     private static void printContent(MsgField msgField, MsgValue msgValue, PrintStream printStream, String indent,

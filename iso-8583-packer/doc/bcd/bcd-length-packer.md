@@ -46,7 +46,7 @@ The following example shows packing and unpacking of the field value
 
 The packed `FieldValue` with `lenHex` looks like
 ```XML
-<f val="123" lenHex="0002" bytesHex="0123"/>
+<f val="123" lenHex="0002" valHex="0123"/>
 ```
 
 More examples see [complex-example.md](../complex-example.md).

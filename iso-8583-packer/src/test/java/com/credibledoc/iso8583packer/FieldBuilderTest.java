@@ -1,6 +1,7 @@
 package com.credibledoc.iso8583packer;
 
 import com.credibledoc.iso8583packer.bcd.BcdBodyPacker;
+import com.credibledoc.iso8583packer.dump.DumpService;
 import com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.ifb.IfbBitmapPacker;
@@ -9,11 +10,15 @@ import com.credibledoc.iso8583packer.message.MsgFieldType;
 import com.credibledoc.iso8583packer.message.MsgPair;
 import com.credibledoc.iso8583packer.message.MsgValue;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class FieldBuilderTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(FieldBuilderTest.class);
 
     private static final String PAN_02_NAME = "PAN_02";
     private static final String BITMAP_NAME = "bitmap";
@@ -28,13 +33,13 @@ public class FieldBuilderTest {
         FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)
             .defineName("msg");
 
-        MsgField root = fieldBuilder.getCurrentField();
+        MsgField isoMsgField = fieldBuilder.getCurrentField();
         
         MsgField mti = FieldBuilder.builder(MsgFieldType.VAL)
             .defineName(MTI_NAME)
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
             .defineLen(2)
-            .defineParent(root)
+            .defineParent(isoMsgField)
             .getCurrentField();
 
         MsgField bitmap = FieldBuilder.from(mti)
@@ -42,7 +47,7 @@ public class FieldBuilderTest {
             .defineName(BITMAP_NAME)
             .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance())
             .defineLen(16)
-            .defineParent(root)
+            .defineParent(isoMsgField)
             .getCurrentField();
         
         FieldBuilder.from(bitmap)
@@ -55,7 +60,7 @@ public class FieldBuilderTest {
         fieldBuilder.validateStructure();
 
         // filling with data
-        FieldFiller fieldFiller = FieldFiller.newInstance(root);
+        FieldFiller fieldFiller = FieldFiller.newInstance(isoMsgField);
         
         String mtiValue = "0200";
         fieldFiller.jumpToChild(MTI_NAME).setValue(mtiValue);
@@ -73,11 +78,11 @@ public class FieldBuilderTest {
         assertEquals(expectedHex, HexService.bytesToHex(bytes));
         
         // unpacking
-        MsgValue msgValue = FieldFiller.unpack(bytes, 0, root);
+        MsgValue msgValue = FieldFiller.unpack(bytes, 0, isoMsgField);
         assertEquals(2, msgValue.getChildren().size());
         
         // data browsing
-        MsgPair rootPair = FieldFiller.newInstance(msgValue, root).getCurrentPair();
+        MsgPair rootPair = FieldFiller.newInstance(msgValue, isoMsgField).getCurrentPair();
         assertNotNull(rootPair);
         
         String mtiString = FieldFiller.newInstance(rootPair).jumpToChild(MTI_NAME).getValue(String.class);
@@ -91,5 +96,11 @@ public class FieldBuilderTest {
         
         String unpackedPanString = panFiller.getValue(String.class);
         assertEquals(pan, unpackedPanString);
+
+        String msgFieldDump = DumpService.dumpMsgField(isoMsgField);
+        logger.info("Root msgField dump: \n{}{}", msgFieldDump, "End of msgField dump.");
+
+        String msgValueDump = DumpService.dumpMsgValue(isoMsgField, msgValue, false);
+        logger.info("Root msgValue dump: \n{}{}", msgValueDump, "End of msgValue dump.");
     }
 }

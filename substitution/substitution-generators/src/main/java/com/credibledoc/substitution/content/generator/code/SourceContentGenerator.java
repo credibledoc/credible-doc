@@ -25,6 +25,7 @@ import java.nio.file.Paths;
  *                             "beginString": "        String packedHex = \"0456\";",
  *                             "includeBeginString": "false",
  *                             "endString": "        assertEquals(expectedValue, unpackedValue);",
+ *                             "includeEndString": "false",
  *                             "indentation": "    "
  *                         }
  *                  } &&endPlaceholder
@@ -42,6 +43,8 @@ public class SourceContentGenerator implements ContentGenerator {
     private static final String INDENTATION = "indentation";
     private static final String PARAMETER = "Parameter ";
     private static final String IS_MANDATORY = " is mandatory";
+    private static final String INCLUDE_BEGIN_STRING = "includeBeginString";
+    private static final String INCLUDE_END_STRING = "includeEndString";
 
     @Override
     public Content generate(Placeholder placeholder) {
@@ -49,7 +52,8 @@ public class SourceContentGenerator implements ContentGenerator {
             validateParameters(placeholder);
             String sourceRelativePath = placeholder.getParameters().get(SOURCE_RELATIVE_PATH);
             String beginString = placeholder.getParameters().get(BEGIN_STRING);
-            boolean includeBeginString = !"false".equals(placeholder.getParameters().get("includeBeginString"));
+            boolean includeBeginString = !"false".equals(placeholder.getParameters().get(INCLUDE_BEGIN_STRING));
+            boolean includeEndString = !"false".equals(placeholder.getParameters().get(INCLUDE_END_STRING));
             String endString = placeholder.getParameters().get(END_STRING);
             String indentation = placeholder.getParameters().get(INDENTATION);
             if (indentation == null) {
@@ -74,8 +78,13 @@ public class SourceContentGenerator implements ContentGenerator {
                 throw new SubstitutionRuntimeException("Cannot find string '" + endString + "' " +
                     "in file '" + path.toAbsolutePath() + "'");
             }
-            
-            String methodContent = fileContent.substring(beginIndex, endIndex + endString.length());
+
+            String methodContent;
+            if (includeEndString) {
+                methodContent = fileContent.substring(beginIndex, endIndex + endString.length());
+            } else {
+                methodContent = fileContent.substring(beginIndex, endIndex);
+            }
             
             String[] lines = methodContent.split("\\r\\n|\\n");
             StringBuilder stringBuilder = new StringBuilder(methodContent.length());
