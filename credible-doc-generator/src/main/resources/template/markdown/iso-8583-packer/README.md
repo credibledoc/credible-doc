@@ -110,3 +110,4 @@ More complex message definition with inner subfields is described in the [comple
 ## Field types
 The [FieldBuilder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldBuilder.java)
 is able to create different field types, with and without headers, see the [field-types.md](doc/field-types.md).
+Example of `LEN_VAL` type [bcd-length-packer.md](bcd/bcd-length-packer.md)
