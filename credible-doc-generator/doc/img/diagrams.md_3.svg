@@ -236,7 +236,7 @@
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="3944.4395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2165.5" y="3966.8965">The first line read from ReaderService.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2165.5" y="3981.9902">Line: 30.12.2019</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="3997.084">16:42:40.398|main|INFO |...</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="3997.084">17:33:56.318|main|INFO |...</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="169" x="2186" y="4029.7207"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2196" y="4052.1777">41 lines processed (100%)</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="4084.8145"/>
@@ -248,7 +248,7 @@
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="4285.5645"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2165.5" y="4308.0215">The first line read from ReaderService.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2165.5" y="4323.1152">Line: 30.12.2019</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4338.209">16:38:58.635|main|INFO |...</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4338.209">16:42:40.398|main|INFO |...</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="2182.5" y="4370.8457"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="2192.5" y="4393.3027">142 lines processed (100%)</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="4425.9395"/>
@@ -260,7 +260,7 @@
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="4626.6895"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2165.5" y="4649.1465">The first line read from ReaderService.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2165.5" y="4664.2402">Line: 30.12.2019</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4679.334">16:38:58.635|main|INFO |...</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="4679.334">16:42:40.398|main|INFO |...</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="2182.5" y="4711.9707"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="2192.5" y="4734.4277">142 lines processed (100%)</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="95.4688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="228" x="2156.5" y="4767.0645"/>
@@ -272,25 +272,25 @@
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="230" x="2155.5" y="4967.8145"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="210" x="2165.5" y="4990.2715">The first line read from ReaderService.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="92" x="2165.5" y="5005.3652">Line: 30.12.2019</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="5020.459">16:38:58.635|main|INFO |...</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2165.5" y="5020.459">16:42:40.398|main|INFO |...</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="2182.5" y="5053.0957"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="2192.5" y="5075.5527">142 lines processed (100%)</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="3859.1582"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="2422" y="3881.6152">Duration of</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="150" x="2422" y="3896.709">prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="3911.8027">3,391137 milliseconds</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="3911.8027">3,434162 milliseconds</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="4200.2832"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="2422" y="4222.7402">Duration of</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="150" x="2422" y="4237.834">prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4252.9277">0,506045 milliseconds</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4252.9277">0,531703 milliseconds</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="4541.4082"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="2422" y="4563.8652">Duration of</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="150" x="2422" y="4578.959">prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4594.0527">0,513940 milliseconds</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4594.0527">0,568413 milliseconds</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="2412" y="4882.5332"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="2422" y="4904.9902">Duration of</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="150" x="2422" y="4920.084">prepareBufferedReaders is</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4935.1777">0,560913 milliseconds</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="126" x="2422" y="4935.1777">0,522624 milliseconds</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="5439.502"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="159" x="2616.5" y="5461.959">DiagramDescription: activity3</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="179" x="2606.5" y="5816.0957"/>
@@ -771,7 +771,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="123" x="2817" y="14103.959">assertEquals(\"0123\",</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="149" x="2817" y="14119.0527">bytesHex)~;","beginString":"</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="100" x="2829" y="14134.1465">byte []valueBytes =</text>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="109" x="2817" y="14149.2402">fieldFiller.pack()~;"}}</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="125" x="2817" y="14149.2402">valueHolder.pack()~;"}}</text>
     <rect fill="#FEFECE" filter="url(#fzoljvs901zav)" height="276.5938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="255" x="2807" y="14181.877"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="2817" y="14204.334">Content replaced.</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="211" x="2817" y="14219.4277">{"resource":"/template/markdown/iso-8</text>
@@ -1696,12 +1696,12 @@
 |ReaderService|
     :Duration of 
     prepareBufferedReaders is 
-    3,391137 milliseconds;
+    3,434162 milliseconds;
 
 |VisualizerService|
     :The first line read from ReaderService. 
     Line: 30.12.2019 
-    16:42:40.398|main|INFO |...;
+    17:33:56.318|main|INFO |...;
 
 |VisualizerService|
     :41 lines processed (100%);
@@ -1716,12 +1716,12 @@
 |ReaderService|
     :Duration of 
     prepareBufferedReaders is 
-    0,506045 milliseconds;
+    0,531703 milliseconds;
 
 |VisualizerService|
     :The first line read from ReaderService. 
     Line: 30.12.2019 
-    16:38:58.635|main|INFO |...;
+    16:42:40.398|main|INFO |...;
 
 |VisualizerService|
     :142 lines processed (100%);
@@ -1736,12 +1736,12 @@
 |ReaderService|
     :Duration of 
     prepareBufferedReaders is 
-    0,513940 milliseconds;
+    0,568413 milliseconds;
 
 |VisualizerService|
     :The first line read from ReaderService. 
     Line: 30.12.2019 
-    16:38:58.635|main|INFO |...;
+    16:42:40.398|main|INFO |...;
 
 |VisualizerService|
     :142 lines processed (100%);
@@ -1756,12 +1756,12 @@
 |ReaderService|
     :Duration of 
     prepareBufferedReaders is 
-    0,560913 milliseconds;
+    0,522624 milliseconds;
 
 |VisualizerService|
     :The first line read from ReaderService. 
     Line: 30.12.2019 
-    16:38:58.635|main|INFO |...;
+    16:42:40.398|main|INFO |...;
 
 |VisualizerService|
     :142 lines processed (100%);
@@ -2332,7 +2332,7 @@
     assertEquals(\"0123\", 
     bytesHex)~;","beginString":"    
         byte []valueBytes = 
-    fieldFiller.pack()~;"}};
+    valueHolder.pack()~;"}};
 
 |MarkdownService|
     :Content replaced. 
