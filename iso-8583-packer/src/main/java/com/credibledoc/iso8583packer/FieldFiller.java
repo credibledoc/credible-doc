@@ -1044,15 +1044,4 @@ public class FieldFiller {
         return type.cast(msgValue.getBodyValue());
     }
 
-    /**
-     * Set the {@link HeaderValue#setMti(String)} to the current {@link #msgValue}.
-     * @param mti for example "0200" for financial request.
-     */
-    public void setMti(String mti) {
-        if (msgValue.getHeaderValue() == null) {
-            HeaderValue headerValue = new HeaderValue();
-            msgValue.setHeaderValue(headerValue);
-        }
-        msgValue.getHeaderValue().setMti(mti);
-    }
 }

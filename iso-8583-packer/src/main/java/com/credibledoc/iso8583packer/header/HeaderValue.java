@@ -20,12 +20,6 @@ import java.util.BitSet;
 public class HeaderValue implements Header {
     
     /**
-     * Message type indicator.
-     */
-    // TODO Kyrylo Semenko - delete
-    private String mti;
-
-    /**
      * This field contains list of its children indexes. These children are located
      * in the {@link MsgValue#getChildren()} list.
      * <p>
@@ -51,22 +45,7 @@ public class HeaderValue implements Header {
                 "tagBytes=" + tagBytesString +
                 ", lengthBytes=" + lengthBytesString +
                 ", bitSet=" + bitSet +
-                ", mti=" + mti +
                 '}';
-    }
-
-    /**
-     * @return The {@link #mti} field value.
-     */
-    public String getMti() {
-        return mti;
-    }
-
-    /**
-     * @param mti see the {@link #mti} field description.
-     */
-    public void setMti(String mti) {
-        this.mti = mti;
     }
 
     /**
