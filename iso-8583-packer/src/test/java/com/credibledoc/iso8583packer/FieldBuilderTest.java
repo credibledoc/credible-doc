@@ -1,6 +1,7 @@
 package com.credibledoc.iso8583packer;
 
 import com.credibledoc.iso8583packer.bcd.BcdBodyPacker;
+import com.credibledoc.iso8583packer.bcd.BcdLengthPacker;
 import com.credibledoc.iso8583packer.dump.DumpService;
 import com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker;
 import com.credibledoc.iso8583packer.hex.HexService;
@@ -23,6 +24,7 @@ public class FieldBuilderTest {
     private static final String PAN_02_NAME = "PAN_02";
     private static final String BITMAP_NAME = "bitmap";
     private static final String MTI_NAME = "mti";
+    private static final String PROCESSING_CODE_03_NAME = "Processing_code_03";
 
     /**
      * Used in documentation
@@ -57,6 +59,13 @@ public class FieldBuilderTest {
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
             .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2));
         
+        FieldBuilder.from(bitmap)
+            .createChild(MsgFieldType.LEN_VAL)
+            .defineTagNum(3)
+            .defineName(PROCESSING_CODE_03_NAME)
+            .defineBodyPacker(BcdBodyPacker.rightPaddingF())
+            .defineHeaderLengthPacker(BcdLengthPacker.getInstance(1));
+        
         fieldBuilder.validateStructure();
 
         // filling with data
@@ -66,15 +75,22 @@ public class FieldBuilderTest {
         fieldFiller.jumpToChild(MTI_NAME).setValue(mtiValue);
 
         String pan = "123456781234567";
+        String processingCode = "32";
         fieldFiller.jumpToSibling(BITMAP_NAME)
-            .jumpToChild(PAN_02_NAME).setValue(pan);
+            .jumpToChild(PAN_02_NAME).setValue(pan)
+            .jumpToSibling(PROCESSING_CODE_03_NAME).setValue(processingCode);
         
         // packing
         byte[] bytes = fieldFiller.jumpToRoot().pack();
-        String expectedBitmapHex = "4000000000000000";
-        String expectedLengthHex = "F0F8";
+        String expectedBitmapHex = "6000000000000000";
+        String expectedPanLengthHex = "F0F8";
         char padding = BcdBodyPacker.FILLER_F;
-        String expectedHex = mtiValue + expectedBitmapHex + expectedLengthHex + pan + padding;
+        String expectedProcessingCodeLenHex = "01";
+        String expectedHex =
+            mtiValue +
+            expectedBitmapHex +
+            expectedPanLengthHex + pan + padding +
+            expectedProcessingCodeLenHex + processingCode;
         assertEquals(expectedHex, HexService.bytesToHex(bytes));
         
         // unpacking
@@ -96,6 +112,13 @@ public class FieldBuilderTest {
         
         String unpackedPanString = panFiller.getValue(String.class);
         assertEquals(pan, unpackedPanString);
+
+        FieldFiller processingCodeFieldHolder =
+            FieldFiller.newInstance(bitmapPair).jumpToChild(PROCESSING_CODE_03_NAME);
+        assertNotNull(processingCodeFieldHolder);
+
+        String unpackedProcessingCode = processingCodeFieldHolder.getValue(String.class);
+        assertEquals(processingCode, unpackedProcessingCode);
 
         String msgFieldDump = DumpService.dumpMsgField(isoMsgField);
         logger.info("Root msgField dump: \n{}{}", msgFieldDump, "End of msgField dump.");
