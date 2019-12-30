@@ -24,7 +24,7 @@ public class BinaryLengthPacker implements LengthPacker {
     }
     
     @Override
-    public byte[] pack(int bodyBytesLength, int lenLength) {
+    public byte[] pack(int bodyBytesLength, Integer lenLength) {
         byte[] result = new byte[nBytes];
         for(int i = this.nBytes - 1; i >= 0; --i) {
             result[i] = (byte)(lenLength & 255);
@@ -34,7 +34,7 @@ public class BinaryLengthPacker implements LengthPacker {
     }
 
     @Override
-    public int unpack(byte[] messageBytes, int offset, int lenLength) {
+    public int unpack(byte[] messageBytes, int offset, Integer lenLength) {
         int len = 0;
         for (int i = 0; i < this.nBytes; ++i) {
             len = 256 * len + (messageBytes[offset + i] & 255);

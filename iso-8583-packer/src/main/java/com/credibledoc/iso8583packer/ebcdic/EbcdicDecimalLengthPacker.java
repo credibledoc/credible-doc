@@ -2,38 +2,58 @@ package com.credibledoc.iso8583packer.ebcdic;
 
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.length.LengthPacker;
+import com.credibledoc.iso8583packer.message.MsgValue;
 import com.credibledoc.iso8583packer.string.StringUtils;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * See examples in the {@link #pack(int, int)} and {@link #unpack(byte[], int, int)} methods description.
- * 
+ * The {@link LengthPacker} with fixed length <b>length</b> subfield
+ * in <a href="https://en.wikipedia.org/wiki/EBCDIC">EBCDIC</a> format.
+ * <p>
+ * See examples in the {@link #pack(int, Integer)} and {@link #unpack(byte[], int, Integer)} methods description.
+ *
  * @author Kyrylo Semenko
  */
 public class EbcdicDecimalLengthPacker implements LengthPacker {
-    public static final EbcdicDecimalLengthPacker L = new EbcdicDecimalLengthPacker(1);
-    public static final EbcdicDecimalLengthPacker LL = new EbcdicDecimalLengthPacker(2);
-    public static final EbcdicDecimalLengthPacker LLL = new EbcdicDecimalLengthPacker(3);
-    public static final EbcdicDecimalLengthPacker LLLL = new EbcdicDecimalLengthPacker(4);
     private static final String FILLER_F = "F";
+    private static final char PAD_CHAR_0 = '0';
 
     /**
-     * How many bytes occupies the length sub-field in a packed message.
+     * Contains created instances. Each instance is Singleton.
      */
-    private int lenLength;
+    private static Map<Integer, EbcdicDecimalLengthPacker> instances = new ConcurrentHashMap<>();
     
-    private EbcdicDecimalLengthPacker(int lenLength) {
-        this.lenLength = lenLength;
+    /**
+     * How many bytes of the {@link MsgValue#getHeaderValue()} field occupies the <b>LEN</b> subfield
+     * in a packed state.
+     */
+    private int numBytes;
+    
+    private EbcdicDecimalLengthPacker(int numBytes) {
+        this.numBytes = numBytes;
+    }
+
+    /**
+     * Static factory. Creates ans returns singletons.
+     * @param numBytes see {@link #numBytes}
+     * @return Existing instance from {@link #instances} or a new created instance.
+     */
+    public static EbcdicDecimalLengthPacker getInstance(int numBytes) {
+        instances.computeIfAbsent(numBytes, k -> new EbcdicDecimalLengthPacker(numBytes));
+        return instances.get(numBytes);
     }
 
     /**
      * Convert for example the <b>154</b> decimal int to <b>F1F5F4</b> bytes.
+     * @param notUsed is not used, the lenLength is defined in the {@link #EbcdicDecimalLengthPacker(int)} constructor.
      */
     @Override
-    public byte[] pack(int bodyBytesLength, int lenLength) {
-        StringBuilder stringBuilder = new StringBuilder(lenLength * 2);
-        String lenString = StringUtils.leftPad(Integer.toString(bodyBytesLength), lenLength, '0');
+    public byte[] pack(int bodyBytesLength, Integer notUsed) {
+        StringBuilder stringBuilder = new StringBuilder(numBytes * 2);
+        String lenString = StringUtils.leftPad(Integer.toString(bodyBytesLength), numBytes, PAD_CHAR_0);
         for (char character : lenString.toCharArray()) {
             stringBuilder.append(FILLER_F).append(character);
         }
@@ -41,11 +61,12 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
     }
 
     /**
-     * Convert for example the <b>F1F5F4</b> bytes to decimal int <b>154</b>
+     * Convert for example the <b>F1F5F4</b> bytes to decimal int <b>154</b>.
+     * @param notUsed is not used, the lenLength is defined in the {@link #EbcdicDecimalLengthPacker(int)} constructor.
      */
     @Override
-    public int unpack(byte[] messageBytes, int offset, int lenLength) {
-        byte[] lenBytes = Arrays.copyOfRange(messageBytes, offset, offset + lenLength);
+    public int unpack(byte[] messageBytes, int offset, Integer notUsed) {
+        byte[] lenBytes = Arrays.copyOfRange(messageBytes, offset, offset + numBytes);
         String hex = HexService.bytesToHex(lenBytes);
         String withoutF = hex.replace(FILLER_F, "");
         return Integer.parseInt(withoutF);
@@ -53,11 +74,11 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
 
     @Override
     public int calculateLenLength(byte[] data, int offset) {
-        return lenLength;
+        return numBytes;
     }
 
     @Override
     public int calculateLenLength(int bodyBytesLength) {
-        return lenLength;
+        return numBytes;
     }
 }

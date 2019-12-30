@@ -18,7 +18,7 @@ public class HexLengthPacker implements LengthPacker {
     private static final int MAX_LEN_LENGTH_3_BYTES = 3;
 
     @Override
-    public int unpack(byte[] messageBytes, int offset, int lenLength) {
+    public int unpack(byte[] messageBytes, int offset, Integer lenLength) {
         if (lenLength == 0) {
             throw new PackerRuntimeException("Value of lenLength cannot be " + lenLength);
         }
@@ -48,7 +48,7 @@ public class HexLengthPacker implements LengthPacker {
     }
 
     @Override
-    public byte[] pack(int bodyBytesLength, int lenLength) {
+    public byte[] pack(int bodyBytesLength, Integer lenLength) {
         try {
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             /*

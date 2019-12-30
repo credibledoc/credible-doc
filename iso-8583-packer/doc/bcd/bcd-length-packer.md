@@ -49,4 +49,30 @@ The packed `FieldValue` with `lenHex` looks like
 <f val="123" lenHex="0002" valHex="0123"/>
 ```
 
+Some examples of packed values
+```
+Examples of integers packed with BcdLengthPacker class
+numBytes: 1
+Integer '1' packed as bytes '01'
+Integer '15' packed as bytes '15'
+Integer '16' packed as bytes '16'
+Integer '17' packed as bytes '17'
+Integer '98' packed as bytes '98'
+Integer '123' packed as bytes 'cannot be packed, exception thrown'
+numBytes: 2
+Integer '1' packed as bytes '0001'
+Integer '15' packed as bytes '0015'
+Integer '16' packed as bytes '0016'
+Integer '17' packed as bytes '0017'
+Integer '98' packed as bytes '0098'
+Integer '123' packed as bytes '0123'
+numBytes: 3
+Integer '1' packed as bytes '000001'
+Integer '15' packed as bytes '000015'
+Integer '16' packed as bytes '000016'
+Integer '17' packed as bytes '000017'
+Integer '98' packed as bytes '000098'
+Integer '123' packed as bytes '000123'
+```
+
 More examples see [complex-example.md](../complex-example.md).

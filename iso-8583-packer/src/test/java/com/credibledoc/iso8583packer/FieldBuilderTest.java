@@ -55,7 +55,7 @@ public class FieldBuilderTest {
             .defineTagNum(2)
             .defineName(PAN_02_NAME)
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
-            .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.LL);
+            .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2));
         
         fieldBuilder.validateStructure();
 

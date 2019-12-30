@@ -31,10 +31,10 @@ public interface LengthPacker {
      * @param bodyBytesLength the number to be encoded and packed.
      * @param lenLength       how many bytes will be long the packed length in the target outgoing message.
      *                        In some cases the value is calculated with the {@link #calculateLenLength(byte[], int)}
-     *                        method, in other cases the value is fixed.
+     *                        method, in other cases the value is null because it is fixed - length value.
      * @return The encoded and packed bytes of the {@link MsgValue#getBodyBytes()}  subfield.
      */
-    byte[] pack(int bodyBytesLength, int lenLength);
+    byte[] pack(int bodyBytesLength, Integer lenLength);
 
     /**
      * Unpack a number how many bytes contains the {@link MsgValue#getBodyBytes()} subfield.
@@ -42,10 +42,11 @@ public interface LengthPacker {
      * @param messageBytes packed bytes of incoming message.
      * @param offset       how many bytes to skip.
      * @param lenLength    how many bytes the number encoded and packed. In some cases the value is calculated with
-     *                     the {@link #calculateLenLength(byte[], int)} method, in other cases the value is fixed.
+     *                     the {@link #calculateLenLength(byte[], int)} method, in other cases the value is null
+     *                     because it is fixed - length value.
      * @return Unpacked and decoded number of bytes for decoding the {@link MsgValue#getBodyBytes()} subfield.
      */
-    int unpack(byte[] messageBytes, int offset, int lenLength);
+    int unpack(byte[] messageBytes, int offset, Integer lenLength);
 
     /**
      * Some {@link LengthPacker}s has constant bytes length of the header part where packed length is a subfield

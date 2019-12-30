@@ -20,3 +20,10 @@ and FieldFiller.<b>get</b>(MsgValue, MsgField) renamed to FieldFiller.<b>newInst
 as described in https://stackoverflow.com/questions/3368830/how-to-name-factory-like-methods.
 
 MsgFieldType LEN_VAL_BIT_SET deleted, please use the LEN_VAL type instead.
+
+Default static instances of `BcdLengthPacker.L`, `LL` and so on replaced with `BcdLengthPacker.getInstance(int numBytes)` factory method.
+
+Default static instances of `EbcdicDecimalLengthPacker.L`, `LL` and so on replaced with `EbcdicDecimalLengthPacker.getInstance(int numBytes)` factory method.
+
+Interface `LengthPacker` changed, `Integer` is used instead of `int` because in some cases
+the `lenLength` value is defined in the class constructor and it has a fixed - length value.

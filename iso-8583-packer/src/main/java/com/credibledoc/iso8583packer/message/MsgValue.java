@@ -58,6 +58,10 @@ public class MsgValue implements Msg {
      */
     private List<MsgValue> children;
 
+    /**
+     * Contains subfields of the {@link MsgValue} field,
+     * for example {@link HeaderValue#getTagBytes()} and {@link HeaderValue#getLengthBytes()}.
+     */
     private HeaderValue headerValue = new HeaderValue();
 
     @Override
