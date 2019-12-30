@@ -52,7 +52,7 @@ public class BcdLengthPacker implements LengthPacker {
         if (hex.length() > numBytes * 2) {
             throw new PackerRuntimeException("The bodyBytesLength '" + bodyBytesLength +
                 "' cannot be packed to '" + numBytes + "' bytes " +
-                "because it is longer and '" + hex.length() / 2 + "' bytes is needed for packing " +
+                "because it is longer and '" + Math.round(hex.length() / 2f) + "' bytes is needed for packing " +
                 "the '" + hex + "' value.");
         }
         return HexService.hex2byte(hex);

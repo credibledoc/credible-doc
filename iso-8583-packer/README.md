@@ -71,10 +71,14 @@ The defined MsgField can be used for unpacking from bytes to an object
 
 You can find the complete example here: [BcdBodyPackerTest](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java)
 
-More complex message definition with inner subfields is described in the [complex-example.md](doc/complex-example.md)
+More complex message definition with inner subfields is described in the [complex-example.md](doc/complex-example.md) document.
 
 ## Field types
 The [FieldBuilder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldBuilder.java)
-is able to create different field types, with and without headers, see the [field-types.md](doc/field-types.md).
+is able to create different field types, with and without headers, see the [field-types.md](doc/field-types.md) document.
 
-Example of `LEN_VAL` type [bcd-length-packer.md](doc/bcd/bcd-length-packer.md)
+### `LEN` types
+Examples of `LEN` types
+
+* [bcd-length-packer.md](doc/bcd/bcd-length-packer.md)
+* [ebcdic-decimal-length-packer.md](doc/ebcdic/ebcdic-decimal-length-packer.md)

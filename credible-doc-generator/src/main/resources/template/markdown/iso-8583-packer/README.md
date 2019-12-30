@@ -49,66 +49,70 @@ The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binar
 
 ```Java
 &&beginPlaceholder {
-                        "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
-                        "description": "Example of fixed length BCD value definition",
-                        "parameters": {
-                            "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
-                            "beginString": "            FieldBuilder.builder(MsgFieldType.VAL)",
-                            "endString": "defineBodyPacker(BcdBodyPacker.leftPadding0());",
-                            "indentation": ""
-                        }
-                 } &&endPlaceholder
+    "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
+    "description": "Example of fixed length BCD value definition",
+    "parameters": {
+        "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
+        "beginString": "            FieldBuilder.builder(MsgFieldType.VAL)",
+        "endString": "defineBodyPacker(BcdBodyPacker.leftPadding0());",
+        "indentation": ""
+    }
+} &&endPlaceholder
 ```
 
 The field can be filled with data by [FieldFiller](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldFiller.java),
 for example:
 ```Java
 &&beginPlaceholder {
-                        "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
-                        "description": "Example of fixed length BCD value filling",
-                        "parameters": {
-                            "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
-                            "beginString": "        String value = \"123\";",
-                            "endString": "            .setValue(value);",
-                            "indentation": "    "
-                        }
-                 } &&endPlaceholder
+    "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
+    "description": "Example of fixed length BCD value filling",
+    "parameters": {
+        "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
+        "beginString": "        String value = \"123\";",
+        "endString": "            .setValue(value);",
+        "indentation": "    "
+    }
+} &&endPlaceholder
 ```
 
 The filled object can be packed to bytes
 ```Java
 &&beginPlaceholder {
-                        "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
-                        "description": "Example of fixed length BCD value packing",
-                        "parameters": {
-                            "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
-                            "beginString": "        byte[] valueBytes = fieldFiller.pack();",
-                            "endString": "        assertEquals(\"0123\", bytesHex);",
-                            "indentation": "    "
-                        }
-                 } &&endPlaceholder
+    "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
+    "description": "Example of fixed length BCD value packing",
+    "parameters": {
+        "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
+        "beginString": "        byte[] valueBytes = fieldFiller.pack();",
+        "endString": "        assertEquals(\"0123\", bytesHex);",
+        "indentation": "    "
+    }
+} &&endPlaceholder
 ```
 
 The defined MsgField can be used for unpacking from bytes to an object
 ```Java
 &&beginPlaceholder {
-                        "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
-                        "description": "Example of fixed length BCD value unpacking",
-                        "parameters": {
-                            "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
-                            "beginString": "        String packedHex = \"0456\";",
-                            "endString": "        assertEquals(expectedValue, unpackedValue);",
-                            "indentation": "    "
-                        }
-                 } &&endPlaceholder
+    "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
+    "description": "Example of fixed length BCD value unpacking",
+    "parameters": {
+        "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
+        "beginString": "        String packedHex = \"0456\";",
+        "endString": "        assertEquals(expectedValue, unpackedValue);",
+        "indentation": "    "
+    }
+} &&endPlaceholder
 ```
 
 You can find the complete example here: [BcdBodyPackerTest](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java)
 
-More complex message definition with inner subfields is described in the [complex-example.md](doc/complex-example.md)
+More complex message definition with inner subfields is described in the [complex-example.md](doc/complex-example.md) document.
 
 ## Field types
 The [FieldBuilder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldBuilder.java)
-is able to create different field types, with and without headers, see the [field-types.md](doc/field-types.md).
+is able to create different field types, with and without headers, see the [field-types.md](doc/field-types.md) document.
 
-Example of `LEN_VAL` type [bcd-length-packer.md](doc/bcd/bcd-length-packer.md)
+### `LEN` types
+Examples of `LEN` types
+
+* [bcd-length-packer.md](doc/bcd/bcd-length-packer.md)
+* [ebcdic-decimal-length-packer.md](doc/ebcdic/ebcdic-decimal-length-packer.md)

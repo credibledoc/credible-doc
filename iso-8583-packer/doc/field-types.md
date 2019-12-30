@@ -8,4 +8,20 @@ These [MsgField](https://github.com/credibledoc/credible-doc/blob/master/iso-858
 types always have a `body` and may have a `header`. The example [here](../README.md) is a `MsgField` without a `header`, it has the `body` without the `tag` and `length` subfields.
 
 ## Length and Value types
+
+Some MsgFields have defined the `LEN` subfield, for example
+```
+LEN VAL
+ 02 123
+```
+or
+```
+TAG LEN VAL
+ 60  02 543
+```
+or
+```
+LEN TAG VAL
+ 03  60 543
+```
 The example of `LEN_VAL` type [bcd-length-packer.md](../doc/bcd/bcd-length-packer.md)

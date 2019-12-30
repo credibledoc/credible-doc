@@ -1,5 +1,6 @@
 package com.credibledoc.iso8583packer.ebcdic;
 
+import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.message.MsgValue;
@@ -56,6 +57,12 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
         String lenString = StringUtils.leftPad(Integer.toString(bodyBytesLength), numBytes, PAD_CHAR_0);
         for (char character : lenString.toCharArray()) {
             stringBuilder.append(FILLER_F).append(character);
+        }
+        if (stringBuilder.length() > numBytes * 2) {
+            throw new PackerRuntimeException("The bodyBytesLength '" + bodyBytesLength +
+                "' cannot be packed to '" + numBytes + "' bytes " +
+                "because it is longer and '" + Math.round(stringBuilder.length() / 2f) + "' bytes is needed for packing " +
+                "the '" + stringBuilder.toString() + "' value.");
         }
         return HexService.hex2byte(stringBuilder.toString());
     }
