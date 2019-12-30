@@ -66,15 +66,16 @@ public class ValueHolder {
      * <p>
      * Example of usage:
      * <pre>
-     *     ValueHolder valueHolder = // TODO Kyrylo Semenko
+     *     ValueHolder valueHolder = ValueHolder.newInstance(isoMsgField);
      * </pre>
      * 
-     * How to fill the data to the {@link FieldBuilder}? For example see the example:
+     * How to fill the data to the {@link FieldBuilder}? See the following example:
      * <pre>
-     *     // TODO Kyrylo Semenko - documentation
+     *     String mtiValue = "0200";
+     *     valueHolder.jumpToChild(MTI_NAME).setValue(mtiValue);
      * </pre>
      *
-     * @param definition a template created by {@link FieldBuilder}.
+     * @param definition existing definition created with {@link FieldBuilder}.
      * @return A new instance of this {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
      */
     public static ValueHolder newInstance(MsgField definition) {
@@ -145,35 +146,7 @@ public class ValueHolder {
         } else if (MsgFieldType.VAL == msgPair.getMsgField().getType()) {
             rawDataLength = unpackFixedLengthType(bytes, offset, msgPair);
         } else {
-            Integer tagLength = getChildTagLengthFromParent(msgPair.getMsgField());
-            boolean lengthFirst = MsgFieldType.getLengthFirstTypes().contains(msgPair.getMsgField().getType());
-            Integer tagNum = null;
-
-            if (lengthFirst) {
-                rawDataLength = unpackLength(bytes, offset, msgPair) - tagLength;
-            }
-
-            if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
-                tagNum = unpackTagNum(bytes, offset, msgPair, tagLength);
-            }
-
-            boolean tagNumUnpackedButIsDifferent = tagNum != null && (
-                    msgPair.getMsgField().getTagNum() == null || !tagNum.equals(msgPair.getMsgField().getTagNum()));
-
-            if (tagNumUnpackedButIsDifferent) {
-                msgPair = replaceWithSibling(msgPair, tagNum);
-            }
-
-            if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
-                unpackTagBytes(bytes, offset, msgPair, tagLength, tagNum);
-            }
-
-            if (!lengthFirst) {
-                rawDataLength = unpackLength(bytes, offset, msgPair);
-            }
-
-            // unpack field body
-            unpackBodyBytes(bytes, offset, msgPair, rawDataLength);
+            rawDataLength = unpackOtherTypes(bytes, offset, msgPair, rawDataLength);
         }
         
         if (msgPair.getMsgField().getChildren() == null) {
@@ -184,6 +157,39 @@ public class ValueHolder {
             return;
         }
         offset.add(rawDataLength);
+    }
+
+    private static Integer unpackOtherTypes(byte[] bytes, Offset offset, MsgPair msgPair, Integer rawDataLength) {
+        Integer tagLength = getChildTagLengthFromParent(msgPair.getMsgField());
+        boolean lengthFirst = MsgFieldType.getLengthFirstTypes().contains(msgPair.getMsgField().getType());
+        Integer tagNum = null;
+
+        if (lengthFirst) {
+            rawDataLength = unpackLength(bytes, offset, msgPair) - tagLength;
+        }
+
+        if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
+            tagNum = unpackTagNum(bytes, offset, msgPair, tagLength);
+        }
+
+        boolean tagNumUnpackedButIsDifferent = tagNum != null && (
+                msgPair.getMsgField().getTagNum() == null || !tagNum.equals(msgPair.getMsgField().getTagNum()));
+
+        if (tagNumUnpackedButIsDifferent) {
+            replaceWithSibling(msgPair, tagNum);
+        }
+
+        if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
+            unpackTagBytes(bytes, offset, msgPair, tagLength, tagNum);
+        }
+
+        if (!lengthFirst) {
+            rawDataLength = unpackLength(bytes, offset, msgPair);
+        }
+
+        // unpack field body
+        unpackBodyBytes(bytes, offset, msgPair, rawDataLength);
+        return rawDataLength;
     }
 
     private static Integer unpackFixedLengthType(byte[] bytes, Offset offset, MsgPair msgPair) {
@@ -351,7 +357,7 @@ public class ValueHolder {
         msgPair.getMsgValue().setBodyValue(bodyValue);
     }
 
-    private static MsgPair replaceWithSibling(MsgPair msgPair, Integer tagNum) {
+    private static void replaceWithSibling(MsgPair msgPair, Integer tagNum) {
         MsgPair result = new MsgPair();
         MsgField msgFieldSibling = findSiblingByTagNum(tagNum, msgPair.getMsgField());
         if (msgFieldSibling == null) {
@@ -371,7 +377,8 @@ public class ValueHolder {
         if (oldMsgValue.getHeaderValue() != null) {
             newMsgValue.setHeaderValue(oldMsgValue.getHeaderValue());
         }
-        return result;
+        msgPair.setMsgField(result.getMsgField());
+        msgPair.setMsgValue(result.getMsgValue());
     }
 
     private static List<Integer> getTagNumsFromBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
@@ -521,19 +528,19 @@ public class ValueHolder {
 
     /**
      * Set the {@link MsgValue#setBodyValue(Object)} from the argument to the {@link #msgValue}.
-     * 
+     * <p>
      * Example of usage:
-     * // TODO Kyrylo Semenko - check the example
      * <pre>
-     *     ValueHolder.from(msgPair)
-     *                 .jumpToChild("child_name")
-     *                 .setValue("some_value");
+     *     ValueHolder.newInstance(msgPair)
+     *             .jumpToChild("child_name")
+     *             .setValue("some_value");
      * </pre>
-     * 
+     *
      * <p>
-     * Set the {@link MsgValue#setBodyBytes(byte[])} from this bodyValue to the field, see the {@link #setBytes(Object)} method.
+     * Set the {@link MsgValue#setBodyBytes(byte[])} from the bodyValue to the field, see the
+     * {@link #setBytes(Object)} method description.
      * <p>
-     * If this field contains {@link MsgField#getHeaderField()} then properties of this header, for example
+     * If the field contains {@link MsgField#getHeaderField()} then properties of the header, for example
      * {@link HeaderValue#setTagBytes(byte[])} or {@link HeaderValue#setLengthBytes(byte[])} are set.
      * Length and tag are not mandatory.
      * See the {@link #setHeader(byte[], HeaderValue, HeaderField)}  method.
@@ -617,6 +624,12 @@ public class ValueHolder {
         return bodyBytes;
     }
 
+    /**
+     * Set valueBytes to the headerValue
+     * @param valueBytes source data
+     * @param headerValue target object
+     * @param headerField the header definition
+     */
     private void setHeader(byte[] valueBytes, HeaderValue headerValue, HeaderField headerField) {
         MsgField msgFieldParent = msgField.getParent();
         if (msgFieldParent == null && MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
@@ -668,6 +681,7 @@ public class ValueHolder {
             return;
         }
         TagPacker tagPacker = NavigatorService.getTagPackerFromParent(msgField);
+        assert tagPacker != null;
         byte[] tagBytes = tagPacker.pack(fieldNum, tagLength);
         headerValue.setTagBytes(tagBytes);
     }
@@ -961,6 +975,7 @@ public class ValueHolder {
                     NavigatorService.getPathRecursively(msgField));
         }
         TagPacker tagPacker = NavigatorService.getTagPackerFromParent(msgField);
+        assert tagPacker != null;
         byte[] tagBytes = tagPacker.pack(tagNum, childTagLength);
         msgValue.getHeaderValue().setTagBytes(tagBytes);
     }
@@ -984,7 +999,7 @@ public class ValueHolder {
      *
      * @return Created instance of {@link ValueHolder}.
      */
-    public ValueHolder copyFiller() {
+    public ValueHolder copyValueHolder() {
         ValueHolder clone = new ValueHolder();
         clone.msgValue = msgValue;
         clone.msgField = msgField;
