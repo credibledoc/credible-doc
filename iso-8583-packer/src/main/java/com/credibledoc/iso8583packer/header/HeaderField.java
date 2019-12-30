@@ -5,8 +5,6 @@ import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgValue;
 
-import java.util.BitSet;
-
 /**
  * The container represents a header of a {@link MsgField}. It contains the definition of the {@link MsgField} header.
  * <p>
@@ -18,13 +16,6 @@ import java.util.BitSet;
  * @author Kyrylo Semenko
  */
 public class HeaderField {
-    /**
-     * This field contains list of indexes of its children. These children are located
-     * in the {@link MsgField#getChildren()} list.
-     * <p>
-     * This bit set can be 'null' for some nodes or leafs, but cannot be 'null' for a root {@link MsgField}.
-     */
-    private BitSet bitSet;
 
     /**
      * Packs from int to bytes and wise versa the {@link HeaderValue#getLengthBytes()} subfield.
@@ -37,7 +28,7 @@ public class HeaderField {
     private LengthPacker lengthPacker;
 
     /**
-     * Packs from {@link BitSet} to bytes and wise versa the {@link #bitSet} subfield.
+     * Packs and unpacks bytes of the {@link HeaderValue#getBitSet()} subfield.
      */
     private BitmapPacker bitMapPacker;
     
@@ -47,23 +38,8 @@ public class HeaderField {
         String bitMapPackerString = bitMapPacker == null ? "null" : bitMapPacker.getClass().getSimpleName();
         return "HeaderField{" +
                 "lengthPacker=" + lengthPackerString +
-                ", bitSet=" + bitSet +
                 ", bitMapPacker=" + bitMapPackerString +
                 '}';
-    }
-
-    /**
-     * @return The {@link #bitSet} field value.
-     */
-    public BitSet getBitSet() {
-        return bitSet;
-    }
-
-    /**
-     * @param bitSet see the {@link #bitSet} field description.
-     */
-    public void setBitSet(BitSet bitSet) {
-        this.bitSet = bitSet;
     }
 
     /**

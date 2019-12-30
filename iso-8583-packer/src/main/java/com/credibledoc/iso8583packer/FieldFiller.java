@@ -345,7 +345,7 @@ public class FieldFiller {
         if (bodyPacker == null) {
             throw new PackerRuntimeException("BodyPacker not found. Please call defineBodyPacker(...) method " +
                     "of the FieldBuilder, for example " +
-                    "MsgField subfield35 = FieldBuilder.builder().defineBodyPacker(HexBodyPacker.INSTANCE).\n" +
+                    "MsgField subfield35 = FieldBuilder.builder().defineBodyPacker(...).\n" +
                     "MsgValue: " + NavigatorService.getPathRecursively(msgPair.getMsgValue()));
         }
         Object bodyValue = bodyPacker.unpack(bytes, offset.getValue(), bodyBytesLength);
@@ -378,7 +378,7 @@ public class FieldFiller {
     private static List<Integer> getTagNumsFromBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
         // this is IsoMsg, so tagNums are in the header BitSet
         HeaderField headerField = msgPair.getMsgField().getHeaderField();
-        BitSet bitSetDefinition = headerField.getBitSet();
+        HeaderValue headerValue = msgPair.getMsgValue().getHeaderValue();
 
         // unpack
         BitmapPacker bitmapPacker = headerField.getBitMapPacker();
@@ -388,10 +388,10 @@ public class FieldFiller {
                     
         }
         Integer len = msgPair.getMsgField().getLen();
-        int consumed = bitmapPacker.unpack(headerField, bytes, offset.getValue(), len);
+        int consumed = bitmapPacker.unpack(headerValue, bytes, offset.getValue(), len);
         offset.add(consumed);
 
-        return getTagNumsAndValidateBitSet(msgPair, bitSetDefinition);
+        return getTagNumsAndValidateBitSet(msgPair);
     }
 
     private static MsgField findChildByTagNum(MsgField msgField, int nextTagNum) {
@@ -404,16 +404,17 @@ public class FieldFiller {
                 "' in the msgField " + NavigatorService.getPathRecursively(msgField));
     }
 
-    private static List<Integer> getTagNumsAndValidateBitSet(MsgPair msgPair, BitSet bitSetDefinition) {
-        BitSet unpackedBitSet = msgPair.getMsgField().getHeaderField().getBitSet();
+    private static List<Integer> getTagNumsAndValidateBitSet(MsgPair msgPair) {
+        BitSet unpackedBitSet = msgPair.getMsgValue().getHeaderValue().getBitSet();
         List<Integer> tagNums = new ArrayList<>();
         int maxTagNum = getMaxTagNum(msgPair.getMsgField().getChildren());
         for (int nextTagNum = 0; nextTagNum <= maxTagNum; nextTagNum++) {
-            if (unpackedBitSet.get(nextTagNum) && !bitSetDefinition.get(nextTagNum)) {
+            MsgField childMsgField = NavigatorService.findByTagNum(msgPair.getMsgField().getChildren(), nextTagNum);
+            if (unpackedBitSet.get(nextTagNum) && childMsgField == null) {
+                String path = NavigatorService.getPathRecursively(msgPair.getMsgValue());
                 throw new PackerRuntimeException("Unpacked bitSet contains tagNum '" + nextTagNum +
                         "', but bitSetDefinition doesn't contain it. " +
-                        "Please define the tagNum in the field '" + NavigatorService.getPathRecursively(msgPair.getMsgValue()) +
-                        "' header bitSet");
+                        "Please define the tagNum in the field '" + path + "' header bitSet");
             }
             if (unpackedBitSet.get(nextTagNum)) {
                 tagNums.add(nextTagNum);
@@ -843,16 +844,19 @@ public class FieldFiller {
         }
         BitSet bitSet = new BitSet();
         for (MsgField nextMsgField : msgField.getChildren()) {
-            bitSet.set(nextMsgField.getTagNum());
+            if (NavigatorService.findByTagNum(msgValue.getChildren(), nextMsgField.getTagNum()) != null) {
+                bitSet.set(nextMsgField.getTagNum());
+            }
         }
-        msgField.getHeaderField().setBitSet(bitSet);
         msgValue.getHeaderValue().setBitSet(bitSet);
         Integer len = msgField.getLen();
         if (len == null) {
             throw new PackerRuntimeException("Mandatory MsgField.len property not found. It is mandatory for '" + MsgFieldType.BIT_SET + "' type. " +
                 "Please call the defineLen(...) method.");
         }
-        messageBytes.write(bitmapPacker.pack(bitSet, len));
+        byte[] bytes = bitmapPacker.pack(bitSet, len);
+        msgValue.setBodyBytes(bytes);
+        messageBytes.write(bytes);
     }
 
     private static void packBodyBytesAndLengthAndTagNum(MsgValue msgValue, MsgField msgField, ByteArrayOutputStream messageBytes, byte[] bytes) throws IOException {

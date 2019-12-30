@@ -102,17 +102,14 @@ public class DumpService {
         
         String nameString = msgField.getName() == null ? "" : " name=\"" + msgField.getName() + "\"";
         
-        BitSet bitSet = null;
         LengthPacker lengthPacker = null;
         BitmapPacker bitmapPacker = null;
         final HeaderField headerField = msgField.getHeaderField();
         if (headerField != null) {
-            bitSet = headerField.getBitSet();
             lengthPacker = headerField.getLengthPacker();
             bitmapPacker = headerField.getBitMapPacker();
         }
 
-        String bitSetString = bitSet == null ? "" : (" bitSet=\"" + bitSet + "\"");
         String lengthPackerString = lengthPacker == null ? "" : (" lengthPacker=\"" + lengthPacker.getClass().getSimpleName() + "\"");
         String isoBitMapPackerString = bitmapPacker == null ? "" : (" bitMapPacker=\"" + bitmapPacker.getClass().getSimpleName() + "\"");
 
@@ -128,7 +125,7 @@ public class DumpService {
 
         String typeString = " type=\"" + msgField.getType() + "\"";
         
-        printStream.print(indent + "<f" + typeString + tagNumString + nameString + bitSetString + lengthPackerString +
+        printStream.print(indent + "<f" + typeString + tagNumString + nameString + lengthPackerString +
                 isoBitMapPackerString + interpreterString +
                 maxLenString + lenString + childTagLenString + childTagPackerString);
         
@@ -235,6 +232,16 @@ public class DumpService {
         String tagNumString = msgValue.getTagNum() == null ? "" : " tagNum=\"" + msgValue.getTagNum() + "\"";
 
         String nameString = msgValue.getName() == null ? "" : " name=\"" + msgValue.getName() + "\"";
+        
+        String bitmapString;
+        if (msgField != null && msgField.getHeaderField() != null &&
+                msgValue.getHeaderValue() != null && msgValue.getHeaderValue().getBitSet() != null) {
+            BitSet bitSet = msgValue.getHeaderValue().getBitSet();
+            byte[] bytes = msgField.getHeaderField().getBitMapPacker().pack(bitSet, msgField.getLen());
+            bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bytes) + "\"";
+        } else {
+            bitmapString = "";
+        }
 
         final HeaderValue headerValue = msgValue.getHeaderValue();
         
@@ -244,7 +251,7 @@ public class DumpService {
 
         String content;
 
-        String numNameValue = nameString + tagNumString + valueString;
+        String numNameValue = nameString + tagNumString + valueString + bitmapString;
         
         if (msgField != null) {
             switch (msgField.getType()) {

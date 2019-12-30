@@ -97,7 +97,6 @@ public class FieldBuilder {
         HeaderField headerField = msgField.getHeaderField();
         HeaderField exampleHeaderField = example.getHeaderField();
         headerField.setBitMapPacker(exampleHeaderField.getBitMapPacker());
-        headerField.setBitSet(exampleHeaderField.getBitSet());
         headerField.setLengthPacker(exampleHeaderField.getLengthPacker());
         
         return fieldBuilder;
@@ -191,28 +190,9 @@ public class FieldBuilder {
     }
 
     private static void validateHasNoBitSetAndBitMapPacker(MsgField msgField, String path) {
-        if (msgField.getHeaderField() != null && msgField.getHeaderField().getBitSet() != null) {
-            throw new PackerRuntimeException("BitSet is not allowed for MsgField '" + path +
-                    "' with MsgType '" + msgField.getType() + "' because that doesn't make sense.");
-        }
         if (msgField.getHeaderField() != null && msgField.getHeaderField().getBitMapPacker() != null) {
             throw new PackerRuntimeException("BitMapPacker is not allowed for MsgField '" + path +
                     "' with MsgType '" + msgField.getType() + "' because that doesn't make sense.");
-        }
-    }
-
-    private static void validateParentIsBitSet(MsgField msgField, String path) {
-        if (msgField.getParent() == null || msgField.getParent().getType() != MsgFieldType.BIT_SET) {
-            throw new PackerRuntimeException("The parent field must have the '" + MsgFieldType.BIT_SET +
-                    "' type because the MsgField has the '" + msgField.getType() +
-                    "' type. MsgField: '" + path + "'. Please call the defineHeaderBitSet() method on the parent field.");
-        }
-    }
-
-    private static void validateParentExists(MsgField msgField, String path) {
-        if (msgField.getParent() == null) {
-            throw new PackerRuntimeException("Parent is mandatory for MsgField of MsgFieldType '" + msgField.getType() +
-                    "'. MsgField: '" + path + "'. Please call the defineParent() method.");
         }
     }
 
@@ -519,7 +499,7 @@ public class FieldBuilder {
     /**
      * Call the {@link #clone(MsgField)} method and set its result to the context {@link #msgField}.
      * 
-     * The other way is using of the {@link FieldBuilder#clone(MsgField)} method, but in this case you have to set
+     * An other way is using the {@link FieldBuilder#clone(MsgField)} method, but in the case you have to set
      * the {@link FieldBuilder#defineParent(MsgField)} property for the cloned subfield.
      * 
      * @return The current actual {@link FieldBuilder} with the new {@link #msgField} value.

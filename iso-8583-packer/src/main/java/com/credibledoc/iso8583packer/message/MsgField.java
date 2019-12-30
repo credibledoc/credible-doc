@@ -4,6 +4,7 @@ import com.credibledoc.iso8583packer.FieldBuilder;
 import com.credibledoc.iso8583packer.FieldFiller;
 import com.credibledoc.iso8583packer.body.BodyPacker;
 import com.credibledoc.iso8583packer.header.HeaderField;
+import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.navigator.NavigatorService;
@@ -15,15 +16,15 @@ import java.util.List;
 
 /**
  * The data object describes a data structure.
- * Instances of the {@link MsgField}s are created by {@link FieldBuilder}.
+ * Instances of the {@link MsgField}s are created with {@link FieldBuilder}.
  * <p>
- * The {@link FieldBuilder} class contains two methods,
+ * The {@link FieldBuilder} class contains two main methods,
  * {@link FieldFiller#pack()} and {@link FieldFiller#unpack(byte[], int, MsgField)}. These methods
  * uses the {@link MsgField} for packing or unpacking {@link MsgValue}s.
  * <p>
  * See {@link HeaderField} description for better understanding of the header properties.
  * <p>
- * In the unpacked state the {@link MsgField} contains some value, see the {@link MsgValue#getBodyValue()} method. // TODO Kyrylo Semenko - binary field data.
+ * In the unpacked state the {@link MsgField} contains some value, see the {@link MsgValue#getBodyValue()} method.
  *
  * @author Kyrylo Semenko
  */
@@ -33,7 +34,7 @@ public class MsgField implements Msg {
      * The number of this field in the {@link #parent} field.
      * The parent field lists the {@link #children}.
      * Can be 'null' in some cases.
-     * Cannot be 'null' if the parent container contains the {@link HeaderField#getBitSet()} subfield.
+     * Cannot be 'null' if the parent container contains the {@link HeaderValue#getBitSet()} subfield.
      */
     private Integer tagNum;
 

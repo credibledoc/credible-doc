@@ -24,7 +24,7 @@ public class MsgValue implements Msg {
      * equals with decimal 16772654.
      * The parent field contains the list of its {@link #children}.
      * Can be 'null' in some cases, for example when the parent container
-     * contains the {@link HeaderField#getBitSet()} subfield.
+     * contains the {@link HeaderValue#getBitSet()} subfield.
      */
     private Integer tagNum;
 

@@ -2,7 +2,7 @@ package com.credibledoc.iso8583packer.ifb;
 
 import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.bitmap.BitmapService;
-import com.credibledoc.iso8583packer.header.HeaderField;
+import com.credibledoc.iso8583packer.header.HeaderValue;
 
 import java.util.BitSet;
 
@@ -41,16 +41,16 @@ public class IfbBitmapPacker implements BitmapPacker {
     }
 
     /**
-     * @param headerField the target container for storing the unpacked {@link BitSet}
+     * @param headerValue the target container for storing the unpacked {@link BitSet}
      * @param bytes       the source bytes
      * @param offset      starting offset within the bytes
      * @return consumed bytes number
      */
     @Override
-    public int unpack(HeaderField headerField, byte[] bytes, int offset, int packedBytesLength) {
+    public int unpack(HeaderValue headerValue, byte[] bytes, int offset, int packedBytesLength) {
         int len;
         BitSet bitSet = BitmapService.byte2BitSet(bytes, offset, packedBytesLength << 3);
-        headerField.setBitSet(bitSet);
+        headerValue.setBitSet(bitSet);
         len = bitSet.get(1) ? 128 : 64;
         if (packedBytesLength > 16 && bitSet.get(1) && bitSet.get(65)) {
             len = 192;

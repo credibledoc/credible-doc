@@ -201,4 +201,28 @@ public class NavigatorService {
                     "Please navigate to correct msgField. For this purpose use FieldBuilder.jump** methods.");
         }
     }
+
+    /**
+     * Find <b>first</b> {@link Msg} with the tagNum.
+     *
+     * @param msgList where to search
+     * @param tagNum  what to search
+     * @param <T>     the {@link Msg} type, {@link MsgField} or {@link MsgValue}
+     * @return 'null' if not found
+     */
+    @SuppressWarnings("unchecked")
+    public static <T extends Msg> T findByTagNum(List<? extends Msg> msgList, Integer tagNum) {
+        if (tagNum == null) {
+            return null;
+        }
+        if (msgList == null) {
+            return null;
+        }
+        for (Msg nextMsgField : msgList) {
+            if (tagNum.equals(nextMsgField.getTagNum())) {
+                return (T) nextMsgField;
+            }
+        }
+        return null;
+    }
 }

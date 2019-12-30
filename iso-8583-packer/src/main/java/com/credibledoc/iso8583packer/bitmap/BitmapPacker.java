@@ -1,6 +1,6 @@
 package com.credibledoc.iso8583packer.bitmap;
 
-import com.credibledoc.iso8583packer.header.HeaderField;
+import com.credibledoc.iso8583packer.header.HeaderValue;
 
 import java.util.BitSet;
 
@@ -19,12 +19,12 @@ public interface BitmapPacker {
     byte[] pack (BitSet bitSet, int packedBytesLength);
 
     /**
-     * @param headerField where the unpacked {@link BitSet} will be stored
+     * @param headerValue where the unpacked {@link BitSet} will be stored
      * @param bytes the data source
      * @param offset starting offset within the bytes
      * @param packedBytesLength bytes number in a packed state
      * @return number of consumed bytes
      */
-    int unpack(HeaderField headerField, byte[] bytes, int offset, int packedBytesLength);
+    int unpack(HeaderValue headerValue, byte[] bytes, int offset, int packedBytesLength);
 
 }

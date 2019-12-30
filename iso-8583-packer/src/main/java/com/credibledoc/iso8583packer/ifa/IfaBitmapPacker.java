@@ -2,7 +2,7 @@ package com.credibledoc.iso8583packer.ifa;
 
 import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.bitmap.BitmapService;
-import com.credibledoc.iso8583packer.header.HeaderField;
+import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.hex.HexService;
 
 import java.util.BitSet;
@@ -42,16 +42,16 @@ public class IfaBitmapPacker implements BitmapPacker {
     }
 
     /**
-     * @param headerField the target container for storing the unpacked {@link BitSet}
+     * @param headerValue the target container for storing the unpacked {@link BitSet}
      * @param bytes       the source bytes
      * @param offset      starting offset within the bytes
      * @return consumed bytes number
      */
     @Override
-    public int unpack(HeaderField headerField, byte[] bytes, int offset, int packedBytesLength) {
+    public int unpack(HeaderValue headerValue, byte[] bytes, int offset, int packedBytesLength) {
         int len;
         BitSet bmap = BitmapService.hex2BitSet(bytes, offset, packedBytesLength << 3);
-        headerField.setBitSet(bmap);
+        headerValue.setBitSet(bmap);
         len = bmap.get(1) ? 128 : 64;
         if (packedBytesLength > 16 && bmap.get(65)) {
             len = 192;

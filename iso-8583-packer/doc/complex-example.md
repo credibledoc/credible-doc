@@ -89,7 +89,7 @@ The message definition can be described as XML by calling the `DumpService.dumpM
 ```XML
 <f type="MSG" name="msg">
     <f type="VAL" name="mti" bodyPacker="BcdBodyPacker" len="2"/>
-    <f type="BIT_SET" name="bitmap" bitSet="{2, 3}" bitMapPacker="IfbBitmapPacker" len="16">
+    <f type="BIT_SET" name="bitmap" bitMapPacker="IfbBitmapPacker" len="16">
         <f type="LEN_VAL" tagNum="2" name="PAN_02" lengthPacker="EbcdicDecimalLengthPacker" bodyPacker="BcdBodyPacker"/>
         <f type="LEN_VAL" tagNum="3" name="Processing_code_03" lengthPacker="BcdLengthPacker" bodyPacker="BcdBodyPacker"/>
     </f>
@@ -100,7 +100,7 @@ The message values can be described as XML by calling the `DumpService.dumpMsgVa
 ```XML
 <f name="msg">
     <f name="mti" val="0200" valHex="0200"/>
-    <f name="bitmap">
+    <f name="bitmap" bitmapHex="6000000000000000">
         <f name="PAN_02" tagNum="2" val="123456781234567" lenHex="F0F8" valHex="123456781234567F"/>
         <f name="Processing_code_03" tagNum="3" val="32" lenHex="01" valHex="32"/>
     </f>
