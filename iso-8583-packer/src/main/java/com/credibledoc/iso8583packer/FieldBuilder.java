@@ -19,20 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents a Builder of ISOMsg structure. The instances of this builder contain the {@link #msgField} state.
+ * The class represents a Builder of ISO message structure. Instances of the builder contain the {@link #msgField} state.
  * <p>
- * The instance of this builder has a single {@link #msgField} in its context. This field contains a state information.
+ * The instance of the builder has a single {@link #msgField} in its context. The {@link #msgField}
+ * contains an information about the objects graph.
  * <p>
- * This builder provides methods for {@link MsgField} creation, see the {@link #builder(MsgFieldType)} method or for handling existing
- * {@link MsgField}, see the {@link #from(MsgField)} method.
+ * The builder provides methods for creation of {@link MsgField}, see the {@link #builder(MsgFieldType)} method and
+ * for handling existing {@link MsgField}, see the {@link #from(MsgField)} method.
  * <p>
- * This builder helps to set {@link MsgField}'s properties, see for example the {@link #defineName(String)} or
+ * The builder helps to set {@link MsgField}'s properties, see for example the {@link #defineName(String)} or
  * {@link #defineParent(MsgField)} methods.
  * <p>
- * // TODO Kyrylo Semenko - upravit finalne po refaktoringu.
- * Example of new node creation
+ * Example of creation
  * <pre>
- *             // TODO Kyrylo Semenko - upravit finalne po refaktoringu.
+ *     FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG).defineName("msg");
  * </pre>
  *
  * @author Kyrylo Semenko
@@ -41,25 +41,31 @@ public class FieldBuilder {
     private static final Logger logger = LoggerFactory.getLogger(FieldBuilder.class);
 
     /**
-     * The context and state of this builder instance.
+     * The context and state of the builder instance.
      */
     private MsgField msgField;
 
     /**
      * Create a new {@link FieldBuilder} with a new empty {@link #msgField}.
      * 
-     * Example of the root field creation. This root field contains the single Bmp48 subfield.
-     * // TODO Kyrylo Semenko - provest revizi prikladu
+     * Example of the root field creation.
      * <pre>
-     *     // TODO Kyrylo Semenko - upravit finalne po refaktoringu.
+     *     FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG).defineName("msg");
      * </pre>
      * 
      * Example of the first level field creation.
      * <pre>
-     *     // TODO Kyrylo Semenko - upravit finalne po refaktoringu.
+     *     MsgField isoMsgField = fieldBuilder.getCurrentField();
+     *
+     *     MsgField mti = FieldBuilder.builder(MsgFieldType.VAL)
+     *         .defineName(MTI_NAME)
+     *         .defineBodyPacker(BcdBodyPacker.rightPaddingF())
+     *         .defineLen(2)
+     *         .defineParent(isoMsgField)
+     *         .getCurrentField();
      * </pre>
      * @param msgFieldType mandatory type
-     * @return The new instance of {@link FieldBuilder}.
+     * @return The new instance of the {@link FieldBuilder}.
      */
     public static FieldBuilder builder(MsgFieldType msgFieldType) {
         FieldBuilder fieldBuilder = new FieldBuilder();
