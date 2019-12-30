@@ -1,7 +1,7 @@
 package com.credibledoc.iso8583packer.message;
 
 import com.credibledoc.iso8583packer.FieldBuilder;
-import com.credibledoc.iso8583packer.FieldFiller;
+import com.credibledoc.iso8583packer.ValueHolder;
 import com.credibledoc.iso8583packer.body.BodyPacker;
 import com.credibledoc.iso8583packer.header.HeaderField;
 import com.credibledoc.iso8583packer.header.HeaderValue;
@@ -19,7 +19,7 @@ import java.util.List;
  * Instances of the {@link MsgField}s are created with {@link FieldBuilder}.
  * <p>
  * The {@link FieldBuilder} class contains two main methods,
- * {@link FieldFiller#pack()} and {@link FieldFiller#unpack(byte[], int, MsgField)}. These methods
+ * {@link ValueHolder#pack()} and {@link ValueHolder#unpack(byte[], int, MsgField)}. These methods
  * uses the {@link MsgField} for packing or unpacking {@link MsgValue}s.
  * <p>
  * See {@link HeaderField} description for better understanding of the header properties.

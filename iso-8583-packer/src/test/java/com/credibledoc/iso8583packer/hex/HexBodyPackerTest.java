@@ -1,7 +1,7 @@
 package com.credibledoc.iso8583packer.hex;
 
 import com.credibledoc.iso8583packer.FieldBuilder;
-import com.credibledoc.iso8583packer.FieldFiller;
+import com.credibledoc.iso8583packer.ValueHolder;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
 import com.credibledoc.iso8583packer.message.MsgValue;
 import org.junit.Test;
@@ -23,12 +23,12 @@ public class HexBodyPackerTest {
 
         fieldBuilder.validateStructure();
         
-        FieldFiller fieldFiller = FieldFiller.newInstance(fieldBuilder.getCurrentField())
+        ValueHolder valueHolder = ValueHolder.newInstance(fieldBuilder.getCurrentField())
             .setValue(value);
         
-        fieldFiller.validateData();
+        valueHolder.validateData();
 
-        byte[] valueBytes = fieldFiller.pack();
+        byte[] valueBytes = valueHolder.pack();
         assertEquals("0123", HexService.bytesToHex(valueBytes));
     }
 
@@ -39,7 +39,7 @@ public class HexBodyPackerTest {
 
         fieldBuilder.validateStructure();
         
-        MsgValue msgValue = FieldFiller.newInstance(fieldBuilder.getCurrentField())
+        MsgValue msgValue = ValueHolder.newInstance(fieldBuilder.getCurrentField())
             .unpack(HexService.hex2byte(packedValue));
 
         String expectedValue = "0123";

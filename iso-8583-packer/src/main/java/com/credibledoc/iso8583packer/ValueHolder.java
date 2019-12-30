@@ -31,8 +31,7 @@ import java.util.List;
  *
  * @author Kyrylo Semenko
  */
-// TODO Kyrylo Semenko - rename to ValueHolder
-public class FieldFiller {
+public class ValueHolder {
 
     private static final int INITIAL_SIZE_100_BYTES = 100;
     private static final String PARTIAL_DUMP = "\nPartial dump:\n";
@@ -58,7 +57,7 @@ public class FieldFiller {
      * Please do not create instances of this builder. It uses for internal purposes only,
      * see the {@link #newInstance(MsgField)} method.
      */
-    private FieldFiller() {
+    private ValueHolder() {
         // empty
     }
 
@@ -67,7 +66,7 @@ public class FieldFiller {
      * <p>
      * Example of usage:
      * <pre>
-     *     FieldFiller fieldFiller = // TODO Kyrylo Semenko
+     *     ValueHolder valueHolder = // TODO Kyrylo Semenko
      * </pre>
      * 
      * How to fill the data to the {@link FieldBuilder}? For example see the example:
@@ -76,30 +75,30 @@ public class FieldFiller {
      * </pre>
      *
      * @param definition a template created by {@link FieldBuilder}.
-     * @return A new instance of this {@link FieldFiller} with {@link #msgValue} and {@link #msgField} in its context.
+     * @return A new instance of this {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
      */
-    public static FieldFiller newInstance(MsgField definition) {
-        FieldFiller fieldFiller = new FieldFiller();
-        fieldFiller.msgField = definition;
-        fieldFiller.msgValue = NavigatorService.newFromNameAndTagNum(definition);
-        return fieldFiller;
+    public static ValueHolder newInstance(MsgField definition) {
+        ValueHolder valueHolder = new ValueHolder();
+        valueHolder.msgField = definition;
+        valueHolder.msgValue = NavigatorService.newFromNameAndTagNum(definition);
+        return valueHolder;
     }
 
     /**
-     * Create a new instance of {@link FieldFiller}.
+     * Create a new instance of {@link ValueHolder}.
      *
-     * @param msgValue      will be set to the {@link FieldFiller#msgValue}.
-     * @param msgField will be set to the {@link FieldFiller#msgField}.
-     * @return The new created {@link FieldFiller} with the {@link #msgValue} and {@link #msgField} in its context.
+     * @param msgValue      will be set to the {@link ValueHolder#msgValue}.
+     * @param msgField will be set to the {@link ValueHolder#msgField}.
+     * @return The new created {@link ValueHolder} with the {@link #msgValue} and {@link #msgField} in its context.
      */
-    public static FieldFiller newInstance(MsgValue msgValue, MsgField msgField) {
+    public static ValueHolder newInstance(MsgValue msgValue, MsgField msgField) {
         try {
             MsgPair msgPair = new MsgPair(msgField, msgValue);
             NavigatorService.validateSameNamesAndTagNum(msgPair);
-            FieldFiller fieldFiller = new FieldFiller();
-            fieldFiller.msgValue = msgValue;
-            fieldFiller.msgField = msgField;
-            return fieldFiller;
+            ValueHolder valueHolder = new ValueHolder();
+            valueHolder.msgValue = msgValue;
+            valueHolder.msgField = msgField;
+            return valueHolder;
         } catch (Exception e) {
             MsgField rootMsgField = NavigatorService.findRoot(msgField);
             throw new PackerRuntimeException("Exception in method get(msgValue, msgField): " + e.getMessage() + "\n" +
@@ -474,16 +473,16 @@ public class FieldFiller {
     }
 
     /**
-     * Create a new instance of {@link FieldFiller} and set msgPair values to its
+     * Create a new instance of {@link ValueHolder} and set msgPair values to its
      * {@link #msgField} and {@link #msgValue} context objects.
      * @param msgPair contains {@link MsgField} and {@link MsgValue}.
      * @return The created instance.
      */
-    public static FieldFiller newInstance(MsgPair msgPair) {
-        FieldFiller fieldFiller = new FieldFiller();
-        fieldFiller.msgField = msgPair.getMsgField();
-        fieldFiller.msgValue = msgPair.getMsgValue();
-        return fieldFiller;
+    public static ValueHolder newInstance(MsgPair msgPair) {
+        ValueHolder valueHolder = new ValueHolder();
+        valueHolder.msgField = msgPair.getMsgField();
+        valueHolder.msgValue = msgPair.getMsgValue();
+        return valueHolder;
     }
 
     /**
@@ -498,7 +497,7 @@ public class FieldFiller {
      * @param childName the {@link #msgField}'s child.
      * @return An existing {@link #msgField}'s child.
      */
-    public FieldFiller jumpToChild(String childName) {
+    public ValueHolder jumpToChild(String childName) {
         try {
             MsgField msgFieldChild = NavigatorService.getChildOrThrowException(childName, msgField);
             MsgValue msgValueChild = NavigatorService.findByName(msgValue.getChildren(), childName);
@@ -524,8 +523,9 @@ public class FieldFiller {
      * Set the {@link MsgValue#setBodyValue(Object)} from the argument to the {@link #msgValue}.
      * 
      * Example of usage:
+     * // TODO Kyrylo Semenko - check the example
      * <pre>
-     *     FieldFiller.from(msgPair)
+     *     ValueHolder.from(msgPair)
      *                 .jumpToChild("child_name")
      *                 .setValue("some_value");
      * </pre>
@@ -539,9 +539,9 @@ public class FieldFiller {
      * See the {@link #setHeader(byte[], HeaderValue, HeaderField)}  method.
      *
      * @param bodyValue can be 'null' for unset.
-     * @return The current {@link FieldFiller} with the same {@link #msgValue} and {@link #msgField} in its context.
+     * @return The current {@link ValueHolder} with the same {@link #msgValue} and {@link #msgField} in its context.
      */
-    public FieldFiller setValue(Object bodyValue) {
+    public ValueHolder setValue(Object bodyValue) {
         if (msgField.getChildren() != null && !msgField.getChildren().isEmpty()) {
             throw new PackerRuntimeException("Cannot set bodyValue to fields with children. Values can only contain " +
                     "leaf fields. Field: " + NavigatorService.getPathRecursively(msgField) + ", bodyValue: " + bodyValue);
@@ -692,7 +692,7 @@ public class FieldFiller {
      * @param siblingName the sibling name of the current {@link #msgValue} and {@link #msgField}.
      * @return The current builder instance with the new {@link #msgValue} and {@link #msgField}.
      */
-    public FieldFiller jumpToSibling(String siblingName) {
+    public ValueHolder jumpToSibling(String siblingName) {
         try {
             MsgField msgFieldSibling = NavigatorService.getSiblingOrThrowException(siblingName, msgField);
             MsgValue parentMsgValue = msgValue.getParent();
@@ -769,7 +769,7 @@ public class FieldFiller {
      * @param subfields new children
      * @return The current instance with {@link #msgValue} and {@link #msgField} in its context.
      */
-    public FieldFiller setChildren(List<MsgValue> subfields) {
+    public ValueHolder setChildren(List<MsgValue> subfields) {
         for (MsgValue child : subfields) {
             child.setParent(msgValue);
         }
@@ -779,10 +779,10 @@ public class FieldFiller {
 
     /**
      * Navigate to the root {@link #msgValue} and {@link #msgField}.
-     * @return The current instance of {@link FieldFiller} with root of {@link #msgValue} and corresponding node of
+     * @return The current instance of {@link ValueHolder} with root of {@link #msgValue} and corresponding node of
      * {@link #msgField} in its context.
      */
-    public FieldFiller jumpToRoot() {
+    public ValueHolder jumpToRoot() {
         msgValue = NavigatorService.findRoot(msgValue);
         msgField = NavigatorService.findByNameAndTagNumOrThrowException(msgField, msgValue);
         return this;
@@ -969,9 +969,9 @@ public class FieldFiller {
      * Create a copy from the current {@link #msgValue} and set it to this {@link #msgValue} context.
      * This sibling will have the same {@link MsgField#getName()} and {@link MsgField#getTagNum()} as its sibling.
      *
-     * @return The current actual {@link FieldFiller}.
+     * @return The current actual {@link ValueHolder}.
      */
-    public FieldFiller cloneSibling() {
+    public ValueHolder cloneSibling() {
         MsgValue clone = NavigatorService.newFromNameAndTagNum(msgField);
         clone.setParent(msgValue.getParent());
         msgValue.getParent().getChildren().add(clone);
@@ -982,10 +982,10 @@ public class FieldFiller {
     /**
      * Create the new instance and set {@link #msgValue} and {@link #msgField} from the current instance.
      *
-     * @return Created instance of {@link FieldFiller}.
+     * @return Created instance of {@link ValueHolder}.
      */
-    public FieldFiller copyFiller() {
-        FieldFiller clone = new FieldFiller();
+    public ValueHolder copyFiller() {
+        ValueHolder clone = new ValueHolder();
         clone.msgValue = msgValue;
         clone.msgField = msgField;
         return clone;
@@ -993,7 +993,7 @@ public class FieldFiller {
 
     /**
      * Call the {@link #unpack(byte[], int, MsgField)} method with offset 0 and with current {@link #msgField} from the
-     * {@link FieldFiller} context.
+     * {@link ValueHolder} context.
      *
      * @param bytes will be set as first argument
      * @return The {@link MsgValue} unpacked from the bytes.

@@ -60,7 +60,7 @@ The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binar
 } &&endPlaceholder
 ```
 
-The field can be filled with data by [FieldFiller](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldFiller.java),
+The field can be filled with data by [ValueHolder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/ValueHolder.java),
 for example:
 ```Java
 &&beginPlaceholder {
@@ -82,7 +82,7 @@ The filled object can be packed to bytes
     "description": "Example of fixed length BCD value packing",
     "parameters": {
         "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/bcd/BcdBodyPackerTest.java",
-        "beginString": "        byte[] valueBytes = fieldFiller.pack();",
+        "beginString": "        byte[] valueBytes = valueHolder.pack();",
         "endString": "        assertEquals(\"0123\", bytesHex);",
         "indentation": "    "
     }

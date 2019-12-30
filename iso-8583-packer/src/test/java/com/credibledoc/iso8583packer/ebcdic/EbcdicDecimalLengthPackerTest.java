@@ -1,7 +1,7 @@
 package com.credibledoc.iso8583packer.ebcdic;
 
 import com.credibledoc.iso8583packer.FieldBuilder;
-import com.credibledoc.iso8583packer.FieldFiller;
+import com.credibledoc.iso8583packer.ValueHolder;
 import com.credibledoc.iso8583packer.bcd.BcdBodyPacker;
 import com.credibledoc.iso8583packer.dump.DumpService;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
@@ -35,15 +35,15 @@ public class EbcdicDecimalLengthPackerTest {
     @Test
     public void packUnpack() {
         String value = "123";
-        FieldFiller fieldFiller = FieldFiller.newInstance(createField().getCurrentField());
-        fieldFiller.setValue(value);
+        ValueHolder valueHolder = ValueHolder.newInstance(createField().getCurrentField());
+        valueHolder.setValue(value);
 
-        byte[] bytes = fieldFiller.pack();
+        byte[] bytes = valueHolder.pack();
         String lengthHex = "F0F2";
         String valueHex = "0123";
         assertEquals(lengthHex + valueHex, HexService.bytesToHex(bytes));
 
-        MsgValue msgValue = FieldFiller.unpack(bytes, 0, createField().getCurrentField());
+        MsgValue msgValue = ValueHolder.unpack(bytes, 0, createField().getCurrentField());
         assertEquals(value, msgValue.getBodyValue(String.class));
         
         String msgFieldDump = "MsgField structure dump: " + DumpService.dumpMsgField(createField().getCurrentField());

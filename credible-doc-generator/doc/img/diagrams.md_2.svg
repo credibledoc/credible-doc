@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1846px" preserveAspectRatio="none" style="width:990px;height:1846px;" version="1.1" viewBox="0 0 990 1846" width="990px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="2176px" preserveAspectRatio="none" style="width:990px;height:2176px;" version="1.1" viewBox="0 0 990 2176" width="990px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="f58bo63ep1sjx" width="300%" x="-1" y="-1">
+    <filter height="300%" id="fa6ra065pkbt5" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,166 +8,196 @@
     </filter>
   </defs>
   <g>
-    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#f58bo63ep1sjx)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
+    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#fa6ra065pkbt5)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="20" y="72.457">Application credible-doc-generator launched.</text>
-    <path d="M259.5,109.4648 L259.5,118.6406 L239.5,122.6406 L259.5,126.6406 L259.5,135.8164 A0,0 0 0 0 259.5,135.8164 L924.5,135.8164 A0,0 0 0 0 924.5,135.8164 L924.5,119.4648 L914.5,109.4648 L259.5,109.4648 A0,0 0 0 0 259.5,109.4648 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M259.5,109.4648 L259.5,118.6406 L239.5,122.6406 L259.5,126.6406 L259.5,135.8164 A0,0 0 0 0 259.5,135.8164 L924.5,135.8164 A0,0 0 0 0 924.5,135.8164 L924.5,119.4648 L914.5,109.4648 L259.5,109.4648 A0,0 0 0 0 259.5,109.4648 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M914.5,109.4648 L914.5,119.4648 L924.5,119.4648 L914.5,109.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="644" x="265.5" y="127.96">file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="105.0938"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="105.0938"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="55.5" y="127.5508">Configuration properties loaded</text>
-    <path d="M222.5,164.5586 L222.5,173.7344 L202.5,177.7344 L222.5,181.7344 L222.5,190.9102 A0,0 0 0 0 222.5,190.9102 L685.5,190.9102 A0,0 0 0 0 685.5,190.9102 L685.5,174.5586 L675.5,164.5586 L222.5,164.5586 A0,0 0 0 0 222.5,164.5586 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,164.5586 L222.5,173.7344 L202.5,177.7344 L222.5,181.7344 L222.5,190.9102 A0,0 0 0 0 222.5,190.9102 L685.5,190.9102 A0,0 0 0 0 685.5,190.9102 L685.5,174.5586 L675.5,164.5586 L222.5,164.5586 A0,0 0 0 0 222.5,164.5586 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M675.5,164.5586 L675.5,174.5586 L685.5,174.5586 L675.5,164.5586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="442" x="228.5" y="183.0537">Diagram of the application launching created from credible-doc-generator.log.</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="160.1875"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="160.1875"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="182.6445">Content replaced.</text>
-    <path d="M222.5,219.6523 L222.5,228.8281 L202.5,232.8281 L222.5,236.8281 L222.5,246.0039 A0,0 0 0 0 222.5,246.0039 L699.5,246.0039 A0,0 0 0 0 699.5,246.0039 L699.5,229.6523 L689.5,219.6523 L222.5,219.6523 A0,0 0 0 0 222.5,219.6523 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,219.6523 L222.5,228.8281 L202.5,232.8281 L222.5,236.8281 L222.5,246.0039 A0,0 0 0 0 222.5,246.0039 L699.5,246.0039 A0,0 0 0 0 699.5,246.0039 L699.5,229.6523 L689.5,219.6523 L222.5,219.6523 A0,0 0 0 0 222.5,219.6523 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M689.5,219.6523 L689.5,229.6523 L699.5,229.6523 L689.5,219.6523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="456" x="228.5" y="238.1475">Diagram of the application launching created from credible-doc-generator_1.log.</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="215.2813"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="215.2813"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="237.7383">Content replaced.</text>
-    <path d="M222.5,274.7461 L222.5,283.9219 L202.5,287.9219 L222.5,291.9219 L222.5,301.0977 A0,0 0 0 0 222.5,301.0977 L507.5,301.0977 A0,0 0 0 0 507.5,301.0977 L507.5,284.7461 L497.5,274.7461 L222.5,274.7461 A0,0 0 0 0 222.5,274.7461 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,274.7461 L222.5,283.9219 L202.5,287.9219 L222.5,291.9219 L222.5,301.0977 A0,0 0 0 0 222.5,301.0977 L507.5,301.0977 A0,0 0 0 0 507.5,301.0977 L507.5,284.7461 L497.5,274.7461 L222.5,274.7461 A0,0 0 0 0 222.5,274.7461 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M497.5,274.7461 L497.5,284.7461 L507.5,284.7461 L497.5,274.7461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="264" x="228.5" y="293.2412">Diagram of the previous application launching.</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="270.375"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="270.375"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="292.832">Content replaced.</text>
-    <path d="M222.5,329.8398 L222.5,339.0156 L202.5,343.0156 L222.5,347.0156 L222.5,356.1914 A0,0 0 0 0 222.5,356.1914 L766.5,356.1914 A0,0 0 0 0 766.5,356.1914 L766.5,339.8398 L756.5,329.8398 L222.5,329.8398 A0,0 0 0 0 222.5,329.8398 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,329.8398 L222.5,339.0156 L202.5,343.0156 L222.5,347.0156 L222.5,356.1914 A0,0 0 0 0 222.5,356.1914 L766.5,356.1914 A0,0 0 0 0 766.5,356.1914 L766.5,339.8398 L756.5,329.8398 L222.5,329.8398 A0,0 0 0 0 222.5,329.8398 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M756.5,329.8398 L756.5,339.8398 L766.5,339.8398 L756.5,329.8398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="523" x="228.5" y="348.335">Credibledoc modules - based activity diagram generated from credible-doc-generator_1.log.</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="325.4688"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="325.4688"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="347.9258">Content replaced.</text>
-    <path d="M222.5,384.9336 L222.5,394.1094 L202.5,398.1094 L222.5,402.1094 L222.5,411.2852 A0,0 0 0 0 222.5,411.2852 L978.5,411.2852 A0,0 0 0 0 978.5,411.2852 L978.5,394.9336 L968.5,384.9336 L222.5,384.9336 A0,0 0 0 0 222.5,384.9336 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,384.9336 L222.5,394.1094 L202.5,398.1094 L222.5,402.1094 L222.5,411.2852 A0,0 0 0 0 222.5,411.2852 L978.5,411.2852 A0,0 0 0 0 978.5,411.2852 L978.5,394.9336 L968.5,384.9336 L222.5,384.9336 A0,0 0 0 0 222.5,384.9336 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M968.5,384.9336 L968.5,394.9336 L978.5,394.9336 L968.5,384.9336 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="735" x="228.5" y="403.4287">Dependency of the `com.credibledoc.substitution.doc` package on other classes in the `com.credibledoc.substitution` package.</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="380.5625"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="380.5625"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="403.0195">Content replaced.</text>
-    <path d="M222.5,440.0273 L222.5,449.2031 L202.5,453.2031 L222.5,457.2031 L222.5,466.3789 A0,0 0 0 0 222.5,466.3789 L544.5,466.3789 A0,0 0 0 0 544.5,466.3789 L544.5,450.0273 L534.5,440.0273 L222.5,440.0273 A0,0 0 0 0 222.5,440.0273 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,440.0273 L222.5,449.2031 L202.5,453.2031 L222.5,457.2031 L222.5,466.3789 A0,0 0 0 0 222.5,466.3789 L544.5,466.3789 A0,0 0 0 0 544.5,466.3789 L544.5,450.0273 L534.5,440.0273 L222.5,440.0273 A0,0 0 0 0 222.5,440.0273 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M534.5,440.0273 L534.5,450.0273 L544.5,450.0273 L534.5,440.0273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="301" x="228.5" y="458.5225">Current name of the credible-doc-generator-X.X.X.jar.</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="435.6563"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="435.6563"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="458.1133">Content replaced.</text>
-    <path d="M222.5,495.1211 L222.5,504.2969 L202.5,508.2969 L222.5,512.2969 L222.5,521.4727 A0,0 0 0 0 222.5,521.4727 L666.5,521.4727 A0,0 0 0 0 666.5,521.4727 L666.5,505.1211 L656.5,495.1211 L222.5,495.1211 A0,0 0 0 0 222.5,495.1211 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,495.1211 L222.5,504.2969 L202.5,508.2969 L222.5,512.2969 L222.5,521.4727 A0,0 0 0 0 222.5,521.4727 L666.5,521.4727 A0,0 0 0 0 666.5,521.4727 L666.5,505.1211 L656.5,495.1211 L222.5,495.1211 A0,0 0 0 0 222.5,495.1211 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M656.5,495.1211 L656.5,505.1211 L666.5,505.1211 L656.5,495.1211 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="423" x="228.5" y="513.6162">List of resources from classpath of the credible-doc-generator application.</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="490.75"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="490.75"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="513.207">Content replaced.</text>
-    <path d="M222.5,550.2148 L222.5,559.3906 L202.5,563.3906 L222.5,567.3906 L222.5,576.5664 A0,0 0 0 0 222.5,576.5664 L433.5,576.5664 A0,0 0 0 0 433.5,576.5664 L433.5,560.2148 L423.5,550.2148 L222.5,550.2148 A0,0 0 0 0 222.5,550.2148 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,550.2148 L222.5,559.3906 L202.5,563.3906 L222.5,567.3906 L222.5,576.5664 A0,0 0 0 0 222.5,576.5664 L433.5,576.5664 A0,0 0 0 0 433.5,576.5664 L433.5,560.2148 L423.5,550.2148 L222.5,550.2148 A0,0 0 0 0 222.5,550.2148 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M423.5,550.2148 L423.5,560.2148 L433.5,560.2148 L423.5,550.2148 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="190" x="228.5" y="568.71">Example of BCD length definition</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="545.8438"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="545.8438"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="568.3008">Content replaced.</text>
-    <path d="M222.5,605.3086 L222.5,614.4844 L202.5,618.4844 L222.5,622.4844 L222.5,631.6602 A0,0 0 0 0 222.5,631.6602 L332.5,631.6602 A0,0 0 0 0 332.5,631.6602 L332.5,615.3086 L322.5,605.3086 L222.5,605.3086 A0,0 0 0 0 222.5,605.3086 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,605.3086 L222.5,614.4844 L202.5,618.4844 L222.5,622.4844 L222.5,631.6602 A0,0 0 0 0 222.5,631.6602 L332.5,631.6602 A0,0 0 0 0 332.5,631.6602 L332.5,615.3086 L322.5,605.3086 L222.5,605.3086 A0,0 0 0 0 222.5,605.3086 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M322.5,605.3086 L322.5,615.3086 L332.5,615.3086 L322.5,605.3086 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="623.8037">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="600.9375"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="600.9375"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="623.3945">Content replaced.</text>
-    <path d="M222.5,660.4023 L222.5,669.5781 L202.5,673.5781 L222.5,677.5781 L222.5,686.7539 A0,0 0 0 0 222.5,686.7539 L515.5,686.7539 A0,0 0 0 0 515.5,686.7539 L515.5,670.4023 L505.5,660.4023 L222.5,660.4023 A0,0 0 0 0 222.5,660.4023 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,660.4023 L222.5,669.5781 L202.5,673.5781 L222.5,677.5781 L222.5,686.7539 A0,0 0 0 0 222.5,686.7539 L515.5,686.7539 A0,0 0 0 0 515.5,686.7539 L515.5,670.4023 L505.5,660.4023 L222.5,660.4023 A0,0 0 0 0 222.5,660.4023 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M505.5,660.4023 L505.5,670.4023 L515.5,670.4023 L505.5,660.4023 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="272" x="228.5" y="678.8975">Example of BCD length packing and unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="656.0313"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="656.0313"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="678.4883">Content replaced.</text>
-    <path d="M222.5,715.4961 L222.5,724.6719 L202.5,728.6719 L222.5,732.6719 L222.5,741.8477 A0,0 0 0 0 222.5,741.8477 L337.5,741.8477 A0,0 0 0 0 337.5,741.8477 L337.5,725.4961 L327.5,715.4961 L222.5,715.4961 A0,0 0 0 0 222.5,715.4961 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,715.4961 L222.5,724.6719 L202.5,728.6719 L222.5,732.6719 L222.5,741.8477 A0,0 0 0 0 222.5,741.8477 L337.5,741.8477 A0,0 0 0 0 337.5,741.8477 L337.5,725.4961 L327.5,715.4961 L222.5,715.4961 A0,0 0 0 0 222.5,715.4961 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M327.5,715.4961 L327.5,725.4961 L337.5,725.4961 L327.5,715.4961 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="733.9912">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="711.125"/>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="711.125"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="733.582">Content replaced.</text>
-    <path d="M222.5,770.5898 L222.5,779.7656 L202.5,783.7656 L222.5,787.7656 L222.5,796.9414 A0,0 0 0 0 222.5,796.9414 L476.5,796.9414 A0,0 0 0 0 476.5,796.9414 L476.5,780.5898 L466.5,770.5898 L222.5,770.5898 A0,0 0 0 0 222.5,770.5898 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M466.5,770.5898 L466.5,780.5898 L476.5,780.5898 L466.5,770.5898 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="233" x="228.5" y="789.085">Example of complex ISO 8583 message</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="766.2188"/>
+    <path d="M222.5,770.5898 L222.5,779.7656 L202.5,783.7656 L222.5,787.7656 L222.5,796.9414 A0,0 0 0 0 222.5,796.9414 L437.5,796.9414 A0,0 0 0 0 437.5,796.9414 L437.5,780.5898 L427.5,770.5898 L222.5,770.5898 A0,0 0 0 0 222.5,770.5898 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M427.5,770.5898 L427.5,780.5898 L437.5,780.5898 L427.5,770.5898 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="789.085">Some examples of packed values</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="766.2188"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="788.6758">Content replaced.</text>
-    <path d="M222.5,825.6836 L222.5,834.8594 L202.5,838.8594 L222.5,842.8594 L222.5,852.0352 A0,0 0 0 0 222.5,852.0352 L578.5,852.0352 A0,0 0 0 0 578.5,852.0352 L578.5,835.6836 L568.5,825.6836 L222.5,825.6836 A0,0 0 0 0 222.5,825.6836 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M568.5,825.6836 L568.5,835.6836 L578.5,835.6836 L568.5,825.6836 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="335" x="228.5" y="844.1787">Example of complex ISO 8583 message structure as XML</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="821.3125"/>
+    <path d="M222.5,825.6836 L222.5,834.8594 L202.5,838.8594 L222.5,842.8594 L222.5,852.0352 A0,0 0 0 0 222.5,852.0352 L476.5,852.0352 A0,0 0 0 0 476.5,852.0352 L476.5,835.6836 L466.5,825.6836 L222.5,825.6836 A0,0 0 0 0 222.5,825.6836 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M466.5,825.6836 L466.5,835.6836 L476.5,835.6836 L466.5,825.6836 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="233" x="228.5" y="844.1787">Example of complex ISO 8583 message</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="821.3125"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="843.7695">Content replaced.</text>
-    <path d="M222.5,880.7773 L222.5,889.9531 L202.5,893.9531 L222.5,897.9531 L222.5,907.1289 A0,0 0 0 0 222.5,907.1289 L556.5,907.1289 A0,0 0 0 0 556.5,907.1289 L556.5,890.7773 L546.5,880.7773 L222.5,880.7773 A0,0 0 0 0 222.5,880.7773 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M546.5,880.7773 L546.5,890.7773 L556.5,890.7773 L546.5,880.7773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="313" x="228.5" y="899.2725">Example of complex ISO 8583 message value as XML</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="876.4063"/>
+    <path d="M222.5,880.7773 L222.5,889.9531 L202.5,893.9531 L222.5,897.9531 L222.5,907.1289 A0,0 0 0 0 222.5,907.1289 L578.5,907.1289 A0,0 0 0 0 578.5,907.1289 L578.5,890.7773 L568.5,880.7773 L222.5,880.7773 A0,0 0 0 0 222.5,880.7773 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M568.5,880.7773 L568.5,890.7773 L578.5,890.7773 L568.5,880.7773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="335" x="228.5" y="899.2725">Example of complex ISO 8583 message structure as XML</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="876.4063"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="898.8633">Content replaced.</text>
-    <path d="M222.5,935.8711 L222.5,945.0469 L202.5,949.0469 L222.5,953.0469 L222.5,962.2227 A0,0 0 0 0 222.5,962.2227 L732.5,962.2227 A0,0 0 0 0 732.5,962.2227 L732.5,945.8711 L722.5,935.8711 L222.5,935.8711 A0,0 0 0 0 222.5,935.8711 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M722.5,935.8711 L722.5,945.8711 L732.5,945.8711 L722.5,935.8711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="489" x="228.5" y="954.3662">Latest name and version of substitution-reporting artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="931.5"/>
+    <path d="M222.5,935.8711 L222.5,945.0469 L202.5,949.0469 L222.5,953.0469 L222.5,962.2227 A0,0 0 0 0 222.5,962.2227 L556.5,962.2227 A0,0 0 0 0 556.5,962.2227 L556.5,945.8711 L546.5,935.8711 L222.5,935.8711 A0,0 0 0 0 222.5,935.8711 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M546.5,935.8711 L546.5,945.8711 L556.5,945.8711 L546.5,935.8711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="313" x="228.5" y="954.3662">Example of complex ISO 8583 message value as XML</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="931.5"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="953.957">Content replaced.</text>
-    <path d="M222.5,990.9648 L222.5,1000.1406 L202.5,1004.1406 L222.5,1008.1406 L222.5,1017.3164 A0,0 0 0 0 222.5,1017.3164 L642.5,1017.3164 A0,0 0 0 0 642.5,1017.3164 L642.5,1000.9648 L632.5,990.9648 L222.5,990.9648 A0,0 0 0 0 222.5,990.9648 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M632.5,990.9648 L632.5,1000.9648 L642.5,1000.9648 L632.5,990.9648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="399" x="228.5" y="1009.46">Latest version of iso-8583-packer artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="986.5938"/>
+    <path d="M222.5,990.9648 L222.5,1000.1406 L202.5,1004.1406 L222.5,1008.1406 L222.5,1017.3164 A0,0 0 0 0 222.5,1017.3164 L454.5,1017.3164 A0,0 0 0 0 454.5,1017.3164 L454.5,1000.9648 L444.5,990.9648 L222.5,990.9648 A0,0 0 0 0 222.5,990.9648 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M444.5,990.9648 L444.5,1000.9648 L454.5,1000.9648 L444.5,990.9648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="211" x="228.5" y="1009.46">Example of EBCDIC length definition</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="986.5938"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1009.0508">Content replaced.</text>
-    <path d="M222.5,1046.0586 L222.5,1055.2344 L202.5,1059.2344 L222.5,1063.2344 L222.5,1072.4102 A0,0 0 0 0 222.5,1072.4102 L497.5,1072.4102 A0,0 0 0 0 497.5,1072.4102 L497.5,1056.0586 L487.5,1046.0586 L222.5,1046.0586 A0,0 0 0 0 222.5,1046.0586 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M487.5,1046.0586 L487.5,1056.0586 L497.5,1056.0586 L487.5,1046.0586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="254" x="228.5" y="1064.5537">Example of fixed length BCD value definition</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1041.6875"/>
+    <path d="M222.5,1046.0586 L222.5,1055.2344 L202.5,1059.2344 L222.5,1063.2344 L222.5,1072.4102 A0,0 0 0 0 222.5,1072.4102 L332.5,1072.4102 A0,0 0 0 0 332.5,1072.4102 L332.5,1056.0586 L322.5,1046.0586 L222.5,1046.0586 A0,0 0 0 0 222.5,1046.0586 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M322.5,1046.0586 L322.5,1056.0586 L332.5,1056.0586 L322.5,1046.0586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="1064.5537">MsgField dump</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1041.6875"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1064.1445">Content replaced.</text>
-    <path d="M222.5,1101.1523 L222.5,1110.3281 L202.5,1114.3281 L222.5,1118.3281 L222.5,1127.5039 A0,0 0 0 0 222.5,1127.5039 L475.5,1127.5039 A0,0 0 0 0 475.5,1127.5039 L475.5,1111.1523 L465.5,1101.1523 L222.5,1101.1523 A0,0 0 0 0 222.5,1101.1523 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M465.5,1101.1523 L465.5,1111.1523 L475.5,1111.1523 L465.5,1101.1523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="232" x="228.5" y="1119.6475">Example of fixed length BCD value filling</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1096.7813"/>
+    <path d="M222.5,1101.1523 L222.5,1110.3281 L202.5,1114.3281 L222.5,1118.3281 L222.5,1127.5039 A0,0 0 0 0 222.5,1127.5039 L536.5,1127.5039 A0,0 0 0 0 536.5,1127.5039 L536.5,1111.1523 L526.5,1101.1523 L222.5,1101.1523 A0,0 0 0 0 222.5,1101.1523 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M526.5,1101.1523 L526.5,1111.1523 L536.5,1111.1523 L526.5,1101.1523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="293" x="228.5" y="1119.6475">Example of EBCDIC length packing and unpacking</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1096.7813"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1119.2383">Content replaced.</text>
-    <path d="M222.5,1156.2461 L222.5,1165.4219 L202.5,1169.4219 L222.5,1173.4219 L222.5,1182.5977 A0,0 0 0 0 222.5,1182.5977 L491.5,1182.5977 A0,0 0 0 0 491.5,1182.5977 L491.5,1166.2461 L481.5,1156.2461 L222.5,1156.2461 A0,0 0 0 0 222.5,1156.2461 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M481.5,1156.2461 L481.5,1166.2461 L491.5,1166.2461 L481.5,1156.2461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="248" x="228.5" y="1174.7412">Example of fixed length BCD value packing</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1151.875"/>
+    <path d="M222.5,1156.2461 L222.5,1165.4219 L202.5,1169.4219 L222.5,1173.4219 L222.5,1182.5977 A0,0 0 0 0 222.5,1182.5977 L337.5,1182.5977 A0,0 0 0 0 337.5,1182.5977 L337.5,1166.2461 L327.5,1156.2461 L222.5,1156.2461 A0,0 0 0 0 222.5,1156.2461 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M327.5,1156.2461 L327.5,1166.2461 L337.5,1166.2461 L327.5,1156.2461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="1174.7412">MsgValue dump</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1151.875"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1174.332">Content replaced.</text>
-    <path d="M222.5,1211.3398 L222.5,1220.5156 L202.5,1224.5156 L222.5,1228.5156 L222.5,1237.6914 A0,0 0 0 0 222.5,1237.6914 L505.5,1237.6914 A0,0 0 0 0 505.5,1237.6914 L505.5,1221.3398 L495.5,1211.3398 L222.5,1211.3398 A0,0 0 0 0 222.5,1211.3398 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M495.5,1211.3398 L495.5,1221.3398 L505.5,1221.3398 L495.5,1211.3398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="262" x="228.5" y="1229.835">Example of fixed length BCD value unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1206.9688"/>
+    <path d="M222.5,1211.3398 L222.5,1220.5156 L202.5,1224.5156 L222.5,1228.5156 L222.5,1237.6914 A0,0 0 0 0 222.5,1237.6914 L437.5,1237.6914 A0,0 0 0 0 437.5,1237.6914 L437.5,1221.3398 L427.5,1211.3398 L222.5,1211.3398 A0,0 0 0 0 222.5,1211.3398 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M427.5,1211.3398 L427.5,1221.3398 L437.5,1221.3398 L427.5,1211.3398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="1229.835">Some examples of packed values</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1206.9688"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1229.4258">Content replaced.</text>
-    <path d="M222.5,1266.4336 L222.5,1275.6094 L202.5,1279.6094 L222.5,1283.6094 L222.5,1292.7852 A0,0 0 0 0 222.5,1292.7852 L431.5,1292.7852 A0,0 0 0 0 431.5,1292.7852 L431.5,1276.4336 L421.5,1266.4336 L222.5,1266.4336 A0,0 0 0 0 222.5,1266.4336 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,1266.4336 L421.5,1276.4336 L431.5,1276.4336 L421.5,1266.4336 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1284.9287">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1262.0625"/>
+    <path d="M222.5,1266.4336 L222.5,1275.6094 L202.5,1279.6094 L222.5,1283.6094 L222.5,1292.7852 A0,0 0 0 0 222.5,1292.7852 L732.5,1292.7852 A0,0 0 0 0 732.5,1292.7852 L732.5,1276.4336 L722.5,1266.4336 L222.5,1266.4336 A0,0 0 0 0 222.5,1266.4336 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M722.5,1266.4336 L722.5,1276.4336 L732.5,1276.4336 L722.5,1266.4336 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="489" x="228.5" y="1284.9287">Latest name and version of substitution-reporting artifact in Maven Central Repository</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1262.0625"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1284.5195">Content replaced.</text>
-    <path d="M222.5,1321.5273 L222.5,1330.7031 L202.5,1334.7031 L222.5,1338.7031 L222.5,1347.8789 A0,0 0 0 0 222.5,1347.8789 L431.5,1347.8789 A0,0 0 0 0 431.5,1347.8789 L431.5,1331.5273 L421.5,1321.5273 L222.5,1321.5273 A0,0 0 0 0 222.5,1321.5273 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,1321.5273 L421.5,1331.5273 L431.5,1331.5273 L421.5,1321.5273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1340.0225">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1317.1563"/>
+    <path d="M222.5,1321.5273 L222.5,1330.7031 L202.5,1334.7031 L222.5,1338.7031 L222.5,1347.8789 A0,0 0 0 0 222.5,1347.8789 L642.5,1347.8789 A0,0 0 0 0 642.5,1347.8789 L642.5,1331.5273 L632.5,1321.5273 L222.5,1321.5273 A0,0 0 0 0 222.5,1321.5273 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M632.5,1321.5273 L632.5,1331.5273 L642.5,1331.5273 L632.5,1321.5273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="399" x="228.5" y="1340.0225">Latest version of iso-8583-packer artifact in Maven Central Repository</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1317.1563"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1339.6133">Content replaced.</text>
-    <path d="M222.5,1376.6211 L222.5,1385.7969 L202.5,1389.7969 L222.5,1393.7969 L222.5,1402.9727 A0,0 0 0 0 222.5,1402.9727 L431.5,1402.9727 A0,0 0 0 0 431.5,1402.9727 L431.5,1386.6211 L421.5,1376.6211 L222.5,1376.6211 A0,0 0 0 0 222.5,1376.6211 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,1376.6211 L421.5,1386.6211 L431.5,1386.6211 L421.5,1376.6211 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1395.1162">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1372.25"/>
+    <path d="M222.5,1376.6211 L222.5,1385.7969 L202.5,1389.7969 L222.5,1393.7969 L222.5,1402.9727 A0,0 0 0 0 222.5,1402.9727 L497.5,1402.9727 A0,0 0 0 0 497.5,1402.9727 L497.5,1386.6211 L487.5,1376.6211 L222.5,1376.6211 A0,0 0 0 0 222.5,1376.6211 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M487.5,1376.6211 L487.5,1386.6211 L497.5,1386.6211 L487.5,1376.6211 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="254" x="228.5" y="1395.1162">Example of fixed length BCD value definition</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1372.25"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1394.707">Content replaced.</text>
-    <path d="M222.5,1431.7148 L222.5,1440.8906 L202.5,1444.8906 L222.5,1448.8906 L222.5,1458.0664 A0,0 0 0 0 222.5,1458.0664 L431.5,1458.0664 A0,0 0 0 0 431.5,1458.0664 L431.5,1441.7148 L421.5,1431.7148 L222.5,1431.7148 A0,0 0 0 0 222.5,1431.7148 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,1431.7148 L421.5,1441.7148 L431.5,1441.7148 L421.5,1431.7148 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1450.21">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1427.3438"/>
+    <path d="M222.5,1431.7148 L222.5,1440.8906 L202.5,1444.8906 L222.5,1448.8906 L222.5,1458.0664 A0,0 0 0 0 222.5,1458.0664 L475.5,1458.0664 A0,0 0 0 0 475.5,1458.0664 L475.5,1441.7148 L465.5,1431.7148 L222.5,1431.7148 A0,0 0 0 0 222.5,1431.7148 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M465.5,1431.7148 L465.5,1441.7148 L475.5,1441.7148 L465.5,1431.7148 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="232" x="228.5" y="1450.21">Example of fixed length BCD value filling</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1427.3438"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1449.8008">Content replaced.</text>
-    <path d="M222.5,1486.8086 L222.5,1495.9844 L202.5,1499.9844 L222.5,1503.9844 L222.5,1513.1602 A0,0 0 0 0 222.5,1513.1602 L431.5,1513.1602 A0,0 0 0 0 431.5,1513.1602 L431.5,1496.8086 L421.5,1486.8086 L222.5,1486.8086 A0,0 0 0 0 222.5,1486.8086 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,1486.8086 L421.5,1496.8086 L431.5,1496.8086 L421.5,1486.8086 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1505.3037">Latest log-combiner jar file name</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1482.4375"/>
+    <path d="M222.5,1486.8086 L222.5,1495.9844 L202.5,1499.9844 L222.5,1503.9844 L222.5,1513.1602 A0,0 0 0 0 222.5,1513.1602 L491.5,1513.1602 A0,0 0 0 0 491.5,1513.1602 L491.5,1496.8086 L481.5,1486.8086 L222.5,1486.8086 A0,0 0 0 0 222.5,1486.8086 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M481.5,1486.8086 L481.5,1496.8086 L491.5,1496.8086 L481.5,1486.8086 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="248" x="228.5" y="1505.3037">Example of fixed length BCD value packing</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1482.4375"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1504.8945">Content replaced.</text>
-    <path d="M222.5,1541.9023 L222.5,1551.0781 L202.5,1555.0781 L222.5,1559.0781 L222.5,1568.2539 A0,0 0 0 0 222.5,1568.2539 L714.5,1568.2539 A0,0 0 0 0 714.5,1568.2539 L714.5,1551.9023 L704.5,1541.9023 L222.5,1541.9023 A0,0 0 0 0 222.5,1541.9023 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M704.5,1541.9023 L704.5,1551.9023 L714.5,1551.9023 L704.5,1541.9023 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="471" x="228.5" y="1560.3975">Latest name and version of log-combiner-core artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1537.5313"/>
+    <path d="M222.5,1541.9023 L222.5,1551.0781 L202.5,1555.0781 L222.5,1559.0781 L222.5,1568.2539 A0,0 0 0 0 222.5,1568.2539 L505.5,1568.2539 A0,0 0 0 0 505.5,1568.2539 L505.5,1551.9023 L495.5,1541.9023 L222.5,1541.9023 A0,0 0 0 0 222.5,1541.9023 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M495.5,1541.9023 L495.5,1551.9023 L505.5,1551.9023 L495.5,1541.9023 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="262" x="228.5" y="1560.3975">Example of fixed length BCD value unpacking</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1537.5313"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1559.9883">Content replaced.</text>
-    <path d="M222.5,1596.9961 L222.5,1606.1719 L202.5,1610.1719 L222.5,1614.1719 L222.5,1623.3477 A0,0 0 0 0 222.5,1623.3477 L653.5,1623.3477 A0,0 0 0 0 653.5,1623.3477 L653.5,1606.9961 L643.5,1596.9961 L222.5,1596.9961 A0,0 0 0 0 222.5,1596.9961 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M643.5,1596.9961 L643.5,1606.9961 L653.5,1606.9961 L643.5,1596.9961 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="410" x="228.5" y="1615.4912">Latest version of log-combiner-core artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1592.625"/>
+    <path d="M222.5,1596.9961 L222.5,1606.1719 L202.5,1610.1719 L222.5,1614.1719 L222.5,1623.3477 A0,0 0 0 0 222.5,1623.3477 L431.5,1623.3477 A0,0 0 0 0 431.5,1623.3477 L431.5,1606.9961 L421.5,1596.9961 L222.5,1596.9961 A0,0 0 0 0 222.5,1596.9961 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M421.5,1596.9961 L421.5,1606.9961 L431.5,1606.9961 L421.5,1596.9961 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1615.4912">Latest log-combiner jar file name</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1592.625"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1615.082">Content replaced.</text>
-    <path d="M222.5,1652.0898 L222.5,1661.2656 L202.5,1665.2656 L222.5,1669.2656 L222.5,1678.4414 A0,0 0 0 0 222.5,1678.4414 L732.5,1678.4414 A0,0 0 0 0 732.5,1678.4414 L732.5,1662.0898 L722.5,1652.0898 L222.5,1652.0898 A0,0 0 0 0 222.5,1652.0898 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M722.5,1652.0898 L722.5,1662.0898 L732.5,1662.0898 L722.5,1652.0898 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="489" x="228.5" y="1670.585">Latest name and version of substitution-reporting artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1647.7188"/>
+    <path d="M222.5,1652.0898 L222.5,1661.2656 L202.5,1665.2656 L222.5,1669.2656 L222.5,1678.4414 A0,0 0 0 0 222.5,1678.4414 L431.5,1678.4414 A0,0 0 0 0 431.5,1678.4414 L431.5,1662.0898 L421.5,1652.0898 L222.5,1652.0898 A0,0 0 0 0 222.5,1652.0898 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M421.5,1652.0898 L421.5,1662.0898 L431.5,1662.0898 L421.5,1652.0898 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1670.585">Latest log-combiner jar file name</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1647.7188"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1670.1758">Content replaced.</text>
-    <path d="M222.5,1707.1836 L222.5,1716.3594 L202.5,1720.3594 L222.5,1724.3594 L222.5,1733.5352 A0,0 0 0 0 222.5,1733.5352 L671.5,1733.5352 A0,0 0 0 0 671.5,1733.5352 L671.5,1717.1836 L661.5,1707.1836 L222.5,1707.1836 A0,0 0 0 0 222.5,1707.1836 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M661.5,1707.1836 L661.5,1717.1836 L671.5,1717.1836 L661.5,1707.1836 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="428" x="228.5" y="1725.6787">Latest version of substitution-reporting artifact in Maven Central Repository</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1702.8125"/>
+    <path d="M222.5,1707.1836 L222.5,1716.3594 L202.5,1720.3594 L222.5,1724.3594 L222.5,1733.5352 A0,0 0 0 0 222.5,1733.5352 L431.5,1733.5352 A0,0 0 0 0 431.5,1733.5352 L431.5,1717.1836 L421.5,1707.1836 L222.5,1707.1836 A0,0 0 0 0 222.5,1707.1836 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M421.5,1707.1836 L421.5,1717.1836 L431.5,1717.1836 L421.5,1707.1836 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1725.6787">Latest log-combiner jar file name</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1702.8125"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1725.2695">Content replaced.</text>
-    <path d="M222.5,1762.2773 L222.5,1771.4531 L202.5,1775.4531 L222.5,1779.4531 L222.5,1788.6289 A0,0 0 0 0 222.5,1788.6289 L962.5,1788.6289 A0,0 0 0 0 962.5,1788.6289 L962.5,1772.2773 L952.5,1762.2773 L222.5,1762.2773 A0,0 0 0 0 222.5,1762.2773 " fill="#FBFB77" filter="url(#f58bo63ep1sjx)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M952.5,1762.2773 L952.5,1772.2773 L962.5,1772.2773 L952.5,1762.2773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="719" x="228.5" y="1780.7725">UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.</text>
-    <rect fill="#FEFECE" filter="url(#f58bo63ep1sjx)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1757.9063"/>
+    <path d="M222.5,1762.2773 L222.5,1771.4531 L202.5,1775.4531 L222.5,1779.4531 L222.5,1788.6289 A0,0 0 0 0 222.5,1788.6289 L431.5,1788.6289 A0,0 0 0 0 431.5,1788.6289 L431.5,1772.2773 L421.5,1762.2773 L222.5,1762.2773 A0,0 0 0 0 222.5,1762.2773 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M421.5,1762.2773 L421.5,1772.2773 L431.5,1772.2773 L421.5,1762.2773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1780.7725">Latest log-combiner jar file name</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1757.9063"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1780.3633">Content replaced.</text>
-    <ellipse cx="142.5" cy="1824" fill="#FFFFFF" filter="url(#f58bo63ep1sjx)" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/>
-    <ellipse cx="142.5" cy="1824" fill="#000000" rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/>
+    <path d="M222.5,1817.3711 L222.5,1826.5469 L202.5,1830.5469 L222.5,1834.5469 L222.5,1843.7227 A0,0 0 0 0 222.5,1843.7227 L431.5,1843.7227 A0,0 0 0 0 431.5,1843.7227 L431.5,1827.3711 L421.5,1817.3711 L222.5,1817.3711 A0,0 0 0 0 222.5,1817.3711 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M421.5,1817.3711 L421.5,1827.3711 L431.5,1827.3711 L421.5,1817.3711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1835.8662">Latest log-combiner jar file name</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1813"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1835.457">Content replaced.</text>
+    <path d="M222.5,1872.4648 L222.5,1881.6406 L202.5,1885.6406 L222.5,1889.6406 L222.5,1898.8164 A0,0 0 0 0 222.5,1898.8164 L714.5,1898.8164 A0,0 0 0 0 714.5,1898.8164 L714.5,1882.4648 L704.5,1872.4648 L222.5,1872.4648 A0,0 0 0 0 222.5,1872.4648 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M704.5,1872.4648 L704.5,1882.4648 L714.5,1882.4648 L704.5,1872.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="471" x="228.5" y="1890.96">Latest name and version of log-combiner-core artifact in Maven Central Repository</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1868.0938"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1890.5508">Content replaced.</text>
+    <path d="M222.5,1927.5586 L222.5,1936.7344 L202.5,1940.7344 L222.5,1944.7344 L222.5,1953.9102 A0,0 0 0 0 222.5,1953.9102 L653.5,1953.9102 A0,0 0 0 0 653.5,1953.9102 L653.5,1937.5586 L643.5,1927.5586 L222.5,1927.5586 A0,0 0 0 0 222.5,1927.5586 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M643.5,1927.5586 L643.5,1937.5586 L653.5,1937.5586 L643.5,1927.5586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="410" x="228.5" y="1946.0537">Latest version of log-combiner-core artifact in Maven Central Repository</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1923.1875"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1945.6445">Content replaced.</text>
+    <path d="M222.5,1982.6523 L222.5,1991.8281 L202.5,1995.8281 L222.5,1999.8281 L222.5,2009.0039 A0,0 0 0 0 222.5,2009.0039 L732.5,2009.0039 A0,0 0 0 0 732.5,2009.0039 L732.5,1992.6523 L722.5,1982.6523 L222.5,1982.6523 A0,0 0 0 0 222.5,1982.6523 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M722.5,1982.6523 L722.5,1992.6523 L732.5,1992.6523 L722.5,1982.6523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="489" x="228.5" y="2001.1475">Latest name and version of substitution-reporting artifact in Maven Central Repository</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1978.2813"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2000.7383">Content replaced.</text>
+    <path d="M222.5,2037.7461 L222.5,2046.9219 L202.5,2050.9219 L222.5,2054.9219 L222.5,2064.0977 A0,0 0 0 0 222.5,2064.0977 L671.5,2064.0977 A0,0 0 0 0 671.5,2064.0977 L671.5,2047.7461 L661.5,2037.7461 L222.5,2037.7461 A0,0 0 0 0 222.5,2037.7461 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M661.5,2037.7461 L661.5,2047.7461 L671.5,2047.7461 L661.5,2037.7461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="428" x="228.5" y="2056.2412">Latest version of substitution-reporting artifact in Maven Central Repository</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2033.375"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2055.832">Content replaced.</text>
+    <path d="M222.5,2092.8398 L222.5,2102.0156 L202.5,2106.0156 L222.5,2110.0156 L222.5,2119.1914 A0,0 0 0 0 222.5,2119.1914 L962.5,2119.1914 A0,0 0 0 0 962.5,2119.1914 L962.5,2102.8398 L952.5,2092.8398 L222.5,2092.8398 A0,0 0 0 0 222.5,2092.8398 " fill="#FBFB77" filter="url(#fa6ra065pkbt5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M952.5,2092.8398 L952.5,2102.8398 L962.5,2102.8398 L952.5,2092.8398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="719" x="228.5" y="2111.335">UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.</text>
+    <rect fill="#FEFECE" filter="url(#fa6ra065pkbt5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2088.4688"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2110.9258">Content replaced.</text>
+    <ellipse cx="142.5" cy="2154.5625" fill="#FFFFFF" filter="url(#fa6ra065pkbt5)" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/>
+    <ellipse cx="142.5" cy="2154.5625" fill="#000000" rx="6" ry="6" style="stroke: #7F7F7F; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="30" y2="50"/>
     <polygon fill="#A80036" points="138.5,40,142.5,50,146.5,40,142.5,44" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="85.0938" y2="105.0938"/>
@@ -234,6 +264,18 @@
     <polygon fill="#A80036" points="138.5,1747.9063,142.5,1757.9063,146.5,1747.9063,142.5,1751.9063" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1793" y2="1813"/>
     <polygon fill="#A80036" points="138.5,1803,142.5,1813,146.5,1803,142.5,1807" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1848.0938" y2="1868.0938"/>
+    <polygon fill="#A80036" points="138.5,1858.0938,142.5,1868.0938,146.5,1858.0938,142.5,1862.0938" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1903.1875" y2="1923.1875"/>
+    <polygon fill="#A80036" points="138.5,1913.1875,142.5,1923.1875,146.5,1913.1875,142.5,1917.1875" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1958.2813" y2="1978.2813"/>
+    <polygon fill="#A80036" points="138.5,1968.2813,142.5,1978.2813,146.5,1968.2813,142.5,1972.2813" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2013.375" y2="2033.375"/>
+    <polygon fill="#A80036" points="138.5,2023.375,142.5,2033.375,146.5,2023.375,142.5,2027.375" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2068.4688" y2="2088.4688"/>
+    <polygon fill="#A80036" points="138.5,2078.4688,142.5,2088.4688,146.5,2078.4688,142.5,2082.4688" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2123.5625" y2="2143.5625"/>
+    <polygon fill="#A80036" points="138.5,2133.5625,142.5,2143.5625,146.5,2133.5625,142.5,2137.5625" style="stroke: #A80036; stroke-width: 1.0;"/>
     <!--
 @startuml
 start
@@ -301,6 +343,11 @@ end note
 
 :Content replaced. ;
 note right
+Some examples of packed values
+end note
+
+:Content replaced. ;
+note right
 Example of complex ISO 8583 message
 end note
 
@@ -312,6 +359,31 @@ end note
 :Content replaced. ;
 note right
 Example of complex ISO 8583 message value as XML
+end note
+
+:Content replaced. ;
+note right
+Example of EBCDIC length definition
+end note
+
+:Content replaced. ;
+note right
+MsgField dump
+end note
+
+:Content replaced. ;
+note right
+Example of EBCDIC length packing and unpacking
+end note
+
+:Content replaced. ;
+note right
+MsgValue dump
+end note
+
+:Content replaced. ;
+note right
+Some examples of packed values
 end note
 
 :Content replaced. ;

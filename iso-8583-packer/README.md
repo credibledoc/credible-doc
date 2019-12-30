@@ -39,18 +39,18 @@ The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binar
                 .defineBodyPacker(BcdBodyPacker.leftPadding0());
 ```
 
-The field can be filled with data by [FieldFiller](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldFiller.java),
+The field can be filled with data by [ValueHolder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/ValueHolder.java),
 for example:
 ```Java
             String value = "123";
-            FieldFiller fieldFiller =
-                FieldFiller.newInstance(fieldBuilder.getCurrentField())
+            ValueHolder valueHolder =
+                ValueHolder.newInstance(fieldBuilder.getCurrentField())
                 .setValue(value);
 ```
 
 The filled object can be packed to bytes
 ```Java
-            byte[] valueBytes = fieldFiller.pack();
+            byte[] valueBytes = valueHolder.pack();
             String bytesHex = HexService.bytesToHex(valueBytes);
             assertEquals("0123", bytesHex);
 ```
@@ -61,7 +61,7 @@ The defined MsgField can be used for unpacking from bytes to an object
             byte[] packedBytes = HexService.hex2byte(packedHex);
             
             MsgValue msgValue =
-                FieldFiller.newInstance(fieldBuilder.getCurrentField())
+                ValueHolder.newInstance(fieldBuilder.getCurrentField())
                 .unpack(packedBytes);
             String unpackedValue = (String) msgValue.getBodyValue();
     

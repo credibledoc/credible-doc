@@ -1,7 +1,7 @@
 package com.credibledoc.iso8583packer.bcd;
 
 import com.credibledoc.iso8583packer.FieldBuilder;
-import com.credibledoc.iso8583packer.FieldFiller;
+import com.credibledoc.iso8583packer.ValueHolder;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
@@ -32,13 +32,13 @@ public class BcdBodyPackerTest {
         fieldBuilder.validateStructure();
 
         String value = "123";
-        FieldFiller fieldFiller =
-            FieldFiller.newInstance(fieldBuilder.getCurrentField())
+        ValueHolder valueHolder =
+            ValueHolder.newInstance(fieldBuilder.getCurrentField())
             .setValue(value);
         
-        fieldFiller.validateData();
+        valueHolder.validateData();
 
-        byte[] valueBytes = fieldFiller.pack();
+        byte[] valueBytes = valueHolder.pack();
         String bytesHex = HexService.bytesToHex(valueBytes);
         assertEquals("0123", bytesHex);
     }
@@ -56,7 +56,7 @@ public class BcdBodyPackerTest {
         byte[] packedBytes = HexService.hex2byte(packedHex);
         
         MsgValue msgValue =
-            FieldFiller.newInstance(fieldBuilder.getCurrentField())
+            ValueHolder.newInstance(fieldBuilder.getCurrentField())
             .unpack(packedBytes);
         String unpackedValue = (String) msgValue.getBodyValue();
 

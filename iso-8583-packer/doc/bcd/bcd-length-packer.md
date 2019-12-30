@@ -17,15 +17,15 @@ The field structure
 The following example shows packing and unpacking of the field value
 ```Java
             String value = "123";
-            FieldFiller fieldFiller = FieldFiller.newInstance(createField().getCurrentField());
-            fieldFiller.setValue(value);
+            ValueHolder valueHolder = ValueHolder.newInstance(createField().getCurrentField());
+            valueHolder.setValue(value);
     
-            byte[] bytes = fieldFiller.pack();
+            byte[] bytes = valueHolder.pack();
             String lengthHex = "0002";
             String valueHex = "0123";
             assertEquals(lengthHex + valueHex, HexService.bytesToHex(bytes));
     
-            MsgValue msgValue = FieldFiller.unpack(bytes, 0, createField().getCurrentField());
+            MsgValue msgValue = ValueHolder.unpack(bytes, 0, createField().getCurrentField());
             assertEquals(value, msgValue.getBodyValue(String.class));
 ```
 

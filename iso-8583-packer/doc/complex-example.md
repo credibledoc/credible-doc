@@ -40,19 +40,19 @@ The following example contains the definition of an ISO 8583 message
         fieldBuilder.validateStructure();
 
         // filling with data
-        FieldFiller fieldFiller = FieldFiller.newInstance(isoMsgField);
+        ValueHolder valueHolder = ValueHolder.newInstance(isoMsgField);
         
         String mtiValue = "0200";
-        fieldFiller.jumpToChild(MTI_NAME).setValue(mtiValue);
+        valueHolder.jumpToChild(MTI_NAME).setValue(mtiValue);
 
         String pan = "123456781234567";
         String processingCode = "32";
-        fieldFiller.jumpToSibling(BITMAP_NAME)
+        valueHolder.jumpToSibling(BITMAP_NAME)
             .jumpToChild(PAN_02_NAME).setValue(pan)
             .jumpToSibling(PROCESSING_CODE_03_NAME).setValue(processingCode);
         
         // packing
-        byte[] bytes = fieldFiller.jumpToRoot().pack();
+        byte[] bytes = valueHolder.jumpToRoot().pack();
         String expectedBitmapHex = "6000000000000000";
         String expectedPanLengthHex = "F0F8";
         char padding = BcdBodyPacker.FILLER_F;
@@ -65,20 +65,20 @@ The following example contains the definition of an ISO 8583 message
         assertEquals(expectedHex, HexService.bytesToHex(bytes));
         
         // unpacking
-        MsgValue msgValue = FieldFiller.unpack(bytes, 0, isoMsgField);
+        MsgValue msgValue = ValueHolder.unpack(bytes, 0, isoMsgField);
         assertEquals(2, msgValue.getChildren().size());
         
         // data browsing
-        MsgPair rootPair = FieldFiller.newInstance(msgValue, isoMsgField).getCurrentPair();
+        MsgPair rootPair = ValueHolder.newInstance(msgValue, isoMsgField).getCurrentPair();
         assertNotNull(rootPair);
         
-        String mtiString = FieldFiller.newInstance(rootPair).jumpToChild(MTI_NAME).getValue(String.class);
+        String mtiString = ValueHolder.newInstance(rootPair).jumpToChild(MTI_NAME).getValue(String.class);
         assertEquals(mtiValue, mtiString);
         
-        MsgPair bitmapPair = FieldFiller.newInstance(rootPair).jumpToChild(BITMAP_NAME).getCurrentPair();
+        MsgPair bitmapPair = ValueHolder.newInstance(rootPair).jumpToChild(BITMAP_NAME).getCurrentPair();
         assertNotNull(bitmap);
         
-        FieldFiller panFiller = FieldFiller.newInstance(bitmapPair).jumpToChild(PAN_02_NAME);
+        ValueHolder panFiller = ValueHolder.newInstance(bitmapPair).jumpToChild(PAN_02_NAME);
         assertNotNull(panFiller);
         
         String unpackedPanString = panFiller.getValue(String.class);
