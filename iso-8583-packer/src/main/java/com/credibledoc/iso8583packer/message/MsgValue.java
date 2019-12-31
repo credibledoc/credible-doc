@@ -1,8 +1,6 @@
 package com.credibledoc.iso8583packer.message;
 
-import com.credibledoc.iso8583packer.header.HeaderField;
 import com.credibledoc.iso8583packer.header.HeaderValue;
-import com.credibledoc.iso8583packer.navigator.NavigatorService;
 import com.credibledoc.iso8583packer.hex.HexService;
 
 import java.util.List;
@@ -67,7 +65,7 @@ public class MsgValue implements Msg {
     @Override
     public String toString() {
         String bytesString = bodyBytes == null ? "null" : HexService.bytesToHex(bodyBytes);
-        String parentString = parent == null ? "null" : NavigatorService.generatePath(parent);
+        String parentString = parent == null ? "null" : parent.getName();
         String childrenSizeString = children == null ? "0" : Integer.toString(children.size());
         return "Field{" +
                 "tagNum=" + tagNum +

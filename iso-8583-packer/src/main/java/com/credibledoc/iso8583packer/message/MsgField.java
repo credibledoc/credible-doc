@@ -7,7 +7,6 @@ import com.credibledoc.iso8583packer.header.HeaderField;
 import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
-import com.credibledoc.iso8583packer.navigator.NavigatorService;
 import com.credibledoc.iso8583packer.stringer.StringStringer;
 import com.credibledoc.iso8583packer.stringer.Stringer;
 import com.credibledoc.iso8583packer.tag.TagPacker;
@@ -128,7 +127,7 @@ public class MsgField implements Msg {
     @Override
     public String toString() {
         String bodyPackerClass = bodyPacker == null ? "null" : bodyPacker.getClass().getSimpleName();
-        String parentString = parent == null ? "null" : NavigatorService.generatePath(parent);
+        String parentString = parent == null ? "null" : parent.getName();
         String childrenSizeString = children == null ? "0" : Integer.toString(children.size());
         String childrenTagPackerString = childrenTagPacker == null ? "null" : childrenTagPacker.getClass().getSimpleName();
         String maskerString = masker == null ? "null" : masker.getClass().getSimpleName();

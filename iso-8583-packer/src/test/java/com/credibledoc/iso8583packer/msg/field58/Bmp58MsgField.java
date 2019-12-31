@@ -15,7 +15,7 @@ import com.credibledoc.iso8583packer.message.MsgFieldType;
  *
  * @author Kyrylo Semenko
  */
-// TODO Kyrylo Semenko - rename
+// TODO Kyrylo Semenko - delete or use in tests
 public class Bmp58MsgField {
 
     public static final String F_58_NAME = "58";
@@ -61,7 +61,7 @@ public class Bmp58MsgField {
                 .defineParent(f58definition)
                 .getCurrentField();
 
-        FieldBuilder.clone(subfield35)
+        FieldBuilder.from(subfield35).cloneToSibling()
                 .defineName(DCC_DATA_37)
                 .defineTagNum(Integer.parseInt(DCC_DATA_37))
                 .defineBodyPacker(EbcdicBodyPacker.INSTANCE)
@@ -95,7 +95,7 @@ public class Bmp58MsgField {
                 .defineTagNum(17)
                 .defineLen(8);
 
-        FieldBuilder.clone(subfield35)
+        FieldBuilder.from(subfield35).cloneToSibling()
                 .defineName(NON_LOYALTY_GROUP_53)
                 .defineTagNum(Integer.parseInt(NON_LOYALTY_GROUP_53))
                 .defineBodyPacker(EbcdicBodyPacker.INSTANCE)

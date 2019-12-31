@@ -1,6 +1,6 @@
 package com.credibledoc.iso8583packer.navigator;
 
-import com.credibledoc.iso8583packer.dump.DumpService;
+import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.message.*;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
@@ -9,29 +9,17 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This static helper contains methods for navigation (jumping) inside the {@link MsgField}s
- * graphs.
+ * The service contains methods for navigation (jumping) inside the {@link MsgField}s graph.
  * 
  * @author Kyrylo Semenko
  */
-public class NavigatorService {
-    /**
-     * Please do not create instances of this static helper.
-     */
-    private NavigatorService() {
-        // empty
-    }
+public class NavigatorService implements Navigator {
+    
+    protected Visualizer visualizer;
 
-    /**
-     * Find <b>first</b> {@link Msg} with the name.
-     *
-     * @param msgList where for search
-     * @param name    what to search
-     * @param <T>  the {@link Msg} type, {@link MsgField} or {@link MsgValue}
-     * @return 'null' if not found
-     */
+    @Override
     @SuppressWarnings("unchecked")
-    public static <T extends Msg> T findByName(List<? extends Msg> msgList, String name) {
+    public <T extends Msg> T findByName(List<? extends Msg> msgList, String name) {
         if (name == null) {
             return null;
         }
@@ -46,12 +34,13 @@ public class NavigatorService {
         return null;
     }
 
-    public static MsgField getChildOrThrowException(String childName, MsgField currentMsgField) {
+    @Override
+    public MsgField getChildOrThrowException(String childName, MsgField currentMsgField) {
         List<MsgField> msgFields = currentMsgField.getChildren();
         MsgField child = findByName(msgFields, childName);
         if (child == null) {
             MsgField rootMsgField = findRoot(currentMsgField);
-            String root = DumpService.dumpMsgField(rootMsgField);
+            String root = visualizer.dumpMsgField(rootMsgField);
             throw new PackerRuntimeException("Field with name '" + getPathRecursively(currentMsgField) +
                 "' has no child with name '" + childName + "'. Current field: " + currentMsgField + "\n" +
                 "Root MsgField:\n" + root);
@@ -59,12 +48,8 @@ public class NavigatorService {
         return child;
     }
 
-    /**
-     * Generate field name, for example 11 or 48(FFEE2E) or just 5F2A.
-     * @param current focused node in the object graph
-     * @return 'null' if name nor num has been set.
-     */
-    public static String generatePath(Msg current) {
+    @Override
+    public String generatePath(Msg current) {
         if (current.getTagNum() != null) {
             if (current.getName() != null) {
                 return current.getName() + "(" + current.getTagNum() + ")";
@@ -84,7 +69,7 @@ public class NavigatorService {
      * @param prefix can be 'null'. If exists, a result will contain this prefix.
      * @return 'null' if name nor num has been set.
      */
-    private static String generatePathRecursively(Msg current, String prefix) {
+    protected String generatePathRecursively(Msg current, String prefix) {
         if (prefix == null) {
             prefix = "";
         }
@@ -97,28 +82,25 @@ public class NavigatorService {
         return prefix;
     }
 
-    public static String getPathRecursively(Msg msg) {
+    @Override
+    public String getPathRecursively(Msg msg) {
         if (msg == null) {
             return null;
         }
         return generatePathRecursively(msg, null);
     }
 
-    /**
-     * Find the parent recursively.
-     * @param msg source object graph
-     * @param <T> the {@link Msg} type, {@link MsgField} or {@link MsgValue}
-     * @return The root node of the graph
-     */
+    @Override
     @SuppressWarnings("unchecked")
-    public static <T extends Msg> T findRoot(T msg) {
+    public <T extends Msg> T findRoot(T msg) {
         if (msg.getParent() == null) {
             return msg;
         }
         return (T)findRoot(msg.getParent());
     }
 
-    public static TagPacker getTagPackerFromParent(MsgField msgField) {
+    @Override
+    public TagPacker getTagPackerFromParent(MsgField msgField) {
         if (MsgFieldType.isNotTaggedType(msgField)) {
             return null;
         }
@@ -131,7 +113,8 @@ public class NavigatorService {
                 "contains the bitSet property.");
     }
 
-    public static MsgField getSiblingOrThrowException(String siblingName, MsgField currentMsgField) {
+    @Override
+    public MsgField getSiblingOrThrowException(String siblingName, MsgField currentMsgField) {
         if (currentMsgField.getParent() == null) {
             throw new PackerRuntimeException("Field '" + getPathRecursively(currentMsgField) +
                     "' has no parent, hence it cannot have a sibling with name '" + siblingName + "'");
@@ -140,14 +123,8 @@ public class NavigatorService {
         return getChildOrThrowException(siblingName, parentMsgField);
     }
 
-    /**
-     * Jump to msgField root and search for the <b>first</b> child with the same name and tagNum as the field from argument.
-     * 
-     * @param msgField where to search
-     * @param msgValue what to search
-     * @return The found msgField or thrown an exception
-     */
-    public static MsgField findByNameAndTagNumOrThrowException(MsgField msgField, MsgValue msgValue) {
+    @Override
+    public MsgField findByNameAndTagNumOrThrowException(MsgField msgField, MsgValue msgValue) {
         MsgField rootMsgField = findRoot(msgField);
         MsgField result = findInGraphRecurrently(msgValue, rootMsgField);
         if (result == null) {
@@ -156,7 +133,7 @@ public class NavigatorService {
         return result;
     }
 
-    private static MsgField findInGraphRecurrently(MsgValue msgValue, MsgField msgField) {
+    protected MsgField findInGraphRecurrently(MsgValue msgValue, MsgField msgField) {
         if (isValueFitToField(msgValue, msgField)) {
             return msgField;
         }
@@ -169,19 +146,21 @@ public class NavigatorService {
         return null;
     }
 
-    private static boolean isValueFitToField(MsgValue msgValue, MsgField msgField) {
+    protected boolean isValueFitToField(MsgValue msgValue, MsgField msgField) {
         return Objects.equals(msgValue.getName(), msgField.getName()) &&
                 Objects.equals(msgValue.getTagNum(), msgField.getTagNum());
     }
 
-    public static MsgValue newFromNameAndTagNum(MsgField msgField) {
+    @Override
+    public MsgValue newFromNameAndTagNum(MsgField msgField) {
         MsgValue msgValue = new MsgValue();
         msgValue.setName(msgField.getName());
         msgValue.setTagNum(msgField.getTagNum());
         return msgValue;
     }
 
-    public static void validateSameNamesAndTagNum(MsgPair msgPair) {
+    @Override
+    public void validateSameNamesAndTagNum(MsgPair msgPair) {
         MsgField msgField = msgPair.getMsgField();
         MsgValue msgValue = msgPair.getMsgValue();
         boolean namesEqual = Objects.equals(msgValue.getName(), msgField.getName());
@@ -202,16 +181,9 @@ public class NavigatorService {
         }
     }
 
-    /**
-     * Find <b>first</b> {@link Msg} with the tagNum.
-     *
-     * @param msgList where to search
-     * @param tagNum  what to search
-     * @param <T>     the {@link Msg} type, {@link MsgField} or {@link MsgValue}
-     * @return 'null' if not found
-     */
+    @Override
     @SuppressWarnings("unchecked")
-    public static <T extends Msg> T findByTagNum(List<? extends Msg> msgList, Integer tagNum) {
+    public <T extends Msg> T findByTagNum(List<? extends Msg> msgList, Integer tagNum) {
         if (tagNum == null) {
             return null;
         }
@@ -224,5 +196,13 @@ public class NavigatorService {
             }
         }
         return null;
+    }
+
+    /**
+     * @param visualizer see the {@link #visualizer} field description.
+     */
+    @Override
+    public void setVisualizer(Visualizer visualizer) {
+        this.visualizer = visualizer;
     }
 }

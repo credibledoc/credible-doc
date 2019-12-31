@@ -40,7 +40,7 @@ public class TestIsoMsgField {
         Bmp02MsgField.defineBmp02(rootMsgField);
         Bmp58MsgField.defineBmp58(rootMsgField);
 
-        FieldBuilder.validateStructure(rootMsgField);
+        FieldBuilder.from(rootMsgField).validateStructure();
         return rootMsgField;
     }
 

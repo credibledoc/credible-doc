@@ -2,14 +2,19 @@ package com.credibledoc.iso8583packer;
 
 import com.credibledoc.iso8583packer.bcd.BcdBodyPacker;
 import com.credibledoc.iso8583packer.bcd.BcdLengthPacker;
+import com.credibledoc.iso8583packer.builder.TestFieldBuilder;
 import com.credibledoc.iso8583packer.dump.DumpService;
+import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker;
+import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.ifb.IfbBitmapPacker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
 import com.credibledoc.iso8583packer.message.MsgPair;
 import com.credibledoc.iso8583packer.message.MsgValue;
+import com.credibledoc.iso8583packer.stringer.StringStringer;
+import com.credibledoc.iso8583packer.validator.TestValidator;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,11 +56,12 @@ public class FieldBuilderTest {
             .defineLen(16)
             .defineParent(isoMsgField)
             .getCurrentField();
-        
+
         FieldBuilder.from(bitmap)
             .createChild(MsgFieldType.LEN_VAL)
             .defineTagNum(2)
             .defineName(PAN_02_NAME)
+            .defineStringer(StringStringer.INSTANCE)
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
             .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2));
         
@@ -120,10 +126,92 @@ public class FieldBuilderTest {
         String unpackedProcessingCode = processingCodeFieldHolder.getValue(String.class);
         assertEquals(processingCode, unpackedProcessingCode);
 
-        String msgFieldDump = DumpService.dumpMsgField(isoMsgField);
+        Visualizer visualizer = DumpService.getInstance();
+        String msgFieldDump = visualizer.dumpMsgField(isoMsgField);
         logger.info("Root msgField dump: \n{}{}", msgFieldDump, "End of msgField dump.");
 
-        String msgValueDump = DumpService.dumpMsgValue(isoMsgField, msgValue, false);
+        String msgValueDump = visualizer.dumpMsgValue(isoMsgField, msgValue, false);
         logger.info("Root msgValue dump: \n{}{}", msgValueDump, "End of msgValue dump.");
+    }
+
+    @Test
+    public void cloneTest() {
+        MsgField msgField = new MsgField();
+        msgField.setType(MsgFieldType.VAL);
+
+        FieldBuilder fieldBuilder = FieldBuilder.clone(msgField);
+        assertNotNull(fieldBuilder);
+
+        assertNotNull(fieldBuilder.getCurrentField());
+        assertEquals(MsgFieldType.VAL, fieldBuilder.getCurrentField().getType());
+    }
+
+    @Test(expected = PackerRuntimeException.class)
+    public void validateStructureTest() {
+        MsgField msgField = new MsgField();
+        FieldBuilder.validateStructure(msgField);
+    }
+
+    @Test
+    public void jumpTest() {
+        FieldBuilder parentFieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)
+            .defineName("parent");
+        
+        FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.VAL)
+            .defineName("first")
+            .defineParent(parentFieldBuilder.getCurrentField());
+
+        fieldBuilder.cloneToSibling()
+            .defineName("second");
+
+        assertEquals("second", fieldBuilder.getCurrentField().getName());
+
+        FieldBuilder firstFieldBuilder = fieldBuilder.jumpToSibling("first");
+        assertEquals("first", firstFieldBuilder.getCurrentField().getName());
+
+        FieldBuilder parentFieldBuilder2 = fieldBuilder.jumpToParent();
+        assertEquals("parent", parentFieldBuilder2.getCurrentField().getName());
+
+        FieldBuilder secondFieldBuilder = fieldBuilder.jumpToChild("second");
+        assertEquals("second", secondFieldBuilder.getCurrentField().getName());
+        
+        FieldBuilder rootFieldBuilder = fieldBuilder.jumpToRoot();
+        assertEquals("parent", rootFieldBuilder.getCurrentField().getName());
+    }
+
+    @Test(expected = PackerRuntimeException.class)
+    public void defineExactlyLenTest() {
+        FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.TAG_VAL)
+            .defineExactlyLen(3)
+            .defineBodyPacker(BcdBodyPacker.rightPaddingF())
+            .defineName("field");
+
+        ValueHolder valueHolder = ValueHolder.newInstance(fieldBuilder.getCurrentField());
+        valueHolder.setValue("123");
+    }
+
+    @Test
+    public void otherValidatorTest() {
+        FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.TAG_VAL)
+            .defineExactlyLen(3)
+            .defineBodyPacker(BcdBodyPacker.rightPaddingF())
+            .defineName("field");
+
+        fieldBuilder.setValidator(TestValidator.getInstance());
+        fieldBuilder.validateStructure();
+        // exception not thrown
+    }
+    
+    @Test
+    public void customFieldBuilderTest() {
+        FieldBuilder testFieldBuilder = TestFieldBuilder.builder(MsgFieldType.TAG_VAL)
+            .defineName("field");
+        
+        assertEquals(TestFieldBuilder.class, testFieldBuilder.getClass());
+        assertEquals(TestValidator.class, testFieldBuilder.validator.getClass());
+
+        testFieldBuilder.setValidator(TestValidator.getInstance());
+        testFieldBuilder.validateStructure();
+        // exception not thrown
     }
 }

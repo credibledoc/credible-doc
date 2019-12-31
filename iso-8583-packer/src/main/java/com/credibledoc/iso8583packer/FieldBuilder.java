@@ -3,15 +3,19 @@ package com.credibledoc.iso8583packer;
 import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.body.BodyPacker;
 import com.credibledoc.iso8583packer.dump.DumpService;
+import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.header.HeaderField;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
+import com.credibledoc.iso8583packer.navigator.Navigator;
 import com.credibledoc.iso8583packer.navigator.NavigatorService;
 import com.credibledoc.iso8583packer.stringer.Stringer;
 import com.credibledoc.iso8583packer.tag.TagPacker;
+import com.credibledoc.iso8583packer.validator.Validator;
+import com.credibledoc.iso8583packer.validator.ValidatorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +47,13 @@ public class FieldBuilder {
     /**
      * The context and state of the builder instance.
      */
-    private MsgField msgField;
+    protected MsgField msgField;
+    
+    protected Validator validator;
+    
+    protected Navigator navigator;
+    
+    protected Visualizer visualizer;
 
     /**
      * Create a new {@link FieldBuilder} with a new empty {@link #msgField}.
@@ -71,9 +81,25 @@ public class FieldBuilder {
         FieldBuilder fieldBuilder = new FieldBuilder();
         fieldBuilder.msgField = new MsgField();
         fieldBuilder.msgField.setType(msgFieldType);
+        
+        // Technical domain
+        fieldBuilder.createDefaultServices();
+        
         return fieldBuilder;
     }
 
+    /**
+     * Create instances of services used in the builder. The method may be overridden if needed.
+     */
+    protected void createDefaultServices() {
+        validator = new ValidatorService();
+        navigator = new NavigatorService();
+        visualizer = new DumpService();
+        visualizer.setNavigator(navigator);
+        validator.setNavigator(navigator);
+        validator.setVisualizer(visualizer);
+    }
+    
     /**
      * Copy the field from the argument and create a new {@link FieldBuilder} instance with the new field in its 
      * context.
@@ -87,32 +113,44 @@ public class FieldBuilder {
      * @return this instance of {@link FieldBuilder}.
      */
     public static FieldBuilder clone(MsgField example) {
-        FieldBuilder fieldBuilder = builder(example.getType());
-        MsgField msgField = fieldBuilder.getCurrentField();
-        msgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
-        msgField.setBodyPacker(example.getBodyPacker());
-        msgField.setChildrenTagPacker(example.getChildrenTagPacker());
-        msgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
-        msgField.setChildTagLength(example.getChildTagLength());
-        msgField.setExactlyLength(example.getExactlyLength());
-        msgField.setLen(example.getLen());
-        msgField.setMaxLen(example.getMaxLen());
-        msgField.setMasker(example.getMasker());
-        msgField.setStringer(example.getStringer());
-        
-        HeaderField headerField = msgField.getHeaderField();
-        HeaderField exampleHeaderField = example.getHeaderField();
-        headerField.setBitMapPacker(exampleHeaderField.getBitMapPacker());
-        headerField.setLengthPacker(exampleHeaderField.getLengthPacker());
-        
+        FieldBuilder fieldBuilder = new FieldBuilder();
+        MsgField msgField = fieldBuilder.cloneField(example);
+        fieldBuilder.setMsgField(msgField);
         return fieldBuilder;
     }
 
     /**
-     * Call the {@link #validateStructure(MsgField)} method with the current {@link #msgField} as argument.
+     * Copy the field from the argument and create a new {@link FieldBuilder} instance with the new field in its 
+     * context.
+     * <p>
+     * Set all properties from the argument 'example' and its {@link HeaderField} to the created field except
+     * {@link MsgField#setName(String)}, {@link MsgField#setTagNum(Integer)}, {@link MsgField#setParent(MsgField)}
+     * and {@link MsgField#setChildren(List)}.
+     * <p>
+     *
+     * @param example where some properties are copied from.
+     * @return The new instance of {@link FieldBuilder}.
      */
-    public void validateStructure() {
-        validateStructure(msgField);
+    protected MsgField cloneField(MsgField example) {
+        MsgField newMsgField = new MsgField();
+        newMsgField.setType(example.getType());
+        newMsgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
+        newMsgField.setBodyPacker(example.getBodyPacker());
+        newMsgField.setChildrenTagPacker(example.getChildrenTagPacker());
+        newMsgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
+        newMsgField.setChildTagLength(example.getChildTagLength());
+        newMsgField.setExactlyLength(example.getExactlyLength());
+        newMsgField.setLen(example.getLen());
+        newMsgField.setMaxLen(example.getMaxLen());
+        newMsgField.setMasker(example.getMasker());
+        newMsgField.setStringer(example.getStringer());
+
+        HeaderField headerField = newMsgField.getHeaderField();
+        HeaderField exampleHeaderField = example.getHeaderField();
+        headerField.setBitMapPacker(exampleHeaderField.getBitMapPacker());
+        headerField.setLengthPacker(exampleHeaderField.getLengthPacker());
+
+        return newMsgField;
     }
 
     /**
@@ -120,144 +158,24 @@ public class FieldBuilder {
      *
      * @param current the {@link MsgField} to be checked.
      */
-    // TODO Kyrylo Semenko - presunout do static servisy
     public static void validateStructure(MsgField current) {
-        try {
-            validateStructureRecursively(current);
-        } catch (Exception e) {
-            MsgField root = NavigatorService.findRoot(current);
-            throw new PackerRuntimeException("Validation failed, message:\n" + e.getMessage() + "\n" +
-                    "Root MsgField:\n" + DumpService.dumpMsgField(root), e);
-        }
+        FieldBuilder fieldBuilder = new FieldBuilder();
+        fieldBuilder.msgField = current;
+        fieldBuilder.createDefaultServices();
+        fieldBuilder.validateStructure();
     }
 
     /**
-     * Check restrictions of the Field structure and all its children recursively.
-     *
-     * @param msgField the {@link MsgField} to be checked.
+     * Call the {@link Validator#validateStructure(MsgField)} method
+     * with the current {@link #msgField} as argument.
      */
-    // TODO Kyrylo Semenko - presunout do static servisy
-    private static void validateStructureRecursively(MsgField msgField) {
-        if (msgField == null) {
-            throw new PackerRuntimeException("Field is null");
-        }
-
-        String path = NavigatorService.getPathRecursively(msgField);
-
-        if (msgField.getType() == null) {
-            throw new PackerRuntimeException("Please set the " + MsgFieldType.class.getSimpleName() +
-                " value to the field with path: '" + path + "'");
-        }
-
-        if (msgField.getTagNum() == null && msgField.getName() == null && msgField.getType() != MsgFieldType.VAL) {
-            throw new PackerRuntimeException("At least one of 'tagNum' or 'name' should be set to the field " +
-                    "but the both properties are 'null'. Field path: '" + path + "'");
-        }
-
-        if (msgField.getParent() != null && msgField.getBodyPacker() == null && msgField.getType() != MsgFieldType.BIT_SET) {
-            throw new PackerRuntimeException("Please call the 'defineBodyPacker()' method " +
-                    "because the 'BodyPacker' value is mandatory. " +
-                    "Field path: '" + path + "'.");
-        }
-        
-        if (msgField.getType() == MsgFieldType.TAG_LEN_VAL || msgField.getType() == MsgFieldType.LEN_TAG_VAL) {
-            validateTagAndTagPackerExists(msgField, path);
-            validateHeaderOrParentLengthPackerExists(msgField, path);
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
-        }
-        
-        if (msgField.getType() == MsgFieldType.TAG_VAL) {
-            validateTagAndTagPackerExists(msgField, path);
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
-        }
-        
-        if (msgField.getType() == MsgFieldType.LEN_VAL) {
-            validateHeaderOrParentLengthPackerExists(msgField, path);
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
-        }
-        
-        if (msgField.getType() == MsgFieldType.VAL) {
-            validateLenExists(msgField, path);
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
-        }
-        
-        if (msgField.getType() == MsgFieldType.BIT_SET) {
-            validateBitSetAndBitMapPackerExists(msgField, path);
-            validateChildrenExists(msgField, path);
-            validateLenExists(msgField, path);
-        }
-
-        List<MsgField> msgFields = msgField.getChildren();
-        if (msgFields != null) {
-            for (MsgField nextMsgField : msgFields) {
-                validateStructureRecursively(nextMsgField);
-            }
-        }
-    }
-
-    private static void validateHasNoBitSetAndBitMapPacker(MsgField msgField, String path) {
-        if (msgField.getHeaderField() != null && msgField.getHeaderField().getBitMapPacker() != null) {
-            throw new PackerRuntimeException("BitMapPacker is not allowed for MsgField '" + path +
-                    "' with MsgType '" + msgField.getType() + "' because that doesn't make sense.");
-        }
-    }
-
-    private static void validateTagAndTagPackerExists(MsgField msgField, String path) {
-        boolean parentPackerExists = msgField.getParent() != null && msgField.getParent().getChildrenTagPacker() != null;
-        boolean parentTagLengthExists = msgField.getParent() != null && msgField.getParent().getChildTagLength() != null;
-        boolean tagNumExists = msgField.getTagNum() != null;
-
-        if (!parentPackerExists) {
-            String parentPath = NavigatorService.getPathRecursively(msgField.getParent());
-            throw new PackerRuntimeException("Please define the '" + TagPacker.class.getSimpleName() +
-                    "' value to the '" + parentPath + "' field, " +
-                    "because that is mandatory for MsgFieldType '" + msgField.getType() + "'. Please call the .defineChildrenTagPacker(...) method.");
-        }
-
-        if (!parentTagLengthExists) {
-            throw new PackerRuntimeException("Please define the childTagLength value to the parent of the field '" + path +
-                    "' because it is mandatory for MsgFieldType '" + msgField.getType() + "'.");
-        }
-
-        if (!tagNumExists) {
-            throw new PackerRuntimeException("Please define the tagNum value to the field '" + path +
-                    "', it is mandatory for MsgFieldType '" + msgField.getType() + "'.");
-        }
-    }
-
-    private static void validateBitSetAndBitMapPackerExists(MsgField msgField, String path) {
-        boolean hasNoHeader = msgField.getHeaderField() == null;
-        if (hasNoHeader || msgField.getHeaderField().getBitMapPacker() == null) {
-            throw new PackerRuntimeException("The bitMapPacker value is mandatory for '" + msgField.getType() +
-                    "' field type. Please call the defineHeaderBitmapPacker(...) method. Field path: " + path + ".");
-        }
-    }
-
-    private static void validateHeaderOrParentLengthPackerExists(MsgField msgField, String path) {
-        boolean parentHasLengthPacker = msgField.getParent() != null && msgField.getParent().getChildrenLengthPacker() != null;
-        boolean fieldHasLengthPacker = msgField.getHeaderField() != null && msgField.getHeaderField().getLengthPacker() != null;
-        if (!parentHasLengthPacker && !fieldHasLengthPacker) {
-            throw new PackerRuntimeException("The '" + LengthPacker.class.getSimpleName() +
-                    "' value is mandatory for the field '" + path +
-                    "' or its parent because it has the '" + msgField.getType() +
-                    "' type. Please call the defineHeaderLengthPacker() method on the field " +
-                    "or defineChildrenLengthPacker() method on the field parent.");
-        }
-    }
-
-    private static void validateLenExists(MsgField msgField, String path) {
-        if (msgField.getLen() == null) {
-            throw new PackerRuntimeException("The field with path '" + path +
-                    "' is a '" + msgField.getType() +
-                    "' so please define its length by calling the defineLen() method.");
-        }
-    }
-
-    private static void validateChildrenExists(MsgField msgField, String path) {
-        if (msgField.getChildren() == null || msgField.getChildren().isEmpty()) {
-            throw new PackerRuntimeException("The field '" + path +
-                    "' has no children but has the '" + msgField.getType() +
-                    "' type. Please define at least one child with the .createChild(...) method.");
+    public void validateStructure() {
+        try {
+            validator.validateStructure(msgField);
+        } catch (Exception e) {
+            MsgField root = navigator.findRoot(msgField);
+            throw new PackerRuntimeException("Validation failed, message:\n" + e.getMessage() + "\n" +
+                "Root MsgField:\n" + visualizer.dumpMsgField(root), e);
         }
     }
 
@@ -270,6 +188,10 @@ public class FieldBuilder {
     public static FieldBuilder from(MsgField msgField) {
         FieldBuilder fieldBuilder = new FieldBuilder();
         fieldBuilder.msgField = msgField;
+
+        // Technical domain
+        fieldBuilder.createDefaultServices();
+        
         return fieldBuilder;
     }
 
@@ -333,17 +255,17 @@ public class FieldBuilder {
     public FieldBuilder defineParent(MsgField parentMsgField) {
         try {
             if (parentMsgField == msgField.getParent()) {
-                logger.info("Parent field '" + NavigatorService.getPathRecursively(parentMsgField) +
-                    "' already set to the field '" + NavigatorService.getPathRecursively(msgField) +
+                logger.info("Parent field '" + navigator.getPathRecursively(parentMsgField) +
+                    "' already set to the field '" + navigator.getPathRecursively(msgField) +
                     "'. Skip the defineParent() method.");
                 return this;
             }
             if (MsgFieldType.isTaggedType(msgField) && parentMsgField.getChildTagLength() == null) {
-                throw new PackerRuntimeException("Field '" + NavigatorService.getPathRecursively(parentMsgField) +
+                throw new PackerRuntimeException("Field '" + navigator.getPathRecursively(parentMsgField) +
                     "' has no 'ChildTagLength' property defined. Please set the property.");
             }
             if (MsgFieldType.isTaggedType(msgField) && parentMsgField.getChildrenTagPacker() == null) {
-                throw new PackerRuntimeException("Field '" + NavigatorService.getPathRecursively(parentMsgField) +
+                throw new PackerRuntimeException("Field '" + navigator.getPathRecursively(parentMsgField) +
                     "' has no 'ChildrenTagPacker' property defined. Please set the property.");
             }
             if (parentMsgField.getChildrenLengthPacker() != null &&
@@ -359,20 +281,20 @@ public class FieldBuilder {
             msgFields.add(msgField);
             return this;
         } catch (Exception e) {
-            MsgField root = NavigatorService.findRoot(msgField);
-            String path = NavigatorService.getPathRecursively(msgField);
+            MsgField root = navigator.findRoot(msgField);
+            String path = navigator.getPathRecursively(msgField);
             throw new PackerRuntimeException("Exception in defineParent(parentMsgField) method, " +
                 "current msgField: '" + path + "', " +
                 "message:\n" + e.getMessage() + "\n" +
-                "Root MsgField:\n" + DumpService.dumpMsgField(root), e);
+                "Root MsgField:\n" + visualizer.dumpMsgField(root), e);
         }
     }
 
-    private static String createMessageSameLengthPacker(MsgField parent, MsgField child) {
+    protected String createMessageSameLengthPacker(MsgField parent, MsgField child) {
         return "The *lengthPacker* value cannot be set to the both, the " +
                 "parent and child. Only one of them should have the value. " +
-                "Parent: " + NavigatorService.getPathRecursively(parent) + ", " +
-                "child: " + NavigatorService.getPathRecursively(child) + ". \nThe value should be set " +
+                "Parent: " + navigator.getPathRecursively(parent) + ", " +
+                "child: " + navigator.getPathRecursively(child) + ". \nThe value should be set " +
                 "to the parent in cases when the length subfield precedes the tagNum subfield. \nThe " +
                 "value should be set to the child when the tagNum subfield precedes the length subfield.";
     }
@@ -404,14 +326,15 @@ public class FieldBuilder {
      * @return The found child. Throw an exception if this context does not have children or child not found.
      */
     public FieldBuilder jumpToChild(String childName) {
-        msgField = NavigatorService.getChildOrThrowException(childName, msgField);
+        msgField = navigator.getChildOrThrowException(childName, msgField);
         return this;
     }
 
     /**
      * Set the {@link HeaderField#setLengthPacker(LengthPacker)} property.
      * 
-     * Known packers: // TODO Kyrylo Semenko - doplnit
+     * Examples of {@link LengthPacker} are {@link com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker}
+     * or {@link com.credibledoc.iso8583packer.bcd.BcdLengthPacker}.
      * 
      * @param lengthPacker can be 'null' for unset.
      * @return The current instance of the {@link FieldBuilder} with a {@link #msgField} in its context.
@@ -429,7 +352,7 @@ public class FieldBuilder {
 
     public FieldBuilder jumpToParent() {
         if (msgField.getParent() == null) {
-            throw new PackerRuntimeException("The field '" + NavigatorService.getPathRecursively(msgField) + "' has no parent.");
+            throw new PackerRuntimeException("The field '" + navigator.getPathRecursively(msgField) + "' has no parent.");
         }
         msgField = msgField.getParent();
         return this;
@@ -447,7 +370,7 @@ public class FieldBuilder {
     }
 
     public FieldBuilder jumpToSibling(String siblingName) {
-        this.msgField = NavigatorService.getSiblingOrThrowException(siblingName, msgField);
+        this.msgField = navigator.getSiblingOrThrowException(siblingName, msgField);
         return this;
     }
 
@@ -456,7 +379,7 @@ public class FieldBuilder {
      * @return The current actual {@link FieldBuilder}.
      */
     public FieldBuilder jumpToRoot() {
-        msgField = NavigatorService.findRoot(msgField);
+        msgField = navigator.findRoot(msgField);
         return this;
     }
 
@@ -466,7 +389,7 @@ public class FieldBuilder {
      */
     public FieldBuilder dump() {
         if (logger.isInfoEnabled()) {
-            logger.info(DumpService.dumpMsgField(msgField));
+            logger.info(visualizer.dumpMsgField(msgField));
         }
         return this;
     }
@@ -503,17 +426,22 @@ public class FieldBuilder {
     }
 
     /**
-     * Call the {@link #clone(MsgField)} method and set its result to the context {@link #msgField}.
+     * Call the {@link #cloneField(MsgField)} method and set its result to the context {@link #msgField}.
      * 
-     * An other way is using the {@link FieldBuilder#clone(MsgField)} method, but in the case you have to set
+     * An other way is using the {@link FieldBuilder#cloneField(MsgField)} method, but in the case you have to set
      * the {@link FieldBuilder#defineParent(MsgField)} property for the cloned subfield.
      * 
      * @return The current actual {@link FieldBuilder} with the new {@link #msgField} value.
      */
     public FieldBuilder cloneToSibling() {
-        MsgField cloned = clone(msgField).getCurrentField();
-        msgField.getParent().getChildren().add(cloned);
-        cloned.setParent(msgField.getParent());
+        MsgField cloned = cloneField(msgField);
+        MsgField parent = msgField.getParent();
+        if (parent == null) {
+            throw new PackerRuntimeException("Cannot define sibling to field without a parent. Current field: '" +
+                navigator.getPathRecursively(msgField) + "'.");
+        }
+        parent.getChildren().add(cloned);
+        cloned.setParent(parent);
         msgField = cloned;
         return this;
     }
@@ -574,13 +502,27 @@ public class FieldBuilder {
         MsgField newMsgField = new MsgField();
         newMsgField.setType(msgFieldType);
         if (msgField.getParent() == null) {
-            throw new PackerRuntimeException("Current field '" + NavigatorService.getPathRecursively(msgField) +
-                "' has no parent. The parent is mandatory for new created '" + NavigatorService.getPathRecursively(newMsgField) +
+            throw new PackerRuntimeException("Current field '" + navigator.getPathRecursively(msgField) +
+                "' has no parent. The parent is mandatory for new created '" + navigator.getPathRecursively(newMsgField) +
                 "' field.");
         }
         newMsgField.setParent(msgField.getParent());
         msgField.getParent().getChildren().add(newMsgField);
         msgField = newMsgField;
         return this;
+    }
+
+    /**
+     * @param validator see the {@link #validator} field description.
+     */
+    public void setValidator(Validator validator) {
+        this.validator = validator;
+    }
+
+    /**
+     * @param msgField see the {@link #msgField} field description.
+     */
+    public void setMsgField(MsgField msgField) {
+        this.msgField = msgField;
     }
 }

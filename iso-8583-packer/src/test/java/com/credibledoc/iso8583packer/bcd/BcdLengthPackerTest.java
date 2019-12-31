@@ -3,6 +3,7 @@ package com.credibledoc.iso8583packer.bcd;
 import com.credibledoc.iso8583packer.FieldBuilder;
 import com.credibledoc.iso8583packer.ValueHolder;
 import com.credibledoc.iso8583packer.dump.DumpService;
+import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
@@ -44,11 +45,12 @@ public class BcdLengthPackerTest {
 
         MsgValue msgValue = ValueHolder.unpack(bytes, 0, createField().getCurrentField());
         assertEquals(value, msgValue.getBodyValue(String.class));
-        
-        String msgFieldDump = "MsgField structure dump: " + DumpService.dumpMsgField(createField().getCurrentField());
+
+        Visualizer visualizer = new DumpService();
+        String msgFieldDump = "MsgField structure dump: " + visualizer.dumpMsgField(createField().getCurrentField());
         logger.info(msgFieldDump);
         
-        String msgValueDump = DumpService.dumpMsgValue(createField().getCurrentField(), msgValue, false);
+        String msgValueDump = visualizer.dumpMsgValue(createField().getCurrentField(), msgValue, false);
         logger.info("MsgValue structure dump: {}", msgValueDump);
     }
 
