@@ -94,8 +94,7 @@ public class FieldBuilder {
     protected void createDefaultServices() {
         validator = new ValidatorService();
         navigator = new NavigatorService();
-        visualizer = new DumpService();
-        visualizer.setNavigator(navigator);
+        visualizer = DumpService.getInstance();
         validator.setNavigator(navigator);
         validator.setVisualizer(visualizer);
     }

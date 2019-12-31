@@ -37,10 +37,17 @@ public class DumpService implements Visualizer {
     
     protected Navigator navigator;
 
+    /**
+     * Please use the {@link #getInstance()} method instead of this constructor.
+     */
     public DumpService() {
         // empty
     }
 
+    /**
+     * Static factory.
+     * @return The single instance of the {@link DumpService}. 
+     */
     public static DumpService getInstance() {
         if (instance == null) {
             instance = new DumpService();
@@ -53,7 +60,7 @@ public class DumpService implements Visualizer {
      * Create instances of services used in the builder. The method may be overridden if needed.
      */
     protected void createDefaultServices() {
-        navigator = new NavigatorService();
+        navigator = NavigatorService.getInstance();
     }
 
     @Override

@@ -95,7 +95,7 @@ public class ValueHolder {
      */
     protected void createDefaultServices() {
         navigator = new NavigatorService();
-        visualizer = new DumpService();
+        visualizer = DumpService.getInstance();
         visualizer.setNavigator(navigator);
         navigator.setVisualizer(visualizer);
     }

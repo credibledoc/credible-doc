@@ -1,9 +1,9 @@
 package com.credibledoc.iso8583packer.navigator;
 
 import com.credibledoc.iso8583packer.dump.Visualizer;
+import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.message.*;
 import com.credibledoc.iso8583packer.tag.TagPacker;
-import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +15,27 @@ import java.util.Objects;
  */
 public class NavigatorService implements Navigator {
     
+    private static NavigatorService instance;
+    
     protected Visualizer visualizer;
+
+    /**
+     * Static factory.
+     * @return The single instance of the {@link NavigatorService}. 
+     */
+    public static NavigatorService getInstance() {
+        if (instance == null) {
+            instance = new NavigatorService();
+        }
+        return instance;
+    }
+
+    /**
+     * Please use the {@link #getInstance()} method instead of this constructor.
+     */
+    public NavigatorService() {
+        // empty
+    }
 
     @Override
     @SuppressWarnings("unchecked")

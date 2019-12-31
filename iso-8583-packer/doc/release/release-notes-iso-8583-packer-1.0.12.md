@@ -27,3 +27,7 @@ Default static instances of `EbcdicDecimalLengthPacker.L`, `LL` and so on replac
 
 Interface `LengthPacker` changed, `Integer` is used instead of `int` because in some cases
 the `lenLength` value is defined in the class constructor and it has a fixed - length value.
+
+DumpService is changed to Visualizer.
+
+The ValueHolder.copyFiller() method renamed to ValueHolder.copyValueHolder().

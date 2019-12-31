@@ -46,7 +46,7 @@ public class BcdLengthPackerTest {
         MsgValue msgValue = ValueHolder.unpack(bytes, 0, createField().getCurrentField());
         assertEquals(value, msgValue.getBodyValue(String.class));
 
-        Visualizer visualizer = new DumpService();
+        Visualizer visualizer = DumpService.getInstance();
         String msgFieldDump = "MsgField structure dump: " + visualizer.dumpMsgField(createField().getCurrentField());
         logger.info(msgFieldDump);
         

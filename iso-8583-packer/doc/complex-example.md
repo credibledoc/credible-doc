@@ -22,11 +22,12 @@ The following example contains the definition of an ISO 8583 message
             .defineLen(16)
             .defineParent(isoMsgField)
             .getCurrentField();
-        
+
         FieldBuilder.from(bitmap)
             .createChild(MsgFieldType.LEN_VAL)
             .defineTagNum(2)
             .defineName(PAN_02_NAME)
+            .defineStringer(StringStringer.INSTANCE)
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
             .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2));
         
