@@ -31,3 +31,5 @@ the `lenLength` value is defined in the class constructor and it has a fixed - l
 DumpService is changed to Visualizer.
 
 The ValueHolder.copyFiller() method renamed to ValueHolder.copyValueHolder().
+
+Default static instances `BinaryLengthPacker` `B` and `BB` replaced with `BinaryLengthPacker.getInstance(int)` factory method.

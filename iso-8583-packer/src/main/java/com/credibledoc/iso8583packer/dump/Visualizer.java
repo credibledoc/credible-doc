@@ -28,7 +28,7 @@ public interface Visualizer {
     String dumpMsgValue(MsgField msgField, MsgValue msgValue, boolean maskPrivateData);
 
     /**
-     * Print out field to printStream, for example
+     * Print the field to the printStream, for example
      * <pre>{@code
      *   <f type="VAL" bodyPacker="BcdBodyPacker" len="2"/>
      * }</pre>
@@ -42,21 +42,26 @@ public interface Visualizer {
     void dumpMsgField(MsgField msgField, PrintStream printStream, String indent, String indentForChildren);
 
     /**
-     * Create the {@link MsgValue} documentation.
+     * Create the {@link MsgValue} documentation, for example
+     * <pre>{@code
+     *   <f val="123" lenHex="0002" valHex="0123"/>
+     * }</pre>
      * 
      * @param msgField may be 'null' if the maskPrivateData is 'false'.
      * @param msgValue the data for documentation.
      * @param printStream where to write the serialized documentation.
-     * @param indent indentation of the current item. May be 'null'.
-     * @param indentForChildren the indentation increment for children of the current item.
-     * @param maskPrivateData if 'true', the values will be masked by appropriate {@link Masker}s defined in
+     * @param indent indentation of the current item. May be 'null', in this case no indentation is applied.
+     * @param indentForChildren the indentation increment for children of the current item. May be 'null', in this case
+     *                          four spaces is used.
+     * @param maskPrivateData if 'true', the values will be masked with appropriate {@link Masker}s defined in
      *                       the {@link MsgField} argument.
      */
     void dumpMsgValue(MsgField msgField, MsgValue msgValue, PrintStream printStream, String indent,
                       String indentForChildren, boolean maskPrivateData);
 
     /**
-     * @param navigator the service.
+     * The method may be used for replacing the default implementation {@link DumpService} of {@link Navigator}.
+     * @param navigator the implementation for replacing.
      */
     void setNavigator(Navigator navigator);
 }

@@ -113,10 +113,10 @@ public class FieldBuilderTest {
         MsgPair bitmapPair = ValueHolder.newInstance(rootPair).jumpToChild(BITMAP_NAME).getCurrentPair();
         assertNotNull(bitmap);
         
-        ValueHolder panFiller = ValueHolder.newInstance(bitmapPair).jumpToChild(PAN_02_NAME);
-        assertNotNull(panFiller);
+        ValueHolder panValueHolder = ValueHolder.newInstance(bitmapPair).jumpToChild(PAN_02_NAME);
+        assertNotNull(panValueHolder);
         
-        String unpackedPanString = panFiller.getValue(String.class);
+        String unpackedPanString = panValueHolder.getValue(String.class);
         assertEquals(pan, unpackedPanString);
 
         ValueHolder processingCodeFieldHolder =

@@ -38,7 +38,7 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
     }
 
     /**
-     * Static factory. Creates ans returns singletons.
+     * Static factory. Creates and returns singletons.
      * @param numBytes see {@link #numBytes}
      * @return Existing instance from {@link #instances} or a new created instance.
      */

@@ -28,8 +28,8 @@
 
     <dependencies>
         <dependency>
-            <artifactId>plantuml-core</artifactId>
             <groupId>com.credibledoc</groupId>
+            <artifactId>plantuml-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>
@@ -42,6 +42,11 @@
         <dependency>
             <groupId>com.credibledoc</groupId>
             <artifactId>substitution-generators</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.credibledoc</groupId>
+            <artifactId>iso-8583-packer</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

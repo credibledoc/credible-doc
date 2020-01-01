@@ -78,7 +78,5 @@ The [FieldBuilder](https://github.com/credibledoc/credible-doc/blob/master/iso-8
 is able to create different field types, with and without headers, see the [field-types.md](doc/field-types.md) document.
 
 ### `LEN` types
-Examples of `LEN` types
-
-* [bcd-length-packer.md](doc/bcd/bcd-length-packer.md)
-* [ebcdic-decimal-length-packer.md](doc/ebcdic/ebcdic-decimal-length-packer.md)
+The following [length-packer.md](doc/length/length-packer.md) page describes different `LEN` subfield types
+and implementations of the `LengthPacker` interface.

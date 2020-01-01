@@ -32,7 +32,8 @@ import java.util.List;
 public class DumpService implements Visualizer {
     private static final Logger logger = LoggerFactory.getLogger(DumpService.class);
     private static final int MAX_LEN_20 = 20;
-    
+    public static final String FOR_SPACES = "    ";
+
     protected static DumpService instance;
     
     protected Navigator navigator;
@@ -195,7 +196,6 @@ public class DumpService implements Visualizer {
     }
 
     @Override
-    // TODO Kyrylo Semenko - refactor
     public void dumpMsgValue(MsgField msgField, MsgValue msgValue, PrintStream printStream, String indent,
                              String indentForChildren, boolean maskPrivateData) {
 
@@ -204,7 +204,7 @@ public class DumpService implements Visualizer {
             indent = "";
         }
         if (StringUtils.isEmpty(indentForChildren)) {
-            indentForChildren = "    ";
+            indentForChildren = FOR_SPACES;
         }
 
         if (maskPrivateData && msgField == null) {
@@ -229,16 +229,8 @@ public class DumpService implements Visualizer {
         String tagNumString = msgValue.getTagNum() == null ? "" : " tagNum=\"" + msgValue.getTagNum() + "\"";
 
         String nameString = msgValue.getName() == null ? "" : " name=\"" + msgValue.getName() + "\"";
-        
-        String bitmapString;
-        if (msgField != null && msgField.getHeaderField() != null &&
-                msgValue.getHeaderValue() != null && msgValue.getHeaderValue().getBitSet() != null) {
-            BitSet bitSet = msgValue.getHeaderValue().getBitSet();
-            byte[] bytes = msgField.getHeaderField().getBitMapPacker().pack(bitSet, msgField.getLen());
-            bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bytes) + "\"";
-        } else {
-            bitmapString = "";
-        }
+
+        String bitmapString = createBitmapString(msgField, msgValue);
 
         final HeaderValue headerValue = msgValue.getHeaderValue();
         
@@ -268,6 +260,19 @@ public class DumpService implements Visualizer {
         }
 
         printContent(msgField, msgValue, printStream, indent, indentForChildren, maskPrivateData, content);
+    }
+
+    protected String createBitmapString(MsgField msgField, MsgValue msgValue) {
+        String bitmapString;
+        if (msgField != null && msgField.getHeaderField() != null &&
+                msgValue.getHeaderValue() != null && msgValue.getHeaderValue().getBitSet() != null) {
+            BitSet bitSet = msgValue.getHeaderValue().getBitSet();
+            byte[] bytes = msgField.getHeaderField().getBitMapPacker().pack(bitSet, msgField.getLen());
+            bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bytes) + "\"";
+        } else {
+            bitmapString = "";
+        }
+        return bitmapString;
     }
 
     protected String getLenHexString(HeaderValue headerValue) {

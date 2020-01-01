@@ -10,13 +10,18 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * // TODO Kyrylo Semenko - examples
- * 
+ * Packs and unpacks {@link MsgValue#getBodyBytes()} length in the 
+ * <a href="https://en.wikipedia.org/wiki/Binary-coded_decimal">BCD</a> format with fixed lenLength.
+ * <p>
+ * See the 
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/bcd/bcd-length-packer.md">bcd-length-packer.md</a> page.
+ *
  * @author Kyrylo Semenko
  */
 public class BcdLengthPacker implements LengthPacker {
 
     private static final char PAD_CHAR_0 = '0';
+    
     /**
      * Contains created instances. Each instance is Singleton.
      */
@@ -33,7 +38,7 @@ public class BcdLengthPacker implements LengthPacker {
     }
 
     /**
-     * Static factory. Creates ans returns singletons.
+     * Static factory. Creates and returns singletons.
      * @param numBytes see {@link #numBytes}
      * @return Existing instance from {@link #instances} or a new created instance.
      */

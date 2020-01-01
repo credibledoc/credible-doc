@@ -332,7 +332,7 @@ public class FieldBuilder {
     /**
      * Set the {@link HeaderField#setLengthPacker(LengthPacker)} property.
      * 
-     * Examples of {@link LengthPacker} are {@link com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker}
+     * Examples of {@link LengthPacker} see {@link com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker}
      * or {@link com.credibledoc.iso8583packer.bcd.BcdLengthPacker}.
      * 
      * @param lengthPacker can be 'null' for unset.
