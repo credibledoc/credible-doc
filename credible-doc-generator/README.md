@@ -43,6 +43,7 @@ This documentation is generated from these templates:
 * [/template/markdown/iso-8583-packer/doc/complex-example.md](src/main/resources/template/markdown/iso-8583-packer/doc/complex-example.md)
 * [/template/markdown/iso-8583-packer/doc/ebcdic/ebcdic-decimal-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/ebcdic/ebcdic-decimal-length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/field-types.md](src/main/resources/template/markdown/iso-8583-packer/doc/field-types.md)
+* [/template/markdown/iso-8583-packer/doc/hex/hex-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/hex/hex-length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/length/length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/length/length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/release/release-notes-iso-8583-packer-1.0.12.md](src/main/resources/template/markdown/iso-8583-packer/doc/release/release-notes-iso-8583-packer-1.0.12.md)
 * [/template/markdown/iso-8583-packer/README.md](src/main/resources/template/markdown/iso-8583-packer/README.md)

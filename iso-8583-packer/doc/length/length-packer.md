@@ -12,3 +12,4 @@ Description of some implementations:
 * [bcd-length-packer.md](../bcd/bcd-length-packer.md)
 * [ebcdic-decimal-length-packer.md](../ebcdic/ebcdic-decimal-length-packer.md)
 * [binary-length-packer.md](../binary/binary-length-packer.md)
+* [hex-length-packer.md](../hex/hex-length-packer.md)

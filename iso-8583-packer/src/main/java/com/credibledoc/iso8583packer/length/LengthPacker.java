@@ -33,6 +33,7 @@ public interface LengthPacker {
      *                        method, in other cases the value is null because it is fixed - length value.
      * @return The encoded and packed bytes of the {@link MsgValue#getBodyBytes()}  subfield.
      */
+    // TODO Kyrylo Semenko - delete lenLength
     byte[] pack(int bodyBytesLength, Integer lenLength);
 
     /**
@@ -40,7 +41,7 @@ public interface LengthPacker {
      *
      * @param messageBytes packed bytes of incoming message.
      * @param offset       how many bytes to skip.
-     * @param lenLength    how many bytes the number encoded and packed. In some cases the value is calculated with
+     * @param lenLength    how many bytes contains the packed length. In some cases the value is calculated with
      *                     the {@link #calculateLenLength(byte[], int)} method, in other cases the value is null
      *                     because it is fixed - length value.
      * @return Unpacked and decoded number of bytes for decoding the {@link MsgValue#getBodyBytes()} subfield.

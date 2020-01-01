@@ -5,17 +5,37 @@ import com.credibledoc.iso8583packer.length.LengthPacker;
 
 import java.io.ByteArrayOutputStream;
 
-// TODO Kyrylo Semenko - examples
+/**
+ * Variable length {@link LengthPacker} for <a href="https://en.wikipedia.org/wiki/Type-length-value">TLV</a>
+ * structures.
+ * 
+ * See example on the <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/hex/hex-length-packer.md">hex-length-packer.md</a> page.
+ * 
+ * @author Kyrylo Semenko
+ */
 public class HexLengthPacker implements LengthPacker {
     private static final int MAX_LENGTH_65535 = 65535;
-
     private static final String FLAG_TWO_BYTES_82 = "82";
     private static final byte FLAG_TWO_BYTES_82_AS_BYTE = HexService.hex2byte(FLAG_TWO_BYTES_82)[0];
     private static final String FLAG_ONE_BYTE_81 = "81";
     private static final byte FLAG_ONE_BYTE_81_AS_BYTE = HexService.hex2byte(FLAG_ONE_BYTE_81)[0];
-    
-    public static final HexLengthPacker INSTANCE = new HexLengthPacker();
     private static final int MAX_LEN_LENGTH_3_BYTES = 3;
+    private static final int RADIX_16 = 16;
+
+    /**
+     * Single instance.
+     */
+    private static HexLengthPacker instance;
+
+    /**
+     * @return The {@link #instance} singleton.
+     */
+    public static HexLengthPacker getInstance() {
+        if (instance == null) {
+            instance = new HexLengthPacker();
+        }
+        return instance;
+    }
 
     @Override
     public int unpack(byte[] messageBytes, int offset, Integer lenLength) {
@@ -23,7 +43,7 @@ public class HexLengthPacker implements LengthPacker {
             throw new PackerRuntimeException("Value of lenLength cannot be " + lenLength);
         }
         if (lenLength > MAX_LEN_LENGTH_3_BYTES) {
-            throw new PackerRuntimeException("Max expected lenLength is " + MAX_LEN_LENGTH_3_BYTES + ", byt found " +
+            throw new PackerRuntimeException("Max expected lenLength is " + MAX_LEN_LENGTH_3_BYTES + ", but found " +
                     lenLength + " bytes");
         }
         /*
@@ -44,12 +64,16 @@ public class HexLengthPacker implements LengthPacker {
         }
         
         String hex = HexService.bytesToHex(tagBytes);
-        return Integer.parseInt(hex, 16);
+        return Integer.parseInt(hex, RADIX_16);
     }
 
     @Override
     public byte[] pack(int bodyBytesLength, Integer lenLength) {
         try {
+            if (lenLength > MAX_LEN_LENGTH_3_BYTES) {
+                throw new PackerRuntimeException("Max expected lenLength is " + MAX_LEN_LENGTH_3_BYTES +
+                    ", but found " + lenLength + " bytes");
+            }
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             /*
                 Tag + Length + Value
