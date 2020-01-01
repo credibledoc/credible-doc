@@ -47,11 +47,8 @@ public class BcdLengthPacker implements LengthPacker {
         return instances.get(numBytes);
     }
 
-    /**
-     * @param notUsed is not used, the lenLength is defined in the {@link #BcdLengthPacker(int)} constructor.
-     */
     @Override
-    public byte[] pack(int bodyBytesLength, Integer notUsed) {
+    public byte[] pack(int bodyBytesLength) {
         String lenString = Integer.toString(bodyBytesLength);
         String hex = StringUtils.leftPad(lenString, numBytes * 2, PAD_CHAR_0);
         if (hex.length() > numBytes * 2) {
@@ -63,11 +60,8 @@ public class BcdLengthPacker implements LengthPacker {
         return HexService.hex2byte(hex);
     }
 
-    /**
-     * @param notUsed is not used, the lenLength is defined in the {@link #BcdLengthPacker(int)} constructor.
-     */
     @Override
-    public int unpack(byte[] messageBytes, int offset, Integer notUsed) {
+    public int unpack(byte[] messageBytes, int offset) {
         byte[] lenBytes = new byte[numBytes];
         System.arraycopy(messageBytes, offset, lenBytes, 0, lenBytes.length);
         return Integer.parseInt(HexService.bytesToHex(lenBytes));
@@ -78,8 +72,4 @@ public class BcdLengthPacker implements LengthPacker {
         return numBytes;
     }
 
-    @Override
-    public int calculateLenLength(int bodyBytesLength) {
-        return numBytes;
-    }
 }

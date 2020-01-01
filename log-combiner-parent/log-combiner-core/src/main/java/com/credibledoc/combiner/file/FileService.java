@@ -166,7 +166,7 @@ public class FileService {
     public void createTargetDirectoryIfNotExists(File targetDirectory) {
         if (targetDirectory != null && !targetDirectory.exists()) {
             if (targetDirectory.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH_250) {
-                throw new CombinerRuntimeException("TargetDirectory name length is greater then " +
+                throw new CombinerRuntimeException("TargetDirectory name length is greater than " +
                     MAX_FILE_NAME_LENGTH_250 + ". File name: " + targetDirectory.getAbsolutePath());
             }
             boolean created = targetDirectory.mkdirs();

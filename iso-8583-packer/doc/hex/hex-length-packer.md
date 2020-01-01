@@ -37,33 +37,11 @@ The packed `FieldValue` with `lenHex` looks like
 Some examples of packed values
 ```
 Examples of integers packed with HexLengthPacker class
-numBytes: 1
-numBytes '1', integer '1' packed as bytes 01
-numBytes '1', integer '255' packed as bytes 81FF
-numBytes '1', integer '12345' packed as bytes 823039
-numBytes '1', integer '65535' packed as bytes 82FFFF
-numBytes '1', integer '123456' packed as bytes 8201E240
-numBytes '1', integer '123456789' packed as bytes 82075BCD15
-numBytes '1', integer '1234567899' packed as bytes 82499602DB
-numBytes '1', integer '2147483647' packed as bytes 827FFFFFFF
-numBytes: 2
-numBytes '2', integer '1' packed as bytes 01
-numBytes '2', integer '255' packed as bytes 81FF
-numBytes '2', integer '12345' packed as bytes 823039
-numBytes '2', integer '65535' packed as bytes 82FFFF
-numBytes '2', integer '123456' packed as bytes 8201E240
-numBytes '2', integer '123456789' packed as bytes 82075BCD15
-numBytes '2', integer '1234567899' packed as bytes 82499602DB
-numBytes '2', integer '2147483647' packed as bytes 827FFFFFFF
-numBytes: 3
-numBytes '3', integer '1' packed as bytes 01
-numBytes '3', integer '255' packed as bytes 81FF
-numBytes '3', integer '12345' packed as bytes 823039
-numBytes '3', integer '65535' packed as bytes 82FFFF
-numBytes '3', integer '123456' packed as bytes 8201E240
-numBytes '3', integer '123456789' packed as bytes 82075BCD15
-numBytes '3', integer '1234567899' packed as bytes 82499602DB
-numBytes '3', integer '2147483647' packed as bytes 827FFFFFFF
+integer '1' packed as bytes 01
+integer '255' packed as bytes 81FF
+integer '12345' packed as bytes 823039
+integer '65535' packed as bytes 82FFFF
+integer '123456' cannot be packed, exception: Body bytes length '123456' is greater than '65535' bytes
 ```
 
 More examples see [complex-example.md](../complex-example.md).

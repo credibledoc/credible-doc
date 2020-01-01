@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * The {@link LengthPacker} with fixed length <b>length</b> subfield
  * in <a href="https://en.wikipedia.org/wiki/EBCDIC">EBCDIC</a> format.
  * <p>
- * See examples in the {@link #pack(int, Integer)} and {@link #unpack(byte[], int, Integer)} methods description.
+ * See examples in the {@link #pack(int)} and {@link #unpack(byte[], int)} methods description.
  *
  * @author Kyrylo Semenko
  */
@@ -49,10 +49,9 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
 
     /**
      * Convert for example the <b>154</b> decimal int to <b>F1F5F4</b> bytes.
-     * @param notUsed is not used, the lenLength is defined in the {@link #EbcdicDecimalLengthPacker(int)} constructor.
      */
     @Override
-    public byte[] pack(int bodyBytesLength, Integer notUsed) {
+    public byte[] pack(int bodyBytesLength) {
         StringBuilder stringBuilder = new StringBuilder(numBytes * 2);
         String lenString = StringUtils.leftPad(Integer.toString(bodyBytesLength), numBytes, PAD_CHAR_0);
         for (char character : lenString.toCharArray()) {
@@ -69,10 +68,9 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
 
     /**
      * Convert for example the <b>F1F5F4</b> bytes to decimal int <b>154</b>.
-     * @param notUsed is not used, the lenLength is defined in the {@link #EbcdicDecimalLengthPacker(int)} constructor.
      */
     @Override
-    public int unpack(byte[] messageBytes, int offset, Integer notUsed) {
+    public int unpack(byte[] messageBytes, int offset) {
         byte[] lenBytes = Arrays.copyOfRange(messageBytes, offset, offset + numBytes);
         String hex = HexService.bytesToHex(lenBytes);
         String withoutF = hex.replace(FILLER_F, "");
@@ -84,8 +82,4 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
         return numBytes;
     }
 
-    @Override
-    public int calculateLenLength(int bodyBytesLength) {
-        return numBytes;
-    }
 }

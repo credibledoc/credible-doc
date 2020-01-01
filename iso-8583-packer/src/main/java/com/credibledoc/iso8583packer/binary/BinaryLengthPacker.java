@@ -40,15 +40,12 @@ public class BinaryLengthPacker implements LengthPacker {
         return instances.get(numBytesParam);
     }
 
-    /**
-     * @param notUsed is not used, the lenLength is defined in the {@link #BinaryLengthPacker(int)} constructor.
-     */
     @Override
-    public byte[] pack(int bodyBytesLength, Integer notUsed) {
+    public byte[] pack(int bodyBytesLength) {
         int maxPackedInt = (int)(Math.pow(16, numBytes * 2d) - 1);
         if (bodyBytesLength > maxPackedInt) {
             throw new PackerRuntimeException("The bodyBytesLength '" + bodyBytesLength +
-                "' cannot be packed in bytes because it is greater then the maximum value '" + maxPackedInt +
+                "' cannot be packed in bytes because it is greater than the maximum value '" + maxPackedInt +
                 "' that can be packed in the bytes with the length '" + numBytes + "'.");
         }
         byte[] result = new byte[numBytes];
@@ -59,11 +56,8 @@ public class BinaryLengthPacker implements LengthPacker {
         return result;
     }
 
-    /**
-     * @param notUsed is not used, the lenLength is defined in the {@link #BinaryLengthPacker(int)} constructor.
-     */
     @Override
-    public int unpack(byte[] messageBytes, int offset, Integer notUsed) {
+    public int unpack(byte[] messageBytes, int offset) {
         int len = 0;
         for (int i = 0; i < this.numBytes; ++i) {
             len = NUM_DECIMALS_IN_ONE_BYTE_256 * len + (messageBytes[offset + i] & MAX_DECIMAL_IN_ONE_BYTE_255);
@@ -76,8 +70,4 @@ public class BinaryLengthPacker implements LengthPacker {
         return numBytes;
     }
 
-    @Override
-    public int calculateLenLength(int bodyBytesLength) {
-        return numBytes;
-    }
 }

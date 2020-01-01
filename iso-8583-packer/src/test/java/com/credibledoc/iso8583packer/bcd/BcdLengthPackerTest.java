@@ -57,8 +57,7 @@ public class BcdLengthPackerTest {
     @Test
     public void testPack() {
         BcdLengthPacker bcdLengthPacker = BcdLengthPacker.getInstance(1);
-        // lenLength 9999 should not be used there
-        byte[] bytes = bcdLengthPacker.pack(12, 9999);
+        byte[] bytes = bcdLengthPacker.pack(12);
         assertEquals("12", HexService.bytesToHex(bytes));
     }
 
@@ -66,8 +65,7 @@ public class BcdLengthPackerTest {
     public void testUnpack() {
         BcdLengthPacker bcdLengthPacker = BcdLengthPacker.getInstance(2);
         byte[] bytes = HexService.hex2byte("0123");
-        // lenLength 9999 should not be used there
-        assertEquals(123, bcdLengthPacker.unpack(bytes, 0, 9999));
+        assertEquals(123, bcdLengthPacker.unpack(bytes, 0));
     }
 
     /**
@@ -86,7 +84,7 @@ public class BcdLengthPackerTest {
             for (int len : lenList) {
                 String packedString;
                 try {
-                    byte[] packedLen = bcdLengthPacker.pack(len, null);
+                    byte[] packedLen = bcdLengthPacker.pack(len);
                     packedString = "packed as bytes " + HexService.bytesToHex(packedLen);
                 } catch (Exception e) {
                     assertEquals(PackerRuntimeException.class, e.getClass());

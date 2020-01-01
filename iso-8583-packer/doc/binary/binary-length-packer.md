@@ -40,24 +40,24 @@ Examples of integers packed with BinaryLengthPacker class
 numBytes: 1
 numBytes '1', integer '1' packed as bytes 01
 numBytes '1', integer '255' packed as bytes FF
-numBytes '1', integer '12345' cannot be packed, exception: The bodyBytesLength '12345' cannot be packed in bytes because it is greater then the maximum value '255' that can be packed in the bytes with the length '1'.
-numBytes '1', integer '65535' cannot be packed, exception: The bodyBytesLength '65535' cannot be packed in bytes because it is greater then the maximum value '255' that can be packed in the bytes with the length '1'.
-numBytes '1', integer '123456' cannot be packed, exception: The bodyBytesLength '123456' cannot be packed in bytes because it is greater then the maximum value '255' that can be packed in the bytes with the length '1'.
-numBytes '1', integer '123456789' cannot be packed, exception: The bodyBytesLength '123456789' cannot be packed in bytes because it is greater then the maximum value '255' that can be packed in the bytes with the length '1'.
+numBytes '1', integer '12345' cannot be packed, exception: The bodyBytesLength '12345' cannot be packed in bytes because it is greater than the maximum value '255' that can be packed in the bytes with the length '1'.
+numBytes '1', integer '65535' cannot be packed, exception: The bodyBytesLength '65535' cannot be packed in bytes because it is greater than the maximum value '255' that can be packed in the bytes with the length '1'.
+numBytes '1', integer '123456' cannot be packed, exception: The bodyBytesLength '123456' cannot be packed in bytes because it is greater than the maximum value '255' that can be packed in the bytes with the length '1'.
+numBytes '1', integer '123456789' cannot be packed, exception: The bodyBytesLength '123456789' cannot be packed in bytes because it is greater than the maximum value '255' that can be packed in the bytes with the length '1'.
 numBytes: 2
 numBytes '2', integer '1' packed as bytes 0001
 numBytes '2', integer '255' packed as bytes 00FF
 numBytes '2', integer '12345' packed as bytes 3039
 numBytes '2', integer '65535' packed as bytes FFFF
-numBytes '2', integer '123456' cannot be packed, exception: The bodyBytesLength '123456' cannot be packed in bytes because it is greater then the maximum value '65535' that can be packed in the bytes with the length '2'.
-numBytes '2', integer '123456789' cannot be packed, exception: The bodyBytesLength '123456789' cannot be packed in bytes because it is greater then the maximum value '65535' that can be packed in the bytes with the length '2'.
+numBytes '2', integer '123456' cannot be packed, exception: The bodyBytesLength '123456' cannot be packed in bytes because it is greater than the maximum value '65535' that can be packed in the bytes with the length '2'.
+numBytes '2', integer '123456789' cannot be packed, exception: The bodyBytesLength '123456789' cannot be packed in bytes because it is greater than the maximum value '65535' that can be packed in the bytes with the length '2'.
 numBytes: 3
 numBytes '3', integer '1' packed as bytes 000001
 numBytes '3', integer '255' packed as bytes 0000FF
 numBytes '3', integer '12345' packed as bytes 003039
 numBytes '3', integer '65535' packed as bytes 00FFFF
 numBytes '3', integer '123456' packed as bytes 01E240
-numBytes '3', integer '123456789' cannot be packed, exception: The bodyBytesLength '123456789' cannot be packed in bytes because it is greater then the maximum value '16777215' that can be packed in the bytes with the length '3'.
+numBytes '3', integer '123456789' cannot be packed, exception: The bodyBytesLength '123456789' cannot be packed in bytes because it is greater than the maximum value '16777215' that can be packed in the bytes with the length '3'.
 ```
 
 More examples see [complex-example.md](../complex-example.md).

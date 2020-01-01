@@ -390,7 +390,7 @@ public class ValueHolder {
         byte[] lengthBytes = new byte[lenLength];
         System.arraycopy(bytes, offset.getValue(), lengthBytes, 0, lengthBytes.length);
         msgPair.getMsgValue().getHeaderValue().setLengthBytes(lengthBytes);
-        int rawDataLength = lengthPacker.unpack(bytes, offset.getValue(), lenLength);
+        int rawDataLength = lengthPacker.unpack(bytes, offset.getValue());
         offset.add(lenLength);
         return rawDataLength;
     }
@@ -695,7 +695,6 @@ public class ValueHolder {
                     "Please use FieldBuilder.get(field) and set the setChildTagLen(?) value to this field parent. " +
                     "This property should not be set in leaf fields only.");
         }
-        int lenLength = 0;
 
         LengthPacker lengthPacker;
 
@@ -706,21 +705,17 @@ public class ValueHolder {
             lengthPacker = msgFieldParent.getChildrenLengthPacker();
             packTagBytesToHeader(headerValue, tagLength, fieldNum);
             int tagAndValueLength = valueBytes.length + headerValue.getTagBytes().length;
-            lenLength = lengthPacker.calculateLenLength(tagAndValueLength);
-            byte[] lengthBytes = lengthPacker.pack(tagAndValueLength, lenLength);
+            byte[] lengthBytes = lengthPacker.pack(tagAndValueLength);
             headerValue.setLengthBytes(lengthBytes);
         } else {
             // field itself contains lengthPacker
             lengthPacker = headerField.getLengthPacker();
-            if (lengthPacker != null) {
-                lenLength = lengthPacker.calculateLenLength(valueBytes.length);
-            }
             if (MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
                 packTagBytesToHeader(headerValue, tagLength, fieldNum);
             }
 
             if (lengthPacker != null) {
-                byte[] lengthBytes = lengthPacker.pack(valueBytes.length, lenLength);
+                byte[] lengthBytes = lengthPacker.pack(valueBytes.length);
                 headerValue.setLengthBytes(lengthBytes);
             }
         }
@@ -1004,15 +999,13 @@ public class ValueHolder {
     }
 
     protected void packLength(MsgValue msgValue, LengthPacker lengthPacker, byte[] bytes, boolean lengthPrecedesTagNum) {
-        int lenLength;
         int bytesLength;
         if (lengthPrecedesTagNum) {
             bytesLength = bytes.length + msgValue.getHeaderValue().getTagBytes().length;
         } else {
             bytesLength = bytes.length;
         }
-        lenLength = lengthPacker.calculateLenLength(bytesLength);
-        byte[] lengthBytes = lengthPacker.pack(bytesLength, lenLength);
+        byte[] lengthBytes = lengthPacker.pack(bytesLength);
         msgValue.getHeaderValue().setLengthBytes(lengthBytes);
     }
 

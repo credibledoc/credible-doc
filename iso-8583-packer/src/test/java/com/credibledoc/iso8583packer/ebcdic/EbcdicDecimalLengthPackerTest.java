@@ -58,8 +58,7 @@ public class EbcdicDecimalLengthPackerTest {
     @Test
     public void testPack() {
         EbcdicDecimalLengthPacker ebcdicDecimalLengthPacker = EbcdicDecimalLengthPacker.getInstance(2);
-        // lenLength 9999 should not be used there
-        byte[] bytes = ebcdicDecimalLengthPacker.pack(12, 9999);
+        byte[] bytes = ebcdicDecimalLengthPacker.pack(12);
         assertEquals("F1F2", HexService.bytesToHex(bytes));
     }
 
@@ -67,8 +66,7 @@ public class EbcdicDecimalLengthPackerTest {
     public void testUnpack() {
         EbcdicDecimalLengthPacker ebcdicDecimalLengthPacker = EbcdicDecimalLengthPacker.getInstance(3);
         byte[] bytes = HexService.hex2byte("F1F2F3");
-        // lenLength 9999 should not be used there
-        assertEquals(123, ebcdicDecimalLengthPacker.unpack(bytes, 0, 9999));
+        assertEquals(123, ebcdicDecimalLengthPacker.unpack(bytes, 0));
     }
 
     /**
@@ -87,7 +85,7 @@ public class EbcdicDecimalLengthPackerTest {
             for (int len : lenList) {
                 String packedString;
                 try {
-                    byte[] packedLen = ebcdicDecimalLengthPacker.pack(len, null);
+                    byte[] packedLen = ebcdicDecimalLengthPacker.pack(len);
                     packedString = "packed as bytes " + HexService.bytesToHex(packedLen);
                 } catch (Exception e) {
                     assertEquals(PackerRuntimeException.class, e.getClass());

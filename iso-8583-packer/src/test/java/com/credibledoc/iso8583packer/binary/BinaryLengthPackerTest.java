@@ -58,8 +58,7 @@ public class BinaryLengthPackerTest {
     @Test
     public void testPack() {
         BinaryLengthPacker binaryLengthPacker = BinaryLengthPacker.getInstance(1);
-        // lenLength 9999 should not be used there
-        byte[] bytes = binaryLengthPacker.pack(12, 9999);
+        byte[] bytes = binaryLengthPacker.pack(12);
         assertEquals("0C", HexService.bytesToHex(bytes));
     }
 
@@ -67,8 +66,7 @@ public class BinaryLengthPackerTest {
     public void testUnpack() {
         BinaryLengthPacker binaryLengthPacker = BinaryLengthPacker.getInstance(2);
         byte[] bytes = HexService.hex2byte("0123");
-        // lenLength 9999 should not be used there
-        assertEquals(291, binaryLengthPacker.unpack(bytes, 0, 9999));
+        assertEquals(291, binaryLengthPacker.unpack(bytes, 0));
     }
 
     /**
@@ -87,7 +85,7 @@ public class BinaryLengthPackerTest {
             for (int len : lenList) {
                 String packedString;
                 try {
-                    byte[] packedLen = binaryLengthPacker.pack(len, null);
+                    byte[] packedLen = binaryLengthPacker.pack(len);
                     packedString = "packed as bytes " + HexService.bytesToHex(packedLen);
                 } catch (Exception e) {
                     assertEquals(PackerRuntimeException.class, e.getClass());

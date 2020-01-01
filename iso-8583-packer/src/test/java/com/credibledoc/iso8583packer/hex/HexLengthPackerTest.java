@@ -57,7 +57,7 @@ public class HexLengthPackerTest {
     @Test
     public void testPack() {
         HexLengthPacker hexLengthPacker = HexLengthPacker.getInstance();
-        byte[] bytes = hexLengthPacker.pack(12, 1);
+        byte[] bytes = hexLengthPacker.pack(12);
         assertEquals("0C", HexService.bytesToHex(bytes));
     }
 
@@ -67,7 +67,7 @@ public class HexLengthPackerTest {
         byte[] bytes = HexService.hex2byte("82FFFF");
         int lenLength = hexLengthPacker.calculateLenLength(bytes, 0);
         assertEquals(3, lenLength);
-        int length = hexLengthPacker.unpack(bytes, 0, lenLength);
+        int length = hexLengthPacker.unpack(bytes, 0);
         assertEquals(65535, length);
     }
 
@@ -78,24 +78,19 @@ public class HexLengthPackerTest {
     public void packedExamples() {
         StringBuilder stringBuilder = new StringBuilder("Examples of integers packed with " +
             HexLengthPacker.class.getSimpleName() + " class" + LINE_SEPARATOR);
-        List<Integer> lenList = Arrays.asList(1, 255, 12345, 65535, 123456, 123456789, 1234567899, Integer.MAX_VALUE);
-        List<Integer> lenLengthList = Arrays.asList(1, 2, 3);
-        for (int lenLength : lenLengthList) {
-            String info = "numBytes: " + lenLength + LINE_SEPARATOR;
-            stringBuilder.append(info);
-            HexLengthPacker hexLengthPacker = HexLengthPacker.getInstance();
-            for (int len : lenList) {
-                String packedString;
-                try {
-                    byte[] packedLen = hexLengthPacker.pack(len, lenLength);
-                    packedString = "packed as bytes " + HexService.bytesToHex(packedLen);
-                } catch (Exception e) {
-                    assertEquals(PackerRuntimeException.class, e.getClass());
-                    packedString = "cannot be packed, exception: " + e.getMessage();
-                }
-                String row ="numBytes '" + lenLength + "', integer '" + len + "' " + packedString + LINE_SEPARATOR;
-                stringBuilder.append(row);
+        List<Integer> lenList = Arrays.asList(1, 255, 12345, 65535, 123456);
+        HexLengthPacker hexLengthPacker = HexLengthPacker.getInstance();
+        for (int len : lenList) {
+            String packedString;
+            try {
+                byte[] packedLen = hexLengthPacker.pack(len);
+                packedString = "packed as bytes " + HexService.bytesToHex(packedLen);
+            } catch (Exception e) {
+                assertEquals(PackerRuntimeException.class, e.getClass());
+                packedString = "cannot be packed, exception: " + e.getMessage();
             }
+            String row ="integer '" + len + "' " + packedString + LINE_SEPARATOR;
+            stringBuilder.append(row);
         }
         stringBuilder.append("Examples end.");
         assertTrue(stringBuilder.length() > 100);
