@@ -6,7 +6,7 @@ import com.credibledoc.iso8583packer.ifb.IfbBitmapPacker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
 import com.credibledoc.iso8583packer.msg.field02.Bmp02MsgField;
-import com.credibledoc.iso8583packer.msg.field58.Bmp58MsgField;
+import com.credibledoc.iso8583packer.msg.field58.Field58;
 
 /**
  * Test data
@@ -38,7 +38,7 @@ public class TestIsoMsgField {
                 .getCurrentField();
 
         Bmp02MsgField.defineBmp02(rootMsgField);
-        Bmp58MsgField.defineBmp58(rootMsgField);
+        Field58.defineField58(rootMsgField);
 
         FieldBuilder.from(rootMsgField).validateStructure();
         return rootMsgField;

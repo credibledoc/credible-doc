@@ -13,14 +13,14 @@ import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
 import com.credibledoc.iso8583packer.message.MsgPair;
 import com.credibledoc.iso8583packer.message.MsgValue;
+import com.credibledoc.iso8583packer.msg.field58.Field58;
 import com.credibledoc.iso8583packer.stringer.StringStringer;
 import com.credibledoc.iso8583packer.validator.TestValidator;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class FieldBuilderTest {
 
@@ -54,7 +54,6 @@ public class FieldBuilderTest {
             .defineName(BITMAP_NAME)
             .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance())
             .defineLen(16)
-            .defineParent(isoMsgField)
             .getCurrentField();
 
         FieldBuilder.from(bitmap)
@@ -71,6 +70,8 @@ public class FieldBuilderTest {
             .defineName(PROCESSING_CODE_03_NAME)
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
             .defineHeaderLengthPacker(BcdLengthPacker.getInstance(1));
+
+        Field58.defineField58(bitmap);
         
         fieldBuilder.validateStructure();
 
@@ -85,10 +86,12 @@ public class FieldBuilderTest {
         valueHolder.jumpToSibling(BITMAP_NAME)
             .jumpToChild(PAN_02_NAME).setValue(pan)
             .jumpToSibling(PROCESSING_CODE_03_NAME).setValue(processingCode);
-        
+
+        fillField58(valueHolder);
+
         // packing
         byte[] bytes = valueHolder.jumpToRoot().pack();
-        String expectedBitmapHex = "6000000000000000";
+        String expectedBitmapHex = "6000000000000040";
         String expectedPanLengthHex = "F0F8";
         char padding = BcdBodyPacker.FILLER_F;
         String expectedProcessingCodeLenHex = "01";
@@ -97,7 +100,8 @@ public class FieldBuilderTest {
             expectedBitmapHex +
             expectedPanLengthHex + pan + padding +
             expectedProcessingCodeLenHex + processingCode;
-        assertEquals(expectedHex, HexService.bytesToHex(bytes));
+        String packedHex = HexService.bytesToHex(bytes);
+        assertTrue(packedHex.startsWith(expectedHex));
         
         // unpacking
         MsgValue msgValue = ValueHolder.unpack(bytes, 0, isoMsgField);
@@ -132,6 +136,41 @@ public class FieldBuilderTest {
 
         String msgValueDump = visualizer.dumpMsgValue(isoMsgField, msgValue, false);
         logger.info("Root msgValue dump: \n{}{}", msgValueDump, "End of msgValue dump.");
+    }
+
+    protected void fillField58(ValueHolder valueHolder) {
+        ValueHolder field58ValueHolder = valueHolder.copyValueHolder()
+            .jumpToParent()
+            .jumpToChild(Field58.F_58_NAME);
+
+        String rateReferenceId = "018F1AEE03E404843C";
+        field58ValueHolder.jumpToChild(Field58.RATE_REQUEST_REFERENCE_ID_35_NAME)
+            .setValue(rateReferenceId);
+
+        String dccStatus = "U";
+        field58ValueHolder.jumpToSibling(Field58.DCC_DATA_37_NAME)
+            .jumpToChild(Field58.DCC_STATUS_37_1)
+            .setValue(dccStatus);
+
+        String currencyCode = "978";
+        field58ValueHolder.jumpToSibling(Field58.CURRENCY_CODE_37_2)
+            .setValue(currencyCode);
+
+        String amount = "000000005555";
+        field58ValueHolder.jumpToSibling(Field58.TRANSACTION_AMOUNT_37_5)
+            .setValue(amount);
+
+        String conversionRate = "40011670";
+        field58ValueHolder.jumpToSibling(Field58.CONVERSION_RATE_37_17)
+            .setValue(conversionRate);
+
+        String nonLoyaltyGroup = "003021";
+        field58ValueHolder.jumpToParent().jumpToSibling(Field58.NON_LOYALTY_GROUP_53_NAME)
+            .setValue(nonLoyaltyGroup);
+
+        String posTerminalCapabilities = "8";
+        field58ValueHolder.jumpToSibling(Field58.POS_TERMINAL_CAPABILITIES_98_NAME)
+            .setValue(posTerminalCapabilities);
     }
 
     @Test

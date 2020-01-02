@@ -553,7 +553,7 @@ public class ValueHolder {
      * tho the {@link #msgValue} field.
      *
      * @param childName the {@link #msgField}'s child.
-     * @return An existing {@link #msgField}'s child.
+     * @return The current instance of {@link ValueHolder}.
      */
     public ValueHolder jumpToChild(String childName) {
         try {
@@ -575,6 +575,22 @@ public class ValueHolder {
             throw new PackerRuntimeException("Exception message: " + e.getMessage() + "\nCannot find a child." +
                 ROOT_MSG_FIELD + visualizer.dumpMsgField(rootMsgField), e);
         }
+    }
+
+    /**
+     * Change actual {@link #msgField} and {@link #msgValue} to their parents.
+     * @return The current instance of {@link ValueHolder}.
+     */
+    public ValueHolder jumpToParent() {
+        if (msgField.getParent() == null) {
+            throw new PackerRuntimeException("MsgField '" + navigator.getPathRecursively(msgField) + "' has no parent.");
+        }
+        if (msgValue.getParent() == null) {
+            throw new PackerRuntimeException("MsgValue '" + navigator.getPathRecursively(msgValue) + "' has no parent.");
+        }
+        msgField = msgField.getParent();
+        msgValue = msgValue.getParent();
+        return this;
     }
 
     /**

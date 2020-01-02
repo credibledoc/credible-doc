@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
  * Implements ASCII {@link BodyPacker} of String value. Strings are converted to and from ASCII bytes.
  * This uses the {@link #ISO_88591} encoding.
  *
+ * // TODO Kyrylo Semenko - example in documentation
  * @author Kyrylo Semenko
  */
 public class AsciiBodyPacker implements BodyPacker {

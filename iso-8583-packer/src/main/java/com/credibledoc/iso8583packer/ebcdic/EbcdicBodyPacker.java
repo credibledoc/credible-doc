@@ -9,6 +9,8 @@ import java.nio.charset.StandardCharsets;
 /**
  * Implements EBCDIC {@link BodyPacker}. Strings are converted to and from EBCDIC bytes.
  * The {@link #ISO_88591} charset is used.
+ * 
+ * // TODO Kyrylo Semenko - example in documentation
  *
  * @author Kyrylo Semenko
  */

@@ -15,33 +15,41 @@ import com.credibledoc.iso8583packer.message.MsgFieldType;
  *
  * @author Kyrylo Semenko
  */
-// TODO Kyrylo Semenko - delete or use in tests
-public class Bmp58MsgField {
+public class Field58 {
 
-    public static final String F_58_NAME = "58";
-    static final String RATE_REQUEST_REFERENCE_ID_35 = "35";
-    static final String DCC_DATA_37 = "37";
-    static final String NON_LOYALTY_GROUP_53 = "53";
-    static final String BRANCH_PARTNER_ID_97 = "97";
-    static final String PAYBACK_CARD_NUMBER_TOKEN_90 = "90";
-    static final String PAYBACK_TOKEN_92 = "92";
-    static final String RECEIPT_ID_TOKEN_93 = "93";
-    static final String REFERENCE_NUMBER_95 = "95";
-    static final String DCC_STATUS_37_1 = "dcc_status";
-    static final String CURRENCY_CODE_37_2 = "currency_code";
-    static final String TRANSACTION_AMOUNT_37_5 = "transaction_amount";
-    static final String CONVERSION_RATE_37_17 = "conversion_rate";
-    static final String ELAVON_POS_TERMINAL_CAPABILITIES_98 = "98";
+    public static final String F_58_NAME = "field_58";
+    public static final String RATE_REQUEST_REFERENCE_ID_35_NAME = "rate_request_reference";
+    public static final String DCC_DATA_37_NAME = "dcc_data";
+    public static final String NON_LOYALTY_GROUP_53_NAME = "non_loyalty_group";
+    public static final String BRANCH_PARTNER_ID_97_NAME = "97";
+    public static final String PAYBACK_CARD_NUMBER_TOKEN_90_NAME = "90";
+    public static final String PAYBACK_TOKEN_92_NAME = "92";
+    public static final String RECEIPT_ID_TOKEN_93_NAME = "93";
+    public static final String REFERENCE_NUMBER_95_NAME = "95";
+    public static final String DCC_STATUS_37_1 = "dcc_status";
+    public static final String CURRENCY_CODE_37_2 = "currency_code";
+    public static final String TRANSACTION_AMOUNT_37_5 = "transaction_amount";
+    public static final String CONVERSION_RATE_37_17 = "conversion_rate";
+    public static final String POS_TERMINAL_CAPABILITIES_98_NAME = "pos_terminal_capabilities";
     private static final int FIELD_NUM_58 = 58;
+    private static final int RATE_REQUEST_REFERENCE_ID_35 = 35;
+    private static final int DCC_DATA_37 = 37;
+    private static final int NON_LOYALTY_GROUP_53 = 53;
+    private static final int POS_TERMINAL_CAPABILITIES_98 = 98;
+    private static final int BRANCH_PARTNER_ID_97 = 97;
+    private static final int REFERENCE_NUMBER_95 = 95;
+    private static final int RECEIPT_ID_TOKEN_93 = 93;
+    private static final int PAYBACK_TOKEN_92 = 92;
+    private static final int PAYBACK_CARD_NUMBER_TOKEN_90 = 90;
 
     /**
      * Please do not try to instantiate this static helper.
      */
-    private Bmp58MsgField() {
+    private Field58() {
         throw new PackerRuntimeException("Please do not try to instantiate the static helper.");
     }
 
-    public static void defineBmp58(MsgField rootMsgField) {
+    public static void defineField58(MsgField rootMsgField) {
         MsgField f58definition = FieldBuilder.builder(MsgFieldType.LEN_VAL)
                 .defineParent(rootMsgField)
                 .defineTagNum(FIELD_NUM_58)
@@ -56,18 +64,17 @@ public class Bmp58MsgField {
 
         MsgField subfield35 = FieldBuilder.builder(MsgFieldType.LEN_TAG_VAL)
                 .defineBodyPacker(AsciiBodyPacker.INSTANCE)
-                .defineName(RATE_REQUEST_REFERENCE_ID_35)
-                .defineTagNum(Integer.parseInt(RATE_REQUEST_REFERENCE_ID_35))
+                .defineName(RATE_REQUEST_REFERENCE_ID_35_NAME)
+                .defineTagNum(RATE_REQUEST_REFERENCE_ID_35)
                 .defineParent(f58definition)
                 .getCurrentField();
 
         FieldBuilder.from(subfield35).cloneToSibling()
-                .defineName(DCC_DATA_37)
-                .defineTagNum(Integer.parseInt(DCC_DATA_37))
+                .defineName(DCC_DATA_37_NAME)
+                .defineTagNum(DCC_DATA_37)
                 .defineBodyPacker(EbcdicBodyPacker.INSTANCE)
                 .defineChildrenTagLen(0)
                 .defineChildrenLengthPacker(null)
-                .defineParent(subfield35.getParent())
 
                 .createChild(MsgFieldType.TAG_LEN_VAL)
 
@@ -96,40 +103,39 @@ public class Bmp58MsgField {
                 .defineLen(8);
 
         FieldBuilder.from(subfield35).cloneToSibling()
-                .defineName(NON_LOYALTY_GROUP_53)
-                .defineTagNum(Integer.parseInt(NON_LOYALTY_GROUP_53))
+                .defineName(NON_LOYALTY_GROUP_53_NAME)
+                .defineTagNum(NON_LOYALTY_GROUP_53)
                 .defineBodyPacker(EbcdicBodyPacker.INSTANCE)
-                .defineParent(f58definition)
                 
                 .cloneToSibling()
                 
-                .defineName(PAYBACK_CARD_NUMBER_TOKEN_90)
-                .defineTagNum(Integer.parseInt(PAYBACK_CARD_NUMBER_TOKEN_90))
+                .defineName(PAYBACK_CARD_NUMBER_TOKEN_90_NAME)
+                .defineTagNum(PAYBACK_CARD_NUMBER_TOKEN_90)
                 
                 .cloneToSibling()
 
-                .defineName(PAYBACK_TOKEN_92)
-                .defineTagNum(Integer.parseInt(PAYBACK_TOKEN_92))
+                .defineName(PAYBACK_TOKEN_92_NAME)
+                .defineTagNum(PAYBACK_TOKEN_92)
                 
                 .cloneToSibling()
                 
-                .defineName(RECEIPT_ID_TOKEN_93)
-                .defineTagNum(Integer.parseInt(RECEIPT_ID_TOKEN_93))
+                .defineName(RECEIPT_ID_TOKEN_93_NAME)
+                .defineTagNum(RECEIPT_ID_TOKEN_93)
                 
                 .cloneToSibling()
                 
-                .defineName(REFERENCE_NUMBER_95)
-                .defineTagNum(Integer.parseInt(REFERENCE_NUMBER_95))
+                .defineName(REFERENCE_NUMBER_95_NAME)
+                .defineTagNum(REFERENCE_NUMBER_95)
                 
                 .cloneToSibling()
                 
-                .defineName(BRANCH_PARTNER_ID_97)
-                .defineTagNum(Integer.parseInt(BRANCH_PARTNER_ID_97))
+                .defineName(BRANCH_PARTNER_ID_97_NAME)
+                .defineTagNum(BRANCH_PARTNER_ID_97)
                 
                 .cloneToSibling()
                 
-                .defineName(ELAVON_POS_TERMINAL_CAPABILITIES_98)
-                .defineTagNum(Integer.parseInt(ELAVON_POS_TERMINAL_CAPABILITIES_98));
+                .defineName(POS_TERMINAL_CAPABILITIES_98_NAME)
+                .defineTagNum(POS_TERMINAL_CAPABILITIES_98);
     }
 
 }

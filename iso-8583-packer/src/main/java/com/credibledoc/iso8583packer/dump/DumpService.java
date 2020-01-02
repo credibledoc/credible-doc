@@ -216,8 +216,13 @@ public class DumpService implements Visualizer {
         if (msgField != null) {
             masker = msgField.getMasker();
         }
-        
-        String valueHexString = maskBodyBytes(msgValue, maskPrivateData, masker);
+
+        String valueHexString;
+        if (msgValue.getChildren() == null || msgValue.getChildren().isEmpty()) {
+            valueHexString = maskBodyBytes(msgValue, maskPrivateData, masker);
+        } else {
+            valueHexString = "";
+        }
 
         String valueString;
         if (msgField != null) {

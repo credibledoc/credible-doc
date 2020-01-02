@@ -7,6 +7,7 @@ import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
  * Implements BCD {@link BodyPacker} with padding. Numeric Strings (consisting of chars '0'..'9') are converted
  * to and from BCD bytes. Thus, "1234" is converted into 2 bytes: 0x12, 0x34.
  *
+ * // TODO Kyrylo Semenko - example in documentation
  * @author Kyrylo Semenko
  */
 public class BcdBodyPacker implements BodyPacker {

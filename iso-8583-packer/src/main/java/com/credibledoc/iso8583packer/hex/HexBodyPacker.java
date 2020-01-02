@@ -10,6 +10,7 @@ import java.util.Arrays;
  * chars '0'..'9' and 'A'..'F' are converted to and from bytes. Thus, "12CD" is
  * converted into 2 bytes: 0x12, 0xCD.
  * 
+ * // TODO Kyrylo Semenko - example in documentation
  * @author sh
  * @author Kyrylo Semenko
  */

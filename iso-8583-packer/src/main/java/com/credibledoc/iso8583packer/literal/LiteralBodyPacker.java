@@ -6,6 +6,7 @@ import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 /**
  * This {@link BodyPacker} does no conversion and leaves the input the same as the output.
  * 
+ * // TODO Kyrylo Semenko - example in documentation
  * @author Kyrylo Semenko
  */
 public class LiteralBodyPacker implements BodyPacker {

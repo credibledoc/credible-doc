@@ -46,3 +46,5 @@ The message values can be described as XML by calling the `DumpService.dumpMsgVa
     }
 } &&endPlaceholder
 ```
+
+The complete example is located on GitHub [FieldBuilderTest.java](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/FieldBuilderTest.java).
