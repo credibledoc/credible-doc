@@ -217,19 +217,9 @@ public class DumpService implements Visualizer {
             masker = msgField.getMasker();
         }
 
-        String valueHexString;
-        if (msgValue.getChildren() == null || msgValue.getChildren().isEmpty()) {
-            valueHexString = maskBodyBytes(msgValue, maskPrivateData, masker);
-        } else {
-            valueHexString = "";
-        }
+        String valueHexString = getHexValueString(msgValue, maskPrivateData, masker);
 
-        String valueString;
-        if (msgField != null) {
-            valueString = getValueString(msgValue, maskPrivateData, masker, msgField.getStringer());
-        } else {
-            valueString = getValueString(msgValue, false, null, StringStringer.INSTANCE);
-        }
+        String valueString = getValueString(msgField, msgValue, maskPrivateData, masker);
 
         String tagNumString = msgValue.getTagNum() == null ? "" : " tagNum=\"" + msgValue.getTagNum() + "\"";
 
@@ -265,6 +255,26 @@ public class DumpService implements Visualizer {
         }
 
         printContent(msgField, msgValue, printStream, indent, indentForChildren, maskPrivateData, content);
+    }
+
+    protected String getValueString(MsgField msgField, MsgValue msgValue, boolean maskPrivateData, Masker masker) {
+        String valueString;
+        if (msgField != null) {
+            valueString = getValueString(msgValue, maskPrivateData, masker, msgField.getStringer());
+        } else {
+            valueString = getValueString(msgValue, false, null, StringStringer.INSTANCE);
+        }
+        return valueString;
+    }
+
+    protected String getHexValueString(MsgValue msgValue, boolean maskPrivateData, Masker masker) {
+        String valueHexString;
+        if (msgValue.getChildren() == null || msgValue.getChildren().isEmpty()) {
+            valueHexString = maskBodyBytes(msgValue, maskPrivateData, masker);
+        } else {
+            valueHexString = "";
+        }
+        return valueHexString;
     }
 
     protected String createBitmapString(MsgField msgField, MsgValue msgValue) {

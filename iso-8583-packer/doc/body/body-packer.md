@@ -11,6 +11,7 @@ The following implementations of the `BodyPacker` interface transform values to 
 * com.credibledoc.iso8583packer.literal.LiteralBodyPacker
 
 
-Description of some implementations:
-* [bcd-body-packer.md](../bcd/bcd-body-packer.md)
+Some implementations described on the following pages:
 * [ascii-body-packer.md](../asciihex/ascii-body-packer.md)
+* [bcd-body-packer.md](../bcd/bcd-body-packer.md)
+* [literal-body-packer.md](../literal/literal-body-packer.md)

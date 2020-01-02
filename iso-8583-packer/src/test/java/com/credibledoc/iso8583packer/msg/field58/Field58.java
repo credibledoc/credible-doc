@@ -6,7 +6,6 @@ import com.credibledoc.iso8583packer.ebcdic.EbcdicBodyPacker;
 import com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker;
 import com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalTagPacker;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
-import com.credibledoc.iso8583packer.literal.LiteralBodyPacker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
 
@@ -54,7 +53,6 @@ public class Field58 {
                 .defineParent(rootMsgField)
                 .defineTagNum(FIELD_NUM_58)
                 .defineName(F_58_NAME)
-                .defineBodyPacker(LiteralBodyPacker.INSTANCE)
                 .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(3))
                 .defineChildrenLengthPacker(EbcdicDecimalLengthPacker.getInstance(3))
                 .defineChildrenTagPacker(EbcdicDecimalTagPacker.INSTANCE)

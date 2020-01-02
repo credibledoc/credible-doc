@@ -53,8 +53,9 @@ public class ValidatorService implements Validator {
                     "but the both properties are 'null'. Field path: '" + path + "'");
         }
 
-        if (msgField.getParent() != null && msgField.getBodyPacker() == null && msgField.getType() != MsgFieldType.BIT_SET) {
-            throw new PackerRuntimeException("Please call the 'defineBodyPacker()' method " +
+        if (msgField.getBodyPacker() == null && msgField.getChildren() == null &&
+                msgField.getType() != MsgFieldType.BIT_SET && msgField.getType() != MsgFieldType.MSG) {
+            throw new PackerRuntimeException("Please call the 'defineBodyPacker(...)' method " +
                     "because the 'BodyPacker' value is mandatory. " +
                     "Field path: '" + path + "'.");
         }
