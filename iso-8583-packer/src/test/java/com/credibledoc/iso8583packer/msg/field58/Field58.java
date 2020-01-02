@@ -63,7 +63,7 @@ public class Field58 {
                 .getCurrentField();
 
         MsgField subfield35 = FieldBuilder.builder(MsgFieldType.LEN_TAG_VAL)
-                .defineBodyPacker(AsciiBodyPacker.INSTANCE)
+                .defineBodyPacker(AsciiBodyPacker.getInstance())
                 .defineName(RATE_REQUEST_REFERENCE_ID_35_NAME)
                 .defineTagNum(RATE_REQUEST_REFERENCE_ID_35)
                 .defineParent(f58definition)
