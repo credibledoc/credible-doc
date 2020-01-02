@@ -6,8 +6,10 @@ import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 /**
  * Implements BCD {@link BodyPacker} with padding. Numeric Strings (consisting of chars '0'..'9') are converted
  * to and from BCD bytes. Thus, "1234" is converted into 2 bytes: 0x12, 0x34.
+ * <p>
+ * More examples
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/bcd/bcd-body-packer.md">bcd-body-packer.md</a>
  *
- * // TODO Kyrylo Semenko - example in documentation
  * @author Kyrylo Semenko
  */
 public class BcdBodyPacker implements BodyPacker {
@@ -101,7 +103,7 @@ public class BcdBodyPacker implements BodyPacker {
             throw new PackerRuntimeException("Odd value length is not allowed with 'noPadding()' instance. " +
                 "Value '" + value + "' has odd length '" + value.length() + "'. " +
                 "Please use even length value " +
-                "or an other instance of the " + BcdBodyPacker.class.getSimpleName() + " class.");
+                "or another instance of the " + BcdBodyPacker.class.getSimpleName() + " class.");
         }
         boolean leftPadded = leftPadding0Instance == this || leftPaddingFInstance == this;
         boolean fPadded = leftPaddingFInstance == this || rightPaddingFInstance == this;

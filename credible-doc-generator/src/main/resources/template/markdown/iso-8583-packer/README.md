@@ -111,6 +111,9 @@ More complex message definition with inner subfields is described in the [comple
 The [FieldBuilder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldBuilder.java)
 is able to create different field types, with and without headers, see the [field-types.md](doc/field-types.md) document.
 
+### Body packers
+The following page [body-packer.md](doc/body/body-packer.md) contains description of different formats of body values.
+
 ### `LEN` types
 The following [length-packer.md](doc/length/length-packer.md) page describes different `LEN` subfield types
 and implementations of the `LengthPacker` interface.
