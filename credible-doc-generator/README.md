@@ -44,6 +44,7 @@ This documentation is generated from these templates:
 * [/template/markdown/iso-8583-packer/doc/binary/binary-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/binary/binary-length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/body/body-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/body/body-packer.md)
 * [/template/markdown/iso-8583-packer/doc/complex-example.md](src/main/resources/template/markdown/iso-8583-packer/doc/complex-example.md)
+* [/template/markdown/iso-8583-packer/doc/ebcdic/ebcdic-body-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/ebcdic/ebcdic-body-packer.md)
 * [/template/markdown/iso-8583-packer/doc/ebcdic/ebcdic-decimal-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/ebcdic/ebcdic-decimal-length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/field-types.md](src/main/resources/template/markdown/iso-8583-packer/doc/field-types.md)
 * [/template/markdown/iso-8583-packer/doc/hex/hex-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/hex/hex-length-packer.md)

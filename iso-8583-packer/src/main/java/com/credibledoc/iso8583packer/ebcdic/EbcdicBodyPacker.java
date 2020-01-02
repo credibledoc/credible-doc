@@ -9,18 +9,37 @@ import java.nio.charset.StandardCharsets;
 /**
  * Implements EBCDIC {@link BodyPacker}. Strings are converted to and from EBCDIC bytes.
  * The {@link #ISO_88591} charset is used.
- * 
- * // TODO Kyrylo Semenko - example in documentation
+ * <p>
+ * More examples
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/ebcdic/ebcdic-body-packer.md">ebcdic-body-packer.md</a>
  *
  * @author Kyrylo Semenko
  */
 public class EbcdicBodyPacker implements BodyPacker {
 
-    /**
-     * An instance of this #BodyPacker. Only one needed for the whole system
-     */
-    public static final EbcdicBodyPacker INSTANCE = new EbcdicBodyPacker();
     private static final Charset ISO_88591 = StandardCharsets.ISO_8859_1;
+
+    /**
+     * Single instance.
+     */
+    private static EbcdicBodyPacker instance;
+
+    /**
+     * Only one instance is allowed, see the {@link #getInstance()} method.
+     */
+    private EbcdicBodyPacker() {
+        // empty
+    }
+
+    /**
+     * @return The {@link #instance} singleton.
+     */
+    public static EbcdicBodyPacker getInstance() {
+        if (instance == null) {
+            instance = new EbcdicBodyPacker();
+        }
+        return instance;
+    }
 
     /**
      * @param object the data to be packed. Expected String value.
@@ -48,6 +67,12 @@ public class EbcdicBodyPacker implements BodyPacker {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T unpack(byte[] sourceData, int offset, int bytesCount) {
+        int available = sourceData.length - offset;
+        if (bytesCount > available) {
+            throw new PackerRuntimeException("Available number of bytes '" + available +
+                "' in the sourceData[] array is less than required number of bytes '" + bytesCount +
+                "' in bytesCount parameter.");
+        }
         return (T) EbcdicService.ebcdicToAscii(sourceData, offset, bytesCount, ISO_88591);
     }
 

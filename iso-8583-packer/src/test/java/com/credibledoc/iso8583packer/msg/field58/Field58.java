@@ -70,7 +70,7 @@ public class Field58 {
         FieldBuilder.from(subfield35).cloneToSibling()
                 .defineName(DCC_DATA_37_NAME)
                 .defineTagNum(DCC_DATA_37)
-                .defineBodyPacker(EbcdicBodyPacker.INSTANCE)
+                .defineBodyPacker(EbcdicBodyPacker.getInstance())
                 .defineChildrenTagLen(0)
                 .defineChildrenLengthPacker(null)
 
@@ -80,7 +80,7 @@ public class Field58 {
                 .defineType(MsgFieldType.VAL)
                 .defineTagNum(1)
                 .defineLen(1)
-                .defineBodyPacker(EbcdicBodyPacker.INSTANCE)
+                .defineBodyPacker(EbcdicBodyPacker.getInstance())
 
                 .cloneToSibling()
                 
@@ -103,7 +103,7 @@ public class Field58 {
         FieldBuilder.from(subfield35).cloneToSibling()
                 .defineName(NON_LOYALTY_GROUP_53_NAME)
                 .defineTagNum(NON_LOYALTY_GROUP_53)
-                .defineBodyPacker(EbcdicBodyPacker.INSTANCE)
+                .defineBodyPacker(EbcdicBodyPacker.getInstance())
                 
                 .cloneToSibling()
                 

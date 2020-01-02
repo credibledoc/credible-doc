@@ -2,7 +2,7 @@
 
 Some MsgFields have defined the LEN subfield, see the field-types.md description.
 
-The following example shows how to define a field length in [EBCDIC](https://en.wikipedia.org/wiki/EBCDIC) format
+The following example shows how to define a field length in the [EBCDIC](https://en.wikipedia.org/wiki/EBCDIC) format
 ```Java
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",
