@@ -11,8 +11,8 @@ The following example shows how to define `TAG` in the [EBCDIC](https://en.wikip
     "description": "Example of EBCDIC tag definition",
     "parameters": {
         "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/ebcdic/EbcdicDecimalTagPackerTest.java",
-        "beginString": "        return FieldBuilder.builder(MsgFieldType.MSG)",
-        "endString": ".validateStructure();",
+        "beginString": "    private FieldBuilder createField() {",
+        "endString": "    }",
         "indentation": ""
     }
 } &&endPlaceholder
@@ -42,7 +42,7 @@ The following example shows packing and unpacking of the field value
         "sourceRelativePath": "iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/ebcdic/EbcdicDecimalTagPackerTest.java",
         "beginString": "        String value = \"1234\";",
         "endString": "assertEquals(value, unpackedValue);",
-        "indentation": "    "
+        "indentation": ""
     }
 } &&endPlaceholder
 ```

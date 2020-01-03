@@ -6,6 +6,7 @@ pairs contain `TAG` subfields, see the [field-types.md](../field-types.md) page 
 
 The following example shows how to define `TAG` in the [EBCDIC](https://en.wikipedia.org/wiki/EBCDIC) format
 ```Java
+    private FieldBuilder createField() {
         return FieldBuilder.builder(MsgFieldType.MSG)
             .defineChildrenTagLen(1)
             .defineChildrenTagPacker(EbcdicDecimalTagPacker.getInstance())
@@ -19,6 +20,7 @@ The following example shows how to define `TAG` in the [EBCDIC](https://en.wikip
             
             .jumpToRoot()
             .validateStructure();
+    }
 ```
 
 The field structure
@@ -30,22 +32,22 @@ The field structure
 
 The following example shows packing and unpacking of the field value
 ```Java
-            String value = "1234";
-            MsgField field1 = createField().jumpToChild(FIELD_1_NAME).getCurrentField();
-            ValueHolder valueHolder = ValueHolder.newInstance(field1);
-            valueHolder.setValue(value);
-    
-            byte[] bytes = valueHolder.pack();
-            String tagHex = "F1";
-            String valueHex = "1234";
-            assertEquals(tagHex + valueHex, HexService.bytesToHex(bytes));
-    
-            MsgField msgField = createField().getCurrentField();
-            MsgValue msgValue = ValueHolder.unpack(bytes, 0, msgField);
-            ValueHolder valueHolderUnpacked = ValueHolder.newInstance(msgValue, msgField);
-            valueHolderUnpacked.jumpToChild(FIELD_1_NAME);
-            String unpackedValue = valueHolderUnpacked.getValue(String.class);
-            assertEquals(value, unpackedValue);
+        String value = "1234";
+        MsgField field1 = createField().jumpToChild(FIELD_1_NAME).getCurrentField();
+        ValueHolder valueHolder = ValueHolder.newInstance(field1);
+        valueHolder.setValue(value);
+
+        byte[] bytes = valueHolder.pack();
+        String tagHex = "F1";
+        String valueHex = "1234";
+        assertEquals(tagHex + valueHex, HexService.bytesToHex(bytes));
+
+        MsgField msgField = createField().getCurrentField();
+        MsgValue msgValue = ValueHolder.unpack(bytes, 0, msgField);
+        ValueHolder valueHolderUnpacked = ValueHolder.newInstance(msgValue, msgField);
+        valueHolderUnpacked.jumpToChild(FIELD_1_NAME);
+        String unpackedValue = valueHolderUnpacked.getValue(String.class);
+        assertEquals(value, unpackedValue);
 ```
 
 The packed `FieldValue` with `TAG` looks like
