@@ -74,12 +74,20 @@ You can find the complete example here: [BcdBodyPackerTest](https://github.com/c
 More complex message definition with inner subfields is described in the [complex-example.md](doc/complex-example.md) document.
 
 ## Field types
+Every field contains a header (optional) and a body (mandatory), for example <b>02 01 03</b>, where
+* <b>02</b> is header `TAG`
+* <b>01</b> is header `LEN`
+* <b>03</b> is body `VAL`
+
 The [FieldBuilder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldBuilder.java)
 is able to create different field types, with and without headers, see the [field-types.md](doc/field-types.md) document.
 
-### Body packers
-The following page [body-packer.md](doc/body/body-packer.md) contains description of different formats of body values.
+### `TAG` types and packers
+The following page [tag-packer.md](doc/tag/tag-packer.md) describes some formats and types of `TAG` packers.
 
-### `LEN` types
+### `LEN` types and packers
 The following [length-packer.md](doc/length/length-packer.md) page describes different `LEN` subfield types
 and implementations of the `LengthPacker` interface.
+
+### `VAL` types and packers
+The following page [body-packer.md](doc/body/body-packer.md) contains description of different formats of body values.

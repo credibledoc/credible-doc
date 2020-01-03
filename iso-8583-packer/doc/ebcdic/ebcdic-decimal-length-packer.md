@@ -1,6 +1,8 @@
 # `EbcdicDecimalLengthPacker` examples
 
-Some MsgFields have defined the LEN subfield, see the field-types.md description.
+Some [MsgField](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/message/MsgField.java)
+with [MsgValue](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/message/MsgValue.java)
+pairs contain `LEN` subfields, see the [field-types.md](../field-types.md) page with description of field types.
 
 The following example shows how to define a field length in the [EBCDIC](https://en.wikipedia.org/wiki/EBCDIC) format
 ```Java

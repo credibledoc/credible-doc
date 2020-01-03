@@ -69,7 +69,7 @@ public enum MsgFieldType {
     /**
      * Contains  {@link MsgFieldType}s with fixed length body value.
      */
-    private static List<MsgFieldType> fixedLengthTypes = Arrays.asList(VAL, BIT_SET);
+    private static List<MsgFieldType> fixedLengthTypes = Arrays.asList(VAL, BIT_SET, TAG_VAL);
 
     /**
      * @return The {@link #tagTypes} list.
@@ -121,5 +121,13 @@ public enum MsgFieldType {
      */
     public static boolean isFixedLengthType(MsgField msgField) {
         return fixedLengthTypes.contains(msgField.getType());
+    }
+
+    /**
+     * @param msgField contains a {@link MsgFieldType} value.
+     * @return 'true' if the {@link #lengthTypes} list contains the argument {@link MsgField#getType()}.
+     */
+    public static boolean isLengthType(MsgField msgField) {
+        return lengthTypes.contains(msgField.getType());
     }
 }

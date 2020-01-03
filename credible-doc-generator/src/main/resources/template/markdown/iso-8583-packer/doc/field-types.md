@@ -5,7 +5,8 @@ is able to create different field types, see the [MsgFieldType](https://github.c
 enumeration.
 
 These [MsgField](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/message/MsgField.java)
-types always have a `body` and may have a `header`. The example [here](../README.md) is a `MsgField` without a `header`, it has the `body` without the `tag` and `length` subfields.
+types always have a `body` (`VAL`) and may have a `header` (`TAG`, `LEN`). The example [here](../README.md) is a `MsgField` without a `header`,
+it has the `body` (`VAL`) without the `header` (`TAG` and `LEN`) subfields.
 
 ## Length and Value types
 
@@ -24,4 +25,5 @@ or
 LEN TAG VAL
  03  60 543
 ```
-The example of `LEN_VAL` type [bcd-length-packer.md](../doc/bcd/bcd-length-packer.md)
+Examples of `LEN` types [length-packer.md](../doc/length/length-packer.md)
+Examples of `VAL` types [body-packer.md](../doc/body/body-packer.md)

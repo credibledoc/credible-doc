@@ -188,15 +188,16 @@ public class ValueHolder {
      */
     protected void unpackFieldRecursively(byte[] bytes, Offset offset, MsgPair msgPair) throws Exception {
         navigator.validateSameNamesAndTagNum(msgPair);
-        Integer rawDataLength = null;
-        if (MsgFieldType.MSG == msgPair.getMsgField().getType()) {
+        Integer rawDataLength;
+        MsgFieldType msgFieldType = msgPair.getMsgField().getType();
+        if (MsgFieldType.MSG == msgFieldType) {
             rawDataLength = bytes.length - offset.getValue();
-        } else if (msgPair.getMsgField().getType() == MsgFieldType.BIT_SET) {
+        } else if (msgFieldType == MsgFieldType.BIT_SET) {
             rawDataLength = unpackBitSet(bytes, offset, msgPair);
-        } else if (MsgFieldType.VAL == msgPair.getMsgField().getType()) {
+        } else if (MsgFieldType.VAL == msgFieldType) {
             rawDataLength = unpackFixedLengthType(bytes, offset, msgPair);
         } else {
-            rawDataLength = unpackOtherTypes(bytes, offset, msgPair, rawDataLength);
+            rawDataLength = unpackOtherTypes(bytes, offset, msgPair);
         }
         
         if (msgPair.getMsgField().getChildren() == null) {
@@ -209,12 +210,13 @@ public class ValueHolder {
         offset.add(rawDataLength);
     }
 
-    protected Integer unpackOtherTypes(byte[] bytes, Offset offset, MsgPair msgPair, Integer rawDataLength) {
+    protected Integer unpackOtherTypes(byte[] bytes, Offset offset, MsgPair msgPair) {
+        Integer rawDataLength = null;
         Integer tagLength = getChildTagLengthFromParent(msgPair.getMsgField());
         boolean lengthFirst = MsgFieldType.getLengthFirstTypes().contains(msgPair.getMsgField().getType());
         Integer tagNum = null;
 
-        if (lengthFirst) {
+        if (lengthFirst && MsgFieldType.isLengthType(msgPair.getMsgField())) {
             rawDataLength = unpackLength(bytes, offset, msgPair) - tagLength;
         }
 
@@ -233,8 +235,16 @@ public class ValueHolder {
             unpackTagBytes(bytes, offset, msgPair, tagLength, tagNum);
         }
 
-        if (!lengthFirst) {
+        if (!lengthFirst && MsgFieldType.isLengthType(msgPair.getMsgField())) {
             rawDataLength = unpackLength(bytes, offset, msgPair);
+        }
+        
+        if (msgPair.getMsgField().getLen() != null) {
+            rawDataLength = msgPair.getMsgField().getLen();
+        }
+
+        if (rawDataLength == null) {
+            throw new PackerRuntimeException("Cannot find rawDataLength of the msgField with path '" + navigator.getPathRecursively(msgPair.getMsgField()) + "'");
         }
 
         // unpack field body
@@ -643,9 +653,10 @@ public class ValueHolder {
         } catch (Exception e) {
             MsgValue rootMsgValue = navigator.findRoot(msgValue);
             MsgField rootMsgField = navigator.findRoot(msgField);
+            MsgField appropriateMsgField = navigator.findByNameAndTagNumOrThrowException(rootMsgField, msgValue);
             throw new PackerRuntimeException("Exception message: " + e.getMessage() + "\nCannot set bodyValue '" + bodyValue +
                     "' to field '" + navigator.getPathRecursively(msgField) + "'" +
-                    "\nRoot MsgValue:\n" + visualizer.dumpMsgValue(rootMsgField, rootMsgValue, true) +
+                    "\nRoot MsgValue:\n" + visualizer.dumpMsgValue(appropriateMsgField, rootMsgValue, true) +
                     "\nThe MsgField:\n" + visualizer.dumpMsgField(msgField) +
                 ROOT_MSG_FIELD + visualizer.dumpMsgField(rootMsgField), e);
         }

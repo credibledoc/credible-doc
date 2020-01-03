@@ -167,10 +167,13 @@ public class FieldBuilder {
     /**
      * Call the {@link Validator#validateStructure(MsgField)} method
      * with the current {@link #msgField} as argument.
+     * 
+     * @return The current instance of {@link FieldBuilder} with {@link #msgField} in its context.
      */
-    public void validateStructure() {
+    public FieldBuilder validateStructure() {
         try {
             validator.validateStructure(msgField);
+            return this;
         } catch (Exception e) {
             MsgField root = navigator.findRoot(msgField);
             throw new PackerRuntimeException("Validation failed, message:\n" + e.getMessage() + "\n" +

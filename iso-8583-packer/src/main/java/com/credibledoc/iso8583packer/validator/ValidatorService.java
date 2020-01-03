@@ -22,13 +22,7 @@ public class ValidatorService implements Validator {
 
     @Override
     public void validateStructure(MsgField current) {
-        try {
-            validateStructureRecursively(current);
-        } catch (Exception e) {
-            MsgField root = navigator.findRoot(current);
-            throw new PackerRuntimeException("Validation failed, message:\n" + e.getMessage() + "\n" +
-                    "Root MsgField:\n" + visualizer.dumpMsgField(root), e);
-        }
+        validateStructureRecursively(current);
     }
 
     /**
@@ -87,6 +81,10 @@ public class ValidatorService implements Validator {
             validateLenExists(msgField, path);
         }
 
+        if (msgField.getType() == MsgFieldType.VAL || msgField.getType() == MsgFieldType.TAG_VAL) {
+            validateLenExists(msgField, path);
+        }
+        
         List<MsgField> msgFields = msgField.getChildren();
         if (msgFields != null) {
             for (MsgField nextMsgField : msgFields) {
@@ -148,8 +146,8 @@ public class ValidatorService implements Validator {
     protected void validateLenExists(MsgField msgField, String path) {
         if (msgField.getLen() == null) {
             throw new PackerRuntimeException("The field with path '" + path +
-                    "' is a '" + msgField.getType() +
-                    "' so please define its length by calling the defineLen() method.");
+                    "' has '" + msgField.getType() +
+                    "' type, so please define its length by calling the defineLen() method.");
         }
     }
 
