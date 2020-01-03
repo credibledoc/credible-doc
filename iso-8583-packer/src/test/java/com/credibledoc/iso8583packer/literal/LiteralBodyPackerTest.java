@@ -110,6 +110,7 @@ public class LiteralBodyPackerTest {
         generateLines(stringBuilder, values, leftPadding0);
         
         assertTrue(stringBuilder.length() > 100);
+        assertFalse(stringBuilder.toString().contains("ERROR"));
         
         logger.info("Examples of values packed with LiteralBodyPacker\n{}Examples end.", stringBuilder.toString());
     }
@@ -125,7 +126,7 @@ public class LiteralBodyPackerTest {
                 int len = literalBodyPacker.getPackedLength(bytes);
                 byte[] unpackedBytes = literalBodyPacker.unpack(bytes, 0, len);
                 String line = "Value '" + stringValue + "' packed to bytes as hex: " + HexService.bytesToHex(bytes) +
-                    " and unpacked again as hex: " + HexService.bytesToHex(unpackedBytes) + System.lineSeparator();
+                    " and unpacked again to bytes: " + HexService.bytesToHex(unpackedBytes) + System.lineSeparator();
                 stringBuilder.append(line);
             } catch (Exception e) {
                 String line = "Value '" + stringValue + "' cannot be packed to bytes. Exception: " + e.getMessage() +

@@ -181,6 +181,7 @@ public class BcdBodyPackerTest {
         generateLines(stringBuilder, values, noPadding);
         
         assertTrue(stringBuilder.length() > 100);
+        assertFalse(stringBuilder.toString().contains("ERROR"));
         
         logger.info("Examples of values packed with BcdBodyPacker \n{}Examples end.", stringBuilder.toString());
     }

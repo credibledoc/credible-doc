@@ -66,14 +66,14 @@ public class EbcdicBodyPacker implements BodyPacker {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T unpack(byte[] sourceData, int offset, int bytesCount) {
+    public String unpack(byte[] sourceData, int offset, int bytesCount) {
         int available = sourceData.length - offset;
         if (bytesCount > available) {
             throw new PackerRuntimeException("Available number of bytes '" + available +
                 "' in the sourceData[] array is less than required number of bytes '" + bytesCount +
                 "' in bytesCount parameter.");
         }
-        return (T) EbcdicService.ebcdicToAscii(sourceData, offset, bytesCount, ISO_88591);
+        return EbcdicService.ebcdicToAscii(sourceData, offset, bytesCount, ISO_88591);
     }
 
     /**

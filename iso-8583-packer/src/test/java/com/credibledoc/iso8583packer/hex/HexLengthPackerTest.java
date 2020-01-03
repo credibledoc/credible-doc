@@ -15,8 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class HexLengthPackerTest {
     private static final String LINE_SEPARATOR = System.lineSeparator();
@@ -94,6 +93,7 @@ public class HexLengthPackerTest {
         }
         stringBuilder.append("Examples end.");
         assertTrue(stringBuilder.length() > 100);
+        assertFalse(stringBuilder.toString().contains("ERROR"));
         logger.info(stringBuilder.toString());
     }
 }

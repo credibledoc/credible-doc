@@ -63,11 +63,10 @@ public class LiteralBodyPacker implements BodyPacker {
      * @param sourceData the packed source data.
      * @param offset     the index in sourceData to start unpacking at.
      * @param bytesCount the number of bytes to unpack.
-     * @param <T> byte[] array.
      * @return The byte[] array.
      */
     @Override
-    public <T> T unpack(byte[] sourceData, int offset, int bytesCount) {
+    public byte[] unpack(byte[] sourceData, int offset, int bytesCount) {
         int available = sourceData.length - offset;
         if (bytesCount > available) {
             throw new PackerRuntimeException("Available number of bytes in sourceData[] array '" + available +
@@ -75,7 +74,7 @@ public class LiteralBodyPacker implements BodyPacker {
         }
         byte[] ret = new byte[bytesCount];
         System.arraycopy(sourceData, offset, ret, 0, bytesCount);
-        return (T) ret;
+        return ret;
     }
 
     /**

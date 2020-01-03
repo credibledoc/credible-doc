@@ -657,7 +657,7 @@ public class ValueHolder {
         if (bodyPacker == null) {
             throw new PackerRuntimeException("BodyPacker not found. Please call setBodyPacker(...) " +
                     "method, for example " +
-                    "MsgField subfield35 = FieldBuilder.builder().BodyPacker(HexBodyPacker.INSTANCE)...\n" +
+                    "MsgField subfield35 = FieldBuilder.builder().BodyPacker(HexBodyPacker.getInstance())...\n" +
                     "MsgField: " + navigator.getPathRecursively(msgField));
         }
         

@@ -33,3 +33,7 @@ DumpService is changed to Visualizer.
 The ValueHolder.copyFiller() method renamed to ValueHolder.copyValueHolder().
 
 Default static instances `BinaryLengthPacker` `B` and `BB` replaced with `BinaryLengthPacker.getInstance(int)` factory method.
+
+Default static instances of `HexBodyPacker.INSTANCE`, `EbcdicBodyPacker.INSTANCE` and `LiteralBodyPacker.INSTANCE` changed to
+factory methods `getInstance()`.
+ 

@@ -67,7 +67,7 @@ public class AsciiBodyPacker implements BodyPacker {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T unpack(byte[] sourceData, int offset, int bytesCount) {
+    public String unpack(byte[] sourceData, int offset, int bytesCount) {
         int available = sourceData.length - offset;
         if (bytesCount > available) {
             throw new PackerRuntimeException("Required bytes count '" + bytesCount +
@@ -75,7 +75,7 @@ public class AsciiBodyPacker implements BodyPacker {
         }
         byte[] ret = new byte[bytesCount];
         System.arraycopy(sourceData, offset, ret, 0, bytesCount);
-        return (T) new String(ret, ISO_88591);
+        return new String(ret, ISO_88591);
     }
 
     @Override

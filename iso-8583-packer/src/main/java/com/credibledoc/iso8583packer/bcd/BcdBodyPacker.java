@@ -123,24 +123,23 @@ public class BcdBodyPacker implements BodyPacker {
      * @param sourceData the packed source data.
      * @param offset     the index in sourceData to start unpacking at.
      * @param bytesCount the number of bytes for unpacking.
-     * @param <T>        the String type.
-     * @return The String type only
+     * @return The String representation of the data.
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T unpack(byte[] sourceData, int offset, int bytesCount) {
+    public String unpack(byte[] sourceData, int offset, int bytesCount) {
         boolean leftPadded = leftPadding0Instance == this || leftPaddingFInstance == this;
         String result = BcdService.bcd2str(sourceData, offset, bytesCount * 2, leftPadded);
         
         if (rightPaddingFInstance == this && result.charAt(result.length() - 1) == FILLER_F) {
-            return (T) result.substring(0, result.length() - 1);
+            return result.substring(0, result.length() - 1);
         }
         
         if (leftPadded && (result.charAt(0) == FILLER_0 || result.charAt(0) == FILLER_F)) {
-            return (T) result.substring(1);
+            return result.substring(1);
         }
         
-        return (T) result;
+        return result;
     }
 
     /**

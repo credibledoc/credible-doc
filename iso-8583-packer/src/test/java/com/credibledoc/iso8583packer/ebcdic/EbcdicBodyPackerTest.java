@@ -108,6 +108,7 @@ public class EbcdicBodyPackerTest {
         generateLines(stringBuilder, values, ebcdicBodyPacker);
         
         assertTrue(stringBuilder.length() > 100);
+        assertFalse(stringBuilder.toString().contains("ERROR"));
         
         logger.info("Examples of values packed with EbcdicBodyPacker\n{}Examples end.", stringBuilder.toString());
     }

@@ -49,11 +49,11 @@ The packed `FieldValue` then looks like
 Some examples of packed values
 ```
 Examples of values packed with LiteralBodyPacker
-Value '0A' packed to bytes as hex: 0A and unpacked again as hex: 0A
-Value 'AA' packed to bytes as hex: AA and unpacked again as hex: AA
-Value '0ABC' packed to bytes as hex: 0ABC and unpacked again as hex: 0ABC
-Value 'A12345BCDE' packed to bytes as hex: A12345BCDE and unpacked again as hex: A12345BCDE
-Value 'FF' packed to bytes as hex: FF and unpacked again as hex: FF
+Value '0A' packed to bytes as hex: 0A and unpacked again to bytes: 0A
+Value 'AA' packed to bytes as hex: AA and unpacked again to bytes: AA
+Value '0ABC' packed to bytes as hex: 0ABC and unpacked again to bytes: 0ABC
+Value 'A12345BCDE' packed to bytes as hex: A12345BCDE and unpacked again to bytes: A12345BCDE
+Value 'FF' packed to bytes as hex: FF and unpacked again to bytes: FF
 ```
 
 The source of the test is located in GitHub [LiteralBodyPackerTest.java](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/literal/LiteralBodyPackerTest.java)
