@@ -3,6 +3,9 @@ package com.credibledoc.iso8583packer.body;
 /**
  * Implementations of the interface convert Objects into byte arrays and vice versa,
  * see the {@link #pack(Object, byte[], int)} and {@link #unpack(byte[], int, int)} methods.
+ * <p>
+ * Actual documentation and examples
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/body/body-packer.md">body-packer.md</a>.
  *
  * @author Kyrylo Semenko
  */

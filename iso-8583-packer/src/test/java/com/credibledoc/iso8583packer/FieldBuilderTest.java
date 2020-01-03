@@ -60,7 +60,7 @@ public class FieldBuilderTest {
             .createChild(MsgFieldType.LEN_VAL)
             .defineTagNum(2)
             .defineName(PAN_02_NAME)
-            .defineStringer(StringStringer.INSTANCE)
+            .defineStringer(StringStringer.getInstance())
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
             .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2));
         

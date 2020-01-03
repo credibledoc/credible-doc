@@ -262,7 +262,7 @@ public class DumpService implements Visualizer {
         if (msgField != null) {
             valueString = getValueString(msgValue, maskPrivateData, masker, msgField.getStringer());
         } else {
-            valueString = getValueString(msgValue, false, null, StringStringer.INSTANCE);
+            valueString = getValueString(msgValue, false, null, StringStringer.getInstance());
         }
         return valueString;
     }

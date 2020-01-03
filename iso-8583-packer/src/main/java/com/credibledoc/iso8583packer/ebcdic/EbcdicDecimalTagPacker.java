@@ -1,8 +1,8 @@
 package com.credibledoc.iso8583packer.ebcdic;
 
+import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.string.StringUtils;
 import com.credibledoc.iso8583packer.tag.TagPacker;
-import com.credibledoc.iso8583packer.hex.HexService;
 
 /**
  * See the {@link #pack(int, int)} and {@link #unpack(byte[], int, int)} methods examples.
@@ -10,8 +10,28 @@ import com.credibledoc.iso8583packer.hex.HexService;
  * @author Kyrylo Semenko
  */
 public class EbcdicDecimalTagPacker implements TagPacker {
-    
-    public static final EbcdicDecimalTagPacker INSTANCE = new EbcdicDecimalTagPacker();
+
+    /**
+     * Single instance.
+     */
+    private static EbcdicDecimalTagPacker instance;
+
+    /**
+     * Only one instance is allowed, see the {@link #getInstance()} method.
+     */
+    private EbcdicDecimalTagPacker() {
+        // empty
+    }
+
+    /**
+     * @return The {@link #instance} singleton.
+     */
+    public static EbcdicDecimalTagPacker getInstance() {
+        if (instance == null) {
+            instance = new EbcdicDecimalTagPacker();
+        }
+        return instance;
+    }
     
     private static final int TWO_CHARS_IN_HEX_BYTE = 2;
     private static final String FILLER_F = "F";

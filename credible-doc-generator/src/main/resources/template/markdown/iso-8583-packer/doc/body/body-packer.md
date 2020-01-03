@@ -13,7 +13,7 @@ The following implementations of the `BodyPacker` interface transform values to 
     }
 } &&endPlaceholder
 
-Some implementations described on the following pages:
+Some implementations are described on the following pages:
 * [ascii-body-packer.md](../asciihex/ascii-body-packer.md)
 * [bcd-body-packer.md](../bcd/bcd-body-packer.md)
 * [ebcdic-body-packer.md](../ebcdic/ebcdic-body-packer.md)

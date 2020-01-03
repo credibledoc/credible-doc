@@ -121,7 +121,7 @@ public class MsgField implements Msg {
     private Stringer stringer;
     
     public MsgField() {
-        this.stringer = StringStringer.INSTANCE;
+        this.stringer = StringStringer.getInstance();
     }
 
     @Override

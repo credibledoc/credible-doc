@@ -32,7 +32,7 @@ public class Bmp02MsgField {
                 .defineTagNum(FIELD_NUM_2)
                 .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2))
                 .defineBodyPacker(BcdBodyPacker.rightPaddingF())
-                .defineMasker(PanMasker.INSTANCE)
+                .defineMasker(PanMasker.getInstance())
                 .defineMaxLen(20);
     }
 }

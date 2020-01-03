@@ -10,9 +10,26 @@ import java.util.Objects;
 public class StringStringer implements Stringer {
 
     /**
-     * Static instance holder.
+     * Single instance.
      */
-    public static final Stringer INSTANCE = new StringStringer();
+    private static StringStringer instance;
+
+    /**
+     * Only one instance is allowed, see the {@link #getInstance()} method.
+     */
+    private StringStringer() {
+        // empty
+    }
+
+    /**
+     * @return The {@link #instance} singleton.
+     */
+    public static StringStringer getInstance() {
+        if (instance == null) {
+            instance = new StringStringer();
+        }
+        return instance;
+    }
 
     @Override
     public String convert(Object object) {

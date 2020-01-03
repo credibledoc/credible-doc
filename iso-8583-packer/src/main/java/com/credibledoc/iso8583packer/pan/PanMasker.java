@@ -1,7 +1,7 @@
 package com.credibledoc.iso8583packer.pan;
 
-import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
+import com.credibledoc.iso8583packer.masking.Masker;
 
 /**
  * See {@link #maskHex(String)} and {@link #maskValue(Object)} methods.
@@ -10,7 +10,27 @@ import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
  */
 public class PanMasker implements Masker {
 
-    public static final PanMasker INSTANCE = new PanMasker();
+    /**
+     * Single instance.
+     */
+    private static PanMasker instance;
+
+    /**
+     * Only one instance is allowed, see the {@link #getInstance()} method.
+     */
+    private PanMasker() {
+        // empty
+    }
+
+    /**
+     * @return The {@link #instance} singleton.
+     */
+    public static PanMasker getInstance() {
+        if (instance == null) {
+            instance = new PanMasker();
+        }
+        return instance;
+    }
     
     private static final String FILLER = "*";
 
