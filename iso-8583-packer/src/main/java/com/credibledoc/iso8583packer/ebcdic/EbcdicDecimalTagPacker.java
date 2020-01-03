@@ -6,8 +6,12 @@ import com.credibledoc.iso8583packer.string.StringUtils;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 
 /**
+ * See the
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/ebcdic/ebcdic-decimal-tag-packer.md">ebcdic-decimal-tag-packer.md</a>
+ * documentation.
+ * <p>
  * See the {@link #pack(int, int)} and {@link #unpack(byte[], int, int)} methods examples.
- * 
+ *
  * @author Kyrylo Semenko
  */
 public class EbcdicDecimalTagPacker implements TagPacker {

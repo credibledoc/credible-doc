@@ -4,6 +4,10 @@ import com.credibledoc.iso8583packer.message.MsgValue;
 
 /**
  * Defines methods fro packing and unpacking of the {@link MsgValue#getTagNum()} sub-field from bytes to int.
+ * 
+ * See the
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/tag/tag-packer.md">tag-packer.md</a>
+ * documentation.
  */
 public interface TagPacker {
     
