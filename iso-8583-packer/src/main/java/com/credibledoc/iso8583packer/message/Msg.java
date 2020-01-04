@@ -17,7 +17,7 @@ public interface Msg {
      * 
      * @return The {@link MsgField#getTagNum()} or {@link MsgValue#getTagNum()} field value.
      */
-    // TODO Kyrylo Semenko - change to String tag.
+    // TODO Kyrylo Semenko - rename to fieldNum and create String tag
     Integer getTagNum();
 
     /**

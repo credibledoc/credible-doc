@@ -50,6 +50,7 @@ This documentation is generated from these templates:
 * [/template/markdown/iso-8583-packer/doc/field-types.md](src/main/resources/template/markdown/iso-8583-packer/doc/field-types.md)
 * [/template/markdown/iso-8583-packer/doc/hex/hex-body-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/hex/hex-body-packer.md)
 * [/template/markdown/iso-8583-packer/doc/hex/hex-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/hex/hex-length-packer.md)
+* [/template/markdown/iso-8583-packer/doc/hex/hex-tag-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/hex/hex-tag-packer.md)
 * [/template/markdown/iso-8583-packer/doc/length/length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/length/length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/literal/literal-body-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/literal/literal-body-packer.md)
 * [/template/markdown/iso-8583-packer/doc/release/release-notes-iso-8583-packer-1.0.12.md](src/main/resources/template/markdown/iso-8583-packer/doc/release/release-notes-iso-8583-packer-1.0.12.md)

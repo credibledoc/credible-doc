@@ -34,6 +34,6 @@ The ValueHolder.copyFiller() method renamed to ValueHolder.copyValueHolder().
 
 Default static instances `BinaryLengthPacker` `B` and `BB` replaced with `BinaryLengthPacker.getInstance(int)` factory method.
 
-Default static instances of `EbcdicDecimalTagPacker.INSTANCE`, `PanMasker.INSTANCE`, `StringStringer.INSTANCE`, `HexBodyPacker.INSTANCE`, `EbcdicBodyPacker.INSTANCE` and `LiteralBodyPacker.INSTANCE` changed to
+Default static instances of `HexTagPacker.INSTANCE`, `EbcdicDecimalTagPacker.INSTANCE`, `PanMasker.INSTANCE`, `StringStringer.INSTANCE`, `HexBodyPacker.INSTANCE`, `EbcdicBodyPacker.INSTANCE` and `LiteralBodyPacker.INSTANCE` changed to
 factory methods `getInstance()`.
  

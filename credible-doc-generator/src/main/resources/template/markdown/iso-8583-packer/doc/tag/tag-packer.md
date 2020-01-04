@@ -23,3 +23,4 @@ The following implementations of the `TagPacker` interface transform values to d
 
 Some implementations are described on the following pages:
 * [ebcdic-decimal-tag-packer.md](../ebcdic/ebcdic-decimal-tag-packer.md)
+* [hex-tag-packer.md](../hex/hex-tag-packer.md)

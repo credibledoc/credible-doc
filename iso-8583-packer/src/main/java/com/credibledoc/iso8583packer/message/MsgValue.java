@@ -24,6 +24,7 @@ public class MsgValue implements Msg {
      * Can be 'null' in some cases, for example when the parent container
      * contains the {@link HeaderValue#getBitSet()} subfield.
      */
+    // TODO Kyrylo Semenko - rename to fieldNum and create String tag
     private Integer tagNum;
 
     /**

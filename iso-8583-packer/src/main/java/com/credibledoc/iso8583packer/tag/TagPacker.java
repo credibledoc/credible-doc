@@ -18,6 +18,7 @@ public interface TagPacker {
      * @param tagLength length in bytes.
      * @return For example FFEE2E for hex 16772654 or 31 for 3331.
      */
+    // TODO Kyrylo Semenko - move tagLength to constructor
     byte[] pack(int fieldTag, int tagLength);
 
     /**

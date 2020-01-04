@@ -35,6 +35,7 @@ public class MsgField implements Msg {
      * Can be 'null' in some cases.
      * Cannot be 'null' if the parent container contains the {@link HeaderValue#getBitSet()} subfield.
      */
+    // TODO Kyrylo Semenko - rename to fieldNum and create String tag
     private Integer tagNum;
 
     /**
