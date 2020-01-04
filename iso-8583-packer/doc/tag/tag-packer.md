@@ -2,14 +2,15 @@
 
 Some [MsgField](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/message/MsgField.java)
 with [MsgValue](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/message/MsgValue.java)
-pairs contain `TAG` subfields.
+pairs contain `TAG` or `fieldNum` subfields.
 
-The `TAG` subfields are used for identification message fields. The following Wiki pages describe the `TAG` subfield as the `type`, see
+The `TAG` or `fieldNum` subfields used for identification of message fields.
+The following Wiki pages describe the `TAG` subfield as the `type`, see
 [Type-length-value](https://en.wikipedia.org/wiki/Type-length-value) or as the `key`,
-see the [KLV](https://en.wikipedia.org/wiki/KLV) pages. The best (in my opinion) implementation of ISO 8583, the `jPOS` library, uses the `fieldNumber` term,
-see the [ISOMsg](http://jpos.org/doc/javadoc/org/jpos/iso/ISOMsg.html) page.
+see the [KLV](https://en.wikipedia.org/wiki/KLV) pages.
 
-The `TAG` can be packed in different formats.
+The  `fieldNum` property is defined in subfields (children) of the `MsgFieldType.BIT_SET` fields only.
+The `TAG` property is defined in fields of `TAG_LEN_VAL`, `LEN_TAG_VAL`, `TAG_VAL` types and can be packed in different formats.
 
 The following implementations of the `TagPacker` interface transform values to different formats:
 * com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalTagPacker

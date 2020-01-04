@@ -13,7 +13,7 @@ The following example shows how to define `TAG` in the [HEX](https://en.wikipedi
             
             .createChild(MsgFieldType.TAG_VAL)
             .defineName(FIELD_1_NAME)
-            .defineTagNum(1)
+            .defineHeaderTag(1)
             .defineLen(2)
             .defineBodyPacker(BcdBodyPacker.noPadding())
             
@@ -25,7 +25,7 @@ The following example shows how to define `TAG` in the [HEX](https://en.wikipedi
 The field structure
 ```XML
 <f type="MSG" name="root" childTagPacker="HexTagPacker(1)">
-    <f type="TAG_VAL" tagNum="1" name="field_1" bodyPacker="BcdBodyPacker" len="2"/>
+    <f type="TAG_VAL" tag="1" name="field_1" bodyPacker="BcdBodyPacker" len="2"/>
 </f>
 ```
 
@@ -52,7 +52,7 @@ The following example shows packing and unpacking of the field value
 The packed `FieldValue` with `TAG` looks like
 ```XML
 <f name="root">
-    <f name="field_1" tagNum="1" val="1234" tagHex="01" valHex="1234"/>
+    <f name="field_1" tag="1" val="1234" tagHex="01" valHex="1234"/>
 </f>
 ```
 
