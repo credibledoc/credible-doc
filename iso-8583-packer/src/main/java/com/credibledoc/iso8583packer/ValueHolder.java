@@ -7,7 +7,6 @@ import com.credibledoc.iso8583packer.body.BodyPacker;
 import com.credibledoc.iso8583packer.dump.DumpService;
 import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
-import com.credibledoc.iso8583packer.header.HeaderField;
 import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.message.MsgField;
@@ -278,13 +277,13 @@ public class ValueHolder {
             return msgField.getParent().getChildrenLengthPacker();
         }
         
-        if (msgField.getHeaderField().getLengthPacker() == null) {
+        if (msgField.getLengthPacker() == null) {
             throw new PackerRuntimeException("Property lengthPacker is not defined. Please define it by calling " +
                     "the .defineHeaderLengthPacker() method. " +
                     "Current MsgField: " + navigator.generatePath(msgField));
         }
         
-        return msgField.getHeaderField().getLengthPacker();
+        return msgField.getLengthPacker();
     }
 
     protected void unpackBodyBytes(byte[] bytes, Offset offset, MsgPair msgPair, Integer rawDataLength) {
@@ -443,11 +442,10 @@ public class ValueHolder {
 
     protected List<Integer> getFieldNumsFromBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
         // this is IsoMsg, so fieldNums are in the header BitSet
-        HeaderField headerField = msgPair.getMsgField().getHeaderField();
         HeaderValue headerValue = msgPair.getMsgValue().getHeaderValue();
 
         // unpack
-        BitmapPacker bitmapPacker = headerField.getBitMapPacker();
+        BitmapPacker bitmapPacker = msgPair.getMsgField().getBitMapPacker();
         if (bitmapPacker == null) {
             throw new PackerRuntimeException("Please call the defineHeaderBitmapPacker(...) " +
                     "method for this field " + navigator.getPathRecursively(msgPair.getMsgValue()));
@@ -495,10 +493,11 @@ public class ValueHolder {
         MsgValue paramMsgValue = paramMsgPair.getMsgValue();
         String previousFieldCause = "";
         MsgField parentMsgField = paramMsgField.getParent();
-        if (parentMsgField != null && parentMsgField.getHeaderField() != null) {
-            previousFieldCause = " \nNext cause is incorrect implementation of the " + parentMsgField.getHeaderField().getLengthPacker().getClass().getSimpleName() +
-                    ".calculateLenLength(bytes, offset) method of the previous '" + navigator.getPathRecursively(parentMsgField) +
-                    "' field.";
+        if (parentMsgField != null && parentMsgField.getLengthPacker() != null) {
+            previousFieldCause = " \nNext cause is incorrect implementation of the " +
+                parentMsgField.getLengthPacker().getClass().getSimpleName() +
+                " class of the previous '" +
+                navigator.getPathRecursively(parentMsgField) + "' field.";
         }
         String tagPackerClass = "null";
         if (paramMsgField.getParent() != null && paramMsgField.getParent().getChildrenTagPacker() != null) {
@@ -618,10 +617,8 @@ public class ValueHolder {
      * Set the {@link MsgValue#setBodyBytes(byte[])} from the bodyValue to the field, see the
      * {@link #setBytes(Object)} method description.
      * <p>
-     * If the field contains {@link MsgField#getHeaderField()} then properties of the header, for example
-     * {@link HeaderValue#setTagBytes(byte[])} or {@link HeaderValue#setLengthBytes(byte[])} are set.
      * Length and tag are not mandatory.
-     * See the {@link #setHeader(byte[], HeaderValue, HeaderField)}  method.
+     * See the {@link #setHeader(byte[], HeaderValue, MsgField)}  method.
      *
      * @param bodyValue can be 'null' for d.
      * @return The current {@link ValueHolder} with the same {@link #msgValue} and {@link #msgField} in its context.
@@ -644,10 +641,9 @@ public class ValueHolder {
             msgValue.setBodyValue(bodyValue);
             byte[] valueBytes = setBytes(bodyValue);
 
-            HeaderField headerField = msgField.getHeaderField();
             HeaderValue headerValue = msgValue.getHeaderValue();
             if (headerValue != null) {
-                setHeader(valueBytes, headerValue, headerField);
+                setHeader(valueBytes, headerValue, msgField);
             }
 
             return this;
@@ -707,9 +703,9 @@ public class ValueHolder {
      * Set valueBytes to the headerValue
      * @param valueBytes source data
      * @param headerValue target object
-     * @param headerField the header definition
+     * @param msgField the field definition
      */
-    protected void setHeader(byte[] valueBytes, HeaderValue headerValue, HeaderField headerField) {
+    protected void setHeader(byte[] valueBytes, HeaderValue headerValue, MsgField msgField) {
         MsgField msgFieldParent = msgField.getParent();
         if (msgFieldParent == null && MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
             throw new PackerRuntimeException("This MsgField has no parent. Please use FieldBuilder.from(msgField) and " +
@@ -729,7 +725,7 @@ public class ValueHolder {
             headerValue.setLengthBytes(lengthBytes);
         } else {
             // field itself contains lengthPacker
-            lengthPacker = headerField.getLengthPacker();
+            lengthPacker = msgField.getLengthPacker();
             if (MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
                 packTagBytesToHeader(headerValue, tag);
             }
@@ -913,7 +909,7 @@ public class ValueHolder {
     }
 
     protected void packBitmap(MsgValue msgValue, MsgField msgField, ByteArrayOutputStream messageBytes) throws IOException {
-        BitmapPacker bitmapPacker = msgField.getHeaderField().getBitMapPacker();
+        BitmapPacker bitmapPacker = msgField.getBitMapPacker();
         if (bitmapPacker == null) {
             throw new PackerRuntimeException("The value of '" + BitmapPacker.class.getSimpleName() +
                 "' type is mandatory for '" + MsgFieldType.class.getSimpleName() + 

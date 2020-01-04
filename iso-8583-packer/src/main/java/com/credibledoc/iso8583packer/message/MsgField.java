@@ -2,8 +2,9 @@ package com.credibledoc.iso8583packer.message;
 
 import com.credibledoc.iso8583packer.FieldBuilder;
 import com.credibledoc.iso8583packer.ValueHolder;
+import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.body.BodyPacker;
-import com.credibledoc.iso8583packer.header.HeaderField;
+import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.stringer.StringStringer;
@@ -19,8 +20,6 @@ import java.util.List;
  * The {@link FieldBuilder} class contains two main methods,
  * {@link ValueHolder#pack()} and {@link ValueHolder#unpack(byte[], int, MsgField)}. These methods
  * uses the {@link MsgField} for packing or unpacking {@link MsgValue}s.
- * <p>
- * See {@link HeaderField} description for better understanding of the header properties.
  * <p>
  * In the unpacked state the {@link MsgField} contains some value, see the {@link MsgValue#getBodyValue()} method.
  *
@@ -74,11 +73,6 @@ public class MsgField implements Msg {
     private Integer len;
 
     /**
-     * Contains additional properties ot the {@link MsgField} with definition of its header subfields.
-     */
-    private HeaderField headerField = new HeaderField();
-
-    /**
      * Packs and unpacks the children ({@link #children}) {@link #tag} subfields .
      */
     private TagPacker childrenTagPacker;
@@ -113,6 +107,21 @@ public class MsgField implements Msg {
      * Stringer converts the {@link MsgValue#getBodyValue()} to {@link String} for logging purposes. 
      */
     private Stringer stringer;
+
+    /**
+     * Packs from int to bytes and wise versa the {@link HeaderValue#getLengthBytes()} subfield.
+     * <p>
+     * The calculated value says how many bytes contains the {@link MsgValue#getBodyBytes()} subfield.
+     * <p>
+     * Only one {@link LengthPacker} can be defined, parent {@link MsgField#getChildrenLengthPacker()}
+     * or the lengthPacker. Else an exception is thrown.
+     */
+    private LengthPacker lengthPacker;
+
+    /**
+     * Packs and unpacks bytes of the {@link HeaderValue#getBitSet()} subfield.
+     */
+    private BitmapPacker bitMapPacker;
     
     public MsgField() {
         this.stringer = StringStringer.getInstance();
@@ -126,6 +135,8 @@ public class MsgField implements Msg {
         String childrenTagPackerString = childrenTagPacker == null ? "null" : childrenTagPacker.getClass().getSimpleName();
         String maskerString = masker == null ? "null" : masker.getClass().getSimpleName();
         String stringerString = stringer == null ? "null" : stringer.getClass().getSimpleName();
+        String lengthPackerString = lengthPacker == null ? "null" : lengthPacker.getClass().getSimpleName();
+        String bitMapPackerString = bitMapPacker == null ? "null" : bitMapPacker.getClass().getSimpleName();
         return "Field{" +
                 "fieldNum=" + fieldNum +
                 ", tag=" + tag +
@@ -138,9 +149,10 @@ public class MsgField implements Msg {
                 ", stringer=" + stringerString +
                 ", maxLen=" + maxLen +
                 ", len=" + len +
-                ", header=" + headerField +
                 ", childrenTagPacker=" + childrenTagPackerString +
                 ", exactlyLength=" + exactlyLength +
+                ", lengthPacker=" + lengthPackerString +
+                ", bitMapPacker=" + bitMapPackerString +
                 '}';
     }
 
@@ -271,20 +283,6 @@ public class MsgField implements Msg {
     }
 
     /**
-     * @return The {@link #headerField} field value.
-     */
-    public HeaderField getHeaderField() {
-        return headerField;
-    }
-
-    /**
-     * @param headerField see the {@link #headerField} field description.
-     */
-    public void setHeaderField(HeaderField headerField) {
-        this.headerField = headerField;
-    }
-
-    /**
      * @return The {@link #childrenTagPacker} field value.
      */
     public TagPacker getChildrenTagPacker() {
@@ -366,5 +364,33 @@ public class MsgField implements Msg {
      */
     public void setStringer(Stringer stringer) {
         this.stringer = stringer;
+    }
+
+    /**
+     * @return The {@link #lengthPacker} field value.
+     */
+    public LengthPacker getLengthPacker() {
+        return lengthPacker;
+    }
+
+    /**
+     * @param lengthPacker see the {@link #lengthPacker} field description.
+     */
+    public void setLengthPacker(LengthPacker lengthPacker) {
+        this.lengthPacker = lengthPacker;
+    }
+
+    /**
+     * @return The {@link #bitMapPacker} field value.
+     */
+    public BitmapPacker getBitMapPacker() {
+        return bitMapPacker;
+    }
+
+    /**
+     * @param bitMapPacker see the {@link #bitMapPacker} field description.
+     */
+    public void setBitMapPacker(BitmapPacker bitMapPacker) {
+        this.bitMapPacker = bitMapPacker;
     }
 }

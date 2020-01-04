@@ -2,7 +2,6 @@ package com.credibledoc.iso8583packer.dump;
 
 import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
-import com.credibledoc.iso8583packer.header.HeaderField;
 import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.length.LengthPacker;
@@ -112,15 +111,10 @@ public class DumpService implements Visualizer {
         
         String nameString = msgField.getName() == null ? "" : " name=\"" + msgField.getName() + "\"";
         
-        LengthPacker lengthPacker = null;
-        BitmapPacker bitmapPacker = null;
-        final HeaderField headerField = msgField.getHeaderField();
-        if (headerField != null) {
-            lengthPacker = headerField.getLengthPacker();
-            bitmapPacker = headerField.getBitMapPacker();
-        }
-
+        LengthPacker lengthPacker = msgField.getLengthPacker();
         String lengthPackerString = lengthPacker == null ? "" : (" lengthPacker=\"" + lengthPacker.getClass().getSimpleName() + "\"");
+
+        BitmapPacker bitmapPacker = msgField.getBitMapPacker();
         String isoBitMapPackerString = bitmapPacker == null ? "" : (" bitMapPacker=\"" + bitmapPacker.getClass().getSimpleName() + "\"");
 
         String interpreterString = getBodyPackerString(msgField);
@@ -274,10 +268,10 @@ public class DumpService implements Visualizer {
 
     protected String createBitmapString(MsgField msgField, MsgValue msgValue) {
         String bitmapString;
-        if (msgField != null && msgField.getHeaderField() != null &&
+        if (msgField != null &&
                 msgValue.getHeaderValue() != null && msgValue.getHeaderValue().getBitSet() != null) {
             BitSet bitSet = msgValue.getHeaderValue().getBitSet();
-            byte[] bytes = msgField.getHeaderField().getBitMapPacker().pack(bitSet, msgField.getLen());
+            byte[] bytes = msgField.getBitMapPacker().pack(bitSet, msgField.getLen());
             bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bytes) + "\"";
         } else {
             bitmapString = "";

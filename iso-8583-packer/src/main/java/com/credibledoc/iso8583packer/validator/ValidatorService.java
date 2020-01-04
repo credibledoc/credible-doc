@@ -94,7 +94,7 @@ public class ValidatorService implements Validator {
     }
 
     protected void validateHasNoBitSetAndBitMapPacker(MsgField msgField, String path) {
-        if (msgField.getHeaderField() != null && msgField.getHeaderField().getBitMapPacker() != null) {
+        if (msgField.getBitMapPacker() != null) {
             throw new PackerRuntimeException("BitMapPacker is not allowed for MsgField '" + path +
                     "' with MsgType '" + msgField.getType() + "' because that doesn't make sense.");
         }
@@ -118,8 +118,7 @@ public class ValidatorService implements Validator {
     }
 
     protected void validateBitSetAndBitMapPackerExists(MsgField msgField, String path) {
-        boolean hasNoHeader = msgField.getHeaderField() == null;
-        if (hasNoHeader || msgField.getHeaderField().getBitMapPacker() == null) {
+        if (msgField.getBitMapPacker() == null) {
             throw new PackerRuntimeException("The bitMapPacker value is mandatory for '" + msgField.getType() +
                     "' field type. Please call the defineHeaderBitmapPacker(...) method. Field path: " + path + ".");
         }
@@ -127,7 +126,7 @@ public class ValidatorService implements Validator {
 
     protected void validateHeaderOrParentLengthPackerExists(MsgField msgField, String path) {
         boolean parentHasLengthPacker = msgField.getParent() != null && msgField.getParent().getChildrenLengthPacker() != null;
-        boolean fieldHasLengthPacker = msgField.getHeaderField() != null && msgField.getHeaderField().getLengthPacker() != null;
+        boolean fieldHasLengthPacker = msgField.getLengthPacker() != null;
         if (!parentHasLengthPacker && !fieldHasLengthPacker) {
             throw new PackerRuntimeException("The '" + LengthPacker.class.getSimpleName() +
                     "' value is mandatory for the field '" + path +

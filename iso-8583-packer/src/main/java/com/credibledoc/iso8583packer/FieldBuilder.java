@@ -5,7 +5,6 @@ import com.credibledoc.iso8583packer.body.BodyPacker;
 import com.credibledoc.iso8583packer.dump.DumpService;
 import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
-import com.credibledoc.iso8583packer.header.HeaderField;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.message.Msg;
@@ -104,7 +103,7 @@ public class FieldBuilder {
      * Copy the field from the argument and create a new {@link FieldBuilder} instance with the new field in its 
      * context.
      * <p>
-     * Set all properties from the argument 'example' and its {@link HeaderField} to the created field except
+     * Set all properties from the argument 'example' to the created field except
      * {@link MsgField#setName(String)}, {@link MsgField#setFieldNum(Integer)}, {@link MsgField#setParent(MsgField)}
      * and {@link MsgField#setChildren(List)}.
      * <p>
@@ -124,7 +123,7 @@ public class FieldBuilder {
      * Copy the field from the argument and create a new {@link FieldBuilder} instance with the new field in its 
      * context.
      * <p>
-     * Set all properties from the argument 'example' and its {@link HeaderField} to the created field except
+     * Set all properties from the argument 'example' to the created field except
      * {@link MsgField#setName(String)}, {@link MsgField#setFieldNum(Integer)}, {@link MsgField#setParent(MsgField)}
      * and {@link MsgField#setChildren(List)}.
      * <p>
@@ -144,11 +143,8 @@ public class FieldBuilder {
         newMsgField.setMaxLen(example.getMaxLen());
         newMsgField.setMasker(example.getMasker());
         newMsgField.setStringer(example.getStringer());
-
-        HeaderField headerField = newMsgField.getHeaderField();
-        HeaderField exampleHeaderField = example.getHeaderField();
-        headerField.setBitMapPacker(exampleHeaderField.getBitMapPacker());
-        headerField.setLengthPacker(exampleHeaderField.getLengthPacker());
+        newMsgField.setLengthPacker(example.getLengthPacker());
+        newMsgField.setBitMapPacker(example.getBitMapPacker());
 
         return newMsgField;
     }
@@ -265,8 +261,6 @@ public class FieldBuilder {
 
     /**
      * Set the {@link MsgField#setLen(Integer)} value. The value can be set to fields with fixed length only.
-     * <p>
-     * These fields may have a {@link HeaderField} if it is required in documentation, but it is not used for unpacking.
      *
      * @param fieldLen can be 'null' for deactivation.
      * @return The current actual {@link FieldBuilder}
@@ -288,8 +282,7 @@ public class FieldBuilder {
                 throw new PackerRuntimeException("Field '" + navigator.getPathRecursively(parentMsgField) +
                     "' has no 'ChildrenTagPacker' property defined. Please set the property.");
             }
-            if (parentMsgField.getChildrenLengthPacker() != null &&
-                msgField.getHeaderField() != null && msgField.getHeaderField().getLengthPacker() != null) {
+            if (parentMsgField.getChildrenLengthPacker() != null && msgField.getLengthPacker() != null) {
                 throw new PackerRuntimeException(createMessageSameLengthPacker(parentMsgField, msgField));
             }
             this.msgField.setParent(parentMsgField);
@@ -336,7 +329,7 @@ public class FieldBuilder {
     }
 
     /**
-     * Set the {@link HeaderField#setLengthPacker(LengthPacker)} property.
+     * Set the {@link MsgField#setLengthPacker(LengthPacker)} property.
      * 
      * Examples of {@link LengthPacker} see {@link com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker}
      * or {@link com.credibledoc.iso8583packer.bcd.BcdLengthPacker}.
@@ -351,7 +344,7 @@ public class FieldBuilder {
                 throw new PackerRuntimeException(createMessageSameLengthPacker(parent, msgField));
             }
         }
-        msgField.getHeaderField().setLengthPacker(lengthPacker);
+        msgField.setLengthPacker(lengthPacker);
         return this;
     }
 
@@ -400,13 +393,13 @@ public class FieldBuilder {
     }
 
     /**
-     * Set the {@link HeaderField#setBitMapPacker(BitmapPacker)} subfield of the current {@link #msgField}.
+     * Set the {@link MsgField#setBitMapPacker(BitmapPacker)} subfield of the current {@link #msgField}.
      * @param bitMapPacker the instance to set.
      *                       
      * @return The current actual {@link FieldBuilder}.
      */
     public FieldBuilder defineHeaderBitmapPacker(BitmapPacker bitMapPacker) {
-        msgField.getHeaderField().setBitMapPacker(bitMapPacker);
+        msgField.setBitMapPacker(bitMapPacker);
         return this;
     }
 
