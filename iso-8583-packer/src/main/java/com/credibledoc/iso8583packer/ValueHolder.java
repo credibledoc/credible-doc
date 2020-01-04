@@ -136,7 +136,7 @@ public class ValueHolder {
     protected ValueHolder newValueHolder(MsgValue msgValue, MsgField msgField) {
         try {
             MsgPair msgPair = new MsgPair(msgField, msgValue);
-            navigator.validateSameNamesAndTag(msgPair);
+            navigator.validateSameNamesAndTags(msgPair);
             this.msgValue = msgValue;
             this.msgField = msgField;
             return this;
@@ -188,7 +188,7 @@ public class ValueHolder {
      * @throws Exception in case of packing problems
      */
     protected void unpackFieldRecursively(byte[] bytes, Offset offset, MsgPair msgPair) throws Exception {
-        navigator.validateSameNamesAndTag(msgPair);
+        navigator.validateSameNamesAndTags(msgPair);
         Integer rawDataLength;
         MsgFieldType msgFieldType = msgPair.getMsgField().getType();
         if (MsgFieldType.MSG == msgFieldType) {

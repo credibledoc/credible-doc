@@ -192,7 +192,7 @@ public class DumpService implements Visualizer {
     public void dumpMsgValue(MsgField msgField, MsgValue msgValue, PrintStream printStream, String indent,
                              String indentForChildren, boolean maskPrivateData) {
 
-        navigator.validateSameNamesAndTag(new MsgPair(msgField, msgValue));
+        navigator.validateSameNamesAndTags(new MsgPair(msgField, msgValue));
         if (indent == null) {
             indent = "";
         }

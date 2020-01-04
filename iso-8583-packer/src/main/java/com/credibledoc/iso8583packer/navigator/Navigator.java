@@ -18,9 +18,14 @@ public interface Navigator {
      * @param <T>  the {@link Msg} type, {@link MsgField} or {@link MsgValue}
      * @return 'null' if not found
      */
-    @SuppressWarnings("unchecked")
     <T extends Msg> T findByName(List<? extends Msg> msgList, String name);
 
+    /**
+     * Find {@link MsgField} with {@link Msg#getName()}.
+     * @param childName {@link Msg#getName()}.
+     * @param currentMsgField where to start search.
+     * @return The found {@link MsgField} or an exception will be thrown.
+     */
     MsgField getChildOrThrowException(String childName, MsgField currentMsgField);
 
     /**
@@ -30,6 +35,10 @@ public interface Navigator {
      */
     String generatePath(Msg current);
 
+    /**
+     * @param msg the field for path generation
+     * @return For example msg.bitmap.PAN_02(2)
+     */
     String getPathRecursively(Msg msg);
 
     /**
@@ -38,11 +47,20 @@ public interface Navigator {
      * @param <T> the {@link Msg} type, {@link MsgField} or {@link MsgValue}
      * @return The root node of the graph
      */
-    @SuppressWarnings("unchecked")
     <T extends Msg> T findRoot(T msg);
 
+    /**
+     * @param msgField where to find.
+     * @return The {@link MsgField#getChildrenTagPacker()} value.
+     */
     TagPacker getTagPackerFromParent(MsgField msgField);
 
+    /**
+     * Find sibling by name.
+     * @param siblingName the {@link Msg#getName()} value.
+     * @param currentMsgField where to search for a sibling.
+     * @return The found sibling or throw a new exception.
+     */
     MsgField getSiblingOrThrowException(String siblingName, MsgField currentMsgField);
 
     /**
@@ -54,21 +72,20 @@ public interface Navigator {
      */
     MsgField findByNameAndTagOrThrowException(MsgField msgField, MsgValue msgValue);
 
+    /**
+     * Create new {@link MsgValue} and copy {@link MsgField#getName()}, {@link MsgField#getTag()}
+     * and {@link MsgField#getFieldNum()} from template.
+     * @param msgField the template.
+     * @return The created {@link MsgValue}.
+     */
     MsgValue newFromNameAndTag(MsgField msgField);
 
-    // TODO Kyrylo Semenko - javaDoc for all methods
-    void validateSameNamesAndTag(MsgPair msgPair);
-
     /**
-     * Find <b>first</b> {@link Msg} with the <b>tag</b>.
-     *
-     * @param msgList where to search
-     * @param tag  what to search, see the {@link Msg#getTag()} description
-     * @param <T>     the {@link Msg} type, {@link MsgField} or {@link MsgValue}
-     * @return 'null' if not found
+     * Get {@link MsgPair#getMsgField()} and {@link MsgPair#getMsgValue()}
+     * and check theirs {@link Msg#getName()} and {@link Msg#getTag()} equality.
+     * @param msgPair the checked container.
      */
-    @SuppressWarnings("unchecked")
-    <T extends Msg> T findByTag(List<? extends Msg> msgList, Object tag);
+    void validateSameNamesAndTags(MsgPair msgPair);
 
     /**
      * Find <b>first</b> {@link Msg} with the <b>fieldNum</b>.
@@ -78,7 +95,6 @@ public interface Navigator {
      * @param <T>     the {@link Msg} type, {@link MsgField} or {@link MsgValue}
      * @return 'null' if not found
      */
-    @SuppressWarnings("unchecked")
     <T extends Msg> T findByFieldNum(List<? extends Msg> msgList, Integer fieldNum);
 
     /**

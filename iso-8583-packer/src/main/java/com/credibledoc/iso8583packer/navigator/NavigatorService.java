@@ -2,6 +2,7 @@ package com.credibledoc.iso8583packer.navigator;
 
 import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
+import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.message.*;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 
@@ -72,8 +73,12 @@ public class NavigatorService implements Navigator {
     public String generatePath(Msg current) {
         String tagOrFieldNum = null;
         if (current.getTag() != null) {
-            // TODO Kyrylo Semenko - create tagStringer
-            tagOrFieldNum = current.getTag().toString();
+            if (current.getTag() instanceof byte[]) {
+                byte[] tag = (byte[]) current.getTag();
+                tagOrFieldNum = HexService.bytesToHex(tag);
+            } else {
+                tagOrFieldNum = current.getTag().toString();
+            }
         } else if (current.getFieldNum() != null) {
             tagOrFieldNum = current.getFieldNum().toString();
         }
@@ -191,7 +196,7 @@ public class NavigatorService implements Navigator {
     }
 
     @Override
-    public void validateSameNamesAndTag(MsgPair msgPair) {
+    public void validateSameNamesAndTags(MsgPair msgPair) {
         MsgField msgField = msgPair.getMsgField();
         MsgValue msgValue = msgPair.getMsgValue();
         boolean namesEqual = Objects.equals(msgValue.getName(), msgField.getName());
@@ -223,23 +228,6 @@ public class NavigatorService implements Navigator {
         }
         for (Msg nextMsgField : msgList) {
             if (fieldNum.equals(nextMsgField.getFieldNum())) {
-                return (T) nextMsgField;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends Msg> T findByTag(List<? extends Msg> msgList, Object tag) {
-        if (tag == null) {
-            return null;
-        }
-        if (msgList == null) {
-            return null;
-        }
-        for (Msg nextMsgField : msgList) {
-            if (tag.equals(nextMsgField.getTag())) {
                 return (T) nextMsgField;
             }
         }
