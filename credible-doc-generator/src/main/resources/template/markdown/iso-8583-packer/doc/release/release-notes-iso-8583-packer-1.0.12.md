@@ -36,4 +36,6 @@ Default static instances `BinaryLengthPacker` `B` and `BB` replaced with `Binary
 
 Default static instances of `HexTagPacker.INSTANCE`, `EbcdicDecimalTagPacker.INSTANCE`, `PanMasker.INSTANCE`, `StringStringer.INSTANCE`, `HexBodyPacker.INSTANCE`, `EbcdicBodyPacker.INSTANCE` and `LiteralBodyPacker.INSTANCE` changed to
 factory methods `getInstance()`.
- 
+
+FieldBuilder.defineChildrenTagLen() method removed, the value will be defined in the TagPacker getInstance(packedLength) factory methods. 
+

@@ -8,8 +8,7 @@ The following example shows how to define `TAG` in the [HEX](https://en.wikipedi
 ```Java
     private FieldBuilder createField() {
         return FieldBuilder.builder(MsgFieldType.MSG)
-            .defineChildrenTagLen(1)
-            .defineChildrenTagPacker(HexTagPacker.getInstance())
+            .defineChildrenTagPacker(HexTagPacker.getInstance(1))
             .defineName("root")
             
             .createChild(MsgFieldType.TAG_VAL)
@@ -25,7 +24,7 @@ The following example shows how to define `TAG` in the [HEX](https://en.wikipedi
 
 The field structure
 ```XML
-<f type="MSG" name="root" childTagLen="1" childTagPacker="HexTagPacker">
+<f type="MSG" name="root" childTagPacker="HexTagPacker(1)">
     <f type="TAG_VAL" tagNum="1" name="field_1" bodyPacker="BcdBodyPacker" len="2"/>
 </f>
 ```

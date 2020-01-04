@@ -3,9 +3,12 @@ package com.credibledoc.iso8583packer.hex;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
- * The implementation of the {@link TagPacker} transforms int to hex, see the {@link #pack(int, int)} and
- * {@link #unpack(byte[], int, int)} methods.
+ * The implementation of the {@link TagPacker} transforms int to hex, see the {@link #pack(int)} and
+ * {@link #unpack(byte[], int)} methods.
  * <p>
  * More examples
  *  <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/hex/hex-tag-packer.md">hex-tag-packer.md</a>
@@ -13,41 +16,45 @@ import com.credibledoc.iso8583packer.tag.TagPacker;
  * @author Kyrylo Semenko
  */
 public class HexTagPacker implements TagPacker {
+    /**
+     * Haw many bytes the TAG occupies in a packed state.
+     */
+    private int packedLength;
+
 
     /**
-     * Single instance.
+     * Contains created instances. Each instance is Singleton.
      */
-    private static HexTagPacker instance;
+    private static Map<Integer, HexTagPacker> instances = new ConcurrentHashMap<>();
+
 
     /**
-     * Only one instance is allowed, see the {@link #getInstance()} method.
+     * Only one instance is allowed, see the {@link #getInstance(int)} method.
      */
-    private HexTagPacker() {
-        // empty
+    private HexTagPacker(int packedLength) {
+        this.packedLength = packedLength;
     }
 
     /**
-     * @return The {@link #instance} singleton.
+     * @return The singleton instance from the {@link #instances} map.
      */
-    public static HexTagPacker getInstance() {
-        if (instance == null) {
-            instance = new HexTagPacker();
-        }
-        return instance;
+    public static HexTagPacker getInstance(int packedLength) {
+        instances.computeIfAbsent(packedLength, k -> new HexTagPacker(packedLength));
+        return instances.get(packedLength);
     }
 
     /**
      * Convert for example decimal int <b>14675457</b> to bytes <b>dfee01</b>.
      */
     @Override
-    public byte[] pack(int fieldTag, int tagLength) {
+    public byte[] pack(int fieldTag) {
         String fieldNumHex = Integer.toHexString(fieldTag);
         byte[] bytes = HexService.hex2byte(fieldNumHex);
-        if (bytes.length > tagLength) {
+        if (bytes.length > packedLength) {
             throw new PackerRuntimeException("Packed bytes with length '" + bytes.length +
-                "' is greater than required tagLength '" + tagLength + "'.");
+                "' is greater than required tagLength '" + packedLength + "'.");
         }
-        byte[] result = new byte[tagLength];
+        byte[] result = new byte[packedLength];
         // If result.length > than bytes.length then copy bytes to right side of result with 00 filler at left side.
         int destPos = result.length - bytes.length;
         System.arraycopy(bytes, 0, result, destPos, bytes.length);
@@ -59,15 +66,20 @@ public class HexTagPacker implements TagPacker {
      * or the <b>FFEE2E</b> bytes to decimal int <b>16772654</b>.
      */
     @Override
-    public int unpack(byte[] bytes, int offset, int tagLength) {
+    public int unpack(byte[] bytes, int offset) {
         int available = bytes.length - offset;
-        if (available < tagLength) {
-            throw new PackerRuntimeException("Required tagLength '" + tagLength +
+        if (available < packedLength) {
+            throw new PackerRuntimeException("Required tagLength '" + packedLength +
                 "' is greater than available bytes[] length '" + available + "'.");
         }
-        byte[] tagBytes = new byte[tagLength];
+        byte[] tagBytes = new byte[packedLength];
         System.arraycopy(bytes, offset, tagBytes, 0, tagBytes.length);
         String hex = HexService.bytesToHex(tagBytes);
         return Integer.parseInt(hex, 16);
+    }
+
+    @Override
+    public int getPackedLength() {
+        return packedLength;
     }
 }

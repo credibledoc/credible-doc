@@ -137,7 +137,6 @@ public class FieldBuilder {
         newMsgField.setBodyPacker(example.getBodyPacker());
         newMsgField.setChildrenTagPacker(example.getChildrenTagPacker());
         newMsgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
-        newMsgField.setChildTagLength(example.getChildTagLength());
         newMsgField.setExactlyLength(example.getExactlyLength());
         newMsgField.setLen(example.getLen());
         newMsgField.setMaxLen(example.getMaxLen());
@@ -262,10 +261,6 @@ public class FieldBuilder {
                     "'. Skip the defineParent() method.");
                 return this;
             }
-            if (MsgFieldType.isTaggedType(msgField) && parentMsgField.getChildTagLength() == null) {
-                throw new PackerRuntimeException("Field '" + navigator.getPathRecursively(parentMsgField) +
-                    "' has no 'ChildTagLength' property defined. Please set the property.");
-            }
             if (MsgFieldType.isTaggedType(msgField) && parentMsgField.getChildrenTagPacker() == null) {
                 throw new PackerRuntimeException("Field '" + navigator.getPathRecursively(parentMsgField) +
                     "' has no 'ChildrenTagPacker' property defined. Please set the property.");
@@ -303,21 +298,6 @@ public class FieldBuilder {
 
     public FieldBuilder defineChildrenTagPacker(TagPacker tagPacker) {
         msgField.setChildrenTagPacker(tagPacker);
-        return this;
-    }
-
-    /**
-     * Call the {@link MsgField#setChildTagLength(Integer)} method.
-     *
-     * @param length can be 'null' for unset. In this case the {@link MsgField#setChildrenTagPacker(TagPacker)} method
-     *               with 'null' value will be called too.
-     * @return The current instance of the {@link FieldBuilder} with a {@link #msgField} in its context.
-     */
-    public FieldBuilder defineChildrenTagLen(Integer length) {
-        msgField.setChildTagLength(length);
-        if (length == null) {
-            msgField.setChildrenLengthPacker(null);
-        }
         return this;
     }
 

@@ -15,6 +15,7 @@ import com.credibledoc.iso8583packer.navigator.NavigatorService;
 import com.credibledoc.iso8583packer.string.StringUtils;
 import com.credibledoc.iso8583packer.stringer.StringStringer;
 import com.credibledoc.iso8583packer.stringer.Stringer;
+import com.credibledoc.iso8583packer.tag.TagPacker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -126,15 +127,13 @@ public class DumpService implements Visualizer {
 
         String lenString = getLenString(msgField);
 
-        String childTagLenString = getChildTagLenString(msgField);
-
         String childTagPackerString = getChildTagPackerString(msgField);
 
         String typeString = " type=\"" + msgField.getType() + "\"";
         
         printStream.print(indent + "<f" + typeString + tagNumString + nameString + lengthPackerString +
                 isoBitMapPackerString + interpreterString +
-                maxLenString + lenString + childTagLenString + childTagPackerString);
+                maxLenString + lenString + childTagPackerString);
         
         if (msgField.getChildren() != null) {
             printStream.println(">");
@@ -149,22 +148,14 @@ public class DumpService implements Visualizer {
 
     protected String getChildTagPackerString(MsgField msgField) {
         String childTagPackerString;
-        if (msgField.getChildrenTagPacker() != null) {
-            childTagPackerString = " childTagPacker=\"" + msgField.getChildrenTagPacker().getClass().getSimpleName() + "\"";
+        TagPacker tagPacker = msgField.getChildrenTagPacker();
+        if (tagPacker != null) {
+            childTagPackerString = " childTagPacker=\"" + tagPacker.getClass().getSimpleName() +
+                "(" + tagPacker.getPackedLength() + ")\"";
         } else {
             childTagPackerString = "";
         }
         return childTagPackerString;
-    }
-
-    protected String getChildTagLenString(MsgField msgField) {
-        String childTagLenString;
-        if (msgField.getChildTagLength() != null) {
-            childTagLenString = " childTagLen=\"" + msgField.getChildTagLength().toString() + "\"";
-        } else {
-            childTagLenString = "";
-        }
-        return childTagLenString;
     }
 
     protected String getLenString(MsgField msgField) {

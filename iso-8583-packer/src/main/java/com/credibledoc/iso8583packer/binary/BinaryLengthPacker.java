@@ -16,6 +16,7 @@ public class BinaryLengthPacker implements LengthPacker {
 
     private static final int MAX_DECIMAL_IN_ONE_BYTE_255 = 255;
     private static final int NUM_DECIMALS_IN_ONE_BYTE_256 = 256;
+    
     /**
      * Contains created instances. Each instance is Singleton.
      */

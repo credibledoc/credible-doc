@@ -25,5 +25,6 @@ or
 LEN TAG VAL
  03  60 543
 ```
-Examples of `LEN` types [length-packer.md](../doc/length/length-packer.md)
-Examples of `VAL` types [body-packer.md](../doc/body/body-packer.md)
+* Examples of `TAG` types [tag-packer.md](../doc/tag/tag-packer.md)
+* Examples of `LEN` types [length-packer.md](../doc/length/length-packer.md)
+* Examples of `VAL` types [body-packer.md](../doc/body/body-packer.md)

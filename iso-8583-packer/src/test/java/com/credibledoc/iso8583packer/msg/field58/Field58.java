@@ -55,8 +55,7 @@ public class Field58 {
                 .defineName(F_58_NAME)
                 .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(3))
                 .defineChildrenLengthPacker(EbcdicDecimalLengthPacker.getInstance(3))
-                .defineChildrenTagPacker(EbcdicDecimalTagPacker.getInstance())
-                .defineChildrenTagLen(2)
+                .defineChildrenTagPacker(EbcdicDecimalTagPacker.getInstance(2))
                 .defineMaxLen(999)
                 .getCurrentField();
 
@@ -71,7 +70,6 @@ public class Field58 {
                 .defineName(DCC_DATA_37_NAME)
                 .defineTagNum(DCC_DATA_37)
                 .defineBodyPacker(EbcdicBodyPacker.getInstance())
-                .defineChildrenTagLen(0)
                 .defineChildrenLengthPacker(null)
 
                 .createChild(MsgFieldType.TAG_LEN_VAL)

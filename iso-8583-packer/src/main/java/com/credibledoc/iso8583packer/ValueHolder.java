@@ -221,7 +221,7 @@ public class ValueHolder {
         }
 
         if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
-            tagNum = unpackTagNum(bytes, offset, msgPair, tagLength);
+            tagNum = unpackTagNum(bytes, offset, msgPair);
         }
 
         boolean tagNumUnpackedButIsDifferent = tagNum != null && (
@@ -365,13 +365,13 @@ public class ValueHolder {
         msgPair.getMsgValue().setTagNum(tagNum);
     }
 
-    protected Integer unpackTagNum(byte[] bytes, Offset offset, MsgPair msgPair, Integer fieldTagLength) {
+    protected Integer unpackTagNum(byte[] bytes, Offset offset, MsgPair msgPair) {
         Integer tagNum;
         TagPacker tagPacker = navigator.getTagPackerFromParent(msgPair.getMsgField());
         if (tagPacker == null) {
             tagNum = msgPair.getMsgField().getTagNum();
         } else {
-            tagNum = tagPacker.unpack(bytes, offset.getValue(), fieldTagLength);
+            tagNum = tagPacker.unpack(bytes, offset.getValue());
         }
         return tagNum;
     }
@@ -711,18 +711,10 @@ public class ValueHolder {
     protected void setHeader(byte[] valueBytes, HeaderValue headerValue, HeaderField headerField) {
         MsgField msgFieldParent = msgField.getParent();
         if (msgFieldParent == null && MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
-            throw new PackerRuntimeException("This MsgField has no parent. Please use FieldBuilder.get(field) and " +
-                    "call the setParent() method before setValue() method " +
-                    "because parent.getChildTagLength() is used for header creation");
+            throw new PackerRuntimeException("This MsgField has no parent. Please use FieldBuilder.from(msgField) and " +
+                    "call the setParent(..) method before setValue(..) method " +
+                    "because parent.getChildTagPacker(..) is used for header creation");
         }
-        Integer tagLength = getChildTagLengthFromParent(msgField);
-        if (tagLength == null && MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
-            throw new PackerRuntimeException("Property childTagLength is mandatory for parent of this field '" +
-                navigator.getPathRecursively(msgField) + "'. " +
-                    "Please use FieldBuilder.get(field) and set the setChildTagLen(?) value to this field parent. " +
-                    "This property should not be set in leaf fields only.");
-        }
-
         LengthPacker lengthPacker;
 
         Integer fieldNum = msgValue.getTagNum();
@@ -730,7 +722,7 @@ public class ValueHolder {
             // field parent contains lengthPacker, hence length precedes tagNum
             assert msgFieldParent != null;
             lengthPacker = msgFieldParent.getChildrenLengthPacker();
-            packTagBytesToHeader(headerValue, tagLength, fieldNum);
+            packTagBytesToHeader(headerValue, fieldNum);
             int tagAndValueLength = valueBytes.length + headerValue.getTagBytes().length;
             byte[] lengthBytes = lengthPacker.pack(tagAndValueLength);
             headerValue.setLengthBytes(lengthBytes);
@@ -738,7 +730,7 @@ public class ValueHolder {
             // field itself contains lengthPacker
             lengthPacker = headerField.getLengthPacker();
             if (MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
-                packTagBytesToHeader(headerValue, tagLength, fieldNum);
+                packTagBytesToHeader(headerValue, fieldNum);
             }
 
             if (lengthPacker != null) {
@@ -748,14 +740,13 @@ public class ValueHolder {
         }
     }
 
-    protected void packTagBytesToHeader(HeaderValue headerValue, Integer tagLength, Integer fieldNum) {
-        if (tagLength == 0) {
+    protected void packTagBytesToHeader(HeaderValue headerValue, Integer fieldNum) {
+        TagPacker tagPacker = navigator.getTagPackerFromParent(msgField);
+        if (tagPacker == null) {
             headerValue.setTagBytes(new byte[0]);
             return;
         }
-        TagPacker tagPacker = navigator.getTagPackerFromParent(msgField);
-        assert tagPacker != null;
-        byte[] tagBytes = tagPacker.pack(fieldNum, tagLength);
+        byte[] tagBytes = tagPacker.pack(fieldNum);
         headerValue.setTagBytes(tagBytes);
     }
 
@@ -764,12 +755,11 @@ public class ValueHolder {
             return 0;
         }
         if (msgField.getParent() != null) {
-            return msgField.getParent().getChildTagLength();
+            return msgField.getParent().getChildrenTagPacker().getPackedLength();
         }
         throw new PackerRuntimeException("This field '" + navigator.getPathRecursively(msgField) +
-                "' has no parent. The parent is mandatory for obtaining of the ChildTagLength property. " +
-                "Please create a new Field and set it as a parent. Parent is not mandatory for fields which " +
-                "contains the bitSet property.");
+                "' has no parent. The parent is mandatory for obtaining of the ChildrenTagPacker property. " +
+                "Please create a new Field and set it as a parent.");
     }
 
     /**
@@ -1038,16 +1028,9 @@ public class ValueHolder {
 
     protected void setTagBytes(MsgValue msgValue, MsgField msgField) {
         int tagNum = msgValue.getTagNum();
-        Integer childTagLength = getChildTagLengthFromParent(msgField);
-        if (childTagLength == null) {
-            throw new PackerRuntimeException("The field parent (" + navigator.getPathRecursively(msgValue.getParent()) +
-                    ") has no property childTagLength defined." +
-                    " The property is used for packing field tagNum bytes. Field: " +
-                navigator.getPathRecursively(msgField));
-        }
         TagPacker tagPacker = navigator.getTagPackerFromParent(msgField);
         assert tagPacker != null;
-        byte[] tagBytes = tagPacker.pack(tagNum, childTagLength);
+        byte[] tagBytes = tagPacker.pack(tagNum);
         msgValue.getHeaderValue().setTagBytes(tagBytes);
     }
 

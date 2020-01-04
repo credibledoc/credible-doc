@@ -8,8 +8,7 @@ The following example shows how to define `TAG` in the [EBCDIC](https://en.wikip
 ```Java
     private FieldBuilder createField() {
         return FieldBuilder.builder(MsgFieldType.MSG)
-            .defineChildrenTagLen(1)
-            .defineChildrenTagPacker(EbcdicDecimalTagPacker.getInstance())
+            .defineChildrenTagPacker(EbcdicDecimalTagPacker.getInstance(1))
             .defineName("root")
             
             .createChild(MsgFieldType.TAG_VAL)
@@ -25,7 +24,7 @@ The following example shows how to define `TAG` in the [EBCDIC](https://en.wikip
 
 The field structure
 ```XML
-<f type="MSG" name="root" childTagLen="1" childTagPacker="EbcdicDecimalTagPacker">
+<f type="MSG" name="root" childTagPacker="EbcdicDecimalTagPacker(1)">
     <f type="TAG_VAL" tagNum="1" name="field_1" bodyPacker="BcdBodyPacker" len="2"/>
 </f>
 ```
@@ -62,19 +61,19 @@ Some examples of packed values
 Examples of integers packed with EbcdicDecimalTagPacker class
 numBytes: 1
 numBytes '1', integer '1' packed as bytes F1
-numBytes '1', integer '12' cannot be packed, exception: Packed bytes with length '2' is greater than required tagLength '1'.
-numBytes '1', integer '123' cannot be packed, exception: Packed bytes with length '3' is greater than required tagLength '1'.
-numBytes '1', integer '1234' cannot be packed, exception: Packed bytes with length '4' is greater than required tagLength '1'.
+numBytes '1', integer '12' cannot be packed, exception: Packed bytes with length '2' is greater than required packedLength '1'.
+numBytes '1', integer '123' cannot be packed, exception: Packed bytes with length '3' is greater than required packedLength '1'.
+numBytes '1', integer '1234' cannot be packed, exception: Packed bytes with length '4' is greater than required packedLength '1'.
 numBytes: 2
 numBytes '2', integer '1' packed as bytes F0F1
 numBytes '2', integer '12' packed as bytes F1F2
-numBytes '2', integer '123' cannot be packed, exception: Packed bytes with length '3' is greater than required tagLength '2'.
-numBytes '2', integer '1234' cannot be packed, exception: Packed bytes with length '4' is greater than required tagLength '2'.
+numBytes '2', integer '123' cannot be packed, exception: Packed bytes with length '3' is greater than required packedLength '2'.
+numBytes '2', integer '1234' cannot be packed, exception: Packed bytes with length '4' is greater than required packedLength '2'.
 numBytes: 3
 numBytes '3', integer '1' packed as bytes F0F0F1
 numBytes '3', integer '12' packed as bytes F0F1F2
 numBytes '3', integer '123' packed as bytes F1F2F3
-numBytes '3', integer '1234' cannot be packed, exception: Packed bytes with length '4' is greater than required tagLength '3'.
+numBytes '3', integer '1234' cannot be packed, exception: Packed bytes with length '4' is greater than required packedLength '3'.
 ```
 
 More examples see [complex-example.md](../complex-example.md).

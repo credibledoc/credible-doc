@@ -74,13 +74,6 @@ public class MsgField implements Msg {
     private Integer len;
 
     /**
-     * Length of bytes in children names. For example this <b>DFEE01010D</b> field has 3 bytes long tag DFEE01.
-     * 
-     * Contains 'null' in case of no children.
-     */
-    private Integer childTagLength;
-
-    /**
      * Contains additional properties ot the {@link MsgField} with definition of its header subfields.
      */
     private HeaderField headerField = new HeaderField();
@@ -250,20 +243,6 @@ public class MsgField implements Msg {
      */
     public void setBodyPacker(BodyPacker bodyPacker) {
         this.bodyPacker = bodyPacker;
-    }
-
-    /**
-     * @return The {@link #childTagLength} field value.
-     */
-    public Integer getChildTagLength() {
-        return childTagLength;
-    }
-
-    /**
-     * @param childTagLength see the {@link #childTagLength} field description.
-     */
-    public void setChildTagLength(Integer childTagLength) {
-        this.childTagLength = childTagLength;
     }
 
     /**

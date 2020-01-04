@@ -102,7 +102,6 @@ public class ValidatorService implements Validator {
 
     protected void validateTagAndTagPackerExists(MsgField msgField, String path) {
         boolean parentPackerExists = msgField.getParent() != null && msgField.getParent().getChildrenTagPacker() != null;
-        boolean parentTagLengthExists = msgField.getParent() != null && msgField.getParent().getChildTagLength() != null;
         boolean tagNumExists = msgField.getTagNum() != null;
 
         if (!parentPackerExists) {
@@ -110,11 +109,6 @@ public class ValidatorService implements Validator {
             throw new PackerRuntimeException("Please define the '" + TagPacker.class.getSimpleName() +
                     "' value to the '" + parentPath + "' field, " +
                     "because that is mandatory for MsgFieldType '" + msgField.getType() + "'. Please call the .defineChildrenTagPacker(...) method.");
-        }
-
-        if (!parentTagLengthExists) {
-            throw new PackerRuntimeException("Please define the childTagLength value to the parent of the field '" + path +
-                    "' because it is mandatory for MsgFieldType '" + msgField.getType() + "'.");
         }
 
         if (!tagNumExists) {

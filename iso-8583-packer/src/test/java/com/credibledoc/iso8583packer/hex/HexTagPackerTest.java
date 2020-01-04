@@ -25,8 +25,7 @@ public class HexTagPackerTest {
 
     private FieldBuilder createField() {
         return FieldBuilder.builder(MsgFieldType.MSG)
-            .defineChildrenTagLen(1)
-            .defineChildrenTagPacker(HexTagPacker.getInstance())
+            .defineChildrenTagPacker(HexTagPacker.getInstance(1))
             .defineName("root")
             
             .createChild(MsgFieldType.TAG_VAL)
@@ -71,30 +70,30 @@ public class HexTagPackerTest {
 
     @Test(expected = PackerRuntimeException.class)
     public void testPackLonger() {
-        HexTagPacker hexTagPacker = HexTagPacker.getInstance();
-        hexTagPacker.pack(1234, 1);
+        HexTagPacker hexTagPacker = HexTagPacker.getInstance(1);
+        hexTagPacker.pack(1234);
     }
 
     @Test
     public void testPack() {
-        HexTagPacker hexTagPacker = HexTagPacker.getInstance();
-        byte[] bytes = hexTagPacker.pack(12, 2);
+        HexTagPacker hexTagPacker = HexTagPacker.getInstance(2);
+        byte[] bytes = hexTagPacker.pack(12);
         assertEquals("000C", HexService.bytesToHex(bytes));
     }
 
     @Test
     public void testUnpack() {
-        HexTagPacker hexTagPacker = HexTagPacker.getInstance();
+        HexTagPacker hexTagPacker = HexTagPacker.getInstance(3);
         byte[] bytes = HexService.hex2byte("Hello");
-        int tagNum = hexTagPacker.unpack(bytes, 0, 3);
+        int tagNum = hexTagPacker.unpack(bytes, 0);
         assertEquals(16777215, tagNum);
     }
 
     @Test(expected = PackerRuntimeException.class)
     public void testUnpackSmaller() {
-        HexTagPacker hexTagPacker = HexTagPacker.getInstance();
+        HexTagPacker hexTagPacker = HexTagPacker.getInstance(4);
         byte[] bytes = HexService.hex2byte("F1F2F3");
-        hexTagPacker.unpack(bytes, 0, 4);
+        hexTagPacker.unpack(bytes, 0);
     }
 
     /**
@@ -109,11 +108,11 @@ public class HexTagPackerTest {
         for (int lenTag : lenTagList) {
             String info = "numBytes: " + lenTag + LINE_SEPARATOR;
             stringBuilder.append(info);
-            HexTagPacker hexTagPacker = HexTagPacker.getInstance();
+            HexTagPacker hexTagPacker = HexTagPacker.getInstance(lenTag);
             for (int len : lenList) {
                 String packedString;
                 try {
-                    byte[] packedLen = hexTagPacker.pack(len, lenTag);
+                    byte[] packedLen = hexTagPacker.pack(len);
                     packedString = "packed as bytes " + HexService.bytesToHex(packedLen);
                 } catch (Exception e) {
                     assertEquals(PackerRuntimeException.class, e.getClass());
