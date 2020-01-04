@@ -6,8 +6,7 @@ pairs contain `TAG` subfields.
 
 The `TAG` subfields are used for identification message fields. The following Wiki pages describe the `TAG` subfield as the `type`, see
 [Type-length-value](https://en.wikipedia.org/wiki/Type-length-value) or as the `key`,
-see the [KLV](https://en.wikipedia.org/wiki/KLV) pages. The best (in my opinion) implementation of ISO 8583, the `jPOS` library, uses the `fieldNumber` term,
-see the [ISOMsg](http://jpos.org/doc/javadoc/org/jpos/iso/ISOMsg.html) page.
+see the [KLV](https://en.wikipedia.org/wiki/KLV) pages.
 
 The `TAG` can be packed in different formats.
 

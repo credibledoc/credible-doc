@@ -58,7 +58,7 @@ public class FieldBuilderTest {
 
         FieldBuilder.from(bitmap)
             .createChild(MsgFieldType.LEN_VAL)
-            .defineTagNum(2)
+            .defineFieldNum(2)
             .defineName(PAN_02_NAME)
             .defineStringer(StringStringer.getInstance())
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
@@ -66,7 +66,7 @@ public class FieldBuilderTest {
         
         FieldBuilder.from(bitmap)
             .createChild(MsgFieldType.LEN_VAL)
-            .defineTagNum(3)
+            .defineFieldNum(3)
             .defineName(PROCESSING_CODE_03_NAME)
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
             .defineHeaderLengthPacker(BcdLengthPacker.getInstance(1));

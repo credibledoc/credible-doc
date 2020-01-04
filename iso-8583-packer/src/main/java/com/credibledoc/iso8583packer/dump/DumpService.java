@@ -106,7 +106,9 @@ public class DumpService implements Visualizer {
             indentForChildren = "    ";
         }
 
-        String tagNumString = msgField.getTagNum() == null ? "" : " tagNum=\"" + msgField.getTagNum() + "\"";
+        String fieldNumString = msgField.getFieldNum() == null ? "" : " fieldNum=\"" + msgField.getFieldNum() + "\"";
+
+        String tagString = msgField.getTag() == null ? "" : " tag=\"" + msgField.getTag() + "\"";
         
         String nameString = msgField.getName() == null ? "" : " name=\"" + msgField.getName() + "\"";
         
@@ -131,7 +133,7 @@ public class DumpService implements Visualizer {
 
         String typeString = " type=\"" + msgField.getType() + "\"";
         
-        printStream.print(indent + "<f" + typeString + tagNumString + nameString + lengthPackerString +
+        printStream.print(indent + "<f" + typeString + fieldNumString + tagString + nameString + lengthPackerString +
                 isoBitMapPackerString + interpreterString +
                 maxLenString + lenString + childTagPackerString);
         
@@ -190,7 +192,7 @@ public class DumpService implements Visualizer {
     public void dumpMsgValue(MsgField msgField, MsgValue msgValue, PrintStream printStream, String indent,
                              String indentForChildren, boolean maskPrivateData) {
 
-        navigator.validateSameNamesAndTagNum(new MsgPair(msgField, msgValue));
+        navigator.validateSameNamesAndTag(new MsgPair(msgField, msgValue));
         if (indent == null) {
             indent = "";
         }
@@ -212,7 +214,9 @@ public class DumpService implements Visualizer {
 
         String valueString = getValueString(msgField, msgValue, maskPrivateData, masker);
 
-        String tagNumString = msgValue.getTagNum() == null ? "" : " tagNum=\"" + msgValue.getTagNum() + "\"";
+        String fieldNumString = msgValue.getFieldNum() == null ? "" : " fieldNum=\"" + msgValue.getFieldNum() + "\"";
+
+        String tagString = msgValue.getTag() == null ? "" : " tag=\"" + msgValue.getTag() + "\"";
 
         String nameString = msgValue.getName() == null ? "" : " name=\"" + msgValue.getName() + "\"";
 
@@ -226,7 +230,7 @@ public class DumpService implements Visualizer {
 
         String content;
 
-        String numNameValue = nameString + tagNumString + valueString + bitmapString;
+        String numNameValue = nameString + fieldNumString + tagString + valueString + bitmapString;
         
         if (msgField != null) {
             switch (msgField.getType()) {
@@ -298,7 +302,7 @@ public class DumpService implements Visualizer {
     }
 
     protected String getValueString(MsgValue msgValue, boolean maskPrivateData, Masker masker, Stringer stringer) {
-        if (msgValue.getChildren() != null) {
+        if (msgValue.getChildren() != null || msgValue.getBodyValue() == null) {
             return "";
         }
         return " val=\"" + maskValue(msgValue, maskPrivateData, masker, stringer) + "\"";

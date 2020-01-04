@@ -30,7 +30,7 @@ public class HexTagPackerTest {
             
             .createChild(MsgFieldType.TAG_VAL)
             .defineName(FIELD_1_NAME)
-            .defineTagNum(1)
+            .defineHeaderTag(1)
             .defineLen(2)
             .defineBodyPacker(BcdBodyPacker.noPadding())
             
@@ -85,8 +85,8 @@ public class HexTagPackerTest {
     public void testUnpack() {
         HexTagPacker hexTagPacker = HexTagPacker.getInstance(3);
         byte[] bytes = HexService.hex2byte("Hello");
-        int tagNum = hexTagPacker.unpack(bytes, 0);
-        assertEquals(16777215, tagNum);
+        int tag = hexTagPacker.unpack(bytes, 0);
+        assertEquals(16777215, tag);
     }
 
     @Test(expected = PackerRuntimeException.class)

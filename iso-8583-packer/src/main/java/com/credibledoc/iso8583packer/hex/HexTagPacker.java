@@ -1,13 +1,14 @@
 package com.credibledoc.iso8583packer.hex;
 
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
+import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * The implementation of the {@link TagPacker} transforms int to hex, see the {@link #pack(int)} and
+ * The implementation of the {@link TagPacker} transforms int to hex, see the {@link #pack(Object)} and
  * {@link #unpack(byte[], int)} methods.
  * <p>
  * More examples
@@ -30,12 +31,14 @@ public class HexTagPacker implements TagPacker {
 
     /**
      * Only one instance is allowed, see the {@link #getInstance(int)} method.
+     * @param packedLength the {@link HeaderValue#getTagBytes()} length.
      */
     private HexTagPacker(int packedLength) {
         this.packedLength = packedLength;
     }
 
     /**
+     * @param packedLength the {@link HeaderValue#getTagBytes()} length.
      * @return The singleton instance from the {@link #instances} map.
      */
     public static HexTagPacker getInstance(int packedLength) {
@@ -47,7 +50,11 @@ public class HexTagPacker implements TagPacker {
      * Convert for example decimal int <b>14675457</b> to bytes <b>dfee01</b>.
      */
     @Override
-    public byte[] pack(int fieldTag) {
+    public byte[] pack(Object tag) {
+        if (!(tag instanceof Integer)) {
+            throw new PackerRuntimeException("Expected Integer but found " + tag.getClass().getSimpleName());
+        }
+        Integer fieldTag = (Integer) tag;
         String fieldNumHex = Integer.toHexString(fieldTag);
         byte[] bytes = HexService.hex2byte(fieldNumHex);
         if (bytes.length > packedLength) {
@@ -66,7 +73,8 @@ public class HexTagPacker implements TagPacker {
      * or the <b>FFEE2E</b> bytes to decimal int <b>16772654</b>.
      */
     @Override
-    public int unpack(byte[] bytes, int offset) {
+    @SuppressWarnings("unchecked")
+    public Integer unpack(byte[] bytes, int offset) {
         int available = bytes.length - offset;
         if (available < packedLength) {
             throw new PackerRuntimeException("Required tagLength '" + packedLength +

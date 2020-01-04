@@ -17,7 +17,8 @@ import java.util.BitSet;
  *
  * @author Kyrylo Semenko
  */
-public class HeaderValue implements Header {
+// TODO Kyrylo Semenko - remove to MsgValue
+public class HeaderValue {
     
     /**
      * This field contains list of its children indexes. These children are located
@@ -28,7 +29,8 @@ public class HeaderValue implements Header {
     private BitSet bitSet;
 
     /**
-     * In case when the field has a {@link MsgValue#getTagNum()}, this tagNum is represented as bytes when serialized.
+     * // TODO Kyrylo Semenko - fix documentation
+     * In case when the field has a {@link MsgValue#getFieldNum()}, this tag is represented as bytes when serialized.
      */
     private byte[] tagBytes;
 

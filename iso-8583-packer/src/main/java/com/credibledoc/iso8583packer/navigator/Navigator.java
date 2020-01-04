@@ -46,28 +46,40 @@ public interface Navigator {
     MsgField getSiblingOrThrowException(String siblingName, MsgField currentMsgField);
 
     /**
-     * Jump to msgField root and search for the <b>first</b> child with the same name and tagNum as the field from argument.
+     * Jump to msgField root and search for the <b>first</b> child with the same name and tag as the field from argument.
      * 
      * @param msgField where to search
      * @param msgValue what to search
      * @return The found msgField or thrown an exception
      */
-    MsgField findByNameAndTagNumOrThrowException(MsgField msgField, MsgValue msgValue);
+    MsgField findByNameAndTagOrThrowException(MsgField msgField, MsgValue msgValue);
 
-    MsgValue newFromNameAndTagNum(MsgField msgField);
+    MsgValue newFromNameAndTag(MsgField msgField);
 
-    void validateSameNamesAndTagNum(MsgPair msgPair);
+    // TODO Kyrylo Semenko - javaDoc for all methods
+    void validateSameNamesAndTag(MsgPair msgPair);
 
     /**
-     * Find <b>first</b> {@link Msg} with the tagNum.
+     * Find <b>first</b> {@link Msg} with the <b>tag</b>.
      *
      * @param msgList where to search
-     * @param tagNum  what to search
+     * @param tag  what to search, see the {@link Msg#getTag()} description
      * @param <T>     the {@link Msg} type, {@link MsgField} or {@link MsgValue}
      * @return 'null' if not found
      */
     @SuppressWarnings("unchecked")
-    <T extends Msg> T findByTagNum(List<? extends Msg> msgList, Integer tagNum);
+    <T extends Msg> T findByTag(List<? extends Msg> msgList, Object tag);
+
+    /**
+     * Find <b>first</b> {@link Msg} with the <b>fieldNum</b>.
+     *
+     * @param msgList where to search
+     * @param fieldNum  what to search
+     * @param <T>     the {@link Msg} type, {@link MsgField} or {@link MsgValue}
+     * @return 'null' if not found
+     */
+    @SuppressWarnings("unchecked")
+    <T extends Msg> T findByFieldNum(List<? extends Msg> msgList, Integer fieldNum);
 
     /**
      * Set service.

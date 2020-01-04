@@ -1,6 +1,7 @@
 package com.credibledoc.iso8583packer.ebcdic;
 
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
+import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.string.StringUtils;
 import com.credibledoc.iso8583packer.tag.TagPacker;
@@ -13,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/ebcdic/ebcdic-decimal-tag-packer.md">ebcdic-decimal-tag-packer.md</a>
  * documentation.
  * <p>
- * See the {@link #pack(int)} and {@link #unpack(byte[], int)} methods examples.
+ * See the {@link #pack(Object)} and {@link #unpack(byte[], int)} methods examples.
  *
  * @author Kyrylo Semenko
  */
@@ -37,12 +38,14 @@ public class EbcdicDecimalTagPacker implements TagPacker {
 
     /**
      * Only one instance is allowed, see the {@link #getInstance(int)} method.
+     * @param packedLength the {@link HeaderValue#getTagBytes()} length.
      */
     private EbcdicDecimalTagPacker(int packedLength) {
         this.packedLength = packedLength;
     }
 
     /**
+     * @param packedLength the {@link HeaderValue#getTagBytes()} length.
      * @return The singleton instance from the {@link #instances} map.
      */
     public static EbcdicDecimalTagPacker getInstance(int packedLength) {
@@ -54,7 +57,14 @@ public class EbcdicDecimalTagPacker implements TagPacker {
      * Pack for example decimal <b>90</b> to bytes <b>F9F0</b>.
      */
     @Override
-    public byte[] pack(int fieldTag) {
+    public byte[] pack(Object tag) {
+        if (tag == null) {
+            throw new PackerRuntimeException("Tag is null");
+        }
+        if (!(tag instanceof Integer)) {
+            throw new PackerRuntimeException("Expected Integer but found " + tag.getClass().getSimpleName());
+        }
+        Integer fieldTag = (Integer) tag;
         StringBuilder stringBuilder = new StringBuilder(packedLength * TWO_CHARS_IN_HEX_BYTE);
         String padded = StringUtils.leftPad(Integer.toString(fieldTag), packedLength, PAD_CHAR_0);
         for (char nextNum : padded.toCharArray()) {
@@ -72,7 +82,8 @@ public class EbcdicDecimalTagPacker implements TagPacker {
      * Unpack for example bytes <b>F9F0</b> to decimal <b>90</b>.
      */
     @Override
-    public int unpack(byte[] bytes, int offset) {
+    @SuppressWarnings("unchecked")
+    public Integer unpack(byte[] bytes, int offset) {
         int available = bytes.length - offset;
         if (available < packedLength) {
             throw new PackerRuntimeException("Required packedLength '" + packedLength +

@@ -31,7 +31,7 @@ public class EbcdicDecimalTagPackerTest {
             
             .createChild(MsgFieldType.TAG_VAL)
             .defineName(FIELD_1_NAME)
-            .defineTagNum(1)
+            .defineHeaderTag(1)
             .defineLen(2)
             .defineBodyPacker(BcdBodyPacker.noPadding())
             
@@ -86,8 +86,8 @@ public class EbcdicDecimalTagPackerTest {
     public void testUnpack() {
         EbcdicDecimalTagPacker ebcdicDecimalTagPacker = EbcdicDecimalTagPacker.getInstance(3);
         byte[] bytes = HexService.hex2byte("F1F2F3");
-        int tagNum = ebcdicDecimalTagPacker.unpack(bytes, 0);
-        assertEquals(123, tagNum);
+        int tag = ebcdicDecimalTagPacker.unpack(bytes, 0);
+        assertEquals(123, tag);
     }
 
     @Test(expected = PackerRuntimeException.class)

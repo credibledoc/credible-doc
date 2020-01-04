@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This builder helps to fill the existing {@link MsgField} definition with data. It contains
@@ -94,7 +95,7 @@ public class ValueHolder {
      * Create instances of services used in the builder. The method may be overridden if needed.
      */
     protected void createDefaultServices() {
-        navigator = new NavigatorService();
+        navigator = NavigatorService.getInstance();
         visualizer = DumpService.getInstance();
         visualizer.setNavigator(navigator);
         navigator.setVisualizer(visualizer);
@@ -108,7 +109,7 @@ public class ValueHolder {
      */
     protected ValueHolder newValueHolder(MsgField definition) {
         this.msgField = definition;
-        this.msgValue = navigator.newFromNameAndTagNum(definition);
+        this.msgValue = navigator.newFromNameAndTag(definition);
         return this;
     }
 
@@ -135,7 +136,7 @@ public class ValueHolder {
     protected ValueHolder newValueHolder(MsgValue msgValue, MsgField msgField) {
         try {
             MsgPair msgPair = new MsgPair(msgField, msgValue);
-            navigator.validateSameNamesAndTagNum(msgPair);
+            navigator.validateSameNamesAndTag(msgPair);
             this.msgValue = msgValue;
             this.msgField = msgField;
             return this;
@@ -166,7 +167,7 @@ public class ValueHolder {
      * @return The unpacked {@link MsgValue}.
      */
     protected MsgValue unpackMsgField(byte[] bytes, int offset) {
-        MsgValue newMsgValue = navigator.newFromNameAndTagNum(msgField);
+        MsgValue newMsgValue = navigator.newFromNameAndTag(msgField);
         try {
             Offset offsetObject = new Offset();
             offsetObject.setValue(offset);
@@ -187,7 +188,7 @@ public class ValueHolder {
      * @throws Exception in case of packing problems
      */
     protected void unpackFieldRecursively(byte[] bytes, Offset offset, MsgPair msgPair) throws Exception {
-        navigator.validateSameNamesAndTagNum(msgPair);
+        navigator.validateSameNamesAndTag(msgPair);
         Integer rawDataLength;
         MsgFieldType msgFieldType = msgPair.getMsgField().getType();
         if (MsgFieldType.MSG == msgFieldType) {
@@ -214,25 +215,24 @@ public class ValueHolder {
         Integer rawDataLength = null;
         Integer tagLength = getChildTagLengthFromParent(msgPair.getMsgField());
         boolean lengthFirst = MsgFieldType.getLengthFirstTypes().contains(msgPair.getMsgField().getType());
-        Integer tagNum = null;
+        Object tag = null;
 
         if (lengthFirst && MsgFieldType.isLengthType(msgPair.getMsgField())) {
             rawDataLength = unpackLength(bytes, offset, msgPair) - tagLength;
         }
 
         if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
-            tagNum = unpackTagNum(bytes, offset, msgPair);
+            tag = unpackTag(bytes, offset, msgPair);
         }
 
-        boolean tagNumUnpackedButIsDifferent = tagNum != null && (
-                msgPair.getMsgField().getTagNum() == null || !tagNum.equals(msgPair.getMsgField().getTagNum()));
+        boolean tagUnpackedButIsDifferent = tag != null && !Objects.equals(tag, msgPair.getMsgField().getTag());
 
-        if (tagNumUnpackedButIsDifferent) {
-            replaceWithSibling(msgPair, tagNum);
+        if (tagUnpackedButIsDifferent) {
+            replaceWithSibling(msgPair, tag);
         }
 
         if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
-            unpackTagBytes(bytes, offset, msgPair, tagLength, tagNum);
+            unpackTagBytes(bytes, offset, msgPair, tagLength, tag);
         }
 
         if (!lengthFirst && MsgFieldType.isLengthType(msgPair.getMsgField())) {
@@ -317,7 +317,7 @@ public class ValueHolder {
                         "' types but found '" + siblingMsgField.getType() +
                             "'. SiblingMsgField '" + navigator.getPathRecursively(siblingMsgField) + "'.");
                 }
-                siblingMsgValue = navigator.newFromNameAndTagNum(siblingMsgField);
+                siblingMsgValue = navigator.newFromNameAndTag(siblingMsgField);
                 return new MsgPair(siblingMsgField, siblingMsgValue);
             }
             if (siblingMsgValue.getBodyBytes() == null) {
@@ -342,7 +342,7 @@ public class ValueHolder {
             if (children.size() > childNum + 1) {
                 childNum++;
             }
-            MsgValue msgValueChild = navigator.newFromNameAndTagNum(msgFieldFirstChild);
+            MsgValue msgValueChild = navigator.newFromNameAndTag(msgFieldFirstChild);
             msgPair.getMsgValue().getChildren().add(msgValueChild);
             msgValueChild.setParent(msgPair.getMsgValue());
             MsgPair msgPairChild = new MsgPair(msgFieldFirstChild, msgValueChild);
@@ -356,31 +356,31 @@ public class ValueHolder {
     }
 
     protected void unpackTagBytes(byte[] bytes, Offset offset, MsgPair msgPair, Integer fieldTagLength,
-                                              Integer tagNum) {
+                                              Object tag) {
         byte[] tagBytes = new byte[fieldTagLength];
         System.arraycopy(bytes, offset.getValue(), tagBytes, 0, tagBytes.length);
         offset.add(fieldTagLength);
         HeaderValue headerValue = msgPair.getMsgValue().getHeaderValue();
         headerValue.setTagBytes(tagBytes);
-        msgPair.getMsgValue().setTagNum(tagNum);
+        msgPair.getMsgValue().setTag(tag);
     }
 
-    protected Integer unpackTagNum(byte[] bytes, Offset offset, MsgPair msgPair) {
-        Integer tagNum;
+    protected Object unpackTag(byte[] bytes, Offset offset, MsgPair msgPair) {
+        Object tag;
         TagPacker tagPacker = navigator.getTagPackerFromParent(msgPair.getMsgField());
         if (tagPacker == null) {
-            tagNum = msgPair.getMsgField().getTagNum();
+            tag = msgPair.getMsgField().getTag();
         } else {
-            tagNum = tagPacker.unpack(bytes, offset.getValue());
+            tag = tagPacker.unpack(bytes, offset.getValue());
         }
-        return tagNum;
+        return tag;
     }
 
     protected int unpackBitSet(byte[] bytes, Offset offset, MsgPair msgPair) throws Exception {
-        List<Integer> tagNums = getTagNumsFromBitSet(bytes, offset, msgPair);
-        for (int nextTagNum : tagNums) {
-            MsgField msgFieldChild = findChildByTagNum(msgPair.getMsgField(), nextTagNum);
-            MsgValue msgValueChild = navigator.newFromNameAndTagNum(msgFieldChild);
+        List<Integer> fieldNums = getFieldNumsFromBitSet(bytes, offset, msgPair);
+        for (int nextFieldNum : fieldNums) {
+            MsgField msgFieldChild = findChildByFieldNum(msgPair.getMsgField(), nextFieldNum);
+            MsgValue msgValueChild = navigator.newFromNameAndTag(msgFieldChild);
             List<MsgValue> children = msgPair.getMsgValue().getChildren();
             if (children == null) {
                 children = new ArrayList<>();
@@ -417,23 +417,23 @@ public class ValueHolder {
         msgPair.getMsgValue().setBodyValue(bodyValue);
     }
 
-    protected void replaceWithSibling(MsgPair msgPair, Integer tagNum) {
+    protected void replaceWithSibling(MsgPair msgPair, Object tag) {
         MsgPair result = new MsgPair();
-        MsgField msgFieldSibling = findSiblingByTagNum(tagNum, msgPair.getMsgField());
+        MsgField msgFieldSibling = findSiblingByTag(tag, msgPair.getMsgField());
         if (msgFieldSibling == null) {
-            throwSiblingNotFound(msgPair, tagNum);
+            throwSiblingNotFound(msgPair, tag);
         }
         MsgValue oldMsgValue = msgPair.getMsgValue();
         MsgValue parentMsgValue = oldMsgValue.getParent();
         result.setMsgField(msgFieldSibling);
         assert msgFieldSibling != null;
-        MsgValue newMsgValue = navigator.newFromNameAndTagNum(msgFieldSibling);
+        MsgValue newMsgValue = navigator.newFromNameAndTag(msgFieldSibling);
         if (parentMsgValue != null) {
             parentMsgValue.getChildren().remove(oldMsgValue);
             parentMsgValue.getChildren().add(newMsgValue);
             newMsgValue.setParent(parentMsgValue);
-            result.setMsgValue(newMsgValue);
         }
+        result.setMsgValue(newMsgValue);
         if (oldMsgValue.getHeaderValue() != null) {
             newMsgValue.setHeaderValue(oldMsgValue.getHeaderValue());
         }
@@ -441,8 +441,8 @@ public class ValueHolder {
         msgPair.setMsgValue(result.getMsgValue());
     }
 
-    protected List<Integer> getTagNumsFromBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
-        // this is IsoMsg, so tagNums are in the header BitSet
+    protected List<Integer> getFieldNumsFromBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
+        // this is IsoMsg, so fieldNums are in the header BitSet
         HeaderField headerField = msgPair.getMsgField().getHeaderField();
         HeaderValue headerValue = msgPair.getMsgValue().getHeaderValue();
 
@@ -457,39 +457,40 @@ public class ValueHolder {
         int consumed = bitmapPacker.unpack(headerValue, bytes, offset.getValue(), len);
         offset.add(consumed);
 
-        return getTagNumsAndValidateBitSet(msgPair);
+        return getFieldNumsAndValidateBitSet(msgPair);
     }
 
-    protected MsgField findChildByTagNum(MsgField msgField, int nextTagNum) {
+    protected MsgField findChildByFieldNum(MsgField msgField, int nextFieldNum) {
         for (MsgField child : msgField.getChildren()) {
-            if (nextTagNum == child.getTagNum()) {
+            if (nextFieldNum == child.getFieldNum()) {
                 return child;
             }
         }
-        throw new PackerRuntimeException("Cannot find child with tagNum '" + nextTagNum +
+        throw new PackerRuntimeException("Cannot find child with fieldNum '" + nextFieldNum +
                 "' in the msgField " + navigator.getPathRecursively(msgField));
     }
 
-    protected List<Integer> getTagNumsAndValidateBitSet(MsgPair msgPair) {
+    protected List<Integer> getFieldNumsAndValidateBitSet(MsgPair msgPair) {
         BitSet unpackedBitSet = msgPair.getMsgValue().getHeaderValue().getBitSet();
-        List<Integer> tagNums = new ArrayList<>();
-        int maxTagNum = getMaxTagNum(msgPair.getMsgField().getChildren());
-        for (int nextTagNum = 0; nextTagNum <= maxTagNum; nextTagNum++) {
-            MsgField childMsgField = navigator.findByTagNum(msgPair.getMsgField().getChildren(), nextTagNum);
-            if (unpackedBitSet.get(nextTagNum) && childMsgField == null) {
-                String path = navigator.getPathRecursively(msgPair.getMsgValue());
-                throw new PackerRuntimeException("Unpacked bitSet contains tagNum '" + nextTagNum +
-                        "', but bitSetDefinition doesn't contain it. " +
-                        "Please define the tagNum in the field '" + path + "' header bitSet");
+        List<Integer> fieldNums = new ArrayList<>();
+        int maxFieldNum = getMaxFieldNum(msgPair.getMsgField().getChildren());
+        for (int nextFieldNum = 0; nextFieldNum <= maxFieldNum; nextFieldNum++) {
+            MsgField childMsgField = navigator.findByFieldNum(msgPair.getMsgField().getChildren(), nextFieldNum);
+            if (unpackedBitSet.get(nextFieldNum) && childMsgField == null) {
+                String path = navigator.getPathRecursively(msgPair.getMsgField());
+                throw new PackerRuntimeException("Unpacked bitSet contains fieldNum '" + nextFieldNum + "', " +
+                    "but the MsgField with path '" + path + "' has no child with such fieldNum. " +
+                    "Please set the defineFieldNum(" + nextFieldNum + ") value " +
+                    "on one of the field's '" + path + "' children");
             }
-            if (unpackedBitSet.get(nextTagNum)) {
-                tagNums.add(nextTagNum);
+            if (unpackedBitSet.get(nextFieldNum)) {
+                fieldNums.add(nextFieldNum);
             }
         }
-        return tagNums;
+        return fieldNums;
     }
 
-    protected void throwSiblingNotFound(MsgPair paramMsgPair, Integer tagNum) {
+    protected void throwSiblingNotFound(MsgPair paramMsgPair, Object tag) {
         MsgField paramMsgField = paramMsgPair.getMsgField();
         MsgValue paramMsgValue = paramMsgPair.getMsgValue();
         String previousFieldCause = "";
@@ -503,36 +504,36 @@ public class ValueHolder {
         if (paramMsgField.getParent() != null && paramMsgField.getParent().getChildrenTagPacker() != null) {
             tagPackerClass = paramMsgField.getParent().getChildrenTagPacker().getClass().getSimpleName();
         }
-        throw new PackerRuntimeException("Cannot find a sibling with tagNum '" + tagNum +
+        throw new PackerRuntimeException("Cannot find the sibling with tag '" + tag +
                 "' for the '" + navigator.getPathRecursively(paramMsgValue) +
                 "' Field. Its parent '" + navigator.getPathRecursively(parentMsgField) +
-                "' has no child with such tagNum. \nThere are few possible causes of this error. " +
+                "' has no child with such tag. \nThere are few possible causes of this error. " +
                 "\nFirst cause is incorrect implementation of " + tagPackerClass +
-                ".unpack() method used for unpacking tagNum from bytes. " +
-                "\nSecond cause is undefined child with tagNum '" + tagNum +
+                ".unpack() method used for unpacking tag from bytes. " +
+                "\nSecond cause is undefined child with tag '" + tag +
                 "' and with parent '" + navigator.getPathRecursively(parentMsgField) +
-                "' in the MsgField definition." + previousFieldCause + " \nNext cause can be the order of tagNum and " +
-                "length subfields where some MsgFields have the first tagNum and the second length but other " +
+                "' in the MsgField definition." + previousFieldCause + " \nNext cause can be the order of tag and " +
+                "length subfields where some MsgFields have the first tag and the second length but other " +
                 "MsgFields wise versa, for example F0F0F3 F9F3 F0, where F0F0F3 is the length 003, F9F3 is " +
-                "the tagNum 93 and F0 is the body." +
+                "the tag 93 and F0 is the body." +
                 " \nNext cause is wrong place of actual context inside the rootMsgField, actual place is " +
             navigator.getPathRecursively(paramMsgField));
     }
 
-    protected int getMaxTagNum(List<MsgField> children) {
+    protected int getMaxFieldNum(List<MsgField> children) {
         int result = 0;
         for (MsgField nextMsgField : children) {
-            if (nextMsgField.getTagNum() > result) {
-                result = nextMsgField.getTagNum();
+            if (nextMsgField.getFieldNum() > result) {
+                result = nextMsgField.getFieldNum();
             }
         }
         return result;
     }
 
-    protected MsgField findSiblingByTagNum(int tagNum, MsgField msgField) {
+    protected MsgField findSiblingByTag(Object tag, MsgField msgField) {
         MsgField parent = msgField.getParent();
         for (MsgField child : parent.getChildren()) {
-            if (child.getTagNum() == tagNum) {
+            if (Objects.equals(child.getTag(), tag)) {
                 return child;
             }
         }
@@ -570,7 +571,7 @@ public class ValueHolder {
             MsgField msgFieldChild = navigator.getChildOrThrowException(childName, msgField);
             MsgValue msgValueChild = navigator.findByName(msgValue.getChildren(), childName);
             if (msgValueChild == null) {
-                msgValueChild = navigator.newFromNameAndTagNum(msgFieldChild);
+                msgValueChild = navigator.newFromNameAndTag(msgFieldChild);
                 msgValueChild.setParent(msgValue);
                 if (msgValue.getChildren() == null) {
                     msgValue.setChildren(new ArrayList<>());
@@ -622,7 +623,7 @@ public class ValueHolder {
      * Length and tag are not mandatory.
      * See the {@link #setHeader(byte[], HeaderValue, HeaderField)}  method.
      *
-     * @param bodyValue can be 'null' for unset.
+     * @param bodyValue can be 'null' for d.
      * @return The current {@link ValueHolder} with the same {@link #msgValue} and {@link #msgField} in its context.
      */
     public ValueHolder setValue(Object bodyValue) {
@@ -653,7 +654,7 @@ public class ValueHolder {
         } catch (Exception e) {
             MsgValue rootMsgValue = navigator.findRoot(msgValue);
             MsgField rootMsgField = navigator.findRoot(msgField);
-            MsgField appropriateMsgField = navigator.findByNameAndTagNumOrThrowException(rootMsgField, msgValue);
+            MsgField appropriateMsgField = navigator.findByNameAndTagOrThrowException(rootMsgField, rootMsgValue);
             throw new PackerRuntimeException("Exception message: " + e.getMessage() + "\nCannot set bodyValue '" + bodyValue +
                     "' to field '" + navigator.getPathRecursively(msgField) + "'" +
                     "\nRoot MsgValue:\n" + visualizer.dumpMsgValue(appropriateMsgField, rootMsgValue, true) +
@@ -717,12 +718,12 @@ public class ValueHolder {
         }
         LengthPacker lengthPacker;
 
-        Integer fieldNum = msgValue.getTagNum();
+        Object tag = msgValue.getTag();
         if (msgField.getType() == MsgFieldType.LEN_TAG_VAL) {
-            // field parent contains lengthPacker, hence length precedes tagNum
+            // field parent contains lengthPacker, hence length precedes tag
             assert msgFieldParent != null;
             lengthPacker = msgFieldParent.getChildrenLengthPacker();
-            packTagBytesToHeader(headerValue, fieldNum);
+            packTagBytesToHeader(headerValue, tag);
             int tagAndValueLength = valueBytes.length + headerValue.getTagBytes().length;
             byte[] lengthBytes = lengthPacker.pack(tagAndValueLength);
             headerValue.setLengthBytes(lengthBytes);
@@ -730,7 +731,7 @@ public class ValueHolder {
             // field itself contains lengthPacker
             lengthPacker = headerField.getLengthPacker();
             if (MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
-                packTagBytesToHeader(headerValue, fieldNum);
+                packTagBytesToHeader(headerValue, tag);
             }
 
             if (lengthPacker != null) {
@@ -740,13 +741,13 @@ public class ValueHolder {
         }
     }
 
-    protected void packTagBytesToHeader(HeaderValue headerValue, Integer fieldNum) {
+    protected void packTagBytesToHeader(HeaderValue headerValue, Object tag) {
         TagPacker tagPacker = navigator.getTagPackerFromParent(msgField);
         if (tagPacker == null) {
             headerValue.setTagBytes(new byte[0]);
             return;
         }
-        byte[] tagBytes = tagPacker.pack(fieldNum);
+        byte[] tagBytes = tagPacker.pack(tag);
         headerValue.setTagBytes(tagBytes);
     }
 
@@ -775,7 +776,7 @@ public class ValueHolder {
             MsgValue parentMsgValue = msgValue.getParent();
             MsgValue siblingMsgValue = navigator.findByName(parentMsgValue.getChildren(), siblingName);
             if (siblingMsgValue == null) {
-                siblingMsgValue = navigator.newFromNameAndTagNum(msgFieldSibling);
+                siblingMsgValue = navigator.newFromNameAndTag(msgFieldSibling);
                 siblingMsgValue.setParent(msgValue.getParent());
                 msgValue.getParent().getChildren().add(siblingMsgValue);
                 sortFieldChildren(msgValue.getParent(), msgField.getParent());
@@ -861,7 +862,7 @@ public class ValueHolder {
      */
     public ValueHolder jumpToRoot() {
         msgValue = navigator.findRoot(msgValue);
-        msgField = navigator.findByNameAndTagNumOrThrowException(msgField, msgValue);
+        msgField = navigator.findByNameAndTagOrThrowException(msgField, msgValue);
         return this;
     }
 
@@ -898,7 +899,7 @@ public class ValueHolder {
             }
             byte[] bytes = childrenBytes.toByteArray();
             if (bytes.length != 0) {
-                packBodyBytesAndLengthAndTagNum(msgValue, msgField, messageBytes, bytes);
+                packBodyBytesAndLengthAndTag(msgValue, msgField, messageBytes, bytes);
             }
             childrenBytes.writeTo(messageBytes);
         } else {
@@ -921,8 +922,8 @@ public class ValueHolder {
         }
         BitSet bitSet = new BitSet();
         for (MsgField nextMsgField : msgField.getChildren()) {
-            if (navigator.findByTagNum(msgValue.getChildren(), nextMsgField.getTagNum()) != null) {
-                bitSet.set(nextMsgField.getTagNum());
+            if (navigator.findByFieldNum(msgValue.getChildren(), nextMsgField.getFieldNum()) != null) {
+                bitSet.set(nextMsgField.getFieldNum());
             }
         }
         msgValue.getHeaderValue().setBitSet(bitSet);
@@ -936,19 +937,19 @@ public class ValueHolder {
         messageBytes.write(bytes);
     }
 
-    protected void packBodyBytesAndLengthAndTagNum(MsgValue msgValue, MsgField msgField, ByteArrayOutputStream messageBytes, byte[] bytes) throws IOException {
+    protected void packBodyBytesAndLengthAndTag(MsgValue msgValue, MsgField msgField, ByteArrayOutputStream messageBytes, byte[] bytes) throws IOException {
         msgValue.setBodyBytes(bytes);
         LengthPacker lengthPacker;
-        boolean lengthPrecedesTagNum = msgField.getType() == MsgFieldType.LEN_TAG_VAL;
+        boolean lengthPrecedesTag = msgField.getType() == MsgFieldType.LEN_TAG_VAL;
         if (MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
             setTagBytes(msgValue, msgField);
         }
         if (MsgFieldType.getLengthTypes().contains(msgField.getType())) {
             lengthPacker = getLengthPackerFromParentOrSelfOrThrowException(msgField);
-            packLength(msgValue, lengthPacker, bytes, lengthPrecedesTagNum);
+            packLength(msgValue, lengthPacker, bytes, lengthPrecedesTag);
         }
 
-        if (lengthPrecedesTagNum) {
+        if (lengthPrecedesTag) {
             writeLengthBytesIfAllowed(msgValue, msgField, messageBytes);
             writeTagBytesIfAllowed(msgValue, msgField, messageBytes);
         } else {
@@ -984,9 +985,9 @@ public class ValueHolder {
             length += headerField.getLengthBytes() == null ? 0 : headerField.getLengthBytes().length;
             result = new ByteArrayOutputStream(length);
 
-            boolean lengthPrecedesTagNum = msgField.getType() == MsgFieldType.LEN_TAG_VAL;
+            boolean lengthPrecedesTag = msgField.getType() == MsgFieldType.LEN_TAG_VAL;
 
-            if (lengthPrecedesTagNum) {
+            if (lengthPrecedesTag) {
                 writeLengthBytesIfExist(result, headerField);
                 writeTagBytes(result, headerField);
             } else {
@@ -1015,9 +1016,9 @@ public class ValueHolder {
         }
     }
 
-    protected void packLength(MsgValue msgValue, LengthPacker lengthPacker, byte[] bytes, boolean lengthPrecedesTagNum) {
+    protected void packLength(MsgValue msgValue, LengthPacker lengthPacker, byte[] bytes, boolean lengthPrecedesTag) {
         int bytesLength;
-        if (lengthPrecedesTagNum) {
+        if (lengthPrecedesTag) {
             bytesLength = bytes.length + msgValue.getHeaderValue().getTagBytes().length;
         } else {
             bytesLength = bytes.length;
@@ -1027,21 +1028,21 @@ public class ValueHolder {
     }
 
     protected void setTagBytes(MsgValue msgValue, MsgField msgField) {
-        int tagNum = msgValue.getTagNum();
+        Object tag = msgValue.getTag();
         TagPacker tagPacker = navigator.getTagPackerFromParent(msgField);
         assert tagPacker != null;
-        byte[] tagBytes = tagPacker.pack(tagNum);
+        byte[] tagBytes = tagPacker.pack(tag);
         msgValue.getHeaderValue().setTagBytes(tagBytes);
     }
 
     /**
      * Create a copy from the current {@link #msgValue} and set it to this {@link #msgValue} context.
-     * This sibling will have the same {@link MsgField#getName()} and {@link MsgField#getTagNum()} as its sibling.
+     * This sibling will have the same {@link MsgField#getName()} and {@link MsgField#getFieldNum()} as its sibling.
      *
      * @return The current actual {@link ValueHolder}.
      */
     public ValueHolder cloneSibling() {
-        MsgValue clone = navigator.newFromNameAndTagNum(msgField);
+        MsgValue clone = navigator.newFromNameAndTag(msgField);
         clone.setParent(msgValue.getParent());
         msgValue.getParent().getChildren().add(clone);
         msgValue = clone;

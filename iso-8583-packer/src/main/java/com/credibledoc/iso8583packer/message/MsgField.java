@@ -4,7 +4,6 @@ import com.credibledoc.iso8583packer.FieldBuilder;
 import com.credibledoc.iso8583packer.ValueHolder;
 import com.credibledoc.iso8583packer.body.BodyPacker;
 import com.credibledoc.iso8583packer.header.HeaderField;
-import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.stringer.StringStringer;
@@ -30,13 +29,14 @@ import java.util.List;
 public class MsgField implements Msg {
 
     /**
-     * The number of this field in the {@link #parent} field.
-     * The parent field lists the {@link #children}.
-     * Can be 'null' in some cases.
-     * Cannot be 'null' if the parent container contains the {@link HeaderValue#getBitSet()} subfield.
+     * See the {@link Msg#getFieldNum()} description.
      */
-    // TODO Kyrylo Semenko - rename to fieldNum and create String tag
-    private Integer tagNum;
+    private Integer fieldNum;
+
+    /**
+     * See the {@link Msg#getTag()} description.
+     */
+    private Object tag;
 
     /**
      * Some fields has no name, others have. This name is used for creation of a dump and for navigation in the graph.
@@ -79,14 +79,14 @@ public class MsgField implements Msg {
     private HeaderField headerField = new HeaderField();
 
     /**
-     * Packs and unpacks the children ({@link #children}) {@link #tagNum} subfields .
+     * Packs and unpacks the children ({@link #children}) {@link #tag} subfields .
      */
     private TagPacker childrenTagPacker;
 
     /**
      * Packs and unpacks length of children fields. This value should be defined when the <i>length</i> sub-field
-     * precedes the <i>tagNum</i> sub-field,
-     * for example F0F0F3 F9F3 F0, where F0F0F3 is the length 003, F9F3 is the tagNum 93 and F0 is the body.
+     * precedes the <i>tag</i> sub-field,
+     * for example F0F0F3 F9F3 F0, where F0F0F3 is the length 003, F9F3 is the tag 93 and F0 is the body.
      * <p>
      * Only one {@link LengthPacker} can be defined, parent childrenLengthPacker or its child length packer. Else the
      * exception will be thrown.
@@ -127,7 +127,8 @@ public class MsgField implements Msg {
         String maskerString = masker == null ? "null" : masker.getClass().getSimpleName();
         String stringerString = stringer == null ? "null" : stringer.getClass().getSimpleName();
         return "Field{" +
-                "tagNum=" + tagNum +
+                "fieldNum=" + fieldNum +
+                ", tag=" + tag +
                 ", name=" + name +
                 ", type=" + type +
                 ", parent=" + parentString +
@@ -144,18 +145,42 @@ public class MsgField implements Msg {
     }
 
     /**
-     * @return The {@link #tagNum} field value.
+     * @return The {@link #fieldNum} field value.
      */
     @Override
-    public Integer getTagNum() {
-        return tagNum;
+    public Integer getFieldNum() {
+        return fieldNum;
     }
 
     /**
-     * @param tagNum see the {@link #tagNum} field description.
+     * @param fieldNum see the {@link #fieldNum} field description.
      */
-    public void setTagNum(Integer tagNum) {
-        this.tagNum = tagNum;
+    public void setFieldNum(Integer fieldNum) {
+        this.fieldNum = fieldNum;
+    }
+
+    /**
+     * @return The {@link #tag} field value.
+     */
+    @Override
+    public Object getTag() {
+        return tag;
+    }
+
+    /**
+     * @param type required type of returned {@link #tag}.
+     * @param <T> the required type.
+     * @return The {@link #tag} casted to the required type.
+     */
+    public <T> T getTag(Class<T> type) {
+        return type.cast(getTag());
+    }
+
+    /**
+     * @param tag see the {@link #tag} field description.
+     */
+    public void setTag(Object tag) {
+        this.tag = tag;
     }
 
     /**

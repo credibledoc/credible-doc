@@ -8,6 +8,7 @@ import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.header.HeaderField;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
+import com.credibledoc.iso8583packer.message.Msg;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
 import com.credibledoc.iso8583packer.navigator.Navigator;
@@ -93,7 +94,7 @@ public class FieldBuilder {
      */
     protected void createDefaultServices() {
         validator = new ValidatorService();
-        navigator = new NavigatorService();
+        navigator = NavigatorService.getInstance();
         visualizer = DumpService.getInstance();
         validator.setNavigator(navigator);
         validator.setVisualizer(visualizer);
@@ -104,7 +105,7 @@ public class FieldBuilder {
      * context.
      * <p>
      * Set all properties from the argument 'example' and its {@link HeaderField} to the created field except
-     * {@link MsgField#setName(String)}, {@link MsgField#setTagNum(Integer)}, {@link MsgField#setParent(MsgField)}
+     * {@link MsgField#setName(String)}, {@link MsgField#setFieldNum(Integer)}, {@link MsgField#setParent(MsgField)}
      * and {@link MsgField#setChildren(List)}.
      * <p>
      *
@@ -113,6 +114,7 @@ public class FieldBuilder {
      */
     public static FieldBuilder clone(MsgField example) {
         FieldBuilder fieldBuilder = new FieldBuilder();
+        fieldBuilder.createDefaultServices();
         MsgField msgField = fieldBuilder.cloneField(example);
         fieldBuilder.setMsgField(msgField);
         return fieldBuilder;
@@ -123,7 +125,7 @@ public class FieldBuilder {
      * context.
      * <p>
      * Set all properties from the argument 'example' and its {@link HeaderField} to the created field except
-     * {@link MsgField#setName(String)}, {@link MsgField#setTagNum(Integer)}, {@link MsgField#setParent(MsgField)}
+     * {@link MsgField#setName(String)}, {@link MsgField#setFieldNum(Integer)}, {@link MsgField#setParent(MsgField)}
      * and {@link MsgField#setChildren(List)}.
      * <p>
      *
@@ -197,14 +199,35 @@ public class FieldBuilder {
     }
 
     /**
-     * Set the {@link MsgField#setTagNum(Integer)} value.
-         * @param fieldNum for example String FC= can be write as hex 46433D and int 4604733. It depends on {@link TagPacker} defined
-     *                 in dhe {@link #msgField} how this tag will be presented.
+     * Set the {@link MsgField#setFieldNum(Integer)} value.
+     * @param fieldNum see the {@link Msg#getFieldNum()} method description. May be 'null' for deactivation.
      *                 
      * @return The current instance of {@link FieldBuilder} with {@link #msgField} in its context.
      */
-    public FieldBuilder defineTagNum(int fieldNum) {
-        this.msgField.setTagNum(fieldNum);
+    public FieldBuilder defineFieldNum(Integer fieldNum) {
+        if (fieldNum != null && msgField.getParent() == null || msgField.getParent().getType() != MsgFieldType.BIT_SET) {
+            String path = navigator.getPathRecursively(msgField);
+            throw new PackerRuntimeException("The 'fieldNum' property is allowed for children of '" +
+                MsgFieldType.class.getSimpleName() + MsgFieldType.BIT_SET + "' only. " +
+                "Current MsgField path: '" + path + "'.");
+        }
+        this.msgField.setFieldNum(fieldNum);
+        return this;
+    }
+
+    /**
+     * Set the {@link MsgField#setTag(Object)} value.
+     * @param tag see the {@link Msg#getFieldNum()} method description. May be 'null' for deactivation.
+     *                 
+     * @return The current instance of {@link FieldBuilder} with {@link #msgField} in its context.
+     */
+    public FieldBuilder defineHeaderTag(Object tag) {
+        if (tag != null && MsgFieldType.isNotTaggedType(msgField)) {
+            String path = navigator.getPathRecursively(msgField);
+            throw new PackerRuntimeException("The 'tag' property is allowed for '" +
+                MsgFieldType.getTaggedTypes() + "' MsgFieldTypes only. Current MsgField path: '" + path + "'.");
+        }
+        this.msgField.setTag(tag);
         return this;
     }
 
@@ -225,7 +248,7 @@ public class FieldBuilder {
 
     /**
      * Set the {@link MsgField#setBodyPacker(BodyPacker)} value to the current {@link #msgField}.
-     * @param bodyPacker to be set or unset if 'null'.
+     * @param bodyPacker to be set or 'null' for deactivation.
      * @return The current instance of {@link FieldBuilder} with {@link #msgField} in its context.
      */
     public FieldBuilder defineBodyPacker(BodyPacker bodyPacker) {
@@ -245,7 +268,7 @@ public class FieldBuilder {
      * <p>
      * These fields may have a {@link HeaderField} if it is required in documentation, but it is not used for unpacking.
      *
-     * @param fieldLen can be 'null' for unset.
+     * @param fieldLen can be 'null' for deactivation.
      * @return The current actual {@link FieldBuilder}
      */
     public FieldBuilder defineLen(Integer fieldLen) {
@@ -292,8 +315,8 @@ public class FieldBuilder {
                 "parent and child. Only one of them should have the value. " +
                 "Parent: " + navigator.getPathRecursively(parent) + ", " +
                 "child: " + navigator.getPathRecursively(child) + ". \nThe value should be set " +
-                "to the parent in cases when the length subfield precedes the tagNum subfield. \nThe " +
-                "value should be set to the child when the tagNum subfield precedes the length subfield.";
+                "to the parent in cases when the length subfield precedes the tag subfield. \nThe " +
+                "value should be set to the child when the tag subfield precedes the length subfield.";
     }
 
     public FieldBuilder defineChildrenTagPacker(TagPacker tagPacker) {
@@ -318,7 +341,7 @@ public class FieldBuilder {
      * Examples of {@link LengthPacker} see {@link com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker}
      * or {@link com.credibledoc.iso8583packer.bcd.BcdLengthPacker}.
      * 
-     * @param lengthPacker can be 'null' for unset.
+     * @param lengthPacker can be 'null' for deactivation.
      * @return The current instance of the {@link FieldBuilder} with a {@link #msgField} in its context.
      */
     public FieldBuilder defineHeaderLengthPacker(LengthPacker lengthPacker) {
@@ -343,7 +366,7 @@ public class FieldBuilder {
     /**
      * Set the {@link MsgField#setExactlyLength(Integer)} value.
      *
-     * @param exactlyLen can be a null for unset.
+     * @param exactlyLen can be a null for deactivation.
      * @return The current actual {@link FieldBuilder}.
      */
     public FieldBuilder defineExactlyLen(Integer exactlyLen) {

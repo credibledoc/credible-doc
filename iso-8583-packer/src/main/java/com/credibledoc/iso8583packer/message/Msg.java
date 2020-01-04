@@ -8,17 +8,21 @@ import java.util.List;
  * @author Kyrylo Semenko
  */
 public interface Msg {
+    
     /**
-     * The decimal number of this field. The number can be referred as a hex value, for example the FFEE2E hex value
-     * equals with decimal 16772654.
-     * The parent field lists the {@link #getChildren()}.
-     * Can be 'null' in some cases.
-     * Cannot be 'null' if the parent container contains the {@link com.credibledoc.iso8583packer.header.HeaderValue#getBitSet()} subfield.
+     * The value represents subfield number in the {@link MsgFieldType#BIT_SET} field.
+     * It cannot be 'null' if the parent field contains the {@link com.credibledoc.iso8583packer.header.HeaderValue#getBitSet()} subfield.
      * 
-     * @return The {@link MsgField#getTagNum()} or {@link MsgValue#getTagNum()} field value.
+     * @return The {@link MsgField#getFieldNum()} or {@link MsgValue#getFieldNum()} field value.
      */
-    // TODO Kyrylo Semenko - rename to fieldNum and create String tag
-    Integer getTagNum();
+    Integer getFieldNum();
+
+    /**
+     * The value represents tag of {@link MsgFieldType#getTaggedTypes()} fields.
+     *
+     * @return The {@link MsgField#getTag()} or {@link MsgValue#getTag()} field value.
+     */
+    Object getTag();
 
     /**
      * Some fields has no name, others have. This name is used for the dump and navigation in the graph.

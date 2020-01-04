@@ -42,8 +42,8 @@ public class ValidatorService implements Validator {
                 " value to the field with path: '" + path + "'");
         }
 
-        if (msgField.getTagNum() == null && msgField.getName() == null && msgField.getType() != MsgFieldType.VAL) {
-            throw new PackerRuntimeException("At least one of 'tagNum' or 'name' should be set to the field " +
+        if (msgField.getTag() == null && msgField.getName() == null && msgField.getType() != MsgFieldType.VAL) {
+            throw new PackerRuntimeException("At least one 'tag' or 'name' should be set to the field " +
                     "but the both properties are 'null'. Field path: '" + path + "'");
         }
 
@@ -101,18 +101,18 @@ public class ValidatorService implements Validator {
     }
 
     protected void validateTagAndTagPackerExists(MsgField msgField, String path) {
-        boolean parentPackerExists = msgField.getParent() != null && msgField.getParent().getChildrenTagPacker() != null;
-        boolean tagNumExists = msgField.getTagNum() != null;
+        boolean parentTagPackerExists = msgField.getParent() != null && msgField.getParent().getChildrenTagPacker() != null;
+        boolean tagExists = msgField.getTag() != null;
 
-        if (!parentPackerExists) {
+        if (!parentTagPackerExists) {
             String parentPath = navigator.getPathRecursively(msgField.getParent());
             throw new PackerRuntimeException("Please define the '" + TagPacker.class.getSimpleName() +
                     "' value to the '" + parentPath + "' field, " +
-                    "because that is mandatory for MsgFieldType '" + msgField.getType() + "'. Please call the .defineChildrenTagPacker(...) method.");
+                    "because it is mandatory for MsgFieldType '" + msgField.getType() + "'. Please call the .defineChildrenTagPacker(...) method.");
         }
 
-        if (!tagNumExists) {
-            throw new PackerRuntimeException("Please define the tagNum value to the field '" + path +
+        if (!tagExists) {
+            throw new PackerRuntimeException("Please define the tag value to the field '" + path +
                     "', it is mandatory for MsgFieldType '" + msgField.getType() + "'.");
         }
     }

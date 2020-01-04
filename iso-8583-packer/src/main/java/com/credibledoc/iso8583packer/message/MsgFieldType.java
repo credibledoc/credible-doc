@@ -50,7 +50,7 @@ public enum MsgFieldType {
     MSG;
 
     /**
-     * Contains {@link MsgFieldType}s with specified {@link MsgField#getTagNum()} sub-field.
+     * Contains {@link MsgFieldType}s with specified {@link MsgField#getFieldNum()} sub-field.
      */
     private static List<MsgFieldType> tagTypes = Arrays.asList(TAG_LEN_VAL, LEN_TAG_VAL, TAG_VAL);
 

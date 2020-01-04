@@ -39,3 +39,6 @@ factory methods `getInstance()`.
 
 FieldBuilder.defineChildrenTagLen() method removed, the value will be defined in the TagPacker getInstance(packedLength) factory methods. 
 
+FieldBuilder.defineTagNum renamed to defineFieldNum, the value is used for MsgFieldType.BIT_SET children only.
+
+Created FieldBuilder.defineHeaderTag, the value is used for TAG_LEN_VAL, LEN_TAG_VAL, TAG_VAL types only.

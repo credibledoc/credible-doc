@@ -51,7 +51,7 @@ public class Field58 {
     public static void defineField58(MsgField rootMsgField) {
         MsgField f58definition = FieldBuilder.builder(MsgFieldType.LEN_VAL)
                 .defineParent(rootMsgField)
-                .defineTagNum(FIELD_NUM_58)
+                .defineFieldNum(FIELD_NUM_58)
                 .defineName(F_58_NAME)
                 .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(3))
                 .defineChildrenLengthPacker(EbcdicDecimalLengthPacker.getInstance(3))
@@ -62,13 +62,13 @@ public class Field58 {
         MsgField subfield35 = FieldBuilder.builder(MsgFieldType.LEN_TAG_VAL)
                 .defineBodyPacker(AsciiBodyPacker.getInstance())
                 .defineName(RATE_REQUEST_REFERENCE_ID_35_NAME)
-                .defineTagNum(RATE_REQUEST_REFERENCE_ID_35)
+                .defineHeaderTag(RATE_REQUEST_REFERENCE_ID_35)
                 .defineParent(f58definition)
                 .getCurrentField();
 
         FieldBuilder.from(subfield35).cloneToSibling()
                 .defineName(DCC_DATA_37_NAME)
-                .defineTagNum(DCC_DATA_37)
+                .defineHeaderTag(DCC_DATA_37)
                 .defineBodyPacker(EbcdicBodyPacker.getInstance())
                 .defineChildrenLengthPacker(null)
 
@@ -76,62 +76,58 @@ public class Field58 {
 
                 .defineName(DCC_STATUS_37_1)
                 .defineType(MsgFieldType.VAL)
-                .defineTagNum(1)
                 .defineLen(1)
                 .defineBodyPacker(EbcdicBodyPacker.getInstance())
 
                 .cloneToSibling()
                 
                 .defineName(CURRENCY_CODE_37_2)
-                .defineTagNum(2)
                 .defineLen(3)
 
                 .cloneToSibling()
 
                 .defineName(TRANSACTION_AMOUNT_37_5)
-                .defineTagNum(5)
                 .defineLen(12)
 
                 .cloneToSibling()
                 
                 .defineName(CONVERSION_RATE_37_17)
-                .defineTagNum(17)
                 .defineLen(8);
 
         FieldBuilder.from(subfield35).cloneToSibling()
                 .defineName(NON_LOYALTY_GROUP_53_NAME)
-                .defineTagNum(NON_LOYALTY_GROUP_53)
+                .defineHeaderTag(NON_LOYALTY_GROUP_53)
                 .defineBodyPacker(EbcdicBodyPacker.getInstance())
                 
                 .cloneToSibling()
                 
                 .defineName(PAYBACK_CARD_NUMBER_TOKEN_90_NAME)
-                .defineTagNum(PAYBACK_CARD_NUMBER_TOKEN_90)
+                .defineHeaderTag(PAYBACK_CARD_NUMBER_TOKEN_90)
                 
                 .cloneToSibling()
 
                 .defineName(PAYBACK_TOKEN_92_NAME)
-                .defineTagNum(PAYBACK_TOKEN_92)
+                .defineHeaderTag(PAYBACK_TOKEN_92)
                 
                 .cloneToSibling()
                 
                 .defineName(RECEIPT_ID_TOKEN_93_NAME)
-                .defineTagNum(RECEIPT_ID_TOKEN_93)
+                .defineHeaderTag(RECEIPT_ID_TOKEN_93)
                 
                 .cloneToSibling()
                 
                 .defineName(REFERENCE_NUMBER_95_NAME)
-                .defineTagNum(REFERENCE_NUMBER_95)
+                .defineHeaderTag(REFERENCE_NUMBER_95)
                 
                 .cloneToSibling()
                 
                 .defineName(BRANCH_PARTNER_ID_97_NAME)
-                .defineTagNum(BRANCH_PARTNER_ID_97)
+                .defineHeaderTag(BRANCH_PARTNER_ID_97)
                 
                 .cloneToSibling()
                 
                 .defineName(POS_TERMINAL_CAPABILITIES_98_NAME)
-                .defineTagNum(POS_TERMINAL_CAPABILITIES_98);
+                .defineHeaderTag(POS_TERMINAL_CAPABILITIES_98);
     }
 
 }

@@ -9,12 +9,13 @@ import com.credibledoc.iso8583packer.message.MsgValue;
  * The container represents a header of a {@link MsgField}. It contains the definition of the {@link MsgField} header.
  * <p>
  * The header itself is optional in a {@link MsgField#getHeaderField()}, because some anonymous fields
- * can have the fixed length.
+ * can have a fixed length.
  * <p>
- * These fields contains the {@link MsgField#getLen()} value with predefined fixed length.
+ * These fields with header contain a {@link MsgField#getLen()} value with predefined fixed length.
  *
  * @author Kyrylo Semenko
  */
+// TODO Kyrylo Semenko - remove to MsgField
 public class HeaderField {
 
     /**

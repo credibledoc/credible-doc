@@ -70,11 +70,18 @@ public class NavigatorService implements Navigator {
 
     @Override
     public String generatePath(Msg current) {
-        if (current.getTagNum() != null) {
+        String tagOrFieldNum = null;
+        if (current.getTag() != null) {
+            // TODO Kyrylo Semenko - create tagStringer
+            tagOrFieldNum = current.getTag().toString();
+        } else if (current.getFieldNum() != null) {
+            tagOrFieldNum = current.getFieldNum().toString();
+        }
+        if (tagOrFieldNum != null) {
             if (current.getName() != null) {
-                return current.getName() + "(" + current.getTagNum() + ")";
+                return current.getName() + "(" + tagOrFieldNum + ")";
             }
-            return String.valueOf(current.getTagNum());
+            return tagOrFieldNum;
         }
         if (current.getName() == null && current instanceof MsgField) {
             MsgField msgField = (MsgField) current;
@@ -144,7 +151,7 @@ public class NavigatorService implements Navigator {
     }
 
     @Override
-    public MsgField findByNameAndTagNumOrThrowException(MsgField msgField, MsgValue msgValue) {
+    public MsgField findByNameAndTagOrThrowException(MsgField msgField, MsgValue msgValue) {
         MsgField rootMsgField = findRoot(msgField);
         MsgField result = findInGraphRecurrently(msgValue, rootMsgField);
         if (result == null) {
@@ -157,6 +164,9 @@ public class NavigatorService implements Navigator {
         if (isValueFitToField(msgValue, msgField)) {
             return msgField;
         }
+        if (msgField.getChildren() == null) {
+            return null;
+        }
         for (MsgField child : msgField.getChildren()) {
             MsgField nextResult = findInGraphRecurrently(msgValue, child);
             if (nextResult != null) {
@@ -168,50 +178,68 @@ public class NavigatorService implements Navigator {
 
     protected boolean isValueFitToField(MsgValue msgValue, MsgField msgField) {
         return Objects.equals(msgValue.getName(), msgField.getName()) &&
-                Objects.equals(msgValue.getTagNum(), msgField.getTagNum());
+                Objects.equals(msgValue.getTag(), msgField.getTag());
     }
 
     @Override
-    public MsgValue newFromNameAndTagNum(MsgField msgField) {
+    public MsgValue newFromNameAndTag(MsgField msgField) {
         MsgValue msgValue = new MsgValue();
         msgValue.setName(msgField.getName());
-        msgValue.setTagNum(msgField.getTagNum());
+        msgValue.setTag(msgField.getTag());
+        msgValue.setFieldNum(msgField.getFieldNum());
         return msgValue;
     }
 
     @Override
-    public void validateSameNamesAndTagNum(MsgPair msgPair) {
+    public void validateSameNamesAndTag(MsgPair msgPair) {
         MsgField msgField = msgPair.getMsgField();
         MsgValue msgValue = msgPair.getMsgValue();
         boolean namesEqual = Objects.equals(msgValue.getName(), msgField.getName());
-        boolean tanNumsEqual = Objects.equals(msgValue.getTagNum(), msgField.getTagNum());
+        boolean tanNumsEqual = Objects.equals(msgValue.getTag(), msgField.getTag());
         if (!namesEqual || !tanNumsEqual) {
             String cause;
             if (!namesEqual && !tanNumsEqual) {
-                cause = "names and tagNums";
+                cause = "names and tags";
             } else if (!namesEqual) {
                 cause = "names";
             } else {
-                cause = "tagNums";
+                cause = "tags";
             }
             throw new PackerRuntimeException("The MsgField and its msgValue does not fit to each other because " +
-                    "they have different " + cause + ". MsgValue: '" + getPathRecursively(msgValue) +
-                    "'. MsgField: '" + getPathRecursively(msgField) + "'. " +
-                    "Please navigate to correct msgField. For this purpose use FieldBuilder.jump** methods.");
+                    "they have different " + cause + ".\nMsgValue: '" + getPathRecursively(msgValue) +
+                    "'\nMsgField: '" + getPathRecursively(msgField) + "'.\n" +
+                    "Please navigate to correct msgField by using the FieldBuilder.jump** methods.");
         }
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Msg> T findByTagNum(List<? extends Msg> msgList, Integer tagNum) {
-        if (tagNum == null) {
+    public <T extends Msg> T findByFieldNum(List<? extends Msg> msgList, Integer fieldNum) {
+        if (fieldNum == null) {
             return null;
         }
         if (msgList == null) {
             return null;
         }
         for (Msg nextMsgField : msgList) {
-            if (tagNum.equals(nextMsgField.getTagNum())) {
+            if (fieldNum.equals(nextMsgField.getFieldNum())) {
+                return (T) nextMsgField;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends Msg> T findByTag(List<? extends Msg> msgList, Object tag) {
+        if (tag == null) {
+            return null;
+        }
+        if (msgList == null) {
+            return null;
+        }
+        for (Msg nextMsgField : msgList) {
+            if (tag.equals(nextMsgField.getTag())) {
                 return (T) nextMsgField;
             }
         }

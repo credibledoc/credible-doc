@@ -18,14 +18,14 @@ import java.util.List;
 public class MsgValue implements Msg {
 
     /**
-     * The decimal number of this field. The number can be referred as a hex value, for example the FFEE2E hex value
-     * equals with decimal 16772654.
-     * The parent field contains the list of its {@link #children}.
-     * Can be 'null' in some cases, for example when the parent container
-     * contains the {@link HeaderValue#getBitSet()} subfield.
+     * See the {@link Msg#getFieldNum()} description.
      */
-    // TODO Kyrylo Semenko - rename to fieldNum and create String tag
-    private Integer tagNum;
+    private Integer fieldNum;
+
+    /**
+     * See the {@link Msg#getTag()} description.
+     */
+    private Object tag;
 
     /**
      * Field body. These bytes contains the {@link #bodyValue} packed or unpacked with {@link MsgField#getBodyPacker()}.
@@ -69,7 +69,8 @@ public class MsgValue implements Msg {
         String parentString = parent == null ? "null" : parent.getName();
         String childrenSizeString = children == null ? "0" : Integer.toString(children.size());
         return "Field{" +
-                "tagNum=" + tagNum +
+                "fieldNum=" + fieldNum +
+                ", tag=" + tag +
                 ", name=" + name +
                 ", parent=" + parentString +
                 ", bodyBytes=" + bytesString +
@@ -80,18 +81,42 @@ public class MsgValue implements Msg {
     }
 
     /**
-     * @return The {@link #tagNum} field value.
+     * @return The {@link #fieldNum} field value.
      */
     @Override
-    public Integer getTagNum() {
-        return tagNum;
+    public Integer getFieldNum() {
+        return fieldNum;
     }
 
     /**
-     * @param tagNum see the {@link #tagNum} field description.
+     * @param fieldNum see the {@link #fieldNum} field description.
      */
-    public void setTagNum(Integer tagNum) {
-        this.tagNum = tagNum;
+    public void setFieldNum(Integer fieldNum) {
+        this.fieldNum = fieldNum;
+    }
+
+    /**
+     * @return The {@link #tag} field value.
+     */
+    @Override
+    public Object getTag() {
+        return tag;
+    }
+
+    /**
+     * @param type required type of returned {@link #tag}.
+     * @param <T> the required type.
+     * @return The {@link #tag} casted to the required type.
+     */
+    public <T> T getTag(Class<T> type) {
+        return type.cast(getTag());
+    }
+
+    /**
+     * @param tag see the {@link #tag} field description.
+     */
+    public void setTag(Object tag) {
+        this.tag = tag;
     }
 
     /**
