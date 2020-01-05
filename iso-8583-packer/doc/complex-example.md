@@ -18,8 +18,7 @@ The following example contains the definition of an ISO 8583 message
         MsgField bitmap = FieldBuilder.from(mti)
             .crateSibling(MsgFieldType.BIT_SET)
             .defineName(BITMAP_NAME)
-            .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance())
-            .defineLen(16)
+            .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance(16))
             .getCurrentField();
 
         FieldBuilder.from(bitmap)
@@ -94,7 +93,7 @@ The message definition can be described as XML by calling the `DumpService.dumpM
 ```XML
 <f type="MSG" name="msg">
     <f type="VAL" name="mti" bodyPacker="BcdBodyPacker" len="2"/>
-    <f type="BIT_SET" name="bitmap" bitMapPacker="IfbBitmapPacker" len="16">
+    <f type="BIT_SET" name="bitmap" bitMapPacker="IfbBitmapPacker">
         <f type="LEN_VAL" fieldNum="2" name="PAN_02" lengthPacker="EbcdicDecimalLengthPacker" bodyPacker="BcdBodyPacker"/>
         <f type="LEN_VAL" fieldNum="3" name="Processing_code_03" lengthPacker="BcdLengthPacker" bodyPacker="BcdBodyPacker"/>
         <f type="LEN_VAL" fieldNum="58" name="field_58" lengthPacker="EbcdicDecimalLengthPacker" maxLen="999" childTagPacker="EbcdicDecimalTagPacker(2)">

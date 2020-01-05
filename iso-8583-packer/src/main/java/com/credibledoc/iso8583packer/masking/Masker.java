@@ -5,7 +5,9 @@ import com.credibledoc.iso8583packer.message.MsgValue;
 /**
  * Uses for masking of private sensitive data for logging purposes.
  * 
- * // TODO Kyrylo Semenko - documentation
+ * See the
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/masking/masker.md">masker.md</a>
+ * documentation.
  * 
  * @author Kyrylo Semenko
  */

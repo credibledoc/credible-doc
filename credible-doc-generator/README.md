@@ -53,6 +53,8 @@ This documentation is generated from these templates:
 * [/template/markdown/iso-8583-packer/doc/hex/hex-tag-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/hex/hex-tag-packer.md)
 * [/template/markdown/iso-8583-packer/doc/length/length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/length/length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/literal/literal-body-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/literal/literal-body-packer.md)
+* [/template/markdown/iso-8583-packer/doc/masking/masker.md](src/main/resources/template/markdown/iso-8583-packer/doc/masking/masker.md)
+* [/template/markdown/iso-8583-packer/doc/pan/pan-masker.md](src/main/resources/template/markdown/iso-8583-packer/doc/pan/pan-masker.md)
 * [/template/markdown/iso-8583-packer/doc/release/release-notes-iso-8583-packer-1.0.12.md](src/main/resources/template/markdown/iso-8583-packer/doc/release/release-notes-iso-8583-packer-1.0.12.md)
 * [/template/markdown/iso-8583-packer/doc/tag/tag-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/tag/tag-packer.md)
 * [/template/markdown/iso-8583-packer/README.md](src/main/resources/template/markdown/iso-8583-packer/README.md)

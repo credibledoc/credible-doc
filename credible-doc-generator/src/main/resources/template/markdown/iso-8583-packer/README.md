@@ -125,3 +125,7 @@ and implementations of the `LengthPacker` interface.
 
 ### `VAL` types and packers
 The following page [body-packer.md](doc/body/body-packer.md) contains description of different formats of body values.
+
+### Masker
+On the production environment it is necessary to mask private sensitive data before print it to a log file.
+The following page [masker.md](doc/masking/masker.md) describes how to mask the data.

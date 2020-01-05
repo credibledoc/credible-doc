@@ -32,19 +32,14 @@ The field structure
 The following example shows packing and unpacking of the field value
 ```Java
         String value = "1234";
-        MsgField field1 = createField().jumpToChild(FIELD_1_NAME).getCurrentField();
-        ValueHolder valueHolder = ValueHolder.newInstance(field1);
-        valueHolder.setValue(value);
-
+        valueHolder.setValue(value).validateData();
         byte[] bytes = valueHolder.pack();
         String tagHex = "01";
         String valueHex = "1234";
         assertEquals(tagHex + valueHex, HexService.bytesToHex(bytes));
 
-        MsgField msgField = createField().getCurrentField();
-        MsgValue msgValue = ValueHolder.unpack(bytes, 0, msgField);
-        ValueHolder valueHolderUnpacked = ValueHolder.newInstance(msgValue, msgField);
-        valueHolderUnpacked.jumpToChild(FIELD_1_NAME);
+        MsgValue msgValue = ValueHolder.unpack(bytes, 0, fieldBuilder.getCurrentField());
+        ValueHolder valueHolderUnpacked = ValueHolder.newInstance(msgValue, fieldBuilder.getCurrentField());
         String unpackedValue = valueHolderUnpacked.getValue(String.class);
         assertEquals(value, unpackedValue);
 ```

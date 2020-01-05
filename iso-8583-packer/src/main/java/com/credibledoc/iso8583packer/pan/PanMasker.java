@@ -6,6 +6,10 @@ import com.credibledoc.iso8583packer.masking.Masker;
 /**
  * See {@link #maskHex(String)} and {@link #maskValue(Object)} methods.
  * 
+ * See the
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/pan/pan-masker.md">masker.md</a>
+ * documentation.
+ * 
  * @author Kyrylo Semenko
  */
 public class PanMasker implements Masker {
