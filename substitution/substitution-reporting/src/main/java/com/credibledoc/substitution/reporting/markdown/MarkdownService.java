@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -73,25 +72,21 @@ public class MarkdownService {
      * with generated content. And finally write out generated documents to files.
      */
     public void generateContentFromTemplates() {
-        try {
-            File targetDirectory = new File(configuration.getTargetDirectory());
-            if (!targetDirectory.exists()) {
-                boolean created = targetDirectory.mkdirs();
-                if (!created) {
-                    throw new SubstitutionRuntimeException("Cannot create directory '" +
-                        targetDirectory.getAbsolutePath() +
-                        "'");
-                }
-                logger.info("Target directory created: '{}'", targetDirectory.getAbsolutePath());
+        File targetDirectory = new File(configuration.getTargetDirectory());
+        if (!targetDirectory.exists()) {
+            boolean created = targetDirectory.mkdirs();
+            if (!created) {
+                throw new SubstitutionRuntimeException("Cannot create directory '" +
+                    targetDirectory.getAbsolutePath() +
+                    "'");
             }
-            List<String> templateResources =
-                ResourceService.getInstance()
-                    .getResources(MARKDOWN_FILE_EXTENSION, configuration.getTemplatesResource());
-            for (String templateResource : templateResources) {
-                insertContentIntoTemplate(templateResource);
-            }
-        } catch (Exception exception) {
-            throw new SubstitutionRuntimeException(exception);
+            logger.info("Target directory created: '{}'", targetDirectory.getAbsolutePath());
+        }
+        List<String> templateResources =
+            ResourceService.getInstance()
+                .getResources(MARKDOWN_FILE_EXTENSION, configuration.getTemplatesResource());
+        for (String templateResource : templateResources) {
+            insertContentIntoTemplate(templateResource);
         }
     }
 
@@ -100,27 +95,30 @@ public class MarkdownService {
      * {@link Placeholder}s with generated content and write the template with generated content to a target file.
      *
      * @param templateResource source of a template, for example <i>/template/markdown/doc/diagrams.md</i>
-     * @throws IOException in case of problem with writing of template with generated content to a target file.
      */
-    private void insertContentIntoTemplate(String templateResource) throws IOException {
-        String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
-
-        List<String> templatePlaceholders =
-            PlaceholderService.getInstance().parsePlaceholders(templateContent, templateResource);
-
-        String replacedContent =
-                replacePlaceholdersWithGeneratedContent(templateResource, templateContent, templatePlaceholders);
-
-        ResourceService resourceService = ResourceService.getInstance();
-        String placeholderResourceRelativePath =
-            resourceService.generatePlaceholderResourceRelativePath(templateResource);
-        File generatedFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
-        File generatedFileDirectory = generatedFile.getParentFile();
-        createDirectoryIfNotExists(generatedFileDirectory);
-        try (OutputStream outputStream = new FileOutputStream(generatedFile)){
-            outputStream.write(replacedContent.getBytes());
+    private void insertContentIntoTemplate(String templateResource) {
+        try {
+            String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
+    
+            List<String> templatePlaceholders =
+                PlaceholderService.getInstance().parsePlaceholders(templateContent, templateResource);
+    
+            String replacedContent =
+                    replacePlaceholdersWithGeneratedContent(templateResource, templateContent, templatePlaceholders);
+    
+            ResourceService resourceService = ResourceService.getInstance();
+            String placeholderResourceRelativePath =
+                resourceService.generatePlaceholderResourceRelativePath(templateResource);
+            File generatedFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
+            File generatedFileDirectory = generatedFile.getParentFile();
+            createDirectoryIfNotExists(generatedFileDirectory);
+            try (OutputStream outputStream = new FileOutputStream(generatedFile)){
+                outputStream.write(replacedContent.getBytes());
+            }
+            logger.info("File is generated '{}'", generatedFile.getAbsolutePath());
+        } catch (Exception exception) {
+            throw new SubstitutionRuntimeException(exception);
         }
-        logger.info("File is generated '{}'", generatedFile.getAbsolutePath());
     }
 
     private void createDirectoryIfNotExists(File directory) {
@@ -185,10 +183,8 @@ public class MarkdownService {
             throw new SubstitutionRuntimeException("PlaceholderClass cannot be found." +
                 " Placeholder className: '" + placeholder.getClassName() +
                 "', placeholder: " + placeholder, classNotFoundException);
-        } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
         }
-        throw new SubstitutionRuntimeException("Cannot find out generated content " +
+        throw new SubstitutionRuntimeException("Cannot find generated content " +
                 "for the placeholder id: " + placeholder.getId() +
                 ", placeholder resource: '" + placeholder.getResource() + "'");
     }

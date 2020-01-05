@@ -36,24 +36,30 @@ public class InterfaceImplementationsContentGenerator implements ContentGenerato
 
     @Override
     public Content generate(Placeholder placeholder) {
-        try {
-            String interfaceName = placeholder.getParameters().get(INTERFACE_NAME);
-            String includePackages = placeholder.getParameters().get(INCLUDE_PACKAGES);
+        String interfaceName = placeholder.getParameters().get(INTERFACE_NAME);
+        validateClassExists(interfaceName, placeholder);
+        String includePackages = placeholder.getParameters().get(INCLUDE_PACKAGES);
 
-            StringBuilder stringBuilder = new StringBuilder();
-            try (ScanResult scanResult = new ClassGraph().whitelistPackages(includePackages) .enableClassInfo().scan()) {
-                for (ClassInfo ci : scanResult.getClassesImplementing(interfaceName)) {
-                    stringBuilder.append("* ");
-                    stringBuilder.append(ci.getName());
-                    stringBuilder.append(System.lineSeparator());
-                }
+        StringBuilder stringBuilder = new StringBuilder();
+        try (ScanResult scanResult = new ClassGraph().whitelistPackages(includePackages) .enableClassInfo().scan()) {
+            for (ClassInfo ci : scanResult.getClassesImplementing(interfaceName)) {
+                stringBuilder.append("* ");
+                stringBuilder.append(ci.getName());
+                stringBuilder.append(System.lineSeparator());
             }
+        }
 
-            Content content = new Content();
-            content.setMarkdownContent(stringBuilder.toString());
-            return content;
+        Content content = new Content();
+        content.setMarkdownContent(stringBuilder.toString());
+        return content;
+    }
+
+    protected void validateClassExists(String interfaceName, Placeholder placeholder) {
+        try {
+            Class.forName(interfaceName);
         } catch (Exception e) {
-            throw new SubstitutionRuntimeException(e);
+            throw new SubstitutionRuntimeException("Cannot find interface '" + interfaceName + "', " +
+                "placeholder: " + placeholder);
         }
     }
 
