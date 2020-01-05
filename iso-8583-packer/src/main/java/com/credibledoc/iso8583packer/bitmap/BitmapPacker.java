@@ -6,8 +6,9 @@ import java.util.BitSet;
 
 /**
  * Packs and unpacks BitSet, see the <a href="https://en.wikipedia.org/wiki/ISO_8583#Bitmaps">Wikipedia</a> description.
- * 
- * // TODO Kyrylo Semenko - documentation
+ * <p>
+ * Actual documentation and examples
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/bitmap/bitmap-packer.md">bitmap-packer.md</a>.
  * 
  * @author Kyrylo Semenko
  */

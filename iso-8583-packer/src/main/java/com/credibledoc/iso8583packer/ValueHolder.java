@@ -467,7 +467,8 @@ public class ValueHolder {
         BitSet unpackedBitSet = msgPair.getMsgValue().getBitSet();
         List<Integer> fieldNums = new ArrayList<>();
         int maxFieldNum = getMaxFieldNum(msgPair.getMsgField().getChildren());
-        for (int nextFieldNum = 0; nextFieldNum <= maxFieldNum; nextFieldNum++) {
+        // first bit in a bitmap is used as flag of additional bitmaps
+        for (int nextFieldNum = 2; nextFieldNum <= maxFieldNum; nextFieldNum++) {
             MsgField childMsgField = navigator.findByFieldNum(msgPair.getMsgField().getChildren(), nextFieldNum);
             if (unpackedBitSet.get(nextFieldNum) && childMsgField == null) {
                 String path = navigator.getPathRecursively(msgPair.getMsgField());

@@ -2,6 +2,7 @@ package com.credibledoc.iso8583packer.ifb;
 
 import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.bitmap.BitmapService;
+import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.message.MsgValue;
 
 import java.util.BitSet;
@@ -10,9 +11,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * The {@link BitmapPacker} implementation for IFB format.
+ * <p>
+ * Actual documentation and examples
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/ifb/ifb-bitmap-packer.md">ifb-bitmap-packer.md</a>.
  *
  * @author Kyrylo Semenko
- * // TODO Kyrylo Semenko - documentation
  */
 public class IfbBitmapPacker implements BitmapPacker {
 
@@ -36,6 +39,10 @@ public class IfbBitmapPacker implements BitmapPacker {
      * @return Existing instance from {@link #instances} or a new created instance.
      */
     public static IfbBitmapPacker getInstance(int packedBytesLength) {
+        // TODO Kyrylo Semenko - implement 32 bytes long bitmap
+        if (packedBytesLength != 16) {
+            throw new PackerRuntimeException("Expected value is 16. Other formats of the BitmapPacker will be implemented later.");
+        }
         instances.computeIfAbsent(packedBytesLength, k -> new IfbBitmapPacker(packedBytesLength));
         return instances.get(packedBytesLength);
     }
@@ -46,9 +53,12 @@ public class IfbBitmapPacker implements BitmapPacker {
      */
     @Override
     public byte[] pack(BitSet bitSet) {
-        int len = packedBytesLength >= 8 ?                             // bytes needed to encode BitSet (in 8-byte chunks)
-                bitSet.length() + 62 >> 6 << 3 : packedBytesLength;    // +62 because we don't use bit 0 in the BitSet
-        return BitmapService.bitSet2byte(bitSet, len);
+        byte[] bytes = BitmapService.bitSet2byte(bitSet, packedBytesLength);
+        if (bytes.length != packedBytesLength) {
+            throw new PackerRuntimeException("Result bytes length '" + bytes.length +
+                "' not equals with required packedBytesLength '" + packedBytesLength + "'.");
+        }
+        return bytes;
     }
 
     /**
@@ -65,7 +75,12 @@ public class IfbBitmapPacker implements BitmapPacker {
         if (packedBytesLength > 16 && bitSet.get(1) && bitSet.get(65)) {
             len = 192;
         }
-        return Math.min(packedBytesLength, len >> 3);
+        int result = Math.min(packedBytesLength, len >> 3);
+        if (result != packedBytesLength) {
+            throw new PackerRuntimeException("Result bytes length '" + result +
+                "' not equals with required packedBytesLength '" + packedBytesLength + "'.");
+        }
+        return result;
     }
 
 }

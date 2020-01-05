@@ -56,7 +56,7 @@ The following example contains the definition of an ISO 8583 message
 
         // packing
         byte[] bytes = valueHolder.jumpToRoot().pack();
-        String expectedBitmapHex = "6000000000000040";
+        String expectedBitmapHex = "E0000000000000400000000000000000";
         String expectedPanLengthHex = "F0F8";
         char padding = BcdBodyPacker.FILLER_F;
         String expectedProcessingCodeLenHex = "01";
@@ -120,7 +120,7 @@ The message values can be described as XML by calling the `DumpService.dumpMsgVa
 ```XML
 <f name="msg">
     <f name="mti" val="0200" valHex="0200"/>
-    <f name="bitmap" bitmapHex="6000000000000040">
+    <f name="bitmap" bitmapHex="E0000000000000400000000000000000">
         <f name="PAN_02" fieldNum="2" val="123456781234567" lenHex="F0F8" valHex="123456781234567F"/>
         <f name="Processing_code_03" fieldNum="3" val="32" lenHex="01" valHex="32"/>
         <f name="field_58" fieldNum="58" lenHex="F0F6F9">

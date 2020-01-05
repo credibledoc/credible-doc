@@ -95,3 +95,8 @@ The following page [body-packer.md](doc/body/body-packer.md) contains descriptio
 ### Masker
 On the production environment it is necessary to mask private sensitive data before print it to a log file.
 The following page [masker.md](doc/masking/masker.md) describes how to mask the data.
+
+### Bitmap
+The ISO 8583 standard uses [Bitmaps](https://en.wikipedia.org/wiki/ISO_8583#Bitmaps) for definition of field numbers placed to a message.
+
+The following [bitmap-packer.md](doc/bitmap/bitmap-packer.md) page describes how to define and use bitmaps.

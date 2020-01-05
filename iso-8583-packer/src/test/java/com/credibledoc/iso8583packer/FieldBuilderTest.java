@@ -90,7 +90,7 @@ public class FieldBuilderTest {
 
         // packing
         byte[] bytes = valueHolder.jumpToRoot().pack();
-        String expectedBitmapHex = "6000000000000040";
+        String expectedBitmapHex = "E0000000000000400000000000000000";
         String expectedPanLengthHex = "F0F8";
         char padding = BcdBodyPacker.FILLER_F;
         String expectedProcessingCodeLenHex = "01";
