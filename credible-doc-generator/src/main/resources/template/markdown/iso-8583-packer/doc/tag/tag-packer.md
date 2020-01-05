@@ -12,7 +12,7 @@ see the [KLV](https://en.wikipedia.org/wiki/KLV) pages.
 The  `fieldNum` property is defined in subfields (children) of the `MsgFieldType.BIT_SET` fields only.
 The `TAG` property is defined in fields of `TAG_LEN_VAL`, `LEN_TAG_VAL`, `TAG_VAL` types and can be packed in different formats.
 
-The following implementations of the `TagPacker` interface transform values to different formats:
+The following implementations of the `TagPacker` interface transform tags to different formats:
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.code.InterfaceImplementationsContentGenerator",
     "description": "All known implementations of the TagPacker interface",

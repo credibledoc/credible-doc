@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * The {@link BitmapPacker} implementation for IFB format. It uses {@link #ISO_88591} charset.
+ * The {@link BitmapPacker} implementation for IFA format. It uses {@link #ISO_88591} charset.
  * <p>
  * Actual documentation and examples
  * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/ifa/ifa-bitmap-packer.md">ifa-bitmap-packer.md</a>.
