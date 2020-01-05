@@ -211,11 +211,12 @@ public class ValueHolder {
     protected Integer unpackOtherTypes(byte[] bytes, Offset offset, MsgPair msgPair) {
         Integer rawDataLength = null;
         TagPacker tagPacker = navigator.getTagPacker(msgPair.getMsgField());
+        int tagPackedLength = tagPacker == null ? 0 : tagPacker.getPackedLength();
         boolean lengthFirst = MsgFieldType.getLengthFirstTypes().contains(msgPair.getMsgField().getType());
         Object tag = null;
 
         if (lengthFirst && MsgFieldType.isLengthType(msgPair.getMsgField())) {
-            rawDataLength = unpackLength(bytes, offset, msgPair) - tagPacker.getPackedLength();
+            rawDataLength = unpackLength(bytes, offset, msgPair) - tagPackedLength;
         }
 
         if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
@@ -229,7 +230,7 @@ public class ValueHolder {
         }
 
         if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
-            unpackTagBytes(bytes, offset, msgPair, tagPacker.getPackedLength(), tag);
+            unpackTagBytes(bytes, offset, msgPair, tagPackedLength, tag);
         }
 
         if (!lengthFirst && MsgFieldType.isLengthType(msgPair.getMsgField())) {
