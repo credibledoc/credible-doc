@@ -1,7 +1,7 @@
 package com.credibledoc.iso8583packer.hex;
 
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
-import com.credibledoc.iso8583packer.header.HeaderValue;
+import com.credibledoc.iso8583packer.message.MsgValue;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 
 import java.util.Map;
@@ -31,14 +31,14 @@ public class HexTagPacker implements TagPacker {
 
     /**
      * Only one instance is allowed, see the {@link #getInstance(int)} method.
-     * @param packedLength the {@link HeaderValue#getTagBytes()} length.
+     * @param packedLength the {@link MsgValue#getTagBytes()} length.
      */
     private HexTagPacker(int packedLength) {
         this.packedLength = packedLength;
     }
 
     /**
-     * @param packedLength the {@link HeaderValue#getTagBytes()} length.
+     * @param packedLength the {@link MsgValue#getTagBytes()} length.
      * @return The singleton instance from the {@link #instances} map.
      */
     public static HexTagPacker getInstance(int packedLength) {

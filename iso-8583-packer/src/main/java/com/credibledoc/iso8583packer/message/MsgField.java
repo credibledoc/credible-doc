@@ -4,7 +4,6 @@ import com.credibledoc.iso8583packer.FieldBuilder;
 import com.credibledoc.iso8583packer.ValueHolder;
 import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.body.BodyPacker;
-import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.stringer.StringStringer;
@@ -109,7 +108,7 @@ public class MsgField implements Msg {
     private Stringer stringer;
 
     /**
-     * Packs from int to bytes and wise versa the {@link HeaderValue#getLengthBytes()} subfield.
+     * Packs from int to bytes and wise versa the {@link MsgValue#getLengthBytes()} subfield.
      * <p>
      * The calculated value says how many bytes contains the {@link MsgValue#getBodyBytes()} subfield.
      * <p>
@@ -119,7 +118,7 @@ public class MsgField implements Msg {
     private LengthPacker lengthPacker;
 
     /**
-     * Packs and unpacks bytes of the {@link HeaderValue#getBitSet()} subfield.
+     * Packs and unpacks bytes of the {@link MsgValue#getBitSet()} subfield.
      */
     private BitmapPacker bitMapPacker;
     

@@ -52,8 +52,7 @@ public class FieldBuilderTest {
         MsgField bitmap = FieldBuilder.from(mti)
             .crateSibling(MsgFieldType.BIT_SET)
             .defineName(BITMAP_NAME)
-            .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance())
-            .defineLen(16)
+            .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance(16))
             .getCurrentField();
 
         FieldBuilder.from(bitmap)

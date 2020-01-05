@@ -28,8 +28,8 @@ public class EbcdicDecimalLengthPacker implements LengthPacker {
     private static Map<Integer, EbcdicDecimalLengthPacker> instances = new ConcurrentHashMap<>();
     
     /**
-     * How many bytes of the {@link MsgValue#getHeaderValue()} field occupies the <b>LEN</b> subfield
-     * in a packed state.
+     * How many bytes the {@link MsgValue#getTagBytes()} (optional) and {@link MsgValue#getBodyBytes()} fields
+     * occupy in a packed state.
      */
     private int numBytes;
     

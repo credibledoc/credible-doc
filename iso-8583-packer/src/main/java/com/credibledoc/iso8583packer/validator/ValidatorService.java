@@ -78,7 +78,6 @@ public class ValidatorService implements Validator {
         if (msgField.getType() == MsgFieldType.BIT_SET) {
             validateBitSetAndBitMapPackerExists(msgField, path);
             validateChildrenExists(msgField, path);
-            validateLenExists(msgField, path);
         }
 
         if (msgField.getType() == MsgFieldType.VAL || msgField.getType() == MsgFieldType.TAG_VAL) {

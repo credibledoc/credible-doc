@@ -1,8 +1,8 @@
 package com.credibledoc.iso8583packer.message;
 
-import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.hex.HexService;
 
+import java.util.BitSet;
 import java.util.List;
 
 /**
@@ -26,6 +26,17 @@ public class MsgValue implements Msg {
      * See the {@link Msg#getTag()} description.
      */
     private Object tag;
+
+    /**
+     * In case when the {@link MsgValue} has defined a {@link MsgValue#getTag()},
+     * the tag is represented as bytes in a packed state.
+     */
+    private byte[] tagBytes;
+
+    /**
+     * Contains a part of this header with length of field body data. Fields with fixed length has no lengthBytes.
+     */
+    private byte[] lengthBytes;
 
     /**
      * Field body. These bytes contains the {@link #bodyValue} packed or unpacked with {@link MsgField#getBodyPacker()}.
@@ -58,26 +69,32 @@ public class MsgValue implements Msg {
     private List<MsgValue> children;
 
     /**
-     * Contains subfields of the {@link MsgValue} field,
-     * for example {@link HeaderValue#getTagBytes()} and {@link HeaderValue#getLengthBytes()}.
+     * This field contains list of its children indexes. These children are located
+     * in the {@link MsgValue#getChildren()} list.
+     * <p>
+     * This bit set can be 'null' for some nodes or leafs, but cannot be 'null' for a root {@link MsgValue}.
      */
-    private HeaderValue headerValue = new HeaderValue();
+    private BitSet bitSet;
 
     @Override
     public String toString() {
+        String tagBytesString = tagBytes == null ? "null" : HexService.bytesToHex(tagBytes);
+        String lengthBytesString = lengthBytes == null ? "null" : HexService.bytesToHex(lengthBytes);
         String bytesString = bodyBytes == null ? "null" : HexService.bytesToHex(bodyBytes);
         String parentString = parent == null ? "null" : parent.getName();
         String childrenSizeString = children == null ? "0" : Integer.toString(children.size());
         return "Field{" +
-                "fieldNum=" + fieldNum +
-                ", tag=" + tag +
-                ", name=" + name +
-                ", parent=" + parentString +
-                ", bodyBytes=" + bytesString +
-                ", value=" + bodyValue +
-                ", childrenSize=" + childrenSizeString +
-                ", header=" + headerValue +
-                '}';
+            "fieldNum=" + fieldNum +
+            ", name=" + name +
+            ", tag=" + tag +
+            ", tagBytes=" + tagBytesString +
+            ", lengthBytes=" + lengthBytesString +
+            ", bodyBytes=" + bytesString +
+            ", parent=" + parentString +
+            ", value=" + bodyValue +
+            ", childrenSize=" + childrenSizeString +
+            ", bitSet=" + bitSet +
+            '}';
     }
 
     /**
@@ -117,6 +134,34 @@ public class MsgValue implements Msg {
      */
     public void setTag(Object tag) {
         this.tag = tag;
+    }
+
+    /**
+     * @return The {@link #tagBytes} field value.
+     */
+    public byte[] getTagBytes() {
+        return tagBytes;
+    }
+
+    /**
+     * @param tagBytes see the {@link #tagBytes} field description.
+     */
+    public void setTagBytes(byte[] tagBytes) {
+        this.tagBytes = tagBytes;
+    }
+
+    /**
+     * @return The {@link #lengthBytes} field value.
+     */
+    public byte[] getLengthBytes() {
+        return lengthBytes;
+    }
+
+    /**
+     * @param lengthBytes see the {@link #lengthBytes} field description.
+     */
+    public void setLengthBytes(byte[] lengthBytes) {
+        this.lengthBytes = lengthBytes;
     }
 
     /**
@@ -201,18 +246,17 @@ public class MsgValue implements Msg {
         this.children = children;
     }
 
-
     /**
-     * @return The {@link #headerValue} field value.
+     * @return The {@link #bitSet} field value.
      */
-    public HeaderValue getHeaderValue() {
-        return headerValue;
+    public BitSet getBitSet() {
+        return bitSet;
     }
 
     /**
-     * @param headerValue see the {@link #headerValue} field description.
+     * @param bitSet see the {@link #bitSet} field description.
      */
-    public void setHeaderValue(HeaderValue headerValue) {
-        this.headerValue = headerValue;
+    public void setBitSet(BitSet bitSet) {
+        this.bitSet = bitSet;
     }
 }

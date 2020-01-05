@@ -7,7 +7,6 @@ import com.credibledoc.iso8583packer.body.BodyPacker;
 import com.credibledoc.iso8583packer.dump.DumpService;
 import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
-import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
@@ -184,9 +183,8 @@ public class ValueHolder {
      * @param bytes the source bytes.
      * @param offset the index where the field starts in the bytes.
      * @param msgPair the definition of the {@link MsgField} structure and the field values.
-     * @throws Exception in case of packing problems
      */
-    protected void unpackFieldRecursively(byte[] bytes, Offset offset, MsgPair msgPair) throws Exception {
+    protected void unpackFieldRecursively(byte[] bytes, Offset offset, MsgPair msgPair) {
         navigator.validateSameNamesAndTags(msgPair);
         Integer rawDataLength;
         MsgFieldType msgFieldType = msgPair.getMsgField().getType();
@@ -329,7 +327,7 @@ public class ValueHolder {
                 "'. It means cannot unpack the remaining bytes to MsgValue.");
     }
 
-    protected void unpackChildren(byte[] bytes, Offset offset, MsgPair msgPair, Integer rawDataLength) throws Exception {
+    protected void unpackChildren(byte[] bytes, Offset offset, MsgPair msgPair, Integer rawDataLength) {
         int offsetWithChildren = offset.getValue() + rawDataLength;
         if (rawDataLength > 0) {
             msgPair.getMsgValue().setChildren(new ArrayList<>());
@@ -359,8 +357,7 @@ public class ValueHolder {
         byte[] tagBytes = new byte[fieldTagLength];
         System.arraycopy(bytes, offset.getValue(), tagBytes, 0, tagBytes.length);
         offset.add(fieldTagLength);
-        HeaderValue headerValue = msgPair.getMsgValue().getHeaderValue();
-        headerValue.setTagBytes(tagBytes);
+        msgPair.getMsgValue().setTagBytes(tagBytes);
         msgPair.getMsgValue().setTag(tag);
     }
 
@@ -375,7 +372,7 @@ public class ValueHolder {
         return tag;
     }
 
-    protected int unpackBitSet(byte[] bytes, Offset offset, MsgPair msgPair) throws Exception {
+    protected int unpackBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
         List<Integer> fieldNums = getFieldNumsFromBitSet(bytes, offset, msgPair);
         for (int nextFieldNum : fieldNums) {
             MsgField msgFieldChild = findChildByFieldNum(msgPair.getMsgField(), nextFieldNum);
@@ -398,7 +395,7 @@ public class ValueHolder {
         int lenLength = lengthPacker.calculateLenLength(bytes, offset.getValue());
         byte[] lengthBytes = new byte[lenLength];
         System.arraycopy(bytes, offset.getValue(), lengthBytes, 0, lengthBytes.length);
-        msgPair.getMsgValue().getHeaderValue().setLengthBytes(lengthBytes);
+        msgPair.getMsgValue().setLengthBytes(lengthBytes);
         int rawDataLength = lengthPacker.unpack(bytes, offset.getValue());
         offset.add(lenLength);
         return rawDataLength;
@@ -433,17 +430,15 @@ public class ValueHolder {
             newMsgValue.setParent(parentMsgValue);
         }
         result.setMsgValue(newMsgValue);
-        if (oldMsgValue.getHeaderValue() != null) {
-            newMsgValue.setHeaderValue(oldMsgValue.getHeaderValue());
-        }
+        newMsgValue.setBitSet(oldMsgValue.getBitSet());
+        newMsgValue.setTagBytes(oldMsgValue.getTagBytes());
+        newMsgValue.setLengthBytes(oldMsgValue.getLengthBytes());
+        
         msgPair.setMsgField(result.getMsgField());
         msgPair.setMsgValue(result.getMsgValue());
     }
 
     protected List<Integer> getFieldNumsFromBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
-        // this is IsoMsg, so fieldNums are in the header BitSet
-        HeaderValue headerValue = msgPair.getMsgValue().getHeaderValue();
-
         // unpack
         BitmapPacker bitmapPacker = msgPair.getMsgField().getBitMapPacker();
         if (bitmapPacker == null) {
@@ -451,8 +446,7 @@ public class ValueHolder {
                     "method for this field " + navigator.getPathRecursively(msgPair.getMsgValue()));
                     
         }
-        Integer len = msgPair.getMsgField().getLen();
-        int consumed = bitmapPacker.unpack(headerValue, bytes, offset.getValue(), len);
+        int consumed = bitmapPacker.unpack(msgPair.getMsgValue(), bytes, offset.getValue());
         offset.add(consumed);
 
         return getFieldNumsAndValidateBitSet(msgPair);
@@ -469,7 +463,7 @@ public class ValueHolder {
     }
 
     protected List<Integer> getFieldNumsAndValidateBitSet(MsgPair msgPair) {
-        BitSet unpackedBitSet = msgPair.getMsgValue().getHeaderValue().getBitSet();
+        BitSet unpackedBitSet = msgPair.getMsgValue().getBitSet();
         List<Integer> fieldNums = new ArrayList<>();
         int maxFieldNum = getMaxFieldNum(msgPair.getMsgField().getChildren());
         for (int nextFieldNum = 0; nextFieldNum <= maxFieldNum; nextFieldNum++) {
@@ -618,7 +612,6 @@ public class ValueHolder {
      * {@link #setBytes(Object)} method description.
      * <p>
      * Length and tag are not mandatory.
-     * See the {@link #setHeader(byte[], HeaderValue, MsgField)}  method.
      *
      * @param bodyValue can be 'null' for d.
      * @return The current {@link ValueHolder} with the same {@link #msgValue} and {@link #msgField} in its context.
@@ -630,22 +623,14 @@ public class ValueHolder {
         }
         if (bodyValue == null) {
             msgValue.setBodyBytes(null);
-            if (msgValue.getHeaderValue() != null) {
-                HeaderValue headerValue = msgValue.getHeaderValue();
-                headerValue.setLengthBytes(null);
-            }
+            msgValue.setLengthBytes(null);
             msgValue.setBodyValue(null);
             return this;
         }
         try {
             msgValue.setBodyValue(bodyValue);
             byte[] valueBytes = setBytes(bodyValue);
-
-            HeaderValue headerValue = msgValue.getHeaderValue();
-            if (headerValue != null) {
-                setHeader(valueBytes, headerValue, msgField);
-            }
-
+            setTagAndLenBytes(valueBytes, msgValue, msgField);
             return this;
         } catch (Exception e) {
             MsgValue rootMsgValue = navigator.findRoot(msgValue);
@@ -700,13 +685,14 @@ public class ValueHolder {
     }
 
     /**
-     * Set valueBytes to the headerValue
+     * Set valueBytes to the msgValue
      * @param valueBytes source data
-     * @param headerValue target object
+     * @param msgValue target object
      * @param msgField the field definition
      */
-    protected void setHeader(byte[] valueBytes, HeaderValue headerValue, MsgField msgField) {
+    protected void setTagAndLenBytes(byte[] valueBytes, MsgValue msgValue, MsgField msgField) {
         MsgField msgFieldParent = msgField.getParent();
+        // TODO Kyrylo Semenko - create defineTagPacker and validation that only one exists
         if (msgFieldParent == null && MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
             throw new PackerRuntimeException("This MsgField has no parent. Please use FieldBuilder.from(msgField) and " +
                     "call the setParent(..) method before setValue(..) method " +
@@ -714,37 +700,37 @@ public class ValueHolder {
         }
         LengthPacker lengthPacker;
 
-        Object tag = msgValue.getTag();
+        Object tag = this.msgValue.getTag();
         if (msgField.getType() == MsgFieldType.LEN_TAG_VAL) {
             // field parent contains lengthPacker, hence length precedes tag
             assert msgFieldParent != null;
             lengthPacker = msgFieldParent.getChildrenLengthPacker();
-            packTagBytesToHeader(headerValue, tag);
-            int tagAndValueLength = valueBytes.length + headerValue.getTagBytes().length;
+            packTagBytes(msgValue, tag);
+            int tagAndValueLength = valueBytes.length + msgValue.getTagBytes().length;
             byte[] lengthBytes = lengthPacker.pack(tagAndValueLength);
-            headerValue.setLengthBytes(lengthBytes);
+            msgValue.setLengthBytes(lengthBytes);
         } else {
             // field itself contains lengthPacker
             lengthPacker = msgField.getLengthPacker();
             if (MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
-                packTagBytesToHeader(headerValue, tag);
+                packTagBytes(msgValue, tag);
             }
 
             if (lengthPacker != null) {
                 byte[] lengthBytes = lengthPacker.pack(valueBytes.length);
-                headerValue.setLengthBytes(lengthBytes);
+                msgValue.setLengthBytes(lengthBytes);
             }
         }
     }
 
-    protected void packTagBytesToHeader(HeaderValue headerValue, Object tag) {
+    protected void packTagBytes(MsgValue msgValue, Object tag) {
         TagPacker tagPacker = navigator.getTagPackerFromParent(msgField);
         if (tagPacker == null) {
-            headerValue.setTagBytes(new byte[0]);
+            msgValue.setTagBytes(new byte[0]);
             return;
         }
         byte[] tagBytes = tagPacker.pack(tag);
-        headerValue.setTagBytes(tagBytes);
+        msgValue.setTagBytes(tagBytes);
     }
 
     protected Integer getChildTagLengthFromParent(MsgField msgField) {
@@ -922,13 +908,8 @@ public class ValueHolder {
                 bitSet.set(nextMsgField.getFieldNum());
             }
         }
-        msgValue.getHeaderValue().setBitSet(bitSet);
-        Integer len = msgField.getLen();
-        if (len == null) {
-            throw new PackerRuntimeException("Mandatory MsgField.len property not found. It is mandatory for '" + MsgFieldType.BIT_SET + "' type. " +
-                "Please call the defineLen(...) method.");
-        }
-        byte[] bytes = bitmapPacker.pack(bitSet, len);
+        msgValue.setBitSet(bitSet);
+        byte[] bytes = bitmapPacker.pack(bitSet);
         msgValue.setBodyBytes(bytes);
         messageBytes.write(bytes);
     }
@@ -956,14 +937,14 @@ public class ValueHolder {
 
     protected void writeTagBytesIfAllowed(MsgValue msgValue, MsgField msgField, ByteArrayOutputStream messageBytes) throws IOException {
         if (MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
-            messageBytes.write(msgValue.getHeaderValue().getTagBytes());
+            messageBytes.write(msgValue.getTagBytes());
         }
     }
 
     protected void writeLengthBytesIfAllowed(MsgValue msgValue, MsgField msgField,
                                                   ByteArrayOutputStream messageBytes) throws IOException {
         if (MsgFieldType.getLengthTypes().contains(msgField.getType())) {
-            messageBytes.write(msgValue.getHeaderValue().getLengthBytes());
+            messageBytes.write(msgValue.getLengthBytes());
         }
     }
 
@@ -974,53 +955,49 @@ public class ValueHolder {
                     "The cause of the exception probably in the setValue() method.");
         }
         int length = msgValue.getBodyBytes().length;
-        HeaderValue headerField = msgValue.getHeaderValue();
-        ByteArrayOutputStream result = null;
-        if (headerField != null) {
-            length += headerField.getTagBytes() == null ? 0 : headerField.getTagBytes().length;
-            length += headerField.getLengthBytes() == null ? 0 : headerField.getLengthBytes().length;
-            result = new ByteArrayOutputStream(length);
+        ByteArrayOutputStream result;
 
-            boolean lengthPrecedesTag = msgField.getType() == MsgFieldType.LEN_TAG_VAL;
+        length += msgValue.getTagBytes() == null ? 0 : msgValue.getTagBytes().length;
+        length += msgValue.getLengthBytes() == null ? 0 : msgValue.getLengthBytes().length;
+        result = new ByteArrayOutputStream(length);
 
-            if (lengthPrecedesTag) {
-                writeLengthBytesIfExist(result, headerField);
-                writeTagBytes(result, headerField);
-            } else {
-                writeTagBytes(result, headerField);
-                writeLengthBytesIfExist(result, headerField);
-            }
+        boolean lengthPrecedesTag = msgField.getType() == MsgFieldType.LEN_TAG_VAL;
+
+        if (lengthPrecedesTag) {
+            writeLengthBytesIfExist(result, msgValue);
+            writeTagBytes(result, msgValue);
+        } else {
+            writeTagBytes(result, msgValue);
+            writeLengthBytesIfExist(result, msgValue);
         }
-        if (result == null) {
-            result = new ByteArrayOutputStream(length);
-        }
+
         if (msgValue.getBodyBytes() != null) {
             result.write(msgValue.getBodyBytes());
         }
         return result;
     }
 
-    protected void writeTagBytes(ByteArrayOutputStream result, HeaderValue headerField) throws IOException {
-        if (headerField.getTagBytes() != null) {
-            result.write(headerField.getTagBytes());
+    protected void writeTagBytes(ByteArrayOutputStream result, MsgValue msgValue) throws IOException {
+        if (msgValue.getTagBytes() != null) {
+            result.write(msgValue.getTagBytes());
         }
     }
 
-    protected void writeLengthBytesIfExist(ByteArrayOutputStream result, HeaderValue headerField) throws IOException {
-        if (headerField.getLengthBytes() != null) {
-            result.write(headerField.getLengthBytes());
+    protected void writeLengthBytesIfExist(ByteArrayOutputStream result, MsgValue msgValue) throws IOException {
+        if (msgValue.getLengthBytes() != null) {
+            result.write(msgValue.getLengthBytes());
         }
     }
 
     protected void packLength(MsgValue msgValue, LengthPacker lengthPacker, byte[] bytes, boolean lengthPrecedesTag) {
         int bytesLength;
         if (lengthPrecedesTag) {
-            bytesLength = bytes.length + msgValue.getHeaderValue().getTagBytes().length;
+            bytesLength = bytes.length + msgValue.getTagBytes().length;
         } else {
             bytesLength = bytes.length;
         }
         byte[] lengthBytes = lengthPacker.pack(bytesLength);
-        msgValue.getHeaderValue().setLengthBytes(lengthBytes);
+        msgValue.setLengthBytes(lengthBytes);
     }
 
     protected void setTagBytes(MsgValue msgValue, MsgField msgField) {
@@ -1028,7 +1005,7 @@ public class ValueHolder {
         TagPacker tagPacker = navigator.getTagPackerFromParent(msgField);
         assert tagPacker != null;
         byte[] tagBytes = tagPacker.pack(tag);
-        msgValue.getHeaderValue().setTagBytes(tagBytes);
+        msgValue.setTagBytes(tagBytes);
     }
 
     /**

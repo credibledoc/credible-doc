@@ -11,7 +11,7 @@ public interface Msg {
     
     /**
      * The value represents subfield number in the {@link MsgFieldType#BIT_SET} field.
-     * It cannot be 'null' if the parent field contains the {@link com.credibledoc.iso8583packer.header.HeaderValue#getBitSet()} subfield.
+     * It cannot be 'null' if the parent field contains the {@link MsgValue#getBitSet()} subfield.
      * 
      * @return The {@link MsgField#getFieldNum()} or {@link MsgValue#getFieldNum()} field value.
      */

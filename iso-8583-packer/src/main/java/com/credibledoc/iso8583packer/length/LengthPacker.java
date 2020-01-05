@@ -1,6 +1,5 @@
 package com.credibledoc.iso8583packer.length;
 
-import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.hex.HexLengthPacker;
 import com.credibledoc.iso8583packer.message.MsgValue;
 
@@ -8,7 +7,7 @@ import com.credibledoc.iso8583packer.message.MsgValue;
  * Actual documentation and examples
  * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/length/length-packer.md">length-packer.md</a>.
  * <p>
- * The interface contains methods for packing and unpacking the {@link HeaderValue#getLengthBytes()} subfield.
+ * The interface contains methods for packing and unpacking the {@link MsgValue#getLengthBytes()} subfield.
  * The subfield contains length of the {@link MsgValue#getBodyBytes()} subfield.
  * <p>
  * Example of usage: {@link com.credibledoc.iso8583packer.FieldBuilder#defineHeaderLengthPacker(LengthPacker)}.
@@ -41,7 +40,7 @@ public interface LengthPacker {
 
     /**
      * Some {@link LengthPacker}s has constant bytes length of the header part where packed length is a subfield
-     * of a {@link HeaderValue#getLengthBytes()} data.
+     * of a {@link MsgValue#getLengthBytes()} data.
      * <p>
      * Others calculate the value depend on first byte value, for example see {@link HexLengthPacker}.
      * <p>

@@ -1,10 +1,7 @@
 package com.credibledoc.iso8583packer.dump;
 
-import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
-import com.credibledoc.iso8583packer.header.HeaderValue;
 import com.credibledoc.iso8583packer.hex.HexService;
-import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgPair;
@@ -105,17 +102,17 @@ public class DumpService implements Visualizer {
             indentForChildren = "    ";
         }
 
-        String fieldNumString = msgField.getFieldNum() == null ? "" : " fieldNum=\"" + msgField.getFieldNum() + "\"";
+        String fieldNumString = getAttributeString(msgField.getFieldNum(), " fieldNum=\"");
 
-        String tagString = msgField.getTag() == null ? "" : " tag=\"" + msgField.getTag() + "\"";
-        
-        String nameString = msgField.getName() == null ? "" : " name=\"" + msgField.getName() + "\"";
-        
-        LengthPacker lengthPacker = msgField.getLengthPacker();
-        String lengthPackerString = lengthPacker == null ? "" : (" lengthPacker=\"" + lengthPacker.getClass().getSimpleName() + "\"");
+        String tagString = getAttributeString(msgField.getTag(), " tag=\"");
 
-        BitmapPacker bitmapPacker = msgField.getBitMapPacker();
-        String isoBitMapPackerString = bitmapPacker == null ? "" : (" bitMapPacker=\"" + bitmapPacker.getClass().getSimpleName() + "\"");
+        String nameString = getAttributeString(msgField.getName(), " name=\"");
+        
+        String lengthPackerString = msgField.getLengthPacker() == null ?
+            "" : (" lengthPacker=\"" + msgField.getLengthPacker().getClass().getSimpleName() + "\"");
+
+        String isoBitMapPackerString = msgField.getBitMapPacker() == null ?
+            "" : (" bitMapPacker=\"" + msgField.getBitMapPacker().getClass().getSimpleName() + "\"");
 
         String interpreterString = getBodyPackerString(msgField);
 
@@ -208,19 +205,17 @@ public class DumpService implements Visualizer {
 
         String valueString = getValueString(msgField, msgValue, maskPrivateData, masker);
 
-        String fieldNumString = msgValue.getFieldNum() == null ? "" : " fieldNum=\"" + msgValue.getFieldNum() + "\"";
+        String fieldNumString = getAttributeString(msgValue.getFieldNum(), " fieldNum=\"");
 
-        String tagString = msgValue.getTag() == null ? "" : " tag=\"" + msgValue.getTag() + "\"";
+        String tagString = getAttributeString(msgValue.getTag(), " tag=\"");
 
-        String nameString = msgValue.getName() == null ? "" : " name=\"" + msgValue.getName() + "\"";
+        String nameString = getAttributeString(msgValue.getName(), " name=\"");
 
         String bitmapString = createBitmapString(msgField, msgValue);
 
-        final HeaderValue headerValue = msgValue.getHeaderValue();
-        
-        String tagHexString = getTagHexString(headerValue);
+        String tagHexString = getTagHexString(msgValue);
 
-        String lenHexString = getLenHexString(headerValue);
+        String lenHexString = getLenHexString(msgValue);
 
         String content;
 
@@ -246,6 +241,10 @@ public class DumpService implements Visualizer {
         printContent(msgField, msgValue, printStream, indent, indentForChildren, maskPrivateData, content);
     }
 
+    protected String getAttributeString(Object object, String attribute) {
+        return object == null ? "" : attribute + object + "\"";
+    }
+
     protected String getValueString(MsgField msgField, MsgValue msgValue, boolean maskPrivateData, Masker masker) {
         String valueString;
         if (msgField != null) {
@@ -268,10 +267,9 @@ public class DumpService implements Visualizer {
 
     protected String createBitmapString(MsgField msgField, MsgValue msgValue) {
         String bitmapString;
-        if (msgField != null &&
-                msgValue.getHeaderValue() != null && msgValue.getHeaderValue().getBitSet() != null) {
-            BitSet bitSet = msgValue.getHeaderValue().getBitSet();
-            byte[] bytes = msgField.getBitMapPacker().pack(bitSet, msgField.getLen());
+        if (msgField != null && msgValue.getBitSet() != null) {
+            BitSet bitSet = msgValue.getBitSet();
+            byte[] bytes = msgField.getBitMapPacker().pack(bitSet);
             bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bytes) + "\"";
         } else {
             bitmapString = "";
@@ -279,18 +277,18 @@ public class DumpService implements Visualizer {
         return bitmapString;
     }
 
-    protected String getLenHexString(HeaderValue headerValue) {
+    protected String getLenHexString(MsgValue msgValue) {
         String length = null;
-        if (headerValue != null && headerValue.getLengthBytes() != null) {
-            length = HexService.bytesToHex(headerValue.getLengthBytes());
+        if (msgValue != null && msgValue.getLengthBytes() != null) {
+            length = HexService.bytesToHex(msgValue.getLengthBytes());
         }
         return length == null ? "" : (" lenHex=\"" + length + "\"");
     }
 
-    protected String getTagHexString(HeaderValue headerValue) {
+    protected String getTagHexString(MsgValue msgValue) {
         String tag = null;
-        if (headerValue != null && headerValue.getTagBytes() != null) {
-            tag = HexService.bytesToHex(headerValue.getTagBytes());
+        if (msgValue != null && msgValue.getTagBytes() != null) {
+            tag = HexService.bytesToHex(msgValue.getTagBytes());
         }
         return tag == null ? "" : (" tagHex=\"" + tag + "\"");
     }

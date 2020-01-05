@@ -1,7 +1,5 @@
 package com.credibledoc.iso8583packer.message;
 
-import com.credibledoc.iso8583packer.header.HeaderValue;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -56,13 +54,13 @@ public enum MsgFieldType {
 
     /**
      * Contains  {@link MsgFieldType}s with enclosed {@link MsgValue}s
-     * with non-null {@link HeaderValue#getLengthBytes()} value.
+     * with non-null {@link MsgValue#getLengthBytes()} value.
      */
     private static List<MsgFieldType> lengthTypes = Arrays.asList(TAG_LEN_VAL, LEN_TAG_VAL, LEN_VAL);
 
     /**
      * Contains  {@link MsgFieldType}s with enclosed {@link MsgValue}s
-     * with {@link HeaderValue#getLengthBytes()} as the first value.
+     * with {@link MsgValue#getLengthBytes()} as the first value.
      */
     private static List<MsgFieldType> lengthFirstTypes = Arrays.asList(LEN_TAG_VAL, LEN_VAL);
 
