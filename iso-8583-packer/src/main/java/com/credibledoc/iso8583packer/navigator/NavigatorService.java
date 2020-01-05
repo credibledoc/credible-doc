@@ -132,17 +132,20 @@ public class NavigatorService implements Navigator {
     }
 
     @Override
-    public TagPacker getTagPackerFromParent(MsgField msgField) {
+    public TagPacker getTagPacker(MsgField msgField) {
         if (MsgFieldType.isNotTaggedType(msgField)) {
             return null;
+        }
+        if (msgField.getTagPacker() != null) {
+            return msgField.getTagPacker();
         }
         if (msgField.getParent() != null) {
             return msgField.getParent().getChildrenTagPacker();
         }
-        throw new PackerRuntimeException("This field '" + getPathRecursively(msgField) +
-                "' has no parent. The parent is mandatory for obtaining of the ChildrenTagPacker property. " +
-                "Please create a new Field and set it as a parent. Parent is not mandatory for fields which " +
-                "contains the bitSet property.");
+        throw new PackerRuntimeException("The field '" + getPathRecursively(msgField) +
+                "' has no tagPacker and its parent has no childrenTagPacker defined. " +
+            "TagPacker is mandatory for '" + MsgFieldType.getTaggedTypes() +
+            "' field types.");
     }
 
     @Override

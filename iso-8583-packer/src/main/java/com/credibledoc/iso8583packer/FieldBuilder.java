@@ -136,6 +136,7 @@ public class FieldBuilder {
         newMsgField.setType(example.getType());
         newMsgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
         newMsgField.setBodyPacker(example.getBodyPacker());
+        newMsgField.setTagPacker(example.getTagPacker());
         newMsgField.setChildrenTagPacker(example.getChildrenTagPacker());
         newMsgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
         newMsgField.setExactlyLength(example.getExactlyLength());
@@ -278,10 +279,6 @@ public class FieldBuilder {
                     "'. Skip the defineParent() method.");
                 return this;
             }
-            if (MsgFieldType.isTaggedType(msgField) && parentMsgField.getChildrenTagPacker() == null) {
-                throw new PackerRuntimeException("Field '" + navigator.getPathRecursively(parentMsgField) +
-                    "' has no 'ChildrenTagPacker' property defined. Please set the property.");
-            }
             if (parentMsgField.getChildrenLengthPacker() != null && msgField.getLengthPacker() != null) {
                 throw new PackerRuntimeException(createMessageSameLengthPacker(parentMsgField, msgField));
             }
@@ -312,6 +309,21 @@ public class FieldBuilder {
                 "value should be set to the child when the tag subfield precedes the length subfield.";
     }
 
+    /**
+     * Set the {@link MsgField#setTagPacker(TagPacker)} value.
+     * @param tagPacker to be set.
+     * @return The current instance of the {@link FieldBuilder} with a {@link #msgField} in its context.
+     */
+    public FieldBuilder defineHeaderTagPacker(TagPacker tagPacker) {
+        msgField.setTagPacker(tagPacker);
+        return this;
+    }
+
+    /**
+     * Set the {@link MsgField#setChildrenTagPacker(TagPacker)} value.
+     * @param tagPacker to be set.
+     * @return The current instance of the {@link FieldBuilder} with a {@link #msgField} in its context.
+     */
     public FieldBuilder defineChildrenTagPacker(TagPacker tagPacker) {
         msgField.setChildrenTagPacker(tagPacker);
         return this;

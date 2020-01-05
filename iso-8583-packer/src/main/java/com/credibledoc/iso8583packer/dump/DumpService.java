@@ -121,12 +121,15 @@ public class DumpService implements Visualizer {
         String lenString = getLenString(msgField);
 
         String childTagPackerString = getChildTagPackerString(msgField);
+        
+        String tagPackerString = msgField.getTagPacker() == null ? "" :
+            " tagPacker=\"" + msgField.getTagPacker().getClass().getSimpleName() + "\"";
 
         String typeString = " type=\"" + msgField.getType() + "\"";
         
         printStream.print(indent + "<f" + typeString + fieldNumString + tagString + nameString + lengthPackerString +
                 isoBitMapPackerString + interpreterString +
-                maxLenString + lenString + childTagPackerString);
+                maxLenString + lenString + childTagPackerString + tagPackerString);
         
         if (msgField.getChildren() != null) {
             printStream.println(">");

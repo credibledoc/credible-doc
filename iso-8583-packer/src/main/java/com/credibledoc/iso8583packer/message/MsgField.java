@@ -72,7 +72,13 @@ public class MsgField implements Msg {
     private Integer len;
 
     /**
-     * Packs and unpacks the children ({@link #children}) {@link #tag} subfields .
+     * Packs and unpacks the {@link #tag} subfield. Only one tagPacker or {@link #childrenLengthPacker} is allowed.
+     */
+    private TagPacker tagPacker;
+
+    /**
+     * Packs and unpacks the children ({@link #children}) {@link #tag} subfields.
+     * Only one {@link #tagPacker} or childrenLengthPacker is allowed.
      */
     private TagPacker childrenTagPacker;
 
@@ -131,6 +137,7 @@ public class MsgField implements Msg {
         String bodyPackerClass = bodyPacker == null ? "null" : bodyPacker.getClass().getSimpleName();
         String parentString = parent == null ? "null" : parent.getName();
         String childrenSizeString = children == null ? "0" : Integer.toString(children.size());
+        String tagPackerString = tagPacker == null ? "null" : tagPacker.getClass().getSimpleName();
         String childrenTagPackerString = childrenTagPacker == null ? "null" : childrenTagPacker.getClass().getSimpleName();
         String maskerString = masker == null ? "null" : masker.getClass().getSimpleName();
         String stringerString = stringer == null ? "null" : stringer.getClass().getSimpleName();
@@ -148,6 +155,7 @@ public class MsgField implements Msg {
                 ", stringer=" + stringerString +
                 ", maxLen=" + maxLen +
                 ", len=" + len +
+                ", tagPacker=" + tagPackerString +
                 ", childrenTagPacker=" + childrenTagPackerString +
                 ", exactlyLength=" + exactlyLength +
                 ", lengthPacker=" + lengthPackerString +
@@ -279,6 +287,20 @@ public class MsgField implements Msg {
      */
     public void setBodyPacker(BodyPacker bodyPacker) {
         this.bodyPacker = bodyPacker;
+    }
+
+    /**
+     * @return The {@link #tagPacker} field value.
+     */
+    public TagPacker getTagPacker() {
+        return tagPacker;
+    }
+
+    /**
+     * @param tagPacker see the {@link #tagPacker} field description.
+     */
+    public void setTagPacker(TagPacker tagPacker) {
+        this.tagPacker = tagPacker;
     }
 
     /**

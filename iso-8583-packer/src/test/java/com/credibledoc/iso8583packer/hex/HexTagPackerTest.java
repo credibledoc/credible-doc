@@ -37,6 +37,30 @@ public class HexTagPackerTest {
             .jumpToRoot()
             .validateStructure();
     }
+    
+    @Test
+    public void singleFieldTest() {
+        FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.TAG_VAL)
+            .defineName(FIELD_1_NAME)
+            .defineHeaderTag(1)
+            .defineHeaderTagPacker(HexTagPacker.getInstance(1))
+            .defineLen(2)
+            .defineBodyPacker(BcdBodyPacker.noPadding())
+            .validateStructure();
+
+        ValueHolder valueHolder = ValueHolder.newInstance(fieldBuilder.getCurrentField());
+        String value = "1234";
+        valueHolder.setValue(value).validateData();
+        byte[] bytes = valueHolder.pack();
+        String tagHex = "01";
+        String valueHex = "1234";
+        assertEquals(tagHex + valueHex, HexService.bytesToHex(bytes));
+
+        MsgValue msgValue = ValueHolder.unpack(bytes, 0, fieldBuilder.getCurrentField());
+        ValueHolder valueHolderUnpacked = ValueHolder.newInstance(msgValue, fieldBuilder.getCurrentField());
+        String unpackedValue = valueHolderUnpacked.getValue(String.class);
+        assertEquals(value, unpackedValue);
+    }
 
     /**
      * Used in documentation

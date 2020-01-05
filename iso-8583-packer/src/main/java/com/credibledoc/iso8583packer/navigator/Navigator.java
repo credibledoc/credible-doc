@@ -51,9 +51,9 @@ public interface Navigator {
 
     /**
      * @param msgField where to find.
-     * @return The {@link MsgField#getChildrenTagPacker()} value.
+     * @return The {@link MsgField#getTagPacker()} or parent {@link MsgField#getChildrenTagPacker()} value.
      */
-    TagPacker getTagPackerFromParent(MsgField msgField);
+    TagPacker getTagPacker(MsgField msgField);
 
     /**
      * Find sibling by name.

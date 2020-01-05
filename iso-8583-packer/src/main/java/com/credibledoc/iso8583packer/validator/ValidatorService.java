@@ -53,15 +53,17 @@ public class ValidatorService implements Validator {
                     "because the 'BodyPacker' value is mandatory. " +
                     "Field path: '" + path + "'.");
         }
+
+        if (MsgFieldType.isTaggedType(msgField)) {
+            validateTagAndTagPackerExists(msgField, path);
+        }
         
         if (msgField.getType() == MsgFieldType.TAG_LEN_VAL || msgField.getType() == MsgFieldType.LEN_TAG_VAL) {
-            validateTagAndTagPackerExists(msgField, path);
             validateHeaderOrParentLengthPackerExists(msgField, path);
             validateHasNoBitSetAndBitMapPacker(msgField, path);
         }
         
         if (msgField.getType() == MsgFieldType.TAG_VAL) {
-            validateTagAndTagPackerExists(msgField, path);
             validateHasNoBitSetAndBitMapPacker(msgField, path);
         }
         
@@ -101,13 +103,26 @@ public class ValidatorService implements Validator {
 
     protected void validateTagAndTagPackerExists(MsgField msgField, String path) {
         boolean parentTagPackerExists = msgField.getParent() != null && msgField.getParent().getChildrenTagPacker() != null;
+        if (parentTagPackerExists && msgField.getTagPacker() != null) {
+            String parentPath = navigator.getPathRecursively(msgField.getParent());
+            throw new PackerRuntimeException("Only one TagPacker definition is allowed " +
+                "for the MsgField with path '" + path +
+                "', but found its parent childrenTagPacker with path '" + parentPath +
+                "'. Please chose only one TagPacker.");
+        }
+        
+        boolean tagPackerExists = parentTagPackerExists || msgField.getTagPacker() != null;
         boolean tagExists = msgField.getTag() != null;
 
-        if (!parentTagPackerExists) {
+        if (!tagPackerExists) {
             String parentPath = navigator.getPathRecursively(msgField.getParent());
+            String parentString = parentPath == null ? "" : " or its parent with path '" + parentPath + "'";
             throw new PackerRuntimeException("Please define the '" + TagPacker.class.getSimpleName() +
-                    "' value to the '" + parentPath + "' field, " +
-                    "because it is mandatory for MsgFieldType '" + msgField.getType() + "'. Please call the .defineChildrenTagPacker(...) method.");
+                "' value to the MsgField with path '" + path + "'" +
+                parentString + ", " +
+                "because it is mandatory for MsgFieldType '" + msgField.getType() + "'. Please call the " +
+                "fieldBuilder.defineChildrenTagPacker(..) method for its parent " +
+                "or fieldBuilder.defineHeaderTagPacker(..) method for the MsgField itself.");
         }
 
         if (!tagExists) {

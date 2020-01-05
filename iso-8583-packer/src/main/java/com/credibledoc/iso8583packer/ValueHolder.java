@@ -210,12 +210,12 @@ public class ValueHolder {
 
     protected Integer unpackOtherTypes(byte[] bytes, Offset offset, MsgPair msgPair) {
         Integer rawDataLength = null;
-        Integer tagLength = getChildTagLengthFromParent(msgPair.getMsgField());
+        TagPacker tagPacker = navigator.getTagPacker(msgPair.getMsgField());
         boolean lengthFirst = MsgFieldType.getLengthFirstTypes().contains(msgPair.getMsgField().getType());
         Object tag = null;
 
         if (lengthFirst && MsgFieldType.isLengthType(msgPair.getMsgField())) {
-            rawDataLength = unpackLength(bytes, offset, msgPair) - tagLength;
+            rawDataLength = unpackLength(bytes, offset, msgPair) - tagPacker.getPackedLength();
         }
 
         if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
@@ -229,7 +229,7 @@ public class ValueHolder {
         }
 
         if (MsgFieldType.getTaggedTypes().contains(msgPair.getMsgField().getType())) {
-            unpackTagBytes(bytes, offset, msgPair, tagLength, tag);
+            unpackTagBytes(bytes, offset, msgPair, tagPacker.getPackedLength(), tag);
         }
 
         if (!lengthFirst && MsgFieldType.isLengthType(msgPair.getMsgField())) {
@@ -363,7 +363,7 @@ public class ValueHolder {
 
     protected Object unpackTag(byte[] bytes, Offset offset, MsgPair msgPair) {
         Object tag;
-        TagPacker tagPacker = navigator.getTagPackerFromParent(msgPair.getMsgField());
+        TagPacker tagPacker = navigator.getTagPacker(msgPair.getMsgField());
         if (tagPacker == null) {
             tag = msgPair.getMsgField().getTag();
         } else {
@@ -494,8 +494,9 @@ public class ValueHolder {
                 navigator.getPathRecursively(parentMsgField) + "' field.";
         }
         String tagPackerClass = "null";
-        if (paramMsgField.getParent() != null && paramMsgField.getParent().getChildrenTagPacker() != null) {
-            tagPackerClass = paramMsgField.getParent().getChildrenTagPacker().getClass().getSimpleName();
+        TagPacker tagPacker = navigator.getTagPacker(paramMsgField);
+        if (tagPacker != null) {
+            tagPackerClass = tagPacker.getClass().getSimpleName();
         }
         throw new PackerRuntimeException("Cannot find the sibling with tag '" + tag +
                 "' for the '" + navigator.getPathRecursively(paramMsgValue) +
@@ -692,12 +693,6 @@ public class ValueHolder {
      */
     protected void setTagAndLenBytes(byte[] valueBytes, MsgValue msgValue, MsgField msgField) {
         MsgField msgFieldParent = msgField.getParent();
-        // TODO Kyrylo Semenko - create defineTagPacker and validation that only one exists
-        if (msgFieldParent == null && MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
-            throw new PackerRuntimeException("This MsgField has no parent. Please use FieldBuilder.from(msgField) and " +
-                    "call the setParent(..) method before setValue(..) method " +
-                    "because parent.getChildTagPacker(..) is used for header creation");
-        }
         LengthPacker lengthPacker;
 
         Object tag = this.msgValue.getTag();
@@ -705,7 +700,7 @@ public class ValueHolder {
             // field parent contains lengthPacker, hence length precedes tag
             assert msgFieldParent != null;
             lengthPacker = msgFieldParent.getChildrenLengthPacker();
-            packTagBytes(msgValue, tag);
+            packTagBytes(msgField, msgValue, tag);
             int tagAndValueLength = valueBytes.length + msgValue.getTagBytes().length;
             byte[] lengthBytes = lengthPacker.pack(tagAndValueLength);
             msgValue.setLengthBytes(lengthBytes);
@@ -713,7 +708,7 @@ public class ValueHolder {
             // field itself contains lengthPacker
             lengthPacker = msgField.getLengthPacker();
             if (MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
-                packTagBytes(msgValue, tag);
+                packTagBytes(msgField, msgValue, tag);
             }
 
             if (lengthPacker != null) {
@@ -723,26 +718,14 @@ public class ValueHolder {
         }
     }
 
-    protected void packTagBytes(MsgValue msgValue, Object tag) {
-        TagPacker tagPacker = navigator.getTagPackerFromParent(msgField);
+    protected void packTagBytes(MsgField msgField, MsgValue msgValue, Object tag) {
+        TagPacker tagPacker = navigator.getTagPacker(msgField);
         if (tagPacker == null) {
             msgValue.setTagBytes(new byte[0]);
             return;
         }
         byte[] tagBytes = tagPacker.pack(tag);
         msgValue.setTagBytes(tagBytes);
-    }
-
-    protected Integer getChildTagLengthFromParent(MsgField msgField) {
-        if (MsgFieldType.isNotTaggedType(msgField)) {
-            return 0;
-        }
-        if (msgField.getParent() != null) {
-            return msgField.getParent().getChildrenTagPacker().getPackedLength();
-        }
-        throw new PackerRuntimeException("This field '" + navigator.getPathRecursively(msgField) +
-                "' has no parent. The parent is mandatory for obtaining of the ChildrenTagPacker property. " +
-                "Please create a new Field and set it as a parent.");
     }
 
     /**
@@ -1002,7 +985,7 @@ public class ValueHolder {
 
     protected void setTagBytes(MsgValue msgValue, MsgField msgField) {
         Object tag = msgValue.getTag();
-        TagPacker tagPacker = navigator.getTagPackerFromParent(msgField);
+        TagPacker tagPacker = navigator.getTagPacker(msgField);
         assert tagPacker != null;
         byte[] tagBytes = tagPacker.pack(tag);
         msgValue.setTagBytes(tagBytes);
