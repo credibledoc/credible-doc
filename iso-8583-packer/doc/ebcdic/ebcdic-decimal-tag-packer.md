@@ -49,7 +49,7 @@ The following example shows packing and unpacking of the field value
         assertEquals(value, unpackedValue);
 ```
 
-The packed `FieldValue` with `TAG` looks like
+The packed `FieldValue` with `TAG` looks like the next example
 ```XML
 <f name="root">
     <f name="field_1" tag="1" val="1234" tagHex="F1" valHex="1234"/>
