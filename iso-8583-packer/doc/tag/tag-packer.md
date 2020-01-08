@@ -4,8 +4,8 @@ Some [MsgField](https://github.com/credibledoc/credible-doc/blob/master/iso-8583
 with [MsgValue](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/message/MsgValue.java)
 pairs contain `TAG` or `fieldNum` subfields.
 
-The `TAG` or `fieldNum` subfields used for identification of message fields.
-The following Wiki pages describe the `TAG` subfield as the `type`, see
+The `TAG` or `fieldNum` subfields are used for identification of message fields.
+The following Wiki pages describe the `TAG` subfield as a `type`, see
 [Type-length-value](https://en.wikipedia.org/wiki/Type-length-value) or as the `key`,
 see the [KLV](https://en.wikipedia.org/wiki/KLV) pages.
 
