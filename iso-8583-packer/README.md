@@ -28,7 +28,7 @@ Example of Maven configuration in a `pom.xml` file
 
 ## Examples
 
-### Fixed - length value without tag
+### Fixed - length value without a tag
 
 The code below will create a new instance of the [FieldBuilder](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/FieldBuilder.java) with a single field.
 The field will contain 2 bytes data in [BCD](https://en.wikipedia.org/wiki/Binary-coded_decimal) format.
@@ -93,10 +93,10 @@ and implementations of the `LengthPacker` interface.
 The following page [body-packer.md](doc/body/body-packer.md) contains description of different formats of body values.
 
 ### Masker
-On the production environment it is necessary to mask private sensitive data before print it to a log file.
+In a production environment it is necessary to mask private sensitive data before print it to a log file.
 The following page [masker.md](doc/masking/masker.md) describes how to mask the data.
 
 ### Bitmap
-The ISO 8583 standard uses [Bitmaps](https://en.wikipedia.org/wiki/ISO_8583#Bitmaps) for definition of field numbers placed to a message.
+The ISO 8583 standard uses [Bitmaps](https://en.wikipedia.org/wiki/ISO_8583#Bitmaps) for defining of field numbers placed on a message.
 
 The following [bitmap-packer.md](doc/bitmap/bitmap-packer.md) page describes how to define and use bitmaps.
