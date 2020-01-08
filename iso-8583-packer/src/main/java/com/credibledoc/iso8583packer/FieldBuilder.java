@@ -26,7 +26,7 @@ import java.util.List;
  * The class represents a Builder of ISO message structure. Instances of the builder contain the {@link #msgField} state.
  * <p>
  * The instance of the builder has a single {@link #msgField} in its context. The {@link #msgField}
- * contains an information about the objects graph.
+ * contains information about the objects graph.
  * <p>
  * The builder provides methods for creation of {@link MsgField}, see the {@link #builder(MsgFieldType)} method and
  * for handling existing {@link MsgField}, see the {@link #from(MsgField)} method.
