@@ -57,7 +57,7 @@ And the following example shows how to unpack the field bytes to a value
 } &&endPlaceholder
 ```
 
-The packed `FieldValue` then looks like
+The packed `FieldValue` then looks like the next example
 ```XML
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",

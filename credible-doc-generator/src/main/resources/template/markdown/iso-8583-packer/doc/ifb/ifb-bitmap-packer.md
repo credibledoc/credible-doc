@@ -44,7 +44,7 @@ The following example shows how to set a value to the `bitmap` child
 } &&endPlaceholder
 ```
 
-The packed `MsgValue` then looks like
+The packed `MsgValue` then looks like the next example
 ```XML
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",

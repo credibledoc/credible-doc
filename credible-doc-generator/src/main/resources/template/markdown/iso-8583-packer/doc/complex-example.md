@@ -1,4 +1,4 @@
-# Complex example of the `MsgField` structure definition
+# Complex example of a `MsgField` structure definition
 
 The following example contains the definition of an ISO 8583 message
 

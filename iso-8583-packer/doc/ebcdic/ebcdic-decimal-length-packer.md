@@ -31,7 +31,7 @@ The following example shows packing and unpacking of the field value
             assertEquals(value, msgValue.getBodyValue(String.class));
 ```
 
-The packed `FieldValue` with `lenHex` looks like
+The packed `FieldValue` with `lenHex` looks like the next example
 ```XML
 <f val="123" lenHex="F0F2" valHex="0123"/>
 ```

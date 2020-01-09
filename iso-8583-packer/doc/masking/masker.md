@@ -1,6 +1,6 @@
 # Masker
 
-On the production environment it is necessary to mask private sensitive data before printing to a log file.
+In a production environment it is necessary to mask private sensitive data before printing to a log file.
 
 The [Masker](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/main/java/com/credibledoc/iso8583packer/masking/Masker.java) interface contains few methods for masking data.
 

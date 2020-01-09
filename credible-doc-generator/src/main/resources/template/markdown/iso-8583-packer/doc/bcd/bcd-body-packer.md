@@ -43,7 +43,7 @@ The following example shows how to pack the field value
 } &&endPlaceholder
 ```
 
-The packed `FieldValue` then looks like
+The packed `FieldValue` then looks like the next example
 ```XML
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",

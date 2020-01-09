@@ -33,7 +33,7 @@ The following example shows how to pack the field value
             assertEquals("0123", bytesHex);
 ```
 
-The packed `FieldValue` then looks like
+The packed `FieldValue` then looks like the next example
 ```XML
 
 <f val="123" valHex="0123"/>

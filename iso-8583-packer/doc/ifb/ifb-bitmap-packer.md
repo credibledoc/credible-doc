@@ -66,7 +66,7 @@ The following example shows how to set a value to the `bitmap` child
         assertEquals(expectedHex, packedHex);
 ```
 
-The packed `MsgValue` then looks like
+The packed `MsgValue` then looks like the next example
 ```XML
          
         <f name="msg">

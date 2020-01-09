@@ -9,7 +9,7 @@ The following example shows how to define a field length in the `hex` format
                 .defineBodyPacker(BcdBodyPacker.leftPadding0());
 ```
 
-The field structure then looks like
+The field structure then looks like the next example
 ```XML
 <f type="LEN_VAL" lengthPacker="HexLengthPacker" bodyPacker="BcdBodyPacker"/>
 ```
@@ -29,7 +29,7 @@ The following example shows how to pack and unpack a value to the defined field
             assertEquals(value, msgValue.getBodyValue(String.class));
 ```
 
-The packed `FieldValue` with `lenHex` looks like
+The packed `FieldValue` with `lenHex` looks like the next example
 ```XML
 <f val="123456789" lenHex="05" valHex="0123456789"/>
 ```

@@ -6,8 +6,8 @@ pairs contain `TAG` or `fieldNum` subfields.
 
 The `TAG` or `fieldNum` subfields are used for identification of message fields.
 The following Wiki pages describe the `TAG` subfield as a `type`, see
-[Type-length-value](https://en.wikipedia.org/wiki/Type-length-value) or as the `key`,
-see the [KLV](https://en.wikipedia.org/wiki/KLV) pages.
+[Type-length-value](https://en.wikipedia.org/wiki/Type-length-value) page or as a `key`,
+see the [KLV](https://en.wikipedia.org/wiki/KLV) page.
 
 The  `fieldNum` property is defined in subfields (children) of the `MsgFieldType.BIT_SET` fields only.
 The `TAG` property is defined in fields of `TAG_LEN_VAL`, `LEN_TAG_VAL`, `TAG_VAL` types and can be packed in different formats.

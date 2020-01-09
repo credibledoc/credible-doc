@@ -47,7 +47,7 @@ The following example shows packing and unpacking of the field value
 } &&endPlaceholder
 ```
 
-The packed `FieldValue` with `lenHex` looks like
+The packed `FieldValue` with `lenHex` looks like the next example
 ```XML
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",

@@ -40,7 +40,7 @@ And the following example shows how to unpack the field bytes to a value
             assertEquals("ab", msgValue.getBodyValue(String.class));
 ```
 
-The packed `FieldValue` then looks like
+The packed `FieldValue` then looks like the next example
 ```XML
 
 <f val="ab" valHex="6162"/>

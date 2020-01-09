@@ -16,7 +16,7 @@ The following example shows how to define a field length in the `hex` format
 } &&endPlaceholder
 ```
 
-The field structure then looks like
+The field structure then looks like the next example
 ```XML
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",

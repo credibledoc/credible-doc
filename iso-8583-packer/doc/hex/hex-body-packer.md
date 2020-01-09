@@ -45,7 +45,7 @@ And the following example shows how to unpack the field bytes to a value
             assertEquals(value, HexService.bytesToHex(valueBytes));
 ```
 
-The packed `FieldValue` then looks like
+The packed `FieldValue` then looks like the next example
 ```XML
 
 <f val="0123" valHex="0123"/>
