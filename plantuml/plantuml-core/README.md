@@ -58,7 +58,7 @@ And the returned _**String svg**_ in this case will be
     --></g>
     </svg>
 
-And generated svg file will look like the next example
+And generated svg file then looks like the next example
 
 ![An UML diagram that describes, how the generated content looks like](doc/img/example.svg?sanitize=true)
 
