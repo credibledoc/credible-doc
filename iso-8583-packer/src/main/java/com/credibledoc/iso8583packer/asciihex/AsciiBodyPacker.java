@@ -70,7 +70,7 @@ public class AsciiBodyPacker implements BodyPacker {
     public String unpack(byte[] sourceData, int offset, int bytesCount) {
         int available = sourceData.length - offset;
         if (bytesCount > available) {
-            throw new PackerRuntimeException("Required bytes count '" + bytesCount +
+            throw new PackerRuntimeException("Required bytes length '" + bytesCount +
                 "' is greater than available sourceData length '" + available + "'");
         }
         byte[] ret = new byte[bytesCount];

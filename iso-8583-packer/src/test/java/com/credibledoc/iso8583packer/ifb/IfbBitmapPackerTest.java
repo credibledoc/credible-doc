@@ -7,7 +7,6 @@ import com.credibledoc.iso8583packer.dump.DumpService;
 import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker;
 import com.credibledoc.iso8583packer.hex.HexService;
-import com.credibledoc.iso8583packer.ifb.IfbBitmapPacker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
 import com.credibledoc.iso8583packer.message.MsgPair;
@@ -17,7 +16,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -77,7 +78,7 @@ public class IfbBitmapPackerTest {
             .getCurrentField();
 
         MsgField bitmap = FieldBuilder.from(mti)
-            .crateSibling(MsgFieldType.BIT_SET)
+            .createSibling(MsgFieldType.BIT_SET)
             .defineName(BITMAP_NAME)
             .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance(16))
             .getCurrentField();
@@ -140,5 +141,33 @@ public class IfbBitmapPackerTest {
 
         String msgValueDump = DumpService.getInstance().dumpMsgValue(isoMsgField, msgValue, true);
         logger.info("Root msgValue dump: \n{}{}", msgValueDump, "End of msgValue dump.");
+    }
+    
+    @Test
+    public void exampleTest() {
+        List<Integer> lenList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 16, 24, 32);
+        List<Integer> fieldNums = Arrays.asList(0, 1, 2, 7, 8, 9, 15, 16, 17, 23, 24, 25, 31, 32, 33, 39, 40, 47, 48, 49, 64, 65, 79, 80, 81, 128, 129, 192, 193);
+        for (Integer len : lenList) {
+            try {
+                IfbBitmapPacker ifbBitmapPacker = IfbBitmapPacker.getInstance(len);
+                BitSet bitSet = new BitSet();
+                for (int fieldNum : fieldNums) {
+                    bitSet.set(fieldNum);
+                    try {
+                        byte[] bytes = ifbBitmapPacker.pack(bitSet);
+                        assertNotNull(bytes);
+                        logger.info("Bitmap bytes length: {}, BitSet: {}, bytes: {}",
+                            len, bitSet, HexService.bytesToHex(bytes, " "));
+                    } catch (Exception e) {
+                        logger.info("Bitmap bytes length: {}, BitSet: {} cannot be packed. Exception: {}",
+                            len, bitSet, e.getMessage());
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                logger.info("Bitmap bytes length: {} cannot be packed. Exception: {}",
+                    len, e.getMessage());
+            }
+        }
     }
 }

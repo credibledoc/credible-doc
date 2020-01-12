@@ -15,6 +15,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * in <a href="https://en.wikipedia.org/wiki/EBCDIC">EBCDIC</a> format.
  * <p>
  * See examples in the {@link #pack(int)} and {@link #unpack(byte[], int)} methods description.
+ * <p>
+ * See more documentation
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/ebcdic/ebcdic-decimal-length-packer.md">ebcdic-decimal-length-packer.md</a>.
  *
  * @author Kyrylo Semenko
  */

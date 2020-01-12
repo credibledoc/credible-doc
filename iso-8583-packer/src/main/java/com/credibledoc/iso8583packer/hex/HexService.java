@@ -29,17 +29,35 @@ public class HexService {
     }
 
     /**
-     * converts a byte array to hex string 
-     * (suitable for dumps and ASCII packaging of Binary fields
-     * @param b - byte array
+     * Converts a byte array to hex string 
+     * (suitable for dumps and ASCII packaging of Binary fields)
+     * @param bytes a byte array
      * @return String representation
      */
-    public static String bytesToHex(byte[] b) {
-        StringBuilder d = new StringBuilder(b.length * 2);
-        for (byte aB : b) {
+    public static String bytesToHex(byte[] bytes) {
+        StringBuilder d = new StringBuilder(bytes.length * 2);
+        for (byte aB : bytes) {
             d.append(hexStrings[(int) aB & 0xFF]);
         }
         return d.toString();
+    }
+
+    /**
+     * Call the {@link #bytesToHex(byte[])} method and optionally interlace single bytes with some separator (divider).
+     * @param bytes a byte array
+     * @param separator the single bytes will be interlaced with separator (divider), for example <b>09 FF 0F</b>
+     * @return String representation
+     */
+    public static String bytesToHex(byte[] bytes, String separator) {
+        StringBuilder stringBuilder = new StringBuilder(bytes.length * 2);
+        for (int i = 0; i < bytes.length; i++) {
+            byte nextByte = bytes[i];
+            stringBuilder.append(hexStrings[(int) nextByte & 0xFF]);
+            if (i < bytes.length - 1) {
+                stringBuilder.append(separator);
+            }
+        }
+        return stringBuilder.toString();
     }
 
     /**
@@ -58,18 +76,32 @@ public class HexService {
     }
 
     /**
-     * Converts a hex string into a byte array
+     * Convert a hex string into a byte array.
      *
-     * @param s source string (with Hex representation)
-     * @return byte array
+     * @param hexStringOfBytes source string (with Hex representation)
+     * @return Byte array
      */
-    public static byte[] hex2byte(String s) {
-        if (s.length() % 2 == 0) {
-            return hex2byte(s.getBytes(), 0, s.length() >> 1);
+    public static byte[] hex2byte(String hexStringOfBytes) {
+        hexStringOfBytes = hexStringOfBytes.replaceAll("\\s+","");
+        if (hexStringOfBytes.length() % 2 == 0) {
+            return hex2byte(hexStringOfBytes.getBytes(), 0, hexStringOfBytes.length() >> 1);
         } else {
             // Padding left zero to make it even size #Bug raised by tommy
-            return hex2byte("0" + s);
+            return hex2byte("0" + hexStringOfBytes);
         }
+    }
+
+    /**
+     * Delete defined separators before the conversion.
+     * Then call the {@link #hex2byte(String)} method.
+     *
+     * @param hexStringOfBytes source string (with Hex representation)
+     * @param separatorRegex will be deleted. For deletion of spaces for example, use the <b>\\s+</b> regex.
+     * @return Byte array
+     */
+    public static byte[] hex2byte(String hexStringOfBytes, String separatorRegex) {
+        hexStringOfBytes = hexStringOfBytes.replaceAll(separatorRegex,"");
+        return hex2byte(hexStringOfBytes);
     }
 
 }

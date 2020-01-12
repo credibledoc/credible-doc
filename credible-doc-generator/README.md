@@ -39,6 +39,7 @@ This documentation is generated from these templates:
 * [/template/markdown/credible-doc-generator/README.md](src/main/resources/template/markdown/credible-doc-generator/README.md)
 * [/template/markdown/doc/release.md](src/main/resources/template/markdown/doc/release.md)
 * [/template/markdown/iso-8583-packer/doc/asciihex/ascii-body-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/asciihex/ascii-body-packer.md)
+* [/template/markdown/iso-8583-packer/doc/asciihex/ascii-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/asciihex/ascii-length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/bcd/bcd-body-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/bcd/bcd-body-packer.md)
 * [/template/markdown/iso-8583-packer/doc/bcd/bcd-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/bcd/bcd-length-packer.md)
 * [/template/markdown/iso-8583-packer/doc/binary/binary-length-packer.md](src/main/resources/template/markdown/iso-8583-packer/doc/binary/binary-length-packer.md)

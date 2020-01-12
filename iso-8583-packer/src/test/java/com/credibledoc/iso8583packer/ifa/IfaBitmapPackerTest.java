@@ -76,7 +76,7 @@ public class IfaBitmapPackerTest {
             .getCurrentField();
 
         MsgField bitmap = FieldBuilder.from(mti)
-            .crateSibling(MsgFieldType.BIT_SET)
+            .createSibling(MsgFieldType.BIT_SET)
             .defineName(BITMAP_NAME)
             .defineHeaderBitmapPacker(IfaBitmapPacker.getInstance(16))
             .getCurrentField();

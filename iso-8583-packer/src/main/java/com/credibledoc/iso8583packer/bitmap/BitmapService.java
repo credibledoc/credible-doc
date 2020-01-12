@@ -19,29 +19,28 @@ public class BitmapService {
     }
 
     /**
-     * converts a BitSet into a binary field
-     * used in pack routines
+     * Convert a BitSet into a binary field
      *
-     * @param b     - the BitSet
-     * @param bytes - number of bytes to return
+     * @param bitSet      the BitSet
+     * @param bytesNumber number of bytes to return
      * @return binary representation
      */
-    public static byte[] bitSet2byte(BitSet b, int bytes) {
-        int len = bytes * 8;
+    public static byte[] bitSet2byte(BitSet bitSet, int bytesNumber) {
+        int len = bytesNumber * 8;
 
-        byte[] d = new byte[bytes];
+        byte[] bytes = new byte[bytesNumber];
         for (int i = 0; i < len; i++) {
-            if (b.get(i + 1)) {
-                d[i >> 3] |= (0x80 >> (i % 8));
+            if (bitSet.get(i + 1)) {
+                bytes[i >> 3] |= (0x80 >> (i % 8));
             }
         }
         if (len > 64) {
-            d[0] |= 0x80;
+            bytes[0] |= 0x80;
         }
         if (len > 128) {
-            d[8] |= 0x80;
+            bytes[8] |= 0x80;
         }
-        return d;
+        return bytes;
     }
 
     /**

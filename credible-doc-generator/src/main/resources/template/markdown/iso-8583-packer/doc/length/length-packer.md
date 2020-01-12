@@ -12,6 +12,7 @@ These `LEN` subfields may have many different formats. The following implementat
 } &&endPlaceholder
 
 Description of some implementations:
+* [ascii-length-packer.md](../ascii/ascii-length-packer.md)
 * [bcd-length-packer.md](../bcd/bcd-length-packer.md)
 * [ebcdic-decimal-length-packer.md](../ebcdic/ebcdic-decimal-length-packer.md)
 * [binary-length-packer.md](../binary/binary-length-packer.md)

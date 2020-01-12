@@ -508,18 +508,41 @@ public class FieldBuilder {
         return this;
     }
 
-    public FieldBuilder crateSibling(MsgFieldType msgFieldType) {
+    /**
+     * Create new {@link MsgField} with type from the argument.
+     * @param msgFieldType the new {@link MsgField} type.
+     * @return The current actual {@link FieldBuilder} with the created {@link #msgField} in its context.
+     */
+    public FieldBuilder createSibling(MsgFieldType msgFieldType) {
         MsgField newMsgField = new MsgField();
         newMsgField.setType(msgFieldType);
+        checkParentExists(newMsgField);
+        newMsgField.setParent(msgField.getParent());
+        msgField.getParent().getChildren().add(newMsgField);
+        msgField = newMsgField;
+        return this;
+    }
+
+    /**
+     * Create new {@link MsgField} with the same type as the current {@link #msgField}.
+     * @return The current actual {@link FieldBuilder} with the created {@link #msgField} in its context.
+     */
+    public FieldBuilder createSibling() {
+        MsgField newMsgField = new MsgField();
+        newMsgField.setType(msgField.getType());
+        checkParentExists(newMsgField);
+        newMsgField.setParent(msgField.getParent());
+        msgField.getParent().getChildren().add(newMsgField);
+        msgField = newMsgField;
+        return this;
+    }
+
+    protected void checkParentExists(MsgField newMsgField) {
         if (msgField.getParent() == null) {
             throw new PackerRuntimeException("Current field '" + navigator.getPathRecursively(msgField) +
                 "' has no parent. The parent is mandatory for new created '" + navigator.getPathRecursively(newMsgField) +
                 "' field.");
         }
-        newMsgField.setParent(msgField.getParent());
-        msgField.getParent().getChildren().add(newMsgField);
-        msgField = newMsgField;
-        return this;
     }
 
     /**

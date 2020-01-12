@@ -19,17 +19,26 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class IfbBitmapPacker implements BitmapPacker {
 
+    private static final int MAX_FIELD_NUM_192 = 192;
     /**
      * Contains created instances. Each instance is a Singleton.
      */
     private static Map<Integer, IfbBitmapPacker> instances = new ConcurrentHashMap<>();
 
     /**
-     * Number of bytes in a packed state.
+     * Number of bytes in a packed state. Accepted values are from 1 to 8, 16 or 24.
+     * In case of 8 bytes the packed length depends on
+     * a resolved {@link BitSet} maximal fieldNum,
+     * for example fieldNum 65 cannot be encoded in 8 bytes and an additional
+     * 8 bytes will be appended to the packed bytes.
      */
     private int packedBytesLength;
 
     private IfbBitmapPacker(int packedBytesLength) {
+        if (packedBytesLength < 1 || (packedBytesLength > 8 && !(packedBytesLength == 16 || packedBytesLength == 24))) {
+            throw new PackerRuntimeException("PackedBytesLength '" + packedBytesLength +
+                "' cannot be accepted. Expected values are from 1 to 8 or 16 or 24.");
+        }
         this.packedBytesLength = packedBytesLength;
     }
 
@@ -39,10 +48,6 @@ public class IfbBitmapPacker implements BitmapPacker {
      * @return Existing instance from {@link #instances} or a new created instance.
      */
     public static IfbBitmapPacker getInstance(int packedBytesLength) {
-        // TODO Kyrylo Semenko - implement 32 bytes long bitmap
-        if (packedBytesLength != 16) {
-            throw new PackerRuntimeException("Expected value is 16. Other formats of the BitmapPacker will be implemented later.");
-        }
         instances.computeIfAbsent(packedBytesLength, k -> new IfbBitmapPacker(packedBytesLength));
         return instances.get(packedBytesLength);
     }
@@ -53,12 +58,33 @@ public class IfbBitmapPacker implements BitmapPacker {
      */
     @Override
     public byte[] pack(BitSet bitSet) {
-        byte[] bytes = BitmapService.bitSet2byte(bitSet, packedBytesLength);
-        if (bytes.length != packedBytesLength) {
-            throw new PackerRuntimeException("Result bytes length '" + bytes.length +
-                "' not equals with required packedBytesLength '" + packedBytesLength + "'.");
+        // 1 byte max fieldNum 8
+        // 2 bytes max fieldNum 16
+        // 3 bytes max fieldNum 24
+        // ...
+        // 8 bytes max fieldNum 64
+        // 16 bytes max fieldNum 128
+        // 24 bytes max fieldNum 192
+
+        int resolvedBytesLength = this.packedBytesLength;
+        if (resolvedBytesLength == 8) {
+            int maxFieldNum = bitSet.previousSetBit(MAX_FIELD_NUM_192 + 1);
+            if (maxFieldNum > 128) {
+                resolvedBytesLength = 8 * 3;
+            } else if (maxFieldNum > 64) {
+                resolvedBytesLength = 8 * 2;
+            }
         }
-        return bytes;
+        int maxPossibleSetBit = resolvedBytesLength * 8;
+        int bitOutOfBoundary = bitSet.nextSetBit(maxPossibleSetBit + 1);
+        boolean existsBitOutOfBoundary = bitOutOfBoundary > -1;
+        if (existsBitOutOfBoundary) {
+            throw new PackerRuntimeException("BitSet '" + bitSet + "' contains bit '" + bitOutOfBoundary +
+                "' that is greater than maximum possible bit '" + maxPossibleSetBit +
+                "' that can be encoded to a bytes array with length '" + resolvedBytesLength + "'.");
+        }
+
+        return BitmapService.bitSet2byte(bitSet, resolvedBytesLength);
     }
 
     /**
@@ -69,18 +95,25 @@ public class IfbBitmapPacker implements BitmapPacker {
      */
     @Override
     public int unpack(MsgValue msgValue, byte[] bytes, int offset) {
-        BitSet bitSet = BitmapService.byte2BitSet(bytes, offset, packedBytesLength << 3);
+        int maxFieldNum = packedBytesLength << 3;
+        BitSet bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
+        if (packedBytesLength != 8) {
+            msgValue.setBitSet(bitSet);
+            return packedBytesLength;
+        }
+        int unpackedBytesLength = packedBytesLength;
+        if (bitSet.get(1)) {
+            maxFieldNum = 128;
+            bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
+            unpackedBytesLength = unpackedBytesLength + packedBytesLength;
+            if (bitSet.get(65)) {
+                maxFieldNum = 192;
+                bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
+                unpackedBytesLength = unpackedBytesLength + packedBytesLength;
+            }
+        }
         msgValue.setBitSet(bitSet);
-        int len = bitSet.get(1) ? 128 : 64;
-        if (packedBytesLength > 16 && bitSet.get(1) && bitSet.get(65)) {
-            len = 192;
-        }
-        int result = Math.min(packedBytesLength, len >> 3);
-        if (result != packedBytesLength) {
-            throw new PackerRuntimeException("Result bytes length '" + result +
-                "' not equals with required packedBytesLength '" + packedBytesLength + "'.");
-        }
-        return result;
+        return unpackedBytesLength;
     }
 
 }

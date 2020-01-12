@@ -15,7 +15,7 @@ The following example shows how to define a field with `IFB` `bitmap` format
             .getCurrentField();
 
         MsgField bitmap = FieldBuilder.from(mti)
-            .crateSibling(MsgFieldType.BIT_SET)
+            .createSibling(MsgFieldType.BIT_SET)
             .defineName(BITMAP_NAME)
             .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance(16))
             .getCurrentField();
@@ -71,7 +71,7 @@ The packed `MsgValue` then looks like the next example
          
         <f name="msg">
             <f name="MTI" val="0200" valHex="0200"/>
-            <f name="BITMAP" bitmapHex="C0000000000000000000000000000000">
+            <f name="BITMAP" bitmapHex="C0000000000000000000000000000000" bitSet="{1, 2}">
                 <f name="PAN" fieldNum="2" val="123456781234567" lenHex="F0F8" valHex="123456781234567F"/>
             </f>
         </f>
