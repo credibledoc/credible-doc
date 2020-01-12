@@ -6,8 +6,6 @@ import com.credibledoc.iso8583packer.asciihex.AsciiBodyPacker;
 import com.credibledoc.iso8583packer.asciihex.AsciiLengthPacker;
 import com.credibledoc.iso8583packer.binary.BinaryLengthPacker;
 import com.credibledoc.iso8583packer.dump.DumpService;
-import com.credibledoc.iso8583packer.ebcdic.EbcdicBodyPacker;
-import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.ifb.IfbBitmapPacker;
 import com.credibledoc.iso8583packer.message.MsgField;
@@ -17,7 +15,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * See the
@@ -30,7 +28,7 @@ public class UnderstandingIso8583MessageLogTest {
     private static final Logger logger = LoggerFactory.getLogger(UnderstandingIso8583MessageLogTest.class);
 
     /**
-     * Used in documentation
+     * Creation of a message structure definition.
      */
     private FieldBuilder defineMessageStructure() {
         return FieldBuilder.builder(MsgFieldType.LEN_VAL)
@@ -115,36 +113,6 @@ public class UnderstandingIso8583MessageLogTest {
         byte[] packedBytes = valueHolder.pack();
         String packedHexString = HexService.bytesToHex(packedBytes, " ");
         assertEquals(hexString, packedHexString);
-    }
-
-    @Test(expected = PackerRuntimeException.class)
-    public void testLongValue() {
-        byte[] bytes = new byte[2];
-        byte[] value = HexService.hex2byte("112233");
-        EbcdicBodyPacker.getInstance().pack(value, bytes, 0);
-    }
-
-    @Test
-    public void testPack() {
-        String data = "Hello";
-        byte[] bytes = new byte[data.length()];
-        EbcdicBodyPacker.getInstance().pack(data, bytes, 0);
-        assertArrayEquals(HexService.hex2byte("C885939396"), bytes);
-    }
-
-    @Test(expected = PackerRuntimeException.class)
-    public void testUnpackShort() {
-        byte[] ab = HexService.hex2byte("61");
-        EbcdicBodyPacker.getInstance().unpack(ab, 0, 2);
-    }
-
-    @Test
-    public void testMsgFieldStructure() {
-        MsgField msgField = defineMessageStructure().getCurrentField();
-        DumpService dumpService = DumpService.getInstance();
-        String dump = dumpService.dumpMsgField(msgField);
-        assertNotNull(dump);
-        logger.info("MsgField structure dump: \n{}", dump);
     }
 
 }
