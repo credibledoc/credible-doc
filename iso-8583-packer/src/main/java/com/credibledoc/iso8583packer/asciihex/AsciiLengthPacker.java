@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * three bytes 30 32 34 decoded as decimal String 024 and int 24.
  * <p>
  * See the 
- * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/ascii/ascii-length-packer.md">ascii-length-packer.md</a> page.
+ * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/asciihex/ascii-length-packer.md">ascii-length-packer.md</a> page.
  *
  * @author Kyrylo Semenko
  */
