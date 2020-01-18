@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
  * Implements EBCDIC {@link BodyPacker}. Strings are converted to and from EBCDIC bytes.
  * The {@link #ISO_88591} charset is used.
  * <p>
+ * For example string 'Hello' packed to bytes as hex: C885939396.
+ * <p>
  * More examples
  * <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/doc/ebcdic/ebcdic-body-packer.md">ebcdic-body-packer.md</a>
  *

@@ -205,7 +205,7 @@ public class FieldBuilder {
         if (fieldNum != null && msgField.getParent() == null || msgField.getParent().getType() != MsgFieldType.BIT_SET) {
             String path = navigator.getPathRecursively(msgField);
             throw new PackerRuntimeException("The 'fieldNum' property is allowed for children of '" +
-                MsgFieldType.class.getSimpleName() + MsgFieldType.BIT_SET + "' only. " +
+                MsgFieldType.class.getSimpleName() + "." + MsgFieldType.BIT_SET + "' only. " +
                 "Current MsgField path: '" + path + "'.");
         }
         this.msgField.setFieldNum(fieldNum);
@@ -516,11 +516,7 @@ public class FieldBuilder {
     public FieldBuilder createSibling(MsgFieldType msgFieldType) {
         MsgField newMsgField = new MsgField();
         newMsgField.setType(msgFieldType);
-        checkParentExists(newMsgField);
-        newMsgField.setParent(msgField.getParent());
-        msgField.getParent().getChildren().add(newMsgField);
-        msgField = newMsgField;
-        return this;
+        return createParentIfNotExists(newMsgField);
     }
 
     /**
@@ -530,19 +526,22 @@ public class FieldBuilder {
     public FieldBuilder createSibling() {
         MsgField newMsgField = new MsgField();
         newMsgField.setType(msgField.getType());
-        checkParentExists(newMsgField);
+        return createParentIfNotExists(newMsgField);
+    }
+
+    protected FieldBuilder createParentIfNotExists(MsgField newMsgField) {
+        if (msgField.getParent() == null) {
+            MsgField parent = new MsgField();
+            parent.setType(MsgFieldType.MSG);
+            msgField.setParent(parent);
+            List<MsgField> children = new ArrayList<>();
+            children.add(msgField);
+            parent.setChildren(children);
+        }
         newMsgField.setParent(msgField.getParent());
         msgField.getParent().getChildren().add(newMsgField);
         msgField = newMsgField;
         return this;
-    }
-
-    protected void checkParentExists(MsgField newMsgField) {
-        if (msgField.getParent() == null) {
-            throw new PackerRuntimeException("Current field '" + navigator.getPathRecursively(msgField) +
-                "' has no parent. The parent is mandatory for new created '" + navigator.getPathRecursively(newMsgField) +
-                "' field.");
-        }
     }
 
     /**

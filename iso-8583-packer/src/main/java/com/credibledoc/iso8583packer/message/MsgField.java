@@ -65,7 +65,7 @@ public class MsgField implements Msg {
     private Integer maxLen;
 
     /**
-     * Number of bytes of the field in the packed state.
+     * The number of bytes the field contains in its packed state.
      * <p>
      * It uses for fixed length fields only.
      */
