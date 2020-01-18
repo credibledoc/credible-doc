@@ -116,7 +116,7 @@ public class StackOverflow53740336Test {
     public void unpackAndPack() {
         // unpack
         String hexString = "60010203040210303800000E8002000000000000000031000046741306511212383334363133303034363734313330363534303036323730353532340012910A59218CDAFBBCD2520014";
-        byte[] bytes = HexService.hex2byte(hexString, "\\s+");
+        byte[] bytes = HexService.hex2byte(hexString);
 
         FieldBuilder fieldBuilder = defineMessageStructure().jumpToRoot();
         MsgValue msgValue = ValueHolder.unpack(bytes, 0, fieldBuilder.getCurrentField());
@@ -125,7 +125,7 @@ public class StackOverflow53740336Test {
         String msgFieldStructure = DumpService.getInstance().dumpMsgField(fieldBuilder.getCurrentField());
         String msgValueData = DumpService.getInstance().dumpMsgValue(fieldBuilder.getCurrentField(), msgValue, false);
         logger.info("Example of a message " +
-            "with 16 bytes long Bitmap.\nMessage Structure:\n{}\nMessage data:\n{}",
+            "with 8 bytes long Bitmap.\nMessage Structure:\n{}\nMessage data:\n{}",
             msgFieldStructure, msgValueData);
         
         // pack again
