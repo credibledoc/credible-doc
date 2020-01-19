@@ -533,6 +533,7 @@ public class FieldBuilder {
         if (msgField.getParent() == null) {
             MsgField parent = new MsgField();
             parent.setType(MsgFieldType.MSG);
+            parent.setName("Root");
             msgField.setParent(parent);
             List<MsgField> children = new ArrayList<>();
             children.add(msgField);

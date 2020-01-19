@@ -189,7 +189,11 @@ public class ValueHolder {
         Integer rawDataLength;
         MsgFieldType msgFieldType = msgPair.getMsgField().getType();
         if (MsgFieldType.MSG == msgFieldType) {
-            rawDataLength = bytes.length - offset.getValue();
+            if (isValType(msgPair.getMsgField().getChildren())) {
+                rawDataLength = sumChildrenLen(msgPair.getMsgField().getChildren());
+            } else {
+                rawDataLength = bytes.length - offset.getValue();
+            }
         } else if (msgFieldType == MsgFieldType.BIT_SET) {
             rawDataLength = unpackBitSet(bytes, offset, msgPair);
         } else if (MsgFieldType.VAL == msgFieldType) {
@@ -206,6 +210,23 @@ public class ValueHolder {
             return;
         }
         offset.add(rawDataLength);
+    }
+
+    private int sumChildrenLen(List<MsgField> children) {
+        int result = 0;
+        for (MsgField child : children) {
+            result = result + child.getLen();
+        }
+        return result;
+    }
+
+    private boolean isValType(List<MsgField> children) {
+        for (MsgField child : children) {
+            if (child.getType() != MsgFieldType.VAL) {
+                return false;
+            }
+        }
+        return true;
     }
 
     protected Integer unpackOtherTypes(byte[] bytes, Offset offset, MsgPair msgPair) {
@@ -412,7 +433,11 @@ public class ValueHolder {
                     
         }
         int consumed = bitmapPacker.unpack(msgPair.getMsgValue(), bytes, offset.getValue());
+        byte[] bitMapBytes = new byte[consumed];
+        System.arraycopy(bytes, offset.getValue(), bitMapBytes, 0, consumed);
         offset.add(consumed);
+        
+        msgPair.getMsgValue().setBodyBytes(bitMapBytes);
 
         return getFieldNumsAndValidateBitSet(msgPair);
     }
@@ -439,7 +464,7 @@ public class ValueHolder {
                 throw new PackerRuntimeException("Unpacked bitSet contains fieldNum '" + nextFieldNum + "', " +
                     "but the MsgField with path '" + path + "' has no child with such fieldNum. " +
                     "Please set the defineFieldNum(" + nextFieldNum + ") value " +
-                    "on one of the field's '" + path + "' children");
+                    "on one of the field '" + path + "' children.");
             }
             if (unpackedBitSet.get(nextFieldNum)) {
                 fieldNums.add(nextFieldNum);

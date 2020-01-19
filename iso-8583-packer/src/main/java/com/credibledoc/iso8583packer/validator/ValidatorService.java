@@ -85,12 +85,25 @@ public class ValidatorService implements Validator {
         if (msgField.getType() == MsgFieldType.VAL || msgField.getType() == MsgFieldType.TAG_VAL) {
             validateLenExists(msgField, path);
         }
+
+        if (msgField.getType() == MsgFieldType.MSG) {
+            validateHasNoBitSetAndBitMapPacker(msgField, path);
+            validateHasNoLenDefined(msgField, path);
+        }
         
         List<MsgField> msgFields = msgField.getChildren();
         if (msgFields != null) {
             for (MsgField nextMsgField : msgFields) {
                 validateStructureRecursively(nextMsgField);
             }
+        }
+    }
+
+    private void validateHasNoLenDefined(MsgField msgField, String path) {
+        if (msgField.getLen() != null) {
+            throw new PackerRuntimeException("The 'len' property is not allowed for the MsgField with path '" + path +
+                "' with the '" + MsgFieldType.class.getSimpleName() + "." + msgField.getType() + "' type " +
+                "because the 'len' property is not used in such field type.");
         }
     }
 
