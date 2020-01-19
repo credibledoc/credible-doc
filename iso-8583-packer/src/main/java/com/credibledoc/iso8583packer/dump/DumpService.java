@@ -221,6 +221,8 @@ public class DumpService implements Visualizer {
 
         String nameString = getAttributeString(msgValue.getName(), " name=\"");
 
+        String bitmapString = createBitmapString(msgField, msgValue);
+
         String bitSetString = createBitSetString(msgField, msgValue);
 
         String tagHexString = getTagHexString(msgValue);
@@ -229,7 +231,7 @@ public class DumpService implements Visualizer {
 
         String content;
 
-        String numNameValue = nameString + fieldNumString + tagString + valueString + bitSetString;
+        String numNameValue = nameString + fieldNumString + tagString + valueString + bitmapString + bitSetString;
         
         if (msgField != null) {
             switch (msgField.getType()) {
@@ -273,6 +275,17 @@ public class DumpService implements Visualizer {
             valueHexString = "";
         }
         return valueHexString;
+    }
+
+    protected String createBitmapString(MsgField msgField, MsgValue msgValue) {
+        String bitmapString;
+        if (msgField != null && msgValue.getBitSet() != null) {
+            byte[] bytes = msgValue.getBodyBytes();
+            bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bytes) + "\"";
+        } else {
+            bitmapString = "";
+        }
+        return bitmapString;
     }
 
     protected String createBitSetString(MsgField msgField, MsgValue msgValue) {
