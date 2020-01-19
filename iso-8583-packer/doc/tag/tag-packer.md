@@ -15,8 +15,10 @@ The `TAG` property is defined in fields of `TAG_LEN_VAL`, `LEN_TAG_VAL`, `TAG_VA
 The following implementations of the `TagPacker` interface transform tags to different formats:
 * com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalTagPacker
 * com.credibledoc.iso8583packer.hex.HexTagPacker
+* com.credibledoc.iso8583packer.literal.LiteralTagPacker
 
 
 Some implementations are described on the following pages:
 * [ebcdic-decimal-tag-packer.md](../ebcdic/ebcdic-decimal-tag-packer.md)
 * [hex-tag-packer.md](../hex/hex-tag-packer.md)
+* [literal-tag-packer.md](../literal/literal-tag-packer.md)

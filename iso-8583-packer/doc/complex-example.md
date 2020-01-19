@@ -124,11 +124,11 @@ The message values can be described as XML by calling the `DumpService.dumpMsgVa
         <f name="PAN_02" fieldNum="2" val="123456781234567" lenHex="F0F8" valHex="123456781234567F"/>
         <f name="Processing_code_03" fieldNum="3" val="32" lenHex="01"/>
         <f name="field_58" fieldNum="58" lenHex="F0F6F9">
-            <f name="rate_request_reference" tag="35" val="018F1AEE03E404843C" lenHex="F0F2F0" tagHex="F3F5" valHex="30313846...38343343"/>
+            <f name="rate_request_reference" tag="35" val="018F1AEE03E404843C" lenHex="F0F2F0" tagHex="F3F5" valHex="303138463141454530334534303438343343"/>
             <f name="dcc_data" tag="37" lenHex="F0F2F6" tagHex="F3F7">
                 <f name="dcc_status" val="U" valHex="E4"/>
                 <f name="currency_code" val="978" valHex="F9F7F8"/>
-                <f name="transaction_amount" val="000000005555" valHex="F0F0F0F0...F5F5F5F5"/>
+                <f name="transaction_amount" val="000000005555" valHex="F0F0F0F0F0F0F0F0F5F5F5F5"/>
                 <f name="conversion_rate" val="40011670" valHex="F4F0F0F1F1F6F7F0"/>
             </f>
             <f name="non_loyalty_group" tag="53" val="003021" lenHex="F0F0F8" tagHex="F5F3" valHex="F0F0F3F0F2F1"/>

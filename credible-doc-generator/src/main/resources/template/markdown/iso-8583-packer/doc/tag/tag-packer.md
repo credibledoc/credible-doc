@@ -25,3 +25,4 @@ The following implementations of the `TagPacker` interface transform tags to dif
 Some implementations are described on the following pages:
 * [ebcdic-decimal-tag-packer.md](../ebcdic/ebcdic-decimal-tag-packer.md)
 * [hex-tag-packer.md](../hex/hex-tag-packer.md)
+* [literal-tag-packer.md](../literal/literal-tag-packer.md)
