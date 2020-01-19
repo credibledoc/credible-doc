@@ -70,26 +70,25 @@ public class BitmapService {
     }
 
     /**
-     * Converts a binary representation of a Bitmap field
-     * into a Java BitSet
+     * Converts a binary representation of a Bitmap field into a Java BitSet
      *
-     * @param b       - binary representation
-     * @param offset  - staring offset
-     * @param maxBits - max number of bits (supports 64,128 or 192)
+     * @param bytes   binary representation
+     * @param offset  staring offset
+     * @param maxBits max number of bits (supports 64,128 or 192)
      * @return java BitSet object
      */
-    public static BitSet byte2BitSet(byte[] b, int offset, int maxBits) {
-        int decidedLength = (b[offset] & 0x80) == 0x80 ? 128 : 64;
+    public static BitSet byte2BitSet(byte[] bytes, int offset, int maxBits) {
+        int decidedLength = (bytes[offset] & 0x80) == 0x80 ? 128 : 64;
         int len = maxBits > 64 ? decidedLength : maxBits;
 
-        if (maxBits > 128 && b.length > offset + 8 && (b[offset + 8] & 0x80) == 0x80) {
+        if (maxBits > 128 && bytes.length > offset + 8 && (bytes[offset + 8] & 0x80) == 0x80) {
             len = 192;
         }
         BitSet bmap = new BitSet(len);
         for (int i = 0; i < len; i++) {
             int shifted = i >> 3;
             int shiftedOffset = offset + shifted;
-            if (((b[shiftedOffset]) & (0x80 >> (i % 8))) > 0) {
+            if (((bytes[shiftedOffset]) & (0x80 >> (i % 8))) > 0) {
                 bmap.set(i + 1);
             }
         }
