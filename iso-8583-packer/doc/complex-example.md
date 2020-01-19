@@ -119,10 +119,10 @@ The message definition can be described as XML by calling the `DumpService.dumpM
 The message values can be described as XML by calling the `DumpService.dumpMsgValue(isoMsgField, msgValue, false)` method
 ```XML
 <f name="msg">
-    <f name="mti" val="0200" valHex="0200"/>
+    <f name="mti" val="0200"/>
     <f name="bitmap" bitmapHex="E0000000000000400000000000000000" bitSet="{1, 2, 3, 58}">
         <f name="PAN_02" fieldNum="2" val="123456781234567" lenHex="F0F8" valHex="123456781234567F"/>
-        <f name="Processing_code_03" fieldNum="3" val="32" lenHex="01" valHex="32"/>
+        <f name="Processing_code_03" fieldNum="3" val="32" lenHex="01"/>
         <f name="field_58" fieldNum="58" lenHex="F0F6F9">
             <f name="rate_request_reference" tag="35" val="018F1AEE03E404843C" lenHex="F0F2F0" tagHex="F3F5" valHex="30313846...38343343"/>
             <f name="dcc_data" tag="37" lenHex="F0F2F6" tagHex="F3F7">

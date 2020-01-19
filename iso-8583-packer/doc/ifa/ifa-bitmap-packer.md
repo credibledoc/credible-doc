@@ -70,7 +70,7 @@ The packed `MsgValue` then looks like the next example
 ```XML
          
         <f name="msg">
-            <f name="MTI" val="0200" valHex="0200"/>
+            <f name="MTI" val="0200"/>
             <f name="BITMAP" bitmapHex="34303030303030303030303030303030" bitSet="{2}">
                 <f name="PAN" fieldNum="2" val="123456781234567" lenHex="F0F8" valHex="123456781234567F"/>
             </f>

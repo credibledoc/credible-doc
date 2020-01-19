@@ -43,7 +43,7 @@ And the following example shows how to unpack the field bytes to a value
 The packed `FieldValue` then looks like the next example
 ```XML
 
-<f val="FFFF" valHex="FFFF"/>
+<f val="FFFF"/>
 ```
 
 Some examples of packed values

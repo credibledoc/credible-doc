@@ -47,7 +47,7 @@ The following example shows packing and unpacking of the field value
 The packed `FieldValue` with `TAG` looks like the next example
 ```XML
 <f name="root">
-    <f name="field_1" tag="1" val="1234" tagHex="01" valHex="1234"/>
+    <f name="field_1" tag="1" val="1234" tagHex="01"/>
 </f>
 ```
 

@@ -30,6 +30,8 @@ public class DumpService implements Visualizer {
     private static final Logger logger = LoggerFactory.getLogger(DumpService.class);
     private static final int MAX_LEN_20 = 20;
     public static final String FOR_SPACES = "    ";
+    private static final String VAL_ATTRIBUTE_PREFIX = " val=\"";
+    private static final String VAL_HEX_ATTRIBUTE_PREFIX = " valHex=\"";
 
     protected static DumpService instance;
     
@@ -208,6 +210,12 @@ public class DumpService implements Visualizer {
 
         String valueString = getValueString(msgField, msgValue, maskPrivateData, masker);
 
+        if (valueString.length() > 0 && valueHexString.length() > 0 &&
+            valueString.substring(VAL_ATTRIBUTE_PREFIX.length()).equals(valueHexString.substring(VAL_HEX_ATTRIBUTE_PREFIX.length()))) {
+            // do not print the same values of val and valHex.
+            valueHexString = "";
+        }
+
         String fieldNumString = getAttributeString(msgValue.getFieldNum(), " fieldNum=\"");
 
         String tagString = getAttributeString(msgValue.getTag(), " tag=\"");
@@ -313,7 +321,7 @@ public class DumpService implements Visualizer {
         if (msgValue.getChildren() != null || msgValue.getBodyValue() == null) {
             return "";
         }
-        return " val=\"" + maskValue(msgValue, maskPrivateData, masker, stringer) + "\"";
+        return VAL_ATTRIBUTE_PREFIX + maskValue(msgValue, maskPrivateData, masker, stringer) + "\"";
     }
 
     protected String maskValue(MsgValue msgValue, boolean maskPrivateData, Masker masker, Stringer stringer) {
@@ -337,7 +345,7 @@ public class DumpService implements Visualizer {
                 valueHex = hex;
             }
         }
-        return valueHex == null ? "" : (" valHex=\"" + valueHex + "\"");
+        return valueHex == null ? "" : (VAL_HEX_ATTRIBUTE_PREFIX + valueHex + "\"");
     }
 
     protected void printContent(MsgField msgField, MsgValue msgValue, PrintStream printStream, String indent,
