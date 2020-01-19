@@ -28,7 +28,6 @@ import java.util.List;
  */
 public class DumpService implements Visualizer {
     private static final Logger logger = LoggerFactory.getLogger(DumpService.class);
-    private static final int MAX_LEN_20 = 20;
     public static final String FOR_SPACES = "    ";
     private static final String VAL_ATTRIBUTE_PREFIX = " val=\"";
     private static final String VAL_HEX_ATTRIBUTE_PREFIX = " valHex=\"";
@@ -222,8 +221,6 @@ public class DumpService implements Visualizer {
 
         String nameString = getAttributeString(msgValue.getName(), " name=\"");
 
-        String bitmapString = createBitmapString(msgField, msgValue);
-
         String bitSetString = createBitSetString(msgField, msgValue);
 
         String tagHexString = getTagHexString(msgValue);
@@ -232,7 +229,7 @@ public class DumpService implements Visualizer {
 
         String content;
 
-        String numNameValue = nameString + fieldNumString + tagString + valueString + bitmapString + bitSetString;
+        String numNameValue = nameString + fieldNumString + tagString + valueString + bitSetString;
         
         if (msgField != null) {
             switch (msgField.getType()) {
@@ -276,18 +273,6 @@ public class DumpService implements Visualizer {
             valueHexString = "";
         }
         return valueHexString;
-    }
-
-    protected String createBitmapString(MsgField msgField, MsgValue msgValue) {
-        String bitmapString;
-        if (msgField != null && msgValue.getBitSet() != null) {
-            BitSet bitSet = msgValue.getBitSet();
-            byte[] bytes = msgField.getBitMapPacker().pack(bitSet);
-            bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bytes) + "\"";
-        } else {
-            bitmapString = "";
-        }
-        return bitmapString;
     }
 
     protected String createBitSetString(MsgField msgField, MsgValue msgValue) {
@@ -339,11 +324,7 @@ public class DumpService implements Visualizer {
             if (maskPrivateData && masker != null) {
                 hex = masker.maskHex(hex);
             }
-            if (hex.length() > MAX_LEN_20) {
-                valueHex = hex.substring(0, 8) + "..." + hex.substring(hex.length() - 8);
-            } else {
-                valueHex = hex;
-            }
+            valueHex = hex;
         }
         return valueHex == null ? "" : (VAL_HEX_ATTRIBUTE_PREFIX + valueHex + "\"");
     }
