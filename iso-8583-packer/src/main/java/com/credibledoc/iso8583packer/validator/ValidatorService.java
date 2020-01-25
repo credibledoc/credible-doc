@@ -110,7 +110,7 @@ public class ValidatorService implements Validator {
         if (msgField.getBodyPacker() != null) {
             throw new PackerRuntimeException("The MsgField with path '" + path +
                 "' has defined bodyPacker '" + msgField.getBodyPacker().getClass().getSimpleName() +
-                "', but it is redundant because the MsgField contains children.");
+                "', but it is redundant because the MsgField contains the children.");
         }
     }
 

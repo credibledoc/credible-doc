@@ -1,6 +1,7 @@
 # Module `iso-8583-packer`
 
-The module is a library for creation, packing and unpacking ISO 8583 messages.
+The module is a library for creation, packing and unpacking ISO 8583 messages,
+and also for messages in non-standard formats.
 
 ## Usage
 The module is the source of the `iso-8583-packer-1.0.13` library.

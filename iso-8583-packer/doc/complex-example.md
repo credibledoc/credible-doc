@@ -98,7 +98,7 @@ The message definition can be described as XML by calling the `DumpService.dumpM
         <f type="LEN_VAL" fieldNum="3" name="Processing_code_03" lengthPacker="BcdLengthPacker" bodyPacker="BcdBodyPacker"/>
         <f type="LEN_VAL" fieldNum="58" name="field_58" lengthPacker="EbcdicDecimalLengthPacker" maxLen="999" childTagPacker="EbcdicDecimalTagPacker(2)">
             <f type="LEN_TAG_VAL" tag="35" name="rate_request_reference" bodyPacker="AsciiBodyPacker"/>
-            <f type="LEN_TAG_VAL" tag="37" name="dcc_data" bodyPacker="EbcdicBodyPacker">
+            <f type="LEN_TAG_VAL" tag="37" name="dcc_data">
                 <f type="VAL" name="dcc_status" bodyPacker="EbcdicBodyPacker" len="1"/>
                 <f type="VAL" name="currency_code" bodyPacker="EbcdicBodyPacker" len="3"/>
                 <f type="VAL" name="transaction_amount" bodyPacker="EbcdicBodyPacker" len="12"/>

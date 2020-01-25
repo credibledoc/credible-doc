@@ -69,8 +69,8 @@ public class Field58 {
         FieldBuilder.from(subfield35).cloneToSibling()
                 .defineName(DCC_DATA_37_NAME)
                 .defineHeaderTag(DCC_DATA_37)
-                .defineBodyPacker(EbcdicBodyPacker.getInstance())
                 .defineChildrenLengthPacker(null)
+                .defineBodyPacker(null)
 
                 .createChild(MsgFieldType.TAG_LEN_VAL)
 

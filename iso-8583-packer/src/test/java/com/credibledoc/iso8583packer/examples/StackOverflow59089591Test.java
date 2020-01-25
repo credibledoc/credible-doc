@@ -216,14 +216,12 @@ public class StackOverflow59089591Test {
             .defineName("Proprietary Field 112")
             .defineFieldNum(112)
             .defineHeaderLengthPacker(BcdLengthPacker.getInstance(3))
-            .defineBodyPacker(LiteralBodyPacker.getInstance())
             
                 .createChild(MsgFieldType.TAG_LEN_VAL)
                 .defineName("Local fleet data")
                 .defineHeaderTag("F0")
                 .defineHeaderTagPacker(LiteralTagPacker.getInstance(1))
                 .defineHeaderLengthPacker(BinaryLengthPacker.getInstance(1))
-                .defineBodyPacker(AsciiBodyPacker.getInstance())
                 
                     .createChild(MsgFieldType.TAG_LEN_VAL)
                     .defineName("Protocol Version")
@@ -243,6 +241,7 @@ public class StackOverflow59089591Test {
                     .cloneToSibling()
                     .defineName("Commodity Info")
                     .defineHeaderTag("EA")
+                    .defineBodyPacker(null)
                 
                         .createChild(MsgFieldType.TAG_LEN_VAL)
                         .defineName("Product")
