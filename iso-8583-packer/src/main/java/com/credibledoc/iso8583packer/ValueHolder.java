@@ -86,7 +86,7 @@ public class ValueHolder {
     public static ValueHolder newInstance(MsgField definition) {
         ValueHolder valueHolder = new ValueHolder();
         valueHolder.createDefaultServices();
-        return valueHolder.newValueHolder(definition);
+        return valueHolder.setValueAndField(definition);
     }
 
     /**
@@ -105,7 +105,7 @@ public class ValueHolder {
      * @param definition existing definition created with {@link FieldBuilder}.
      * @return A new instance of this {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
      */
-    protected ValueHolder newValueHolder(MsgField definition) {
+    protected ValueHolder setValueAndField(MsgField definition) {
         this.msgField = definition;
         this.msgValue = navigator.newFromNameAndTag(definition);
         return this;
@@ -121,20 +121,18 @@ public class ValueHolder {
     public static ValueHolder newInstance(MsgValue msgValue, MsgField msgField) {
         ValueHolder valueHolder = new ValueHolder();
         valueHolder.createDefaultServices();
-        return valueHolder.newValueHolder(msgValue, msgField);
+        return valueHolder.setValueAndField(msgValue, msgField);
     }
 
     /**
-     * Set the new instance of {@link ValueHolder}.
+     * Set the arguments to the current instance of {@link ValueHolder}.
      *
-     * @param msgValue      will be set to the {@link ValueHolder#msgValue}.
+     * @param msgValue will be set to the {@link ValueHolder#msgValue}.
      * @param msgField will be set to the {@link ValueHolder#msgField}.
-     * @return The new created {@link ValueHolder} with the {@link #msgValue} and {@link #msgField} in its context.
+     * @return The current instance of {@link ValueHolder} with the {@link #msgValue} and {@link #msgField} in its context.
      */
-    protected ValueHolder newValueHolder(MsgValue msgValue, MsgField msgField) {
+    protected ValueHolder setValueAndField(MsgValue msgValue, MsgField msgField) {
         try {
-            MsgPair msgPair = new MsgPair(msgField, msgValue);
-            navigator.validateSameNamesAndTags(msgPair);
             this.msgValue = msgValue;
             this.msgField = msgField;
             return this;
@@ -273,11 +271,17 @@ public class ValueHolder {
 
     protected Integer unpackFixedLengthType(byte[] bytes, Offset offset, MsgPair msgPair) {
         Integer rawDataLength;
-        MsgField msgField = msgPair.getMsgField();
-        rawDataLength = msgField.getLen();
+        MsgField currentMsgField = msgPair.getMsgField();
+        rawDataLength = currentMsgField.getLen();
         if (rawDataLength == null) {
             throw new PackerRuntimeException("Property 'len' is mandatory for the '" + MsgFieldType.class.getSimpleName() +
-                "." + msgField.getType() + "' type. MsgField path: '" + navigator.getPathRecursively(msgField) + "'.");
+                "." + currentMsgField.getType() + "' type. MsgField path: '" + navigator.getPathRecursively(currentMsgField) + "'.");
+        }
+        int remaining = bytes.length - offset.getValue();
+        if (rawDataLength > remaining) {
+            throw new PackerRuntimeException("Cannot unpack bytes because the remaining data length '" + remaining +
+                "' of the byte array is less than defined 'len' value '" + rawDataLength +
+                "' of the MsgField with path '" + navigator.getPathRecursively(currentMsgField) + "'.");
         }
         unpackBodyBytes(bytes, offset, msgPair, rawDataLength);
         
@@ -1083,5 +1087,16 @@ public class ValueHolder {
      */
     public void setVisualizer(Visualizer visualizer) {
         this.visualizer = visualizer;
+    }
+
+    /**
+     * Change the actual {@link #msgValue} object graph place (location) to be the same as the {@link #msgField},
+     * see the {@link Navigator#synchronizeMessageValue(MsgField, MsgValue)} method description.
+     *
+     * @return The current {@link ValueHolder} instance with adjusted {@link #msgValue}.
+     */
+    public ValueHolder adjust() {
+        msgValue = this.navigator.synchronizeMessageValue(msgField, msgValue);
+        return this;
     }
 }

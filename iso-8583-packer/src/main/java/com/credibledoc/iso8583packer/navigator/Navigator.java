@@ -103,4 +103,16 @@ public interface Navigator {
      * @param visualizer the {@link Visualizer} to set.
      */
     void setVisualizer(Visualizer visualizer);
+
+    /**
+     * Change the current place (location) of the {@link MsgValue} to the same place as {@link MsgField}.
+     *
+     * @param msgField contains information about current place (location). Place is defined by the name, tag and
+     *                 parent - child relationship.
+     * @param msgValue to be changed, the actual place in the object graph will be set as defined in the
+     * {@link MsgField}.
+     *                 
+     * @return The object graph from the second parameter with changed location.
+     */
+    MsgValue synchronizeMessageValue(MsgField msgField, MsgValue msgValue);
 }

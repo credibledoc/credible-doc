@@ -169,7 +169,7 @@ public class NavigatorService implements Navigator {
     }
 
     protected MsgField findInGraphRecurrently(MsgValue msgValue, MsgField msgField) {
-        if (isValueFitToField(msgValue, msgField)) {
+        if (isValueBelongsToField(msgValue, msgField)) {
             return msgField;
         }
         if (msgField.getChildren() == null) {
@@ -184,7 +184,7 @@ public class NavigatorService implements Navigator {
         return null;
     }
 
-    protected boolean isValueFitToField(MsgValue msgValue, MsgField msgField) {
+    protected boolean isValueBelongsToField(MsgValue msgValue, MsgField msgField) {
         return Objects.equals(msgValue.getName(), msgField.getName()) &&
                 Objects.equals(msgValue.getTag(), msgField.getTag());
     }
@@ -203,10 +203,10 @@ public class NavigatorService implements Navigator {
         MsgField msgField = msgPair.getMsgField();
         MsgValue msgValue = msgPair.getMsgValue();
         boolean namesEqual = Objects.equals(msgValue.getName(), msgField.getName());
-        boolean tanNumsEqual = Objects.equals(msgValue.getTag(), msgField.getTag());
-        if (!namesEqual || !tanNumsEqual) {
+        boolean tagNumsEqual = Objects.equals(msgValue.getTag(), msgField.getTag());
+        if (!namesEqual || !tagNumsEqual) {
             String cause;
-            if (!namesEqual && !tanNumsEqual) {
+            if (!namesEqual && !tagNumsEqual) {
                 cause = "names and tags";
             } else if (!namesEqual) {
                 cause = "names";
@@ -215,8 +215,8 @@ public class NavigatorService implements Navigator {
             }
             throw new PackerRuntimeException("The MsgField and its msgValue does not fit to each other because " +
                     "they have different " + cause + ".\nMsgValue: '" + getPathRecursively(msgValue) +
-                    "'\nMsgField: '" + getPathRecursively(msgField) + "'.\n" +
-                    "Please navigate to correct msgField by using the FieldBuilder.jump** methods.");
+                    "'\nMsgField: '" + getPathRecursively(msgField) + "'\n" +
+                    "Please navigate to a correct msgField by using the ValueHolder.adjust() or FieldBuilder.jump** methods.");
         }
     }
 
@@ -235,6 +235,44 @@ public class NavigatorService implements Navigator {
             }
         }
         return null;
+    }
+
+    @Override
+    public MsgValue synchronizeMessageValue(MsgField msgField, MsgValue msgValue) {
+        if (Objects.equals(msgField.getName(), msgValue.getName()) &&
+            Objects.equals(msgField.getTag(), msgValue.getTag()) &&
+            msgField.getParent() == null && msgValue.getParent() == null) {
+            return msgValue;
+        }
+        // root msgField
+        if (msgField.getParent() == null) {
+            return findRoot(msgValue);
+        }
+        String parentName = msgField.getParent().getName();
+        Object parentTag = msgField.getParent().getTag();
+        String name = msgField.getName();
+        Object tag = msgField.getTag();
+        return findInGraphRecurrently(parentName, parentTag, name, tag, findRoot(msgValue));
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T extends Msg> T findInGraphRecurrently(String parentName, Object parentTag, String name, Object tag, T msg) {
+        for (Msg child : msg.getChildren()) {
+            if (Objects.equals(parentName, child.getParent().getName()) &&
+                Objects.equals(parentTag, child.getParent().getTag()) &&
+                Objects.equals(name, child.getName()) &&
+                Objects.equals(tag, child.getName())) {
+                return (T) child;
+            }
+            if (child.getChildren() != null) {
+                return (T) findInGraphRecurrently(parentName, parentTag, name, tag, child);
+            }
+        }
+        throw new PackerRuntimeException("Cannot find appropriate MsgValue with " +
+            "parentName '" + parentName + "', " +
+            "parentTag '" + parentTag + "', " +
+            "name '" + name + "', " +
+            "tag '" + tag + "' in the MsgField.");
     }
 
     /**

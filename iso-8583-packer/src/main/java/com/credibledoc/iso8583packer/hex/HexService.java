@@ -29,17 +29,20 @@ public class HexService {
     }
 
     /**
-     * Converts a byte array to hex string 
-     * (suitable for dumps and ASCII packaging of Binary fields)
+     * Convert a byte array to a hex string (suitable for dumps and ASCII packaging of Binary fields)
+     *
      * @param bytes a byte array
      * @return String representation
      */
     public static String bytesToHex(byte[] bytes) {
-        StringBuilder d = new StringBuilder(bytes.length * 2);
-        for (byte aB : bytes) {
-            d.append(hexStrings[(int) aB & 0xFF]);
+        if (bytes == null) {
+            return "";
         }
-        return d.toString();
+        StringBuilder stringBuilder = new StringBuilder(bytes.length * 2);
+        for (byte aB : bytes) {
+            stringBuilder.append(hexStrings[(int) aB & 0xFF]);
+        }
+        return stringBuilder.toString();
     }
 
     /**

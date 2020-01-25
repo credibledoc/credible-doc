@@ -20,6 +20,7 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The service creates the String representation of the {@link MsgField}s and {@link MsgValue}s for logging and debugging purposes.
@@ -186,7 +187,9 @@ public class DumpService implements Visualizer {
     @Override
     public void dumpMsgValue(MsgField msgField, MsgValue msgValue, PrintStream printStream, String indent,
                              String indentForChildren, boolean maskPrivateData) {
-
+        if (msgField != null && !Objects.equals(msgField.getName(), msgValue.getName())) {
+            msgValue = navigator.synchronizeMessageValue(msgField, msgValue);
+        }
         navigator.validateSameNamesAndTags(new MsgPair(msgField, msgValue));
         if (indent == null) {
             indent = "";

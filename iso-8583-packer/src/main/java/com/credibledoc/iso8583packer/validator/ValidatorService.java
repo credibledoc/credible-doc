@@ -90,8 +90,15 @@ public class ValidatorService implements Validator {
             validateHasNoBitSetAndBitMapPacker(msgField, path);
             validateHasNoLenDefined(msgField, path);
         }
+
+        validateFixedLenSubfields(msgField, path);
         
         List<MsgField> msgFields = msgField.getChildren();
+        
+        if (msgFields != null) {
+            validateHasNoBodyPacker(msgField, path);
+        }
+        
         if (msgFields != null) {
             for (MsgField nextMsgField : msgFields) {
                 validateStructureRecursively(nextMsgField);
@@ -99,7 +106,48 @@ public class ValidatorService implements Validator {
         }
     }
 
-    private void validateHasNoLenDefined(MsgField msgField, String path) {
+    private void validateHasNoBodyPacker(MsgField msgField, String path) {
+        if (msgField.getBodyPacker() != null) {
+            throw new PackerRuntimeException("The MsgField with path '" + path +
+                "' has defined bodyPacker '" + msgField.getBodyPacker().getClass().getSimpleName() +
+                "', but it is redundant because the MsgField contains children.");
+        }
+    }
+
+    protected void validateFixedLenSubfields(MsgField msgField, String path) {
+        boolean isLenType =
+            msgField.getLen() != null &&
+            msgField.getChildren() != null &&
+            allChildrenAreLenType(msgField.getChildren());
+        
+        if (isLenType) {
+            int childrenLen = calculateChildrenLen(msgField.getChildren());
+            if (msgField.getLen() != childrenLen) {
+                throw new PackerRuntimeException("The msgField 'len' value '" + msgField.getLen() +
+                    "' is differ with its children 'len' values sum '" + childrenLen + "'. " +
+                    "MsgField path: '" + path + "'");
+            }
+        }
+    }
+
+    protected int calculateChildrenLen(List<MsgField> children) {
+        int result = 0;
+        for (MsgField msgField : children) {
+            result += msgField.getLen();
+        }
+        return result;
+    }
+
+    protected boolean allChildrenAreLenType(List<MsgField> children) {
+        for (MsgField msgField : children) {
+            if (msgField.getLen() == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected void validateHasNoLenDefined(MsgField msgField, String path) {
         if (msgField.getLen() != null) {
             throw new PackerRuntimeException("The 'len' property is not allowed for the MsgField with path '" + path +
                 "' with the '" + MsgFieldType.class.getSimpleName() + "." + msgField.getType() + "' type " +
