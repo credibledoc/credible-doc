@@ -2,6 +2,7 @@ package com.credibledoc.iso8583packer.validator;
 
 import com.credibledoc.iso8583packer.dump.Visualizer;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
+import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
@@ -9,6 +10,7 @@ import com.credibledoc.iso8583packer.navigator.Navigator;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The service is used for validation the {@link com.credibledoc.iso8583packer.message.MsgField} structure.
@@ -173,7 +175,8 @@ public class ValidatorService implements Validator {
         }
         
         boolean tagPackerExists = parentTagPackerExists || msgField.getTagPacker() != null;
-        boolean tagExists = msgField.getTag() != null;
+        Object tag = msgField.getTag();
+        boolean tagExists = tag != null;
 
         if (!tagPackerExists) {
             String parentPath = navigator.getPathRecursively(msgField.getParent());
@@ -189,6 +192,21 @@ public class ValidatorService implements Validator {
         if (!tagExists) {
             throw new PackerRuntimeException("Please define the tag value to the field '" + path +
                     "', it is mandatory for MsgFieldType '" + msgField.getType() + "'.");
+        }
+
+        TagPacker tagPacker = msgField.getTagPacker();
+        if (tagPacker == null) {
+            tagPacker = msgField.getParent().getChildrenTagPacker();
+        }
+        byte[] packedTag = tagPacker.pack(tag);
+        Object unpackedTag = tagPacker.unpack(packedTag, 0);
+        if (!Objects.equals(tag, unpackedTag)) {
+            throw new PackerRuntimeException("MsgField with path '" + path + "' contains tag '" + tag + "', " +
+                "the tag is packed as bytes '" + HexService.bytesToHex(packedTag) + "'. " +
+                "But unpacked value '" + unpackedTag + "' of the tag " +
+                "not equals with the original value '" + tag + "'." +
+                " The tag is packed and unpacked with the '" + tagPacker.getClass().getSimpleName() + "' TagPacker." +
+                " Please define other TagPacker.");
         }
     }
 

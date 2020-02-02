@@ -28,8 +28,7 @@ public class BcdLengthPacker implements LengthPacker {
     private static Map<Integer, BcdLengthPacker> instances = new ConcurrentHashMap<>();
 
     /**
-     * How many bytes the {@link MsgValue#getTagBytes()} (optional) and {@link MsgValue#getBodyBytes()} fields
-     * occupy in a packed state.
+     * How many bytes the {@link MsgValue#getLengthBytes()} field occupies in a packed state.
      */
     private int numBytes;
 

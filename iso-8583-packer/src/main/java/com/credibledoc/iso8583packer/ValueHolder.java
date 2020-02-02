@@ -19,10 +19,7 @@ import com.credibledoc.iso8583packer.tag.TagPacker;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * This builder helps to fill the existing {@link MsgField} definition with data. It contains
@@ -81,12 +78,24 @@ public class ValueHolder {
      * </pre>
      *
      * @param definition existing definition created with {@link FieldBuilder}.
-     * @return A new instance of this {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
+     * @return A new instance of the {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
      */
     public static ValueHolder newInstance(MsgField definition) {
         ValueHolder valueHolder = new ValueHolder();
         valueHolder.createDefaultServices();
         return valueHolder.setValueAndField(definition);
+    }
+
+    /**
+     * Create a new instance of {@link MsgValue} from the {@link FieldBuilder#getCurrentField()} value.
+     * <p>
+     * See also the {@link #newInstance(MsgField)} method description.
+     *
+     * @param fieldBuilder the existing {@link FieldBuilder} with the {@link FieldBuilder#msgField} value.
+     * @return A new instance of the {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
+     */
+    public static ValueHolder newInstance(FieldBuilder fieldBuilder) {
+        return newInstance(fieldBuilder.getCurrentField());
     }
 
     /**
@@ -169,6 +178,8 @@ public class ValueHolder {
             offsetObject.setValue(offset);
             MsgPair msgPair = new MsgPair(msgField, newMsgValue);
             unpackFieldRecursively(bytes, offsetObject, msgPair);
+            msgValue = msgPair.getMsgValue();
+            msgField = msgPair.getMsgField();
             return newMsgValue;
         } catch (Exception e) {
             String dump = PARTIAL_DUMP + visualizer.dumpMsgValue(msgField, newMsgValue, true) +
@@ -623,7 +634,7 @@ public class ValueHolder {
      */
     public ValueHolder setValue(Object bodyValue) {
         if (msgField.getChildren() != null && !msgField.getChildren().isEmpty()) {
-            throw new PackerRuntimeException("Cannot set bodyValue to fields with children. Values can only contain " +
+            throw new PackerRuntimeException("Cannot set bodyValue to fields with children. Values can only be set to " +
                     "leaf fields. Field: " + navigator.getPathRecursively(msgField) + ", bodyValue: " + bodyValue);
         }
         if (bodyValue == null) {
@@ -998,6 +1009,8 @@ public class ValueHolder {
     /**
      * Create a copy from the current {@link #msgValue} and set it to this {@link #msgValue} context.
      * This sibling will have the same {@link MsgField#getName()} and {@link MsgField#getFieldNum()} as its sibling.
+     * <p>
+     * It is useful for creation of multiple repeated fields with the same name and/or fieldNum.
      *
      * @return The current actual {@link ValueHolder}.
      */
@@ -1030,7 +1043,8 @@ public class ValueHolder {
      * @return The {@link MsgValue} unpacked from the bytes.
      */
     public MsgValue unpack(byte[] bytes) {
-        return unpack(bytes, 0, msgField);
+        unpackMsgField(bytes, 0);
+        return msgValue;
     }
 
     /**
@@ -1097,6 +1111,38 @@ public class ValueHolder {
      */
     public ValueHolder adjust() {
         msgValue = this.navigator.synchronizeMessageValue(msgField, msgValue);
+        return this;
+    }
+
+    /**
+     * Change the actual object graph places (locations) of the {@link #msgField} and {@link #msgValue}.
+     *
+     * @param fieldNames the {@link MsgField#getName()}s of fields from the root of the {@link #msgField}.
+     * @return The current {@link ValueHolder} instance with a new place (location) of the {@link #msgValue}.
+     */
+    public ValueHolder jumpAbsolute(String ... fieldNames) {
+        if (fieldNames.length < 2) {
+            return this;
+        }
+        jumpToRoot();
+        if (!msgField.getName().equals(fieldNames[0])) {
+            String msgFieldDump = visualizer.dumpMsgField(msgField);
+            throw new PackerRuntimeException("MsgField with name '" + fieldNames[0] + "' is not a root field. " +
+                "Expected the root field name '" + msgField.getName() + "'." + "\nMsgField:\n" + msgFieldDump);
+        }
+        for (int i = 1; i < fieldNames.length; i++) {
+            String name = fieldNames[i];
+            if (name == null) {
+                throw new PackerRuntimeException("MsgField name cannot be 'null'. " +
+                    "FieldNames: " + Arrays.toString(fieldNames));
+            }
+            try {
+                jumpToChild(name);
+            } catch (Exception e) {
+                throw new PackerRuntimeException("Cannot find MsgField with path '" +
+                    Arrays.toString(fieldNames) + "'", e);
+            }
+        }
         return this;
     }
 }

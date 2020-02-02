@@ -103,7 +103,7 @@ public class BcdBodyPacker implements BodyPacker {
             throw new PackerRuntimeException("Odd value length is not allowed with 'noPadding()' instance. " +
                 "Value '" + value + "' has odd length '" + value.length() + "'. " +
                 "Please use even length value " +
-                "or another instance of the " + BcdBodyPacker.class.getSimpleName() + " class.");
+                "or another instance of the " + BodyPacker.class.getSimpleName() + " class.");
         }
         boolean leftPadded = leftPadding0Instance == this || leftPaddingFInstance == this;
         boolean fPadded = leftPaddingFInstance == this || rightPaddingFInstance == this;
