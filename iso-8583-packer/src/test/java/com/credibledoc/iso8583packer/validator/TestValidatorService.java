@@ -2,12 +2,12 @@ package com.credibledoc.iso8583packer.validator;
 
 import com.credibledoc.iso8583packer.message.MsgField;
 
-public class TestValidator extends ValidatorService {
-    private static TestValidator instance;
+public class TestValidatorService extends ValidatorService {
+    private static TestValidatorService instance;
 
     public static Validator getInstance() {
         if (instance == null) {
-            instance = new TestValidator();
+            instance = new TestValidatorService();
         }
         return instance;
     }

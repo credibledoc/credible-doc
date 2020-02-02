@@ -15,7 +15,7 @@ import com.credibledoc.iso8583packer.message.MsgPair;
 import com.credibledoc.iso8583packer.message.MsgValue;
 import com.credibledoc.iso8583packer.msg.field58.Field58;
 import com.credibledoc.iso8583packer.stringer.StringStringer;
-import com.credibledoc.iso8583packer.validator.TestValidator;
+import com.credibledoc.iso8583packer.validator.TestValidatorService;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -235,7 +235,7 @@ public class FieldBuilderTest {
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
             .defineName("field");
 
-        fieldBuilder.setValidator(TestValidator.getInstance());
+        fieldBuilder.setValidator(TestValidatorService.getInstance());
         fieldBuilder.validateStructure();
         // exception not thrown
     }
@@ -246,9 +246,9 @@ public class FieldBuilderTest {
             .defineName("field");
         
         assertEquals(TestFieldBuilder.class, testFieldBuilder.getClass());
-        assertEquals(TestValidator.class, testFieldBuilder.validator.getClass());
+        assertEquals(TestValidatorService.class, testFieldBuilder.validator.getClass());
 
-        testFieldBuilder.setValidator(TestValidator.getInstance());
+        testFieldBuilder.setValidator(TestValidatorService.getInstance());
         testFieldBuilder.validateStructure();
         // exception not thrown
     }

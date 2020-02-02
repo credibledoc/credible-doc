@@ -2,6 +2,7 @@ package com.credibledoc.iso8583packer.examples;
 
 import com.credibledoc.iso8583packer.FieldBuilder;
 import com.credibledoc.iso8583packer.ValueHolder;
+import com.credibledoc.iso8583packer.asciihex.AsciiBodyPacker;
 import com.credibledoc.iso8583packer.bcd.BcdBodyPacker;
 import com.credibledoc.iso8583packer.dump.DumpService;
 import com.credibledoc.iso8583packer.hex.HexService;
@@ -32,21 +33,21 @@ public class StackOverflow33957342Test {
     private FieldBuilder defineMessageStructure() {
         return FieldBuilder.builder(MsgFieldType.VAL)
             .defineName("Parent")
-            .defineLen(30)
+            .defineLen(21)
             
             .createChild(MsgFieldType.VAL)
             .defineName("Child1")
-            .defineLen(9)
+            .defineLen(6)
             .defineBodyPacker(BcdBodyPacker.noPadding())
             
             .cloneToSibling()
             .defineName("Child2")
-            .defineLen(10)
+            .defineLen(7)
             .defineBodyPacker(BcdBodyPacker.noPadding())
             
             .cloneToSibling()
             .defineName("Child3")
-            .defineLen(11)
+            .defineLen(8)
             .defineBodyPacker(BcdBodyPacker.noPadding())
 
             .jumpToRoot()
@@ -58,9 +59,9 @@ public class StackOverflow33957342Test {
         FieldBuilder fieldBuilder = defineMessageStructure();
         ValueHolder valueHolder = ValueHolder.newInstance(fieldBuilder.getCurrentField());
 
-        valueHolder.jumpToChild("Child1").setValue("value1_11111111111");
-        valueHolder.jumpToSibling("Child2").setValue("value2_2222222222222");
-        valueHolder.jumpToSibling("Child3").setValue("value3_333333333333333");
+        valueHolder.jumpToChild("Child1").setValue("111111111111");
+        valueHolder.jumpToSibling("Child2").setValue("22222222222222");
+        valueHolder.jumpToSibling("Child3").setValue("3333333333333333");
         
         // print result
         MsgValue msgValue = valueHolder.jumpToRoot().getCurrentMsgValue();
@@ -72,12 +73,12 @@ public class StackOverflow33957342Test {
         
         // unpack again
         MsgField msgField = defineMessageStructure().getCurrentField();
-        ValueHolder unpacker = ValueHolder.newInstance(msgValue, msgField).adjust();
+        ValueHolder unpacker = ValueHolder.newInstance(msgField);
         unpacker.unpack(bytes);
         
-        assertEquals("value1_11111111111", unpacker.jumpToChild("Child1").getValue(String.class));
-        assertEquals("value2_2222222222222", unpacker.jumpToSibling("Child2").getValue(String.class));
-        assertEquals("value3_333333333333333", unpacker.jumpToSibling("Child3").getValue(String.class));
+        assertEquals("111111111111", unpacker.jumpToChild("Child1").getValue(String.class));
+        assertEquals("22222222222222", unpacker.jumpToSibling("Child2").getValue(String.class));
+        assertEquals("3333333333333333", unpacker.jumpToSibling("Child3").getValue(String.class));
     }
 
 }
