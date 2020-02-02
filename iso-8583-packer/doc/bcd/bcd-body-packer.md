@@ -58,9 +58,9 @@ Value '12' packed to bytes as hex: 12
 Value '123' packed to bytes as hex: 123F
 Value '1234' packed to bytes as hex: 1234
 BodyPacker type 'no padding'
-Value '1' cannot be packed to bytes. Exception: Odd value length is not allowed with 'noPadding()' instance. Value '1' has odd length '1'. Please use even length value or another instance of the BcdBodyPacker class.
+Value '1' cannot be packed to bytes. Exception: Odd value length is not allowed with 'noPadding()' instance. Value '1' has odd length '1'. Please use even length value or another instance of the BodyPacker class.
 Value '12' packed to bytes as hex: 12
-Value '123' cannot be packed to bytes. Exception: Odd value length is not allowed with 'noPadding()' instance. Value '123' has odd length '3'. Please use even length value or another instance of the BcdBodyPacker class.
+Value '123' cannot be packed to bytes. Exception: Odd value length is not allowed with 'noPadding()' instance. Value '123' has odd length '3'. Please use even length value or another instance of the BodyPacker class.
 Value '1234' packed to bytes as hex: 1234
 ```
 

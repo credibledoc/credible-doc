@@ -101,3 +101,9 @@ The following page [masker.md](doc/masking/masker.md) describes how to mask the 
 The ISO 8583 standard uses [Bitmaps](https://en.wikipedia.org/wiki/ISO_8583#Bitmaps) for defining of field numbers placed on a message.
 
 The following [bitmap-packer.md](doc/bitmap/bitmap-packer.md) page describes how to define and use bitmaps.
+
+## Repeated fields
+In some cases is required to repeat some values in messages, for example to send multiple products purchased by a customer.
+
+The following example [repeated-tag-val.md](doc/repeated/repeated-tag-val.md)
+explains how to pack and unpack multiple recurrent fields.
