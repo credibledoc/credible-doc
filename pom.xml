@@ -44,6 +44,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <skip.gpg>true</skip.gpg>
         <org.junit.version>5.4.2</org.junit.version>
+        <maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -124,6 +125,10 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <site>
+            <id>www.credibledoc.com</id>
+            <url>file://tmp/credibledoc/site</url>
+        </site>
     </distributionManagement>
 
     <profiles>
@@ -154,7 +159,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>${maven.javadoc.plugin.version}</version>
                     <configuration>
                         <show>private</show>
                     </configuration>
@@ -200,5 +205,26 @@
             </plugin>
         </plugins>
     </build>
+
+<!--    mvn clean install site site:stage-->
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <id>aggregate</id>
+                        <reports>
+                            <report>javadoc-no-fork</report>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>
