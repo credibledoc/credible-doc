@@ -7,6 +7,7 @@ import com.credibledoc.log.labelizer.iterator.CharIterator;
 import com.credibledoc.log.labelizer.iterator.IteratorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
+import org.bytedeco.javacpp.Loader;
 import org.deeplearning4j.api.storage.StatsStorage;
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
 import org.deeplearning4j.nn.graph.ComputationGraph;
@@ -78,6 +79,13 @@ public class LinesWithDateClassification {
     private static final int NUM_EPOCHS = 1;
 
     public static void main(String[] args) throws Exception {
+        try {
+            Loader.load(org.bytedeco.cuda.presets.cusparse.class);
+        } catch (UnsatisfiedLinkError e) {
+            String path = Loader.cacheResource(org.bytedeco.cuda.global.cudart.class, "windows-x86_64/jnicusparse.dll").getPath();
+            new ProcessBuilder("c:\\prg\\dllDependencies\\DependenciesGui.exe", path).start().waitFor();
+        }
+        
         ComputationGraph computationGraph = null;
         boolean isNetworkLoadedFromFile = false;
 

@@ -6,7 +6,7 @@
     <parent>
         <artifactId>log-combiner-parent</artifactId>
         <groupId>com.credibledoc</groupId>
-        <version>1.0.14</version>
+        <version>1.0.15-SNAPSHOT</version>
     </parent>
 
     <artifactId>log-labelizer</artifactId>
@@ -57,8 +57,8 @@
             <version>${org.deeplearning4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.nd4j</groupId>
-            <artifactId>nd4j-native-platform</artifactId>
+            <groupId>org.deeplearning4j</groupId>
+            <artifactId>deeplearning4j-cuda-10.1</artifactId>
             <version>${org.deeplearning4j.version}</version>
         </dependency>
         <dependency>
