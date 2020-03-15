@@ -1,6 +1,7 @@
 package com.credibledoc.combiner;
 
 import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.node.file.NodeFileService;
@@ -31,6 +32,9 @@ public class SourceFilesReader {
 
     public List<String> read() {
         if (filesMergerState == null) {
+            if (files.isEmpty()) {
+                throw new CombinerRuntimeException("The source files collection is empty.");
+            }
             TacticService.getInstance().prepareReaders(files, context);
             
             filesMergerState = new FilesMergerState();
