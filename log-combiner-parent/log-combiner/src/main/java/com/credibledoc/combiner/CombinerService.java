@@ -3,6 +3,7 @@ package com.credibledoc.combiner;
 import com.credibledoc.combiner.config.Config;
 import com.credibledoc.combiner.config.ConfigService;
 import com.credibledoc.combiner.config.TacticConfig;
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.date.DateService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
@@ -16,13 +17,25 @@ import com.credibledoc.combiner.tactic.TacticService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
- * This stateless instance contains methods for launching of
+ * This stateless instance contains methods for launching
  * the {@link CombinerCommandLineMain#LOG_COMBINER_MODULE_NAME} tool.
  *
  * @author Kyrylo Semenko
@@ -31,7 +44,6 @@ public class CombinerService {
     private static final Logger logger = LoggerFactory.getLogger(CombinerService.class);
 
     private static final String EMPTY_STRING = "";
-    private static final String REPORT_FOLDER_EXTENSION = "_generated";
     private static final String NOT_IMPLEMENTED = "Not implemented";
 
     /**
@@ -42,7 +54,7 @@ public class CombinerService {
     /**
      * @return The {@link CombinerService} singleton.
      */
-    static CombinerService getInstance() {
+    public static CombinerService getInstance() {
         if (instance == null) {
             instance = new CombinerService();
         }
@@ -51,37 +63,35 @@ public class CombinerService {
 
     /**
      * Load configuration by calling the {@link ConfigService#loadConfig(String)} method.
-     * 
-     * If the configuration does not have the {@link Config#getTacticConfigs()} defined, all log files will be
+     * <p>
+     * If the configuration have no {@link Config#getTacticConfigs()} defined, all log files will be
      * joined by calling the {@link #joinFiles(File, String)} method.
-     * 
-     * Else prepare a log files reader by calling the {@link #prepareReader(File, Config)} method.
-     * 
-     * And finally combine files line by line by calling the {@link #combine(OutputStream, FilesMergerState)} method.
-     * 
-     * @param sourceFolder a folder with log files
+     * <p>
+     * Else prepare a log files reader by calling the {@link #prepareReader(File, Config, Context)} method.
+     * <p>
+     * And finally combine files line by line by calling the {@link #combine(OutputStream, FilesMergerState, Context)} method.
+     *
+     * @param sourceFolder       a folder with log files
      * @param configAbsolutePath this configuration file will be used for filling out a {@link Config} instance.
      */
-    public void combine(File sourceFolder, String configAbsolutePath) {
+    public void combine(File sourceFolder, String configAbsolutePath, Context context) {
         try {
-            Config config = ConfigService.getInstance().loadConfig(configAbsolutePath);
+            Config config = new ConfigService().loadConfig(configAbsolutePath);
             if (config.getTacticConfigs().isEmpty()) {
                 logger.info("Configuration not found. Files will be joined by last modification time.");
                 joinFiles(sourceFolder, config.getTargetFileName());
                 return;
             }
-            prepareReader(sourceFolder, config);
+            prepareReader(sourceFolder, config, context);
             File targetFile = prepareTargetFile(sourceFolder, config.getTargetFileName());
-            TacticService tacticService = TacticService.getInstance();
             try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
                 ReaderService readerService = ReaderService.getInstance();
-                readerService.prepareBufferedReaders(tacticService.getTactics());
+                readerService.prepareBufferedReaders(context);
 
                 FilesMergerState filesMergerState = new FilesMergerState();
-                NodeFileService nodeFileService = NodeFileService.getInstance();
-                filesMergerState.setNodeFiles(nodeFileService.getNodeFiles());
+                filesMergerState.setNodeFiles(context.getNodeFileRepository().getNodeFiles());
 
-                combine(outputStream, filesMergerState);
+                combine(outputStream, filesMergerState, context);
             }
             logger.info("All files combined to '{}'", targetFile.getAbsolutePath());
         } catch (Exception e) {
@@ -90,29 +100,35 @@ public class CombinerService {
         }
     }
 
-    void combine(OutputStream outputStream, FilesMergerState filesMergerState) {
+    /**
+     * Merge files with default {@link Config}.
+     * @param outputStream target stream for merged lines
+     * @param filesMergerState state object of the merge process 
+     * @param context state object of the current repositories
+     */
+    public void combine(OutputStream outputStream, FilesMergerState filesMergerState, Context context) {
         ReaderService readerService = ReaderService.getInstance();
         LogBufferedReader logBufferedReader = readerService.getCurrentReader(filesMergerState);
         int currentLineNumber = 0;
         NodeFileService nodeFileService = NodeFileService.getInstance();
         String line = null;
-        Config config = ConfigService.getInstance().loadConfig(null);
+        Config config = new ConfigService().loadConfig(null);
         try {
-            line = readerService.readLineFromReaders(filesMergerState);
+            line = readerService.readLineFromReaders(filesMergerState, context);
             logBufferedReader = readerService.getCurrentReader(filesMergerState);
             String substring = line.substring(0, 35);
             logger.info("The first line read from {}. Line: '{}...'", ReaderService.class.getSimpleName(), substring);
             while (line != null) {
-                List<String> multiline = readerService.readMultiline(line, logBufferedReader);
+                List<String> multiline = readerService.readMultiline(line, logBufferedReader, context);
 
                 currentLineNumber = currentLineNumber + multiline.size();
                 if (currentLineNumber % 100000 == 0) {
                     logger.debug("{} lines processed", currentLineNumber);
                 }
 
-                writeMultiline(config, outputStream, nodeFileService, logBufferedReader, multiline);
+                writeMultiline(config, outputStream, nodeFileService, logBufferedReader, multiline, context);
 
-                line = readerService.readLineFromReaders(filesMergerState);
+                line = readerService.readLineFromReaders(filesMergerState, context);
                 logBufferedReader = readerService.getCurrentReader(filesMergerState);
             }
             logger.debug("{} lines processed (100%)", currentLineNumber);
@@ -133,25 +149,30 @@ public class CombinerService {
      * <p>
      * Add created {@link Tactic} instances to the {@link com.credibledoc.combiner.tactic.TacticService}.
      * <p>
-     * Call the {@link TacticService#prepareReaders(Set, Set)} method.
+     * Call the {@link TacticService#prepareReaders(Set, Context)} method.
      *
      * @param folder the folder with log files
      * @param config contains configuration of {@link Config#getTacticConfigs()}
      */
-    void prepareReader(File folder, Config config) {
+    public void prepareReader(File folder, Config config, Context context) {
         TacticService tacticService = TacticService.getInstance();
-        Set<Tactic> tactics = tacticService.getTactics();
-        for (final TacticConfig tacticConfig : config.getTacticConfigs()) {
+        List<TacticConfig> tacticConfigs = config.getTacticConfigs();
+        if (tacticConfigs.isEmpty()) {
+            throw new CombinerRuntimeException("TacticConfig is empty");
+        }
+        for (final TacticConfig tacticConfig : tacticConfigs) {
             final Tactic tactic = createTactic(tacticConfig);
-            tactics.add(tactic);
+            context.getTacticRepository().getTactics().add(tactic);
         }
         Set<File> files = FileService.getInstance().collectFiles(folder);
 
-        tacticService.prepareReaders(files, tactics);
+        tacticService.prepareReaders(files, context);
     }
 
-    private void writeMultiline(Config config, OutputStream outputStream, NodeFileService nodeFileService, LogBufferedReader logBufferedReader, List<String> multiline) throws IOException {
-        NodeFile nodeFile = nodeFileService.findNodeFile(logBufferedReader);
+    private void writeMultiline(Config config, OutputStream outputStream, NodeFileService nodeFileService,
+                                LogBufferedReader logBufferedReader, List<String> multiline,
+                                Context context) throws IOException {
+        NodeFile nodeFile = nodeFileService.findNodeFile(logBufferedReader, context);
         for (String nextLine : multiline) {
             if (config.isPrintNodeName()) {
                 outputStream.write(nodeFile.getNodeLog().getName().getBytes());
@@ -159,7 +180,7 @@ public class CombinerService {
             }
 
             String shortName = nodeFile.getNodeLog().getTactic().getShortName();
-            if (!shortName.isEmpty()) {
+            if (shortName != null && !shortName.isEmpty()) {
                 outputStream.write(shortName.getBytes());
                 outputStream.write(" ".getBytes());
             }
@@ -217,8 +238,14 @@ public class CombinerService {
         }
     }
 
-    File prepareTargetFile(File targetFolder, String targetFileName) {
-        File newFolder = new File(targetFolder.getParent(), targetFolder.getName() + REPORT_FOLDER_EXTENSION);
+    /**
+     * Create target folder if not exists and log the information.
+     * @param targetFolder for example path/folder
+     * @param targetFileName for example file.txt
+     * @return The target file, for example path/folder/file.txt
+     */
+    public File prepareTargetFile(File targetFolder, String targetFileName) {
+        File newFolder = new File(targetFolder.getParent(), targetFolder.getName());
         boolean created = newFolder.mkdirs();
         if (created) {
             logger.info("New folder created: '{}'", newFolder.getAbsolutePath());

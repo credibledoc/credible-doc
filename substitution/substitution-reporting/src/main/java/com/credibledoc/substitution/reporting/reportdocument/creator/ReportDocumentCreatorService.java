@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.reporting.reportdocument.creator;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.node.file.NodeFileService;
@@ -67,7 +68,7 @@ public class ReportDocumentCreatorService {
      * {@link ReportDocumentCreator} from the {@link ReportDocumentCreatorRepository}.
      * Then create a {@link ReportDocument} for the {@link Placeholder}.
      */
-    public void createReportDocuments() {
+    public void createReportDocuments(Context context) {
         String lastTemplateResource = null;
         String lastTemplatePlaceholder = null;
         ReportDocumentCreatorRepository reportDocumentCreatorRepository = ReportDocumentCreatorRepository.getInstance();
@@ -91,7 +92,7 @@ public class ReportDocumentCreatorService {
                     if (ReportDocumentCreator.class.isAssignableFrom(placeholderClass)) {
                         ReportDocumentCreator reportDocumentCreator =
                             reportDocumentCreatorRepository.getMap().get(placeholderClass);
-                        createReportDocumentForPlaceholder(placeholder, reportDocumentCreator);
+                        createReportDocumentForPlaceholder(placeholder, reportDocumentCreator, context);
                     }
                 }
             }
@@ -125,7 +126,7 @@ public class ReportDocumentCreatorService {
      * @param reportDocumentCreator for addition
      */
     private void createReportDocumentForPlaceholder(Placeholder placeholder,
-                                                    ReportDocumentCreator reportDocumentCreator) {
+                                                    ReportDocumentCreator reportDocumentCreator, Context context) {
         ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
         PlaceholderToReportDocumentService.getInstance().putPlaceholderToReportDocument(placeholder, reportDocument);
         ReportDocumentService.getInstance().getReportDocuments().add(reportDocument);
@@ -137,7 +138,7 @@ public class ReportDocumentCreatorService {
                 logger.info("File not exists. Report will not be created. File: '{}'", file.getAbsolutePath());
             } else {
                 logger.info("File will be parsed: {}", file.getAbsolutePath());
-                prepareReport(file, reportDocument);
+                prepareReport(file, reportDocument, context);
             }
         }
     }
@@ -147,21 +148,21 @@ public class ReportDocumentCreatorService {
      * @param logFile a source file
      * @param reportDocument belonging to the {@link Report}
      */
-    private void prepareReport(File logFile, ReportDocument reportDocument) {
+    private void prepareReport(File logFile, ReportDocument reportDocument, Context context) {
         Report report = new Report();
         ReportService.getInstance().addReports(Collections.singletonList(report));
         reportDocument.setReport(report);
         FileService fileService = FileService.getInstance();
-        Tactic tactic = fileService.findTactic(logFile);
+        Tactic tactic = fileService.findTactic(logFile, context);
 
         Date date = fileService.findDate(logFile, tactic);
-        NodeFile nodeFile = NodeFileService.getInstance().createNodeFile(date, logFile);
+        NodeFile nodeFile = NodeFileService.getInstance().createNodeFile(date, logFile, context);
         NodeLogService nodeLogService = NodeLogService.getInstance();
-        NodeLog nodeLog = nodeLogService.createNodeLog(nodeFile.getFile());
+        NodeLog nodeLog = nodeLogService.createNodeLog(nodeFile.getFile(), context);
         nodeLog.setTactic(tactic);
         nodeFile.setNodeLog(nodeLog);
         reportDocument.getNodeFiles().add(nodeFile);
-        nodeLogService.findNodeLogs(tactic).add(nodeLog);
+        nodeLogService.findNodeLogs(tactic, context).add(nodeLog);
         logger.info("Report prepared. Report: {}", report.hashCode());
     }
 }

@@ -1,0 +1,14 @@
+2015-01-16 15:04:01 log2.txt Timestamp H:M:S 15:4:1 D:M:Y 16:1:2015
+2015-01-16 15:04:01 log2.txt Firmware Version: 121020150140
+2015-01-16 15:08:01 log1.txt 5:2015 Jan 16 15:08:01:ABC:foo1:1559: common.c:946:Enabling filter
+2015-01-16 15:08:02 log2.txt [04:01]------------[ Logs ]------------
+2015-01-16 15:08:04 log2.txt [04:03]Device Data: -> Supported Attributes -> 0x8033B
+2015-01-16 15:08:10 log1.txt 6:2015 Jan 16 15:08:10:ABC:bar1:1461: api.c:124:Trigger activated
+2015-01-16 15:08:12 log2.txt [04:11]Device Cleanup
+2015-01-16 15:08:12 log2.txt 
+2015-01-16 15:08:20 log2.txt [04:19]SendClearMsg ...
+2015-01-16 15:08:24 log2.txt [04:23]Param:GetData failed
+2015-01-16 15:08:52 log2.txt [04:51]Current Update Count:7
+2015-01-16 15:09:02 log2.txt [05:01]MODECHK:Normal mode
+2015-01-16 16:08:16 log1.txt 6:2015 Jan 16 16:08:16:BMC:kernel:-:<6>drivers/usb1_1.c:598:Error processing request on endpoint 0
+2015-01-16 16:08:16 log1.txt         

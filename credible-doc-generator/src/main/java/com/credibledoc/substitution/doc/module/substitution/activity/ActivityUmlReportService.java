@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.activity;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.enricher.printable.Printable;
@@ -79,7 +80,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
 
         @Override
         public String transform(Printable printable, List<String> multiLine,
-                                LogBufferedReader logBufferedReader) {
+                                LogBufferedReader logBufferedReader, Context context) {
             String currentSwimlane = parseClassName(multiLine.get(0));
             int maxRowLength = currentSwimlane.length() * 2 + currentSwimlane.length() / 2;
             String message = logMessageService.parseMessage(multiLine.get(0), maxRowLength);

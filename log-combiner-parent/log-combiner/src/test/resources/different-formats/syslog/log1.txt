@@ -1,0 +1,4 @@
+5:2015 Jan 16 15:08:01:ABC:foo1:1559: common.c:946:Enabling filter
+6:2015 Jan 16 15:08:10:ABC:bar1:1461: api.c:124:Trigger activated
+6:2015 Jan 16 16:08:16:BMC:kernel:-:<6>drivers/usb1_1.c:598:Error processing request on endpoint 0
+        

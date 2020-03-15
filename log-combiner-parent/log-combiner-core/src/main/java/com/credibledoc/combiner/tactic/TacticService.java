@@ -1,5 +1,6 @@
 package com.credibledoc.combiner.tactic;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
@@ -34,21 +35,17 @@ public class TacticService {
     }
 
     /**
-     * @return All {@link Tactic} instances from the {@link TacticRepository}.
-     */
-    public Set<Tactic> getTactics() {
-        return TacticRepository.getInstance().getTactics();
-    }
-
-    /**
      * Recognize, which {@link Tactic} the line belongs to.
      * @param line the line from the log file
      * @param logBufferedReader the {@link LogBufferedReader} read the line
      * @return {@link Tactic} or 'null' if not found
      */
-    public Tactic findTactic(String line, LogBufferedReader logBufferedReader) {
-        TacticService tacticService = getInstance();
-        for (Tactic tactic : tacticService.getTactics()) {
+    public Tactic findTactic(String line, LogBufferedReader logBufferedReader, Context context) {
+        Set<Tactic> tactics = context.getTacticRepository().getTactics();
+        if (tactics.isEmpty()) {
+            throw new CombinerRuntimeException("TacticRepository is empty.");
+        }
+        for (Tactic tactic : tactics) {
             if (tactic.identifyApplication(line, logBufferedReader)) {
                 return tactic;
             }
@@ -61,9 +58,9 @@ public class TacticService {
      * @param logBufferedReader links to a {@link Tactic}
      * @return {@link Tactic} or throw exception
      */
-    public Tactic findTactic(LogBufferedReader logBufferedReader) {
-        for (Tactic tactic : getInstance().getTactics()) {
-            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(tactic)) {
+    public Tactic findTactic(LogBufferedReader logBufferedReader, Context context) {
+        for (Tactic tactic : context.getTacticRepository().getTactics()) {
+            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(tactic, context)) {
                 if (nodeLog.getLogBufferedReader() == logBufferedReader) {
                     return tactic;
                 }
@@ -73,34 +70,31 @@ public class TacticService {
     }
 
     /**
-     * For each file find out its {@link Tactic} by calling the {@link FileService#findTactic(File)} method.
+     * For each file find out its {@link Tactic} by calling the {@link FileService#findTactic(File, Context)} method.
      * <p>
      * Append this file to {@link com.credibledoc.combiner.node.file.NodeFileRepository} by calling the
-     * {@link NodeFileService#appendToNodeLogs(File, Date, Tactic)} method.
+     * {@link NodeFileService#appendToNodeLogs(File, Date, Tactic, Context)} method.
      * <p>
-     * After all call the {@link ReaderService#prepareBufferedReaders(Set)} method.
+     * After all call the {@link ReaderService#prepareBufferedReaders(Context)} method.
      *
      * @param files   log files
-     * @param tactics parsers for log files
+     * @param context the actual state of the current application
      */
-    public void prepareReaders(Set<File> files, Set<Tactic> tactics) {
-        TacticService tacticService = getInstance();
-        tacticService.getTactics().addAll(tactics);
-
+    public void prepareReaders(Set<File> files, Context context) {
         NodeFileService nodeFileService = NodeFileService.getInstance();
 
         for (File file : files) {
-            Tactic tactic = FileService.getInstance().findTactic(file);
+            Tactic tactic = FileService.getInstance().findTactic(file, context);
 
             Date date = FileService.getInstance().findDate(file, tactic);
 
             if (date == null) {
                 throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
             }
-            nodeFileService.appendToNodeLogs(file, date, tactic);
+            nodeFileService.appendToNodeLogs(file, date, tactic, context);
         }
 
         ReaderService readerService = ReaderService.getInstance();
-        readerService.prepareBufferedReaders(tacticService.getTactics());
+        readerService.prepareBufferedReaders(context);
     }
 }

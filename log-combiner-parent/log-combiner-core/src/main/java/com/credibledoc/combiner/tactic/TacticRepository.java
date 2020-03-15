@@ -11,21 +11,6 @@ import java.util.Set;
 public class TacticRepository {
 
     /**
-     * Singleton.
-     */
-    private static TacticRepository instance;
-
-    /**
-     * @return The {@link TacticRepository} singleton.
-     */
-    public static TacticRepository getInstance() {
-        if (instance == null) {
-            instance = new TacticRepository();
-        }
-        return instance;
-    }
-
-    /**
      * {@link Tactic}s for parsing different log formats
      */
     private Set<Tactic> tactics = new HashSet<>();

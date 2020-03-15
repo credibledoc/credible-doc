@@ -95,9 +95,8 @@ public interface Tactic {
     Date findDate(String line);
 
     /**
-     * This name is used for identification of log lines in created
-     * reports. It should be short and unique for each application.
-     * implementations.
+     * This name is used as identifier of log file formats in created
+     * reports. It can be 'null'.
      *
      * @return for example 'my-app'
      */

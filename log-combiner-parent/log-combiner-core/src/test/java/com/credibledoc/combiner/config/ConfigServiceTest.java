@@ -8,7 +8,7 @@ public class ConfigServiceTest {
 
     @Test
     public void loadConfig() {
-        ConfigService configService = ConfigService.getInstance();
+        ConfigService configService = new ConfigService();
 
         Config config = configService.loadConfig(null);
         

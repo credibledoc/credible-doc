@@ -1,5 +1,6 @@
 package com.credibledoc.combiner.file;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogFileReader;
@@ -45,12 +46,12 @@ public class FileService {
      * @param file the log file
      * @return {@link Tactic} or throw the new {@link CombinerRuntimeException} if the file not recognized
      */
-    public Tactic findTactic(File file) {
+    public Tactic findTactic(File file, Context context) {
         TacticService tacticService = TacticService.getInstance();
         try (LogBufferedReader logBufferedReader = new LogBufferedReader(new LogFileReader(file))) {
             String line = logBufferedReader.readLine();
             while (line != null) {
-                Tactic tactic = tacticService.findTactic(line, logBufferedReader);
+                Tactic tactic = tacticService.findTactic(line, logBufferedReader, context);
                 if (tactic != null) {
                     return tactic;
                 }

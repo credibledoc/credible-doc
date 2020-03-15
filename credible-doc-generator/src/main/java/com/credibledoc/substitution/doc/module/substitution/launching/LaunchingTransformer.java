@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.launching;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.generator.CredibleDocGeneratorMain;
 import com.credibledoc.enricher.printable.Printable;
@@ -14,7 +15,8 @@ public class LaunchingTransformer implements Transformer {
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
     @Override
-    public String transform(Printable printable, List<String> multiLine, LogBufferedReader logBufferedReader) {
+    public String transform(Printable printable, List<String> multiLine, LogBufferedReader logBufferedReader,
+                            Context context) {
         String result = "start" + LINE_SEPARATOR +
             ":" + CredibleDocGeneratorMain.APPLICATION_SUBSTITUTION_DOC_LAUNCHED + ";" +
             LINE_SEPARATOR;

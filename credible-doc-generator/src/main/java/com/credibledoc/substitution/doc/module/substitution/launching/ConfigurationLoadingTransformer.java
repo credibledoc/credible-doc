@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.launching;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.enricher.printable.Printable;
@@ -15,7 +16,7 @@ public class ConfigurationLoadingTransformer implements Transformer {
 
     @Override
     public String transform(Printable printable,
-                            List<String> multiLine, LogBufferedReader logBufferedReader) {
+                            List<String> multiLine, LogBufferedReader logBufferedReader, Context context) {
 
         String plantUml = ":" + "Configuration properties loaded" + ";" + LINE_SEPARATOR +
             "note right" + LINE_SEPARATOR +

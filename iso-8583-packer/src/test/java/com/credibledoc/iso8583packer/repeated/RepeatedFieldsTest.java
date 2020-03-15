@@ -43,7 +43,6 @@ public class RepeatedFieldsTest {
 
     /**
      * Used in documentation
-     * // TODO Kyrylo Semenko - create documentation
      */
     @Test
     public void packTagVal() {

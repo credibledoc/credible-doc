@@ -11,20 +11,8 @@ import java.util.Set;
 public class NodeFileRepository {
 
     /**
-     * Singleton.
+     * Contains files for parsing.
      */
-    private static NodeFileRepository instance;
-
-    /**
-     * @return The {@link NodeFileRepository} singleton.
-     */
-    public static NodeFileRepository getInstance() {
-        if (instance == null) {
-            instance = new NodeFileRepository();
-        }
-        return instance;
-    }
-
     private Set<NodeFile> nodeFiles = new HashSet<>();
 
     /**

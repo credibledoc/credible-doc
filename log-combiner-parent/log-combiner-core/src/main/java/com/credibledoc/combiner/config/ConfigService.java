@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * This stateful singleton loads configuration parameters from file and provides them to the application.
+ * This stateful singleton loads configuration parameters from a file and provides it to the application.
  *
  * @author Kyrylo Semenko
  */
@@ -34,21 +34,6 @@ public class ConfigService {
     private boolean loadingHasBeenTried;
 
     /**
-     * Singleton.
-     */
-    private static ConfigService instance;
-
-    /**
-     * @return The {@link ConfigService} singleton.
-     */
-    public static ConfigService getInstance() {
-        if (instance == null) {
-            instance = new ConfigService();
-        }
-        return instance;
-    }
-
-    /**
      * Try to load {@link Config} from configAbsolutePath. If the file not found throw an exception.
      *
      * @param configAbsolutePath can be 'null'. In this case {@link Config} will be loaded from classpath.
@@ -59,7 +44,6 @@ public class ConfigService {
         if (loadingHasBeenTried) {
             return config;
         }
-        loadingHasBeenTried = true;
         config = new Config();
         File propertiesFile;
         if (configAbsolutePath != null) {
@@ -86,6 +70,7 @@ public class ConfigService {
         } else {
             logger.info("Configuration file not found, default Config will be returned.");
         }
+        loadingHasBeenTried = true;
         return config;
     }
 

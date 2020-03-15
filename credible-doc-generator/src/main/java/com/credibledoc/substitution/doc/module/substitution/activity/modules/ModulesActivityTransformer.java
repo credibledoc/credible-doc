@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.activity.modules;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.generator.CredibleDocGeneratorMain;
@@ -82,7 +83,7 @@ public class ModulesActivityTransformer implements Transformer {
 
     @Override
     public String transform(Printable printable,
-                            List<String> multiLine, LogBufferedReader logBufferedReader) {
+                            List<String> multiLine, LogBufferedReader logBufferedReader, Context context) {
         String canonicalClassName = parseClassName(multiLine.get(0));
         String moduleName = findModuleName(canonicalClassName);
 

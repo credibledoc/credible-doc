@@ -1,5 +1,6 @@
 package com.credibledoc.combiner.log.reader;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.line.LineState;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
@@ -56,7 +57,7 @@ public class ReaderService {
     }
 
     /**
-     * Read a single log record. It can be multi-line.
+     * Read a single log record. It can be multi-line. Position in logBufferedReader will not be changed.
      * @param line the first line of multi-lines record or a single line. It can be followed by additional lines but not necessarily.
      * @param logBufferedReader the data source
      * @return for example the one line
@@ -68,14 +69,14 @@ public class ReaderService {
      *     NOT STARTED.
      * </pre>
      */
-    public List<String> readMultiline(String line, LogBufferedReader logBufferedReader) {
+    public List<String> readMultiline(String line, LogBufferedReader logBufferedReader, Context context) {
         List<String> result = new ArrayList<>();
         try {
             result.add(line);
             logBufferedReader.mark(MAX_CHARACTERS_IN_ONE_LINE);
             line = logBufferedReader.readLine();
             while (line != null) {
-                if (containsStartPattern(line, logBufferedReader)) {
+                if (containsStartPattern(line, logBufferedReader, context)) {
                     logBufferedReader.reset();
                     return result;
                 } else {
@@ -107,8 +108,8 @@ public class ReaderService {
      * @param logBufferedReader the current reader for identification of {@link Tactic}
      * @return 'true' if the line contains specific pattern
      */
-    private boolean containsStartPattern(String line, LogBufferedReader logBufferedReader) {
-        Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader);
+    private boolean containsStartPattern(String line, LogBufferedReader logBufferedReader, Context context) {
+        Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader, context);
         return tactic.containsDate(line);
     }
 
@@ -118,18 +119,18 @@ public class ReaderService {
      * Get a {@link NodeLog#getLogBufferedReader()} from the node log and read a line from it.
      *
      * <p>
-     * Change LastUsedNodeLogIndex.
+     * Change LastUsedNodeLogIndex and current position in the {@link NodeLog#getLogBufferedReader()}.
      *
      * @param filesMergerState contains information about last used index and {@link NodeFile}s
      * @return a preferred line from one of {@link LogBufferedReader}s or 'null' if all buffers are empty.
      */
-    public String readLineFromReaders(FilesMergerState filesMergerState) {
+    public String readLineFromReaders(FilesMergerState filesMergerState, Context context) {
         try {
             List<LogBufferedReader> logBufferedReaders = collectOpenedBufferedReaders(filesMergerState.getNodeFiles());
             if (logBufferedReaders.isEmpty()) {
                 return null;
             }
-            List<LineState> lineStates = getLineStates(logBufferedReaders);
+            List<LineState> lineStates = getLineStates(logBufferedReaders, context);
             int lastUsedNodeLogIndex = filesMergerState.getLastUsedNodeLogIndex();
             LogBufferedReader logBufferedReader = logBufferedReaders.get(lastUsedNodeLogIndex);
             if (LineState.WITHOUT_DATE == lineStates.get(lastUsedNodeLogIndex)) {
@@ -142,7 +143,7 @@ public class ReaderService {
                     return null;
                 }
             }
-            int logBufferedReaderIndexWithOldestLine = findTheOldest(logBufferedReaders);
+            int logBufferedReaderIndexWithOldestLine = findTheOldest(logBufferedReaders, context);
             filesMergerState.setLastUsedNodeLogIndex(logBufferedReaderIndexWithOldestLine);
             return logBufferedReaders.get(logBufferedReaderIndexWithOldestLine).readLine();
         } catch (IOException e) {
@@ -192,7 +193,7 @@ public class ReaderService {
      * @return Index of the oldest line
      * @throws IOException if reading od resetting of a {@link LogBufferedReader} fails.
      */
-    private int findTheOldest(List<LogBufferedReader> logBufferedReaders) throws IOException {
+    private int findTheOldest(List<LogBufferedReader> logBufferedReaders, Context context) throws IOException {
         int result = 0;
         Date previousDate = null;
         String previousLine = null;
@@ -202,8 +203,8 @@ public class ReaderService {
             logBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
             String line = logBufferedReader.readLine();
             logBufferedReader.reset();
-            Tactic tactic = tacticService.findTactic(logBufferedReader);
-            NodeFile nodeFile = NodeFileService.getInstance().findNodeFile(logBufferedReader);
+            Tactic tactic = tacticService.findTactic(logBufferedReader, context);
+            NodeFile nodeFile = NodeFileService.getInstance().findNodeFile(logBufferedReader, context);
             Date date = tactic.findDate(line, nodeFile);
 
             // if dates are equal wins a line that precedes lexicographically.
@@ -226,14 +227,14 @@ public class ReaderService {
     }
 
     /**
-     * Call the {@link #getLineState(LogBufferedReader)} method for each {@link LogBufferedReader}
+     * Call the {@link #getLineState(LogBufferedReader, Context)} method for each {@link LogBufferedReader}
      * @param logBufferedReaders the source
      * @return {@link LineState}s of the source {@link LogBufferedReader}s
      */
-    private List<LineState> getLineStates(List<LogBufferedReader> logBufferedReaders) {
+    private List<LineState> getLineStates(List<LogBufferedReader> logBufferedReaders, Context context) {
         List<LineState> result = new ArrayList<>();
         for (LogBufferedReader logBufferedReader : logBufferedReaders) {
-            result.add(getLineState(logBufferedReader));
+            result.add(getLineState(logBufferedReader, context));
         }
         return result;
     }
@@ -243,7 +244,7 @@ public class ReaderService {
      * @param logBufferedReader the source of the line
      * @return the {@link LineState} of the line
      */
-    private LineState getLineState(LogBufferedReader logBufferedReader) {
+    private LineState getLineState(LogBufferedReader logBufferedReader, Context context) {
         try {
             logBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
             
@@ -253,7 +254,7 @@ public class ReaderService {
             }
             logBufferedReader.reset();
 
-            Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader);
+            Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader, context);
             boolean containsDate = tactic.containsDate(line);
             if (!containsDate) {
                 return LineState.WITHOUT_DATE;
@@ -288,15 +289,15 @@ public class ReaderService {
      * a {@link LogBufferedReader}. Each {@link NodeLog} will have its own
      * {@link NodeLog#getLogBufferedReader()}.
      *
-     * @param tactics holders of {@link NodeLog}s with files.
+     * @param context the holder of {@link NodeLog}s with files for parsing.
      */
-    public void prepareBufferedReaders(Set<Tactic> tactics) {
+    public void prepareBufferedReaders(Context context) {
         long startNanos = System.nanoTime();
         NodeFileService nodeFileService = NodeFileService.getInstance();
-        for (Tactic tactic : tactics) {
-            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(tactic)) {
+        for (Tactic tactic : context.getTacticRepository().getTactics()) {
+            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(tactic, context)) {
                 List<LogFileInputStream> inputStreams = new ArrayList<>();
-                for (NodeFile nodeFile : nodeFileService.findNodeFiles(nodeLog)) {
+                for (NodeFile nodeFile : nodeFileService.findNodeFiles(nodeLog, context)) {
                     try {
                         inputStreams.add(new LogFileInputStream(nodeFile.getFile()));
                     } catch (FileNotFoundException e) {

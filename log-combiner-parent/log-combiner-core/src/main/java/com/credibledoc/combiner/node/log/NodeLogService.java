@@ -1,9 +1,9 @@
 package com.credibledoc.combiner.node.log;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.tactic.Tactic;
-import com.credibledoc.combiner.tactic.TacticService;
 
 import java.io.File;
 import java.util.HashSet;
@@ -36,16 +36,16 @@ public class NodeLogService {
      * @param nodeFileFile the first item of the {@link NodeLog}
      * @return created {@link NodeLog}
      */
-    public NodeLog createNodeLog(File nodeFileFile) {
+    public NodeLog createNodeLog(File nodeFileFile, Context context) {
         NodeLog nodeLog = new NodeLog();
         nodeLog.setName(nodeFileFile.getParentFile().getName());
-        NodeLogRepository.getInstance().getNodeLogs().add(nodeLog);
+        context.getNodeLogRepository().getNodeLogs().add(nodeLog);
         return nodeLog;
     }
 
-    public Set<NodeLog> findNodeLogs(Tactic tactic) {
+    public Set<NodeLog> findNodeLogs(Tactic tactic, Context context) {
         Set<NodeLog> result = new HashSet<>();
-        for (NodeLog nodeLog : NodeLogRepository.getInstance().getNodeLogs()) {
+        for (NodeLog nodeLog : context.getNodeLogRepository().getNodeLogs()) {
             if (nodeLog.getTactic() == tactic) {
                 result.add(nodeLog);
             }
@@ -54,15 +54,14 @@ public class NodeLogService {
     }
 
     /**
-     * Find out {@link NodeLog} with the same {@link NodeLog#getLogBufferedReader()}
-     * as the parameter within {@link TacticService#getTactics()}.
+     * Find the {@link NodeLog} with the same {@link NodeLog#getLogBufferedReader()}.
      *
      * @param logBufferedReader from {@link NodeLog}
-     * @return found {@link NodeLog}
+     * @return The found {@link NodeLog}
      */
-    private NodeLog findNodeLog(LogBufferedReader logBufferedReader) {
-        for (Tactic tactic : TacticService.getInstance().getTactics()) {
-            for (NodeLog nodeLog : findNodeLogs(tactic)) {
+    private NodeLog findNodeLog(LogBufferedReader logBufferedReader, Context context) {
+        for (Tactic tactic : context.getTacticRepository().getTactics()) {
+            for (NodeLog nodeLog : findNodeLogs(tactic, context)) {
                 if (logBufferedReader == nodeLog.getLogBufferedReader()) {
                     return nodeLog;
                 }
@@ -72,13 +71,13 @@ public class NodeLogService {
     }
 
     /**
-     * Call the {@link NodeLogService#findNodeLog(LogBufferedReader)} method
+     * Call the {@link NodeLogService#findNodeLog(LogBufferedReader, Context)} method
      * and return {@link NodeLog#getName()}.
      *
      * @param logBufferedReader from {@link NodeLog}
      * @return {@link NodeLog#getName()}
      */
-    public String findNodeName(LogBufferedReader logBufferedReader) {
-        return findNodeLog(logBufferedReader).getName();
+    public String findNodeName(LogBufferedReader logBufferedReader, Context context) {
+        return findNodeLog(logBufferedReader, context).getName();
     }
 }

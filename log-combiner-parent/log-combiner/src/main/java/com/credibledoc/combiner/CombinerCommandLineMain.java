@@ -1,5 +1,6 @@
 package com.credibledoc.combiner;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,11 @@ public class CombinerCommandLineMain {
             configAbsolutePath = arguments[1];
         }
         logger.info("Configuration configAbsolutePath: '{}'", configAbsolutePath);
-        CombinerService.getInstance().combine(folder, configAbsolutePath);
+
+        // Contains instances of Tactics, NodeFiles and NodeLogs
+        Context context = new Context().init();
+        
+        CombinerService.getInstance().combine(folder, configAbsolutePath, context);
         logger.info("Application {} finished.", LOG_COMBINER_MODULE_NAME);
     }
 }

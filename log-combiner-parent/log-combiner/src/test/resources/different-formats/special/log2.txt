@@ -1,0 +1,10 @@
+Timestamp H:M:S 15:4:1 D:M:Y 16:1:2015
+Firmware Version: 121020150140
+[04:01]------------[ Logs ]------------
+[04:03]Device Data: -> Supported Attributes -> 0x8033B
+[04:11]Device Cleanup
+
+[04:19]SendClearMsg ...
+[04:23]Param:GetData failed
+[04:51]Current Update Count:7
+[05:01]MODECHK:Normal mode

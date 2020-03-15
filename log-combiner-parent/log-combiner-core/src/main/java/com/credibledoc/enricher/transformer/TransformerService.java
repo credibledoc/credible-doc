@@ -1,5 +1,6 @@
 package com.credibledoc.enricher.transformer;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.enricher.line.LineProcessor;
@@ -9,7 +10,7 @@ import com.credibledoc.enricher.searchcommand.SearchCommand;
 import java.util.List;
 
 /**
- * Contains the {@link #transformToReport(Printable, List, LogBufferedReader)}
+ * Contains the {@link #transformToReport(Printable, List, LogBufferedReader, Context)}
  * method.
  *
  * @author Kyrylo Semenko
@@ -59,12 +60,14 @@ public class TransformerService {
      */
     public void transformToReport(Printable printable,
                                   List<String> multiline,
-                                  LogBufferedReader logBufferedReader) {
+                                  LogBufferedReader logBufferedReader,
+                                  Context context) {
         List<LineProcessor> lineProcessors = LineProcessorService.getInstance().getLineProcessors(printable);
         for (LineProcessor lineProcessor : lineProcessors) {
             boolean isApplicable = lineProcessor.getSearchCommand().isApplicable(printable, multiline, logBufferedReader);
             if (isApplicable) {
-                String transformed = lineProcessor.getTransformer().transform(printable, multiline, logBufferedReader);
+                String transformed = lineProcessor.getTransformer()
+                    .transform(printable, multiline, logBufferedReader, context);
                 if (transformed != null) {
                     printable.getPrintWriter().write(transformed + System.lineSeparator());
                 }

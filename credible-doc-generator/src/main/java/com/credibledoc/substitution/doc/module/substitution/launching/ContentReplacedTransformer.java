@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.launching;
 
+import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
@@ -20,7 +21,7 @@ public class ContentReplacedTransformer implements Transformer {
 
     @Override
     public String transform(Printable printable,
-                            List<String> multiLine, LogBufferedReader logBufferedReader) {
+                            List<String> multiLine, LogBufferedReader logBufferedReader, Context context) {
 
         String plantUml = ":" + MarkdownService.CONTENT_REPLACED + ";" + LINE_SEPARATOR +
             "note right" + LINE_SEPARATOR +
