@@ -79,6 +79,14 @@
     git push
     ```
 ## Generate documentation
+Wait until changes are propagated do the Maven repository.
+
+Then generate the documentation
+
+     cd credibledoc/credible-doc
+     java -jar credible-doc-generator\target\credible-doc-generator-1.0.15-SNAPSHOT.jar
+Copy generated documentation from `credibledoc\credible-doc\target\generated\markdown` to `credibledoc\credible-doc`,
+commit and push the changes.
 
 ## Rollback the tag in case of a mistake
 
