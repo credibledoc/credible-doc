@@ -13,6 +13,7 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
+import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentRepository;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentService;
 import com.credibledoc.substitution.reporting.report.Report;
@@ -26,7 +27,7 @@ import java.io.File;
 import java.util.*;
 
 /**
- * A stateless service for working with {@link ReportDocumentCreator}s.
+ * Stateless service for working with {@link ReportDocumentCreator}s.
  *
  * @author Kyrylo Semenko
  */
@@ -54,13 +55,14 @@ public class ReportDocumentCreatorService {
      * Add all items to the {@link ReportDocumentCreatorRepository#getMap()} entries.
      *
      * @param reportDocumentCreators items for addition
+     * @param reportingContext contains the {@link ReportDocumentCreatorRepository} data store
      */
-    public void addReportDocumentCreators(Collection<ReportDocumentCreator> reportDocumentCreators) {
+    public void addReportDocumentCreators(Collection<ReportDocumentCreator> reportDocumentCreators, ReportingContext reportingContext) {
         Map<Class<? extends ReportDocumentCreator>, ReportDocumentCreator> map = new HashMap<>();
         for (ReportDocumentCreator reportDocumentCreator : reportDocumentCreators) {
             map.put(reportDocumentCreator.getClass(), reportDocumentCreator);
         }
-        ReportDocumentCreatorRepository.getInstance().getMap().putAll(map);
+        reportingContext.getReportDocumentCreatorRepository().getMap().putAll(map);
     }
 
     /**
@@ -68,10 +70,10 @@ public class ReportDocumentCreatorService {
      * {@link ReportDocumentCreator} from the {@link ReportDocumentCreatorRepository}.
      * Then create a {@link ReportDocument} for the {@link Placeholder}.
      */
-    public void createReportDocuments(Context context) {
+    public void createReportDocuments(Context context, ReportingContext reportingContext) {
         String lastTemplateResource = null;
         String lastTemplatePlaceholder = null;
-        ReportDocumentCreatorRepository reportDocumentCreatorRepository = ReportDocumentCreatorRepository.getInstance();
+        ReportDocumentCreatorRepository reportDocumentCreatorRepository = reportingContext.getReportDocumentCreatorRepository();
         try {
             String templatesResource = ConfigurationService.getInstance().getConfiguration().getTemplatesResource();
             List<String> resources =

@@ -16,17 +16,17 @@ import com.credibledoc.combiner.tactic.TacticRepository;
  */
 public class Context {
     /**
-     * Contains a {@link com.credibledoc.combiner.node.file.NodeFile} instances.
+     * Contains {@link com.credibledoc.combiner.node.file.NodeFile} instances.
      */
     private NodeFileRepository nodeFileRepository;
 
     /**
-     * Contains a {@link com.credibledoc.combiner.node.log.NodeLog} instances.
+     * Contains {@link com.credibledoc.combiner.node.log.NodeLog} instances.
      */
     private NodeLogRepository nodeLogRepository;
 
     /**
-     * Contains a {@link com.credibledoc.combiner.tactic.Tactic} instances.
+     * Contains {@link com.credibledoc.combiner.tactic.Tactic} instances.
      */
     private TacticRepository tacticRepository;
 

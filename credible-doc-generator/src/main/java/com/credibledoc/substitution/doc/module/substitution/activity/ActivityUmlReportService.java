@@ -39,8 +39,8 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
     /**
      * Create a stateful object of {@link ReportDocument} type.
      *
-     * @return The stateful object, which {@link ReportDocument#getCacheLines()} method
-     * will be used for generation of PlantUML activity diagram.
+     * @return The stateful object, which {@link ReportDocument#getCacheLines()} method.
+     * It is used for generation of PlantUML activity diagram.
      */
     public ReportDocument prepareReportDocument() {
         Document document = new Document();

@@ -11,21 +11,6 @@ import java.util.Map;
 public class ReportDocumentCreatorRepository {
 
     /**
-     * Singleton.
-     */
-    private static ReportDocumentCreatorRepository instance;
-
-    /**
-     * @return The {@link ReportDocumentCreatorRepository} singleton.
-     */
-    public static ReportDocumentCreatorRepository getInstance() {
-        if (instance == null) {
-            instance = new ReportDocumentCreatorRepository();
-        }
-        return instance;
-    }
-
-    /**
      * This map contains {@link ReportDocumentCreator}s created by a client application where the keys are
      * the map values implementation types.
      */

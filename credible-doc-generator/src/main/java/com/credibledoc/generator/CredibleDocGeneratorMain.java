@@ -7,6 +7,7 @@ import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
+import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
@@ -69,10 +70,11 @@ public class CredibleDocGeneratorMain {
 
     private void substitute() {
         Context context = new Context().init();
+        ReportingContext reportingContext = new ReportingContext().init();
         context.getTacticRepository().getTactics().add(substitutionSpecificTactic);
         ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
-        reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators);
-        reportDocumentCreatorService.createReportDocuments(context);
+        reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators, reportingContext);
+        reportDocumentCreatorService.createReportDocuments(context, reportingContext);
         copyResourcesToTargetDirectory();
         List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
         VisualizerService.getInstance().createReports(reportDocumentTypes, context);
