@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.content.generator.dependency;
 
+import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
@@ -144,6 +145,9 @@ public class PackageDependenciesContentGeneratorTest {
             CONSTANT + DESCRIPTION + CANNOT_BE_FOUND_IN_THE_CONTENT +
                 CONTENT + content.getMarkdownContent() +
             "'", content.getMarkdownContent().contains(DESCRIPTION));
+
+        String svg = SvgGeneratorService.getInstance().generateSvgFromPlantUml(content.getPlantUmlContent());
+        assertFalse("Cannot find Graphviz. Please install the \"https://www.graphviz.org/download/\" tool. See more info in svg text lines:\n" + svg, svg.contains("No dot executable found"));
     }
 
     @Test
