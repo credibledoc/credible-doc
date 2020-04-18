@@ -1,42 +1,189 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
-    <title>credible-doc</title>
+    <title>Credible documentation</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/search-box.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/accordion.js"></script>
 </head>
 
 <body>
-<h1>Credible documentation</h1>
-<p>Maintaining of a project documentation is a complex task. We want to reduce
-    efforts to accomplish this task.</p>
-<p>The page contains a documentation of the tools created to achieve this
-    goal.</p>
+<header>
+    <div class="stack-horizontally-container">
+        <div class="stack-horizontally"><img src="img/credible-doc-logo-gear.gif"
+                                             alt="Credible documentation logo"></div>
+        <div class="stack-horizontally d-flex align-items-center" style="float: right">
+            <div id="er-search-form" role="form">
+                <button type="button" title="" tabindex="0"
+                        class="er_search_button"
+                        aria-label="Back">
+                </button>
+                <input type="text" title="Search" tabindex="0"
+                       name="" aria-label="search input"
+                       role="searchbox"
+                       id="er_search_input_dummy"
+                       placeholder="Search" autocomplete="off">
+                <button type="button" title="Search" tabindex="0"
+                        class="er_search_button"
+                        id="er_search_button_dummy" aria-label="Search" onclick="search()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                    </svg>
+                </button>
+            </div>
+        </div>       
+        <div style="text-align: center">
+            <div>
+                <h1>Credible documentation</h1>
+            </div>
+            <div style="margin-bottom: 80px">
+                <span style="float: right">open source documentation management tools...</span>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <nav>
+        <ul>
+            <li>
+                <a onclick="show('credible-doc-generator', this)">Content generation</a>
+            </li>
+            <li>
+                <a onclick="show('substitution-parent', this)">Content substitution</a>
+            </li>
+            <li>
+                <a onclick="show('plantuml', this)">Diagrams generation</a>
+            </li>
+            <li>
+                <a onclick="show('log-combiner-parent', this)">Log files parsing</a>
+            </li>
+            <li>
+                <a onclick="show('iso-8583-packer', this)">Other utilities</a>
+            </li>
+        </ul>
+    </nav>
+    <article>
+        <svg id="hamburger" viewBox="0 0 100 80" width="20" height="20">
+            <rect width="100" height="15"></rect>
+            <rect y="30" width="100" height="15"></rect>
+            <rect y="60" width="100" height="15"></rect>
+        </svg>
+        <div class="article-h2">
+            <h2>Motivation</h2>
+            <p>
+                Maintaining of software documentation is a superhuman task.
+                As the time flows and a documented software changes the documentation became aging.
+                Changing documentation between versions is a boring and uncreative job.
+            </p>
+            <p>
+                Maintaining of a software documentation is a complex task.
+                We want to reduce efforts to accomplish this task.
+            </p>
+            <p>
+                The page presents some tools for preventing erosion of documentation and analytics brains.
+            </p>
+        </div>
 
-<h2>Menu</h2>
+        <div>
+            <div id="credible-doc-generator" class="closable">
+                <h3>
+                    <img src="img/index/masonry-trowel.png" style="padding-right: 10px" alt="masonry trowel">
+                    Content generation
+                </h3>
+                <p>
+                    There are two parts of documentation - generated and handwritten.
+                    Each part has advantages and disadvantages. Generated documentation, for example javaDoc,
+                    is better maintained, because it is close to source code. But it has a lack of context. 
+                    Handwritten documentation describes an application behavior much better, but
+                    it has a lack of details and became outdated with every change of the application. 
+                </p>
+                <p>
+                    We want to preserve the legibility of the documents but at the same time
+                    we need to avoid the outdated documentation.
+                </p>
+                <p>
+                    The
+                    <a href="https://github.com/credibledoc/credible-doc/blob/master/credible-doc-generator/README.md">following example</a>
+                    shows how the handwritten content can be mixed with generated parts.
+                </p>
+            </div>
+            <div id="substitution-parent" class="closable">
+                <h3>
+                    <img src="img/index/adjustable_spanner.png" style="padding-right: 10px" alt="adjustable spanner">
+                    Content substitution
+                </h3>
+                <p>
+                    There are many excellent libraries for content generation, for example
+                    <a href="https://www.thymeleaf.org/">Thymeleaf</a>,
+                    <a href="https://velocity.apache.org/">Velocity</a> or
+                    <a href="https://en.wikipedia.org/wiki/JavaServer_Pages">JSP</a>.
+                    Our approach is simpler and we hope the learning time you spend on our tool will be shorter.
+                </p>
+                <p>
+                    Our tools and libraries for replacing
+                    <a href="https://github.com/credibledoc/credible-doc/blob/master/substitution/README.md">placeholders with a generated content</a>.
+                </p>
+            </div>
+            <div id="plantuml" class="closable">
+                <h3>
+                    <img src="img/index/diagram.png" style="padding-right: 10px" alt="diagram">
+                    Diagrams generation
+                </h3>
+                <p>
+                    <a href="https://plantuml.com/">PlantUML</a> is a component that allows to quickly write diagrams in a simple and intuitive language.
+                    We think that the language can be used in documentation as generated parts.
+                </p>
+                <p>
+                    We introducing <a href="https://github.com/credibledoc/credible-doc/blob/master/plantuml/README.md">diagram generation utilities</a>
+                    based on the PlantUML library.
+                </p>
+            </div>
+            <div id="log-combiner-parent" class="closable">
+                <h3>
+                    <img src="img/index/handsaw.png" style="padding-right: 10px" alt="handsaw">
+                    Log files parsing
+                </h3>
+                <p>
+                    Application logs are the best source for investigation of an application behavior.
+                    We suggest to use log files for generation of diagrams and other documentation parts.
+                </p>
+                <p>
+                    The <a href="https://github.com/credibledoc/credible-doc/blob/master/log-combiner-parent/README.md"><i>log-combiner</i> tool</a> allows
+                    to combine (merge) log files with different format of lines timestamps
+                    to a single file with lines sorted by timestamps.
+                </p>
+                <p>
+                    It can be used as a data supplier for generated documentation. 
+                </p>
+            </div>
+            <div id="iso-8583-packer" class="closable">
+                <h3>
+                    <img src="img/index/hammer.png" style="padding-right: 10px" alt="handsaw">
+                    Other utilities
+                </h3>
+                <p>
+                    A simple utility for packing and unpacking ISO 8583 messages.
+                    <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/README.md">More info...</a>
+                </p>
+            </div>
+        </div>
+        
+    </article>
+</section>
+<footer style="font-size: 10px">
+    <a href="https://github.com/credibledoc/credible-doc" style="color: white">CredibleDoc</a> open source software documentation management tools
+</footer>
 
-<ul>
-    <li>
-        <a href="https://github.com/credibledoc/credible-doc/blob/master/credible-doc-generator/README.md">Tools and libraries for replacing placeholders with a generated content</a>
-    </li>
-    <li>
-        <a href="https://github.com/credibledoc/credible-doc/blob/master/plantuml/README.md">Utilities for generation of plantUML diagrams</a>
-    </li>
-    <li>
-        <a href="https://github.com/credibledoc/credible-doc/blob/master/log-combiner-parent/README.md">Tool that allows to combine (merge) log files with different format of lines timestamps to a single file with lines sorted by timestamps</a>
-    </li>
-    <li>
-        <a href="https://github.com/credibledoc/credible-doc/blob/master/credible-doc-generator/README.md">Example of a documentation generator</a>
-    </li>
-</ul>
+<script src="js/index.js"></script>
+<script>$(".closable").fadeIn(0)</script>
 
-<h2>Other resources</h2>
-
-<ul>
-    <li>
-        <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/README.md">A simple utility for packing and unpacking ISO 8583 messages</a>
-    </li>
-</ul>
 </body>
-
 </html>

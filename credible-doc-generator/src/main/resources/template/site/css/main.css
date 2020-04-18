@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Style the header */
+header {
+    background-color: #f45a15;
+    padding: 15px;
+    font-size: 25px;
+    color: white;
+    border: 0;
+}
+
+header img {
+    width: 250px;
+}
+
+/* Container for flexboxes */
+section {
+    display: -webkit-flex;
+    display: flex;
+}
+
+/* Style the navigation menu */
+nav {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    background: #eaeaea;
+    padding: 40px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav li {
+    margin-bottom: 10px;
+}
+
+/* Style the content */
+article {
+    -webkit-flex: 3;
+    -ms-flex: 3;
+    flex: 3;
+    background-color: #f1f1f1;
+    padding: 30px;
+}
+
+#hamburger {
+    position: relative;
+    left: -25px;
+    top: -27px;
+    cursor: pointer;
+}
+
+/* Style the footer */
+footer {
+    background-color: #f45a15;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+@media (max-width: 300px) {
+    section {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+    }
+}
+
+.stack-horizontally-container {
+    overflow-y: hidden;
+}
+
+.stack-horizontally {
+    float: left;
+}
