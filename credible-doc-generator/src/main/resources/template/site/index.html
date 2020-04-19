@@ -53,20 +53,20 @@
 <section>
     <nav>
         <ul>
-            <li>
-                <a onclick="show('credible-doc-generator', this)">Content generation</a>
+            <li class="menu-li">
+                <a class="menu-a" onclick="show('credible-doc-generator', this)">Content generation</a>
             </li>
-            <li>
-                <a onclick="show('substitution-parent', this)">Content substitution</a>
+            <li class="menu-li">
+                <a class="menu-a" onclick="show('substitution-parent', this)">Content substitution</a>
             </li>
-            <li>
-                <a onclick="show('plantuml', this)">Diagrams generation</a>
+            <li class="menu-li">
+                <a class="menu-a" onclick="show('plantuml', this)">Diagrams generation</a>
             </li>
-            <li>
-                <a onclick="show('log-combiner-parent', this)">Log files parsing</a>
+            <li class="menu-li">
+                <a class="menu-a" onclick="show('log-combiner-parent', this)">Log files parsing</a>
             </li>
-            <li>
-                <a onclick="show('iso-8583-packer', this)">Other utilities</a>
+            <li class="menu-li">
+                <a class="menu-a" onclick="show('iso-8583-packer', this)">Other utilities</a>
             </li>
         </ul>
     </nav>
@@ -79,12 +79,12 @@
         <div class="article-h2">
             <h2>Motivation</h2>
             <p>
-                Maintaining of software documentation is a superhuman task.
-                As the time flows and a documented software changes the documentation became aging.
+                Maintaining of software documentation is a complex task.
+                As the time flows and the documented software changes the documentation became aging.
                 Changing documentation between versions is a boring and uncreative job.
             </p>
             <p>
-                Maintaining of a software documentation is a complex task.
+                Maintaining of a software documentation is a superhuman task.
                 We want to reduce efforts to accomplish this task.
             </p>
             <p>
@@ -156,7 +156,7 @@
                     We suggest to use log files for generation of diagrams and other documentation parts.
                 </p>
                 <p>
-                    The <a href="https://github.com/credibledoc/credible-doc/blob/master/log-combiner-parent/README.md"><i>log-combiner</i> tool</a> allows
+                    The <a href="https://github.com/credibledoc/credible-doc/blob/master/log-combiner-parent/README.md">log-combiner tool</a> allows
                     to combine (merge) log files with different format of lines timestamps
                     to a single file with lines sorted by timestamps.
                 </p>
@@ -166,12 +166,13 @@
             </div>
             <div id="iso-8583-packer" class="closable">
                 <h3>
-                    <img src="img/index/hammer.png" style="padding-right: 10px" alt="handsaw">
+                    <img src="img/index/hammer.png" style="padding-right: 10px" alt="hammer">
                     Other utilities
                 </h3>
                 <p>
-                    A simple utility for packing and unpacking ISO 8583 messages.
-                    <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/README.md">More info...</a>
+                    The <a href="https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/README.md">ISO 8583 packer</a>
+                    utility doesn't relate to documentation tools.
+                    But it can be useful for a payment software development.
                 </p>
             </div>
         </div>
