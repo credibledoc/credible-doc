@@ -18,7 +18,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Style the header */
 header {
     background-color: #f45a15;
     padding: 15px;
@@ -31,7 +30,6 @@ header img {
     width: 250px;
 }
 
-/* Container for flexboxes */
 section {
     display: -webkit-flex;
     display: flex;
@@ -46,21 +44,10 @@ nav {
     padding: 40px;
 }
 
-/* Style the list inside the menu */
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.menu-li {
-    padding-bottom: 2em;
-}
-
 .menu-a {
     cursor: pointer;
 }
 
-/* Style the content */
 article {
     -webkit-flex: 3;
     -ms-flex: 3;
@@ -76,7 +63,6 @@ article {
     cursor: pointer;
 }
 
-/* Style the footer */
 footer {
     background-color: #f45a15;
     padding: 10px;

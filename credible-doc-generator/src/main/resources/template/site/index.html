@@ -7,18 +7,17 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/search-box.css">
-
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="js/accordion.js"></script>
 </head>
 
 <body>
 <header>
+    <link rel="stylesheet" type="text/css" href="css/search-box.css">
     <div class="stack-horizontally-container">
-        <div class="stack-horizontally"><img src="img/credible-doc-logo-gear.gif"
-                                             alt="Credible documentation logo"></div>
+        <div class="stack-horizontally">
+            <a href="https://credibledoc.com/">
+                <img src="img/credible-doc-logo-gear.gif" alt="Home page">
+            </a>
+        </div>
         <div class="stack-horizontally d-flex align-items-center" style="float: right">
             <div id="er-search-form" role="form">
                 <button type="button" title="" tabindex="0"
@@ -80,48 +79,49 @@
             <h2>Motivation</h2>
             <p>
                 Maintaining of software documentation is a complex task.
-                As the time flows and the documented software changes the documentation became aging.
+                As the time runs and the documented software is changed the documentation is getting obsolete.
                 Changing documentation between versions is a boring and uncreative job.
             </p>
             <p>
-                Maintaining of a software documentation is a superhuman task.
-                We want to reduce efforts to accomplish this task.
+                We want to reduce effort to accomplish this task.
             </p>
             <p>
-                The page presents some tools for preventing erosion of documentation and analytics brains.
+                The page presents some tools for preventing the erosion of documentation
+                and the fatique of analysts' minds.
             </p>
         </div>
 
         <div>
             <div id="credible-doc-generator" class="closable">
                 <h3>
-                    <img src="img/index/masonry-trowel.png" style="padding-right: 10px" alt="masonry trowel">
+                    <img src="img/index/masonry-trowel.png" style="padding-right: 10px" alt="Image Content generation.">
                     Content generation
                 </h3>
                 <p>
-                    There are two parts of documentation - generated and handwritten.
-                    Each part has advantages and disadvantages. Generated documentation, for example javaDoc,
-                    is better maintained, because it is close to source code. But it has a lack of context. 
-                    Handwritten documentation describes an application behavior much better, but
-                    it has a lack of details and became outdated with every change of the application. 
+                    There are two parts of the documentation - generated and handwritten.
+                    Both have advantages and disadvantages. The generated documentation, for example javaDoc,
+                    is easily maintained, because it is placed close to the source code.
+                    But it has an insufficient context. 
+                    The handwritten documentation describes an application behavior more comprehensible, but
+                    it is insufficient in details. It can become outdated with some changes of the application.
                 </p>
                 <p>
                     We want to preserve the legibility of the documents but at the same time
                     we need to avoid the outdated documentation.
                 </p>
                 <p>
-                    The
+                    In order to achieve the goal, the
                     <a href="https://github.com/credibledoc/credible-doc/blob/master/credible-doc-generator/README.md">following example</a>
                     shows how the handwritten content can be mixed with generated parts.
                 </p>
             </div>
             <div id="substitution-parent" class="closable">
                 <h3>
-                    <img src="img/index/adjustable_spanner.png" style="padding-right: 10px" alt="adjustable spanner">
+                    <img src="img/index/adjustable_spanner.png" style="padding-right: 10px" alt="Image Content substitution.">
                     Content substitution
                 </h3>
                 <p>
-                    There are many excellent libraries for content generation, for example
+                    There are many excellent libraries for content generation, for example:
                     <a href="https://www.thymeleaf.org/">Thymeleaf</a>,
                     <a href="https://velocity.apache.org/">Velocity</a> or
                     <a href="https://en.wikipedia.org/wiki/JavaServer_Pages">JSP</a>.
@@ -134,21 +134,21 @@
             </div>
             <div id="plantuml" class="closable">
                 <h3>
-                    <img src="img/index/diagram.png" style="padding-right: 10px" alt="diagram">
+                    <img src="img/index/diagram.png" style="padding-right: 10px" alt="Image Diagrams generation.">
                     Diagrams generation
                 </h3>
                 <p>
-                    <a href="https://plantuml.com/">PlantUML</a> is a component that allows to quickly write diagrams in a simple and intuitive language.
-                    We think that the language can be used in documentation as generated parts.
+                    <a href="https://plantuml.com/">PlantUML</a> is a component that allows to write diagrams quickly, in a simple and intuitive language.
+                    We suggest using the language in the documentation in form of generated parts.
                 </p>
                 <p>
-                    We introducing <a href="https://github.com/credibledoc/credible-doc/blob/master/plantuml/README.md">diagram generation utilities</a>
+                    We are introducing <a href="https://github.com/credibledoc/credible-doc/blob/master/plantuml/README.md">diagram generation utilities</a>
                     based on the PlantUML library.
                 </p>
             </div>
             <div id="log-combiner-parent" class="closable">
                 <h3>
-                    <img src="img/index/handsaw.png" style="padding-right: 10px" alt="handsaw">
+                    <img src="img/index/handsaw.png" style="padding-right: 10px" alt="Image Log files parsing.">
                     Log files parsing
                 </h3>
                 <p>
@@ -166,7 +166,7 @@
             </div>
             <div id="iso-8583-packer" class="closable">
                 <h3>
-                    <img src="img/index/hammer.png" style="padding-right: 10px" alt="hammer">
+                    <img src="img/index/hammer.png" style="padding-right: 10px" alt="Image Other utilities.">
                     Other utilities
                 </h3>
                 <p>
@@ -183,6 +183,9 @@
     <a href="https://github.com/credibledoc/credible-doc" style="color: white">CredibleDoc</a> open source software documentation management tools
 </footer>
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="js/accordion.js"></script>
 <script src="js/index.js"></script>
 <script>$(".closable").fadeIn(0)</script>
 
