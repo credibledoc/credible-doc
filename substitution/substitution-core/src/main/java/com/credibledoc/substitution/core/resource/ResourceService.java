@@ -156,7 +156,12 @@ public class ResourceService {
      */
     private List<TemplateResource> collectResourcesFromIde(String endsWith,
                                          String templatesResource) throws URISyntaxException {
-        List<TemplateResource> result = new ArrayList<>();
+        // absolute path
+        File dir = new File(templatesResource);
+        if (dir.exists()) {
+            return getResources(endsWith, dir);
+        }
+        // relative path
         final URL url = getClass().getResource(SLASH + templatesResource);
         if (url != null) {
             final File classesDirectory = new File(url.toURI());
@@ -166,15 +171,7 @@ public class ResourceService {
             if (!directory.exists()) {
                 directory = classesDirectory;
             }
-            logger.info("Resource has been found in the directory: '{}'", directory.getAbsolutePath());
-            List<File> templateFiles = new ArrayList<>();
-            collectTemplateFilesRecursively(directory, templateFiles, endsWith);
-            for (File templateFile : templateFiles) {
-                TemplateResource templateResource = new TemplateResource();
-                templateResource.setType(ResourceType.FILE);
-                templateResource.setFile(templateFile);
-                result.add(templateResource);
-            }
+            return getResources(endsWith, directory);
         } else {
             String directoryString = new File(templatesResource).getAbsolutePath();
 
@@ -186,6 +183,19 @@ public class ResourceService {
                         " or directly set by calling for example" +
                         " 'ConfigurationService.getInstance().getConfiguration()." +
                         "setTemplatesResource(\"resource/in/classpath\");'.");
+        }
+    }
+
+    private List<TemplateResource> getResources(String endsWith,  File directory) {
+        List<TemplateResource> result = new ArrayList<>();
+        logger.info("Resource has been found in the directory: '{}'", directory.getAbsolutePath());
+        List<File> templateFiles = new ArrayList<>();
+        collectTemplateFilesRecursively(directory, templateFiles, endsWith);
+        for (File templateFile : templateFiles) {
+            TemplateResource templateResource = new TemplateResource();
+            templateResource.setType(ResourceType.FILE);
+            templateResource.setFile(templateFile);
+            result.add(templateResource);
         }
         return result;
     }
@@ -214,22 +224,24 @@ public class ResourceService {
      */
     public String generatePlaceholderResourceRelativePath(TemplateResource templateResource) {
         Configuration configuration = ConfigurationService.getInstance().getConfiguration();
-        String configTemplateResource = configuration.getTemplatesResource();
+        String configTemplatesPath = configuration.getTemplatesResource();
+        String configPathNormalized = configTemplatesPath.replaceAll("\\\\", SLASH);
         String path;
         if (templateResource.getType() == ResourceType.FILE) {
             File file = templateResource.getFile();
             String parentPath = file.getParentFile().getAbsolutePath();
-            if (!parentPath.contains(configTemplateResource)) {
+            String parentPathNormalized = parentPath.replaceAll("\\\\", SLASH);
+            if (!parentPathNormalized.contains(configPathNormalized)) {
                 throw new SubstitutionRuntimeException("Expected replacedPath with substring '" +
-                    configTemplateResource + "' but found '" + parentPath + "'.");
+                    configPathNormalized + "' but found '" + parentPathNormalized + "'.");
             }
-            int startIndex = parentPath.indexOf(configTemplateResource) + configTemplateResource.length();
-            return parentPath.substring(startIndex) + SLASH + file.getName();
+            int startIndex = parentPathNormalized.indexOf(configPathNormalized) + configPathNormalized.length();
+            return parentPathNormalized.substring(startIndex) + SLASH + file.getName();
         } else if (templateResource.getType() == ResourceType.CLASSPATH) {
             path = templateResource.getPath();
         } else {
             throw new SubstitutionRuntimeException("Unknown ResourceType " + templateResource.getType());
         }
-        return path.substring(configTemplateResource.length() + 1);
+        return path.substring(configPathNormalized.length() + 1);
     }
 }
