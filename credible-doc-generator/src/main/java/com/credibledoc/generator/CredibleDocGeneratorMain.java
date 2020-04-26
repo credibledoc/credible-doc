@@ -2,7 +2,7 @@ package com.credibledoc.generator;
 
 import com.credibledoc.combiner.context.Context;
 import com.credibledoc.substitution.core.configuration.Configuration;
-import com.credibledoc.substitution.core.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.resource.ResourceType;
 import com.credibledoc.substitution.core.resource.TemplateResource;
@@ -77,25 +77,28 @@ public class CredibleDocGeneratorMain {
 
     private void substitute() throws IOException {
         Context context = new Context().init();
+        SubstitutionContext substitutionContext = new SubstitutionContext().init().loadConfiguration();
         ReportingContext reportingContext = new ReportingContext().init();
         context.getTacticRepository().getTactics().add(substitutionSpecificTactic);
         ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators, reportingContext);
-        reportDocumentCreatorService.createReportDocuments(context, reportingContext);
-        copyResourcesToTargetDirectory();
+        reportDocumentCreatorService.createReportDocuments(context, reportingContext, substitutionContext);
+        copyResourcesToTargetDirectory(substitutionContext);
         List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
         VisualizerService.getInstance().createReports(reportDocumentTypes, context);
-        MarkdownService.getInstance().generateContentFromTemplates();
+        MarkdownService.getInstance().generateContentFromTemplates(substitutionContext);
     }
 
-    private void copyResourcesToTargetDirectory() throws IOException {
-        Configuration configuration = ConfigurationService.getInstance().getConfiguration();
+    private void copyResourcesToTargetDirectory(SubstitutionContext substitutionContext) throws IOException {
+        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
         ResourceService resourceService = ResourceService.getInstance();
-        List<TemplateResource> allResources = resourceService.getResources(null, configuration.getTemplatesResource());
+        List<TemplateResource> allResources =
+            resourceService.getResources(null, configuration.getTemplatesResource());
         TemplateService templateService = TemplateService.getInstance();
         for (TemplateResource templateResource : allResources) {
             if (templateResource.getType() == ResourceType.FILE) {
-                String targetFileRelativePath = resourceService.generatePlaceholderResourceRelativePath(templateResource);
+                String targetFileRelativePath =
+                    resourceService.generatePlaceholderResourceRelativePath(templateResource, substitutionContext);
                 String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
                 log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
                     templateResource, targetFileAbsolutePath);
@@ -104,7 +107,8 @@ public class CredibleDocGeneratorMain {
                 Files.copy(templateResource.getFile().toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
             } else if (templateResource.getType() == ResourceType.CLASSPATH) {
                 if (containsDotInName(templateResource.getPath())) {
-                    String targetFileRelativePath = resourceService.generatePlaceholderResourceRelativePath(templateResource);
+                    String targetFileRelativePath =
+                        resourceService.generatePlaceholderResourceRelativePath(templateResource, substitutionContext);
                     String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
                     log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
                         templateResource, targetFileAbsolutePath);

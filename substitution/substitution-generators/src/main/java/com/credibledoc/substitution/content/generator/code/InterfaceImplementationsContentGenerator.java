@@ -2,6 +2,7 @@ package com.credibledoc.substitution.content.generator.code;
 
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import io.github.classgraph.ClassGraph;
@@ -35,7 +36,7 @@ public class InterfaceImplementationsContentGenerator implements ContentGenerato
     private static final String INCLUDE_PACKAGES = "includePackages";
 
     @Override
-    public Content generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
         String interfaceName = placeholder.getParameters().get(INTERFACE_NAME);
         validateClassExists(interfaceName, placeholder);
         String includePackages = placeholder.getParameters().get(INCLUDE_PACKAGES);

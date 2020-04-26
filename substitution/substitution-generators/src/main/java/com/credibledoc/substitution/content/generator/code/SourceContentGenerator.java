@@ -2,6 +2,7 @@ package com.credibledoc.substitution.content.generator.code;
 
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 
@@ -47,7 +48,7 @@ public class SourceContentGenerator implements ContentGenerator {
     private static final String INCLUDE_END_STRING = "includeEndString";
 
     @Override
-    public Content generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
         try {
             validateParameters(placeholder);
             String sourceRelativePath = placeholder.getParameters().get(SOURCE_RELATIVE_PATH);

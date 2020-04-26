@@ -28,7 +28,7 @@ public class PackageDependenciesContentGeneratorTest {
         PackageDependenciesContentGenerator generator = new PackageDependenciesContentGenerator();
         Placeholder placeholder = new Placeholder();
         try {
-            generator.generate(placeholder);
+            generator.generate(placeholder, null);
         } catch (SubstitutionRuntimeException e) {
             assertTrue(e.getMessage().contains(
                 PackageDependenciesContentGenerator
@@ -51,7 +51,7 @@ public class PackageDependenciesContentGeneratorTest {
             PackageDependenciesContentGenerator.PARAMETER_WITH_NAME +
             PackageDependenciesContentGenerator.DEPENDANT_PACKAGE + "'";
         try {
-            generator.generate(placeholder);
+            generator.generate(placeholder, null);
         } catch (SubstitutionRuntimeException e) {
             assertTrue(message, e.getMessage().contains(
                 PackageDependenciesContentGenerator.PARAMETER_WITH_NAME +
@@ -73,7 +73,7 @@ public class PackageDependenciesContentGeneratorTest {
             PackageDependenciesContentGenerator.PARAMETER_WITH_NAME +
             PackageDependenciesContentGenerator.DEPENDENCIES_PACKAGES_PIPE_SEPARATED + "'";
         try {
-            generator.generate(placeholder);
+            generator.generate(placeholder, null);
         } catch (SubstitutionRuntimeException e) {
             assertTrue(message + ", but found " + e.getMessage(),
                 e.getMessage().contains(
@@ -97,7 +97,7 @@ public class PackageDependenciesContentGeneratorTest {
         String message = EXPECTED_STRING_NOT_FOUND +
             PackageDependenciesContentGenerator.THE_FILE_CANNOT_BE_FOUND + "'";
         try {
-            generator.generate(placeholder);
+            generator.generate(placeholder, null);
         } catch (SubstitutionRuntimeException e) {
             assertTrue(message + ", but found " + e.getMessage(),
                 e.getMessage().contains(PackageDependenciesContentGenerator.THE_FILE_CANNOT_BE_FOUND));
@@ -117,7 +117,7 @@ public class PackageDependenciesContentGeneratorTest {
         placeholder.getParameters().put(PackageDependenciesContentGenerator.DEPENDENCIES_PACKAGES_PIPE_SEPARATED,
             "someDependencyPackage");
         placeholder.setDescription(DESCRIPTION);
-        Content content = generator.generate(placeholder);
+        Content content = generator.generate(placeholder, null);
         assertEquals(PackageDependenciesContentGenerator.NOTE_NO_DEPENDENCIES_FOUND, content.getPlantUmlContent());
         assertTrue(CONSTANT + DESCRIPTION + CANNOT_BE_FOUND_IN_THE_CONTENT +
             " Placeholder Content: '" + content.getMarkdownContent() +
@@ -135,7 +135,7 @@ public class PackageDependenciesContentGeneratorTest {
         placeholder.getParameters().put(PackageDependenciesContentGenerator.DEPENDENCIES_PACKAGES_PIPE_SEPARATED,
             COM_CREDIBLEDOC_PLANTUML_EXCEPTION);
         placeholder.setDescription(DESCRIPTION);
-        Content content = generator.generate(placeholder);
+        Content content = generator.generate(placeholder, null);
         assertTrue(
             TEXT + EXPECTED_UML_PART + CANNOT_BE_FOUND_IN_THE_CONTENT +
                 CONTENT + content.getPlantUmlContent() +
@@ -161,7 +161,7 @@ public class PackageDependenciesContentGeneratorTest {
         placeholder.getParameters().put(PackageDependenciesContentGenerator.DEPENDENCIES_PACKAGES_PIPE_SEPARATED,
             COM_CREDIBLEDOC_PLANTUML_EXCEPTION);
         placeholder.setDescription(DESCRIPTION);
-        Content content = generator.generate(placeholder);
+        Content content = generator.generate(placeholder, null);
         assertTrue(
             TEXT + EXPECTED_UML_PART + CANNOT_BE_FOUND_IN_THE_CONTENT +
                 CONTENT + content.getPlantUmlContent() +
@@ -186,7 +186,7 @@ public class PackageDependenciesContentGeneratorTest {
         placeholder.getParameters().put(PackageDependenciesContentGenerator.IGNORE_INNER_PACKAGES,
             "true");
         placeholder.setDescription(DESCRIPTION);
-        Content content = generator.generate(placeholder);
+        Content content = generator.generate(placeholder, null);
         assertTrue(
             TEXT + EXPECTED_UML_PART + CANNOT_BE_FOUND_IN_THE_CONTENT +
                 CONTENT + content.getPlantUmlContent() +

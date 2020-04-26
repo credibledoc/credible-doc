@@ -3,10 +3,10 @@ package com.credibledoc.substitution.reporting.markdown;
 import com.credibledoc.plantuml.exception.PlantumlRuntimeException;
 import com.credibledoc.plantuml.svggenerator.SvgGeneratorService;
 import com.credibledoc.substitution.core.configuration.Configuration;
-import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.content.ContentGeneratorService;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
@@ -27,16 +27,15 @@ import java.util.List;
 
 /**
  * This singleton helps to parse *.md templates from the {@link Configuration#getTemplatesResource()} folder, extract
- * contents placed between {@link Configuration#getPlaceholderBegin()} and {@link Configuration#getPlaceholderEnd()}
+ * content placed between {@link Configuration#getPlaceholderBegin()} and {@link Configuration#getPlaceholderEnd()}
  * tags, create {@link ReportDocument}s which represent content of the placeholders and generate new documents in the
- * {@link Configuration#getTargetDirectory()} with a new contents instead of placeholders.
+ * {@link Configuration#getTargetDirectory()} with a new content instead of placeholders.
  *
  * @author Kyrylo Semenko
  */
 public class MarkdownService {
     private static final Logger logger = LoggerFactory.getLogger(MarkdownService.class);
     private static final String SLASH = "/";
-    public static final String MARKDOWN_FILE_EXTENSION = ".md";
     private static final String IMAGE_DIRECTORY_NAME = "img";
     private static final String SVG_FILE_EXTENSION = ".svg";
     private static final String SVG_TAG_BEGIN = "![";
@@ -45,8 +44,6 @@ public class MarkdownService {
     public static final String CONTENT_REPLACED = "Content replaced. ";
     private static final String SYNTAX_ERROR_GENERATED_KEYWORD = "Syntax Error?";
     private static final String IGNORE_SYNTAX_ERROR_PLACEHOLDER_PARAMETER = "ignoreSyntaxError";
-
-    private Configuration configuration;
 
     /**
      * Singleton.
@@ -59,13 +56,8 @@ public class MarkdownService {
     public static MarkdownService getInstance() {
         if (instance == null) {
             instance = new MarkdownService();
-            instance.postConstruct();
         }
         return instance;
-    }
-
-    private void postConstruct() {
-        configuration = ConfigurationService.getInstance().getConfiguration();
     }
 
     /**
@@ -73,7 +65,8 @@ public class MarkdownService {
      * for each template resource generate content for its {@link Placeholder}s. Then replace the {@link Placeholder}s
      * with generated content. And finally write out generated documents to files.
      */
-    public void generateContentFromTemplates() {
+    public void generateContentFromTemplates(SubstitutionContext substitutionContext) {
+        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
         File targetDirectory = new File(configuration.getTargetDirectory());
         if (!targetDirectory.exists()) {
             boolean created = targetDirectory.mkdirs();
@@ -89,7 +82,7 @@ public class MarkdownService {
         List<TemplateResource> templateResources = resourceService.getResources(".md", templatesResource);
         templateResources.addAll(resourceService.getResources(".html", templatesResource));
         for (TemplateResource templateResource : templateResources) {
-            insertContentIntoTemplate(templateResource);
+            insertContentIntoTemplate(templateResource, substitutionContext);
         }
     }
 
@@ -99,20 +92,22 @@ public class MarkdownService {
      *
      * @param templateResource source of a template, for example <i>/template/markdown/doc/diagrams.md</i>
      */
-    private void insertContentIntoTemplate(TemplateResource templateResource) {
+    private void insertContentIntoTemplate(TemplateResource templateResource, SubstitutionContext substitutionContext) {
         try {
             String templateContent =
                 TemplateService.getInstance().getTemplateContent(templateResource, StandardCharsets.UTF_8.name());
     
             List<String> templatePlaceholders =
-                PlaceholderService.getInstance().parsePlaceholders(templateContent, templateResource);
+                PlaceholderService.getInstance().parsePlaceholders(templateContent, templateResource, substitutionContext);
     
             String replacedContent =
-                    replacePlaceholdersWithGeneratedContent(templateResource, templateContent, templatePlaceholders);
+                    replacePlaceholdersWithGeneratedContent(templateResource,
+                        templateContent, templatePlaceholders, substitutionContext);
     
             ResourceService resourceService = ResourceService.getInstance();
             String placeholderResourceRelativePath =
-                resourceService.generatePlaceholderResourceRelativePath(templateResource);
+                resourceService.generatePlaceholderResourceRelativePath(templateResource, substitutionContext);
+            Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
             File generatedFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
             File generatedFileDirectory = generatedFile.getParentFile();
             createDirectoryIfNotExists(generatedFileDirectory);
@@ -137,14 +132,16 @@ public class MarkdownService {
     }
 
     private String replacePlaceholdersWithGeneratedContent(TemplateResource templateResource,
-                                                           String templateContent, List<String> templatePlaceholders) {
+                                                           String templateContent,
+                                                           List<String> templatePlaceholders,
+                                                           SubstitutionContext substitutionContext) {
         String replacedContent = templateContent;
         int position = 1;
         for (String templatePlaceholder : templatePlaceholders) {
             Placeholder placeholder =
-                PlaceholderService.getInstance().parseJsonFromPlaceholder(templatePlaceholder, templateResource);
+                PlaceholderService.getInstance().parseJsonFromPlaceholder(templatePlaceholder, templateResource, substitutionContext);
             placeholder.setId(Integer.toString(position++));
-            String contentForReplacement = generateContent(placeholder);
+            String contentForReplacement = generateContent(placeholder, substitutionContext);
             replacedContent = replacedContent.replace(templatePlaceholder, contentForReplacement);
             String json = PlaceholderService.getInstance().writePlaceholderToJson(placeholder);
             logger.info("{}{}", CONTENT_REPLACED, json);
@@ -163,11 +160,11 @@ public class MarkdownService {
      * <p>
      * In case of {@link ContentGenerator} return a markdown code.
      */
-    private String generateContent(Placeholder placeholder) {
+    private String generateContent(Placeholder placeholder, SubstitutionContext substitutionContext) {
         try {
             Class placeholderClass = Class.forName(placeholder.getClassName());
             if (ReportDocumentCreator.class.isAssignableFrom(placeholderClass)) {
-                String generatedTag = findPlaceholderAndGenerateDiagram(placeholder);
+                String generatedTag = findPlaceholderAndGenerateDiagram(placeholder, substitutionContext);
                 if (generatedTag != null) {
                     return generatedTag;
                 }
@@ -175,9 +172,9 @@ public class MarkdownService {
                 @SuppressWarnings("unchecked")
                 ContentGenerator markdownGenerator =
                     ContentGeneratorService.getInstance().getContentGenerator(placeholderClass);
-                Content content = markdownGenerator.generate(placeholder);
+                Content content = markdownGenerator.generate(placeholder, substitutionContext);
                 if (content.getPlantUmlContent() != null) {
-                    String linkToDiagram = generateDiagram(placeholder, content.getPlantUmlContent());
+                    String linkToDiagram = generateDiagram(placeholder, content.getPlantUmlContent(), substitutionContext);
                     return linkToDiagram + content.getMarkdownContent();
                 } else {
                     return content.getMarkdownContent();
@@ -193,12 +190,12 @@ public class MarkdownService {
                 ", placeholder resource: '" + placeholder.getResource() + "'");
     }
 
-    private String findPlaceholderAndGenerateDiagram(Placeholder placeholder) {
-        for (Placeholder nextPlaceholder : PlaceholderService.getInstance().getPlaceholders()) {
+    private String findPlaceholderAndGenerateDiagram(Placeholder placeholder, SubstitutionContext substitutionContext) {
+        for (Placeholder nextPlaceholder : substitutionContext.getPlaceholderRepository().getPlaceholders()) {
             if (nextPlaceholder.getResource().equals(placeholder.getResource()) &&
                     nextPlaceholder.getId().equals(placeholder.getId())) {
 
-                return generateDiagram(nextPlaceholder, null);
+                return generateDiagram(nextPlaceholder, null, substitutionContext);
             }
         }
         return null;
@@ -222,11 +219,12 @@ public class MarkdownService {
      *                 {@link PlaceholderToReportDocumentService#getReportDocument(Placeholder)}.
      * @return A part of markdown document with link to generated SVG image.
      */
-    private String generateDiagram(Placeholder placeholder, String plantUml) {
+    private String generateDiagram(Placeholder placeholder, String plantUml, SubstitutionContext substitutionContext) {
         ResourceService resourceService = ResourceService.getInstance();
         String placeholderResourceRelativePath =
-                resourceService.generatePlaceholderResourceRelativePath(placeholder.getResource());
+                resourceService.generatePlaceholderResourceRelativePath(placeholder.getResource(), substitutionContext);
 
+        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
         File mdFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
         File directory = mdFile.getParentFile();
         File imageDirectory = new File(directory, IMAGE_DIRECTORY_NAME);

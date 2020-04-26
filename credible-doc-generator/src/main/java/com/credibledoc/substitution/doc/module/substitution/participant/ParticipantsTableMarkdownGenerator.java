@@ -2,6 +2,7 @@ package com.credibledoc.substitution.doc.module.substitution.participant;
 
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class ParticipantsTableMarkdownGenerator implements ContentGenerator {
     private final TableService tableService;
 
     @Override
-    public Content generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
         Table.Builder tableBuilder = new Table.Builder()
                 .addRow("Participant name", "Description");
 

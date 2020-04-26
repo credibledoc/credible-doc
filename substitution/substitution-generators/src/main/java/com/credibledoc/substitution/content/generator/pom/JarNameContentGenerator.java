@@ -2,6 +2,7 @@ package com.credibledoc.substitution.content.generator.pom;
 
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import org.slf4j.Logger;
@@ -58,7 +59,7 @@ public class JarNameContentGenerator implements ContentGenerator {
     private static final String VERSION_ONLY = "versionOnly";
 
     @Override
-    public Content generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
         String url = placeholder.getParameters().get(URL);
         if (url == null) {
             throw new SubstitutionRuntimeException("Placeholder parameter '" + URL +

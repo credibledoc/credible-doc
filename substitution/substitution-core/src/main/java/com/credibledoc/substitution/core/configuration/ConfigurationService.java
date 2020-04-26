@@ -16,7 +16,7 @@ import java.util.Properties;
 import java.util.TreeMap;
 
 /**
- * This stateful singleton provides a configuration for this application.
+ * This stateful object provides a configuration for this module.
  *
  * @author Kyrylo Semenko
  */
@@ -32,7 +32,6 @@ public class ConfigurationService {
      * Configuration key.
      * The value contains a relative path to templates in a jar file
      * or in a file system. Default value is {@link #TEMPLATES_RESOURCE}.
-     * // TODO Kyrylo Semenko - tests
      */
     public static final String TEMPLATES_RESOURCE_KEY = "substitution.templates.resource";
 
@@ -87,29 +86,6 @@ public class ConfigurationService {
     private Configuration configuration;
 
     /**
-     * Singleton.
-     */
-    private static ConfigurationService instance;
-
-    /**
-     * Empty constructor.
-     */
-    private ConfigurationService() {
-        // empty
-    }
-
-    /**
-     * @return The {@link ConfigurationService} singleton.
-     */
-    public static ConfigurationService getInstance() {
-        if (instance == null) {
-            instance = new ConfigurationService();
-            instance.loadConfiguration();
-        }
-        return instance;
-    }
-
-    /**
      * At first load default values to a {@link #configuration} object.
      * <p>
      * Then in case the {@link System#getProperty(String)} with a key {@link #SUBSTITUTION_PROPERTIES_FILE_PATH}
@@ -120,7 +96,7 @@ public class ConfigurationService {
      * <p>
      * Log out all properties and they origins.
      */
-    private void loadConfiguration() {
+    public void loadConfiguration() {
         Map<String, String> map = new TreeMap<>();
         configuration = new Configuration();
 

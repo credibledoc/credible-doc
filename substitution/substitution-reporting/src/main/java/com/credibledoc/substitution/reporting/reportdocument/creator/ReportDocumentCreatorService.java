@@ -7,7 +7,7 @@ import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.node.log.NodeLog;
 import com.credibledoc.combiner.node.log.NodeLogService;
 import com.credibledoc.combiner.tactic.Tactic;
-import com.credibledoc.substitution.core.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
@@ -26,7 +26,12 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Stateless service for working with {@link ReportDocumentCreator}s.
@@ -72,12 +77,13 @@ public class ReportDocumentCreatorService {
      * {@link ReportDocumentCreator} from the {@link ReportDocumentCreatorRepository}.
      * Then create a {@link ReportDocument} for the {@link Placeholder}.
      */
-    public void createReportDocuments(Context context, ReportingContext reportingContext) {
+    public void createReportDocuments(Context context, ReportingContext reportingContext, SubstitutionContext substitutionContext) {
         TemplateResource lastTemplateResource = null;
         String lastTemplatePlaceholder = null;
-        ReportDocumentCreatorRepository reportDocumentCreatorRepository = reportingContext.getReportDocumentCreatorRepository();
+        ReportDocumentCreatorRepository reportDocumentCreatorRepository
+            = reportingContext.getReportDocumentCreatorRepository();
         try {
-            String templatesResource = ConfigurationService.getInstance().getConfiguration().getTemplatesResource();
+            String templatesResource = substitutionContext.getConfigurationService().getConfiguration().getTemplatesResource();
             List<TemplateResource> resources =
                     ResourceService.getInstance().getResources(MARKDOWN_FILE_EXTENSION, templatesResource);
             logger.debug("Markdown templates will be loaded from the resources: {}", resources);
@@ -87,18 +93,19 @@ public class ReportDocumentCreatorService {
                 lastTemplateResource = templateResource;
                 String templateContent =
                     templateService.getTemplateContent(templateResource, StandardCharsets.UTF_8.name());
-                List<String> placeholders = placeholderService.parsePlaceholders(templateContent, templateResource);
+                List<String> placeholders = placeholderService.parsePlaceholders(templateContent, templateResource, substitutionContext);
                 int position = 1;
                 for (String templatePlaceholder : placeholders) {
                     lastTemplatePlaceholder = templatePlaceholder;
                     Placeholder placeholder =
-                        placeholderService.parseJsonFromPlaceholder(templatePlaceholder, templateResource);
+                        placeholderService.parseJsonFromPlaceholder(templatePlaceholder, templateResource, substitutionContext);
                     placeholder.setId(Integer.toString(position++));
                     Class<?> placeholderClass = Class.forName(placeholder.getClassName());
                     if (ReportDocumentCreator.class.isAssignableFrom(placeholderClass)) {
                         ReportDocumentCreator reportDocumentCreator =
                             reportDocumentCreatorRepository.getMap().get(placeholderClass);
-                        createReportDocumentForPlaceholder(placeholder, reportDocumentCreator, context);
+                        createReportDocumentForPlaceholder(placeholder,
+                            reportDocumentCreator, context, substitutionContext);
                     }
                 }
             }
@@ -126,17 +133,17 @@ public class ReportDocumentCreatorService {
      * <p>
      * Add the {@link ReportDocument} to the {@link ReportDocumentService#getReportDocuments()} list.
      * <p>
-     * Add the {@link Placeholder} to the {@link PlaceholderService#getPlaceholders()} list.
+     * Add the {@link Placeholder} to the {@link com.credibledoc.substitution.core.placeholder.PlaceholderRepository#getPlaceholders()} list.
      *
      * @param placeholder           for addition
      * @param reportDocumentCreator for addition
      */
     private void createReportDocumentForPlaceholder(Placeholder placeholder,
-                                                    ReportDocumentCreator reportDocumentCreator, Context context) {
+                                                    ReportDocumentCreator reportDocumentCreator, Context context, SubstitutionContext substitutionContext) {
         ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
         PlaceholderToReportDocumentService.getInstance().putPlaceholderToReportDocument(placeholder, reportDocument);
         ReportDocumentService.getInstance().getReportDocuments().add(reportDocument);
-        PlaceholderService.getInstance().getPlaceholders().add(placeholder);
+        substitutionContext.getPlaceholderRepository().getPlaceholders().add(placeholder);
         if (placeholder.getParameters() != null &&
             placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER) != null) {
             File file = new File(placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER));

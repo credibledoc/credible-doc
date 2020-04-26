@@ -1,7 +1,7 @@
 package com.credibledoc.substitution.core.placeholder;
 
 import com.credibledoc.substitution.core.configuration.Configuration;
-import com.credibledoc.substitution.core.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.json.JsonService;
 import com.credibledoc.substitution.core.resource.TemplateResource;
@@ -35,17 +35,8 @@ public class PlaceholderService {
         return instance;
     }
 
-    /**
-     * Cal the {@link PlaceholderRepository#getPlaceholders()} method.
-     *
-     * @return list of all {@link Placeholder}s.
-     */
-    public List<Placeholder> getPlaceholders() { // TODO Kyrylo Semenko - remove to context
-        return PlaceholderRepository.getInstance().getPlaceholders();
-    }
-
-    public List<String> parsePlaceholders(String templateContent, TemplateResource templateResource) {
-        Configuration configuration = ConfigurationService.getInstance().getConfiguration();
+    public List<String> parsePlaceholders(String templateContent, TemplateResource templateResource, SubstitutionContext substitutionContext) {
+        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
         List<String> result = new ArrayList<>();
         int index = 0;
         while (true) {
@@ -80,8 +71,8 @@ public class PlaceholderService {
      * @param resource            for example <i>/template/markdown/doc/diagrams.md</i>
      * @return For example <pre>{"className": "org.my.MyContentGenerator"}</pre>
      */
-    public Placeholder parseJsonFromPlaceholder(String templatePlaceholder, TemplateResource resource) {
-        Configuration configuration = ConfigurationService.getInstance().getConfiguration();
+    public Placeholder parseJsonFromPlaceholder(String templatePlaceholder, TemplateResource resource, SubstitutionContext substitutionContext) {
+        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
         int endIndex = templatePlaceholder.length() - configuration.getPlaceholderEnd().length();
         String json = templatePlaceholder.substring(configuration.getPlaceholderBegin().length(), endIndex);
         Placeholder placeholder = JsonService.getInstance().readValue(json, Placeholder.class);

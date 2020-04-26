@@ -2,6 +2,7 @@ package com.credibledoc.substitution.content.generator.jar;
 
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 
@@ -30,7 +31,7 @@ public class LocalJarNameContentGenerator implements ContentGenerator {
     private static final String DEFAULT_DIRECTORY_NAME = "target";
 
     @Override
-    public Content generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
         try {
             File targetDirectory = getTargetDirectory(placeholder);
             validateTargetDirectoryExists(targetDirectory);

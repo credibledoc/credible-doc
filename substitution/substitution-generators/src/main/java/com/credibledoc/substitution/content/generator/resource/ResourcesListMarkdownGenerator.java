@@ -3,6 +3,7 @@ package com.credibledoc.substitution.content.generator.resource;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.resource.ResourceService;
@@ -42,8 +43,8 @@ public class ResourcesListMarkdownGenerator implements ContentGenerator {
     private static final String SLASH = "/";
 
     @Override
-    public Content generate(Placeholder placeholder) {
-        ConfigurationService configurationService = ConfigurationService.getInstance();
+    public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
+        ConfigurationService configurationService = substitutionContext.getConfigurationService();
         String templatesResource = configurationService.getConfiguration().getTemplatesResource();
         String filterEndsWith = placeholder.getParameters().get(ENDS_WITH);
         List<TemplateResource> resources = ResourceService.getInstance()

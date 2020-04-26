@@ -2,6 +2,7 @@ package com.credibledoc.substitution.core.resource;
 
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -222,8 +223,8 @@ public class ResourceService {
      * @param templateResource for example /template/markdown/doc/diagrams.md
      * @return For example /markdown/doc/diagrams.md
      */
-    public String generatePlaceholderResourceRelativePath(TemplateResource templateResource) {
-        Configuration configuration = ConfigurationService.getInstance().getConfiguration();
+    public String generatePlaceholderResourceRelativePath(TemplateResource templateResource, SubstitutionContext substitutionContext) {
+        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
         String configTemplatesPath = configuration.getTemplatesResource();
         String configPathNormalized = configTemplatesPath.replaceAll("\\\\", SLASH);
         String path;

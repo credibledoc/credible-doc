@@ -13,25 +13,6 @@ import java.util.List;
 public class PlaceholderRepository {
 
     /**
-     * Singleton.
-     */
-    private static PlaceholderRepository instance;
-
-    private PlaceholderRepository() {
-        // empty
-    }
-
-    /**
-     * @return The {@link PlaceholderRepository} singleton.
-     */
-    public static PlaceholderRepository getInstance() {
-        if (instance == null) {
-            instance = new PlaceholderRepository();
-        }
-        return instance;
-    }
-
-    /**
      * {@link Placeholder}s parsed from files in the
      * {@link ConfigurationService#TEMPLATES_RESOURCE}
      */

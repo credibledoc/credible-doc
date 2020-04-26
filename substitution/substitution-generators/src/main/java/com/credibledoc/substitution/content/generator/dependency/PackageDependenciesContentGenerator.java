@@ -3,6 +3,7 @@ package com.credibledoc.substitution.content.generator.dependency;
 import com.credibledoc.plantuml.sequence.SequenceArrow;
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.github.javaparser.ParseResult;
@@ -94,7 +95,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private Map<String, List<Pair<Path, ParseResult<CompilationUnit>>>> cache = new HashMap<>();
 
     @Override
-    public Content generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
         try {
             validateParameters(placeholder);
             String dependantPackage = getDependantPackageName(placeholder);

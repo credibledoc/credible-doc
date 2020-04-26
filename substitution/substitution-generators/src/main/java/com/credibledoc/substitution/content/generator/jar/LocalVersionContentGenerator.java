@@ -2,6 +2,7 @@ package com.credibledoc.substitution.content.generator.jar;
 
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 
@@ -29,7 +30,7 @@ public class LocalVersionContentGenerator implements ContentGenerator {
     private static final String DOT_JAR = ".jar";
 
     @Override
-    public Content generate(Placeholder placeholder) {
+    public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
         try {
             String target = placeholder.getParameters().get(TARGET_DIRECTORY_RELATIVE_PATH);
             if (target == null) {
