@@ -4,6 +4,8 @@ import com.credibledoc.combiner.context.Context;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.resource.ResourceService;
+import com.credibledoc.substitution.core.resource.ResourceType;
+import com.credibledoc.substitution.core.resource.TemplateResource;
 import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
@@ -21,6 +23,11 @@ import org.springframework.context.annotation.ComponentScan;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,7 +62,7 @@ public class CredibleDocGeneratorMain {
      *
      * @param args not used
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         log.info(APPLICATION_SUBSTITUTION_DOC_LAUNCHED);
         try (AnnotationConfigApplicationContext applicationContext
                      = new AnnotationConfigApplicationContext(CredibleDocGeneratorMain.class)) {
@@ -68,7 +75,7 @@ public class CredibleDocGeneratorMain {
         log.info(APPLICATION_SUBSTITUTION_DOC_FINISHED);
     }
 
-    private void substitute() {
+    private void substitute() throws IOException {
         Context context = new Context().init();
         ReportingContext reportingContext = new ReportingContext().init();
         context.getTacticRepository().getTactics().add(substitutionSpecificTactic);
@@ -81,19 +88,31 @@ public class CredibleDocGeneratorMain {
         MarkdownService.getInstance().generateContentFromTemplates();
     }
 
-    private void copyResourcesToTargetDirectory() {
+    private void copyResourcesToTargetDirectory() throws IOException {
         Configuration configuration = ConfigurationService.getInstance().getConfiguration();
         ResourceService resourceService = ResourceService.getInstance();
-        List<String> allResources = resourceService.getResources(null, configuration.getTemplatesResource());
+        List<TemplateResource> allResources = resourceService.getResources(null, configuration.getTemplatesResource());
         TemplateService templateService = TemplateService.getInstance();
-        for (String resource : allResources) {
-            if (!resource.endsWith(MarkdownService.MARKDOWN_FILE_EXTENSION) && containsDotInName(resource)) {
-                String targetFilePath = resourceService.generatePlaceholderResourceRelativePath(resource);
-                String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFilePath;
+        for (TemplateResource templateResource : allResources) {
+            if (templateResource.getType() == ResourceType.FILE) {
+                String targetFileRelativePath = resourceService.generatePlaceholderResourceRelativePath(templateResource);
+                String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
                 log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
-                    resource, targetFileAbsolutePath);
-                File file = templateService.exportResource(resource, targetFileAbsolutePath);
-                log.info("Resource copied to file: '{}'", file.getAbsolutePath());
+                    templateResource, targetFileAbsolutePath);
+                Path targetPath = Paths.get(targetFileAbsolutePath);
+                Files.createDirectories(targetPath.getParent());
+                Files.copy(templateResource.getFile().toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+            } else if (templateResource.getType() == ResourceType.CLASSPATH) {
+                if (containsDotInName(templateResource.getPath())) {
+                    String targetFileRelativePath = resourceService.generatePlaceholderResourceRelativePath(templateResource);
+                    String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
+                    log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
+                        templateResource, targetFileAbsolutePath);
+                    File file = templateService.exportResource(templateResource.getPath(), targetFileAbsolutePath);
+                    log.info("Resource copied to file: '{}'", file.getAbsolutePath());
+                }
+            } else {
+                throw new IllegalArgumentException("Unknown ResourceType " + templateResource.getType());
             }
         }
     }

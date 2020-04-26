@@ -1,6 +1,7 @@
 package com.credibledoc.substitution.core.placeholder;
 
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
+import com.credibledoc.substitution.core.resource.TemplateResource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class Placeholder {
      * A resource this placeholder belongs to, for example
      * <pre>/template/doc/README.md</pre>
      */
-    private String resource;
+    private TemplateResource resource;
 
     /**
      * Identifier, for example "1". Should be unique within a template.
@@ -67,14 +68,14 @@ public class Placeholder {
     /**
      * @return The {@link #resource} field value.
      */
-    public String getResource() {
+    public TemplateResource getResource() {
         return resource;
     }
 
     /**
-     * @param resource see the {@link #resource} field
+     * @param resource see the {@link #resource} field description.
      */
-    public void setResource(String resource) {
+    public void setResource(TemplateResource resource) {
         this.resource = resource;
     }
 

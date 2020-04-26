@@ -3,23 +3,27 @@ package com.credibledoc.substitution.content.generator.resource;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.resource.ResourceService;
+import com.credibledoc.substitution.core.resource.ResourceType;
+import com.credibledoc.substitution.core.resource.TemplateResource;
 
+import java.io.File;
 import java.util.List;
 
 /**
  * Generates list of files in resource directory.
  * <p>
- * Optional parameter {@link #END_WITH} will return resource names which end with defined string.
- * If this {@link #END_WITH} parameter is not defined, all resource names will be returned.
+ * Optional parameter {@link #ENDS_WITH} filters resource names which ends with a defined string.
+ * If the {@link #ENDS_WITH} parameter is not defined, all resource names will be returned.
  * <p>
  * Example of usage:
  * <pre>{@code
  * &&beginPlaceholder {
  *     "className": "com.credibledoc.substitution.content.generator.resource.ResourcesListMarkdownGenerator",
- *     "description": "List of resources from classpath of the credible-doc-generator application.",
- *     "parameters": {"endWith": ".md"}
+ *     "description": "List of templates used for the documentation.",
+ *     "parameters": {"endsWith": ".md"}
  * } &&endPlaceholder
  * }</pre>
  * <p>
@@ -33,24 +37,22 @@ import java.util.List;
  */
 public class ResourcesListMarkdownGenerator implements ContentGenerator {
     private static final String BULLET_POINT = "* ";
-    private static final String CLASSES_PREFIX = "/com/credibledoc";
     private static final String SRC_MAIN_RESOURCES = "src/main/resources";
-    private static final String END_WITH = "endWith";
+    private static final String ENDS_WITH = "endsWith";
+    private static final String SLASH = "/";
 
     @Override
     public Content generate(Placeholder placeholder) {
         ConfigurationService configurationService = ConfigurationService.getInstance();
         String templatesResource = configurationService.getConfiguration().getTemplatesResource();
-        String filterEndsWith = placeholder.getParameters().get(END_WITH);
-        List<String> resources = ResourceService.getInstance()
+        String filterEndsWith = placeholder.getParameters().get(ENDS_WITH);
+        List<TemplateResource> resources = ResourceService.getInstance()
             .getResources(filterEndsWith, templatesResource);
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (String resource : resources) {
-            if (!resource.startsWith(CLASSES_PREFIX)) {
-                String link = generateLink(resource);
-                stringBuilder.append(BULLET_POINT).append(link).append(System.lineSeparator());
-            }
+        for (TemplateResource templateResource : resources) {
+            String link = generateLink(templateResource);
+            stringBuilder.append(BULLET_POINT).append(link).append(System.lineSeparator());
         }
         Content content = new Content();
         content.setMarkdownContent(stringBuilder.toString());
@@ -58,10 +60,24 @@ public class ResourcesListMarkdownGenerator implements ContentGenerator {
     }
 
     /**
-     * @param resourceName for example /template/doc/README.md
+     * @param templateResource for example /template/doc/README.md
      * @return For example [/template/doc/README.md](src/main/resources/template/doc/README.md)
      */
-    private String generateLink(String resourceName) {
-        return "[" + resourceName + "](" + SRC_MAIN_RESOURCES + resourceName + ")";
+    private String generateLink(TemplateResource templateResource) {
+        if (templateResource.getType() == ResourceType.FILE) {
+            File file = templateResource.getFile();
+            String parentPath = file.getParentFile().getAbsolutePath();
+            String urlPath = parentPath.replaceAll("\\\\", SLASH);
+            if (urlPath.contains(SRC_MAIN_RESOURCES)) {
+                int beginIndex = urlPath.indexOf(SRC_MAIN_RESOURCES);
+                String path = urlPath.substring(beginIndex) + SLASH + file.getName();
+                return "[" + path.substring(SRC_MAIN_RESOURCES.length()) + "](" + path + ")";
+            }
+            return file.getAbsolutePath();
+        }
+        if (templateResource.getType() == ResourceType.CLASSPATH) {
+            return "[" + templateResource.getPath() + "](" + SRC_MAIN_RESOURCES + templateResource.getPath() + ")";
+        }
+        throw new SubstitutionRuntimeException("Unknown ResourceType " + templateResource.getType());
     }
 }

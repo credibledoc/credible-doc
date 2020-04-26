@@ -11,6 +11,7 @@ import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
+import com.credibledoc.substitution.core.resource.TemplateResource;
 import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -82,10 +84,11 @@ public class MarkdownService {
             }
             logger.info("Target directory created: '{}'", targetDirectory.getAbsolutePath());
         }
-        List<String> templateResources =
-            ResourceService.getInstance()
-                .getResources(MARKDOWN_FILE_EXTENSION, configuration.getTemplatesResource());
-        for (String templateResource : templateResources) {
+        ResourceService resourceService = ResourceService.getInstance();
+        String templatesResource = configuration.getTemplatesResource();
+        List<TemplateResource> templateResources = resourceService.getResources(".md", templatesResource);
+        templateResources.addAll(resourceService.getResources(".html", templatesResource));
+        for (TemplateResource templateResource : templateResources) {
             insertContentIntoTemplate(templateResource);
         }
     }
@@ -96,9 +99,10 @@ public class MarkdownService {
      *
      * @param templateResource source of a template, for example <i>/template/markdown/doc/diagrams.md</i>
      */
-    private void insertContentIntoTemplate(String templateResource) {
+    private void insertContentIntoTemplate(TemplateResource templateResource) {
         try {
-            String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
+            String templateContent =
+                TemplateService.getInstance().getTemplateContent(templateResource, StandardCharsets.UTF_8.name());
     
             List<String> templatePlaceholders =
                 PlaceholderService.getInstance().parsePlaceholders(templateContent, templateResource);
@@ -132,7 +136,7 @@ public class MarkdownService {
         }
     }
 
-    private String replacePlaceholdersWithGeneratedContent(String templateResource,
+    private String replacePlaceholdersWithGeneratedContent(TemplateResource templateResource,
                                                            String templateContent, List<String> templatePlaceholders) {
         String replacedContent = templateContent;
         int position = 1;
@@ -201,7 +205,7 @@ public class MarkdownService {
     }
 
     /**
-     * Generate SVG image file and a link to this file.
+     * Generate SVG image file and a link to the file.
      * <ul>
      *     <li>Load template from the {@link Placeholder#getResource()} field</li>
      *     <li>Create a new file from the template in the {@link Configuration#getTargetDirectory()} directory</li>

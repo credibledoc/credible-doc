@@ -4,6 +4,7 @@ import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.json.JsonService;
+import com.credibledoc.substitution.core.resource.TemplateResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +40,11 @@ public class PlaceholderService {
      *
      * @return list of all {@link Placeholder}s.
      */
-    public List<Placeholder> getPlaceholders() {
+    public List<Placeholder> getPlaceholders() { // TODO Kyrylo Semenko - remove to context
         return PlaceholderRepository.getInstance().getPlaceholders();
     }
 
-    public List<String> parsePlaceholders(String templateContent, String templateResource) {
+    public List<String> parsePlaceholders(String templateContent, TemplateResource templateResource) {
         Configuration configuration = ConfigurationService.getInstance().getConfiguration();
         List<String> result = new ArrayList<>();
         int index = 0;
@@ -54,10 +55,9 @@ public class PlaceholderService {
             }
             int endIndex = templateContent.indexOf(configuration.getPlaceholderEnd(), beginIndex);
             if (endIndex == -1) {
-                endIndex = beginIndex + 30 < templateResource.length() ?
-                    beginIndex + 30 : templateResource.length();
+                endIndex = Math.min(beginIndex + 30, templateContent.length());
 
-                throw new SubstitutionRuntimeException("Cannot find out '" +
+                throw new SubstitutionRuntimeException("Cannot find '" +
                     configuration.getPlaceholderEnd() +
                     "' in the template '" +
                     templateResource +
@@ -80,7 +80,7 @@ public class PlaceholderService {
      * @param resource            for example <i>/template/markdown/doc/diagrams.md</i>
      * @return For example <pre>{"className": "org.my.MyContentGenerator"}</pre>
      */
-    public Placeholder parseJsonFromPlaceholder(String templatePlaceholder, String resource) {
+    public Placeholder parseJsonFromPlaceholder(String templatePlaceholder, TemplateResource resource) {
         Configuration configuration = ConfigurationService.getInstance().getConfiguration();
         int endIndex = templatePlaceholder.length() - configuration.getPlaceholderEnd().length();
         String json = templatePlaceholder.substring(configuration.getPlaceholderBegin().length(), endIndex);

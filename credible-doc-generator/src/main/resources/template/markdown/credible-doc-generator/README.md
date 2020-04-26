@@ -44,8 +44,8 @@ This documentation is generated from these templates:
 
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.resource.ResourcesListMarkdownGenerator",
-    "description": "List of resources from classpath of the credible-doc-generator application.",
-    "parameters": {"endWith": ".md"}
+    "description": "List of templates used for the documentation.",
+    "parameters": {"endsWith": ".md"}
 } &&endPlaceholder
 
 As you can notice, this generated document and its template have the common parts,

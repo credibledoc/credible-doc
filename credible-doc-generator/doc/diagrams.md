@@ -2,21 +2,22 @@
 
 ## Activity diagram
 After launching the application generates a log file in the `log` directory.
-This log will be used as a recording of the tool behavior. Application uses its
-own `credible-doc-generator.log` for generation of UML diagrams like this one, see below.
+This log file is a recording of the tool behavior and can be used as a documentation source.
+
+As an example the current page uses its own `credible-doc-generator.log` log
+file for UML diagrams generation.
 
 This diagram shows the first steps the application performs after launching.
 
 ![Diagram of the application launching created from credible-doc-generator.log.](img/diagrams.md_1.svg?sanitize=true)
 
-This diagram is shorter then the next one because the application generated a part
-of log file only when it loaded this log file.
+The previous diagram is shorter than the next one because the log file is short.
 
-If you will launch the application more times then more log files will be created,
+If we will launch the application more times then more log files will be created,
 for example `credible-doc-generator_1.log`, `credible-doc-generator_2.log` and so on, as
-configured in `src/main/resources/logback.xml` file. The next diagram is
+configured in `src/main/resources/logback.xml` file. The following diagram is
 generated from `credible-doc-generator_1.log` file and contains behavior from previous
-launching. This diagram is longer because the application loaded the whole
+launching. This diagram is longer because the generator loaded the whole
 log file generated during the previous launching.
 
 ![Diagram of the application launching created from credible-doc-generator_1.log.](img/diagrams.md_2.svg?sanitize=true)

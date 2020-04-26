@@ -35,6 +35,6 @@ Parts of documentation for this repository [credible-doc](../README.md),
 for example [diagrams.md](../../credible-doc-generator/doc/diagrams.md), are generated with help of this `substitution-reporting` module.
 
 ## Dependencies of this `substiturion-reporting` module on other modules of the `credible-doc` repository
-![UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.](img/README.md_3.svg?sanitize=true)
+![UML diagram with dependencies of the `substiturion-reporting` module on classes from other modules of the `credible-doc` repository.](img/README.md_3.svg?sanitize=true)
 
-_UML diagram of dependencies `substiturion-reporting` module on classes from other modules of the `credible-doc` repository._
+_UML diagram with dependencies of the `substiturion-reporting` module on classes from other modules of the `credible-doc` repository._

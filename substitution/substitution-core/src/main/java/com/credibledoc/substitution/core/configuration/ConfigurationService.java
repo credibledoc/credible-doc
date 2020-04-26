@@ -22,15 +22,17 @@ import java.util.TreeMap;
  */
 public class ConfigurationService {
     private static final Logger logger = LoggerFactory.getLogger(ConfigurationService.class);
+    
     /**
      * Default value of the {@link #TEMPLATES_RESOURCE_KEY}.
      */
     public static final String TEMPLATES_RESOURCE = "template/doc";
 
     /**
-     * Configuration key. Default value is {@link #TEMPLATES_RESOURCE}.
-     * Its value contains a relative path to templates in a jar file
-     * or in a file system.
+     * Configuration key.
+     * The value contains a relative path to templates in a jar file
+     * or in a file system. Default value is {@link #TEMPLATES_RESOURCE}.
+     * // TODO Kyrylo Semenko - tests
      */
     public static final String TEMPLATES_RESOURCE_KEY = "substitution.templates.resource";
 

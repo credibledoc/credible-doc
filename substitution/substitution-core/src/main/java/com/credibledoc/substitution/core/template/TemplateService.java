@@ -1,10 +1,13 @@
 package com.credibledoc.substitution.core.template;
 
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.resource.ResourceType;
+import com.credibledoc.substitution.core.resource.TemplateResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -43,23 +46,37 @@ public class TemplateService {
 
     /**
      * Return a template as a String
-     * @param templateRelativePath template source path
-     * @return content of the template
+     *
+     * @param templateResource the template source
+     * @param charsetName      the character set for reading from the source stream.
+     * @return the template content in the {@link StandardCharsets#UTF_8} charset.
      */
-    public String getTemplateContent(String templateRelativePath) {
-        try(InputStream inputStream = getClass()
-                .getResourceAsStream(templateRelativePath);
+    public String getTemplateContent(TemplateResource templateResource, String charsetName) {
+        if (templateResource.getType() == ResourceType.CLASSPATH) {
+            try (InputStream inputStream = getClass().getResourceAsStream(templateResource.getPath());
+                 Scanner scanner = new Scanner(inputStream, charsetName)) {
 
-            Scanner scanner = new Scanner(inputStream,
-                    StandardCharsets.UTF_8.name())) {
-
-            scanner.useDelimiter(BEGINNING_OF_THE_INPUT_BOUNDARY);
-            return scanner.hasNext() ? scanner.next() : "";
-        } catch (Exception e) {
-            throw new SubstitutionRuntimeException(
+                scanner.useDelimiter(BEGINNING_OF_THE_INPUT_BOUNDARY);
+                return scanner.hasNext() ? scanner.next() : "";
+            } catch (Exception e) {
+                throw new SubstitutionRuntimeException(
                     "Cannot read from the resource '" +
-                            templateRelativePath + "'", e);
+                        templateResource + "'", e);
+            }
         }
+        if (templateResource.getType() == ResourceType.FILE) {
+            try (InputStream inputStream = new FileInputStream(templateResource.getFile());
+                 Scanner scanner = new Scanner(inputStream, charsetName)) {
+
+                scanner.useDelimiter(BEGINNING_OF_THE_INPUT_BOUNDARY);
+                return scanner.hasNext() ? scanner.next() : "";
+            } catch (Exception e) {
+                throw new SubstitutionRuntimeException(
+                    "Cannot read from the resource '" +
+                        templateResource + "'", e);
+            }
+        }
+        throw new SubstitutionRuntimeException("Unknown ResourceType " + templateResource.getType());
     }
 
     /**

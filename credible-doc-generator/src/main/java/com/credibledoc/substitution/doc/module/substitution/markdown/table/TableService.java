@@ -1,6 +1,8 @@
 package com.credibledoc.substitution.doc.module.substitution.markdown.table;
 
 import com.credibledoc.substitution.core.resource.ResourceService;
+import com.credibledoc.substitution.core.resource.ResourceType;
+import com.credibledoc.substitution.core.resource.TemplateResource;
 import com.credibledoc.substitution.core.template.TemplateService;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -12,6 +14,7 @@ import net.steppschuh.markdowngenerator.table.Table;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.nio.charset.StandardCharsets;
 
 /**
  * This service generates markdown tables, see the {@link #createMarkdownTableFromEnum(Table.Builder, Class)} method.
@@ -47,8 +50,11 @@ public class TableService {
     public String createMarkdownTableFromEnum(Table.Builder tableBuilder, Class<?> enumClass) {
         String resourceRelativePath = ResourceService.getInstance().getResource(enumClass);
 
-        String sourceCode = TemplateService.getInstance()
-                .getTemplateContent(resourceRelativePath);
+        TemplateResource templateResource = new TemplateResource();
+        templateResource.setType(ResourceType.CLASSPATH);
+        templateResource.setPath(resourceRelativePath);
+
+        String sourceCode = TemplateService.getInstance().getTemplateContent(templateResource, StandardCharsets.UTF_8.name());
 
         CompilationUnit compilationUnit = JavaParser.parse(sourceCode);
 

@@ -61,22 +61,20 @@ public class ResourceService {
      * Find resources in IDE directory or jar file, depends
      * on runtime environment.
      *
-     * @param endsWith          for example '.md'. Can be <b>null</b>. In this case all resources will be returned.
+     * @param endsWith          for example '.md' or '.html'. Can be <b>null</b>. In this case all resources will be returned.
      * @param templatesResource for example {@link ConfigurationService#TEMPLATES_RESOURCE}.
-     * @return List of resources from jar file or classpath, for example <b>["/template/doc/README.md"]</b>
+     * @return List of resources from jar file or classpath, for example <b>["/template/markdown/README.md", "/template/site/main.html"]</b>
      */
-    public List<String> getResources(String endsWith, String templatesResource) {
-        List<String> result = new ArrayList<>();
+    public List<TemplateResource> getResources(String endsWith, String templatesResource) {
         try {
             String locationPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
             logger.trace("Source code location path: '{}'", locationPath);
 
             if (isLocatedInJar(locationPath)) {
-                collectResourcesFromJar(result, endsWith, locationPath, templatesResource);
+                return collectResourcesFromJar(endsWith, locationPath, templatesResource);
             } else {
-                collectResourcesFromIde(result, endsWith, templatesResource);
+                return collectResourcesFromIde(endsWith, templatesResource);
             }
-            return result;
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
@@ -116,10 +114,10 @@ public class ResourceService {
         return found;
     }
 
-    private void collectResourcesFromJar(List<String> result,
-                                         String endsWith,
+    private List<TemplateResource> collectResourcesFromJar(String endsWith,
                                          String locationPath,
                                          String templatesResource) throws IOException {
+        List<TemplateResource> result = new ArrayList<>();
         int beginIndex = FILE_PREFIX.length() - 1;
         int endIndex = locationPath.indexOf(BOOT_INF_CLASSES_WITH_EXCLAMATION_MARK);
         File file = new File(locationPath.substring(beginIndex, endIndex));
@@ -136,40 +134,46 @@ public class ResourceService {
             if (name.startsWith(prefix) &&
                     (endsWith == null || name.endsWith(endsWith))) {
 
-                result.add(name.substring(BOOT_INF_CLASSES.length()));
+                TemplateResource templateResource = new TemplateResource();
+                templateResource.setType(ResourceType.CLASSPATH);
+                String path = name.substring(BOOT_INF_CLASSES.length());
+                templateResource.setPath(path);
+                result.add(templateResource);
             }
         }
         jarFile.close();
+        return result;
     }
 
     /**
      * Running from IDE
      *
-     * @param result the list for appended resources
      * @param endsWith will bew used as the third argument in the
      * {@link #collectTemplateFilesRecursively(File, List, String)} method.
      * @param templatesResource template path.
      * @throws URISyntaxException in case when templateResource
      * is not a valid {@link java.net.URI}
      */
-    private void collectResourcesFromIde(List<String> result,
-                                         String endsWith,
+    private List<TemplateResource> collectResourcesFromIde(String endsWith,
                                          String templatesResource) throws URISyntaxException {
+        List<TemplateResource> result = new ArrayList<>();
         final URL url = getClass().getResource(SLASH + templatesResource);
         if (url != null) {
-            final File directory = new File(url.toURI());
+            final File classesDirectory = new File(url.toURI());
+            String from = "target" + File.separator + CLASSES + File.separator + templatesResource;
+            String to = "src" + File.separator + "main" + File.separator + "resources" + File.separator + templatesResource;
+            File directory = new File(classesDirectory.getAbsolutePath().replace(from, to));
+            if (!directory.exists()) {
+                directory = classesDirectory;
+            }
             logger.info("Resource has been found in the directory: '{}'", directory.getAbsolutePath());
             List<File> templateFiles = new ArrayList<>();
             collectTemplateFilesRecursively(directory, templateFiles, endsWith);
             for (File templateFile : templateFiles) {
-                String absolutePath = templateFile.getAbsolutePath();
-                int index = absolutePath.indexOf(CLASSES);
-                if (index == -1) {
-                    throw new SubstitutionRuntimeException("Cannot find out '" + CLASSES +
-                            "' substring in the string '" + absolutePath + "'");
-                }
-                String substring = absolutePath.substring(index + CLASSES.length());
-                result.add(substring.replaceAll("\\\\", SLASH));
+                TemplateResource templateResource = new TemplateResource();
+                templateResource.setType(ResourceType.FILE);
+                templateResource.setFile(templateFile);
+                result.add(templateResource);
             }
         } else {
             String directoryString = new File(templatesResource).getAbsolutePath();
@@ -183,6 +187,7 @@ public class ResourceService {
                         " 'ConfigurationService.getInstance().getConfiguration()." +
                         "setTemplatesResource(\"resource/in/classpath\");'.");
         }
+        return result;
     }
 
     private void collectTemplateFilesRecursively(File directory, List<File> templateFiles, String fileExtension) {
@@ -204,11 +209,27 @@ public class ResourceService {
     /**
      * Generate a relative path of the file that will be created from the resource defined in the argument.
      *
-     * @param resource for example /template/markdown/doc/diagrams.md
-     * @return For example /doc/diagrams.md
+     * @param templateResource for example /template/markdown/doc/diagrams.md
+     * @return For example /markdown/doc/diagrams.md
      */
-    public String generatePlaceholderResourceRelativePath(String resource) {
+    public String generatePlaceholderResourceRelativePath(TemplateResource templateResource) {
         Configuration configuration = ConfigurationService.getInstance().getConfiguration();
-        return resource.substring(configuration.getTemplatesResource().length() + 1);
+        String configTemplateResource = configuration.getTemplatesResource();
+        String path;
+        if (templateResource.getType() == ResourceType.FILE) {
+            File file = templateResource.getFile();
+            String parentPath = file.getParentFile().getAbsolutePath();
+            if (!parentPath.contains(configTemplateResource)) {
+                throw new SubstitutionRuntimeException("Expected replacedPath with substring '" +
+                    configTemplateResource + "' but found '" + parentPath + "'.");
+            }
+            int startIndex = parentPath.indexOf(configTemplateResource) + configTemplateResource.length();
+            return parentPath.substring(startIndex) + SLASH + file.getName();
+        } else if (templateResource.getType() == ResourceType.CLASSPATH) {
+            path = templateResource.getPath();
+        } else {
+            throw new SubstitutionRuntimeException("Unknown ResourceType " + templateResource.getType());
+        }
+        return path.substring(configTemplateResource.length() + 1);
     }
 }

@@ -8,7 +8,7 @@ package com.credibledoc.substitution.core.configuration;
 public class Configuration {
 
     /**
-     * This parameter is stored under the
+     * This parameter is stored in the property with the
      * {@link ConfigurationService#TEMPLATES_RESOURCE_KEY} configuration key.
      * <p>
      * Its default value is {@link ConfigurationService#TEMPLATES_RESOURCE}.
@@ -18,7 +18,7 @@ public class Configuration {
     private String templatesResource;
 
     /**
-     * This parameter is stored under the
+     * This parameter is stored in the property with the
      * {@link ConfigurationService#PLACEHOLDER_BEGIN_KEY} configuration key.
      * <p>
      * Its default value is {@link ConfigurationService#PLACEHOLDER_BEGIN}.
@@ -28,7 +28,7 @@ public class Configuration {
     private String placeholderBegin;
 
     /**
-     * This parameter is stored under the
+     * This parameter is stored in the property with the
      * {@link ConfigurationService#PLACEHOLDER_END_KEY} configuration key.
      * <p>
      * Its default value is {@link ConfigurationService#PLACEHOLDER_END}.
@@ -38,7 +38,7 @@ public class Configuration {
     private String placeholderEnd;
 
     /**
-     * This parameter is stored under the
+     * This parameter is stored in the property with the
      * {@link ConfigurationService#TARGET_DIRECTORY_KEY} configuration key.
      * <p>
      * Its default value is {@link ConfigurationService#TARGET_DIRECTORY}.

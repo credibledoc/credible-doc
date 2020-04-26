@@ -2,6 +2,7 @@ package com.credibledoc.substitution.core.json;
 
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
+import com.credibledoc.substitution.core.resource.ResourceType;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
@@ -35,7 +36,7 @@ public class JsonService {
     }
 
     /**
-     * Convert JSON to {@link Placeholder} or its descendant. Client application can decide
+     * Convert JSON to {@link Placeholder} or its descendant. Client applications may decide
      * to extend the {@link Placeholder}.
      *
      * @param json       JSON representation of a {@link Placeholder} or its descendant
@@ -49,7 +50,6 @@ public class JsonService {
             Placeholder placeholder = new Placeholder();
             JsonValue value = Json.parse(json);
             JsonObject jsonObject = value.asObject();
-            placeholder.setResource(jsonObject.getString(Placeholder.FIELD_RESOURCE, null));
             placeholder.setClassName(jsonObject.getString(Placeholder.FIELD_CLASS_NAME, null));
             placeholder.setDescription(jsonObject.getString(Placeholder.FIELD_DESCRIPTION, null));
             placeholder.setId(jsonObject.getString(Placeholder.FIELD_ID, null));
@@ -77,7 +77,15 @@ public class JsonService {
     public <T extends Placeholder> String writeValueAsString(T placeholder) {
         try {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.add(Placeholder.FIELD_RESOURCE, placeholder.getResource());
+            String resource;
+            if (placeholder.getResource().getType() == ResourceType.FILE) {
+                resource = placeholder.getResource().getFile().getAbsolutePath();
+            } else if (placeholder.getResource().getType() == ResourceType.CLASSPATH) {
+                resource = placeholder.getResource().getPath();
+            } else {
+                throw new SubstitutionRuntimeException("Unknown ResourceType " + placeholder.getResource().getType());
+            }
+            jsonObject.add(Placeholder.FIELD_RESOURCE, resource);
             jsonObject.add(Placeholder.FIELD_CLASS_NAME, placeholder.getClassName());
             jsonObject.add(Placeholder.FIELD_DESCRIPTION, placeholder.getDescription());
             jsonObject.add(Placeholder.FIELD_ID, placeholder.getId());

@@ -12,6 +12,7 @@ import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
+import com.credibledoc.substitution.core.resource.TemplateResource;
 import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentRepository;
@@ -24,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -71,18 +73,20 @@ public class ReportDocumentCreatorService {
      * Then create a {@link ReportDocument} for the {@link Placeholder}.
      */
     public void createReportDocuments(Context context, ReportingContext reportingContext) {
-        String lastTemplateResource = null;
+        TemplateResource lastTemplateResource = null;
         String lastTemplatePlaceholder = null;
         ReportDocumentCreatorRepository reportDocumentCreatorRepository = reportingContext.getReportDocumentCreatorRepository();
         try {
             String templatesResource = ConfigurationService.getInstance().getConfiguration().getTemplatesResource();
-            List<String> resources =
+            List<TemplateResource> resources =
                     ResourceService.getInstance().getResources(MARKDOWN_FILE_EXTENSION, templatesResource);
-            logger.info("Markdown templates will be loaded from the resources: {}", resources);
+            logger.debug("Markdown templates will be loaded from the resources: {}", resources);
             PlaceholderService placeholderService = PlaceholderService.getInstance();
-            for (String templateResource : resources) {
+            TemplateService templateService = TemplateService.getInstance();
+            for (TemplateResource templateResource : resources) {
                 lastTemplateResource = templateResource;
-                String templateContent = TemplateService.getInstance().getTemplateContent(templateResource);
+                String templateContent =
+                    templateService.getTemplateContent(templateResource, StandardCharsets.UTF_8.name());
                 List<String> placeholders = placeholderService.parsePlaceholders(templateContent, templateResource);
                 int position = 1;
                 for (String templatePlaceholder : placeholders) {

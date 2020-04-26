@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="96px" preserveAspectRatio="none" style="width:286px;height:96px;" version="1.1" viewBox="0 0 286 96" width="286px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="151px" preserveAspectRatio="none" style="width:936px;height:151px;" version="1.1" viewBox="0 0 936 151" width="936px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="fgyds2m5rc3lv" width="300%" x="-1" y="-1">
+    <filter height="300%" id="f10gnta8ifhhre" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,15 +8,27 @@
     </filter>
   </defs>
   <g>
-    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#fgyds2m5rc3lv)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#fgyds2m5rc3lv)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
+    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#f10gnta8ifhhre)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#f10gnta8ifhhre)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="20" y="72.457">Application credible-doc-generator launched.</text>
+    <path d="M259.5,109.4648 L259.5,118.6406 L239.5,122.6406 L259.5,126.6406 L259.5,135.8164 A0,0 0 0 0 259.5,135.8164 L924.5,135.8164 A0,0 0 0 0 924.5,135.8164 L924.5,119.4648 L914.5,109.4648 L259.5,109.4648 A0,0 0 0 0 259.5,109.4648 " fill="#FBFB77" filter="url(#f10gnta8ifhhre)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M914.5,109.4648 L914.5,119.4648 L924.5,119.4648 L914.5,109.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="644" x="265.5" y="127.96">file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties</text>
+    <rect fill="#FEFECE" filter="url(#f10gnta8ifhhre)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="105.0938"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="55.5" y="127.5508">Configuration properties loaded</text>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="30" y2="50"/>
     <polygon fill="#A80036" points="138.5,40,142.5,50,146.5,40,142.5,44" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="85.0938" y2="105.0938"/>
+    <polygon fill="#A80036" points="138.5,95.0938,142.5,105.0938,146.5,95.0938,142.5,99.0938" style="stroke: #A80036; stroke-width: 1.0;"/>
     <!--
 @startuml
 start
 :Application credible-doc-generator launched.;
+
+:Configuration properties loaded;
+note right
+file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties
+end note
 
 @enduml
 
@@ -27,7 +39,7 @@ JVM: Java HotSpot(TM) 64-Bit Server VM
 Java Version: 1.8.0_71-b15
 Operating System: Windows 10
 OS Version: 10.0
-Default Encoding: Cp1250
+Default Encoding: UTF-8
 Language: en
 Country: US
 -->
