@@ -224,7 +224,7 @@ public class ResourceService {
      * @return For example /markdown/doc/diagrams.md
      */
     public String generatePlaceholderResourceRelativePath(TemplateResource templateResource, SubstitutionContext substitutionContext) {
-        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
+        Configuration configuration = substitutionContext.getConfiguration();
         String configTemplatesPath = configuration.getTemplatesResource();
         String configPathNormalized = configTemplatesPath.replaceAll("\\\\", SLASH);
         String path;

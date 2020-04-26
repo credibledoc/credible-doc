@@ -90,7 +90,7 @@ public class CredibleDocGeneratorMain {
     }
 
     private void copyResourcesToTargetDirectory(SubstitutionContext substitutionContext) throws IOException {
-        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
+        Configuration configuration = substitutionContext.getConfiguration();
         ResourceService resourceService = ResourceService.getInstance();
         List<TemplateResource> allResources =
             resourceService.getResources(null, configuration.getTemplatesResource());

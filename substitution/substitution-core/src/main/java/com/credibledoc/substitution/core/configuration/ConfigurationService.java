@@ -16,7 +16,7 @@ import java.util.Properties;
 import java.util.TreeMap;
 
 /**
- * This stateful object provides a configuration for this module.
+ * This stateless object provides services for this domain.
  *
  * @author Kyrylo Semenko
  */
@@ -77,53 +77,70 @@ public class ConfigurationService {
     private static final String SUBSTITUTION_PROPERTIES_FILE_PATH = "substitution.properties.file.path";
 
     private static final String SUBSTITUTION_PROPERTIES_RESOURCE_NAME = "substitution.properties";
+    
     public static final String PROPERTIES_LOADED_BY_CLASS_LOADER_FROM_THE_RESOURCE =
         "Properties loaded by ClassLoader from the resource: ";
 
     /**
-     * Contains application configuration parameters.
+     * Singleton.
      */
-    private Configuration configuration;
+    private static ConfigurationService instance;
 
     /**
-     * At first load default values to a {@link #configuration} object.
+     * Empty constructor.
+     */
+    private ConfigurationService() {
+        // empty
+    }
+
+    /**
+     * @return The {@link ConfigurationService} singleton.
+     */
+    public static ConfigurationService getInstance() {
+        if (instance == null) {
+            instance = new ConfigurationService();
+        }
+        return instance;
+    }
+
+    /**
+     * At first load default values to a {@link Configuration} object.
      * <p>
      * Then in case the {@link System#getProperty(String)} with a key {@link #SUBSTITUTION_PROPERTIES_FILE_PATH}
-     * exists, load properties from this file to the {@link #configuration} object.
+     * exists, load properties from this file to the {@link Configuration} object.
      * <p>
      * Else in case when a {@link #SUBSTITUTION_PROPERTIES_RESOURCE_NAME} file exists in classpath,
-     * then load its properties to the {@link #configuration} object.
+     * then load its properties to the {@link Configuration} object.
      * <p>
      * Log out all properties and they origins.
      */
-    public void loadConfiguration() {
+    public void loadConfiguration(Configuration configuration) {
         Map<String, String> map = new TreeMap<>();
-        configuration = new Configuration();
 
-        loadDefaultPropertiesAndCompleteTheMap(map);
+        loadDefaultPropertiesAndCompleteTheMap(map, configuration);
 
         String propertiesFilePath = System.getProperty(SUBSTITUTION_PROPERTIES_FILE_PATH);
         if (propertiesFilePath != null) {
-            loadExternalPropertiesAndCompleteTheMap(map, propertiesFilePath);
+            loadExternalPropertiesAndCompleteTheMap(map, propertiesFilePath, configuration);
         } else {
-            loadClasspathPropertiesAndCompleteTheMap(map);
+            loadClasspathPropertiesAndCompleteTheMap(map, configuration);
         }
         for (Field field : configuration.getClass().getDeclaredFields()) {
             ConfigurationProperty configurationProperty = field.getAnnotation(ConfigurationProperty.class);
             String key = configurationProperty.key();
             String origin = map.get(key);
-            String value = getValue(field);
+            String value = getValue(field, configuration);
             logger.info("Configuration property key: '{}', value: '{}', origin: {}", key, value, origin);
         }
     }
 
     /**
-     * Obtain value of the {@link #configuration} by invoking its getter.
+     * Obtain value of the {@link Configuration} by invoking its getter.
      *
-     * @param field the {@link #configuration} field this getter belongs to.
+     * @param field the {@link Configuration} field this getter belongs to.
      * @return The value returned by a getter of the {@link Field}.
      */
-    private String getValue(Field field) {
+    private String getValue(Field field, Configuration configuration) {
         try {
             String getterName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
             Method method = configuration.getClass().getDeclaredMethod(getterName);
@@ -135,11 +152,11 @@ public class ConfigurationService {
 
     /**
      * Load {@link #SUBSTITUTION_PROPERTIES_RESOURCE_NAME} resource from jar and append its properties
-     * to the {@link #configuration}.
+     * to the {@link Configuration}.
      *
      * @param map this map will be completed by loaded properties for logging purposes.
      */
-    private void loadClasspathPropertiesAndCompleteTheMap(Map<String, String> map) {
+    private void loadClasspathPropertiesAndCompleteTheMap(Map<String, String> map, Configuration configuration) {
         Properties properties = new Properties();
         URL url = getClass().getClassLoader().getResource(SUBSTITUTION_PROPERTIES_RESOURCE_NAME);
         if (url == null) {
@@ -151,7 +168,7 @@ public class ConfigurationService {
             for (Field field : Configuration.class.getDeclaredFields()) {
                 ConfigurationProperty configurationProperty = field.getAnnotation(ConfigurationProperty.class);
                 if (properties.containsKey(configurationProperty.key())) {
-                    setValue(field, properties.getProperty(configurationProperty.key()));
+                    setValue(field, properties.getProperty(configurationProperty.key()), configuration);
                     map.put(configurationProperty.key(), "classpath:" + SUBSTITUTION_PROPERTIES_RESOURCE_NAME);
                 }
             }
@@ -163,12 +180,12 @@ public class ConfigurationService {
     }
 
     /**
-     * Load properties from a file to the {@link #configuration} object.
+     * Load properties from a file to the {@link Configuration} object.
      *
      * @param map this map will be completed by loaded properties for logging purposes.
      * @param propertiesFilePath the data source
      */
-    private void loadExternalPropertiesAndCompleteTheMap(Map<String, String> map, String propertiesFilePath) {
+    private void loadExternalPropertiesAndCompleteTheMap(Map<String, String> map, String propertiesFilePath, Configuration configuration) {
         try {
             Properties properties = new Properties();
             File propertiesFile = new File(propertiesFilePath);
@@ -181,7 +198,7 @@ public class ConfigurationService {
             for (Field field : Configuration.class.getDeclaredFields()) {
                 ConfigurationProperty configurationProperty = field.getAnnotation(ConfigurationProperty.class);
                 if (properties.containsKey(configurationProperty.key())) {
-                    setValue(field, properties.getProperty(configurationProperty.key()));
+                    setValue(field, properties.getProperty(configurationProperty.key()), configuration);
                     map.put(configurationProperty.key(), fileAbsolutePath);
                 }
             }
@@ -192,11 +209,11 @@ public class ConfigurationService {
     }
 
     /**
-     * Load default constants to the {@link #configuration} object.
+     * Load default constants to the {@link Configuration} object.
      *
      * @param map this map will be completed by loaded properties for logging purposes.
      */
-    private void loadDefaultPropertiesAndCompleteTheMap(Map<String, String> map) {
+    private void loadDefaultPropertiesAndCompleteTheMap(Map<String, String> map, Configuration configuration) {
         for (Field field : Configuration.class.getDeclaredFields()) {
             ConfigurationProperty configurationProperty = field.getAnnotation(ConfigurationProperty.class);
             if (configurationProperty == null) {
@@ -204,18 +221,18 @@ public class ConfigurationService {
                         "Field " + field.getName() + " of class " + Configuration.class.getCanonicalName() +
                         " does not contains a " + ConfigurationProperty.class.getSimpleName() + " annotation.");
             }
-            setValue(field, configurationProperty.defaultValue());
+            setValue(field, configurationProperty.defaultValue(), configuration);
             map.put(configurationProperty.key(), configurationProperty.defaultValue());
         }
     }
 
     /**
-     * Set a value to the {@link #configuration} object.
+     * Set a value to the {@link Configuration} object.
      *
      * @param field will bew used for searching of getter method.
-     * @param value will be placed to the {@link #configuration} object field.
+     * @param value will be placed to the {@link Configuration} object field.
      */
-    private void setValue(Field field, String value) {
+    private void setValue(Field field, String value, Configuration configuration) {
         try {
             String fieldNameWithFirstUpperCase =
                     field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
@@ -227,10 +244,4 @@ public class ConfigurationService {
         }
     }
 
-    /**
-     * @return The {@link #configuration} field value.
-     */
-    public Configuration getConfiguration() {
-        return configuration;
-    }
 }

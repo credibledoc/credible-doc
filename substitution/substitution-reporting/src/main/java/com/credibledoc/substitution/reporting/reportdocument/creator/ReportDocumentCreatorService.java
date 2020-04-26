@@ -83,7 +83,7 @@ public class ReportDocumentCreatorService {
         ReportDocumentCreatorRepository reportDocumentCreatorRepository
             = reportingContext.getReportDocumentCreatorRepository();
         try {
-            String templatesResource = substitutionContext.getConfigurationService().getConfiguration().getTemplatesResource();
+            String templatesResource = substitutionContext.getConfiguration().getTemplatesResource();
             List<TemplateResource> resources =
                     ResourceService.getInstance().getResources(MARKDOWN_FILE_EXTENSION, templatesResource);
             logger.debug("Markdown templates will be loaded from the resources: {}", resources);

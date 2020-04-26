@@ -1,6 +1,5 @@
 package com.credibledoc.substitution.content.generator.resource;
 
-import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.context.SubstitutionContext;
@@ -44,8 +43,7 @@ public class ResourcesListMarkdownGenerator implements ContentGenerator {
 
     @Override
     public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
-        ConfigurationService configurationService = substitutionContext.getConfigurationService();
-        String templatesResource = configurationService.getConfiguration().getTemplatesResource();
+        String templatesResource = substitutionContext.getConfiguration().getTemplatesResource();
         String filterEndsWith = placeholder.getParameters().get(ENDS_WITH);
         List<TemplateResource> resources = ResourceService.getInstance()
             .getResources(filterEndsWith, templatesResource);

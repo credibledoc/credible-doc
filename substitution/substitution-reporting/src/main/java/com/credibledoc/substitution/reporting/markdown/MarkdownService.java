@@ -66,7 +66,7 @@ public class MarkdownService {
      * with generated content. And finally write out generated documents to files.
      */
     public void generateContentFromTemplates(SubstitutionContext substitutionContext) {
-        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
+        Configuration configuration = substitutionContext.getConfiguration();
         File targetDirectory = new File(configuration.getTargetDirectory());
         if (!targetDirectory.exists()) {
             boolean created = targetDirectory.mkdirs();
@@ -107,7 +107,7 @@ public class MarkdownService {
             ResourceService resourceService = ResourceService.getInstance();
             String placeholderResourceRelativePath =
                 resourceService.generatePlaceholderResourceRelativePath(templateResource, substitutionContext);
-            Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
+            Configuration configuration = substitutionContext.getConfiguration();
             File generatedFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
             File generatedFileDirectory = generatedFile.getParentFile();
             createDirectoryIfNotExists(generatedFileDirectory);
@@ -224,7 +224,7 @@ public class MarkdownService {
         String placeholderResourceRelativePath =
                 resourceService.generatePlaceholderResourceRelativePath(placeholder.getResource(), substitutionContext);
 
-        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
+        Configuration configuration = substitutionContext.getConfiguration();
         File mdFile = new File(configuration.getTargetDirectory() + placeholderResourceRelativePath);
         File directory = mdFile.getParentFile();
         File imageDirectory = new File(directory, IMAGE_DIRECTORY_NAME);

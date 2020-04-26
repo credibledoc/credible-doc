@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.core.context;
 
+import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.placeholder.PlaceholderRepository;
 
@@ -15,11 +16,17 @@ public class SubstitutionContext {
     private PlaceholderRepository placeholderRepository;
 
     /**
-     * Contains the {@link ConfigurationService} state.
+     * Contains the {@link Configuration} state.
      */
-    // TODO Kyrylo Semenko - delete and use Configuration directly. Remain ConfigurationService stateless.
-    private ConfigurationService configurationService;
+    private Configuration configuration;
 
+    @Override
+    public String toString() {
+        return "SubstitutionContext{" +
+            "placeholderRepository=" + placeholderRepository +
+            ", configuration=" + configuration +
+            '}';
+    }
 
     /**
      * @return The {@link #placeholderRepository} field value.
@@ -45,26 +52,27 @@ public class SubstitutionContext {
     }
 
     /**
-     * Call the {@link ConfigurationService#loadConfiguration()} method.
+     * Create a new instance of {@link Configuration} object and call the
+     * {@link ConfigurationService#loadConfiguration(Configuration)} method.
      * @return the current instance of {@link SubstitutionContext}.
      */
     public SubstitutionContext loadConfiguration() {
-        this.configurationService = new ConfigurationService();
-        this.configurationService.loadConfiguration();
+        this.configuration = new Configuration();
+        ConfigurationService.getInstance().loadConfiguration(configuration);
         return this;
     }
 
     /**
-     * @return The {@link #configurationService} field value.
+     * @return The {@link #configuration} field value.
      */
-    public ConfigurationService getConfigurationService() {
-        return configurationService;
+    public Configuration getConfiguration() {
+        return configuration;
     }
 
     /**
-     * @param configurationService see the {@link #configurationService} field description.
+     * @param configuration see the {@link #configuration} field description.
      */
-    public void setConfigurationService(ConfigurationService configurationService) {
-        this.configurationService = configurationService;
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
     }
 }

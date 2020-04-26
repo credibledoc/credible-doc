@@ -36,7 +36,7 @@ public class PlaceholderService {
     }
 
     public List<String> parsePlaceholders(String templateContent, TemplateResource templateResource, SubstitutionContext substitutionContext) {
-        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
+        Configuration configuration = substitutionContext.getConfiguration();
         List<String> result = new ArrayList<>();
         int index = 0;
         while (true) {
@@ -72,7 +72,7 @@ public class PlaceholderService {
      * @return For example <pre>{"className": "org.my.MyContentGenerator"}</pre>
      */
     public Placeholder parseJsonFromPlaceholder(String templatePlaceholder, TemplateResource resource, SubstitutionContext substitutionContext) {
-        Configuration configuration = substitutionContext.getConfigurationService().getConfiguration();
+        Configuration configuration = substitutionContext.getConfiguration();
         int endIndex = templatePlaceholder.length() - configuration.getPlaceholderEnd().length();
         String json = templatePlaceholder.substring(configuration.getPlaceholderBegin().length(), endIndex);
         Placeholder placeholder = JsonService.getInstance().readValue(json, Placeholder.class);
