@@ -48,6 +48,10 @@ nav {
     cursor: pointer;
 }
 
+.menu-li {
+    padding-bottom: 10px;
+}
+
 article {
     -webkit-flex: 3;
     -ms-flex: 3;
@@ -84,4 +88,29 @@ footer {
 
 .stack-horizontally {
     float: left;
+}
+
+#hamburger {
+    width: 20px;
+    height: 20px;
+}
+
+@media (min-width: 100px) AND (max-width: 640px) {
+    header img {
+        width: 80px;
+    }
+    
+    article, nav {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .menu-li {
+        padding-bottom: 32px;
+    }
+    
+    #hamburger {
+        width: 48px;
+        height: 48px;
+    } 
 }

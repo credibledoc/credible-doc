@@ -45,3 +45,10 @@
     width: 12px;
     height: 12px;
 }
+
+@media (min-width: 100px) AND (max-width: 640px) {
+    #er_search_input_dummy {
+        padding: 2px;
+        width: 200px;
+    }
+}

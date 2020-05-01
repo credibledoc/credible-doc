@@ -1,5 +1,18 @@
 'use strict';
 
+$(function () {
+    $("#hamburger").click(
+        function () {
+            const nav = $("nav");
+            if (nav.is(":visible")) {
+                nav.fadeOut(300);
+            } else {
+                nav.fadeIn(500);
+            }
+        }
+    );
+});
+
 // Get the input field
 const input = document.getElementById("er_search_input_dummy");
 
@@ -30,16 +43,3 @@ function search() {
     let query = searchText.replace(/\s/g, "+");
     location.href = 'https://www.google.com/search?q=credibledoc+' + query;
 }
-
-$(function () {
-    $("#hamburger").click(
-        function () {
-            const nav = $("nav");
-            if (nav.is(":visible")) {
-                nav.fadeOut(300);
-            } else {
-                nav.fadeIn(500);
-            }
-        }
-    );
-})
