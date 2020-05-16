@@ -5,7 +5,9 @@ import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.json.JsonService;
 import com.credibledoc.substitution.core.resource.TemplateResource;
+import com.credibledoc.substitution.core.template.TemplateService;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,10 @@ public class PlaceholderService {
         return instance;
     }
 
-    public List<String> parsePlaceholders(String templateContent, TemplateResource templateResource, SubstitutionContext substitutionContext) {
+    public List<String> parsePlaceholders(TemplateResource templateResource, SubstitutionContext substitutionContext) {
+        // TODO Kyrylo Semenko - charset from configuration
+        String templateContent =
+            TemplateService.getInstance().getTemplateContent(templateResource, StandardCharsets.UTF_8.name());
         Configuration configuration = substitutionContext.getConfiguration();
         List<String> result = new ArrayList<>();
         int index = 0;
@@ -69,6 +74,7 @@ public class PlaceholderService {
      *                                &&beginPlaceholder{"className": "org.my.MyContentGenerator"}&&endPlaceholder
      *                            }</pre>
      * @param resource            for example <i>/template/markdown/doc/diagrams.md</i>
+     * @param substitutionContext the current state
      * @return For example <pre>{"className": "org.my.MyContentGenerator"}</pre>
      */
     public Placeholder parseJsonFromPlaceholder(String templatePlaceholder, TemplateResource resource, SubstitutionContext substitutionContext) {

@@ -5,8 +5,8 @@ import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.enricher.printable.Printable;
-import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.enricher.transformer.Transformer;
+import com.credibledoc.substitution.reporting.replacement.ReplacementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class ContentReplacedTransformer implements Transformer {
     public String transform(Printable printable,
                             List<String> multiLine, LogBufferedReader logBufferedReader, Context context) {
 
-        String plantUml = ":" + MarkdownService.CONTENT_REPLACED + ";" + LINE_SEPARATOR +
+        String plantUml = ":" + ReplacementService.CONTENT_REPLACED + ";" + LINE_SEPARATOR +
             "note right" + LINE_SEPARATOR +
             parsePlaceholderDescription(multiLine) + LINE_SEPARATOR +
             "end note" + LINE_SEPARATOR;
@@ -35,8 +35,8 @@ public class ContentReplacedTransformer implements Transformer {
 
     private String parsePlaceholderDescription(List<String> multiLine) {
         String line = multiLine.get(0);
-        int beginIndex = line.indexOf(MarkdownService.CONTENT_REPLACED);
-        String json = line.substring(beginIndex +  MarkdownService.CONTENT_REPLACED.length());
+        int beginIndex = line.indexOf(ReplacementService.CONTENT_REPLACED);
+        String json = line.substring(beginIndex +  ReplacementService.CONTENT_REPLACED.length());
         Placeholder placeholder = PlaceholderService.getInstance().readPlaceholderFromJson(json);
         return placeholder.getDescription();
     }

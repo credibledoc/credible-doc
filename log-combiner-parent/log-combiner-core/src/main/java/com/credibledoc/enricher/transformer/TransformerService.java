@@ -57,6 +57,7 @@ public class TransformerService {
      * @param logBufferedReader data source created from a log file. It can be
      *                          useful in case when additional lines should be read from this reader
      *                          or for access to a source file.
+     * @param context           the current state
      */
     public void transformToReport(Printable printable,
                                   List<String> multiline,

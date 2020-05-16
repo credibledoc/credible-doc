@@ -1,10 +1,11 @@
 package com.credibledoc.substitution.core.resource;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Objects;
 
 /**
- * Contains information about a template used for content generation.
+ * Contains information about a template used for the content generation.
  * 
  * @author Kyrylo Semenko
  */
@@ -28,6 +29,15 @@ public class TemplateResource {
      * The {@link TemplateResource} type.
      */
     private ResourceType type;
+
+    public TemplateResource() {
+        // empty
+    }
+
+    public TemplateResource(Path path) {
+        this.type = ResourceType.FILE;
+        this.file = path.toFile();
+    }
 
     @Override
     public boolean equals(Object o) {

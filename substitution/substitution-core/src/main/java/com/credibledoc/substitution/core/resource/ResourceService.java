@@ -30,8 +30,9 @@ import java.util.jar.JarFile;
  * @author Kyrylo Semenko
  */
 public class ResourceService {
-    public static final String SUBSTITUTION_CORE_MODULE_NAME = "substitution-core";
     private static final Logger logger = LoggerFactory.getLogger(ResourceService.class);
+    
+    public static final String SUBSTITUTION_CORE_MODULE_NAME = "substitution-core";
     private static final String FILE_PREFIX = "file:/";
     private static final String BOOT_INF_CLASSES_WITH_EXCLAMATION_MARK = "!/BOOT-INF/";
     private static final String CLASSES = "classes";
@@ -59,8 +60,7 @@ public class ResourceService {
     }
 
     /**
-     * Find resources in IDE directory or jar file, depends
-     * on runtime environment.
+     * Find resources in the IDE directory or jar file, depending on a runtime environment.
      *
      * @param endsWith          for example '.md' or '.html'. Can be <b>null</b>. In this case all resources will be returned.
      * @param templatesResource for example {@link ConfigurationService#TEMPLATES_RESOURCE}.
@@ -152,44 +152,57 @@ public class ResourceService {
      * @param endsWith will bew used as the third argument in the
      * {@link #collectTemplateFilesRecursively(File, List, String)} method.
      * @param templatesResource template path.
-     * @throws URISyntaxException in case when templateResource
-     * is not a valid {@link java.net.URI}
+     * @return Available {@link TemplateResource}s.
      */
-    private List<TemplateResource> collectResourcesFromIde(String endsWith,
-                                         String templatesResource) throws URISyntaxException {
-        // absolute path
-        File dir = new File(templatesResource);
-        if (dir.exists()) {
-            return getResources(endsWith, dir);
-        }
-        // relative path
-        final URL url = getClass().getResource(SLASH + templatesResource);
-        if (url != null) {
-            final File classesDirectory = new File(url.toURI());
-            String from = "target" + File.separator + CLASSES + File.separator + templatesResource;
-            String to = "src" + File.separator + "main" + File.separator + "resources" + File.separator + templatesResource;
-            File directory = new File(classesDirectory.getAbsolutePath().replace(from, to));
-            if (!directory.exists()) {
-                directory = classesDirectory;
-            }
-            return getResources(endsWith, directory);
-        } else {
+    private List<TemplateResource> collectResourcesFromIde(String endsWith, String templatesResource) {
+        File result = findTemplatesDir(templatesResource);
+        if (result == null) {
             String directoryString = new File(templatesResource).getAbsolutePath();
 
             throw new SubstitutionRuntimeException(
-                    "Resource of template not found. TemplateResource: '" + templatesResource + "'." +
-                        " Directory: '" + directoryString + "'." +
-                        " This resource can be configured" +
-                        " with '" + ConfigurationService.TEMPLATES_RESOURCE_KEY + "' key" +
-                        " or directly set by calling for example" +
-                        " 'ConfigurationService.getInstance().getConfiguration()." +
-                        "setTemplatesResource(\"resource/in/classpath\");'.");
+                "Resource of template not found. TemplateResource: '" + templatesResource + "'." +
+                    " Directory: '" + directoryString + "'." +
+                    " This resource can be configured" +
+                    " with '" + ConfigurationService.TEMPLATES_RESOURCE_KEY + "' key" +
+                    " or directly set by calling for example" +
+                    " 'ConfigurationService.getInstance().getConfiguration()." +
+                    "setTemplatesResource(\"resource/in/classpath\");'.");
+        }
+        return getResources(endsWith, result);
+    }
+
+    public File findTemplatesDir(String templatesResource) {
+        try {
+            File result = null;
+            // absolute path
+            File dir = new File(templatesResource);
+            if (dir.exists() && dir.isDirectory()) {
+                result = dir;
+            }
+            if (result == null) {
+                // relative path
+                final URL url = getClass().getResource(SLASH + templatesResource);
+                if (url != null) {
+                    final File classesDirectory = new File(url.toURI());
+                    String from = "target" + File.separator + CLASSES + File.separator + templatesResource;
+                    String to =
+                        "src" + File.separator + "main" + File.separator + "resources" + File.separator + templatesResource;
+                    File directory = new File(classesDirectory.getAbsolutePath().replace(from, to));
+                    if (!directory.exists()) {
+                        directory = classesDirectory;
+                    }
+                    result = directory;
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            throw new SubstitutionRuntimeException(e);
         }
     }
 
     private List<TemplateResource> getResources(String endsWith,  File directory) {
         List<TemplateResource> result = new ArrayList<>();
-        logger.info("Resource has been found in the directory: '{}'", directory.getAbsolutePath());
+        logger.info("Resource found in the directory: '{}'", directory.getAbsolutePath());
         List<File> templateFiles = new ArrayList<>();
         collectTemplateFilesRecursively(directory, templateFiles, endsWith);
         for (File templateFile : templateFiles) {
@@ -221,6 +234,7 @@ public class ResourceService {
      * Generate a relative path of the file that will be created from the resource defined in the argument.
      *
      * @param templateResource for example /template/markdown/doc/diagrams.md
+     * @param substitutionContext the current state
      * @return For example /markdown/doc/diagrams.md
      */
     public String generatePlaceholderResourceRelativePath(TemplateResource templateResource, SubstitutionContext substitutionContext) {
@@ -244,5 +258,62 @@ public class ResourceService {
             throw new SubstitutionRuntimeException("Unknown ResourceType " + templateResource.getType());
         }
         return path.substring(configPathNormalized.length() + 1);
+    }
+
+    /**
+     * Find the file and create the {@link TemplateResource} with the file.
+     * @param fileName for example 'header.html'
+     * @param dirPath relative path in jar file resources or in a launched application context, for example
+     *                'template/../fragment/'
+     * @return The created {@link TemplateResource} or 'null' if the resource not found.
+     */
+    public TemplateResource getResource(String fileName, String dirPath) {
+        List<TemplateResource> resources = getResources(fileName, dirPath);
+        return findShortest(resources);
+    }
+
+    /**
+     * Shortest name says that the found resource is exactly what we are looking for in the {@link #getResource(String, String)} method,
+     * because there may be more resources with the same file name, for example
+     * <pre>
+     *     /template/file.txt - shorter path, so the file is ours
+     *     /template/dir/file.txt - longer path, so the file is not ours
+     * </pre>
+     * 
+     * @param templateResources all resources should have the same {@link ResourceType}.
+     * @return The resource with shortest {@link TemplateResource#getFile()}
+     * absolute path or {@link TemplateResource#getPath()}.
+     */
+    private TemplateResource findShortest(List<TemplateResource> templateResources) {
+        TemplateResource result = null;
+
+        for (TemplateResource templateResource : templateResources) {
+            if (result == null) {
+                result = templateResource;
+            } else {
+                if (result.getType() != templateResource.getType()) {
+                    throw new SubstitutionRuntimeException("Cannot compare " + TemplateResource.class.getSimpleName() +
+                        "s with different types." +
+                        "\nFirst:  '" + result + "'" +
+                        "\nSecond: '" + templateResource + "'");
+                }
+                result = getShortest(result, templateResource);
+            }
+        }
+        
+        return result;
+    }
+
+    private TemplateResource getShortest(TemplateResource result, TemplateResource templateResource) {
+        if (result.getType() == ResourceType.FILE) {
+            if (templateResource.getFile().getAbsolutePath().length() < result.getFile().getAbsolutePath().length()) {
+                result = templateResource;
+            }
+        } else {
+            if (templateResource.getPath().length() < result.getPath().length()) {
+                result = templateResource;
+            }
+        }
+        return result;
     }
 }

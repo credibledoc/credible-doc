@@ -71,8 +71,9 @@ public class CombinerService {
      * <p>
      * And finally combine files line by line by calling the {@link #combine(OutputStream, FilesMergerState, Context)} method.
      *
-     * @param sourceFolder       a folder with log files
-     * @param configAbsolutePath this configuration file will be used for filling out a {@link Config} instance.
+     * @param sourceFolder a folder with log files
+     * @param configAbsolutePath this configuration file will be used for filling out a {@link Config} instance
+     * @param context the current state
      */
     public void combine(File sourceFolder, String configAbsolutePath, Context context) {
         try {
@@ -153,6 +154,7 @@ public class CombinerService {
      *
      * @param folder the folder with log files
      * @param config contains configuration of {@link Config#getTacticConfigs()}
+     * @param context the current state
      */
     public void prepareReader(File folder, Config config, Context context) {
         TacticService tacticService = TacticService.getInstance();

@@ -61,6 +61,7 @@ public class ReaderService {
      * @param line the first line of multi-lines record or a single line. It can be followed by additional lines but not necessarily.
      * @param logBufferedReader the data source
      * @return for example the one line
+     * @param context the current state
      * <pre>3.2-SNAPSHOT INFO  2018-04-13 13:19:40 : RAMJob...</pre>
      * or the multi lines 
      * <pre>
@@ -106,6 +107,7 @@ public class ReaderService {
      * @param line              log line, for example
      *                          <pre>3.2-SNAPSHOT INFO  2019-01-12 13:29:40 [main            ] : Add ... addLast(MutableSources.java:105)</pre>
      * @param logBufferedReader the current reader for identification of {@link Tactic}
+     * @param context the current state
      * @return 'true' if the line contains specific pattern
      */
     private boolean containsStartPattern(String line, LogBufferedReader logBufferedReader, Context context) {
@@ -122,6 +124,7 @@ public class ReaderService {
      * Change LastUsedNodeLogIndex and current position in the {@link NodeLog#getLogBufferedReader()}.
      *
      * @param filesMergerState contains information about last used index and {@link NodeFile}s
+     * @param context the current state
      * @return a preferred line from one of {@link LogBufferedReader}s or 'null' if all buffers are empty.
      */
     public String readLineFromReaders(FilesMergerState filesMergerState, Context context) {
@@ -190,6 +193,7 @@ public class ReaderService {
      * in terms of the {@link String#compareTo(String)} method.
      *
      * @param logBufferedReaders all {@link LogBufferedReader}s
+     * @param context the current state
      * @return Index of the oldest line
      * @throws IOException if reading od resetting of a {@link LogBufferedReader} fails.
      */
@@ -242,6 +246,7 @@ public class ReaderService {
     /**
      * Read the first line from the argument and find out the {@link LineState} of the line.
      * @param logBufferedReader the source of the line
+     * @param context the current state
      * @return the {@link LineState} of the line
      */
     private LineState getLineState(LogBufferedReader logBufferedReader, Context context) {

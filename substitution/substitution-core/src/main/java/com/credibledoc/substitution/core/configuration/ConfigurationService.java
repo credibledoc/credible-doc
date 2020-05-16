@@ -113,6 +113,7 @@ public class ConfigurationService {
      * then load its properties to the {@link Configuration} object.
      * <p>
      * Log out all properties and they origins.
+     * @param configuration the current state
      */
     public void loadConfiguration(Configuration configuration) {
         Map<String, String> map = new TreeMap<>();
@@ -138,6 +139,7 @@ public class ConfigurationService {
      * Obtain value of the {@link Configuration} by invoking its getter.
      *
      * @param field the {@link Configuration} field this getter belongs to.
+     * @param configuration contains the current configuration state
      * @return The value returned by a getter of the {@link Field}.
      */
     private String getValue(Field field, Configuration configuration) {
@@ -155,6 +157,7 @@ public class ConfigurationService {
      * to the {@link Configuration}.
      *
      * @param map this map will be completed by loaded properties for logging purposes.
+     * @param configuration contains the current configuration state
      */
     private void loadClasspathPropertiesAndCompleteTheMap(Map<String, String> map, Configuration configuration) {
         Properties properties = new Properties();
@@ -182,8 +185,9 @@ public class ConfigurationService {
     /**
      * Load properties from a file to the {@link Configuration} object.
      *
-     * @param map this map will be completed by loaded properties for logging purposes.
+     * @param map this map will be completed by loaded properties for logging purposes
      * @param propertiesFilePath the data source
+     * @param configuration contains the current configuration state
      */
     private void loadExternalPropertiesAndCompleteTheMap(Map<String, String> map, String propertiesFilePath, Configuration configuration) {
         try {
@@ -212,6 +216,7 @@ public class ConfigurationService {
      * Load default constants to the {@link Configuration} object.
      *
      * @param map this map will be completed by loaded properties for logging purposes.
+     * @param configuration the current state.
      */
     private void loadDefaultPropertiesAndCompleteTheMap(Map<String, String> map, Configuration configuration) {
         for (Field field : Configuration.class.getDeclaredFields()) {
@@ -229,8 +234,9 @@ public class ConfigurationService {
     /**
      * Set a value to the {@link Configuration} object.
      *
-     * @param field will bew used for searching of getter method.
-     * @param value will be placed to the {@link Configuration} object field.
+     * @param field will bew used for searching of getter method
+     * @param value will be placed to the {@link Configuration} object field
+     * @param configuration contains the current configuration state
      */
     private void setValue(Field field, String value, Configuration configuration) {
         try {

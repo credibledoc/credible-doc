@@ -38,6 +38,7 @@ public class TacticService {
      * Recognize, which {@link Tactic} the line belongs to.
      * @param line the line from the log file
      * @param logBufferedReader the {@link LogBufferedReader} read the line
+     * @param context the current state
      * @return {@link Tactic} or 'null' if not found
      */
     public Tactic findTactic(String line, LogBufferedReader logBufferedReader, Context context) {

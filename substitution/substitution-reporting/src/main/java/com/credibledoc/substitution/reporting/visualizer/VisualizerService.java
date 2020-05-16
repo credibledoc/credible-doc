@@ -55,6 +55,7 @@ public class VisualizerService {
      *
      * @param reportDocumentTypes defines which {@link ReportDocumentType}s
      *                            can be transformed in a particular invocation
+     * @param context the current state
      */
     public void createReports(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes, Context context) {
         logger.info("Method createReports started, reportDocumentTypes: '{}'", reportDocumentTypes);

@@ -47,6 +47,7 @@ public class NodeFileService {
      * Find out {@link NodeFile} with the same {@link LogBufferedReader} file.
      *
      * @param logBufferedReader from {@link NodeLog}
+     * @param context the current state
      * @return found {@link NodeFile}
      */
     public NodeFile findNodeFile(LogBufferedReader logBufferedReader, Context context) {

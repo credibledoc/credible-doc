@@ -4,7 +4,7 @@ import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentRepos
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreatorRepository;
 
 /**
- * Contains instances of stateful objects (repositories) used in Combiner:
+ * Contains instances of stateful objects (repositories) used in Reporting:
  * <ul>
  *     <li>{@link #reportDocumentCreatorRepository}</li>
  *     <li>{@link #reportDocumentRepository}</li>

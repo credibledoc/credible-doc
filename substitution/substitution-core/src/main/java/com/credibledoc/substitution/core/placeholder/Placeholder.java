@@ -57,11 +57,11 @@ public class Placeholder {
     @Override
     public String toString() {
         return "{" +
-            "resource='" + resource + '\'' +
-            ", id='" + id + '\'' +
+            "id='" + id + '\'' +
             ", className='" + className + '\'' +
             ", description='" + description + '\'' +
-            ", parameters=" + parameters +
+            ", parameters=" + parameters + '\'' +
+            ", resource='" + resource +
             '}';
     }
 

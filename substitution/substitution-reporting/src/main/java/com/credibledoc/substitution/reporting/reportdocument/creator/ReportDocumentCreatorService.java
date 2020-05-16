@@ -13,7 +13,6 @@ import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.resource.TemplateResource;
-import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentRepository;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentService;
@@ -25,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -76,6 +74,10 @@ public class ReportDocumentCreatorService {
      * Iterate {@link Placeholder}s from template resources and for each {@link Placeholder} find the appropriate
      * {@link ReportDocumentCreator} from the {@link ReportDocumentCreatorRepository}.
      * Then create a {@link ReportDocument} for the {@link Placeholder}.
+     * 
+     * @param context the current state
+     * @param reportingContext the current state
+     * @param substitutionContext the current state
      */
     public void createReportDocuments(Context context, ReportingContext reportingContext, SubstitutionContext substitutionContext) {
         TemplateResource lastTemplateResource = null;
@@ -88,12 +90,9 @@ public class ReportDocumentCreatorService {
                     ResourceService.getInstance().getResources(MARKDOWN_FILE_EXTENSION, templatesResource);
             logger.debug("Markdown templates will be loaded from the resources: {}", resources);
             PlaceholderService placeholderService = PlaceholderService.getInstance();
-            TemplateService templateService = TemplateService.getInstance();
             for (TemplateResource templateResource : resources) {
                 lastTemplateResource = templateResource;
-                String templateContent =
-                    templateService.getTemplateContent(templateResource, StandardCharsets.UTF_8.name());
-                List<String> placeholders = placeholderService.parsePlaceholders(templateContent, templateResource, substitutionContext);
+                List<String> placeholders = placeholderService.parsePlaceholders(templateResource, substitutionContext);
                 int position = 1;
                 for (String templatePlaceholder : placeholders) {
                     lastTemplatePlaceholder = templatePlaceholder;
@@ -137,6 +136,8 @@ public class ReportDocumentCreatorService {
      *
      * @param placeholder           for addition
      * @param reportDocumentCreator for addition
+     * @param context               the current state
+     * @param substitutionContext   the current state
      */
     private void createReportDocumentForPlaceholder(Placeholder placeholder,
                                                     ReportDocumentCreator reportDocumentCreator, Context context, SubstitutionContext substitutionContext) {

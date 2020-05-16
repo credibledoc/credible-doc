@@ -57,6 +57,7 @@ public class NodeLogService {
      * Find the {@link NodeLog} with the same {@link NodeLog#getLogBufferedReader()}.
      *
      * @param logBufferedReader from {@link NodeLog}
+     * @param context the current state
      * @return The found {@link NodeLog}
      */
     private NodeLog findNodeLog(LogBufferedReader logBufferedReader, Context context) {
@@ -75,6 +76,7 @@ public class NodeLogService {
      * and return {@link NodeLog#getName()}.
      *
      * @param logBufferedReader from {@link NodeLog}
+     * @param context the current state
      * @return {@link NodeLog#getName()}
      */
     public String findNodeName(LogBufferedReader logBufferedReader, Context context) {
