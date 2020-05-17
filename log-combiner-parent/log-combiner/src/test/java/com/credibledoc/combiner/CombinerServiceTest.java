@@ -111,7 +111,9 @@ public class CombinerServiceTest {
             byte[] leftBytes = Files.readAllBytes(leftFile.toPath());
             byte[] rightBytes = Files.readAllBytes(rightFile.toPath());
             if (!Arrays.equals(leftBytes, rightBytes)) {
-                logger.info("leftBytes.size(): {}', rightBytes.size(): '{}'", leftBytes.length, rightBytes.length);
+                logger.error("leftBytes.size(): {}', rightBytes.size(): '{}'", leftBytes.length, rightBytes.length);
+                logger.error("Left:\n{}", new String(leftBytes));
+                logger.error("Right:\n{}", new String(rightBytes));
                 return false;
             }
         } else {
