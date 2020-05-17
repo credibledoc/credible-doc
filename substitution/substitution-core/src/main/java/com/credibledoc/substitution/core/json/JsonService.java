@@ -59,6 +59,9 @@ public class JsonService {
                     placeholder.getParameters().put(name, parameters.getString(name, null));
                 }
             }
+            if (jsonObject.get(Placeholder.FIELD_JSON_OBJECT) != null) {
+                placeholder.setJsonObject(jsonObject.get(Placeholder.FIELD_JSON_OBJECT).asObject());
+            }
             return (T) placeholder;
         } catch (Exception e) {
             throw new SubstitutionRuntimeException("JSON cannot be processed: '" + json +

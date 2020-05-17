@@ -6,13 +6,16 @@ import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.tracking.Trackable;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
+import com.eclipsesource.json.JsonObject;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Generates a fragment from an existing template.
@@ -24,12 +27,13 @@ import java.util.List;
  * <p>
  * Optional parameter {@link #CHARSET} is used for reading the template. Default is UTF-8.
  * <p>
- * Optional parameter {@link #PREFIX} is used for replacing the {@link #PREFIX_PLACEHOLDER} with the parameter value.
- * It can be used for adjusting relative links. For example:
+ * Optional parameter {@link Placeholder#getJsonObject()} is used for replacing values enclosed
+ * to {@link #PLACEHOLDER_BEGIN} and {@link #PLACEHOLDER_END} tags.
+ * It can be used for adjusting relative links and for other parameterization. For example:
  * <pre>
- *     placeholder parameter: prefix = "../"
- *     template contains link: img src="${prefix}img/logo.gif"
- *     generated content will be following: img src="../img/logo.gif"
+ *     placeholder parameter: "jsonObject": {"linkPrefix": "../"}
+ *     template contains link: img src="${linkPrefix}img/logo.gif"
+ *     generated content will be the following: img src="../img/logo.gif"
  * </pre>
  * <p>
  * Example of usage:
@@ -40,8 +44,11 @@ import java.util.List;
  *     "parameters": {
  *         "fragmentRelativePath": "credible-doc-generator/src/main/resources/fragment/header.html",
  *         "indentation": "   ",
- *         "charset": "ISO-8859-1",
- *         "prefix": "../"
+ *         "charset": "ISO-8859-1"
+ *     },
+ *     "jsonObject": {
+ *         "title": "Credible documentation - main page",
+ *         "linkPrefix": "../" 
  *     }
  * } &&endPlaceholder
  * }</pre>
@@ -50,7 +57,8 @@ import java.util.List;
  * @author Kyrylo Semenko
  */
 public class FragmentGenerator implements ContentGenerator, Trackable {
-    private static final String PREFIX_PLACEHOLDER = "${prefix}";
+    private static final String PLACEHOLDER_BEGIN = "${";
+    private static final String PLACEHOLDER_END = "}";
     /**
      * Contains a file for tracking with {@link Trackable};
      */
@@ -59,7 +67,6 @@ public class FragmentGenerator implements ContentGenerator, Trackable {
     private static final String FRAGMENT_RELATIVE_PATH = "fragmentRelativePath";
     private static final String INDENTATION = "indentation";
     private static final String CHARSET = "charset";
-    private static final String PREFIX = "prefix";
 
     @Override
     public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
@@ -80,9 +87,12 @@ public class FragmentGenerator implements ContentGenerator, Trackable {
                 charsetName = "UTF-8";
             }
 
-            String prefix = placeholder.getParameters().get(PREFIX);
-            if (prefix == null) {
-                prefix = "";
+            JsonObject jsonObject = placeholder.getJsonObject();
+            Map<String, String> substitutionMap = new HashMap<>();
+            if (jsonObject != null) {
+                for (String name : jsonObject.names()) {
+                    substitutionMap.put(name, jsonObject.getString(name, "error_value_is_empty"));
+                }
             }
 
             Path path = Paths.get(fragmentRelativePath);
@@ -94,10 +104,23 @@ public class FragmentGenerator implements ContentGenerator, Trackable {
             byte[] encoded = Files.readAllBytes(path);
             String templateContent = new String(encoded, Charset.forName(charsetName));
 
-            String replacedContent = templateContent.replace(PREFIX_PLACEHOLDER, prefix);
+            for (Map.Entry<String, String> entry : substitutionMap.entrySet()) {
+                String target = PLACEHOLDER_BEGIN + entry.getKey() + PLACEHOLDER_END;
+                templateContent = templateContent.replace(target, entry.getValue());
+            }
+
+            int beginIndex = templateContent.indexOf(PLACEHOLDER_BEGIN);
+            if (beginIndex > -1) {
+                int endIndex = templateContent.indexOf(PLACEHOLDER_END, beginIndex);
+                if (endIndex > -1) {
+                    String variable = templateContent.substring(beginIndex, endIndex + PLACEHOLDER_END.length());
+                    throw new SubstitutionRuntimeException("Cannot substitute '" + variable +
+                        "'. Placeholder: " + placeholder);
+                }
+            }
 
             StringBuilder stringBuilder = new StringBuilder();
-            String[] lines = replacedContent.split("\r\n|\n");
+            String[] lines = templateContent.split("\r\n|\n");
 
             for (int i = 0; i < lines.length; i++) {
                 String line = lines[i];

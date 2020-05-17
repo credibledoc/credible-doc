@@ -2,12 +2,13 @@ package com.credibledoc.substitution.core.placeholder;
 
 import com.credibledoc.substitution.core.configuration.ConfigurationService;
 import com.credibledoc.substitution.core.resource.TemplateResource;
+import com.eclipsesource.json.JsonObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This data object represents a placeholder inside a template file.
+ * This data object represents a placeholder in a template file.
  * The placeholder begins with
  * {@link ConfigurationService#PLACEHOLDER_BEGIN}
  * and ends with
@@ -18,6 +19,7 @@ import java.util.Map;
  */
 public class Placeholder {
 
+    public static final String FIELD_JSON_OBJECT = "jsonObject";
     public static final String FIELD_PARAMETERS = "parameters";
     public static final String FIELD_RESOURCE = "resource";
     public static final String FIELD_CLASS_NAME = "className";
@@ -49,10 +51,15 @@ public class Placeholder {
     private String description;
 
     /**
-     * Each placeholder can have zero or more parameters. These parameters
-     * can be used for customization of its content generation.
+     * The parameters can be used for customization of the placeholder content.
      */
     private Map<String, String> parameters = new HashMap<>();
+
+    /**
+     * Optional parameter with arbitrary content. Can be used like {@link #parameters},
+     * but in a more generalized way.
+     */
+    private JsonObject jsonObject;
 
     @Override
     public String toString() {
@@ -61,7 +68,8 @@ public class Placeholder {
             ", className='" + className + '\'' +
             ", description='" + description + '\'' +
             ", parameters=" + parameters + '\'' +
-            ", resource='" + resource +
+            ", resource='" + resource + '\'' +
+            ", jsonObject='" + jsonObject +
             '}';
     }
 
@@ -133,5 +141,19 @@ public class Placeholder {
      */
     public void setParameters(Map<String, String> parameters) {
         this.parameters = parameters;
+    }
+
+    /**
+     * @return The {@link #jsonObject} field value.
+     */
+    public JsonObject getJsonObject() {
+        return jsonObject;
+    }
+
+    /**
+     * @param jsonObject see the {@link #jsonObject} field description.
+     */
+    public void setJsonObject(JsonObject jsonObject) {
+        this.jsonObject = jsonObject;
     }
 }

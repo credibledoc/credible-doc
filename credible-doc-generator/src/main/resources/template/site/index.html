@@ -1,55 +1,17 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
-<head>
-    <title>Credible documentation</title>
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-</head>
-
-<body>
-<header>
-    <link rel="stylesheet" type="text/css" href="css/search-box.css">
-    <div class="stack-horizontally-container">
-        <div class="stack-horizontally">
-            <a href="https://credibledoc.com/">
-                <img src="img/credible-doc-logo-gear.gif" alt="Home page">
-            </a>
-        </div>
-        <div class="stack-horizontally d-flex align-items-center" style="float: right">
-            <div id="er-search-form" role="form">
-                <button type="button" title="" tabindex="0"
-                        class="er_search_button"
-                        aria-label="Back">
-                </button>
-                <input type="text" title="Search" tabindex="0"
-                       name="" aria-label="search input"
-                       role="searchbox"
-                       id="er_search_input_dummy"
-                       placeholder="Search" autocomplete="off">
-                <button type="button" title="Search" tabindex="0"
-                        class="er_search_button"
-                        id="er_search_button_dummy" aria-label="Search" onclick="search()">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                        <path d="M0 0h24v24H0z" fill="none"/>
-                    </svg>
-                </button>
-            </div>
-        </div>       
-        <div style="text-align: center">
-            <div>
-                <h1>Credible documentation</h1>
-            </div>
-            <div style="margin-bottom: 80px">
-                <span style="float: right">open source documentation management tools...</span>
-            </div>
-        </div>
-    </div>
-</header>
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.content.generator.resource.FragmentGenerator",
+    "description": "Insert 'header' fragment to the html page.",
+    "parameters": {
+        "fragmentRelativePath": "credible-doc-generator/src/main/resources/fragment/header.html"
+    },
+    "jsonObject": {
+        "title": "Credible documentation - main page",
+        "linkPrefix": ""
+    }
+} &&endPlaceholder
 <section>
     <nav>
         <ul>
@@ -179,15 +141,14 @@
         
     </article>
 </section>
-<footer>
-    <a href="https://github.com/credibledoc/credible-doc" style="color: white">CredibleDoc</a> open source software documentation management tools
-</footer>
-
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="js/accordion.js"></script>
-<script src="js/index.js"></script>
-<script>$(".closable").fadeIn(0)</script>
-
-</body>
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.content.generator.resource.FragmentGenerator",
+    "description": "Inserting 'footer' fragment",
+    "parameters": {
+        "fragmentRelativePath": "credible-doc-generator/src/main/resources/fragment/footer.html"
+    },
+    "jsonObject": {
+        "linkPrefix": ""
+    }
+} &&endPlaceholder
 </html>
