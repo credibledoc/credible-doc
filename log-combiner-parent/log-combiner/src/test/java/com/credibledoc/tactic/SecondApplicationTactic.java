@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class SecondApplicationTactic implements Tactic {
 
-    private static final String DATE_TIME_FORMAT_STRING = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    private static final String DATE_TIME_FORMAT_STRING = "yyyy-MM-dd'T'HH:mm:ss.SSS";
     private static final String DATE_AND_THREAD_SEPARATOR = " [";
     private static final int DATE_LENGTH = 28;
     private static final String ONE_SPACE = " ";
