@@ -163,9 +163,12 @@ public class ReplacementService {
         }
 
         if (content.getPlantUmlContent() != null) {
-            String linkToDiagram = MarkdownService.getInstance()
+            String svg = MarkdownService.getInstance()
                 .generateDiagram(placeholder, content.getPlantUmlContent(), substitutionContext);
-            return linkToDiagram + content.getMarkdownContent();
+            if (content.getMarkdownContent() != null) {
+                return svg + content.getMarkdownContent();
+            }
+            return svg;
         } else {
             return content.getMarkdownContent();
         }

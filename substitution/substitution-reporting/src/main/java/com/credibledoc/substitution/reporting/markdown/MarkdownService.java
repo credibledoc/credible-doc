@@ -8,6 +8,7 @@ import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentService;
+import com.credibledoc.substitution.core.replacement.ReplacementType;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,8 +123,18 @@ public class MarkdownService {
                     + "'. " + System.lineSeparator()
                     + placeholder);
             }
-            return SVG_TAG_BEGIN + placeholder.getDescription() + SVG_TAG_MIDDLE + imageDirectory.getName() +
-                SLASH + svgFile.getName() + SVG_TAG_END;
+            if (placeholder.getParameters().get(ReplacementType.TARGET_FORMAT) != null) {
+                ReplacementType replacementType =
+                    ReplacementType.valueOf(placeholder.getParameters().get(ReplacementType.TARGET_FORMAT));
+                if (ReplacementType.HTML_EMBEDDED == replacementType) {
+                    return svg;
+                }
+                throw new SubstitutionRuntimeException("Unknown " + ReplacementType.class.getSimpleName() + " " +
+                    "value " + replacementType);
+            } else {
+                return SVG_TAG_BEGIN + placeholder.getDescription() + SVG_TAG_MIDDLE + imageDirectory.getName() +
+                    SLASH + svgFile.getName() + SVG_TAG_END;
+            }
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }

@@ -6,6 +6,7 @@ import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
+import com.credibledoc.substitution.core.replacement.ReplacementType;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
@@ -92,7 +93,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     static final String PARAMETER_WITH_NAME = "Parameter with name '";
     static final String NOTE_NO_DEPENDENCIES_FOUND = "header \"No dependencies found.\"";
 
-    private Map<String, List<Pair<Path, ParseResult<CompilationUnit>>>> cache = new HashMap<>();
+    private final Map<String, List<Pair<Path, ParseResult<CompilationUnit>>>> cache = new HashMap<>();
 
     @Override
     public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
@@ -107,23 +108,24 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
             NodeList<ImportDeclaration> importsNodeList = new NodeList<>();
 
             String jarsKey = placeholder.getParameters().get(JAR_RELATIVE_PATHS_PIPE_SEPARATED);
-            for (Pair<Path, ParseResult<CompilationUnit>> pair : cache.get(jarsKey)) {
-                addToImportsNodeList(importsNodeList, dependantPackage,
-                    dependenciesPackages, ignoreInnerPackages, pair);
+            if (jarsKey != null) {
+                for (Pair<Path, ParseResult<CompilationUnit>> pair : cache.get(jarsKey)) {
+                    addToImportsNodeList(importsNodeList, dependantPackage,
+                        dependenciesPackages, ignoreInnerPackages, pair);
+                }
             }
 
             String sourcesKey = placeholder.getParameters().get(SOURCE_RELATIVE_PATHS_PIPE_SEPARATED);
-            for (Pair<Path, ParseResult<CompilationUnit>> pair : cache.get(sourcesKey)) {
-                addToImportsNodeList(importsNodeList, dependantPackage,
-                    dependenciesPackages, ignoreInnerPackages, pair);
+            if (sourcesKey != null) {
+                for (Pair<Path, ParseResult<CompilationUnit>> pair : cache.get(sourcesKey)) {
+                    addToImportsNodeList(importsNodeList, dependantPackage,
+                        dependenciesPackages, ignoreInnerPackages, pair);
+                }
             }
 
+            String format = placeholder.getParameters().get(ReplacementType.TARGET_FORMAT);
             if (importsNodeList.isEmpty()) {
-                Content content = new Content();
-                content.setPlantUmlContent(NOTE_NO_DEPENDENCIES_FOUND);
-                content.setMarkdownContent(LINE_SEPARATOR + LINE_SEPARATOR + ITALICS_MARKDOWN_MARK +
-                    placeholder.getDescription() + ITALICS_MARKDOWN_MARK + LINE_SEPARATOR);
-                return content;
+                return generateEmptyListContent(placeholder, format);
             }
 
             // PlantUML
@@ -153,14 +155,37 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                     SequenceArrow.DEPENDENCY_ARROW.getUml() + importDeclaration.getNameAsString());
             }
             stringBuilder.append(String.join(System.lineSeparator(), dependencies));
-            Content result = new Content();
-            result.setPlantUmlContent(stringBuilder.toString());
-            result.setMarkdownContent(LINE_SEPARATOR + LINE_SEPARATOR + ITALICS_MARKDOWN_MARK +
-                placeholder.getDescription() + ITALICS_MARKDOWN_MARK + LINE_SEPARATOR);
-            return result;
+            Content content = new Content();
+            content.setPlantUmlContent(stringBuilder.toString());
+            if (format == null) {
+                setDescriptionToMarkdown(placeholder, content);
+            }
+            return content;
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
+    }
+
+    public Content generateEmptyListContent(Placeholder placeholder, String format) {
+        Content content = new Content();
+        if (format != null) {
+            ReplacementType replacementType = ReplacementType.valueOf(format);
+            if (ReplacementType.HTML_EMBEDDED == replacementType) {
+                content.setPlantUmlContent(NOTE_NO_DEPENDENCIES_FOUND);
+            } else {
+                throw new SubstitutionRuntimeException("Unknown " + ReplacementType.class.getSimpleName() + " " +
+                    "value " + replacementType);
+            } 
+        } else {
+            content.setPlantUmlContent(NOTE_NO_DEPENDENCIES_FOUND);
+            setDescriptionToMarkdown(placeholder, content);
+        }
+        return content;
+    }
+
+    public void setDescriptionToMarkdown(Placeholder placeholder, Content content) {
+        content.setMarkdownContent(LINE_SEPARATOR + LINE_SEPARATOR + ITALICS_MARKDOWN_MARK +
+            placeholder.getDescription() + ITALICS_MARKDOWN_MARK + LINE_SEPARATOR);
     }
 
     private void addToImportsNodeList(NodeList<ImportDeclaration> importsNodeList, String dependantPackage,
@@ -190,7 +215,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
     private void addToCacheIfNotExists(Placeholder placeholder) throws IOException {
         Set<File> files = getSourceJarFiles(placeholder);
         String jarsKey = placeholder.getParameters().get(JAR_RELATIVE_PATHS_PIPE_SEPARATED);
-        if (!cache.containsKey(jarsKey)) {
+        if (jarsKey != null && !cache.containsKey(jarsKey)) {
             List<Pair<Path, ParseResult<CompilationUnit>>> jarsPairs = new ArrayList<>();
             for (File file : files) {
                 SourceZip sourceZip = new SourceZip(file.toPath());
@@ -203,7 +228,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
 
         Set<File> sourceDirectories = getSourceDirectories(placeholder);
         String sourcesKey = placeholder.getParameters().get(SOURCE_RELATIVE_PATHS_PIPE_SEPARATED);
-        if (!cache.containsKey(sourcesKey)) {
+        if (sourcesKey != null && !cache.containsKey(sourcesKey)) {
             List<Pair<Path, ParseResult<CompilationUnit>>> sourcesPairs = new ArrayList<>();
             for (File directory : sourceDirectories) {
                 SourceRoot sourceRoot = new SourceRoot(directory.toPath());
@@ -216,8 +241,7 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
                         placeholder);
                 }
                 for (ParseResult<CompilationUnit> parseResult : parseResults) {
-                    @SuppressWarnings("unchecked")
-                    Pair<Path, ParseResult<CompilationUnit>> pair = new Pair(directory.toPath(), parseResult);
+                    Pair<Path, ParseResult<CompilationUnit>> pair = new Pair<>(directory.toPath(), parseResult);
                     sourcesPairs.add(pair);
                 }
             }

@@ -158,6 +158,8 @@ public class TrackingService {
         Path name = ev.context();
         Path path = dir.resolve(name);
 
+        logger.trace("WatchEvent.Kind: {}, {}", kind, path);
+
         // if fragment is deleted
         boolean fragmentDeleted = kind == ENTRY_DELETE && isFragment(path);
         if (!path.toString().endsWith("~") && fragmentDeleted) {
