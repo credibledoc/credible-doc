@@ -24,13 +24,25 @@ import java.util.List;
  * <p>
  * Optional parameter {@link #CHARSET} is used for reading the template. Default is UTF-8.
  * <p>
+ * Optional parameter {@link #PREFIX} is used for replacing the {@link #PREFIX_PLACEHOLDER} with the parameter value.
+ * It can be used for adjusting relative links. For example:
+ * <pre>
+ *     placeholder parameter: prefix = "../"
+ *     template contains link: img src="${prefix}img/logo.gif"
+ *     generated content will be following: img src="../img/logo.gif"
+ * </pre>
+ * <p>
  * Example of usage:
  * <pre>{@code
  * &&beginPlaceholder {
  *     "className": "com.credibledoc.substitution.content.generator.resource.FragmentGenerator",
- *     "description": "Insert 'header' fragment to the html page.",
- *     "parameters": {"fragmentRelativePath": "credible-doc-generator/src/main/resources/fragment/header.html",
- *                        "indentation": "   ", "charset": "ISO-8859-1"}
+ *     "description": "Inserts 'header' fragment to a html page.",
+ *     "parameters": {
+ *         "fragmentRelativePath": "credible-doc-generator/src/main/resources/fragment/header.html",
+ *         "indentation": "   ",
+ *         "charset": "ISO-8859-1",
+ *         "prefix": "../"
+ *     }
  * } &&endPlaceholder
  * }</pre>
  * <p>
@@ -38,6 +50,7 @@ import java.util.List;
  * @author Kyrylo Semenko
  */
 public class FragmentGenerator implements ContentGenerator, Trackable {
+    private static final String PREFIX_PLACEHOLDER = "${prefix}";
     /**
      * Contains a file for tracking with {@link Trackable};
      */
@@ -46,6 +59,7 @@ public class FragmentGenerator implements ContentGenerator, Trackable {
     private static final String FRAGMENT_RELATIVE_PATH = "fragmentRelativePath";
     private static final String INDENTATION = "indentation";
     private static final String CHARSET = "charset";
+    private static final String PREFIX = "prefix";
 
     @Override
     public Content generate(Placeholder placeholder, SubstitutionContext substitutionContext) {
@@ -66,6 +80,11 @@ public class FragmentGenerator implements ContentGenerator, Trackable {
                 charsetName = "UTF-8";
             }
 
+            String prefix = placeholder.getParameters().get(PREFIX);
+            if (prefix == null) {
+                prefix = "";
+            }
+
             Path path = Paths.get(fragmentRelativePath);
             fragmentPath = path.toAbsolutePath();
             if (!fragmentPath.toFile().exists()) {
@@ -75,8 +94,10 @@ public class FragmentGenerator implements ContentGenerator, Trackable {
             byte[] encoded = Files.readAllBytes(path);
             String templateContent = new String(encoded, Charset.forName(charsetName));
 
+            String replacedContent = templateContent.replace(PREFIX_PLACEHOLDER, prefix);
+
             StringBuilder stringBuilder = new StringBuilder();
-            String[] lines = templateContent.split("\r\n|\n");
+            String[] lines = replacedContent.split("\r\n|\n");
 
             for (int i = 0; i < lines.length; i++) {
                 String line = lines[i];
