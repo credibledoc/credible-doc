@@ -4,8 +4,8 @@ import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.resource.TemplateResource;
+import com.credibledoc.substitution.core.pair.Pair;
 import com.credibledoc.substitution.reporting.replacement.ReplacementService;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,8 +74,8 @@ public class TrackingService {
         try {
             Set<Path> toRegister = new HashSet<>();
             for (Pair<Path, Path> pair : substitutionContext.getTrackableRepository().getPairs()) {
-                Path fragmentPath = pair.getKey();
-                Path templatePath = pair.getValue();
+                Path fragmentPath = pair.getLeft();
+                Path templatePath = pair.getRight();
                 if (fragmentDependencyMap.containsKey(fragmentPath)) {
                     fragmentDependencyMap.get(fragmentPath).add(templatePath);
                 } else {

@@ -6,6 +6,7 @@ import com.credibledoc.substitution.core.content.ContentGenerator;
 import com.credibledoc.substitution.core.content.ContentGeneratorService;
 import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.pair.Pair;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
@@ -14,7 +15,6 @@ import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.core.tracking.Trackable;
 import com.credibledoc.substitution.reporting.markdown.MarkdownService;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -119,6 +119,7 @@ public class ReplacementService {
      * <p>
      * In case of {@link ContentGenerator} return a generated content.
      */
+    @SuppressWarnings("unchecked")
     private String generateContent(Placeholder placeholder, SubstitutionContext substitutionContext) {
         try {
             Class<?> placeholderClass = Class.forName(placeholder.getClassName());
@@ -128,34 +129,9 @@ public class ReplacementService {
                     return generatedTag;
                 }
             } else if (ContentGenerator.class.isAssignableFrom(placeholderClass)) {
-                @SuppressWarnings("unchecked")
-                Class<? extends ContentGenerator> contentGeneratorClass =
-                    (Class<? extends ContentGenerator>) placeholderClass;
-
-                ContentGenerator contentGenerator =
-                    ContentGeneratorService.getInstance().getContentGenerator(contentGeneratorClass);
-
-                Content content = contentGenerator.generate(placeholder, substitutionContext);
-
-                if (contentGenerator instanceof Trackable) {
-                    Trackable trackable = (Trackable) contentGenerator;
-                    List<Path> paths = trackable.getFragmentPaths();
-                    for (Path path : paths) {
-                        Pair<Path, Path> pair = new Pair<>(path, placeholder.getResource().getFile().toPath());
-                        List<Pair<Path, Path>> pairs = substitutionContext.getTrackableRepository().getPairs();
-                        if (!pairs.contains(pair)) {
-                            pairs.add(pair);
-                        }
-                    }
-                }
-                
-                if (content.getPlantUmlContent() != null) {
-                    String linkToDiagram = MarkdownService.getInstance()
-                        .generateDiagram(placeholder, content.getPlantUmlContent(), substitutionContext);
-                    return linkToDiagram + content.getMarkdownContent();
-                } else {
-                    return content.getMarkdownContent();
-                }
+                return processContentGenerator(placeholder,
+                    substitutionContext,
+                    (Class<? extends ContentGenerator>) placeholderClass);
             }
         } catch (ClassNotFoundException classNotFoundException) {
             throw new SubstitutionRuntimeException("PlaceholderClass cannot be found." +
@@ -165,6 +141,34 @@ public class ReplacementService {
         throw new SubstitutionRuntimeException("Cannot find generated content " +
             "for the placeholder id: " + placeholder.getId() +
             ", placeholder resource: '" + placeholder.getResource() + "'");
+    }
+
+    private String processContentGenerator(Placeholder placeholder, SubstitutionContext substitutionContext,
+                                           Class<? extends ContentGenerator> placeholderClass) {
+        ContentGenerator contentGenerator =
+            ContentGeneratorService.getInstance().getContentGenerator(placeholderClass);
+
+        Content content = contentGenerator.generate(placeholder, substitutionContext);
+
+        if (contentGenerator instanceof Trackable) {
+            Trackable trackable = (Trackable) contentGenerator;
+            List<Path> paths = trackable.getFragmentPaths();
+            for (Path path : paths) {
+                Pair<Path, Path> pair = new Pair<>(path, placeholder.getResource().getFile().toPath());
+                List<Pair<Path, Path>> pairs = substitutionContext.getTrackableRepository().getPairs();
+                if (!pairs.contains(pair)) {
+                    pairs.add(pair);
+                }
+            }
+        }
+
+        if (content.getPlantUmlContent() != null) {
+            String linkToDiagram = MarkdownService.getInstance()
+                .generateDiagram(placeholder, content.getPlantUmlContent(), substitutionContext);
+            return linkToDiagram + content.getMarkdownContent();
+        } else {
+            return content.getMarkdownContent();
+        }
     }
 
     private String findPlaceholderAndGenerateDiagram(Placeholder placeholder, SubstitutionContext substitutionContext) {

@@ -1,6 +1,6 @@
 package com.credibledoc.substitution.core.tracking;
 
-import javafx.util.Pair;
+import com.credibledoc.substitution.core.pair.Pair;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
