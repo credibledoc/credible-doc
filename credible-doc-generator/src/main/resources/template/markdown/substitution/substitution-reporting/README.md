@@ -48,7 +48,7 @@ Example: [diagrams.md](../../credible-doc-generator/doc/diagrams.md)
 Parts of documentation for this repository [credible-doc](../README.md),
 for example [diagrams.md](../../credible-doc-generator/doc/diagrams.md), are generated with help of this `substitution-reporting` module.
 
-## Dependencies of this `substitution-reporting` module on other modules of the `credible-doc` repository
+## Dependencies of the `substitution-reporting` module on other `credible-doc` repository classes
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.dependency.PackageDependenciesContentGenerator",
     "description": "UML diagram with dependencies of the `substitution-reporting` module on classes from other modules of the `credible-doc` repository.",
