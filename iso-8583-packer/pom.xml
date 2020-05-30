@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>iso-8583-packer</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     
     <name>${project.groupId}:${project.artifactId}</name>
 
