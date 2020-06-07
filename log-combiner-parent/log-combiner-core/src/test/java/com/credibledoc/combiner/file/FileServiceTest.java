@@ -1,17 +1,23 @@
 package com.credibledoc.combiner.file;
 
+import org.apache.commons.compress.utils.IOUtils;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class FileServiceTest {
     @Rule
@@ -72,8 +78,10 @@ public class FileServiceTest {
         assertTrue(multipleFiles.exists());
 
         Set<File> result = fileService.collectFiles(multipleFiles, true);
-        assertEquals(2, result.size());
-        assertTrue(result.iterator().next().getName().endsWith(".txt"));
+        for (File file : result) {
+            assertTrue(file.getName().endsWith(".txt"));
+        }
+        assertEquals(5, result.size());
     }
 
     @Test
@@ -83,8 +91,11 @@ public class FileServiceTest {
         assertTrue(multipleFiles.exists());
 
         Set<File> result = fileService.collectFiles(multipleFiles, false);
-        assertEquals(2, result.size());
-        assertTrue(result.iterator().next().getName().endsWith(".zip"));
+        assertEquals(5, result.size());
+        for (File file : result) {
+            String name = file.getName();
+            assertTrue(name.endsWith(".zip") || name.endsWith(".7z") || name.endsWith(".tar"));
+        }
     }
 
     @Test
@@ -95,11 +106,10 @@ public class FileServiceTest {
 
         File newFolder = new File(temporaryFolder.getRoot(), "newFolder" + System.currentTimeMillis());
         Set<File> result = fileService.collectFiles(multipleFiles, true, newFolder);
-        assertEquals(2, result.size());
+        assertEquals(5, result.size());
         assertTrue(result.iterator().next().getName().endsWith(".txt"));
-        String newFolderPath = newFolder.getAbsolutePath() + File.separator + multipleFiles.getName();
-        String generatedFolderPath = result.iterator().next().getParentFile().getAbsolutePath();
-        assertEquals(newFolderPath, generatedFolderPath);
+        File unpacked = new File(newFolder + "/" + "multipleZip/01.txt");
+        assertTrue(unpacked.exists());
     }
 
     @Test
@@ -122,7 +132,7 @@ public class FileServiceTest {
 
         File tempFolder = new File(temporaryFolder.getRoot(), "newFolder_001" + System.currentTimeMillis());
         Set<File> result = fileService.collectFiles(source, false, tempFolder);
-        assertEquals(6, result.size());
+        assertEquals(9, result.size());
 
         File[] firstResult = tempFolder.listFiles();
         assertNotNull(firstResult);
@@ -131,7 +141,7 @@ public class FileServiceTest {
         Set<File> secondSource = new HashSet<>(Arrays.asList(firstResult));
         Set<File> secondResult = fileService.collectFiles(secondSource, true, null);
         
-        assertEquals(5, secondResult.size());
+        assertEquals(8, secondResult.size());
     }
 
     @Test
@@ -193,6 +203,37 @@ public class FileServiceTest {
         assertTrue(dir02.exists());
         assertNotNull(dir02.listFiles());
         assertEquals(4, dir02.listFiles().length);
+    }
+
+    @Test
+    public void testWrongExtension() throws IOException {
+        FileService fileService = FileService.getInstance();
+        File multipleFiles = new File("src/test/resources/files/wrong");
+        assertTrue(multipleFiles.exists());
+
+        File newFolder = new File(temporaryFolder.getRoot(), "newFolder" + System.currentTimeMillis());
+        Set<File> result = fileService.collectFiles(multipleFiles, true, newFolder);
+        assertEquals(1, result.size());
+        File file = result.iterator().next();
+        assertTrue(file.getName().endsWith(".dump"));
+        byte[] bytes = IOUtils.toByteArray(new FileInputStream(file.getAbsolutePath()));
+        String text = new String(bytes, StandardCharsets.UTF_8);
+        assertEquals("content", text);
+    }
+
+    @Test
+    public void testCollectFiles() {
+        FileService fileService = FileService.getInstance();
+        File multipleFiles = new File("src/test/resources/files/multipleZip");
+        Set<File> set = new HashSet<>();
+        File[] files = multipleFiles.listFiles();
+        assertNotNull(files);
+        Collections.addAll(set, files);
+        assertEquals(5, set.size());
+
+        Set<File> result = fileService.collectFiles(set);
+        
+        assertEquals(5, result.size());
     }
     
 }

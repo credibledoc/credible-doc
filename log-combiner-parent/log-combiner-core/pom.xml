@@ -6,7 +6,7 @@
     <parent>
         <artifactId>log-combiner-parent</artifactId>
         <groupId>com.credibledoc</groupId>
-        <version>1.0.16-SNAPSHOT</version>
+        <version>1.0.16</version>
     </parent>
 
     <artifactId>log-combiner-core</artifactId>
@@ -44,6 +44,16 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.20</version>
+        </dependency>
+        <dependency>
+            <groupId>org.tukaani</groupId>
+            <artifactId>xz</artifactId>
+            <version>1.8</version>
         </dependency>
     </dependencies>
 

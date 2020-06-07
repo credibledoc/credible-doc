@@ -7,15 +7,31 @@ import com.credibledoc.combiner.log.buffered.LogFileReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.combiner.tactic.TacticService;
+import org.apache.commons.compress.archivers.ArchiveEntry;
+import org.apache.commons.compress.archivers.ArchiveInputStream;
+import org.apache.commons.compress.archivers.ArchiveStreamFactory;
+import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
+import org.apache.commons.compress.archivers.sevenz.SevenZFile;
+import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This singleton helps to collect log files and contains some util methods.
@@ -26,6 +42,10 @@ public class FileService {
     private static final Logger logger = LoggerFactory.getLogger(FileService.class);
 
     private static final int MAX_FILE_NAME_LENGTH_250 = 250;
+    private static final String SEVEN_ZIP_7Z = ".7z";
+    
+    private static final Set<String> extensions;
+    
     /**
      * Singleton.
      */
@@ -39,6 +59,16 @@ public class FileService {
             instance = new FileService();
         }
         return instance;
+    }
+    
+    static {
+        extensions = new HashSet<>();
+        extensions.add(".zip");
+        extensions.add(".tar");
+        extensions.add(".ar");
+        extensions.add(".arj");
+        extensions.add(".cpio");
+        extensions.add(".dump");
     }
 
     /**
@@ -75,71 +105,103 @@ public class FileService {
     }
 
     /**
-     * If the second argument contains unzipped first argument, do not unzip it.
-     * Else unzip it and return a file from this zipFile. So existing files will NOT be overwritten.
+     * If the second argument contains un7zipped first argument, do not un7zip it.
+     * Else un7zip it and return a file from this 7zipFile. So existing files will NOT be overwritten.
      *
-     * @param zipFile         zipped content.
-     * @param targetDirectory where the content will bew unzipped. If 'null', the parent directory of a zip file
-     *                        will bew used and the packed content will be unpacked to the zipFile parent directory.
+     * @param zipFile         7zipped content for un-compression.
+     * @param targetDirectory where the content will bew un7zipped. If 'null', the parent directory of a 7z file
+     *                        will be used and the packed content will be unpacked to the 7zipFile parent directory.
      * @return Unzipped files or found files from the targetDirectory.
      */
-    public List<File> unzipIfNotExists(File zipFile, File targetDirectory) {
+    public List<File> un7zipIfNotExists(File zipFile, File targetDirectory) {
         List<File> result = new ArrayList<>();
-        try (ZipFile file = new ZipFile(zipFile)) {
-            Enumeration<? extends ZipEntry> entries = file.entries();
-
-            String targetPath = targetDirectory.getAbsolutePath() + File.separator;
-
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = entries.nextElement();
+        String targetPath = targetDirectory.getAbsolutePath() + File.separator;
+        try (SevenZFile sevenZFile = new SevenZFile(zipFile)) {
+            SevenZArchiveEntry entry;
+            while ((entry = sevenZFile.getNextEntry()) != null) {
                 if (entry.isDirectory()) {
                     File dir = new File(targetPath + entry.getName());
                     if (!dir.exists()) {
-                        logger.trace("Creating Directory: '{}'", dir.getAbsolutePath());
+                        logger.trace("Creating directory: '{}'", dir.getAbsolutePath());
                         Files.createDirectories(dir.toPath());
                     }
-                }
-                else {
-                    unzipEntry(result, file, targetPath, entry);
+                } else {
+                    byte[] content = new byte[(int) entry.getSize()];
+                    sevenZFile.read(content);
+                    File nextFile = new File(targetPath + entry.getName());
+                    if (!nextFile.exists()) {
+                        Files.write(nextFile.toPath(), content);
+                        logger.trace("File unzipped: {}", nextFile.getAbsolutePath());
+                    } else {
+                        logger.trace("File already exists: {}", nextFile.getAbsolutePath());
+                    }
+                    result.add(nextFile);
                 }
             }
         } catch (IOException e) {
-            throw new CombinerRuntimeException("Cannot unzip " + zipFile.getAbsolutePath(), e);
+            throw new CombinerRuntimeException("Cannot un7zip " + zipFile.getAbsolutePath(), e);
         }
         return result;
     }
 
-    private void unzipEntry(List<File> result, ZipFile file, String targetPath, ZipEntry entry) throws IOException {
-        InputStream is = file.getInputStream(entry);
-        BufferedInputStream bis = new BufferedInputStream(is);
-        File nextFile = new File(targetPath + entry.getName());
-        if (!nextFile.exists()) {
-            Files.createFile(nextFile.toPath());
-            byte[] buffer = new byte[1024];
-            try (FileOutputStream fos = new FileOutputStream(nextFile)) {
-                int len;
-                while ((len = bis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
+
+    /**
+     * If the second argument contains uncompressed first argument, do not uncompress it.
+     * Else uncompress it and return a file from this compressedFile. So existing files will NOT be overwritten.
+     *
+     * @param compressedFile         compressed content.
+     * @param targetDirectory where the content will be uncompressed. If 'null', the parent directory of a compressed file
+     *                        will be used and the packed content will be unpacked to the compressedFile parent directory.
+     * @return Uncompressed files or found files from the targetDirectory.
+     */
+    public List<File> uncompressIfNotExists(File compressedFile, File targetDirectory) {
+        List<File> result = new ArrayList<>();
+        String targetPath = targetDirectory.getAbsolutePath() + File.separator;
+        try (ArchiveInputStream archiveInputStream =
+                 new ArchiveStreamFactory().createArchiveInputStream(
+                 new BufferedInputStream(new FileInputStream(compressedFile)))) {
+
+            ArchiveEntry entry;
+            while ((entry = archiveInputStream.getNextEntry()) != null) {
+                if (!archiveInputStream.canReadEntryData(entry)) {
+                    throw new CombinerRuntimeException("Cannot uncompress entry '" + entry.getName() +
+                        "' from file '" + compressedFile.getAbsolutePath() + "'");
+                }
+                if (entry.isDirectory()) {
+                    File dir = new File(targetPath + entry.getName());
+                    if (!dir.exists()) {
+                        logger.trace("Creating directory: '{}'", dir.getAbsolutePath());
+                        Files.createDirectories(dir.toPath());
+                    }
+                } else {
+                    File nextFile = new File(targetPath + entry.getName());
+                    if (!nextFile.exists()) {
+                        try (OutputStream o = Files.newOutputStream(nextFile.toPath())) {
+                            IOUtils.copy(archiveInputStream, o);
+                        }
+                        logger.trace("File unzipped: {}", nextFile.getAbsolutePath());
+                    } else {
+                        logger.trace("File already exists: {}", nextFile.getAbsolutePath());
+                    }
+                    result.add(nextFile);
                 }
             }
-            
-            logger.trace("File unzipped: {}", nextFile.getAbsolutePath());
-        } else {
-            logger.trace("File already exists: {}", nextFile.getAbsolutePath());
+        } catch (Exception e) {
+            throw new CombinerRuntimeException("Cannot uncompress file " + compressedFile.getAbsolutePath(), e);
         }
-        result.add(nextFile);
+        return result;
     }
 
     /**
      * Search for files recursively in the source directories defined in the first argument.
      * <p>
      * All found files will be copied to the targetDirectory. Files with the same names will be rewritten.
-     * If the targetDirectory the same as the source directory, files will not be copied to the target directory.
+     * If the targetDirectory is the same as the source directory, the files will not be copied to the target directory.
      *
      * @param logDirectoriesOrFiles one or more directories with log files generated by some applications. If this
      *                              argument containing multiple directories, a new sub-directory will be created
      *                              for each source directory.
-     * @param unpackFiles           if 'true', unzip files to the targetDirectory.
+     * @param unpackFiles           if 'true', unzip files to the targetDirectory. Accepted formats are zip, 7z.
      * @param targetDirectory       the target directory where all files will be copied.
      *                              It can be 'null'. In this case unzipped files
      *                              will be placed to the source directory next to source zip files.
@@ -197,17 +259,59 @@ public class FileService {
 
     private void unzipAndCopyFile(File fileOrDirectory, boolean unpackFiles, File targetDirectory, Set<File> result,
                                   boolean copyFiles) {
-        if (fileOrDirectory.getName().endsWith(".zip") && unpackFiles) {
-            List<File> files = unzipIfNotExists(fileOrDirectory, targetDirectory);
-            result.addAll(files);
-        } else {
-            if (copyFiles) {
-                File file = copyFile(fileOrDirectory, targetDirectory);
-                result.add(file);
-            } else {
+        boolean isFile = fileOrDirectory.isFile();
+        boolean shouldBeUncompressed = false;
+        if (isFile && unpackFiles) {
+            shouldBeUncompressed = canBeUncompressed(fileOrDirectory.getName());
+        }
+        if (shouldBeUncompressed) {
+            try {
+                List<File> uncompressed = uncompress(fileOrDirectory, targetDirectory);
+                result.addAll(uncompressed);
+                for (File file : uncompressed) {
+                    if (canBeUncompressed(file.getName())) {
+                        // recursively
+                        unzipAndCopyFile(file, true, file.getParentFile(), result, copyFiles);
+                        result.remove(file);
+                    }
+                }
+            } catch (Exception e) {
+                logger.error("Cannot uncompress file '{}'", fileOrDirectory.getAbsolutePath(), e);
                 result.add(fileOrDirectory);
             }
+            return;
         }
+        
+        if (copyFiles) {
+            File file = copyFile(fileOrDirectory, targetDirectory);
+            result.add(file);
+        } else {
+            result.add(fileOrDirectory);
+        }
+    }
+
+    private List<File> uncompress(File compressed, File targetDirectory) {
+        String lowerCase = compressed.getName().toLowerCase();
+        if (lowerCase.endsWith(SEVEN_ZIP_7Z)) {
+            return un7zipIfNotExists(compressed, targetDirectory);
+        }
+        for (String extension : extensions) {
+            if (lowerCase.endsWith(extension)) {
+                return uncompressIfNotExists(compressed, targetDirectory);
+            }
+        }
+        throw new CombinerRuntimeException("Cannot uncompress file. Unknown file extension. " +
+            "File: " + compressed.getAbsolutePath());
+    }
+
+    private boolean canBeUncompressed(String name) {
+        String lowerCase = name.toLowerCase();
+        for (String extension : extensions) {
+            if (lowerCase.endsWith(extension)) {
+                return true;
+            }
+        }
+        return lowerCase.endsWith(SEVEN_ZIP_7Z);
     }
 
     private File copyFile(File file, File targetDirectory) {
