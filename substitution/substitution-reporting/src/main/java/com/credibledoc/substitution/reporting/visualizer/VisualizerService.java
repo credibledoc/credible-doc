@@ -86,7 +86,7 @@ public class VisualizerService {
             String substring = line.substring(0, 35);
             logger.info("The first line read from {}. Line: '{}...'", ReaderService.class.getSimpleName(), substring);
             while (line != null) {
-                currentReader = readerService.getCurrentReader(filesMergerState);
+                currentReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
                 List<String> multiLine = readerService.readMultiline(line, currentReader, context);
 
                 currentLineNumber = transformMultiLine(multiLine, reportDocumentTypes, report, reportDocuments,

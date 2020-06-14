@@ -35,10 +35,11 @@ public class NodeFileService {
         return instance;
     }
 
-    public NodeFile createNodeFile(Date date, File file, Context context) {
+    public NodeFile createNodeFile(Date date, File file, Context context, NodeLog nodeLog) {
         NodeFile nodeFile = new NodeFile();
         nodeFile.setFile(file);
         nodeFile.setDate(date);
+        nodeFile.setNodeLog(nodeLog);
         context.getNodeFileRepository().getNodeFiles().add(nodeFile);
         return nodeFile;
     }
@@ -59,7 +60,7 @@ public class NodeFileService {
                 return nodeFile;
             }
         }
-        throw new CombinerRuntimeException("Cannot find out NodeFile");
+        throw new CombinerRuntimeException("Cannot find NodeFile");
     }
 
     private void createOrAddToNodeFile(Tactic tactic, Set<NodeLog> nodeLogs, Date date,
@@ -70,7 +71,7 @@ public class NodeFileService {
             if (nodeLog.getName().equals(folderName)) {
                 Set<NodeFile> nodeFiles = findNodeFiles(nodeLog, context);
                 if (!containsName(nodeFiles, file.getName())) {
-                    NodeFile nodeFile = createNodeFile(date, file, context);
+                    NodeFile nodeFile = createNodeFile(date, file, context, nodeLog);
                     nodeFiles.add(nodeFile);
                     nodeFile.setNodeLog(nodeLog);
                 }
@@ -78,9 +79,9 @@ public class NodeFileService {
             }
         }
         if (!nodeLogFound) {
-            NodeFile nodeFile = createNodeFile(date, file, context);
-            NodeLog nodeLog = NodeLogService.getInstance().createNodeLog(nodeFile.getFile(), context);
-            nodeLog.setTactic(tactic);
+            nodeLogs = new TreeSet<>();
+            NodeLog nodeLog = NodeLogService.getInstance().createNodeLog(file, context, tactic);
+            NodeFile nodeFile = createNodeFile(date, file, context, nodeLog);
             nodeLogs.add(nodeLog);
             nodeFile.setNodeLog(nodeLog);
         }

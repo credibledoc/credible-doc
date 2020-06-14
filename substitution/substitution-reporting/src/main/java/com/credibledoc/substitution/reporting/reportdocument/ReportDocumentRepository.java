@@ -39,7 +39,7 @@ public class ReportDocumentRepository {
      * current {@link LineProcessor}. Returned
      * transformed line will be written to a report file immediately.
      */
-    private List<ReportDocument> reportDocuments = new ArrayList<>();
+    private ReportDocumentList<ReportDocument> reportDocuments = new ReportDocumentList<>();
 
     /**
      * During parsing of files we can add {@link ReportDocument}s to the
@@ -56,14 +56,14 @@ public class ReportDocumentRepository {
     /**
      * @return The {@link #reportDocuments} field value.
      */
-    List<ReportDocument> getReportDocuments() {
+    ReportDocumentList<ReportDocument> getReportDocuments() {
         return reportDocuments;
     }
 
     /**
      * @param reportDocuments see the {@link #reportDocuments} field
      */
-    void setReportDocuments(List<ReportDocument> reportDocuments) {
+    void setReportDocuments(ReportDocumentList<ReportDocument> reportDocuments) {
         this.reportDocuments = reportDocuments;
     }
 

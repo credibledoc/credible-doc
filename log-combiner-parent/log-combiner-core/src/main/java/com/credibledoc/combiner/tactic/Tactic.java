@@ -33,7 +33,7 @@ public interface Tactic {
      * @param line     a line from a log file
      * @param nodeFile in case when a line contains a time stamp only, the
      *                 {@link NodeFile#getDate()} will be used
-     * @return 'null' if the line does not contains a time stamp
+     * @return 'null' if the line does not contain a time stamp
      */
     Date findDate(String line, NodeFile nodeFile);
 

@@ -13,5 +13,5 @@ node1 app1
 node1 app1 and with empty lines
 node1 app1 INFO 2019-04-22T07:59:27.940+0200 [main] Application app1 finished.
 node0 app0 22.04.2019 07:59:27.990 [main] INFO Application app0 finished.
-node1 app0 22.04.2019 07:59:27.991 [main] INFO similar line in all files
 node0 app0 22.04.2019 07:59:27.991 [main] INFO similar line in all files A
+node1 app0 22.04.2019 07:59:27.991 [main] INFO similar line in all files

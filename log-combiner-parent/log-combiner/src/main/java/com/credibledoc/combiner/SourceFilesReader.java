@@ -41,7 +41,7 @@ public class SourceFilesReader {
             filesMergerState.setNodeFiles(context.getNodeFileRepository().getNodeFiles());
         }
         String line = ReaderService.getInstance().readLineFromReaders(filesMergerState, context);
-        logBufferedReader = ReaderService.getInstance().getCurrentReader(filesMergerState);
+        logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         if (line == null) {
             return null;
         }

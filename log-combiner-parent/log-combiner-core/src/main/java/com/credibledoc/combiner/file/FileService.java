@@ -32,6 +32,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.zip.GZIPInputStream;
 
 /**
  * This singleton helps to collect log files and contains some util methods.
@@ -43,6 +45,7 @@ public class FileService {
 
     private static final int MAX_FILE_NAME_LENGTH_250 = 250;
     private static final String SEVEN_ZIP_7Z = ".7z";
+    private static final String GZ = ".gz";
     
     private static final Set<String> extensions;
     
@@ -74,6 +77,7 @@ public class FileService {
     /**
      * Recognize which {@link Tactic} this file belongs to.
      * @param file the log file
+     * @param context the current state
      * @return {@link Tactic} or throw the new {@link CombinerRuntimeException} if the file not recognized
      */
     public Tactic findTactic(File file, Context context) {
@@ -108,9 +112,9 @@ public class FileService {
      * If the second argument contains un7zipped first argument, do not un7zip it.
      * Else un7zip it and return a file from this 7zipFile. So existing files will NOT be overwritten.
      *
-     * @param zipFile         7zipped content for un-compression.
+     * @param zipFile         7zipped content for decompression.
      * @param targetDirectory where the content will bew un7zipped. If 'null', the parent directory of a 7z file
-     *                        will be used and the packed content will be unpacked to the 7zipFile parent directory.
+     *                        will be used and the packed content will be decompressed to the 7zipFile parent directory.
      * @return Unzipped files or found files from the targetDirectory.
      */
     public List<File> un7zipIfNotExists(File zipFile, File targetDirectory) {
@@ -144,17 +148,55 @@ public class FileService {
         return result;
     }
 
+    /**
+     * If the second argument contains decompressed first argument, do not decompress it.
+     * Else uncompress it and return a file from this gz file. So existing files will NOT be overwritten.
+     *
+     * @param gzFile         the file for decompression.
+     * @param targetDirectory where the content will be decompressed. If 'null', the parent directory of a gz file
+     *                        will be used and the compressed content will be decompressed to the gz parent directory.
+     * @return Uncompressed gz file or existing file from the targetDirectory.
+     */
+    public List<File> decompressGzIfNotExists(File gzFile, File targetDirectory) {
+        List<File> result = new ArrayList<>();
+        String targetPath = targetDirectory.getAbsolutePath() + File.separator;
+        try (FileInputStream fis = new FileInputStream(gzFile); GZIPInputStream gzipInputStream = new GZIPInputStream(fis)) {
+            String oldFileName = gzFile.getName();
+            String oldFileNameLower = gzFile.getName().toLowerCase();
+            int beginIndex = oldFileNameLower.lastIndexOf(GZ);
+            String newFileName = oldFileName.substring(0, beginIndex);
+            File decompressedFile = new File(targetPath + newFileName);
+            if (!decompressedFile.exists()) {
+
+                copyBytes(gzipInputStream, decompressedFile);
+
+                logger.trace("File .gz decompressed: {}", decompressedFile.getAbsolutePath());
+            } else {
+                logger.trace("Decompressed file already exists: {}", decompressedFile.getAbsolutePath());
+            }
+            result.add(decompressedFile);
+        } catch (IOException e) {
+            throw new CombinerRuntimeException("Cannot un7zip " + gzFile.getAbsolutePath(), e);
+        }
+        return result;
+    }
+
+    public void copyBytes(GZIPInputStream gzipInputStream, File targetFile) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(targetFile)) {
+            IOUtils.copy(gzipInputStream, fos);
+        }
+    }
 
     /**
-     * If the second argument contains uncompressed first argument, do not uncompress it.
-     * Else uncompress it and return a file from this compressedFile. So existing files will NOT be overwritten.
+     * If the second argument contains decompressed first argument, do not decompress it.
+     * Else decompress it and return a file from this compressedFile. So existing files will NOT be overwritten.
      *
      * @param compressedFile         compressed content.
-     * @param targetDirectory where the content will be uncompressed. If 'null', the parent directory of a compressed file
-     *                        will be used and the packed content will be unpacked to the compressedFile parent directory.
-     * @return Uncompressed files or found files from the targetDirectory.
+     * @param targetDirectory where the content will be decompressed. If 'null', the parent directory of a compressed file
+     *                        will be used and the packed content will be decompressed to the compressedFile parent directory.
+     * @return Decompressed files or found files from the targetDirectory.
      */
-    public List<File> uncompressIfNotExists(File compressedFile, File targetDirectory) {
+    public List<File> decompressIfNotExists(File compressedFile, File targetDirectory) {
         List<File> result = new ArrayList<>();
         String targetPath = targetDirectory.getAbsolutePath() + File.separator;
         try (ArchiveInputStream archiveInputStream =
@@ -164,7 +206,7 @@ public class FileService {
             ArchiveEntry entry;
             while ((entry = archiveInputStream.getNextEntry()) != null) {
                 if (!archiveInputStream.canReadEntryData(entry)) {
-                    throw new CombinerRuntimeException("Cannot uncompress entry '" + entry.getName() +
+                    throw new CombinerRuntimeException("Cannot decompress entry '" + entry.getName() +
                         "' from file '" + compressedFile.getAbsolutePath() + "'");
                 }
                 if (entry.isDirectory()) {
@@ -187,7 +229,7 @@ public class FileService {
                 }
             }
         } catch (Exception e) {
-            throw new CombinerRuntimeException("Cannot uncompress file " + compressedFile.getAbsolutePath(), e);
+            throw new CombinerRuntimeException("Cannot decompress file " + compressedFile.getAbsolutePath(), e);
         }
         return result;
     }
@@ -201,20 +243,20 @@ public class FileService {
      * @param logDirectoriesOrFiles one or more directories with log files generated by some applications. If this
      *                              argument containing multiple directories, a new sub-directory will be created
      *                              for each source directory.
-     * @param unpackFiles           if 'true', unzip files to the targetDirectory. Accepted formats are zip, 7z.
+     * @param decompressFiles           if 'true', unzip files to the targetDirectory. Accepted formats are zip, 7z.
      * @param targetDirectory       the target directory where all files will be copied.
      *                              It can be 'null'. In this case unzipped files
      *                              will be placed to the source directory next to source zip files.
      * @return Set of copied files.
      */
-    public Set<File> collectFiles(Set<File> logDirectoriesOrFiles, boolean unpackFiles, File targetDirectory) {
+    public Set<File> collectFiles(Set<File> logDirectoriesOrFiles, boolean decompressFiles, File targetDirectory) {
         createTargetDirectoryIfNotExists(targetDirectory);
-        Set<File> result = new HashSet<>();
+        Set<File> result = new TreeSet<>();
         for (File file : logDirectoriesOrFiles) {
             if (targetDirectory == null) {
-                copyAndCollectFilesRecursively(file, unpackFiles, file.getParentFile(), result, false);
+                copyAndCollectFilesRecursively(file, decompressFiles, file.getParentFile(), result, false);
             } else {
-                copyAndCollectFilesRecursively(file, unpackFiles, targetDirectory, result, true);
+                copyAndCollectFilesRecursively(file, decompressFiles, targetDirectory, result, true);
             }
         }
         return result;
@@ -240,10 +282,10 @@ public class FileService {
         }
     }
 
-    private void copyAndCollectFilesRecursively(File sourceFileOrDirectory, boolean unpackFiles,
+    private void copyAndCollectFilesRecursively(File sourceFileOrDirectory, boolean decompressFiles,
                                                 File targetDirectory, Set<File> result, boolean copyFiles) {
         if (sourceFileOrDirectory.isFile()) {
-            unzipAndCopyFile(sourceFileOrDirectory, unpackFiles, targetDirectory, result, copyFiles);
+            decompressAndCopyFile(sourceFileOrDirectory, decompressFiles, targetDirectory, result, copyFiles);
         } else {
             File[] files = sourceFileOrDirectory.listFiles();
             if (files == null) {
@@ -252,31 +294,31 @@ public class FileService {
             File innerTargetDirectory = new File(targetDirectory, sourceFileOrDirectory.getName());
             createTargetDirectoryIfNotExists(innerTargetDirectory);
             for (File file : files) {
-                copyAndCollectFilesRecursively(file, unpackFiles, innerTargetDirectory, result, copyFiles);
+                copyAndCollectFilesRecursively(file, decompressFiles, innerTargetDirectory, result, copyFiles);
             }
         }
     }
 
-    private void unzipAndCopyFile(File fileOrDirectory, boolean unpackFiles, File targetDirectory, Set<File> result,
-                                  boolean copyFiles) {
+    private void decompressAndCopyFile(File fileOrDirectory, boolean decompressFiles, File targetDirectory, Set<File> result,
+                                       boolean copyFiles) {
         boolean isFile = fileOrDirectory.isFile();
-        boolean shouldBeUncompressed = false;
-        if (isFile && unpackFiles) {
-            shouldBeUncompressed = canBeUncompressed(fileOrDirectory.getName());
+        boolean shouldBeDecompressed = false;
+        if (isFile && decompressFiles) {
+            shouldBeDecompressed = canBeDecompressed(fileOrDirectory.getName());
         }
-        if (shouldBeUncompressed) {
+        if (shouldBeDecompressed) {
             try {
-                List<File> uncompressed = uncompress(fileOrDirectory, targetDirectory);
-                result.addAll(uncompressed);
-                for (File file : uncompressed) {
-                    if (canBeUncompressed(file.getName())) {
+                List<File> decompressed = decompress(fileOrDirectory, targetDirectory);
+                result.addAll(decompressed);
+                for (File file : decompressed) {
+                    if (canBeDecompressed(file.getName())) {
                         // recursively
-                        unzipAndCopyFile(file, true, file.getParentFile(), result, copyFiles);
+                        decompressAndCopyFile(file, true, file.getParentFile(), result, copyFiles);
                         result.remove(file);
                     }
                 }
             } catch (Exception e) {
-                logger.error("Cannot uncompress file '{}'", fileOrDirectory.getAbsolutePath(), e);
+                logger.error("Cannot decompress file '{}'", fileOrDirectory.getAbsolutePath(), e);
                 result.add(fileOrDirectory);
             }
             return;
@@ -290,28 +332,31 @@ public class FileService {
         }
     }
 
-    private List<File> uncompress(File compressed, File targetDirectory) {
+    private List<File> decompress(File compressed, File targetDirectory) {
         String lowerCase = compressed.getName().toLowerCase();
         if (lowerCase.endsWith(SEVEN_ZIP_7Z)) {
             return un7zipIfNotExists(compressed, targetDirectory);
         }
+        if (lowerCase.endsWith(GZ)) {
+            return decompressGzIfNotExists(compressed, targetDirectory);
+        }
         for (String extension : extensions) {
             if (lowerCase.endsWith(extension)) {
-                return uncompressIfNotExists(compressed, targetDirectory);
+                return decompressIfNotExists(compressed, targetDirectory);
             }
         }
-        throw new CombinerRuntimeException("Cannot uncompress file. Unknown file extension. " +
+        throw new CombinerRuntimeException("Cannot decompress file. Unknown file extension. " +
             "File: " + compressed.getAbsolutePath());
     }
 
-    private boolean canBeUncompressed(String name) {
+    private boolean canBeDecompressed(String name) {
         String lowerCase = name.toLowerCase();
         for (String extension : extensions) {
             if (lowerCase.endsWith(extension)) {
                 return true;
             }
         }
-        return lowerCase.endsWith(SEVEN_ZIP_7Z);
+        return lowerCase.endsWith(SEVEN_ZIP_7Z) || lowerCase.endsWith(GZ);
     }
 
     private File copyFile(File file, File targetDirectory) {
@@ -343,13 +388,13 @@ public class FileService {
      * Call the {@link #collectFiles(Set, boolean, File)} method with a single item in the first argument.
      *
      * @param logDirectoryOrFile see the {@link #collectFiles(Set, boolean, File)} method description.
-     * @param unpackFiles         see the {@link #collectFiles(Set, boolean, File)} method description.
+     * @param decompressFiles         see the {@link #collectFiles(Set, boolean, File)} method description.
      * @param targetDirectory    see the {@link #collectFiles(Set, boolean, File)} method description.
      * @return See the {@link #collectFiles(Set, boolean, File)} method description.
      */
-    public Set<File> collectFiles(File logDirectoryOrFile, boolean unpackFiles, File targetDirectory) {
-        Set<File> files = new HashSet<>(Collections.singletonList(logDirectoryOrFile));
-        return collectFiles(files, unpackFiles, targetDirectory);
+    public Set<File> collectFiles(File logDirectoryOrFile, boolean decompressFiles, File targetDirectory) {
+        Set<File> files = new TreeSet<>(Collections.singletonList(logDirectoryOrFile));
+        return collectFiles(files, decompressFiles, targetDirectory);
     }
 
     /**
@@ -357,15 +402,15 @@ public class FileService {
      * the third argument (File).
      *
      * @param logDirectoriesOrFiles see the {@link #collectFiles(Set, boolean, File)} method description.
-     * @param unpackFiles            see the {@link #collectFiles(Set, boolean, File)} method description.
+     * @param decompressFiles            see the {@link #collectFiles(Set, boolean, File)} method description.
      * @return See the {@link #collectFiles(Set, boolean, File)} method description.
      */
-    public Set<File> collectFiles(Set<File> logDirectoriesOrFiles, boolean unpackFiles) {
+    public Set<File> collectFiles(Set<File> logDirectoriesOrFiles, boolean decompressFiles) {
         try {
             Path tempPath = Files.createTempDirectory(ReaderService.COMBINER_CORE_MODULE_NAME);
             File tempDirectory = tempPath.toFile();
             tempDirectory.deleteOnExit();
-            return collectFiles(logDirectoriesOrFiles, unpackFiles, tempDirectory);
+            return collectFiles(logDirectoriesOrFiles, decompressFiles, tempDirectory);
         } catch (Exception e) {
             throw new CombinerRuntimeException("Cannot collect files.", e);
         }
@@ -375,12 +420,12 @@ public class FileService {
      * Call the {@link #collectFiles(Set, boolean)} method.
      *
      * @param logDirectoryOrFile see the {@link #collectFiles(Set, boolean)} method description.
-     * @param unpackFiles         see the {@link #collectFiles(Set, boolean)} method description.
+     * @param decompressFiles         see the {@link #collectFiles(Set, boolean)} method description.
      * @return See the {@link #collectFiles(Set, boolean)} method description.
      */
-    public Set<File> collectFiles(File logDirectoryOrFile, boolean unpackFiles) {
-        Set<File> files = new HashSet<>(Collections.singletonList(logDirectoryOrFile));
-        return collectFiles(files, unpackFiles);
+    public Set<File> collectFiles(File logDirectoryOrFile, boolean decompressFiles) {
+        Set<File> files = new TreeSet<>(Collections.singletonList(logDirectoryOrFile));
+        return collectFiles(files, decompressFiles);
     }
 
     /**
@@ -400,7 +445,7 @@ public class FileService {
      * @return See the {@link #collectFiles(Set)} method description.
      */
     public Set<File> collectFiles(File logDirectoryOrFile) {
-        Set<File> files = new HashSet<>(Collections.singletonList(logDirectoryOrFile));
+        Set<File> files = new TreeSet<>(Collections.singletonList(logDirectoryOrFile));
         return collectFiles(files, false);
     }
 }

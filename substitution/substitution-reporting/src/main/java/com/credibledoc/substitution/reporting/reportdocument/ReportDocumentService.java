@@ -4,7 +4,11 @@ import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.reporting.report.Report;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.ConcurrentModificationException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The stateless service for working with {@link ReportDocument}s.
@@ -44,9 +48,6 @@ public class ReportDocumentService {
      *                       else an exception will be thrown.
      */
     public void addReportDocument(ReportDocument reportDocument) {
-        if (reportDocument.getReport() == null) {
-            throw new SubstitutionRuntimeException("Report is mandatory for ReportDocument: " + reportDocument);
-        }
         ReportDocumentRepository.getInstance().getReportDocuments().add(reportDocument);
     }
 
@@ -96,14 +97,14 @@ public class ReportDocumentService {
         getReportDocumentsForAddition().clear();
     }
 
+    /**
+     * Find all {@link ReportDocument}s with report from parameter.
+     * @param report the {@link ReportDocument#getReport()} value
+     * @return 'null' if not found
+     */
     public List<ReportDocument> getReportDocuments(Report report) {
-        List<ReportDocument> result = new ArrayList<>();
-        for (ReportDocument reportDocument : getReportDocuments()) {
-            if (report == reportDocument.getReport()) {
-                result.add(reportDocument);
-            }
-        }
-        return result;
+        ReportDocumentList<ReportDocument> reportDocuments = (ReportDocumentList<ReportDocument>) getReportDocuments();
+        return reportDocuments.get(report);
     }
 
     /**

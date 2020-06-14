@@ -5,12 +5,12 @@ import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
+import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.node.file.NodeFileService;
-import com.credibledoc.combiner.node.log.NodeLog;
-import com.credibledoc.combiner.node.log.NodeLogService;
 
 import java.io.File;
-import java.util.*;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * Service for working with {@link Tactic}.
@@ -57,14 +57,13 @@ public class TacticService {
     /**
      * Recognize, which {@link Tactic} the line belongs to.
      * @param logBufferedReader links to a {@link Tactic}
+     * @param context the current state
      * @return {@link Tactic} or throw exception
      */
     public Tactic findTactic(LogBufferedReader logBufferedReader, Context context) {
-        for (Tactic tactic : context.getTacticRepository().getTactics()) {
-            for (NodeLog nodeLog : NodeLogService.getInstance().findNodeLogs(tactic, context)) {
-                if (nodeLog.getLogBufferedReader() == logBufferedReader) {
-                    return tactic;
-                }
+        for (NodeFile nodeFile : context.getNodeFileRepository().getNodeFiles()) {
+            if (nodeFile.getLogBufferedReader() == logBufferedReader) {
+                return nodeFile.getNodeLog().getTactic();
             }
         }
         throw new CombinerRuntimeException("Tactic cannot be found. LogBufferedReader: " + logBufferedReader);

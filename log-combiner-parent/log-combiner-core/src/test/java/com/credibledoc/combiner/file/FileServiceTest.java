@@ -8,6 +8,7 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -50,7 +51,7 @@ public class FileServiceTest {
     }
 
     @Test
-    public void collectMultipleFilesInSingleDirectoryUnpack() {
+    public void collectMultipleFilesInSingleDirectoryDecompress() {
         FileService fileService = FileService.getInstance();
         File multipleFiles = new File("src/test/resources/files/multipleFiles");
         assertTrue(multipleFiles.exists());
@@ -72,7 +73,7 @@ public class FileServiceTest {
     }
 
     @Test
-    public void collectMultipleZipInSingleDirectoryUnpack() {
+    public void collectMultipleZipInSingleDirectoryDecompress() {
         FileService fileService = FileService.getInstance();
         File multipleFiles = new File("src/test/resources/files/multipleZip");
         assertTrue(multipleFiles.exists());
@@ -108,8 +109,8 @@ public class FileServiceTest {
         Set<File> result = fileService.collectFiles(multipleFiles, true, newFolder);
         assertEquals(5, result.size());
         assertTrue(result.iterator().next().getName().endsWith(".txt"));
-        File unpacked = new File(newFolder + "/" + "multipleZip/01.txt");
-        assertTrue(unpacked.exists());
+        File decompressedFile = new File(newFolder + "/" + "multipleZip/01.txt");
+        assertTrue(decompressedFile.exists());
     }
 
     @Test
@@ -234,6 +235,21 @@ public class FileServiceTest {
         Set<File> result = fileService.collectFiles(set);
         
         assertEquals(5, result.size());
+    }
+
+    @Test
+    public void collectGzFile() throws IOException {
+        FileService fileService = FileService.getInstance();
+        File compressedFile = new File("target/test-classes/files/gz/file.txt.gz");
+        assertTrue(compressedFile.exists());
+
+        Set<File> result = fileService.collectFiles(compressedFile, true);
+        assertEquals(1, result.size());
+        File decompressedFile = result.iterator().next();
+        assertEquals("file.txt", decompressedFile.getName());
+        byte[] bytes = IOUtils.toByteArray(new FileInputStream(decompressedFile.getAbsolutePath()));
+        String text = new String(bytes, StandardCharsets.UTF_8);
+        assertEquals("content", text);
     }
     
 }

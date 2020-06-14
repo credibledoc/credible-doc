@@ -109,16 +109,19 @@ public class CombinerService {
      */
     public void combine(OutputStream outputStream, FilesMergerState filesMergerState, Context context) {
         ReaderService readerService = ReaderService.getInstance();
-        LogBufferedReader logBufferedReader = readerService.getCurrentReader(filesMergerState);
+        if (filesMergerState.getCurrentNodeFile() == null) {
+            filesMergerState.setCurrentNodeFile(readerService.findTheYoungest(context));
+        }
+        LogBufferedReader logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         int currentLineNumber = 0;
         NodeFileService nodeFileService = NodeFileService.getInstance();
         String line = null;
         Config config = new ConfigService().loadConfig(null);
         try {
             line = readerService.readLineFromReaders(filesMergerState, context);
-            logBufferedReader = readerService.getCurrentReader(filesMergerState);
+            logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
             String substring = line.substring(0, 35);
-            logger.info("The first line read from {}. Line: '{}...'", ReaderService.class.getSimpleName(), substring);
+            logger.info("The first line read from {}. Line: '{}...'", getClass().getSimpleName(), substring);
             while (line != null) {
                 List<String> multiline = readerService.readMultiline(line, logBufferedReader, context);
 
@@ -130,7 +133,7 @@ public class CombinerService {
                 writeMultiline(config, outputStream, nodeFileService, logBufferedReader, multiline, context);
 
                 line = readerService.readLineFromReaders(filesMergerState, context);
-                logBufferedReader = readerService.getCurrentReader(filesMergerState);
+                logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
             }
             logger.debug("{} lines processed (100%)", currentLineNumber);
         } catch (Exception e) {
@@ -259,10 +262,10 @@ public class CombinerService {
 
     private Tactic createTactic(final TacticConfig tacticConfig) {
         return new Tactic() {
-                    private SimpleDateFormat simpleDateFormat =
+                    private final SimpleDateFormat simpleDateFormat =
                         new SimpleDateFormat(tacticConfig.getSimpleDateFormat());
 
-                    private Pattern pattern = Pattern.compile(tacticConfig.getRegex());
+                    private final Pattern pattern = Pattern.compile(tacticConfig.getRegex());
 
                     @Override
                     public Date findDate(File file) {
