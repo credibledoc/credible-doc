@@ -172,9 +172,8 @@ public class ReportDocumentCreatorService {
         Date date = fileService.findDate(logFile, tactic);
         NodeLogService nodeLogService = NodeLogService.getInstance();
         NodeLog nodeLog = nodeLogService.createNodeLog(logFile, context, tactic);
-        NodeFile nodeFile = NodeFileService.getInstance().createNodeFile(date, logFile, context, nodeLog);
         nodeLog.setTactic(tactic);
-        nodeFile.setNodeLog(nodeLog);
+        NodeFile nodeFile = NodeFileService.getInstance().createNodeFile(date, logFile, context, nodeLog);
         reportDocument.getNodeFiles().add(nodeFile);
         nodeLogService.findNodeLogs(tactic, context).add(nodeLog);
         logger.info("Report prepared. Report: {}", report.hashCode());
