@@ -2,6 +2,7 @@ package com.credibledoc.substitution.reporting.reportdocument;
 
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.report.Report;
 
 import java.util.Collection;
@@ -33,22 +34,19 @@ public class ReportDocumentService {
     }
 
     /**
-     * Call the {@link ReportDocumentRepository#getReportDocuments()} method.
-     * @return all {@link ReportDocument}s from the {@link ReportDocumentRepository}.
-     */
-    public List<ReportDocument> getReportDocuments() {
-        return ReportDocumentRepository.getInstance().getReportDocuments();
-    }
-
-    /**
      * Validate and append the {@link ReportDocument} to the
      * {@link ReportDocumentRepository#getReportDocuments()} list.
      *
      * @param reportDocument will be appended if it contains the {@link ReportDocument#getReport()} field,
      *                       else an exception will be thrown.
+     * @param reportingContext the current state
      */
-    public void addReportDocument(ReportDocument reportDocument) {
-        ReportDocumentRepository.getInstance().getReportDocuments().add(reportDocument);
+    public void addReportDocument(ReportDocument reportDocument, ReportingContext reportingContext) {
+        if (reportDocument.getReport() == null) {
+            throw new SubstitutionRuntimeException("Report cannot be empty in ReportDocument. " +
+                "ReportDocument: " + reportDocument);
+        }
+        reportingContext.getReportDocumentRepository().getReportDocuments().add(reportDocument);
     }
 
     /**
@@ -57,19 +55,12 @@ public class ReportDocumentService {
      *
      * @param reportDocuments will be appended if all items contain the {@link ReportDocument#getReport()} field,
      *                       else an exception will be thrown.
+     * @param reportingContext the current state
      */
-    public void addAll(Collection<ReportDocument> reportDocuments) {
+    public void addAll(Collection<ReportDocument> reportDocuments, ReportingContext reportingContext) {
         for (ReportDocument reportDocument : reportDocuments) {
-            addReportDocument(reportDocument);
+            addReportDocument(reportDocument, reportingContext);
         }
-    }
-
-    /**
-     * Call the {@link ReportDocumentRepository#getReportDocumentsForAddition()} method.
-     * @return all {@link ReportDocument}s from the {@link ReportDocumentRepository}.
-     */
-    public List<ReportDocument> getReportDocumentsForAddition() {
-        return ReportDocumentRepository.getInstance().getReportDocumentsForAddition();
     }
 
     /**
@@ -78,23 +69,28 @@ public class ReportDocumentService {
      *
      * @param reportDocument will be appended if it contains the {@link ReportDocument#getReport()} field,
      *                       else an exception will be thrown.
+     * @param reportingContext the current state
      */
-    public void addReportDocumentForAddition(ReportDocument reportDocument) {
+    public void addReportDocumentForAddition(ReportDocument reportDocument, ReportingContext reportingContext) {
         if (reportDocument.getReport() == null) {
             throw new SubstitutionRuntimeException("Report is mandatory for ReportDocument: " + reportDocument);
         }
-        ReportDocumentRepository.getInstance().getReportDocumentsForAddition().add(reportDocument);
+        reportingContext.getReportDocumentRepository().getReportDocumentsForAddition().add(reportDocument);
     }
 
     /**
-     * For avoiding of {@link ConcurrentModificationException} a newly created {@link ReportDocument} is
-     * appended to the {@link #getReportDocumentsForAddition()} collection. This method will append this
-     * collection to the {@link #getReportDocuments()} collection and clear it.
+     * For avoiding {@link ConcurrentModificationException} a newly created {@link ReportDocument} is
+     * appended to the {@link ReportDocumentRepository#getReportDocumentsForAddition()} collection.
+     * The current method will move all {@link ReportDocument}s from {@link ReportDocumentRepository#getReportDocumentsForAddition()}
+     * to {@link ReportDocumentRepository#getReportDocuments()}.
+     * @param reportingContext the current state
      */
-    public void mergeReportDocumentsForAddition() {
-        List<ReportDocument> reportDocuments = getReportDocuments();
-        reportDocuments.addAll(getReportDocumentsForAddition());
-        getReportDocumentsForAddition().clear();
+    public void mergeReportDocumentsForAddition(ReportingContext reportingContext) {
+        List<ReportDocument> reportDocuments = reportingContext.getReportDocumentRepository().getReportDocuments();
+        List<ReportDocument> reportDocumentsForAddition =
+            reportingContext.getReportDocumentRepository().getReportDocumentsForAddition();
+        reportDocuments.addAll(reportDocumentsForAddition);
+        reportDocumentsForAddition.clear();
     }
 
     /**
@@ -102,8 +98,9 @@ public class ReportDocumentService {
      * @param report the {@link ReportDocument#getReport()} value
      * @return 'null' if not found
      */
-    public List<ReportDocument> getReportDocuments(Report report) {
-        ReportDocumentList<ReportDocument> reportDocuments = (ReportDocumentList<ReportDocument>) getReportDocuments();
+    public List<ReportDocument> getReportDocuments(Report report, ReportingContext reportingContext) {
+        ReportDocumentList<ReportDocument> reportDocuments =
+            reportingContext.getReportDocumentRepository().getReportDocuments();
         return reportDocuments.get(report);
     }
 

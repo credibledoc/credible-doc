@@ -9,6 +9,7 @@ import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocum
  * <ul>
  *     <li>{@link #reportDocumentCreatorRepository}</li>
  *     <li>{@link #reportDocumentRepository}</li>
+ *     <li>{@link #reportRepository}</li>
  * </ul>
  * 
  * @author Kyrylo Semenko

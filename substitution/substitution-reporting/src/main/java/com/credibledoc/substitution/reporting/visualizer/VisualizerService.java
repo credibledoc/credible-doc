@@ -57,19 +57,20 @@ public class VisualizerService {
      *                            can be transformed in a particular invocation
      * @param context the current state
      */
-    public void createReports(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes, Context context, ReportingContext reportingContext) {
+    public void createReports(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes, Context context,
+                              ReportingContext reportingContext) {
         logger.info("Method createReports started, reportDocumentTypes: '{}'", reportDocumentTypes);
         List<Report> reports = reportingContext.getReportRepository().getReports();
         for (Report report : reports) {
-            createReport(reportDocumentTypes, report, context);
+            createReport(reportDocumentTypes, report, context, reportingContext);
         }
     }
 
     private void createReport(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes,
-                              Report report, Context context) {
+                              Report report, Context context, ReportingContext reportingContext) {
         logger.info("Method createReports started. Report: {}", report);
         ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
-        List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report);
+        List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report, reportingContext);
         Set<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
         ReaderService readerService = ReaderService.getInstance();
         readerService.prepareBufferedReaders(context);
@@ -92,8 +93,8 @@ public class VisualizerService {
                 currentLineNumber = transformMultiLine(multiLine, reportDocumentTypes, report, reportDocuments,
                     currentReader, currentLineNumber, transformerService, context);
 
-                reportDocumentService.mergeReportDocumentsForAddition();
-                reportDocuments = reportDocumentService.getReportDocuments(report);
+                reportDocumentService.mergeReportDocumentsForAddition(reportingContext);
+                reportDocuments = reportDocumentService.getReportDocuments(report, reportingContext);
 
                 line = readerService.readLineFromReaders(filesMergerState, context);
             }

@@ -18,7 +18,6 @@ import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDoc
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentService;
 import com.credibledoc.substitution.reporting.report.Report;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
-import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -129,7 +128,8 @@ public class ReportDocumentCreatorService {
      * Put the {@link Placeholder} and {@link ReportDocument} to the
      * {@link PlaceholderToReportDocumentRepository}.
      * <p>
-     * Add the {@link ReportDocument} to the {@link ReportDocumentService#getReportDocuments()} list.
+     * Add the {@link ReportDocument} to the
+     * {@link com.credibledoc.substitution.reporting.reportdocument.ReportDocumentRepository#getReportDocuments()} list.
      * <p>
      * Add the {@link Placeholder} to the {@link com.credibledoc.substitution.core.placeholder.PlaceholderRepository#getPlaceholders()} list.
      *
@@ -156,7 +156,7 @@ public class ReportDocumentCreatorService {
                 prepareReport(file, reportDocument, context, reportingContext);
             }
         }
-        ReportDocumentService.getInstance().getReportDocuments().add(reportDocument);
+        reportingContext.getReportDocumentRepository().getReportDocuments().add(reportDocument);
     }
 
     /**

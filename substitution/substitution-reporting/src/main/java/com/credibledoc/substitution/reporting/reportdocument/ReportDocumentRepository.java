@@ -14,21 +14,6 @@ import java.util.List;
 public class ReportDocumentRepository {
 
     /**
-     * Singleton.
-     */
-    private static ReportDocumentRepository instance;
-
-    /**
-     * @return The {@link ReportDocumentRepository} singleton.
-     */
-    public static ReportDocumentRepository getInstance() {
-        if (instance == null) {
-            instance = new ReportDocumentRepository();
-        }
-        return instance;
-    }
-
-    /**
      * All {@link ReportDocument}s that will be completed during parsing.
      * {@link VisualizerService} will read line by
      * line source files and for each line will try to apply all
@@ -56,28 +41,28 @@ public class ReportDocumentRepository {
     /**
      * @return The {@link #reportDocuments} field value.
      */
-    ReportDocumentList<ReportDocument> getReportDocuments() {
+    public ReportDocumentList<ReportDocument> getReportDocuments() {
         return reportDocuments;
     }
 
     /**
      * @param reportDocuments see the {@link #reportDocuments} field
      */
-    void setReportDocuments(ReportDocumentList<ReportDocument> reportDocuments) {
+    public void setReportDocuments(ReportDocumentList<ReportDocument> reportDocuments) {
         this.reportDocuments = reportDocuments;
     }
 
     /**
      * @return The {@link #reportDocumentsForAddition} field value.
      */
-    List<ReportDocument> getReportDocumentsForAddition() {
+    public List<ReportDocument> getReportDocumentsForAddition() {
         return reportDocumentsForAddition;
     }
 
     /**
      * @param reportDocumentsForAddition see the {@link #reportDocumentsForAddition} field
      */
-    void setReportDocumentsForAddition(List<ReportDocument> reportDocumentsForAddition) {
+    public void setReportDocumentsForAddition(List<ReportDocument> reportDocumentsForAddition) {
         this.reportDocumentsForAddition = reportDocumentsForAddition;
     }
 }
