@@ -6,22 +6,7 @@ import java.util.List;
 /**
  * This repository contains a list of {@link Report} objects.
  */
-class ReportRepository {
-
-    /**
-     * Singleton.
-     */
-    private static ReportRepository instance;
-
-    /**
-     * @return The {@link ReportRepository} singleton.
-     */
-    public static ReportRepository getInstance() {
-        if (instance == null) {
-            instance = new ReportRepository();
-        }
-        return instance;
-    }
+public class ReportRepository {
 
     /**
      * The global state of the application.
@@ -31,7 +16,7 @@ class ReportRepository {
     /**
      * @return The {@link #reports} field value.
      */
-    List<Report> getReports() {
+    public List<Report> getReports() {
         return reports;
     }
 
@@ -39,7 +24,7 @@ class ReportRepository {
      * Add all reports to the {@link #reports}.
      * @param reports for appending
      */
-    void addReports(List<Report> reports) {
+    public void addReports(List<Report> reports) {
         this.reports.addAll(reports);
     }
 }

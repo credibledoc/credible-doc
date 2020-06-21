@@ -98,7 +98,7 @@ public class CredibleDocGeneratorMain {
         reportDocumentCreatorService.createReportDocuments(context, reportingContext, substitutionContext);
         List<TemplateResource> templateResources = copyResourcesToTargetDirectory(substitutionContext);
         List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
-        VisualizerService.getInstance().createReports(reportDocumentTypes, context);
+        VisualizerService.getInstance().createReports(reportDocumentTypes, context, reportingContext);
         ReplacementService replacementService = ReplacementService.getInstance();
         for (TemplateResource templateResource : templateResources) {
             replacementService.insertContentIntoTemplate(templateResource, substitutionContext);

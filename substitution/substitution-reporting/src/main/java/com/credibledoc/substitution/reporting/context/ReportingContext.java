@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.reporting.context;
 
+import com.credibledoc.substitution.reporting.report.ReportRepository;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentRepository;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreatorRepository;
 
@@ -23,11 +24,17 @@ public class ReportingContext {
      */
     private ReportDocumentRepository reportDocumentRepository;
 
+    /**
+     * Contains {@link com.credibledoc.substitution.reporting.report.Report} instances.
+     */
+    private ReportRepository reportRepository;
+
     @Override
     public String toString() {
         return "ReportingContext{" +
             "reportDocumentCreatorRepository=" + reportDocumentCreatorRepository +
             ", reportDocumentRepository=" + reportDocumentRepository +
+            ", reportRepository=" + reportRepository +
             '}';
     }
 
@@ -60,12 +67,27 @@ public class ReportingContext {
     }
 
     /**
+     * @return The {@link #reportRepository} field value.
+     */
+    public ReportRepository getReportRepository() {
+        return reportRepository;
+    }
+
+    /**
+     * @param reportRepository see the {@link #reportRepository} field description.
+     */
+    public void setReportRepository(ReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
+    }
+
+    /**
      * Create new instances of {@link #reportDocumentRepository} and {@link #reportDocumentCreatorRepository}.
      * @return the current instance of {@link ReportingContext}.
      */
     public ReportingContext init() {
         this.reportDocumentCreatorRepository = new ReportDocumentCreatorRepository();
         this.reportDocumentRepository = new ReportDocumentRepository();
+        this.reportRepository = new ReportRepository();
         return this;
     }
 }

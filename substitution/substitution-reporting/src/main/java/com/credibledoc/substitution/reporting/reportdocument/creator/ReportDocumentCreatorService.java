@@ -17,7 +17,6 @@ import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentRepository;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentService;
 import com.credibledoc.substitution.reporting.report.Report;
-import com.credibledoc.substitution.reporting.report.ReportService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentService;
 import org.slf4j.Logger;
@@ -104,7 +103,7 @@ public class ReportDocumentCreatorService {
                         ReportDocumentCreator reportDocumentCreator =
                             reportDocumentCreatorRepository.getMap().get(placeholderClass);
                         createReportDocumentForPlaceholder(placeholder,
-                            reportDocumentCreator, context, substitutionContext);
+                            reportDocumentCreator, context, substitutionContext, reportingContext);
                     }
                 }
             }
@@ -140,7 +139,10 @@ public class ReportDocumentCreatorService {
      * @param substitutionContext   the current state
      */
     private void createReportDocumentForPlaceholder(Placeholder placeholder,
-                                                    ReportDocumentCreator reportDocumentCreator, Context context, SubstitutionContext substitutionContext) {
+                                                    ReportDocumentCreator reportDocumentCreator,
+                                                    Context context,
+                                                    SubstitutionContext substitutionContext,
+                                                    ReportingContext reportingContext) {
         ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
         PlaceholderToReportDocumentService.getInstance().putPlaceholderToReportDocument(placeholder, reportDocument);
         substitutionContext.getPlaceholderRepository().getPlaceholders().add(placeholder);
@@ -151,7 +153,7 @@ public class ReportDocumentCreatorService {
                 logger.info("File not exists. Report will not be created. File: '{}'", file.getAbsolutePath());
             } else {
                 logger.info("File will be parsed: {}", file.getAbsolutePath());
-                prepareReport(file, reportDocument, context);
+                prepareReport(file, reportDocument, context, reportingContext);
             }
         }
         ReportDocumentService.getInstance().getReportDocuments().add(reportDocument);
@@ -162,9 +164,9 @@ public class ReportDocumentCreatorService {
      * @param logFile a source file
      * @param reportDocument belonging to the {@link Report}
      */
-    private void prepareReport(File logFile, ReportDocument reportDocument, Context context) {
+    private void prepareReport(File logFile, ReportDocument reportDocument, Context context, ReportingContext reportingContext) {
         Report report = new Report();
-        ReportService.getInstance().addReports(Collections.singletonList(report));
+        reportingContext.getReportRepository().addReports(Collections.singletonList(report));
         reportDocument.setReport(report);
         FileService fileService = FileService.getInstance();
         Tactic tactic = fileService.findTactic(logFile, context);

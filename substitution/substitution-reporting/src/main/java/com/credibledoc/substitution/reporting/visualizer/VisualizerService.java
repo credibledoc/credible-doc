@@ -7,8 +7,8 @@ import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.state.FilesMergerState;
 import com.credibledoc.enricher.transformer.TransformerService;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.report.Report;
-import com.credibledoc.substitution.reporting.report.ReportService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
@@ -21,7 +21,7 @@ import java.util.Set;
 
 /**
  * Visualizer creates reports. The reports describes scenarios recorded in log files,
- * see the {@link #createReports(Collection, Context)} method.
+ * see the {@link #createReports(Collection, Context, ReportingContext)} method.
  *
  * @author Kyrylo Semenko
  */
@@ -57,9 +57,9 @@ public class VisualizerService {
      *                            can be transformed in a particular invocation
      * @param context the current state
      */
-    public void createReports(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes, Context context) {
+    public void createReports(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes, Context context, ReportingContext reportingContext) {
         logger.info("Method createReports started, reportDocumentTypes: '{}'", reportDocumentTypes);
-        List<Report> reports = ReportService.getInstance().getReports();
+        List<Report> reports = reportingContext.getReportRepository().getReports();
         for (Report report : reports) {
             createReport(reportDocumentTypes, report, context);
         }

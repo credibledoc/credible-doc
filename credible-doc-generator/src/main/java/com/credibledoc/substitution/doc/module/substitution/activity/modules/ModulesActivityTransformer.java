@@ -11,7 +11,6 @@ import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.substitution.doc.module.substitution.exception.SubstitutionDocRuntimeException;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.enricher.transformer.Transformer;
-import com.credibledoc.substitution.reporting.report.ReportService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,6 +31,7 @@ import java.util.*;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ModulesActivityTransformer implements Transformer {
 
+    public static final String MODULE_NAME = "substitution-reporting";
     @NonNull
     public final LogMessageService logMessageService;
 
@@ -50,7 +50,7 @@ public class ModulesActivityTransformer implements Transformer {
         packagePrefixToModuleName.put("com.credibledoc.substitution.content.generator",
             LocalJarNameContentGenerator.MODULE_NAME);
         packagePrefixToModuleName.put("com.credibledoc.substitution.reporting",
-            ReportService.MODULE_NAME);
+            MODULE_NAME);
         packagePrefixToModuleName.put("org.springframework.context.annotation",
             "spring-libraries");
         packagePrefixToModuleName.put("com.credibledoc.generator",
