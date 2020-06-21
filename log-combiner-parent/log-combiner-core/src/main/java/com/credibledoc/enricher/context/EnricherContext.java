@@ -12,7 +12,7 @@ import java.util.Map;
  * Contains instances of stateful objects (repositories) used in Combiner:
  * <ul>
  *     <li>{@link #lineProcessorRepository}</li>
- *     <li>{@link #derivingToLineProcessorsMap}</li>
+ *     <li>{@link #printableToLineProcessorsMap}</li>
  * </ul>
  *
  * @author Kyrylo Semenko
@@ -26,20 +26,19 @@ public class EnricherContext {
     /**
      * Map where a key is a report document and a value is a list of parsers.
      */
-    // TODO Kyrylo Semenko - rename to printableToLineProcessors
-    private Map<Printable, List<LineProcessor>> derivingToLineProcessorsMap = new HashMap<>();
+    private Map<Printable, List<LineProcessor>> printableToLineProcessorsMap = new HashMap<>();
 
     /**
      * Create new instances of
      * <ul>
      *     <li>{@link #lineProcessorRepository}</li>
-     *     <li>{@link #derivingToLineProcessorsMap}</li>
+     *     <li>{@link #printableToLineProcessorsMap}</li>
      * </ul>
      * @return the current instance
      */
     public EnricherContext init() {
         lineProcessorRepository = new LineProcessorRepository();
-        derivingToLineProcessorsMap = new HashMap<>();
+        printableToLineProcessorsMap = new HashMap<>();
         return this;
     }
 
@@ -47,7 +46,7 @@ public class EnricherContext {
     public String toString() {
         return "EnricherContext{" +
             "lineProcessorRepository=" + lineProcessorRepository +
-            ", derivingToLineProcessorsMap=" + derivingToLineProcessorsMap +
+            ", derivingToLineProcessorsMap=" + printableToLineProcessorsMap +
             '}';
     }
 
@@ -66,16 +65,16 @@ public class EnricherContext {
     }
 
     /**
-     * @return The {@link #derivingToLineProcessorsMap} field value.
+     * @return The {@link #printableToLineProcessorsMap} field value.
      */
-    public Map<Printable, List<LineProcessor>> getDerivingToLineProcessorsMap() {
-        return derivingToLineProcessorsMap;
+    public Map<Printable, List<LineProcessor>> getPrintableToLineProcessorsMap() {
+        return printableToLineProcessorsMap;
     }
 
     /**
-     * @param derivingToLineProcessorsMap see the {@link #derivingToLineProcessorsMap} field description.
+     * @param printableToLineProcessorsMap see the {@link #printableToLineProcessorsMap} field description.
      */
-    public void setDerivingToLineProcessorsMap(Map<Printable, List<LineProcessor>> derivingToLineProcessorsMap) {
-        this.derivingToLineProcessorsMap = derivingToLineProcessorsMap;
+    public void setPrintableToLineProcessorsMap(Map<Printable, List<LineProcessor>> printableToLineProcessorsMap) {
+        this.printableToLineProcessorsMap = printableToLineProcessorsMap;
     }
 }
