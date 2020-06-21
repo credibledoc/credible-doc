@@ -11,8 +11,6 @@ import java.util.*;
  * @author Kyrylo Semenko
  */
 public class LineProcessorService {
-    // TODO Kyrylo Semenko - move to context
-    private Map<Printable, List<LineProcessor>> derivingToLineProcessorsMap = new HashMap<>();
 
     /**
      * Singleton.
@@ -46,17 +44,17 @@ public class LineProcessorService {
      * @return list of {@link LineProcessor}s
      */
     public List<LineProcessor> getLineProcessors(Printable printable, EnricherContext enricherContext) {
-        if (derivingToLineProcessorsMap.isEmpty()) {
+        if (enricherContext.getDerivingToLineProcessorsMap().isEmpty()) {
             initializeCache(enricherContext);
         }
-        if (derivingToLineProcessorsMap.containsKey(printable)) {
-            return derivingToLineProcessorsMap.get(printable);
+        if (enricherContext.getDerivingToLineProcessorsMap().containsKey(printable)) {
+            return enricherContext.getDerivingToLineProcessorsMap().get(printable);
         }
         return Collections.emptyList();
     }
 
     /**
-     * Evict the {@link #derivingToLineProcessorsMap} cache and add all {@link LineProcessor}s
+     * Evict the {@link EnricherContext#getDerivingToLineProcessorsMap()} cache and add all {@link LineProcessor}s
      * to the {@link LineProcessorRepository}. Please use this method instead of direct addition to the
      * {@link #getLineProcessors(EnricherContext)} list.
      *
@@ -64,19 +62,19 @@ public class LineProcessorService {
      * @param enricherContext the current state
      */
     public void addAll(List<LineProcessor> lineProcessors, EnricherContext enricherContext) {
-        derivingToLineProcessorsMap.clear();
+        enricherContext.getDerivingToLineProcessorsMap().clear();
         enricherContext.getLineProcessorRepository().getLineProcessors().addAll(lineProcessors);
     }
 
     private void initializeCache(EnricherContext enricherContext) {
         for (LineProcessor lineProcessor : getLineProcessors(enricherContext)) {
             Printable printable = lineProcessor.getPrintable();
-            if (derivingToLineProcessorsMap.containsKey(printable)) {
-                derivingToLineProcessorsMap.get(printable).add(lineProcessor);
+            if (enricherContext.getDerivingToLineProcessorsMap().containsKey(printable)) {
+                enricherContext.getDerivingToLineProcessorsMap().get(printable).add(lineProcessor);
             } else {
                 List<LineProcessor> list = new ArrayList<>();
                 list.add(lineProcessor);
-                derivingToLineProcessorsMap.put(printable, list);
+                enricherContext.getDerivingToLineProcessorsMap().put(printable, list);
             }
         }
     }
