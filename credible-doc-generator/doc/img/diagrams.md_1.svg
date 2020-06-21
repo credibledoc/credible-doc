@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="151px" preserveAspectRatio="none" style="width:936px;height:151px;" version="1.1" viewBox="0 0 936 151" width="936px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="521px" preserveAspectRatio="none" style="width:936px;height:521px;" version="1.1" viewBox="0 0 936 521" width="936px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="f10gnta8ifhhre" width="300%" x="-1" y="-1">
+    <filter height="300%" id="f1tnqo3brfishp" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,20 +8,90 @@
     </filter>
   </defs>
   <g>
-    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#f10gnta8ifhhre)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#f10gnta8ifhhre)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
+    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#f1tnqo3brfishp)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="20" y="72.457">Application credible-doc-generator launched.</text>
-    <path d="M259.5,109.4648 L259.5,118.6406 L239.5,122.6406 L259.5,126.6406 L259.5,135.8164 A0,0 0 0 0 259.5,135.8164 L924.5,135.8164 A0,0 0 0 0 924.5,135.8164 L924.5,119.4648 L914.5,109.4648 L259.5,109.4648 A0,0 0 0 0 259.5,109.4648 " fill="#FBFB77" filter="url(#f10gnta8ifhhre)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M914.5,109.4648 L914.5,119.4648 L924.5,119.4648 L914.5,109.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="644" x="265.5" y="127.96">file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#f10gnta8ifhhre)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="105.0938"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="55.5" y="127.5508">Configuration properties loaded</text>
+    <path d="M222.5,109.4648 L222.5,118.6406 L202.5,122.6406 L222.5,126.6406 L222.5,135.8164 A0,0 0 0 0 222.5,135.8164 L439.5,135.8164 A0,0 0 0 0 439.5,135.8164 L439.5,119.4648 L429.5,109.4648 L222.5,109.4648 A0,0 0 0 0 222.5,109.4648 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M429.5,109.4648 L429.5,119.4648 L439.5,119.4648 L429.5,109.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="196" x="228.5" y="127.96">Example of ASCII length definition</text>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="105.0938"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="127.5508">Content replaced.</text>
+    <path d="M222.5,164.5586 L222.5,173.7344 L202.5,177.7344 L222.5,181.7344 L222.5,190.9102 A0,0 0 0 0 222.5,190.9102 L332.5,190.9102 A0,0 0 0 0 332.5,190.9102 L332.5,174.5586 L322.5,164.5586 L222.5,164.5586 A0,0 0 0 0 222.5,164.5586 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M322.5,164.5586 L322.5,174.5586 L332.5,174.5586 L322.5,164.5586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="183.0537">MsgField dump</text>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="160.1875"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="182.6445">Content replaced.</text>
+    <path d="M222.5,219.6523 L222.5,228.8281 L202.5,232.8281 L222.5,236.8281 L222.5,246.0039 A0,0 0 0 0 222.5,246.0039 L521.5,246.0039 A0,0 0 0 0 521.5,246.0039 L521.5,229.6523 L511.5,219.6523 L222.5,219.6523 A0,0 0 0 0 222.5,219.6523 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M511.5,219.6523 L511.5,229.6523 L521.5,229.6523 L511.5,219.6523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="278" x="228.5" y="238.1475">Example of ASCII length packing and unpacking</text>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="215.2813"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="237.7383">Content replaced.</text>
+    <path d="M222.5,274.7461 L222.5,283.9219 L202.5,287.9219 L222.5,291.9219 L222.5,301.0977 A0,0 0 0 0 222.5,301.0977 L337.5,301.0977 A0,0 0 0 0 337.5,301.0977 L337.5,284.7461 L327.5,274.7461 L222.5,274.7461 A0,0 0 0 0 222.5,274.7461 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M327.5,274.7461 L327.5,284.7461 L337.5,284.7461 L327.5,274.7461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="293.2412">MsgValue dump</text>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="270.375"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="292.832">Content replaced.</text>
+    <path d="M222.5,329.8398 L222.5,339.0156 L202.5,343.0156 L222.5,347.0156 L222.5,356.1914 A0,0 0 0 0 222.5,356.1914 L437.5,356.1914 A0,0 0 0 0 437.5,356.1914 L437.5,339.8398 L427.5,329.8398 L222.5,329.8398 A0,0 0 0 0 222.5,329.8398 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M427.5,329.8398 L427.5,339.8398 L437.5,339.8398 L427.5,329.8398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="348.335">Some examples of packed values</text>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="325.4688"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="347.9258">Content replaced.</text>
+    <ellipse cx="142.5" cy="390.5625" fill="#000000" filter="url(#f1tnqo3brfishp)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="420.5625"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="20" y="443.0195">Application credible-doc-generator launched.</text>
+    <path d="M259.5,480.0273 L259.5,489.2031 L239.5,493.2031 L259.5,497.2031 L259.5,506.3789 A0,0 0 0 0 259.5,506.3789 L924.5,506.3789 A0,0 0 0 0 924.5,506.3789 L924.5,490.0273 L914.5,480.0273 L259.5,480.0273 A0,0 0 0 0 259.5,480.0273 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M914.5,480.0273 L914.5,490.0273 L924.5,490.0273 L914.5,480.0273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="644" x="265.5" y="498.5225">file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties</text>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="475.6563"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="55.5" y="498.1133">Configuration properties loaded</text>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="30" y2="50"/>
     <polygon fill="#A80036" points="138.5,40,142.5,50,146.5,40,142.5,44" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="85.0938" y2="105.0938"/>
     <polygon fill="#A80036" points="138.5,95.0938,142.5,105.0938,146.5,95.0938,142.5,99.0938" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="140.1875" y2="160.1875"/>
+    <polygon fill="#A80036" points="138.5,150.1875,142.5,160.1875,146.5,150.1875,142.5,154.1875" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="195.2813" y2="215.2813"/>
+    <polygon fill="#A80036" points="138.5,205.2813,142.5,215.2813,146.5,205.2813,142.5,209.2813" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="250.375" y2="270.375"/>
+    <polygon fill="#A80036" points="138.5,260.375,142.5,270.375,146.5,260.375,142.5,264.375" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="305.4688" y2="325.4688"/>
+    <polygon fill="#A80036" points="138.5,315.4688,142.5,325.4688,146.5,315.4688,142.5,319.4688" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="360.5625" y2="380.5625"/>
+    <polygon fill="#A80036" points="138.5,370.5625,142.5,380.5625,146.5,370.5625,142.5,374.5625" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="400.5625" y2="420.5625"/>
+    <polygon fill="#A80036" points="138.5,410.5625,142.5,420.5625,146.5,410.5625,142.5,414.5625" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="455.6563" y2="475.6563"/>
+    <polygon fill="#A80036" points="138.5,465.6563,142.5,475.6563,146.5,465.6563,142.5,469.6563" style="stroke: #A80036; stroke-width: 1.0;"/>
     <!--
 @startuml
+start
+:Application credible-doc-generator launched.;
+
+:Content replaced. ;
+note right
+Example of ASCII length definition
+end note
+
+:Content replaced. ;
+note right
+MsgField dump
+end note
+
+:Content replaced. ;
+note right
+Example of ASCII length packing and unpacking
+end note
+
+:Content replaced. ;
+note right
+MsgValue dump
+end note
+
+:Content replaced. ;
+note right
+Some examples of packed values
+end note
+
 start
 :Application credible-doc-generator launched.;
 

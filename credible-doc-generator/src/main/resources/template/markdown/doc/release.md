@@ -79,7 +79,7 @@
     git push
     ```
 ## Generate documentation
-Wait until changes are propagated do the Maven repository.
+Wait until changes where propagated to the Maven repository.
 
 Then generate the documentation
 

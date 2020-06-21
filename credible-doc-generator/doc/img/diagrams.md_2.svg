@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="3291px" preserveAspectRatio="none" style="width:711px;height:3291px;" version="1.1" viewBox="0 0 711 3291" width="711px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="521px" preserveAspectRatio="none" style="width:936px;height:521px;" version="1.1" viewBox="0 0 936 521" width="936px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="f1w0cynhs85xn5" width="300%" x="-1" y="-1">
+    <filter height="300%" id="f1tnqo3brfishp" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,299 +8,42 @@
     </filter>
   </defs>
   <g>
-    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#f1w0cynhs85xn5)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
+    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#f1tnqo3brfishp)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="20" y="72.457">Application credible-doc-generator launched.</text>
-    <path d="M222.5,109.4648 L222.5,118.6406 L202.5,122.6406 L222.5,126.6406 L222.5,135.8164 A0,0 0 0 0 222.5,135.8164 L469.5,135.8164 A0,0 0 0 0 469.5,135.8164 L469.5,119.4648 L459.5,109.4648 L222.5,109.4648 A0,0 0 0 0 222.5,109.4648 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M459.5,109.4648 L459.5,119.4648 L469.5,119.4648 L459.5,109.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="226" x="228.5" y="127.96">Example of Integer BCD body definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="105.0938"/>
+    <path d="M222.5,109.4648 L222.5,118.6406 L202.5,122.6406 L222.5,126.6406 L222.5,135.8164 A0,0 0 0 0 222.5,135.8164 L439.5,135.8164 A0,0 0 0 0 439.5,135.8164 L439.5,119.4648 L429.5,109.4648 L222.5,109.4648 A0,0 0 0 0 222.5,109.4648 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M429.5,109.4648 L429.5,119.4648 L439.5,119.4648 L429.5,109.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="196" x="228.5" y="127.96">Example of ASCII length definition</text>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="105.0938"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="127.5508">Content replaced.</text>
-    <path d="M222.5,164.5586 L222.5,173.7344 L202.5,177.7344 L222.5,181.7344 L222.5,190.9102 A0,0 0 0 0 222.5,190.9102 L332.5,190.9102 A0,0 0 0 0 332.5,190.9102 L332.5,174.5586 L322.5,164.5586 L222.5,164.5586 A0,0 0 0 0 222.5,164.5586 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,164.5586 L222.5,173.7344 L202.5,177.7344 L222.5,181.7344 L222.5,190.9102 A0,0 0 0 0 222.5,190.9102 L332.5,190.9102 A0,0 0 0 0 332.5,190.9102 L332.5,174.5586 L322.5,164.5586 L222.5,164.5586 A0,0 0 0 0 222.5,164.5586 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M322.5,164.5586 L322.5,174.5586 L332.5,174.5586 L322.5,164.5586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="183.0537">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="160.1875"/>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="160.1875"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="182.6445">Content replaced.</text>
-    <path d="M222.5,219.6523 L222.5,228.8281 L202.5,232.8281 L222.5,236.8281 L222.5,246.0039 A0,0 0 0 0 222.5,246.0039 L552.5,246.0039 A0,0 0 0 0 552.5,246.0039 L552.5,229.6523 L542.5,219.6523 L222.5,219.6523 A0,0 0 0 0 222.5,219.6523 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M542.5,219.6523 L542.5,229.6523 L552.5,229.6523 L542.5,219.6523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="309" x="228.5" y="238.1475">Example of Integer BCD value packing and unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="215.2813"/>
+    <path d="M222.5,219.6523 L222.5,228.8281 L202.5,232.8281 L222.5,236.8281 L222.5,246.0039 A0,0 0 0 0 222.5,246.0039 L521.5,246.0039 A0,0 0 0 0 521.5,246.0039 L521.5,229.6523 L511.5,219.6523 L222.5,219.6523 A0,0 0 0 0 222.5,219.6523 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M511.5,219.6523 L511.5,229.6523 L521.5,229.6523 L511.5,219.6523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="278" x="228.5" y="238.1475">Example of ASCII length packing and unpacking</text>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="215.2813"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="237.7383">Content replaced.</text>
-    <path d="M222.5,274.7461 L222.5,283.9219 L202.5,287.9219 L222.5,291.9219 L222.5,301.0977 A0,0 0 0 0 222.5,301.0977 L337.5,301.0977 A0,0 0 0 0 337.5,301.0977 L337.5,284.7461 L327.5,274.7461 L222.5,274.7461 A0,0 0 0 0 222.5,274.7461 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,274.7461 L222.5,283.9219 L202.5,287.9219 L222.5,291.9219 L222.5,301.0977 A0,0 0 0 0 222.5,301.0977 L337.5,301.0977 A0,0 0 0 0 337.5,301.0977 L337.5,284.7461 L327.5,274.7461 L222.5,274.7461 A0,0 0 0 0 222.5,274.7461 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M327.5,274.7461 L327.5,284.7461 L337.5,284.7461 L327.5,274.7461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="293.2412">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="270.375"/>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="270.375"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="292.832">Content replaced.</text>
-    <path d="M222.5,329.8398 L222.5,339.0156 L202.5,343.0156 L222.5,347.0156 L222.5,356.1914 A0,0 0 0 0 222.5,356.1914 L437.5,356.1914 A0,0 0 0 0 437.5,356.1914 L437.5,339.8398 L427.5,329.8398 L222.5,329.8398 A0,0 0 0 0 222.5,329.8398 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M222.5,329.8398 L222.5,339.0156 L202.5,343.0156 L222.5,347.0156 L222.5,356.1914 A0,0 0 0 0 222.5,356.1914 L437.5,356.1914 A0,0 0 0 0 437.5,356.1914 L437.5,339.8398 L427.5,329.8398 L222.5,329.8398 A0,0 0 0 0 222.5,329.8398 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M427.5,329.8398 L427.5,339.8398 L437.5,339.8398 L427.5,329.8398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="348.335">Some examples of packed values</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="325.4688"/>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="325.4688"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="347.9258">Content replaced.</text>
-    <path d="M222.5,384.9336 L222.5,394.1094 L202.5,398.1094 L222.5,402.1094 L222.5,411.2852 A0,0 0 0 0 222.5,411.2852 L449.5,411.2852 A0,0 0 0 0 449.5,411.2852 L449.5,394.9336 L439.5,384.9336 L222.5,384.9336 A0,0 0 0 0 222.5,384.9336 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M439.5,384.9336 L439.5,394.9336 L449.5,394.9336 L439.5,384.9336 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="206" x="228.5" y="403.4287">Example of the hex length definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="380.5625"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="403.0195">Content replaced.</text>
-    <path d="M222.5,440.0273 L222.5,449.2031 L202.5,453.2031 L222.5,457.2031 L222.5,466.3789 A0,0 0 0 0 222.5,466.3789 L332.5,466.3789 A0,0 0 0 0 332.5,466.3789 L332.5,450.0273 L322.5,440.0273 L222.5,440.0273 A0,0 0 0 0 222.5,440.0273 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,440.0273 L322.5,450.0273 L332.5,450.0273 L322.5,440.0273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="458.5225">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="435.6563"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="458.1133">Content replaced.</text>
-    <path d="M222.5,495.1211 L222.5,504.2969 L202.5,508.2969 L222.5,512.2969 L222.5,521.4727 A0,0 0 0 0 222.5,521.4727 L509.5,521.4727 A0,0 0 0 0 509.5,521.4727 L509.5,505.1211 L499.5,495.1211 L222.5,495.1211 A0,0 0 0 0 222.5,495.1211 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M499.5,495.1211 L499.5,505.1211 L509.5,505.1211 L499.5,495.1211 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="266" x="228.5" y="513.6162">Example of hex length packing and unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="490.75"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="513.207">Content replaced.</text>
-    <path d="M222.5,550.2148 L222.5,559.3906 L202.5,563.3906 L222.5,567.3906 L222.5,576.5664 A0,0 0 0 0 222.5,576.5664 L337.5,576.5664 A0,0 0 0 0 337.5,576.5664 L337.5,560.2148 L327.5,550.2148 L222.5,550.2148 A0,0 0 0 0 222.5,550.2148 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M327.5,550.2148 L327.5,560.2148 L337.5,560.2148 L327.5,550.2148 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="568.71">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="545.8438"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="568.3008">Content replaced.</text>
-    <path d="M222.5,605.3086 L222.5,614.4844 L202.5,618.4844 L222.5,622.4844 L222.5,631.6602 A0,0 0 0 0 222.5,631.6602 L437.5,631.6602 A0,0 0 0 0 437.5,631.6602 L437.5,615.3086 L427.5,605.3086 L222.5,605.3086 A0,0 0 0 0 222.5,605.3086 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M427.5,605.3086 L427.5,615.3086 L437.5,615.3086 L427.5,605.3086 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="623.8037">Some examples of packed values</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="600.9375"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="623.3945">Content replaced.</text>
-    <path d="M222.5,660.4023 L222.5,669.5781 L202.5,673.5781 L222.5,677.5781 L222.5,686.7539 A0,0 0 0 0 222.5,686.7539 L553.5,686.7539 A0,0 0 0 0 553.5,686.7539 L553.5,670.4023 L543.5,660.4023 L222.5,660.4023 A0,0 0 0 0 222.5,660.4023 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M543.5,660.4023 L543.5,670.4023 L553.5,670.4023 L543.5,660.4023 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="310" x="228.5" y="678.8975">All known implementations of the TagPacker interface</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="656.0313"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="678.4883">Content replaced.</text>
-    <path d="M222.5,715.4961 L222.5,724.6719 L202.5,728.6719 L222.5,732.6719 L222.5,741.8477 A0,0 0 0 0 222.5,741.8477 L433.5,741.8477 A0,0 0 0 0 433.5,741.8477 L433.5,725.4961 L423.5,715.4961 L222.5,715.4961 A0,0 0 0 0 222.5,715.4961 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M423.5,715.4961 L423.5,725.4961 L433.5,725.4961 L423.5,715.4961 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="190" x="228.5" y="733.9912">Example of BCD length definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="711.125"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="733.582">Content replaced.</text>
-    <path d="M222.5,770.5898 L222.5,779.7656 L202.5,783.7656 L222.5,787.7656 L222.5,796.9414 A0,0 0 0 0 222.5,796.9414 L332.5,796.9414 A0,0 0 0 0 332.5,796.9414 L332.5,780.5898 L322.5,770.5898 L222.5,770.5898 A0,0 0 0 0 222.5,770.5898 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,770.5898 L322.5,780.5898 L332.5,780.5898 L322.5,770.5898 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="789.085">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="766.2188"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="788.6758">Content replaced.</text>
-    <path d="M222.5,825.6836 L222.5,834.8594 L202.5,838.8594 L222.5,842.8594 L222.5,852.0352 A0,0 0 0 0 222.5,852.0352 L515.5,852.0352 A0,0 0 0 0 515.5,852.0352 L515.5,835.6836 L505.5,825.6836 L222.5,825.6836 A0,0 0 0 0 222.5,825.6836 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M505.5,825.6836 L505.5,835.6836 L515.5,835.6836 L505.5,825.6836 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="272" x="228.5" y="844.1787">Example of BCD length packing and unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="821.3125"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="843.7695">Content replaced.</text>
-    <path d="M222.5,880.7773 L222.5,889.9531 L202.5,893.9531 L222.5,897.9531 L222.5,907.1289 A0,0 0 0 0 222.5,907.1289 L337.5,907.1289 A0,0 0 0 0 337.5,907.1289 L337.5,890.7773 L327.5,880.7773 L222.5,880.7773 A0,0 0 0 0 222.5,880.7773 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M327.5,880.7773 L327.5,890.7773 L337.5,890.7773 L327.5,880.7773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="899.2725">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="876.4063"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="898.8633">Content replaced.</text>
-    <path d="M222.5,935.8711 L222.5,945.0469 L202.5,949.0469 L222.5,953.0469 L222.5,962.2227 A0,0 0 0 0 222.5,962.2227 L437.5,962.2227 A0,0 0 0 0 437.5,962.2227 L437.5,945.8711 L427.5,935.8711 L222.5,935.8711 A0,0 0 0 0 222.5,935.8711 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M427.5,935.8711 L427.5,945.8711 L437.5,945.8711 L427.5,935.8711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="954.3662">Some examples of packed values</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="931.5"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="953.957">Content replaced.</text>
-    <path d="M222.5,990.9648 L222.5,1000.1406 L202.5,1004.1406 L222.5,1008.1406 L222.5,1017.3164 A0,0 0 0 0 222.5,1017.3164 L414.5,1017.3164 A0,0 0 0 0 414.5,1017.3164 L414.5,1000.9648 L404.5,990.9648 L222.5,990.9648 A0,0 0 0 0 222.5,990.9648 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M404.5,990.9648 L404.5,1000.9648 L414.5,1000.9648 L404.5,990.9648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="171" x="228.5" y="1009.46">Example of HEX tag definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="986.5938"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1009.0508">Content replaced.</text>
-    <path d="M222.5,1046.0586 L222.5,1055.2344 L202.5,1059.2344 L222.5,1063.2344 L222.5,1072.4102 A0,0 0 0 0 222.5,1072.4102 L332.5,1072.4102 A0,0 0 0 0 332.5,1072.4102 L332.5,1056.0586 L322.5,1046.0586 L222.5,1046.0586 A0,0 0 0 0 222.5,1046.0586 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,1046.0586 L322.5,1056.0586 L332.5,1056.0586 L322.5,1046.0586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="1064.5537">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1041.6875"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1064.1445">Content replaced.</text>
-    <path d="M222.5,1101.1523 L222.5,1110.3281 L202.5,1114.3281 L222.5,1118.3281 L222.5,1127.5039 A0,0 0 0 0 222.5,1127.5039 L496.5,1127.5039 A0,0 0 0 0 496.5,1127.5039 L496.5,1111.1523 L486.5,1101.1523 L222.5,1101.1523 A0,0 0 0 0 222.5,1101.1523 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M486.5,1101.1523 L486.5,1111.1523 L496.5,1111.1523 L486.5,1101.1523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="253" x="228.5" y="1119.6475">Example of HEX tag packing and unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1096.7813"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1119.2383">Content replaced.</text>
-    <path d="M222.5,1156.2461 L222.5,1165.4219 L202.5,1169.4219 L222.5,1173.4219 L222.5,1182.5977 A0,0 0 0 0 222.5,1182.5977 L337.5,1182.5977 A0,0 0 0 0 337.5,1182.5977 L337.5,1166.2461 L327.5,1156.2461 L222.5,1156.2461 A0,0 0 0 0 222.5,1156.2461 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M327.5,1156.2461 L327.5,1166.2461 L337.5,1166.2461 L327.5,1156.2461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="1174.7412">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1151.875"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1174.332">Content replaced.</text>
-    <path d="M222.5,1211.3398 L222.5,1220.5156 L202.5,1224.5156 L222.5,1228.5156 L222.5,1237.6914 A0,0 0 0 0 222.5,1237.6914 L437.5,1237.6914 A0,0 0 0 0 437.5,1237.6914 L437.5,1221.3398 L427.5,1211.3398 L222.5,1211.3398 A0,0 0 0 0 222.5,1211.3398 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M427.5,1211.3398 L427.5,1221.3398 L437.5,1221.3398 L427.5,1211.3398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="1229.835">Some examples of packed values</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1206.9688"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1229.4258">Content replaced.</text>
-    <path d="M222.5,1266.4336 L222.5,1275.6094 L202.5,1279.6094 L222.5,1283.6094 L222.5,1292.7852 A0,0 0 0 0 222.5,1292.7852 L426.5,1292.7852 A0,0 0 0 0 426.5,1292.7852 L426.5,1276.4336 L416.5,1266.4336 L222.5,1266.4336 A0,0 0 0 0 222.5,1266.4336 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M416.5,1266.4336 L416.5,1276.4336 L426.5,1276.4336 L416.5,1266.4336 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="183" x="228.5" y="1284.9287">Example of BCD body definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1262.0625"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1284.5195">Content replaced.</text>
-    <path d="M222.5,1321.5273 L222.5,1330.7031 L202.5,1334.7031 L222.5,1338.7031 L222.5,1347.8789 A0,0 0 0 0 222.5,1347.8789 L332.5,1347.8789 A0,0 0 0 0 332.5,1347.8789 L332.5,1331.5273 L322.5,1321.5273 L222.5,1321.5273 A0,0 0 0 0 222.5,1321.5273 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,1321.5273 L322.5,1331.5273 L332.5,1331.5273 L322.5,1321.5273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="1340.0225">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1317.1563"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1339.6133">Content replaced.</text>
-    <path d="M222.5,1376.6211 L222.5,1385.7969 L202.5,1389.7969 L222.5,1393.7969 L222.5,1402.9727 A0,0 0 0 0 222.5,1402.9727 L509.5,1402.9727 A0,0 0 0 0 509.5,1402.9727 L509.5,1386.6211 L499.5,1376.6211 L222.5,1376.6211 A0,0 0 0 0 222.5,1376.6211 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M499.5,1376.6211 L499.5,1386.6211 L509.5,1386.6211 L499.5,1376.6211 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="266" x="228.5" y="1395.1162">Example of BCD value packing and unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1372.25"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1394.707">Content replaced.</text>
-    <path d="M222.5,1431.7148 L222.5,1440.8906 L202.5,1444.8906 L222.5,1448.8906 L222.5,1458.0664 A0,0 0 0 0 222.5,1458.0664 L337.5,1458.0664 A0,0 0 0 0 337.5,1458.0664 L337.5,1441.7148 L327.5,1431.7148 L222.5,1431.7148 A0,0 0 0 0 222.5,1431.7148 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M327.5,1431.7148 L327.5,1441.7148 L337.5,1441.7148 L327.5,1431.7148 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="1450.21">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1427.3438"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1449.8008">Content replaced.</text>
-    <path d="M222.5,1486.8086 L222.5,1495.9844 L202.5,1499.9844 L222.5,1503.9844 L222.5,1513.1602 A0,0 0 0 0 222.5,1513.1602 L437.5,1513.1602 A0,0 0 0 0 437.5,1513.1602 L437.5,1496.8086 L427.5,1486.8086 L222.5,1486.8086 A0,0 0 0 0 222.5,1486.8086 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M427.5,1486.8086 L427.5,1496.8086 L437.5,1496.8086 L427.5,1486.8086 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="1505.3037">Some examples of packed values</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1482.4375"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1504.8945">Content replaced.</text>
-    <path d="M222.5,1541.9023 L222.5,1551.0781 L202.5,1555.0781 L222.5,1559.0781 L222.5,1568.2539 A0,0 0 0 0 222.5,1568.2539 L422.5,1568.2539 A0,0 0 0 0 422.5,1568.2539 L422.5,1551.9023 L412.5,1541.9023 L222.5,1541.9023 A0,0 0 0 0 222.5,1541.9023 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M412.5,1541.9023 L412.5,1551.9023 L422.5,1551.9023 L412.5,1541.9023 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="179" x="228.5" y="1560.3975">Example of Hex body definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1537.5313"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1559.9883">Content replaced.</text>
-    <path d="M222.5,1596.9961 L222.5,1606.1719 L202.5,1610.1719 L222.5,1614.1719 L222.5,1623.3477 A0,0 0 0 0 222.5,1623.3477 L332.5,1623.3477 A0,0 0 0 0 332.5,1623.3477 L332.5,1606.9961 L322.5,1596.9961 L222.5,1596.9961 A0,0 0 0 0 222.5,1596.9961 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,1596.9961 L322.5,1606.9961 L332.5,1606.9961 L322.5,1596.9961 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="1615.4912">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1592.625"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1615.082">Content replaced.</text>
-    <path d="M222.5,1652.0898 L222.5,1661.2656 L202.5,1665.2656 L222.5,1669.2656 L222.5,1678.4414 A0,0 0 0 0 222.5,1678.4414 L417.5,1678.4414 A0,0 0 0 0 417.5,1678.4414 L417.5,1662.0898 L407.5,1652.0898 L222.5,1652.0898 A0,0 0 0 0 222.5,1652.0898 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M407.5,1652.0898 L407.5,1662.0898 L417.5,1662.0898 L407.5,1652.0898 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="174" x="228.5" y="1670.585">Example of Hex value packing</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1647.7188"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1670.1758">Content replaced.</text>
-    <path d="M222.5,1707.1836 L222.5,1716.3594 L202.5,1720.3594 L222.5,1724.3594 L222.5,1733.5352 A0,0 0 0 0 222.5,1733.5352 L431.5,1733.5352 A0,0 0 0 0 431.5,1733.5352 L431.5,1717.1836 L421.5,1707.1836 L222.5,1707.1836 A0,0 0 0 0 222.5,1707.1836 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M421.5,1707.1836 L421.5,1717.1836 L431.5,1717.1836 L421.5,1707.1836 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="228.5" y="1725.6787">Example of Hex value unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1702.8125"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1725.2695">Content replaced.</text>
-    <path d="M222.5,1762.2773 L222.5,1771.4531 L202.5,1775.4531 L222.5,1779.4531 L222.5,1788.6289 A0,0 0 0 0 222.5,1788.6289 L337.5,1788.6289 A0,0 0 0 0 337.5,1788.6289 L337.5,1772.2773 L327.5,1762.2773 L222.5,1762.2773 A0,0 0 0 0 222.5,1762.2773 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M327.5,1762.2773 L327.5,1772.2773 L337.5,1772.2773 L327.5,1762.2773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="1780.7725">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1757.9063"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1780.3633">Content replaced.</text>
-    <path d="M222.5,1817.3711 L222.5,1826.5469 L202.5,1830.5469 L222.5,1834.5469 L222.5,1843.7227 A0,0 0 0 0 222.5,1843.7227 L437.5,1843.7227 A0,0 0 0 0 437.5,1843.7227 L437.5,1827.3711 L427.5,1817.3711 L222.5,1817.3711 A0,0 0 0 0 222.5,1817.3711 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M427.5,1817.3711 L427.5,1827.3711 L437.5,1827.3711 L427.5,1817.3711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="1835.8662">Some examples of packed values</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1813"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1835.457">Content replaced.</text>
-    <path d="M222.5,1872.4648 L222.5,1881.6406 L202.5,1885.6406 L222.5,1889.6406 L222.5,1898.8164 A0,0 0 0 0 222.5,1898.8164 L506.5,1898.8164 A0,0 0 0 0 506.5,1898.8164 L506.5,1882.4648 L496.5,1872.4648 L222.5,1872.4648 A0,0 0 0 0 222.5,1872.4648 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M496.5,1872.4648 L496.5,1882.4648 L506.5,1882.4648 L496.5,1872.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="263" x="228.5" y="1890.96">Example of repeated TAG_VAL field definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1868.0938"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1890.5508">Content replaced.</text>
-    <path d="M222.5,1927.5586 L222.5,1936.7344 L202.5,1940.7344 L222.5,1944.7344 L222.5,1953.9102 A0,0 0 0 0 222.5,1953.9102 L332.5,1953.9102 A0,0 0 0 0 332.5,1953.9102 L332.5,1937.5586 L322.5,1927.5586 L222.5,1927.5586 A0,0 0 0 0 222.5,1927.5586 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,1927.5586 L322.5,1937.5586 L332.5,1937.5586 L322.5,1927.5586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="1946.0537">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1923.1875"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="1945.6445">Content replaced.</text>
-    <path d="M222.5,1982.6523 L222.5,1991.8281 L202.5,1995.8281 L222.5,1999.8281 L222.5,2009.0039 A0,0 0 0 0 222.5,2009.0039 L490.5,2009.0039 A0,0 0 0 0 490.5,2009.0039 L490.5,1992.6523 L480.5,1982.6523 L222.5,1982.6523 A0,0 0 0 0 222.5,1982.6523 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M480.5,1982.6523 L480.5,1992.6523 L490.5,1992.6523 L480.5,1982.6523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="247" x="228.5" y="2001.1475">Example of repeated TAG_VAL field usage</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="1978.2813"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2000.7383">Content replaced.</text>
-    <path d="M222.5,2037.7461 L222.5,2046.9219 L202.5,2050.9219 L222.5,2054.9219 L222.5,2064.0977 A0,0 0 0 0 222.5,2064.0977 L337.5,2064.0977 A0,0 0 0 0 337.5,2064.0977 L337.5,2047.7461 L327.5,2037.7461 L222.5,2037.7461 A0,0 0 0 0 222.5,2037.7461 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M327.5,2037.7461 L327.5,2047.7461 L337.5,2047.7461 L327.5,2037.7461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="2056.2412">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2033.375"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2055.832">Content replaced.</text>
-    <path d="M222.5,2092.8398 L222.5,2102.0156 L202.5,2106.0156 L222.5,2110.0156 L222.5,2119.1914 A0,0 0 0 0 222.5,2119.1914 L463.5,2119.1914 A0,0 0 0 0 463.5,2119.1914 L463.5,2102.8398 L453.5,2092.8398 L222.5,2092.8398 A0,0 0 0 0 222.5,2092.8398 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M453.5,2092.8398 L453.5,2102.8398 L463.5,2102.8398 L453.5,2092.8398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="220" x="228.5" y="2111.335">Example of the binary length definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2088.4688"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2110.9258">Content replaced.</text>
-    <path d="M222.5,2147.9336 L222.5,2157.1094 L202.5,2161.1094 L222.5,2165.1094 L222.5,2174.2852 A0,0 0 0 0 222.5,2174.2852 L332.5,2174.2852 A0,0 0 0 0 332.5,2174.2852 L332.5,2157.9336 L322.5,2147.9336 L222.5,2147.9336 A0,0 0 0 0 222.5,2147.9336 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,2147.9336 L322.5,2157.9336 L332.5,2157.9336 L322.5,2147.9336 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="2166.4287">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2143.5625"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2166.0195">Content replaced.</text>
-    <path d="M222.5,2203.0273 L222.5,2212.2031 L202.5,2216.2031 L222.5,2220.2031 L222.5,2229.3789 A0,0 0 0 0 222.5,2229.3789 L523.5,2229.3789 A0,0 0 0 0 523.5,2229.3789 L523.5,2213.0273 L513.5,2203.0273 L222.5,2203.0273 A0,0 0 0 0 222.5,2203.0273 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M513.5,2203.0273 L513.5,2213.0273 L523.5,2213.0273 L513.5,2203.0273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="280" x="228.5" y="2221.5225">Example of binary length packing and unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2198.6563"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2221.1133">Content replaced.</text>
-    <path d="M222.5,2258.1211 L222.5,2267.2969 L202.5,2271.2969 L222.5,2275.2969 L222.5,2284.4727 A0,0 0 0 0 222.5,2284.4727 L337.5,2284.4727 A0,0 0 0 0 337.5,2284.4727 L337.5,2268.1211 L327.5,2258.1211 L222.5,2258.1211 A0,0 0 0 0 222.5,2258.1211 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M327.5,2258.1211 L327.5,2268.1211 L337.5,2268.1211 L327.5,2258.1211 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="2276.6162">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2253.75"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2276.207">Content replaced.</text>
-    <path d="M222.5,2313.2148 L222.5,2322.3906 L202.5,2326.3906 L222.5,2330.3906 L222.5,2339.5664 A0,0 0 0 0 222.5,2339.5664 L437.5,2339.5664 A0,0 0 0 0 437.5,2339.5664 L437.5,2323.2148 L427.5,2313.2148 L222.5,2313.2148 A0,0 0 0 0 222.5,2313.2148 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M427.5,2313.2148 L427.5,2323.2148 L437.5,2323.2148 L427.5,2313.2148 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="2331.71">Some examples of packed values</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2308.8438"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2331.3008">Content replaced.</text>
-    <path d="M222.5,2368.3086 L222.5,2377.4844 L202.5,2381.4844 L222.5,2385.4844 L222.5,2394.6602 A0,0 0 0 0 222.5,2394.6602 L430.5,2394.6602 A0,0 0 0 0 430.5,2394.6602 L430.5,2378.3086 L420.5,2368.3086 L222.5,2368.3086 A0,0 0 0 0 222.5,2368.3086 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M420.5,2368.3086 L420.5,2378.3086 L430.5,2378.3086 L420.5,2368.3086 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="187" x="228.5" y="2386.8037">Example of IFA bitmap definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2363.9375"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2386.3945">Content replaced.</text>
-    <path d="M222.5,2423.4023 L222.5,2432.5781 L202.5,2436.5781 L222.5,2440.5781 L222.5,2449.7539 A0,0 0 0 0 222.5,2449.7539 L332.5,2449.7539 A0,0 0 0 0 332.5,2449.7539 L332.5,2433.4023 L322.5,2423.4023 L222.5,2423.4023 A0,0 0 0 0 222.5,2423.4023 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,2423.4023 L322.5,2433.4023 L332.5,2433.4023 L322.5,2423.4023 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="2441.8975">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2419.0313"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2441.4883">Content replaced.</text>
-    <path d="M222.5,2478.4961 L222.5,2487.6719 L202.5,2491.6719 L222.5,2495.6719 L222.5,2504.8477 A0,0 0 0 0 222.5,2504.8477 L414.5,2504.8477 A0,0 0 0 0 414.5,2504.8477 L414.5,2488.4961 L404.5,2478.4961 L222.5,2478.4961 A0,0 0 0 0 222.5,2478.4961 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M404.5,2478.4961 L404.5,2488.4961 L414.5,2488.4961 L404.5,2478.4961 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="171" x="228.5" y="2496.9912">Example of IFA bitmap usage</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2474.125"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2496.582">Content replaced.</text>
-    <path d="M222.5,2533.5898 L222.5,2542.7656 L202.5,2546.7656 L222.5,2550.7656 L222.5,2559.9414 A0,0 0 0 0 222.5,2559.9414 L416.5,2559.9414 A0,0 0 0 0 416.5,2559.9414 L416.5,2543.5898 L406.5,2533.5898 L222.5,2533.5898 A0,0 0 0 0 222.5,2533.5898 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M406.5,2533.5898 L406.5,2543.5898 L416.5,2543.5898 L406.5,2533.5898 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="173" x="228.5" y="2552.085">Example of packed MsgValue</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2529.2188"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2551.6758">Content replaced.</text>
-    <path d="M222.5,2588.6836 L222.5,2597.8594 L202.5,2601.8594 L222.5,2605.8594 L222.5,2615.0352 A0,0 0 0 0 222.5,2615.0352 L573.5,2615.0352 A0,0 0 0 0 573.5,2615.0352 L573.5,2598.6836 L563.5,2588.6836 L222.5,2588.6836 A0,0 0 0 0 222.5,2588.6836 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M563.5,2588.6836 L563.5,2598.6836 L573.5,2598.6836 L563.5,2588.6836 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="330" x="228.5" y="2607.1787">All known implementations of the BitmapPacker interface</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2584.3125"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2606.7695">Content replaced.</text>
-    <path d="M222.5,2643.7773 L222.5,2652.9531 L202.5,2656.9531 L222.5,2660.9531 L222.5,2670.1289 A0,0 0 0 0 222.5,2670.1289 L430.5,2670.1289 A0,0 0 0 0 430.5,2670.1289 L430.5,2653.7773 L420.5,2643.7773 L222.5,2643.7773 A0,0 0 0 0 222.5,2643.7773 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M420.5,2643.7773 L420.5,2653.7773 L430.5,2653.7773 L420.5,2643.7773 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="187" x="228.5" y="2662.2725">Example of IFB bitmap definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2639.4063"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2661.8633">Content replaced.</text>
-    <path d="M222.5,2698.8711 L222.5,2708.0469 L202.5,2712.0469 L222.5,2716.0469 L222.5,2725.2227 A0,0 0 0 0 222.5,2725.2227 L332.5,2725.2227 A0,0 0 0 0 332.5,2725.2227 L332.5,2708.8711 L322.5,2698.8711 L222.5,2698.8711 A0,0 0 0 0 222.5,2698.8711 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,2698.8711 L322.5,2708.8711 L332.5,2708.8711 L322.5,2698.8711 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="2717.3662">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2694.5"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2716.957">Content replaced.</text>
-    <path d="M222.5,2753.9648 L222.5,2763.1406 L202.5,2767.1406 L222.5,2771.1406 L222.5,2780.3164 A0,0 0 0 0 222.5,2780.3164 L414.5,2780.3164 A0,0 0 0 0 414.5,2780.3164 L414.5,2763.9648 L404.5,2753.9648 L222.5,2753.9648 A0,0 0 0 0 222.5,2753.9648 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M404.5,2753.9648 L404.5,2763.9648 L414.5,2763.9648 L404.5,2753.9648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="171" x="228.5" y="2772.46">Example of IFB bitmap usage</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2749.5938"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2772.0508">Content replaced.</text>
-    <path d="M222.5,2809.0586 L222.5,2818.2344 L202.5,2822.2344 L222.5,2826.2344 L222.5,2835.4102 A0,0 0 0 0 222.5,2835.4102 L416.5,2835.4102 A0,0 0 0 0 416.5,2835.4102 L416.5,2819.0586 L406.5,2809.0586 L222.5,2809.0586 A0,0 0 0 0 222.5,2809.0586 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M406.5,2809.0586 L406.5,2819.0586 L416.5,2819.0586 L406.5,2809.0586 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="173" x="228.5" y="2827.5537">Example of packed MsgValue</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2804.6875"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2827.1445">Content replaced.</text>
-    <path d="M222.5,2864.1523 L222.5,2873.3281 L202.5,2877.3281 L222.5,2881.3281 L222.5,2890.5039 A0,0 0 0 0 222.5,2890.5039 L434.5,2890.5039 A0,0 0 0 0 434.5,2890.5039 L434.5,2874.1523 L424.5,2864.1523 L222.5,2864.1523 A0,0 0 0 0 222.5,2864.1523 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M424.5,2864.1523 L424.5,2874.1523 L434.5,2874.1523 L424.5,2864.1523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="191" x="228.5" y="2882.6475">Example of Literal body definition</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2859.7813"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2882.2383">Content replaced.</text>
-    <path d="M222.5,2919.2461 L222.5,2928.4219 L202.5,2932.4219 L222.5,2936.4219 L222.5,2945.5977 A0,0 0 0 0 222.5,2945.5977 L332.5,2945.5977 A0,0 0 0 0 332.5,2945.5977 L332.5,2929.2461 L322.5,2919.2461 L222.5,2919.2461 A0,0 0 0 0 222.5,2919.2461 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M322.5,2919.2461 L322.5,2929.2461 L332.5,2929.2461 L322.5,2919.2461 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="89" x="228.5" y="2937.7412">MsgField dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2914.875"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2937.332">Content replaced.</text>
-    <path d="M222.5,2974.3398 L222.5,2983.5156 L202.5,2987.5156 L222.5,2991.5156 L222.5,3000.6914 A0,0 0 0 0 222.5,3000.6914 L429.5,3000.6914 A0,0 0 0 0 429.5,3000.6914 L429.5,2984.3398 L419.5,2974.3398 L222.5,2974.3398 A0,0 0 0 0 222.5,2974.3398 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M419.5,2974.3398 L419.5,2984.3398 L429.5,2984.3398 L419.5,2974.3398 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="186" x="228.5" y="2992.835">Example of Literal value packing</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="2969.9688"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="2992.4258">Content replaced.</text>
-    <path d="M222.5,3029.4336 L222.5,3038.6094 L202.5,3042.6094 L222.5,3046.6094 L222.5,3055.7852 A0,0 0 0 0 222.5,3055.7852 L443.5,3055.7852 A0,0 0 0 0 443.5,3055.7852 L443.5,3039.4336 L433.5,3029.4336 L222.5,3029.4336 A0,0 0 0 0 222.5,3029.4336 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M433.5,3029.4336 L433.5,3039.4336 L443.5,3039.4336 L433.5,3029.4336 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="200" x="228.5" y="3047.9287">Example of Literal value unpacking</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="3025.0625"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="3047.5195">Content replaced.</text>
-    <path d="M222.5,3084.5273 L222.5,3093.7031 L202.5,3097.7031 L222.5,3101.7031 L222.5,3110.8789 A0,0 0 0 0 222.5,3110.8789 L337.5,3110.8789 A0,0 0 0 0 337.5,3110.8789 L337.5,3094.5273 L327.5,3084.5273 L222.5,3084.5273 A0,0 0 0 0 222.5,3084.5273 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M327.5,3084.5273 L327.5,3094.5273 L337.5,3094.5273 L327.5,3084.5273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="94" x="228.5" y="3103.0225">MsgValue dump</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="3080.1563"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="3102.6133">Content replaced.</text>
-    <path d="M222.5,3139.6211 L222.5,3148.7969 L202.5,3152.7969 L222.5,3156.7969 L222.5,3165.9727 A0,0 0 0 0 222.5,3165.9727 L437.5,3165.9727 A0,0 0 0 0 437.5,3165.9727 L437.5,3149.6211 L427.5,3139.6211 L222.5,3139.6211 A0,0 0 0 0 222.5,3139.6211 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M427.5,3139.6211 L427.5,3149.6211 L437.5,3149.6211 L427.5,3139.6211 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="194" x="228.5" y="3158.1162">Some examples of packed values</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="3135.25"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="3157.707">Content replaced.</text>
-    <path d="M222.5,3194.7148 L222.5,3203.8906 L202.5,3207.8906 L222.5,3211.8906 L222.5,3221.0664 A0,0 0 0 0 222.5,3221.0664 L685.5,3221.0664 A0,0 0 0 0 685.5,3221.0664 L685.5,3204.7148 L675.5,3194.7148 L222.5,3194.7148 A0,0 0 0 0 222.5,3194.7148 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M675.5,3194.7148 L675.5,3204.7148 L685.5,3204.7148 L675.5,3194.7148 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="442" x="228.5" y="3213.21">Diagram of the application launching created from credible-doc-generator.log.</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="3190.3438"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="3212.8008">Content replaced.</text>
-    <path d="M222.5,3249.8086 L222.5,3258.9844 L202.5,3262.9844 L222.5,3266.9844 L222.5,3276.1602 A0,0 0 0 0 222.5,3276.1602 L699.5,3276.1602 A0,0 0 0 0 699.5,3276.1602 L699.5,3259.8086 L689.5,3249.8086 L222.5,3249.8086 A0,0 0 0 0 222.5,3249.8086 " fill="#FBFB77" filter="url(#f1w0cynhs85xn5)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M689.5,3249.8086 L689.5,3259.8086 L699.5,3259.8086 L689.5,3249.8086 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="456" x="228.5" y="3268.3037">Diagram of the application launching created from credible-doc-generator_1.log.</text>
-    <rect fill="#FEFECE" filter="url(#f1w0cynhs85xn5)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="120" x="82.5" y="3245.4375"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="92.5" y="3267.8945">Content replaced.</text>
+    <ellipse cx="142.5" cy="390.5625" fill="#000000" filter="url(#f1tnqo3brfishp)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="420.5625"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="20" y="443.0195">Application credible-doc-generator launched.</text>
+    <path d="M259.5,480.0273 L259.5,489.2031 L239.5,493.2031 L259.5,497.2031 L259.5,506.3789 A0,0 0 0 0 259.5,506.3789 L924.5,506.3789 A0,0 0 0 0 924.5,506.3789 L924.5,490.0273 L914.5,480.0273 L259.5,480.0273 A0,0 0 0 0 259.5,480.0273 " fill="#FBFB77" filter="url(#f1tnqo3brfishp)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M914.5,480.0273 L914.5,490.0273 L924.5,490.0273 L914.5,480.0273 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="644" x="265.5" y="498.5225">file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties</text>
+    <rect fill="#FEFECE" filter="url(#f1tnqo3brfishp)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="475.6563"/>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="55.5" y="498.1133">Configuration properties loaded</text>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="30" y2="50"/>
     <polygon fill="#A80036" points="138.5,40,142.5,50,146.5,40,142.5,44" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="85.0938" y2="105.0938"/>
@@ -315,110 +58,10 @@
     <polygon fill="#A80036" points="138.5,315.4688,142.5,325.4688,146.5,315.4688,142.5,319.4688" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="360.5625" y2="380.5625"/>
     <polygon fill="#A80036" points="138.5,370.5625,142.5,380.5625,146.5,370.5625,142.5,374.5625" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="415.6563" y2="435.6563"/>
-    <polygon fill="#A80036" points="138.5,425.6563,142.5,435.6563,146.5,425.6563,142.5,429.6563" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="470.75" y2="490.75"/>
-    <polygon fill="#A80036" points="138.5,480.75,142.5,490.75,146.5,480.75,142.5,484.75" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="525.8438" y2="545.8438"/>
-    <polygon fill="#A80036" points="138.5,535.8438,142.5,545.8438,146.5,535.8438,142.5,539.8438" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="580.9375" y2="600.9375"/>
-    <polygon fill="#A80036" points="138.5,590.9375,142.5,600.9375,146.5,590.9375,142.5,594.9375" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="636.0313" y2="656.0313"/>
-    <polygon fill="#A80036" points="138.5,646.0313,142.5,656.0313,146.5,646.0313,142.5,650.0313" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="691.125" y2="711.125"/>
-    <polygon fill="#A80036" points="138.5,701.125,142.5,711.125,146.5,701.125,142.5,705.125" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="746.2188" y2="766.2188"/>
-    <polygon fill="#A80036" points="138.5,756.2188,142.5,766.2188,146.5,756.2188,142.5,760.2188" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="801.3125" y2="821.3125"/>
-    <polygon fill="#A80036" points="138.5,811.3125,142.5,821.3125,146.5,811.3125,142.5,815.3125" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="856.4063" y2="876.4063"/>
-    <polygon fill="#A80036" points="138.5,866.4063,142.5,876.4063,146.5,866.4063,142.5,870.4063" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="911.5" y2="931.5"/>
-    <polygon fill="#A80036" points="138.5,921.5,142.5,931.5,146.5,921.5,142.5,925.5" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="966.5938" y2="986.5938"/>
-    <polygon fill="#A80036" points="138.5,976.5938,142.5,986.5938,146.5,976.5938,142.5,980.5938" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1021.6875" y2="1041.6875"/>
-    <polygon fill="#A80036" points="138.5,1031.6875,142.5,1041.6875,146.5,1031.6875,142.5,1035.6875" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1076.7813" y2="1096.7813"/>
-    <polygon fill="#A80036" points="138.5,1086.7813,142.5,1096.7813,146.5,1086.7813,142.5,1090.7813" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1131.875" y2="1151.875"/>
-    <polygon fill="#A80036" points="138.5,1141.875,142.5,1151.875,146.5,1141.875,142.5,1145.875" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1186.9688" y2="1206.9688"/>
-    <polygon fill="#A80036" points="138.5,1196.9688,142.5,1206.9688,146.5,1196.9688,142.5,1200.9688" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1242.0625" y2="1262.0625"/>
-    <polygon fill="#A80036" points="138.5,1252.0625,142.5,1262.0625,146.5,1252.0625,142.5,1256.0625" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1297.1563" y2="1317.1563"/>
-    <polygon fill="#A80036" points="138.5,1307.1563,142.5,1317.1563,146.5,1307.1563,142.5,1311.1563" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1352.25" y2="1372.25"/>
-    <polygon fill="#A80036" points="138.5,1362.25,142.5,1372.25,146.5,1362.25,142.5,1366.25" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1407.3438" y2="1427.3438"/>
-    <polygon fill="#A80036" points="138.5,1417.3438,142.5,1427.3438,146.5,1417.3438,142.5,1421.3438" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1462.4375" y2="1482.4375"/>
-    <polygon fill="#A80036" points="138.5,1472.4375,142.5,1482.4375,146.5,1472.4375,142.5,1476.4375" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1517.5313" y2="1537.5313"/>
-    <polygon fill="#A80036" points="138.5,1527.5313,142.5,1537.5313,146.5,1527.5313,142.5,1531.5313" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1572.625" y2="1592.625"/>
-    <polygon fill="#A80036" points="138.5,1582.625,142.5,1592.625,146.5,1582.625,142.5,1586.625" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1627.7188" y2="1647.7188"/>
-    <polygon fill="#A80036" points="138.5,1637.7188,142.5,1647.7188,146.5,1637.7188,142.5,1641.7188" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1682.8125" y2="1702.8125"/>
-    <polygon fill="#A80036" points="138.5,1692.8125,142.5,1702.8125,146.5,1692.8125,142.5,1696.8125" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1737.9063" y2="1757.9063"/>
-    <polygon fill="#A80036" points="138.5,1747.9063,142.5,1757.9063,146.5,1747.9063,142.5,1751.9063" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1793" y2="1813"/>
-    <polygon fill="#A80036" points="138.5,1803,142.5,1813,146.5,1803,142.5,1807" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1848.0938" y2="1868.0938"/>
-    <polygon fill="#A80036" points="138.5,1858.0938,142.5,1868.0938,146.5,1858.0938,142.5,1862.0938" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1903.1875" y2="1923.1875"/>
-    <polygon fill="#A80036" points="138.5,1913.1875,142.5,1923.1875,146.5,1913.1875,142.5,1917.1875" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="1958.2813" y2="1978.2813"/>
-    <polygon fill="#A80036" points="138.5,1968.2813,142.5,1978.2813,146.5,1968.2813,142.5,1972.2813" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2013.375" y2="2033.375"/>
-    <polygon fill="#A80036" points="138.5,2023.375,142.5,2033.375,146.5,2023.375,142.5,2027.375" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2068.4688" y2="2088.4688"/>
-    <polygon fill="#A80036" points="138.5,2078.4688,142.5,2088.4688,146.5,2078.4688,142.5,2082.4688" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2123.5625" y2="2143.5625"/>
-    <polygon fill="#A80036" points="138.5,2133.5625,142.5,2143.5625,146.5,2133.5625,142.5,2137.5625" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2178.6563" y2="2198.6563"/>
-    <polygon fill="#A80036" points="138.5,2188.6563,142.5,2198.6563,146.5,2188.6563,142.5,2192.6563" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2233.75" y2="2253.75"/>
-    <polygon fill="#A80036" points="138.5,2243.75,142.5,2253.75,146.5,2243.75,142.5,2247.75" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2288.8438" y2="2308.8438"/>
-    <polygon fill="#A80036" points="138.5,2298.8438,142.5,2308.8438,146.5,2298.8438,142.5,2302.8438" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2343.9375" y2="2363.9375"/>
-    <polygon fill="#A80036" points="138.5,2353.9375,142.5,2363.9375,146.5,2353.9375,142.5,2357.9375" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2399.0313" y2="2419.0313"/>
-    <polygon fill="#A80036" points="138.5,2409.0313,142.5,2419.0313,146.5,2409.0313,142.5,2413.0313" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2454.125" y2="2474.125"/>
-    <polygon fill="#A80036" points="138.5,2464.125,142.5,2474.125,146.5,2464.125,142.5,2468.125" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2509.2188" y2="2529.2188"/>
-    <polygon fill="#A80036" points="138.5,2519.2188,142.5,2529.2188,146.5,2519.2188,142.5,2523.2188" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2564.3125" y2="2584.3125"/>
-    <polygon fill="#A80036" points="138.5,2574.3125,142.5,2584.3125,146.5,2574.3125,142.5,2578.3125" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2619.4063" y2="2639.4063"/>
-    <polygon fill="#A80036" points="138.5,2629.4063,142.5,2639.4063,146.5,2629.4063,142.5,2633.4063" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2674.5" y2="2694.5"/>
-    <polygon fill="#A80036" points="138.5,2684.5,142.5,2694.5,146.5,2684.5,142.5,2688.5" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2729.5938" y2="2749.5938"/>
-    <polygon fill="#A80036" points="138.5,2739.5938,142.5,2749.5938,146.5,2739.5938,142.5,2743.5938" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2784.6875" y2="2804.6875"/>
-    <polygon fill="#A80036" points="138.5,2794.6875,142.5,2804.6875,146.5,2794.6875,142.5,2798.6875" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2839.7813" y2="2859.7813"/>
-    <polygon fill="#A80036" points="138.5,2849.7813,142.5,2859.7813,146.5,2849.7813,142.5,2853.7813" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2894.875" y2="2914.875"/>
-    <polygon fill="#A80036" points="138.5,2904.875,142.5,2914.875,146.5,2904.875,142.5,2908.875" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="2949.9688" y2="2969.9688"/>
-    <polygon fill="#A80036" points="138.5,2959.9688,142.5,2969.9688,146.5,2959.9688,142.5,2963.9688" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="3005.0625" y2="3025.0625"/>
-    <polygon fill="#A80036" points="138.5,3015.0625,142.5,3025.0625,146.5,3015.0625,142.5,3019.0625" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="3060.1563" y2="3080.1563"/>
-    <polygon fill="#A80036" points="138.5,3070.1563,142.5,3080.1563,146.5,3070.1563,142.5,3074.1563" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="3115.25" y2="3135.25"/>
-    <polygon fill="#A80036" points="138.5,3125.25,142.5,3135.25,146.5,3125.25,142.5,3129.25" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="3170.3438" y2="3190.3438"/>
-    <polygon fill="#A80036" points="138.5,3180.3438,142.5,3190.3438,146.5,3180.3438,142.5,3184.3438" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="3225.4375" y2="3245.4375"/>
-    <polygon fill="#A80036" points="138.5,3235.4375,142.5,3245.4375,146.5,3235.4375,142.5,3239.4375" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="400.5625" y2="420.5625"/>
+    <polygon fill="#A80036" points="138.5,410.5625,142.5,420.5625,146.5,410.5625,142.5,414.5625" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="455.6563" y2="475.6563"/>
+    <polygon fill="#A80036" points="138.5,465.6563,142.5,475.6563,146.5,465.6563,142.5,469.6563" style="stroke: #A80036; stroke-width: 1.0;"/>
     <!--
 @startuml
 start
@@ -426,7 +69,7 @@ start
 
 :Content replaced. ;
 note right
-Example of Integer BCD body definition
+Example of ASCII length definition
 end note
 
 :Content replaced. ;
@@ -436,7 +79,7 @@ end note
 
 :Content replaced. ;
 note right
-Example of Integer BCD value packing and unpacking
+Example of ASCII length packing and unpacking
 end note
 
 :Content replaced. ;
@@ -449,269 +92,12 @@ note right
 Some examples of packed values
 end note
 
-:Content replaced. ;
-note right
-Example of the hex length definition
-end note
+start
+:Application credible-doc-generator launched.;
 
-:Content replaced. ;
+:Configuration properties loaded;
 note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of hex length packing and unpacking
-end note
-
-:Content replaced. ;
-note right
-MsgValue dump
-end note
-
-:Content replaced. ;
-note right
-Some examples of packed values
-end note
-
-:Content replaced. ;
-note right
-All known implementations of the TagPacker interface
-end note
-
-:Content replaced. ;
-note right
-Example of BCD length definition
-end note
-
-:Content replaced. ;
-note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of BCD length packing and unpacking
-end note
-
-:Content replaced. ;
-note right
-MsgValue dump
-end note
-
-:Content replaced. ;
-note right
-Some examples of packed values
-end note
-
-:Content replaced. ;
-note right
-Example of HEX tag definition
-end note
-
-:Content replaced. ;
-note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of HEX tag packing and unpacking
-end note
-
-:Content replaced. ;
-note right
-MsgValue dump
-end note
-
-:Content replaced. ;
-note right
-Some examples of packed values
-end note
-
-:Content replaced. ;
-note right
-Example of BCD body definition
-end note
-
-:Content replaced. ;
-note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of BCD value packing and unpacking
-end note
-
-:Content replaced. ;
-note right
-MsgValue dump
-end note
-
-:Content replaced. ;
-note right
-Some examples of packed values
-end note
-
-:Content replaced. ;
-note right
-Example of Hex body definition
-end note
-
-:Content replaced. ;
-note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of Hex value packing
-end note
-
-:Content replaced. ;
-note right
-Example of Hex value unpacking
-end note
-
-:Content replaced. ;
-note right
-MsgValue dump
-end note
-
-:Content replaced. ;
-note right
-Some examples of packed values
-end note
-
-:Content replaced. ;
-note right
-Example of repeated TAG_VAL field definition
-end note
-
-:Content replaced. ;
-note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of repeated TAG_VAL field usage
-end note
-
-:Content replaced. ;
-note right
-MsgValue dump
-end note
-
-:Content replaced. ;
-note right
-Example of the binary length definition
-end note
-
-:Content replaced. ;
-note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of binary length packing and unpacking
-end note
-
-:Content replaced. ;
-note right
-MsgValue dump
-end note
-
-:Content replaced. ;
-note right
-Some examples of packed values
-end note
-
-:Content replaced. ;
-note right
-Example of IFA bitmap definition
-end note
-
-:Content replaced. ;
-note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of IFA bitmap usage
-end note
-
-:Content replaced. ;
-note right
-Example of packed MsgValue
-end note
-
-:Content replaced. ;
-note right
-All known implementations of the BitmapPacker interface
-end note
-
-:Content replaced. ;
-note right
-Example of IFB bitmap definition
-end note
-
-:Content replaced. ;
-note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of IFB bitmap usage
-end note
-
-:Content replaced. ;
-note right
-Example of packed MsgValue
-end note
-
-:Content replaced. ;
-note right
-Example of Literal body definition
-end note
-
-:Content replaced. ;
-note right
-MsgField dump
-end note
-
-:Content replaced. ;
-note right
-Example of Literal value packing
-end note
-
-:Content replaced. ;
-note right
-Example of Literal value unpacking
-end note
-
-:Content replaced. ;
-note right
-MsgValue dump
-end note
-
-:Content replaced. ;
-note right
-Some examples of packed values
-end note
-
-:Content replaced. ;
-note right
-Diagram of the application launching created from credible-doc-generator.log.
-end note
-
-:Content replaced. ;
-note right
-Diagram of the application launching created from credible-doc-generator_1.log.
+file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties
 end note
 
 @enduml
