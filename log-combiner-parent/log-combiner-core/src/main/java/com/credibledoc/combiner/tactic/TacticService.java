@@ -1,6 +1,6 @@
 package com.credibledoc.combiner.tactic;
 
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
@@ -38,11 +38,11 @@ public class TacticService {
      * Recognize, which {@link Tactic} the line belongs to.
      * @param line the line from the log file
      * @param logBufferedReader the {@link LogBufferedReader} read the line
-     * @param context the current state
+     * @param combinerContext the current state
      * @return {@link Tactic} or 'null' if not found
      */
-    public Tactic findTactic(String line, LogBufferedReader logBufferedReader, Context context) {
-        Set<Tactic> tactics = context.getTacticRepository().getTactics();
+    public Tactic findTactic(String line, LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
+        Set<Tactic> tactics = combinerContext.getTacticRepository().getTactics();
         if (tactics.isEmpty()) {
             throw new CombinerRuntimeException("TacticRepository is empty.");
         }
@@ -57,11 +57,11 @@ public class TacticService {
     /**
      * Recognize, which {@link Tactic} the line belongs to.
      * @param logBufferedReader links to a {@link Tactic}
-     * @param context the current state
+     * @param combinerContext the current state
      * @return {@link Tactic} or throw exception
      */
-    public Tactic findTactic(LogBufferedReader logBufferedReader, Context context) {
-        for (NodeFile nodeFile : context.getNodeFileRepository().getNodeFiles()) {
+    public Tactic findTactic(LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
+        for (NodeFile nodeFile : combinerContext.getNodeFileRepository().getNodeFiles()) {
             if (nodeFile.getLogBufferedReader() == logBufferedReader) {
                 return nodeFile.getNodeLog().getTactic();
             }
@@ -70,31 +70,31 @@ public class TacticService {
     }
 
     /**
-     * For each file find out its {@link Tactic} by calling the {@link FileService#findTactic(File, Context)} method.
+     * For each file find out its {@link Tactic} by calling the {@link FileService#findTactic(File, CombinerContext)} method.
      * <p>
      * Append this file to {@link com.credibledoc.combiner.node.file.NodeFileRepository} by calling the
-     * {@link NodeFileService#appendToNodeLogs(File, Date, Tactic, Context)} method.
+     * {@link NodeFileService#appendToNodeLogs(File, Date, Tactic, CombinerContext)} method.
      * <p>
-     * After all call the {@link ReaderService#prepareBufferedReaders(Context)} method.
+     * After all call the {@link ReaderService#prepareBufferedReaders(CombinerContext)} method.
      *
      * @param files   log files
-     * @param context the actual state of the current application
+     * @param combinerContext the actual state of the current application
      */
-    public void prepareReaders(Set<File> files, Context context) {
+    public void prepareReaders(Set<File> files, CombinerContext combinerContext) {
         NodeFileService nodeFileService = NodeFileService.getInstance();
 
         for (File file : files) {
-            Tactic tactic = FileService.getInstance().findTactic(file, context);
+            Tactic tactic = FileService.getInstance().findTactic(file, combinerContext);
 
             Date date = FileService.getInstance().findDate(file, tactic);
 
             if (date == null) {
                 throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
             }
-            nodeFileService.appendToNodeLogs(file, date, tactic, context);
+            nodeFileService.appendToNodeLogs(file, date, tactic, combinerContext);
         }
 
         ReaderService readerService = ReaderService.getInstance();
-        readerService.prepareBufferedReaders(context);
+        readerService.prepareBufferedReaders(combinerContext);
     }
 }

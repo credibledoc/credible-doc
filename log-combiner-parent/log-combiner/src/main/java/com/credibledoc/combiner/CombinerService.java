@@ -3,7 +3,7 @@ package com.credibledoc.combiner;
 import com.credibledoc.combiner.config.Config;
 import com.credibledoc.combiner.config.ConfigService;
 import com.credibledoc.combiner.config.TacticConfig;
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.date.DateService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
@@ -67,15 +67,15 @@ public class CombinerService {
      * If the configuration have no {@link Config#getTacticConfigs()} defined, all log files will be
      * joined by calling the {@link #joinFiles(File, String)} method.
      * <p>
-     * Else prepare a log files reader by calling the {@link #prepareReader(File, Config, Context)} method.
+     * Else prepare a log files reader by calling the {@link #prepareReader(File, Config, CombinerContext)} method.
      * <p>
-     * And finally combine files line by line by calling the {@link #combine(OutputStream, FilesMergerState, Context)} method.
+     * And finally combine files line by line by calling the {@link #combine(OutputStream, FilesMergerState, CombinerContext)} method.
      *
      * @param sourceFolder a folder with log files
      * @param configAbsolutePath this configuration file will be used for filling out a {@link Config} instance
-     * @param context the current state
+     * @param combinerContext the current state
      */
-    public void combine(File sourceFolder, String configAbsolutePath, Context context) {
+    public void combine(File sourceFolder, String configAbsolutePath, CombinerContext combinerContext) {
         try {
             Config config = new ConfigService().loadConfig(configAbsolutePath);
             if (config.getTacticConfigs().isEmpty()) {
@@ -83,16 +83,16 @@ public class CombinerService {
                 joinFiles(sourceFolder, config.getTargetFileName());
                 return;
             }
-            prepareReader(sourceFolder, config, context);
+            prepareReader(sourceFolder, config, combinerContext);
             File targetFile = prepareTargetFile(sourceFolder, config.getTargetFileName());
             try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
                 ReaderService readerService = ReaderService.getInstance();
-                readerService.prepareBufferedReaders(context);
+                readerService.prepareBufferedReaders(combinerContext);
 
                 FilesMergerState filesMergerState = new FilesMergerState();
-                filesMergerState.setNodeFiles(context.getNodeFileRepository().getNodeFiles());
+                filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
 
-                combine(outputStream, filesMergerState, context);
+                combine(outputStream, filesMergerState, combinerContext);
             }
             logger.info("All files combined to '{}'", targetFile.getAbsolutePath());
         } catch (Exception e) {
@@ -105,12 +105,12 @@ public class CombinerService {
      * Merge files with default {@link Config}.
      * @param outputStream target stream for merged lines
      * @param filesMergerState state object of the merge process 
-     * @param context state object of the current repositories
+     * @param combinerContext state object of the current repositories
      */
-    public void combine(OutputStream outputStream, FilesMergerState filesMergerState, Context context) {
+    public void combine(OutputStream outputStream, FilesMergerState filesMergerState, CombinerContext combinerContext) {
         ReaderService readerService = ReaderService.getInstance();
         if (filesMergerState.getCurrentNodeFile() == null) {
-            filesMergerState.setCurrentNodeFile(readerService.findTheYoungest(context));
+            filesMergerState.setCurrentNodeFile(readerService.findTheYoungest(combinerContext));
         }
         LogBufferedReader logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         int currentLineNumber = 0;
@@ -118,21 +118,21 @@ public class CombinerService {
         String line = null;
         Config config = new ConfigService().loadConfig(null);
         try {
-            line = readerService.readLineFromReaders(filesMergerState, context);
+            line = readerService.readLineFromReaders(filesMergerState, combinerContext);
             logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
             String substring = line.substring(0, 35);
             logger.info("The first line read from {}. Line: '{}...'", getClass().getSimpleName(), substring);
             while (line != null) {
-                List<String> multiline = readerService.readMultiline(line, logBufferedReader, context);
+                List<String> multiline = readerService.readMultiline(line, logBufferedReader, combinerContext);
 
                 currentLineNumber = currentLineNumber + multiline.size();
                 if (currentLineNumber % 100000 == 0) {
                     logger.debug("{} lines processed", currentLineNumber);
                 }
 
-                writeMultiline(config, outputStream, nodeFileService, logBufferedReader, multiline, context);
+                writeMultiline(config, outputStream, nodeFileService, logBufferedReader, multiline, combinerContext);
 
-                line = readerService.readLineFromReaders(filesMergerState, context);
+                line = readerService.readLineFromReaders(filesMergerState, combinerContext);
                 logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
             }
             logger.debug("{} lines processed (100%)", currentLineNumber);
@@ -153,13 +153,13 @@ public class CombinerService {
      * <p>
      * Add created {@link Tactic} instances to the {@link com.credibledoc.combiner.tactic.TacticService}.
      * <p>
-     * Call the {@link TacticService#prepareReaders(Set, Context)} method.
+     * Call the {@link TacticService#prepareReaders(Set, CombinerContext)} method.
      *
      * @param folder the folder with log files
      * @param config contains configuration of {@link Config#getTacticConfigs()}
-     * @param context the current state
+     * @param combinerContext the current state
      */
-    public void prepareReader(File folder, Config config, Context context) {
+    public void prepareReader(File folder, Config config, CombinerContext combinerContext) {
         TacticService tacticService = TacticService.getInstance();
         List<TacticConfig> tacticConfigs = config.getTacticConfigs();
         if (tacticConfigs.isEmpty()) {
@@ -167,17 +167,17 @@ public class CombinerService {
         }
         for (final TacticConfig tacticConfig : tacticConfigs) {
             final Tactic tactic = createTactic(tacticConfig);
-            context.getTacticRepository().getTactics().add(tactic);
+            combinerContext.getTacticRepository().getTactics().add(tactic);
         }
         Set<File> files = FileService.getInstance().collectFiles(folder);
 
-        tacticService.prepareReaders(files, context);
+        tacticService.prepareReaders(files, combinerContext);
     }
 
     private void writeMultiline(Config config, OutputStream outputStream, NodeFileService nodeFileService,
                                 LogBufferedReader logBufferedReader, List<String> multiline,
-                                Context context) throws IOException {
-        NodeFile nodeFile = nodeFileService.findNodeFile(logBufferedReader, context);
+                                CombinerContext combinerContext) throws IOException {
+        NodeFile nodeFile = nodeFileService.findNodeFile(logBufferedReader, combinerContext);
         for (String nextLine : multiline) {
             if (config.isPrintNodeName()) {
                 outputStream.write(nodeFile.getNodeLog().getName().getBytes());

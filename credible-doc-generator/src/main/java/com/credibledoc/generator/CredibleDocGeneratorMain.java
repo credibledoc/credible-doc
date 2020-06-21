@@ -1,6 +1,6 @@
 package com.credibledoc.generator;
 
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.enricher.context.EnricherContext;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.context.SubstitutionContext;
@@ -90,17 +90,17 @@ public class CredibleDocGeneratorMain {
     }
 
     private void substitute(boolean watchChanges) throws IOException, InterruptedException {
-        Context context = new Context().init();
+        CombinerContext combinerContext = new CombinerContext().init();
         EnricherContext enricherContext = new EnricherContext().init();
         SubstitutionContext substitutionContext = new SubstitutionContext().init().loadConfiguration();
         ReportingContext reportingContext = new ReportingContext().init();
-        context.getTacticRepository().getTactics().add(substitutionTactic);
+        combinerContext.getTacticRepository().getTactics().add(substitutionTactic);
         ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
         reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators, reportingContext);
-        reportDocumentCreatorService.createReportDocuments(context, reportingContext, substitutionContext, enricherContext);
+        reportDocumentCreatorService.createReportDocuments(combinerContext, reportingContext, substitutionContext, enricherContext);
         List<TemplateResource> templateResources = copyResourcesToTargetDirectory(substitutionContext);
         List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
-        VisualizerService.getInstance().createReports(reportDocumentTypes, context, reportingContext, enricherContext);
+        VisualizerService.getInstance().createReports(reportDocumentTypes, combinerContext, reportingContext, enricherContext);
         ReplacementService replacementService = ReplacementService.getInstance();
         for (TemplateResource templateResource : templateResources) {
             replacementService.insertContentIntoTemplate(templateResource, substitutionContext);

@@ -1,6 +1,6 @@
 package com.credibledoc.combiner;
 
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.combiner.state.FilesMergerState;
 import com.credibledoc.combiner.tactic.Tactic;
@@ -76,16 +76,16 @@ public class CombinerServiceProgrammableTest {
         assertEquals(2, sourceFiles.size());
         
         // Contains instances of Tactics, NodeFiles and NodeLogs
-        Context context = new Context().init();
+        CombinerContext combinerContext = new CombinerContext().init();
 
         // Instantiate parsers for different log formats
         Set<Tactic> tactics = new HashSet<>();
         tactics.add(new SyslogTactic());
         tactics.add(new SpecialTactic());
-        context.getTacticRepository().setTactics(tactics);
+        combinerContext.getTacticRepository().setTactics(tactics);
 
         SourceFilesReader sourceFilesReader = new SourceFilesReader();
-        sourceFilesReader.setContext(context);
+        sourceFilesReader.setCombinerContext(combinerContext);
         sourceFilesReader.addSourceFiles(sourceFiles);
         
         List<String> multiLine = sourceFilesReader.read();
@@ -94,7 +94,7 @@ public class CombinerServiceProgrammableTest {
         File targetFile = new CombinerService().prepareTargetFile(targetFolder, "combined.txt");
         try (FileWriter fileWriter = new FileWriter(targetFile)) {
             do {
-                write(multiLine, fileWriter, sourceFilesReader, context);
+                write(multiLine, fileWriter, sourceFilesReader, combinerContext);
                 multiLine = sourceFilesReader.read();
             } while (multiLine != null);
         }
@@ -105,10 +105,10 @@ public class CombinerServiceProgrammableTest {
     }
 
     private void write(List<String> multiLine, FileWriter fileWriter, SourceFilesReader sourceFilesReader,
-                       Context context) throws IOException {
-        Date date = sourceFilesReader.currentTactic(context).findDate(multiLine.get(0));
+                       CombinerContext combinerContext) throws IOException {
+        Date date = sourceFilesReader.currentTactic(combinerContext).findDate(multiLine.get(0));
         String dateString = date == null ? "" : SIMPLE_DATE_FORMAT.format(date) + " ";
-        File file = sourceFilesReader.currentFile(context);
+        File file = sourceFilesReader.currentFile(combinerContext);
         String fileName = file.getName() + " ";
         for (String line : multiLine) {
             fileWriter.write(dateString);
@@ -131,15 +131,15 @@ public class CombinerServiceProgrammableTest {
         Set<File> files = fileService.collectFiles(logDirectory);
 
         // Contains instances of Tactics, NodeFiles and NodeLogs
-        Context context = new Context().init();
+        CombinerContext combinerContext = new CombinerContext().init();
 
         // Instantiate parsers for different log formats
         Set<Tactic> tactics = new HashSet<>();
         tactics.add(new FirstApplicationTactic());
         tactics.add(new SecondApplicationTactic());
-        context.getTacticRepository().setTactics(tactics);
+        combinerContext.getTacticRepository().setTactics(tactics);
 
-        TacticService.getInstance().prepareReaders(files, context);
+        TacticService.getInstance().prepareReaders(files, combinerContext);
 
         File targetFolder = temporaryFolder.newFolder("generated");
         CombinerService combinerService = CombinerService.getInstance();
@@ -147,9 +147,9 @@ public class CombinerServiceProgrammableTest {
 
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
             FilesMergerState filesMergerState = new FilesMergerState();
-            filesMergerState.setNodeFiles(context.getNodeFileRepository().getNodeFiles());
+            filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
 
-            combinerService.combine(outputStream, filesMergerState, context);
+            combinerService.combine(outputStream, filesMergerState, combinerContext);
         }
         File exemplarFile = new File("src/test/resources/test-log-files-expected/combined.txt");
         assertTrue(exemplarFile.exists());

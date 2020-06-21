@@ -14,8 +14,7 @@ import com.credibledoc.combiner.tactic.TacticRepository;
  * 
  * @author Kyrylo Semenko
  */
-// TODO Kyrylo Semenko - rename to CombinerContext
-public class Context {
+public class CombinerContext {
     /**
      * Contains {@link com.credibledoc.combiner.node.file.NodeFile} instances.
      */
@@ -33,7 +32,7 @@ public class Context {
 
     @Override
     public String toString() {
-        return "Context{" +
+        return "CombinerContext{" +
             "nodeFileRepository=" + nodeFileRepository +
             ", nodeLogRepository=" + nodeLogRepository +
             ", tacticRepository=" + tacticRepository +
@@ -85,9 +84,9 @@ public class Context {
     /**
      * Create new instances of {@link #nodeFileRepository}, {@link #nodeLogRepository}
      * and {@link #tacticRepository}.
-     * @return the current instance of {@link Context}.
+     * @return the current instance of {@link CombinerContext}.
      */
-    public Context init() {
+    public CombinerContext init() {
         this.nodeFileRepository = new NodeFileRepository();
         this.nodeLogRepository = new NodeLogRepository();
         this.tacticRepository = new TacticRepository();

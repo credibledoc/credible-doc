@@ -1,6 +1,6 @@
 package com.credibledoc.combiner.node.file;
 
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogConcatenatedInputStream;
@@ -35,12 +35,12 @@ public class NodeFileService {
         return instance;
     }
 
-    public NodeFile createNodeFile(Date date, File file, Context context, NodeLog nodeLog) {
+    public NodeFile createNodeFile(Date date, File file, CombinerContext combinerContext, NodeLog nodeLog) {
         NodeFile nodeFile = new NodeFile();
         nodeFile.setFile(file);
         nodeFile.setDate(date);
         nodeFile.setNodeLog(nodeLog);
-        context.getNodeFileRepository().getNodeFiles().add(nodeFile);
+        combinerContext.getNodeFileRepository().getNodeFiles().add(nodeFile);
         return nodeFile;
     }
 
@@ -48,14 +48,14 @@ public class NodeFileService {
      * Find out {@link NodeFile} with the same {@link LogBufferedReader} file.
      *
      * @param logBufferedReader from {@link NodeLog}
-     * @param context the current state
+     * @param combinerContext the current state
      * @return found {@link NodeFile}
      */
-    public NodeFile findNodeFile(LogBufferedReader logBufferedReader, Context context) {
+    public NodeFile findNodeFile(LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
         LogInputStreamReader logInputStreamReader = (LogInputStreamReader) logBufferedReader.getReader();
         LogConcatenatedInputStream logConcatenatedInputStream = (LogConcatenatedInputStream) logInputStreamReader.getInputStream();
         LogFileInputStream logFileInputStream = logConcatenatedInputStream.getCurrentStream();
-        for (NodeFile nodeFile : context.getNodeFileRepository().getNodeFiles()) {
+        for (NodeFile nodeFile : combinerContext.getNodeFileRepository().getNodeFiles()) {
             if (nodeFile.getFile() == logFileInputStream.getFile()) {
                 return nodeFile;
             }
@@ -64,14 +64,14 @@ public class NodeFileService {
     }
 
     private void createOrAddToNodeFile(Tactic tactic, Set<NodeLog> nodeLogs, Date date,
-                                       File file, Context context) {
+                                       File file, CombinerContext combinerContext) {
         String folderName = file.getParentFile().getName();
         boolean nodeLogFound = false;
         for (NodeLog nodeLog : nodeLogs) {
             if (nodeLog.getName().equals(folderName)) {
-                Set<NodeFile> nodeFiles = findNodeFiles(nodeLog, context);
+                Set<NodeFile> nodeFiles = findNodeFiles(nodeLog, combinerContext);
                 if (!containsName(nodeFiles, file.getName())) {
-                    NodeFile nodeFile = createNodeFile(date, file, context, nodeLog);
+                    NodeFile nodeFile = createNodeFile(date, file, combinerContext, nodeLog);
                     nodeFiles.add(nodeFile);
                     nodeFile.setNodeLog(nodeLog);
                 }
@@ -80,23 +80,23 @@ public class NodeFileService {
         }
         if (!nodeLogFound) {
             nodeLogs = new TreeSet<>();
-            NodeLog nodeLog = NodeLogService.getInstance().createNodeLog(file, context, tactic);
-            NodeFile nodeFile = createNodeFile(date, file, context, nodeLog);
+            NodeLog nodeLog = NodeLogService.getInstance().createNodeLog(file, combinerContext, tactic);
+            NodeFile nodeFile = createNodeFile(date, file, combinerContext, nodeLog);
             nodeLogs.add(nodeLog);
             nodeFile.setNodeLog(nodeLog);
         }
     }
 
-    public void appendToNodeLogs(File file, Date date, Tactic tactic, Context context) {
-        Set<NodeLog> nodeLogs = NodeLogService.getInstance().findNodeLogs(tactic, context);
-        createOrAddToNodeFile(tactic, nodeLogs, date, file, context);
+    public void appendToNodeLogs(File file, Date date, Tactic tactic, CombinerContext combinerContext) {
+        Set<NodeLog> nodeLogs = NodeLogService.getInstance().findNodeLogs(tactic, combinerContext);
+        createOrAddToNodeFile(tactic, nodeLogs, date, file, combinerContext);
     }
 
-    public SortedSet<NodeFile> findNodeFiles(NodeLog nodeLog, Context context) {
+    public SortedSet<NodeFile> findNodeFiles(NodeLog nodeLog, CombinerContext combinerContext) {
         Comparator<NodeFile> comparator = NodeFileComparator.getInstance();
         TreeSet<NodeFile> treeSet = new TreeSet<>(comparator);
         SortedSet<NodeFile> result = Collections.synchronizedSortedSet(treeSet);
-        for (NodeFile nodeFile : context.getNodeFileRepository().getNodeFiles()) {
+        for (NodeFile nodeFile : combinerContext.getNodeFileRepository().getNodeFiles()) {
             if (nodeFile.getNodeLog() == nodeLog) {
                 result.add(nodeFile);
             }

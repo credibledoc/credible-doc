@@ -1,6 +1,6 @@
 package com.credibledoc.combiner.node.log;
 
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.file.NodeFile;
@@ -36,20 +36,20 @@ public class NodeLogService {
     /**
      * Create a new {@link NodeLog}
      * @param nodeFileFile the first item of the {@link NodeLog}
-     * @param context the current state
+     * @param combinerContext the current state
      * @param tactic cannot be 'null'
      * @return created {@link NodeLog}
      */
-    public NodeLog createNodeLog(File nodeFileFile, Context context, Tactic tactic) {
+    public NodeLog createNodeLog(File nodeFileFile, CombinerContext combinerContext, Tactic tactic) {
         NodeLog nodeLog = new NodeLog();
         nodeLog.setTactic(tactic);
         nodeLog.setName(nodeFileFile.getParentFile().getName());
-        context.getNodeLogRepository().getNodeLogs().add(nodeLog);
+        combinerContext.getNodeLogRepository().getNodeLogs().add(nodeLog);
         return nodeLog;
     }
 
-    public Set<NodeLog> findNodeLogs(Tactic tactic, Context context) {
-        NodeLogTreeSet<NodeLog> nodeLogs = context.getNodeLogRepository().getNodeLogs();
+    public Set<NodeLog> findNodeLogs(Tactic tactic, CombinerContext combinerContext) {
+        NodeLogTreeSet<NodeLog> nodeLogs = combinerContext.getNodeLogRepository().getNodeLogs();
         TreeSet<NodeLog> treeSet = nodeLogs.get(tactic);
         if (treeSet == null) {
             return Collections.emptySet();
@@ -61,11 +61,11 @@ public class NodeLogService {
      * Find the {@link NodeLog} with the same {@link com.credibledoc.combiner.node.file.NodeFile#getLogBufferedReader()}.
      *
      * @param logBufferedReader from {@link NodeLog}
-     * @param context the current state
+     * @param combinerContext the current state
      * @return The found {@link NodeLog}
      */
-    private NodeLog findNodeLog(LogBufferedReader logBufferedReader, Context context) {
-        for (NodeFile nodeFile : context.getNodeFileRepository().getNodeFiles()) {
+    private NodeLog findNodeLog(LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
+        for (NodeFile nodeFile : combinerContext.getNodeFileRepository().getNodeFiles()) {
             if (nodeFile.getLogBufferedReader() == logBufferedReader) {
                 return nodeFile.getNodeLog();
             }
@@ -74,14 +74,14 @@ public class NodeLogService {
     }
 
     /**
-     * Call the {@link NodeLogService#findNodeLog(LogBufferedReader, Context)} method
+     * Call the {@link NodeLogService#findNodeLog(LogBufferedReader, CombinerContext)} method
      * and return {@link NodeLog#getName()}.
      *
      * @param logBufferedReader from {@link NodeLog}
-     * @param context the current state
+     * @param combinerContext the current state
      * @return {@link NodeLog#getName()}
      */
-    public String findNodeName(LogBufferedReader logBufferedReader, Context context) {
-        return findNodeLog(logBufferedReader, context).getName();
+    public String findNodeName(LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
+        return findNodeLog(logBufferedReader, combinerContext).getName();
     }
 }

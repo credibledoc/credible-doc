@@ -2,7 +2,7 @@ package com.credibledoc.combiner;
 
 import com.credibledoc.combiner.config.Config;
 import com.credibledoc.combiner.config.ConfigService;
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.state.FilesMergerState;
@@ -44,27 +44,27 @@ public class CombinerServiceTest {
         assertTrue(logDirectory.exists());
 
         // Contains instances of Tactics, NodeFiles and NodeLogs
-        Context context = new Context().init();
+        CombinerContext combinerContext = new CombinerContext().init();
 
         CombinerService combinerService = CombinerService.getInstance();
-        combinerService.prepareReader(logDirectory, config, context);
+        combinerService.prepareReader(logDirectory, config, combinerContext);
 
         FilesMergerState filesMergerState = new FilesMergerState();
-        filesMergerState.setNodeFiles(context.getNodeFileRepository().getNodeFiles());
+        filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
         ReaderService readerService = ReaderService.getInstance();
-        readerService.prepareBufferedReaders(context);
+        readerService.prepareBufferedReaders(combinerContext);
         int currentLineNumber = 0;
-        String line = readerService.readLineFromReaders(filesMergerState, context);
+        String line = readerService.readLineFromReaders(filesMergerState, combinerContext);
         LogBufferedReader logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         while (line != null) {
-            List<String> multiline = readerService.readMultiline(line, logBufferedReader, context);
+            List<String> multiline = readerService.readMultiline(line, logBufferedReader, combinerContext);
 
             for (String nextLine : multiline) {
                 currentLineNumber++;
                 logger.debug("{} lines processed. NextLine: {}", currentLineNumber, nextLine);
             }
 
-            line = readerService.readLineFromReaders(filesMergerState, context);
+            line = readerService.readLineFromReaders(filesMergerState, combinerContext);
             logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         }
         assertEquals(17, currentLineNumber);
@@ -83,22 +83,22 @@ public class CombinerServiceTest {
         assertTrue(logDirectory.exists());
 
         // Contains instances of Tactics, NodeFiles and NodeLogs
-        Context context = new Context().init();
+        CombinerContext combinerContext = new CombinerContext().init();
         
         CombinerService combinerService = CombinerService.getInstance();
-        combinerService.prepareReader(logDirectory, config, context);
+        combinerService.prepareReader(logDirectory, config, combinerContext);
 
         File targetFolder = temporaryFolder.newFolder("generated-combine");
         File targetFile = combinerService.prepareTargetFile(targetFolder, config.getTargetFileName());
 
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
             ReaderService readerService = ReaderService.getInstance();
-            readerService.prepareBufferedReaders(context);
+            readerService.prepareBufferedReaders(combinerContext);
 
             FilesMergerState filesMergerState = new FilesMergerState();
-            filesMergerState.setNodeFiles(context.getNodeFileRepository().getNodeFiles());
+            filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
 
-            combinerService.combine(outputStream, filesMergerState, context);
+            combinerService.combine(outputStream, filesMergerState, combinerContext);
         }
         File exemplarFile = new File("src/test/resources/test-log-files-expected/combined.txt");
         assertTrue(exemplarFile.exists());

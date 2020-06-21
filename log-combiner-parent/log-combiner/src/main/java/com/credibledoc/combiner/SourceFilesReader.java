@@ -1,6 +1,6 @@
 package com.credibledoc.combiner;
 
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Stateful instance with {@link Context} and methods for reading lines from parsed files.
+ * Stateful instance with {@link CombinerContext} and methods for reading lines from parsed files.
  */
 public class SourceFilesReader {
     
@@ -24,7 +24,7 @@ public class SourceFilesReader {
     
     private LogBufferedReader logBufferedReader;
     
-    private Context context;
+    private CombinerContext combinerContext;
 
     public void addSourceFiles(Set<File> sourceFiles) {
         this.files = sourceFiles;
@@ -35,31 +35,31 @@ public class SourceFilesReader {
             if (files.isEmpty()) {
                 throw new CombinerRuntimeException("The source files collection is empty.");
             }
-            TacticService.getInstance().prepareReaders(files, context);
+            TacticService.getInstance().prepareReaders(files, combinerContext);
             
             filesMergerState = new FilesMergerState();
-            filesMergerState.setNodeFiles(context.getNodeFileRepository().getNodeFiles());
+            filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
         }
-        String line = ReaderService.getInstance().readLineFromReaders(filesMergerState, context);
+        String line = ReaderService.getInstance().readLineFromReaders(filesMergerState, combinerContext);
         logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         if (line == null) {
             return null;
         }
         if (logBufferedReader.isNotClosed()) {
-            return ReaderService.getInstance().readMultiline(line, logBufferedReader, context);
+            return ReaderService.getInstance().readMultiline(line, logBufferedReader, combinerContext);
         }
         return null;
     }
 
-    public File currentFile(Context context) {
-        return NodeFileService.getInstance().findNodeFile(logBufferedReader, context).getFile();
+    public File currentFile(CombinerContext combinerContext) {
+        return NodeFileService.getInstance().findNodeFile(logBufferedReader, combinerContext).getFile();
     }
 
-    public Tactic currentTactic(Context context) {
-        return TacticService.getInstance().findTactic(logBufferedReader, context);
+    public Tactic currentTactic(CombinerContext combinerContext) {
+        return TacticService.getInstance().findTactic(logBufferedReader, combinerContext);
     }
 
-    public void setContext(Context context) {
-        this.context = context;
+    public void setCombinerContext(CombinerContext combinerContext) {
+        this.combinerContext = combinerContext;
     }
 }

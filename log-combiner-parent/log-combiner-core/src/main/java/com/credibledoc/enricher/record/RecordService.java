@@ -1,6 +1,6 @@
 package com.credibledoc.enricher.record;
 
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.file.NodeFileService;
 
@@ -28,9 +28,9 @@ public class RecordService {
     }
 
     public Record createRecord(LogBufferedReader logBufferedReader, List<String> multiLine,
-                               Date firstLineDate, Context context) {
+                               Date firstLineDate, CombinerContext combinerContext) {
         Record record = new Record(multiLine, firstLineDate);
-        record.setNodeFile(NodeFileService.getInstance().findNodeFile(logBufferedReader, context));
+        record.setNodeFile(NodeFileService.getInstance().findNodeFile(logBufferedReader, combinerContext));
         return record;
     }
 }

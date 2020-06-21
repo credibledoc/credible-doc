@@ -1,6 +1,6 @@
 package com.credibledoc.combiner.log.reader;
 
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.line.LineState;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
@@ -66,7 +66,7 @@ public class ReaderService {
      * @param line the first line of multi-lines record or a single line. It can be followed by additional lines but not necessarily.
      * @param logBufferedReader the data source
      * @return for example the one line
-     * @param context the current state
+     * @param combinerContext the current state
      * <pre>3.2-SNAPSHOT INFO  2018-04-13 13:19:40 : RAMJob...</pre>
      * or the multi lines 
      * <pre>
@@ -75,14 +75,14 @@ public class ReaderService {
      *     NOT STARTED.
      * </pre>
      */
-    public List<String> readMultiline(String line, LogBufferedReader logBufferedReader, Context context) {
+    public List<String> readMultiline(String line, LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
         List<String> result = new ArrayList<>();
         try {
             result.add(line);
             logBufferedReader.mark(MAX_CHARACTERS_IN_ONE_LINE);
             line = logBufferedReader.readLine();
             while (line != null) {
-                if (containsStartPattern(line, logBufferedReader, context)) {
+                if (containsStartPattern(line, logBufferedReader, combinerContext)) {
                     logBufferedReader.reset();
                     return result;
                 } else {
@@ -112,11 +112,11 @@ public class ReaderService {
      * @param line              log line, for example
      *                          <pre>3.2-SNAPSHOT INFO  2019-01-12 13:29:40 [main            ] : Add ... addLast(MutableSources.java:105)</pre>
      * @param logBufferedReader the current reader for identification of {@link Tactic}
-     * @param context the current state
+     * @param combinerContext the current state
      * @return 'true' if the line contains specific pattern
      */
-    private boolean containsStartPattern(String line, LogBufferedReader logBufferedReader, Context context) {
-        Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader, context);
+    private boolean containsStartPattern(String line, LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
+        Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader, combinerContext);
         return tactic.containsDate(line);
     }
 
@@ -130,18 +130,18 @@ public class ReaderService {
      * and current position in the {@link NodeFile#getLogBufferedReader()}.
      *
      * @param filesMergerState contains information of last used index and {@link NodeFile}s
-     * @param context the current state
+     * @param combinerContext the current state
      * @return a preferred line from one of {@link LogBufferedReader}s or 'null' if all buffers are empty.
      */
-    public String readLineFromReaders(FilesMergerState filesMergerState, Context context) {
+    public String readLineFromReaders(FilesMergerState filesMergerState, CombinerContext combinerContext) {
         try {
-            NodeFile actualNodeFile = findTheYoungest(context);
+            NodeFile actualNodeFile = findTheYoungest(combinerContext);
             if (actualNodeFile == null) {
                 return null;
             }
             LogBufferedReader logBufferedReader = actualNodeFile.getLogBufferedReader();
             String line = logBufferedReader.readLine();
-            actualNodeFile.setLineState(getLineState(logBufferedReader, context));
+            actualNodeFile.setLineState(getLineState(logBufferedReader, combinerContext));
             filesMergerState.setCurrentNodeFile(actualNodeFile);
             return line;
         } catch (IOException e) {
@@ -149,12 +149,12 @@ public class ReaderService {
         }
     }
 
-    public NodeFile findTheYoungest(Context context) {
+    public NodeFile findTheYoungest(CombinerContext combinerContext) {
         try {
             Date previousDate = null;
             String previousLine = null;
             NodeFile result = null;
-            NodeFileTreeSet<NodeFile> nodeFiles = context.getNodeFileRepository().getNodeFiles();
+            NodeFileTreeSet<NodeFile> nodeFiles = combinerContext.getNodeFileRepository().getNodeFiles();
             for (NodeFile nodeFile : nodeFiles) {
                 if (nodeFile.getLogBufferedReader().isNotClosed()) {
                     LogBufferedReader logBufferedReader = nodeFile.getLogBufferedReader();
@@ -194,10 +194,10 @@ public class ReaderService {
     /**
      * Read the first line from the argument and find out the {@link LineState} of the line.
      * @param logBufferedReader the source of the line
-     * @param context the current state
+     * @param combinerContext the current state
      * @return the {@link LineState} of the line
      */
-    private LineState getLineState(LogBufferedReader logBufferedReader, Context context) {
+    private LineState getLineState(LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
         try {
             logBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
             
@@ -207,7 +207,7 @@ public class ReaderService {
             }
             logBufferedReader.reset();
 
-            Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader, context);
+            Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader, combinerContext);
             boolean containsDate = tactic.containsDate(line);
             if (!containsDate) {
                 return LineState.WITHOUT_DATE;
@@ -235,14 +235,14 @@ public class ReaderService {
     }
 
     /**
-     * Create {@link FileInputStream}s from all log files and set them to {@link NodeFile}s from the context.
+     * Create {@link FileInputStream}s from all log files and set them to {@link NodeFile}s from the combinerContext.
      *
-     * @param context the holder of {@link NodeFile}s with files for parsing.
+     * @param combinerContext the holder of {@link NodeFile}s with files for parsing.
      */
-    public void prepareBufferedReaders(Context context) {
+    public void prepareBufferedReaders(CombinerContext combinerContext) {
         try {
             long startNanos = System.nanoTime();
-            for (NodeFile nodeFile : context.getNodeFileRepository().getNodeFiles()) {
+            for (NodeFile nodeFile : combinerContext.getNodeFileRepository().getNodeFiles()) {
                 List<LogFileInputStream> inputStreams = new ArrayList<>();
                 inputStreams.add(new LogFileInputStream(nodeFile.getFile()));
                 Enumeration<LogFileInputStream> enumeration = Collections.enumeration(inputStreams);
@@ -251,7 +251,7 @@ public class ReaderService {
                     = new LogInputStreamReader(logConcatenatedInputStream, StandardCharsets.UTF_8);
                 LogBufferedReader logBufferedReader = new LogBufferedReader(logInputStreamReader);
                 nodeFile.setLogBufferedReader(logBufferedReader);
-                LineState lineState = getLineState(nodeFile.getLogBufferedReader(), context);
+                LineState lineState = getLineState(nodeFile.getLogBufferedReader(), combinerContext);
                 nodeFile.setLineState(lineState);
             }
             long durationInNanoseconds = System.nanoTime() - startNanos;

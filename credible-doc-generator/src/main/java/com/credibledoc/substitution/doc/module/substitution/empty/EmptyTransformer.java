@@ -1,6 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.empty;
 
-import com.credibledoc.combiner.context.Context;
+import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.enricher.transformer.Transformer;
@@ -24,7 +24,7 @@ public class EmptyTransformer implements Transformer {
 
     @Override
     public String transform(Printable printable, List<String> multiLine, LogBufferedReader logBufferedReader,
-                            Context context) {
+                            CombinerContext combinerContext) {
         if (printable.getCacheLines().size() < MIN_LINES_COUNT_FOR_DECISION) {
             printable.getCacheLines().add(multiLine.get(0));
         }
