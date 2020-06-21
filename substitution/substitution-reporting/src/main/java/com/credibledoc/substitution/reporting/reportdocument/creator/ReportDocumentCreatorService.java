@@ -143,7 +143,6 @@ public class ReportDocumentCreatorService {
                                                     ReportDocumentCreator reportDocumentCreator, Context context, SubstitutionContext substitutionContext) {
         ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
         PlaceholderToReportDocumentService.getInstance().putPlaceholderToReportDocument(placeholder, reportDocument);
-        ReportDocumentService.getInstance().getReportDocuments().add(reportDocument);
         substitutionContext.getPlaceholderRepository().getPlaceholders().add(placeholder);
         if (placeholder.getParameters() != null &&
             placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER) != null) {
@@ -155,6 +154,7 @@ public class ReportDocumentCreatorService {
                 prepareReport(file, reportDocument, context);
             }
         }
+        ReportDocumentService.getInstance().getReportDocuments().add(reportDocument);
     }
 
     /**
