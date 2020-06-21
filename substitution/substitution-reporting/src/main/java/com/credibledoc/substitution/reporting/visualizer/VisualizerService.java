@@ -5,6 +5,7 @@ import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.state.FilesMergerState;
+import com.credibledoc.enricher.context.EnricherContext;
 import com.credibledoc.enricher.transformer.TransformerService;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.reporting.context.ReportingContext;
@@ -21,7 +22,7 @@ import java.util.Set;
 
 /**
  * Visualizer creates reports. The reports describes scenarios recorded in log files,
- * see the {@link #createReports(Collection, Context, ReportingContext)} method.
+ * see the {@link #createReports(Collection, Context, ReportingContext, EnricherContext)} method.
  *
  * @author Kyrylo Semenko
  */
@@ -56,18 +57,21 @@ public class VisualizerService {
      * @param reportDocumentTypes defines which {@link ReportDocumentType}s
      *                            can be transformed in a particular invocation
      * @param context the current state
+     * @param reportingContext the current state
+     * @param enricherContext the current state
      */
     public void createReports(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes, Context context,
-                              ReportingContext reportingContext) {
+                              ReportingContext reportingContext, EnricherContext enricherContext) {
         logger.info("Method createReports started, reportDocumentTypes: '{}'", reportDocumentTypes);
         List<Report> reports = reportingContext.getReportRepository().getReports();
         for (Report report : reports) {
-            createReport(reportDocumentTypes, report, context, reportingContext);
+            createReport(reportDocumentTypes, report, context, reportingContext, enricherContext);
         }
     }
 
     private void createReport(Collection<Class<? extends ReportDocumentType>> reportDocumentTypes,
-                              Report report, Context context, ReportingContext reportingContext) {
+                              Report report, Context context, ReportingContext reportingContext,
+                              EnricherContext enricherContext) {
         logger.info("Method createReports started. Report: {}", report);
         ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
         List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report, reportingContext);
@@ -91,7 +95,7 @@ public class VisualizerService {
                 List<String> multiLine = readerService.readMultiline(line, currentReader, context);
 
                 currentLineNumber = transformMultiLine(multiLine, reportDocumentTypes, report, reportDocuments,
-                    currentReader, currentLineNumber, transformerService, context);
+                    currentReader, currentLineNumber, transformerService, context, enricherContext);
 
                 reportDocumentService.mergeReportDocumentsForAddition(reportingContext);
                 reportDocuments = reportDocumentService.getReportDocuments(report, reportingContext);
@@ -124,7 +128,8 @@ public class VisualizerService {
                                    LogBufferedReader currentReader,
                                    int currentLineNumber,
                                    TransformerService transformerService,
-                                   Context context) {
+                                   Context context,
+                                   EnricherContext enricherContext) {
         currentLineNumber = currentLineNumber + multiLine.size();
         try {
             if (report.getLinesNumber() > 0 && currentLineNumber % 100000 == 0) {
@@ -134,7 +139,8 @@ public class VisualizerService {
 
             for (ReportDocument reportDocument : reportDocuments) {
                 if (reportDocumentTypes.contains(reportDocument.getReportDocumentType())) {
-                    transformerService.transformToReport(reportDocument, multiLine, currentReader, context);
+                    transformerService.transformToReport(reportDocument, multiLine, currentReader,
+                        context, enricherContext);
                 }
             }
         } catch (Exception e) {

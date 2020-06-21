@@ -7,6 +7,7 @@ import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.node.log.NodeLog;
 import com.credibledoc.combiner.node.log.NodeLogService;
 import com.credibledoc.combiner.tactic.Tactic;
+import com.credibledoc.enricher.context.EnricherContext;
 import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
@@ -76,8 +77,10 @@ public class ReportDocumentCreatorService {
      * @param context the current state
      * @param reportingContext the current state
      * @param substitutionContext the current state
+     * @param enricherContext the current state
      */
-    public void createReportDocuments(Context context, ReportingContext reportingContext, SubstitutionContext substitutionContext) {
+    public void createReportDocuments(Context context, ReportingContext reportingContext,
+                                      SubstitutionContext substitutionContext, EnricherContext enricherContext) {
         TemplateResource lastTemplateResource = null;
         String lastTemplatePlaceholder = null;
         ReportDocumentCreatorRepository reportDocumentCreatorRepository
@@ -102,7 +105,7 @@ public class ReportDocumentCreatorService {
                         ReportDocumentCreator reportDocumentCreator =
                             reportDocumentCreatorRepository.getMap().get(placeholderClass);
                         createReportDocumentForPlaceholder(placeholder,
-                            reportDocumentCreator, context, substitutionContext, reportingContext);
+                            reportDocumentCreator, context, substitutionContext, reportingContext, enricherContext);
                     }
                 }
             }
@@ -123,7 +126,7 @@ public class ReportDocumentCreatorService {
     /**
      * Prepare relations between {@link Placeholder}s and {@link ReportDocument}s.
      * <p>
-     * Create {@link ReportDocument}, see the {@link ReportDocumentCreator#prepareReportDocument()} method.
+     * Create {@link ReportDocument}, see the {@link ReportDocumentCreator#prepareReportDocument(EnricherContext)} method.
      * <p>
      * Put the {@link Placeholder} and {@link ReportDocument} to the
      * {@link PlaceholderToReportDocumentRepository}.
@@ -137,13 +140,16 @@ public class ReportDocumentCreatorService {
      * @param reportDocumentCreator for addition
      * @param context               the current state
      * @param substitutionContext   the current state
+     * @param reportingContext      the current state
+     * @param enricherContext       the current state
      */
     private void createReportDocumentForPlaceholder(Placeholder placeholder,
                                                     ReportDocumentCreator reportDocumentCreator,
                                                     Context context,
                                                     SubstitutionContext substitutionContext,
-                                                    ReportingContext reportingContext) {
-        ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument();
+                                                    ReportingContext reportingContext,
+                                                    EnricherContext enricherContext) {
+        ReportDocument reportDocument = reportDocumentCreator.prepareReportDocument(enricherContext);
         PlaceholderToReportDocumentService.getInstance().putPlaceholderToReportDocument(placeholder, reportDocument);
         substitutionContext.getPlaceholderRepository().getPlaceholders().add(placeholder);
         if (placeholder.getParameters() != null &&
@@ -163,6 +169,7 @@ public class ReportDocumentCreatorService {
      * Create a new {@link Report}
      * @param logFile a source file
      * @param reportDocument belonging to the {@link Report}
+     * @param reportingContext the current state
      */
     private void prepareReport(File logFile, ReportDocument reportDocument, Context context, ReportingContext reportingContext) {
         Report report = new Report();

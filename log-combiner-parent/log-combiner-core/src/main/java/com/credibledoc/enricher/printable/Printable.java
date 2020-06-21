@@ -25,7 +25,7 @@ public interface Printable {
     /**
      * @return If this field contains 'true', all {@link com.credibledoc.enricher.line.LineProcessor}s belonging to
      * this {@link Printable} will be processed in the
-     * {@link com.credibledoc.enricher.transformer.TransformerService#transformToReport(Printable, List, LogBufferedReader, com.credibledoc.combiner.context.Context)}
+     * {@link com.credibledoc.enricher.transformer.TransformerService#transformToReport(Printable, List, LogBufferedReader, com.credibledoc.combiner.context.Context, com.credibledoc.enricher.context.EnricherContext)}
      * method. Else the first matched transformer will be processed only.
      */
     boolean checkAllLineProcessors();

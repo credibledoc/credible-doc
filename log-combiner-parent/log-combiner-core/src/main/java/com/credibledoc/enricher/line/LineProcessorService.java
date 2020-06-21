@@ -1,5 +1,6 @@
 package com.credibledoc.enricher.line;
 
+import com.credibledoc.enricher.context.EnricherContext;
 import com.credibledoc.enricher.printable.Printable;
 
 import java.util.*;
@@ -10,6 +11,7 @@ import java.util.*;
  * @author Kyrylo Semenko
  */
 public class LineProcessorService {
+    // TODO Kyrylo Semenko - move to context
     private Map<Printable, List<LineProcessor>> derivingToLineProcessorsMap = new HashMap<>();
 
     /**
@@ -30,20 +32,22 @@ public class LineProcessorService {
     /**
      * Call the {@link LineProcessorRepository#getLineProcessors()} method
      *
+     * @param enricherContext the current state
      * @return all {@link LineProcessor}s.
      */
-    public List<LineProcessor> getLineProcessors() {
-        return LineProcessorRepository.getInstance().getLineProcessors();
+    public List<LineProcessor> getLineProcessors(EnricherContext enricherContext) {
+        return enricherContext.getLineProcessorRepository().getLineProcessors();
     }
 
     /**
      * Find {@link LineProcessor}s which belong to a {@link Printable}.
      * @param printable an object in the {@link LineProcessor#getPrintable()} value
+     * @param enricherContext the current state
      * @return list of {@link LineProcessor}s
      */
-    public List<LineProcessor> getLineProcessors(Printable printable) {
+    public List<LineProcessor> getLineProcessors(Printable printable, EnricherContext enricherContext) {
         if (derivingToLineProcessorsMap.isEmpty()) {
-            initializeCache();
+            initializeCache(enricherContext);
         }
         if (derivingToLineProcessorsMap.containsKey(printable)) {
             return derivingToLineProcessorsMap.get(printable);
@@ -54,17 +58,18 @@ public class LineProcessorService {
     /**
      * Evict the {@link #derivingToLineProcessorsMap} cache and add all {@link LineProcessor}s
      * to the {@link LineProcessorRepository}. Please use this method instead of direct addition to the
-     * {@link #getLineProcessors()} list.
+     * {@link #getLineProcessors(EnricherContext)} list.
      *
      * @param lineProcessors rules for searching and transformation.
+     * @param enricherContext the current state
      */
-    public void addAll(List<LineProcessor> lineProcessors) {
+    public void addAll(List<LineProcessor> lineProcessors, EnricherContext enricherContext) {
         derivingToLineProcessorsMap.clear();
-        LineProcessorRepository.getInstance().getLineProcessors().addAll(lineProcessors);
+        enricherContext.getLineProcessorRepository().getLineProcessors().addAll(lineProcessors);
     }
 
-    private void initializeCache() {
-        for (LineProcessor lineProcessor : getLineProcessors()) {
+    private void initializeCache(EnricherContext enricherContext) {
+        for (LineProcessor lineProcessor : getLineProcessors(enricherContext)) {
             Printable printable = lineProcessor.getPrintable();
             if (derivingToLineProcessorsMap.containsKey(printable)) {
                 derivingToLineProcessorsMap.get(printable).add(lineProcessor);

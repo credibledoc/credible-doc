@@ -2,6 +2,7 @@ package com.credibledoc.enricher.transformer;
 
 import com.credibledoc.combiner.context.Context;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
+import com.credibledoc.enricher.context.EnricherContext;
 import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.enricher.line.LineProcessor;
 import com.credibledoc.enricher.line.LineProcessorService;
@@ -10,7 +11,7 @@ import com.credibledoc.enricher.searchcommand.SearchCommand;
 import java.util.List;
 
 /**
- * Contains the {@link #transformToReport(Printable, List, LogBufferedReader, Context)}
+ * Contains the {@link #transformToReport(Printable, List, LogBufferedReader, Context, EnricherContext)}
  * method.
  *
  * @author Kyrylo Semenko
@@ -58,12 +59,14 @@ public class TransformerService {
      *                          useful in case when additional lines should be read from this reader
      *                          or for access to a source file.
      * @param context           the current state
+     * @param enricherContext   the current state
      */
     public void transformToReport(Printable printable,
                                   List<String> multiline,
                                   LogBufferedReader logBufferedReader,
-                                  Context context) {
-        List<LineProcessor> lineProcessors = LineProcessorService.getInstance().getLineProcessors(printable);
+                                  Context context,
+                                  EnricherContext enricherContext) {
+        List<LineProcessor> lineProcessors = LineProcessorService.getInstance().getLineProcessors(printable, enricherContext);
         for (LineProcessor lineProcessor : lineProcessors) {
             boolean isApplicable = lineProcessor.getSearchCommand().isApplicable(printable, multiline, logBufferedReader);
             if (isApplicable) {

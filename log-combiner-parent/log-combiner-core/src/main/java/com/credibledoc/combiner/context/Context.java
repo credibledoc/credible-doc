@@ -14,6 +14,7 @@ import com.credibledoc.combiner.tactic.TacticRepository;
  * 
  * @author Kyrylo Semenko
  */
+// TODO Kyrylo Semenko - rename to CombinerContext
 public class Context {
     /**
      * Contains {@link com.credibledoc.combiner.node.file.NodeFile} instances.

@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.reporting.reportdocument.creator;
 
+import com.credibledoc.enricher.context.EnricherContext;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 
@@ -13,9 +14,10 @@ public interface ReportDocumentCreator {
 
     /**
      * Create a new {@link ReportDocument}.
+     * @param enricherContext the current state of {@link EnricherContext#getLineProcessorRepository()}.
      * @return a stateful object which can write lines to a single report file.
      */
-    ReportDocument prepareReportDocument();
+    ReportDocument prepareReportDocument(EnricherContext enricherContext);
 
     /**
      * Returns the {@link ReportDocumentType} class of the {@link ReportDocument}

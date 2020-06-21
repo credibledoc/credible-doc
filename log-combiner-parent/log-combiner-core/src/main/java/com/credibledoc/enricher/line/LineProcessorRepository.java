@@ -9,22 +9,6 @@ import java.util.List;
  * @author Kyrylo Semenko
  */
 public class LineProcessorRepository {
-
-    /**
-     * Singleton.
-     */
-    private static LineProcessorRepository instance;
-
-    /**
-     * @return The {@link LineProcessorRepository} singleton.
-     */
-    static LineProcessorRepository getInstance() {
-        if (instance == null) {
-            instance = new LineProcessorRepository();
-        }
-        return instance;
-    }
-
     /**
      * All {@link LineProcessor}s of Visualizer.
      */

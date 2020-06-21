@@ -96,6 +96,7 @@ public class ReportDocumentService {
     /**
      * Find all {@link ReportDocument}s with report from parameter.
      * @param report the {@link ReportDocument#getReport()} value
+     * @param reportingContext the current state
      * @return 'null' if not found
      */
     public List<ReportDocument> getReportDocuments(Report report, ReportingContext reportingContext) {

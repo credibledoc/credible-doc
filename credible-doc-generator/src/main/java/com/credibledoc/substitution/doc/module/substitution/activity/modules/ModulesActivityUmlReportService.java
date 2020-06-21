@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.doc.module.substitution.activity.modules;
 
+import com.credibledoc.enricher.context.EnricherContext;
 import com.credibledoc.substitution.doc.module.substitution.activity.everyline.EveryLineSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
 import com.credibledoc.substitution.reporting.report.document.Document;
@@ -33,10 +34,11 @@ public class ModulesActivityUmlReportService implements ReportDocumentCreator {
     /**
      * Create a stateful object of {@link ReportDocument} type.
      *
+     * @param enricherContext the current state
      * @return The stateful object, which {@link ReportDocument#getCacheLines()} method
      * will be used for generation of PlantUML activity diagram.
      */
-    public ReportDocument prepareReportDocument() {
+    public ReportDocument prepareReportDocument(EnricherContext enricherContext) {
         Document document = new Document();
         document.setReportDocumentType(UmlDiagramType.class);
 
@@ -47,7 +49,7 @@ public class ModulesActivityUmlReportService implements ReportDocumentCreator {
                         applicationContext.getBean(ModulesActivityTransformer.class),
                         document));
 
-        LineProcessorService.getInstance().getLineProcessors().addAll(lineProcessors);
+        LineProcessorService.getInstance().getLineProcessors(enricherContext).addAll(lineProcessors);
         log.info("Line processors prepared");
         return document;
     }

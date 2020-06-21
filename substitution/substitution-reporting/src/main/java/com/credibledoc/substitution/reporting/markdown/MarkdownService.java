@@ -67,6 +67,7 @@ public class MarkdownService {
      * @param plantUml PlantUML source notation. If the value is 'null', the value will be obtained from
      *                 {@link ReportDocument} which is stored in
      *                 {@link PlaceholderToReportDocumentService#getReportDocument(Placeholder)}.
+     * @param substitutionContext the current state
      * @return A part of markdown document with link to generated SVG image.
      */
     public String generateDiagram(Placeholder placeholder, String plantUml, SubstitutionContext substitutionContext) {
