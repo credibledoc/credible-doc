@@ -12,7 +12,6 @@ import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
-import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.resource.TemplateResource;
 import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.placeholder.PlaceholderToReportDocumentRepository;
@@ -38,7 +37,6 @@ import java.util.Map;
 public class ReportDocumentCreatorService {
     private static final Logger logger = LoggerFactory.getLogger(ReportDocumentCreatorService.class);
     private static final String SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER = "sourceFileRelativePath";
-    private static final String MARKDOWN_FILE_EXTENSION = ".md";
 
     /**
      * Singleton.
@@ -80,18 +78,15 @@ public class ReportDocumentCreatorService {
      * @param enricherContext the current state
      */
     public void createReportDocuments(CombinerContext combinerContext, ReportingContext reportingContext,
-                                      SubstitutionContext substitutionContext, EnricherContext enricherContext) {
+                                      SubstitutionContext substitutionContext, EnricherContext enricherContext,
+                                      List<TemplateResource> templateResources) {
         TemplateResource lastTemplateResource = null;
         String lastTemplatePlaceholder = null;
         ReportDocumentCreatorRepository reportDocumentCreatorRepository
             = reportingContext.getReportDocumentCreatorRepository();
         try {
-            String templatesResource = substitutionContext.getConfiguration().getTemplatesResource();
-            List<TemplateResource> resources =
-                    ResourceService.getInstance().getResources(MARKDOWN_FILE_EXTENSION, templatesResource);
-            logger.debug("Markdown templates will be loaded from the resources: {}", resources);
             PlaceholderService placeholderService = PlaceholderService.getInstance();
-            for (TemplateResource templateResource : resources) {
+            for (TemplateResource templateResource : templateResources) {
                 lastTemplateResource = templateResource;
                 List<String> placeholders = placeholderService.parsePlaceholders(templateResource, substitutionContext);
                 int position = 1;
@@ -101,9 +96,9 @@ public class ReportDocumentCreatorService {
                         placeholderService.parseJsonFromPlaceholder(templatePlaceholder, templateResource, substitutionContext);
                     placeholder.setId(Integer.toString(position++));
                     Class<?> placeholderClass = Class.forName(placeholder.getClassName());
-                    if (ReportDocumentCreator.class.isAssignableFrom(placeholderClass)) {
-                        ReportDocumentCreator reportDocumentCreator =
-                            reportDocumentCreatorRepository.getMap().get(placeholderClass);
+                    ReportDocumentCreator reportDocumentCreator =
+                        reportDocumentCreatorRepository.getMap().get(placeholderClass);
+                    if (reportDocumentCreator != null && ReportDocumentCreator.class.isAssignableFrom(placeholderClass)) {
                         createReportDocumentForPlaceholder(placeholder,
                             reportDocumentCreator, combinerContext, substitutionContext, reportingContext, enricherContext);
                     }

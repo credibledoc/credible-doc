@@ -156,8 +156,8 @@ public class ReaderService {
             NodeFile result = null;
             NodeFileTreeSet<NodeFile> nodeFiles = combinerContext.getNodeFileRepository().getNodeFiles();
             for (NodeFile nodeFile : nodeFiles) {
-                if (nodeFile.getLogBufferedReader().isNotClosed()) {
-                    LogBufferedReader logBufferedReader = nodeFile.getLogBufferedReader();
+                LogBufferedReader logBufferedReader = nodeFile.getLogBufferedReader();
+                if (logBufferedReader != null && logBufferedReader.isNotClosed()) {
                     logBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
                     String line = logBufferedReader.readLine();
                     logBufferedReader.reset();
@@ -240,16 +240,31 @@ public class ReaderService {
      * @param combinerContext the holder of {@link NodeFile}s with files for parsing.
      */
     public void prepareBufferedReaders(CombinerContext combinerContext) {
+        NodeFileTreeSet<NodeFile> nodeFiles = combinerContext.getNodeFileRepository().getNodeFiles();
+        prepareBufferedReaders(combinerContext, nodeFiles);
+    }
+
+    /**
+     * Create {@link FileInputStream}s from {@link NodeFile}s and set them to {@link NodeFile}s from the combinerContext.
+     *
+     * @param combinerContext the holder of {@link NodeFile}s with files for parsing.
+     * @param nodeFiles that should be used.
+     */
+    public void prepareBufferedReaders(CombinerContext combinerContext, NodeFileTreeSet<NodeFile> nodeFiles) {
         try {
             long startNanos = System.nanoTime();
-            for (NodeFile nodeFile : combinerContext.getNodeFileRepository().getNodeFiles()) {
+            for (NodeFile nodeFile : nodeFiles) {
                 List<LogFileInputStream> inputStreams = new ArrayList<>();
                 inputStreams.add(new LogFileInputStream(nodeFile.getFile()));
                 Enumeration<LogFileInputStream> enumeration = Collections.enumeration(inputStreams);
                 LogConcatenatedInputStream logConcatenatedInputStream = new LogConcatenatedInputStream(enumeration);
+                // TODO Kyrylo Semenko - charset from combinerContext
                 LogInputStreamReader logInputStreamReader
                     = new LogInputStreamReader(logConcatenatedInputStream, StandardCharsets.UTF_8);
                 LogBufferedReader logBufferedReader = new LogBufferedReader(logInputStreamReader);
+                if (nodeFile.getLogBufferedReader() != null && nodeFile.getLogBufferedReader().isNotClosed()) {
+                    throw new CombinerRuntimeException("LogBufferedReader is not closed yet. Expected 'null' or closed LogBufferedReader.");
+                }
                 nodeFile.setLogBufferedReader(logBufferedReader);
                 LineState lineState = getLineState(nodeFile.getLogBufferedReader(), combinerContext);
                 nodeFile.setLineState(lineState);
@@ -261,4 +276,5 @@ public class ReaderService {
             throw new CombinerRuntimeException(e);
         }
     }
+
 }

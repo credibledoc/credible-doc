@@ -90,17 +90,21 @@ public class CredibleDocGeneratorMain {
     }
 
     private void substitute(boolean watchChanges) throws IOException, InterruptedException {
-        CombinerContext combinerContext = new CombinerContext().init();
-        EnricherContext enricherContext = new EnricherContext().init();
-        SubstitutionContext substitutionContext = new SubstitutionContext().init().loadConfiguration();
-        ReportingContext reportingContext = new ReportingContext().init();
-        combinerContext.getTacticRepository().getTactics().add(substitutionTactic);
         ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
-        reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators, reportingContext);
-        reportDocumentCreatorService.createReportDocuments(combinerContext, reportingContext, substitutionContext, enricherContext);
+        SubstitutionContext substitutionContext = new SubstitutionContext().init().loadConfiguration();
         List<TemplateResource> templateResources = copyResourcesToTargetDirectory(substitutionContext);
-        List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
-        VisualizerService.getInstance().createReports(reportDocumentTypes, combinerContext, reportingContext, enricherContext);
+        log.debug("Markdown templates will be loaded from the templateResources: {}", templateResources);
+        for (ReportDocumentCreator reportDocumentCreator : reportDocumentCreators) {
+            CombinerContext combinerContext = new CombinerContext().init();
+            EnricherContext enricherContext = new EnricherContext().init();
+            ReportingContext reportingContext = new ReportingContext().init();
+            combinerContext.getTacticRepository().getTactics().add(substitutionTactic);
+            reportDocumentCreatorService
+                .addReportDocumentCreators(Collections.singletonList(reportDocumentCreator), reportingContext);
+            reportDocumentCreatorService.createReportDocuments(combinerContext, reportingContext, substitutionContext, enricherContext, templateResources);
+            List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
+            VisualizerService.getInstance().createReports(reportDocumentTypes, combinerContext, reportingContext, enricherContext);
+        }
         ReplacementService replacementService = ReplacementService.getInstance();
         for (TemplateResource templateResource : templateResources) {
             replacementService.insertContentIntoTemplate(templateResource, substitutionContext);

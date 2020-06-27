@@ -4,6 +4,7 @@ import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.node.file.NodeFile;
+import com.credibledoc.combiner.node.file.NodeFileTreeSet;
 import com.credibledoc.combiner.state.FilesMergerState;
 import com.credibledoc.enricher.context.EnricherContext;
 import com.credibledoc.enricher.transformer.TransformerService;
@@ -75,9 +76,9 @@ public class VisualizerService {
         logger.info("Method createReports started. Report: {}", report);
         ReportDocumentService reportDocumentService = ReportDocumentService.getInstance();
         List<ReportDocument> reportDocuments = reportDocumentService.getReportDocuments(report, reportingContext);
-        Set<NodeFile> nodeFiles = reportDocumentService.getNodeFiles(reportDocuments);
+        NodeFileTreeSet<NodeFile> nodeFiles = (NodeFileTreeSet<NodeFile>) reportDocumentService.getNodeFiles(reportDocuments);
         ReaderService readerService = ReaderService.getInstance();
-        readerService.prepareBufferedReaders(combinerContext);
+        readerService.prepareBufferedReaders(combinerContext, nodeFiles);
         String line = null;
 
         FilesMergerState filesMergerState = new FilesMergerState();
@@ -89,7 +90,7 @@ public class VisualizerService {
         try {
             line = readerService.readLineFromReaders(filesMergerState, combinerContext);
             String substring = line.substring(0, 35);
-            logger.info("The first line read from {}. Line: '{}...'", ReaderService.class.getSimpleName(), substring);
+            logger.info("The first line is read from {}. Line: '{}...'", getClass().getSimpleName(), substring);
             while (line != null) {
                 currentReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
                 List<String> multiLine = readerService.readMultiline(line, currentReader, combinerContext);

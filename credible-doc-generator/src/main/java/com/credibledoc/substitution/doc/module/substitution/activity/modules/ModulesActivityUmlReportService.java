@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Creates document with data for dependency UML diagram.
+ * Creates document with data for an activity UML diagram.
  * @author Kyrylo Semenko
  */
 @Service

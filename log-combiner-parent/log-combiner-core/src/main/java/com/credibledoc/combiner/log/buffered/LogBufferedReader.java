@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- * This class extends the {@link LogBufferedReader} and provides
+ * This class extends the {@link BufferedReader} and provides
  * an extra {@link #getReader()} method.
  *
  * @author Kyrylo Semenko
@@ -16,7 +16,7 @@ public class LogBufferedReader extends BufferedReader {
     /**
      * A source of this {@link LogBufferedReader}.
      */
-    private Reader reader;
+    private final Reader reader;
 
     /**
      * Is 'true' when all lines has been read.

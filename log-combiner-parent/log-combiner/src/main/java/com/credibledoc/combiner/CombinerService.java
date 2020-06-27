@@ -121,7 +121,7 @@ public class CombinerService {
             line = readerService.readLineFromReaders(filesMergerState, combinerContext);
             logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
             String substring = line.substring(0, 35);
-            logger.info("The first line read from {}. Line: '{}...'", getClass().getSimpleName(), substring);
+            logger.info("The first line is read from {}. Line: '{}...'", getClass().getSimpleName(), substring);
             while (line != null) {
                 List<String> multiline = readerService.readMultiline(line, logBufferedReader, combinerContext);
 

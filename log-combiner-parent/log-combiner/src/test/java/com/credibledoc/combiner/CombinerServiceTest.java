@@ -52,7 +52,6 @@ public class CombinerServiceTest {
         FilesMergerState filesMergerState = new FilesMergerState();
         filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
         ReaderService readerService = ReaderService.getInstance();
-        readerService.prepareBufferedReaders(combinerContext);
         int currentLineNumber = 0;
         String line = readerService.readLineFromReaders(filesMergerState, combinerContext);
         LogBufferedReader logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
@@ -92,9 +91,6 @@ public class CombinerServiceTest {
         File targetFile = combinerService.prepareTargetFile(targetFolder, config.getTargetFileName());
 
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
-            ReaderService readerService = ReaderService.getInstance();
-            readerService.prepareBufferedReaders(combinerContext);
-
             FilesMergerState filesMergerState = new FilesMergerState();
             filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
 

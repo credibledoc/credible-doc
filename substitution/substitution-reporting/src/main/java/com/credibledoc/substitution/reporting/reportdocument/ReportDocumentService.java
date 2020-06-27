@@ -1,13 +1,13 @@
 package com.credibledoc.substitution.reporting.reportdocument;
 
 import com.credibledoc.combiner.node.file.NodeFile;
+import com.credibledoc.combiner.node.file.NodeFileTreeSet;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.report.Report;
 
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -111,7 +111,7 @@ public class ReportDocumentService {
      * @return List of unordered unique {@link NodeFile}s
      */
     public Set<NodeFile> getNodeFiles(List<ReportDocument> reportDocuments) {
-        Set<NodeFile> nodeFiles = new HashSet<>();
+        Set<NodeFile> nodeFiles = new NodeFileTreeSet<>();
         for (ReportDocument reportDocument : reportDocuments) {
             Set<NodeFile> nodeFilesSet = reportDocument.getNodeFiles();
             nodeFiles.addAll(nodeFilesSet);
