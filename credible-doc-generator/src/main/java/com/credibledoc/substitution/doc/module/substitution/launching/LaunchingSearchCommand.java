@@ -13,6 +13,10 @@ public class LaunchingSearchCommand implements SearchCommand {
 
     @Override
     public boolean isApplicable(Printable printable, List<String> multiLine, LogBufferedReader logBufferedReader) {
-        return multiLine.get(0).contains(CredibleDocGeneratorMain.APPLICATION_SUBSTITUTION_DOC_LAUNCHED);
+        String line = multiLine.get(0);
+        if (line.contains("|TRACE|")) {
+            return false;
+        }
+        return line.contains(" - " + CredibleDocGeneratorMain.APPLICATION_SUBSTITUTION_DOC_LAUNCHED);
     }
 }

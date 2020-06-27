@@ -13,6 +13,7 @@ import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessag
 import com.credibledoc.enricher.transformer.Transformer;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -29,14 +30,16 @@ import java.util.*;
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
+@Slf4j
 public class ModulesActivityTransformer implements Transformer {
 
     public static final String MODULE_NAME = "substitution-reporting";
+    
     @NonNull
     public final LogMessageService logMessageService;
 
     private static final String PLANTUML_CORE_MODULE_NAME = "plantuml-core";
-    private static Map<String, String> packagePrefixToModuleName = new HashMap<>();
+    private static final Map<String, String> packagePrefixToModuleName = new HashMap<>();
 
     static {
         packagePrefixToModuleName.put("com.credibledoc.substitution.core",
@@ -57,8 +60,9 @@ public class ModulesActivityTransformer implements Transformer {
             CredibleDocGeneratorMain.MODULE_NAME);
 
         // Should be here for activating of the "com.credibledoc.plantuml" class loader
-        SvgGeneratorService.class.getPackage();
-        LocalJarNameContentGenerator.class.getPackage();
+        Package svgGeneratorPackage = SvgGeneratorService.class.getPackage();
+        Package generatorJarPackage = LocalJarNameContentGenerator.class.getPackage();
+        log.debug("Class loaders activated: '{}', '{}'.", svgGeneratorPackage, generatorJarPackage);
         validatePackagesExist();
     }
 
@@ -84,7 +88,8 @@ public class ModulesActivityTransformer implements Transformer {
     @Override
     public String transform(Printable printable,
                             List<String> multiLine, LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
-        String canonicalClassName = parseClassName(multiLine.get(0));
+        String line = multiLine.get(0);
+        String canonicalClassName = parseClassName(line);
         String moduleName = findModuleName(canonicalClassName);
 
         int maxRowLength = moduleName.length() * 2 + moduleName.length() / 2;

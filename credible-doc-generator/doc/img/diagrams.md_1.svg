@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="301px" preserveAspectRatio="none" style="width:936px;height:301px;" version="1.1" viewBox="0 0 936 301" width="936px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="151px" preserveAspectRatio="none" style="width:936px;height:151px;" version="1.1" viewBox="0 0 936 151" width="936px" zoomAndPan="magnify">
   <defs>
-    <filter height="300%" id="fqhr36mdra758" width="300%" x="-1" y="-1">
+    <filter height="300%" id="1" width="300%" x="-1" y="-1">
       <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
       <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
       <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
@@ -8,42 +8,20 @@
     </filter>
   </defs>
   <g>
-    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#fqhr36mdra758)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#fqhr36mdra758)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
+    <ellipse cx="142.5" cy="20" fill="#000000" filter="url(#1)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
+    <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="50"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="20" y="72.457">Application credible-doc-generator launched.</text>
-    <path d="M259.5,109.4648 L259.5,118.6406 L239.5,122.6406 L259.5,126.6406 L259.5,135.8164 A0,0 0 0 0 259.5,135.8164 L924.5,135.8164 A0,0 0 0 0 924.5,135.8164 L924.5,119.4648 L914.5,109.4648 L259.5,109.4648 A0,0 0 0 0 259.5,109.4648 " fill="#FBFB77" filter="url(#fqhr36mdra758)" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <path d="M259.5,109.4648 L259.5,118.6406 L239.5,122.6406 L259.5,126.6406 L259.5,135.8164 A0,0 0 0 0 259.5,135.8164 L924.5,135.8164 A0,0 0 0 0 924.5,135.8164 L924.5,119.4648 L914.5,109.4648 L259.5,109.4648 A0,0 0 0 0 259.5,109.4648 " fill="#FBFB77" filter="url(#1)" style="stroke: #A80036; stroke-width: 1.0;"/>
     <path d="M914.5,109.4648 L914.5,119.4648 L924.5,119.4648 L914.5,109.4648 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="644" x="265.5" y="127.96">file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#fqhr36mdra758)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="105.0938"/>
+    <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="105.0938"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="55.5" y="127.5508">Configuration properties loaded</text>
-    <ellipse cx="142.5" cy="170.1875" fill="#000000" filter="url(#fqhr36mdra758)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/>
-    <rect fill="#FEFECE" filter="url(#fqhr36mdra758)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="265" x="10" y="200.1875"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="245" x="20" y="222.6445">Application credible-doc-generator launched.</text>
-    <path d="M259.5,259.6523 L259.5,268.8281 L239.5,272.8281 L259.5,276.8281 L259.5,286.0039 A0,0 0 0 0 259.5,286.0039 L924.5,286.0039 A0,0 0 0 0 924.5,286.0039 L924.5,269.6523 L914.5,259.6523 L259.5,259.6523 A0,0 0 0 0 259.5,259.6523 " fill="#FBFB77" filter="url(#fqhr36mdra758)" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <path d="M914.5,259.6523 L914.5,269.6523 L924.5,269.6523 L914.5,259.6523 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="644" x="265.5" y="278.1475">file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties</text>
-    <rect fill="#FEFECE" filter="url(#fqhr36mdra758)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="194" x="45.5" y="255.2813"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="174" x="55.5" y="277.7383">Configuration properties loaded</text>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="30" y2="50"/>
     <polygon fill="#A80036" points="138.5,40,142.5,50,146.5,40,142.5,44" style="stroke: #A80036; stroke-width: 1.0;"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="85.0938" y2="105.0938"/>
     <polygon fill="#A80036" points="138.5,95.0938,142.5,105.0938,146.5,95.0938,142.5,99.0938" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="140.1875" y2="160.1875"/>
-    <polygon fill="#A80036" points="138.5,150.1875,142.5,160.1875,146.5,150.1875,142.5,154.1875" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="180.1875" y2="200.1875"/>
-    <polygon fill="#A80036" points="138.5,190.1875,142.5,200.1875,146.5,190.1875,142.5,194.1875" style="stroke: #A80036; stroke-width: 1.0;"/>
-    <line style="stroke: #A80036; stroke-width: 1.5;" x1="142.5" x2="142.5" y1="235.2813" y2="255.2813"/>
-    <polygon fill="#A80036" points="138.5,245.2813,142.5,255.2813,146.5,245.2813,142.5,249.2813" style="stroke: #A80036; stroke-width: 1.0;"/>
     <!--
 @startuml
-start
-:Application credible-doc-generator launched.;
-
-:Configuration properties loaded;
-note right
-file:/C:/Users/semenko/git/credibledoc/credible-doc/credible-doc-generator/target/classes/substitution.properties
-end note
-
 start
 :Application credible-doc-generator launched.;
 

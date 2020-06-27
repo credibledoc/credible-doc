@@ -60,7 +60,7 @@ public class MarkdownService {
      *     <li>Get a {@link ReportDocument} form the {@link PlaceholderToReportDocumentService}</li>
      *     <li>Join lines from the {@link ReportDocument#getCacheLines()} list</li>
      *     <li>And return result of the
-     *     {@link #generateSvgFileAndTagForMarkdown(File, File, String, Placeholder)} method</li>
+     *     {@link #generateSvgFileAndTagForMarkdown(File, File, String, Placeholder, boolean)} method</li>
      * </ul>
      *
      * @param placeholder the state object
@@ -92,19 +92,27 @@ public class MarkdownService {
                 "PlaceholderDescription: '" + placeholderDescription + "'.";
         }
 
+        boolean replaceFilterId = "true".equals(substitutionContext.getConfiguration().getReplaceFilterId());
         return generateSvgFileAndTagForMarkdown(
                 mdFile,
                 imageDirectory,
                 plantUml,
-                placeholder);
+                placeholder,
+                replaceFilterId
+            );
     }
 
     private String generateSvgFileAndTagForMarkdown(File mdFile,
                                                     File imageDirectory,
                                                     String plantUml,
-                                                    Placeholder placeholder) {
+                                                    Placeholder placeholder,
+                                                    boolean replaceFilterId) {
         try {
             String svg = SvgGeneratorService.getInstance().generateSvgFromPlantUml(plantUml);
+            
+            if (replaceFilterId) {
+                svg = replaceFilterId(svg);
+            }
 
             File svgFile = new File(imageDirectory,
                 mdFile.getName() + "_" + placeholder.getId() + SVG_FILE_EXTENSION);
@@ -139,6 +147,30 @@ public class MarkdownService {
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
         }
+    }
+
+    /**
+     * Replace all occurrences of the generated ids with constants. Example of filter line:
+     * <pre>{@code
+     * <filter height="300%" id="f10gnta8ifhhre" width="300%" x="-1" y="-1">
+     * }</pre>
+     * @param svg for replacing
+     * @return The svg with replaced ids, for example id="f10gnta8ifhhre" will be replaced with id="1"
+     */
+    private String replaceFilterId(String svg) {
+        int beginFilter = svg.indexOf("<filter ");
+        if (beginFilter == -1) {
+            return svg;
+        }
+        String beginIdPattern = " id=\"";
+        int beginId = svg.indexOf(beginIdPattern, beginFilter);
+        if (beginId == -1) {
+            return svg;
+        }
+        int endId = svg.indexOf("\" ", beginId + beginIdPattern.length());
+        String oldId = svg.substring(beginId + beginIdPattern.length(), endId);
+
+        return svg.replace(oldId, "1");
     }
 
     private void createDirectoryIfNotExists(File directory) {

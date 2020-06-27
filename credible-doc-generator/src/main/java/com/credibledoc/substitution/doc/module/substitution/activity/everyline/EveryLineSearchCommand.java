@@ -12,6 +12,6 @@ public class EveryLineSearchCommand implements SearchCommand {
 
     @Override
     public boolean isApplicable(Printable printable, List<String> multiLine, LogBufferedReader logBufferedReader) {
-        return true;
+        return !multiLine.get(0).contains("|TRACE|");
     }
 }

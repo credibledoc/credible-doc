@@ -67,6 +67,19 @@ public class ConfigurationService {
     static final String TARGET_DIRECTORY = "target/generated/doc";
 
     /**
+     * Configuration key. Default value is {@link #REPLACE_FILTER_ID}.
+     * <p>
+     * Its value says: replace SVG filter.id values with a constant. It is used for the generation the same
+     * SVG files without random id values. Random filter ids hinders the comparison of old and new SVG artifacts.
+     */
+    public static final String REPLACE_FILTER_ID_KEY = "substitution.replaceFilterId";
+
+    /**
+     * Default value of the {@link #REPLACE_FILTER_ID_KEY}.
+     */
+    static final String REPLACE_FILTER_ID = "false";
+
+    /**
      * Configuration key. Default value is {@link #TARGET_DIRECTORY}.
      * <p>
      * Its value contains a relative or absolute path to a folder where

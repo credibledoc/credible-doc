@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Visualizer creates reports. The reports describes scenarios recorded in log files,
@@ -89,8 +88,9 @@ public class VisualizerService {
         TransformerService transformerService = TransformerService.getInstance();
         try {
             line = readerService.readLineFromReaders(filesMergerState, combinerContext);
-            String substring = line.substring(0, 35);
-            logger.info("The first line is read from {}. Line: '{}...'", getClass().getSimpleName(), substring);
+            int endIndex = Math.max(line.length(), 35);
+            String substring = line.substring(0, endIndex);
+            logger.trace("The first line is read from {}. Line: '{}...'", getClass().getSimpleName(), substring);
             while (line != null) {
                 currentReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
                 List<String> multiLine = readerService.readMultiline(line, currentReader, combinerContext);

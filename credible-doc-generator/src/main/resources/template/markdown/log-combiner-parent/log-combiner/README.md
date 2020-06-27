@@ -78,7 +78,7 @@ in the same folder, next to the &&beginPlaceholder {
                  "nameAndVersionSeparator": "-"
              }
          } &&endPlaceholder.jar file.
-If the configuration file is not found, all the files will be merged by the final time modification.
+If the configuration file not found, all the files will be merged by the final time modification.
 
 ## Configuration file log-combiner.properties
 

@@ -123,7 +123,7 @@ public class SvgGeneratorService {
 
             if (printWarningAndPlantUml) {
                 final String warningMessage = "!WARNING! Original strings (double dash) has been replaced" +
-                    " by '- -' (dash+space+dash) in this comment" +
+                    " with '- -' (dash+space+dash) in this comment" +
                     ", because the string (double dash) is not permitted within comments." +
                     " And link parameters, for example ?search=... have also been REMOVED from the comment," +
                     " because they are not readable for humans.";

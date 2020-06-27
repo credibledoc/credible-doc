@@ -48,6 +48,16 @@ public class Configuration {
     private String targetDirectory;
 
     /**
+     * This parameter is stored in the property with the
+     * {@link ConfigurationService#REPLACE_FILTER_ID_KEY} configuration key.
+     * <p>
+     * Its default value is {@link ConfigurationService#REPLACE_FILTER_ID}.
+     */
+    @ConfigurationProperty(key = ConfigurationService.REPLACE_FILTER_ID_KEY,
+            defaultValue = ConfigurationService.REPLACE_FILTER_ID)
+    private String replaceFilterId;
+
+    /**
      * @return The {@link #templatesResource} field value.
      */
     public String getTemplatesResource() {
@@ -102,5 +112,19 @@ public class Configuration {
      */
     public void setTargetDirectory(String targetDirectory) {
         this.targetDirectory = targetDirectory;
+    }
+
+    /**
+     * @return The {@link #replaceFilterId} field value.
+     */
+    public String getReplaceFilterId() {
+        return replaceFilterId;
+    }
+
+    /**
+     * @param replaceFilterId see the {@link #replaceFilterId} field description.
+     */
+    public void setReplaceFilterId(String replaceFilterId) {
+        this.replaceFilterId = replaceFilterId;
     }
 }

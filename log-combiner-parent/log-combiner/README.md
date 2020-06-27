@@ -43,7 +43,7 @@ The files will be parsed in this folder and sub-folders recursively.
 * `configAbsolutePath` (optional) is a configuration file path. The example of the file see below. If the `configAbsolutePath`
 is not defined in the command line, the default value is `log-combiner.properties` located
 in the same folder, next to the log-combiner-1.0.18.jar file.
-If the configuration file is not found, all the files will be merged by the final time modification.
+If the configuration file not found, all the files will be merged by the final time modification.
 
 ## Configuration file log-combiner.properties
 

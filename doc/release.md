@@ -81,10 +81,14 @@
 ## Generate documentation
 Wait until changes where propagated to the Maven repository.
 
-Then generate the documentation
+Then generate the documentation **two times**, because a second log file should be generated.
+The second log used for the documentation generation.
+ 
+Example of launching the generator from the command line:
 
      cd credibledoc/credible-doc
      java -jar credible-doc-generator\target\credible-doc-generator-1.0.15-SNAPSHOT.jar
+
 Copy generated documentation from `credibledoc\credible-doc\target\generated\markdown` to `credibledoc\credible-doc`,
 commit and push the changes.
 
