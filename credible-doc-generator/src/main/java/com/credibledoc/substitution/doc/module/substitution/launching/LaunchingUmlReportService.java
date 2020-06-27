@@ -36,7 +36,7 @@ public class LaunchingUmlReportService implements ReportDocumentCreator {
      *
      * @param enricherContext the current state
      * @return The stateful object, which {@link ReportDocument#getCacheLines()} method
-     * will be used for generation of PlantUML activity diagram.
+     * will be used for generating PlantUML activity diagram.
      */
     public ReportDocument prepareReportDocument(EnricherContext enricherContext) {
         Document document = new Document();

@@ -38,7 +38,7 @@ public class Placeholder {
     private String id;
 
     /**
-     * The name of a class for generation of content.
+     * The name of a class for generating content.
      * This placeholder will be replaced with the content.
      */
     private String className;
@@ -46,7 +46,7 @@ public class Placeholder {
     /**
      * Description for debugging purposes, for example
      * <pre>An UML diagram of application launching.</pre>
-     * It can be use for generation of an image alternative text, for logging and so on.
+     * It can be use for generating an image alternative text, for logging and so on.
      */
     private String description;
 

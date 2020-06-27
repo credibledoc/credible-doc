@@ -37,7 +37,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The main class for generation of documentation of the credibledoc-substitution tool.
+ * The main class for generating documentation of the credibledoc-substitution tool.
  * <p>
  * This main method should be launched in the credible-doc\substitution (parent) working directory.
  *
@@ -60,7 +60,7 @@ public class CredibleDocGeneratorMain {
     private final SubstitutionTactic substitutionTactic;
 
     /**
-     * The main method for generation of the documentation for the 'credible-doc' repository.
+     * The main method for generating the documentation for the 'credible-doc' repository.
      * <p>
      * The main method should be launched from the credibledoc/credible-doc folder. The method generates documents
      * to the credibledoc/credible-doc/target directory. These documents can be copied to the credibledoc/credible-doc

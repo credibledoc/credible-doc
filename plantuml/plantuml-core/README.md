@@ -1,6 +1,6 @@
 # Module plantuml-core
 
-This module contains services for generation of [plantUml](http://plantuml.com) diagrams
+This module contains services for generating [plantUml](http://plantuml.com) diagrams
 from plantUml notations.
 
 For launching of the generator, the Graphviz tool should be installed,

@@ -12,7 +12,7 @@ public class Content {
     private String markdownContent;
 
     /**
-     * This value can be 'null'. It contains PlantUML notations for generation of PlantUML diagram.
+     * This value can be 'null'. It contains PlantUML notations for generating PlantUML diagram.
      */
     private String plantUmlContent;
 

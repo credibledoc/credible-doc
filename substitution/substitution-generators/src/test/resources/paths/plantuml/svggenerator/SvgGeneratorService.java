@@ -23,7 +23,7 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 /**
- * This class provides a service for generation of SVG files from PlantUML notations,
+ * This class provides a service for generating SVG files from PlantUML notations,
  * see <a href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics">https://en.wikipedia.org/wiki/Scalable_Vector_Graphics</a>
  * and <a href="https://en.wikipedia.org/wiki/PlantUML">https://en.wikipedia.org/wiki/PlantUML</a>
  *

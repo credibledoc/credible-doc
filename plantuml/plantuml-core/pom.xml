@@ -13,7 +13,7 @@
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>
-        A simple library for generation of plantUML diagrams.
+        A simple library for generation plantUML diagrams.
         See description in the https://github.com/credibledoc/credible-doc/tree/master/plantuml/plantuml-core/README.md file.
     </description>
     <url>https://github.com/credibledoc/credible-doc/tree/master/plantuml/plantuml-core</url>
