@@ -211,12 +211,11 @@ public class FileService {
                 }
                 if (entry.isDirectory()) {
                     File dir = new File(targetPath + entry.getName());
-                    if (!dir.exists()) {
-                        logger.trace("Creating directory: '{}'", dir.getAbsolutePath());
-                        Files.createDirectories(dir.toPath());
-                    }
+                    mkdirsIfNotExists(dir);
                 } else {
                     File nextFile = new File(targetPath + entry.getName());
+                    File dir = nextFile.getParentFile();
+                    mkdirsIfNotExists(dir);
                     if (!nextFile.exists()) {
                         try (OutputStream o = Files.newOutputStream(nextFile.toPath())) {
                             IOUtils.copy(archiveInputStream, o);
@@ -232,6 +231,13 @@ public class FileService {
             throw new CombinerRuntimeException("Cannot decompress file " + compressedFile.getAbsolutePath(), e);
         }
         return result;
+    }
+
+    public void mkdirsIfNotExists(File dir) throws IOException {
+        if (!dir.exists()) {
+            logger.trace("Directory will be created: '{}'", dir.getAbsolutePath());
+            Files.createDirectories(dir.toPath());
+        }
     }
 
     /**
