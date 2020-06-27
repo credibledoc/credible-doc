@@ -48,8 +48,7 @@
             <dependency>
                 <groupId>net.sourceforge.plantuml</groupId>
                 <artifactId>plantuml</artifactId>
-<!--                TODO Kyrylo Semenko upgrade to 1.2020.14-->
-                <version>1.2019.5</version>
+                <version>1.2020.14</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
