@@ -3,13 +3,21 @@
 This module contains services for generating [plantUml](http://plantuml.com) diagrams
 from plantUml notations.
 
-For launching of the generator, the Graphviz tool should be installed,
+For launching the generator, the Graphviz tool should be installed,
 see the [http://plantuml.com/graphviz-dot](http://plantuml.com/graphviz-dot) documentation.
 Graphviz is optional if you only need sequence diagrams and activity (beta) diagrams.
 
 ## Downloading
 This module can be downloaded from the
 [Maven Central Repository plantuml-core](https://mvnrepository.com/artifact/com.credibledoc/plantuml-core)
+
+Maven dependency:
+
+    <dependency>
+        <groupId>com.credibledoc</groupId>
+        <artifactId>plantuml-core</artifactId>
+        <version>1.0.18</version>
+    </dependency>
 
 ## Example of usage
     String svg = SvgGeneratorService.getInstance().generateSvgFromPlantUml(plantUml);
@@ -19,7 +27,7 @@ Where the _**plantUml**_ parameter can be, for example,
     Bob -> Alice : hello
     Alice -> Bob : hi
 
-And the returned _**String svg**_ in this case will be
+Then the returned _**String svg**_ in this case will be
 
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="159px" preserveAspectRatio="none" style="width:114px;height:159px;" version="1.1" viewBox="0 0 114 159" width="114px" zoomAndPan="magnify">
       <defs>

@@ -1,6 +1,6 @@
 # Module plantuml-core
 
-This module contains services for generation [plantUml](http://plantuml.com) diagrams
+This module contains services for generating [plantUml](http://plantuml.com) diagrams
 from plantUml notations.
 
 For launching the generator, the Graphviz tool should be installed,
@@ -10,6 +10,21 @@ Graphviz is optional if you only need sequence diagrams and activity (beta) diag
 ## Downloading
 This module can be downloaded from the
 [Maven Central Repository plantuml-core](https://mvnrepository.com/artifact/com.credibledoc/plantuml-core)
+
+Maven dependency:
+
+    <dependency>
+        <groupId>com.credibledoc</groupId>
+        <artifactId>plantuml-core</artifactId>
+        <version>&&beginPlaceholder {
+                "className": "com.credibledoc.substitution.content.generator.pom.JarNameContentGenerator",
+                "description": "Latest version of the plantuml-core artifact in Maven Central Repository",
+                "parameters": {
+                    "url": "https://repo1.maven.org/maven2/com/credibledoc/plantuml-core/maven-metadata.xml",
+                    "versionOnly": "true"
+                }
+         } &&endPlaceholder</version>
+    </dependency>
 
 ## Example of usage
     String svg = SvgGeneratorService.getInstance().generateSvgFromPlantUml(plantUml);
