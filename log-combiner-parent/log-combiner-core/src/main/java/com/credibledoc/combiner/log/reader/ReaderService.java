@@ -271,7 +271,7 @@ public class ReaderService {
             }
             long durationInNanoseconds = System.nanoTime() - startNanos;
             String durationInMs = durationInNanoseconds / 1000000 + "," + durationInNanoseconds % 1000000;
-            logger.info("Duration of prepareBufferedReaders is {} milliseconds", durationInMs);
+            logger.trace("Duration of prepareBufferedReaders is {} milliseconds", durationInMs);
         } catch (Exception e) {
             throw new CombinerRuntimeException(e);
         }
