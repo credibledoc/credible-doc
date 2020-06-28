@@ -5,7 +5,7 @@ This module is a java library. This library helps to generate reports.
 Reports are parts of some application documentation.
 
 ## Usage
-This module is the source for the `substitution-reporting-1.0.18` library.
+This module is the source for the `substitution-reporting-1.0.19` library.
 
 This library can be loaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/substitution-reporting).
 
@@ -22,7 +22,7 @@ Example of Maven configuration in a `pom.xml` file
             <dependency>
                 <groupId>com.credibledoc</groupId>
                 <artifactId>substitution-reporting</artifactId>
-                <version>1.0.18</version>
+                <version>1.0.19</version>
             </dependency>
         </dependencies>
     

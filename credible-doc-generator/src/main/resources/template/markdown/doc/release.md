@@ -79,7 +79,7 @@
     git push
     ```
 ## Generate documentation
-Wait until changes where propagated to the Maven repository.
+Wait until changes where propagated to the Maven repository, it takes about an hour.
 
 Then generate the documentation **two times**, because a second log file should be generated.
 The second log used for the documentation generation.
