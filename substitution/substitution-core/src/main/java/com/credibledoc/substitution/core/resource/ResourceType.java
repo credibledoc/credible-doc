@@ -15,6 +15,5 @@ public enum ResourceType {
     /**
      * The {@link TemplateResource} is located in a jar file.
      */
-    // TODO Kyrylo Semenko - delete CLASSPATH and ResourceType
     CLASSPATH
 }
