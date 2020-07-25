@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -68,13 +67,10 @@ public class ResourceService {
      */
     public List<TemplateResource> getResources(String endsWith, String templatesResource) {
         try {
-            String locationPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-            logger.trace("Source code location path: '{}'", locationPath);
-
-            if (isLocatedInJar(locationPath)) {
-                return collectResourcesFromJar(endsWith, locationPath, templatesResource);
+            if (isLocatedInJar()) {
+                return collectResourcesFromJar(endsWith, templatesResource);
             } else {
-                return collectResourcesFromIde(endsWith, templatesResource);
+                return collectResourcesFromFileSystem(endsWith, templatesResource);
             }
         } catch (Exception e) {
             throw new SubstitutionRuntimeException(e);
@@ -94,8 +90,7 @@ public class ResourceService {
      * <pre>/BOOT-INF/classes/com/credibledoc/substitution/resource/ResourceService.java</pre>
      */
     public String getResource(Class<?> resourceClass) {
-        String locationPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-        if (isLocatedInJar(locationPath)) {
+        if (isLocatedInJar()) {
             return SLASH + BOOT_INF_CLASSES + SLASH +
                     resourceClass.getCanonicalName().replaceAll("\\.", SLASH) + JAVA_FILE_EXTENSION;
         } else {
@@ -104,20 +99,22 @@ public class ResourceService {
         }
     }
 
-    private boolean isLocatedInJar(String locationPath) {
+    public boolean isLocatedInJar() {
+        String locationPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        logger.trace("Source code location path: '{}'", locationPath);
         boolean found = locationPath.contains(FILE_PREFIX) &&
             locationPath.contains(BOOT_INF_CLASSES_WITH_EXCLAMATION_MARK);
         if (found) {
             logger.info("Resource found in a jar file. LocationPath: '{}'", locationPath);
         } else {
-            logger.info("Resource cannot be found in a jar file. LocationPath: '{}'", locationPath);
+            logger.info("Resource cannot be found in the jar file. LocationPath: '{}'", locationPath);
         }
         return found;
     }
 
     private List<TemplateResource> collectResourcesFromJar(String endsWith,
-                                         String locationPath,
                                          String templatesResource) throws IOException {
+        String locationPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         List<TemplateResource> result = new ArrayList<>();
         int beginIndex = FILE_PREFIX.length() - 1;
         int endIndex = locationPath.indexOf(BOOT_INF_CLASSES_WITH_EXCLAMATION_MARK);
@@ -154,7 +151,7 @@ public class ResourceService {
      * @param templatesResource template path.
      * @return Available {@link TemplateResource}s.
      */
-    private List<TemplateResource> collectResourcesFromIde(String endsWith, String templatesResource) {
+    private List<TemplateResource> collectResourcesFromFileSystem(String endsWith, String templatesResource) {
         File result = findTemplatesDir(templatesResource);
         if (result == null) {
             String directoryString = new File(templatesResource).getAbsolutePath();

@@ -150,7 +150,7 @@ public class ReplacementService {
 
         Content content = contentGenerator.generate(placeholder, substitutionContext);
 
-        if (contentGenerator instanceof Trackable) {
+        if (contentGenerator instanceof Trackable && !ResourceService.getInstance().isLocatedInJar()) {
             Trackable trackable = (Trackable) contentGenerator;
             List<Path> paths = trackable.getFragmentPaths();
             for (Path path : paths) {
