@@ -1,6 +1,6 @@
 # Module log-combiner
 The module creates a simple command-line tool for merging of log files
-with different format of lines timestamps to a single file or readable source
+with a different format of lines timestamps to a single file or readable source
 with lines sorted by timestamps.
 
 ## Download

@@ -2,24 +2,20 @@ package com.credibledoc.generator;
 
 import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.enricher.context.EnricherContext;
-import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.context.SubstitutionContext;
-import com.credibledoc.substitution.core.placeholder.PlaceholderService;
-import com.credibledoc.substitution.core.resource.ResourceService;
-import com.credibledoc.substitution.core.resource.ResourceType;
+import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
 import com.credibledoc.substitution.core.resource.TemplateResource;
-import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.doc.module.substitution.SubstitutionTactic;
 import com.credibledoc.substitution.doc.module.substitution.activity.ActivityUmlReportService;
 import com.credibledoc.substitution.doc.module.substitution.activity.modules.ModulesActivityUmlReportService;
 import com.credibledoc.substitution.doc.module.substitution.launching.LaunchingUmlReportService;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
-import com.credibledoc.substitution.reporting.tracking.TrackingService;
 import com.credibledoc.substitution.reporting.context.ReportingContext;
 import com.credibledoc.substitution.reporting.replacement.ReplacementService;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator;
 import com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreatorService;
+import com.credibledoc.substitution.reporting.tracking.TrackingService;
 import com.credibledoc.substitution.reporting.visualizer.VisualizerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +24,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -78,35 +68,71 @@ public class CredibleDocGeneratorMain {
      * @param args may contain {@link #WATCH} argument. In the case all directories in a templates source directory will be
      *             watched for changes to files.
      */
-    public static void main(String[] args) throws IOException, InterruptedException {
-        log.info(APPLICATION_SUBSTITUTION_DOC_LAUNCHED);
-        boolean watchChanges = false;
-        if (args != null) {
-            List<String> arguments = Arrays.asList(args);
-            if (arguments.contains(WATCH)) {
-                watchChanges = true;
-            }
-        }
+    public static void main(String[] args) {
         try (AnnotationConfigApplicationContext applicationContext
-                     = new AnnotationConfigApplicationContext(CredibleDocGeneratorMain.class)) {
+                 = new AnnotationConfigApplicationContext(CredibleDocGeneratorMain.class)) {
+            log.info(APPLICATION_SUBSTITUTION_DOC_LAUNCHED);
+            boolean watchChanges = false;
+            if (args != null) {
+                List<String> arguments = Arrays.asList(args);
+                if (arguments.contains(WATCH)) {
+                    watchChanges = true;
+                }
+            }
             applicationContext.start();
             log.info("Spring ApplicationContext created and started");
             CredibleDocGeneratorMain credibleDocGeneratorMain =
                 applicationContext.getBean(CredibleDocGeneratorMain.class);
             credibleDocGeneratorMain.substitute(watchChanges);
+            log.info(APPLICATION_SUBSTITUTION_DOC_FINISHED);
+        } catch (Exception e) {
+            throw new SubstitutionRuntimeException(e);
         }
-        log.info(APPLICATION_SUBSTITUTION_DOC_FINISHED);
     }
+
+    // TODO Kyrylo Semenko - delete
+//    private void substituteBAK(boolean watchChanges) throws IOException, InterruptedException {
+//        CombinerContext context = new CombinerContext().init();
+//        SubstitutionContext substitutionContext = new SubstitutionContext().init().loadConfiguration();
+//        ReportingContext reportingContext = new ReportingContext().init();
+//        context.getTacticRepository().getTactics().add(substitutionTactic);
+//        ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
+//        Collections.singletonList(reportDocumentCreator)
+//        reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators, reportingContext);
+//        reportDocumentCreatorService.createReportDocuments(context, reportingContext, substitutionContext, enricherContext, templateResources);
+//        ReplacementService replacementService = ReplacementService.getInstance();
+//        List<TemplateResource> templateResources = replacementService.copyResourcesToTargetDirectory(substitutionContext);
+//        List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
+//        VisualizerService.getInstance().createReports(reportDocumentTypes, context, reportingContext, enricherContext);
+//        for (TemplateResource templateResource : templateResources) {
+//            replacementService.insertContentIntoTemplate(templateResource, substitutionContext);
+//        }
+//        if (watchChanges) {
+//            TrackingService trackingService = new TrackingService(substitutionContext);
+//            trackingService.track();
+//        }
+//    }
+
 
     private void substitute(boolean watchChanges) throws IOException, InterruptedException {
         ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
         SubstitutionContext substitutionContext = new SubstitutionContext().init().loadConfiguration();
-        List<TemplateResource> templateResources = copyResourcesToTargetDirectory(substitutionContext);
-        log.debug("Markdown templates will be loaded from the templateResources: {}", templateResources);
-        create(reportDocumentCreatorService, substitutionContext, templateResources, launchingUmlReportService);
-        create(reportDocumentCreatorService, substitutionContext, templateResources, activityUmlReportService);
-        create(reportDocumentCreatorService, substitutionContext, templateResources, modulesActivityUmlReportService);
         ReplacementService replacementService = ReplacementService.getInstance();
+        List<TemplateResource> templateResources = replacementService.copyResourcesToTargetDirectory(substitutionContext);
+        log.debug("Markdown templates will be loaded from the templateResources: {}", templateResources);
+        List<ReportDocumentCreator> reportDocumentCreators = Arrays.asList(launchingUmlReportService,
+            activityUmlReportService, modulesActivityUmlReportService);
+        for (ReportDocumentCreator reportDocumentCreator : reportDocumentCreators) {
+            CombinerContext combinerContext = new CombinerContext().init();
+            EnricherContext enricherContext = new EnricherContext().init();
+            ReportingContext reportingContext = new ReportingContext().init();
+            combinerContext.getTacticRepository().getTactics().add(substitutionTactic);
+            reportDocumentCreatorService
+                .addReportDocumentCreators(Collections.singletonList(reportDocumentCreator), reportingContext);
+            reportDocumentCreatorService.createReportDocuments(combinerContext, reportingContext, substitutionContext, enricherContext, templateResources);
+            List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
+            VisualizerService.getInstance().createReports(reportDocumentTypes, combinerContext, reportingContext, enricherContext);
+        }
         for (TemplateResource templateResource : templateResources) {
             replacementService.insertContentIntoTemplate(templateResource, substitutionContext);
         }
@@ -114,69 +140,5 @@ public class CredibleDocGeneratorMain {
             TrackingService trackingService = new TrackingService(substitutionContext);
             trackingService.track();
         }
-    }
-
-    private void create(ReportDocumentCreatorService reportDocumentCreatorService, SubstitutionContext substitutionContext, List<TemplateResource> templateResources, ReportDocumentCreator reportDocumentCreator) {
-        CombinerContext combinerContext = new CombinerContext().init();
-        EnricherContext enricherContext = new EnricherContext().init();
-        ReportingContext reportingContext = new ReportingContext().init();
-        combinerContext.getTacticRepository().getTactics().add(substitutionTactic);
-        reportDocumentCreatorService
-            .addReportDocumentCreators(Collections.singletonList(reportDocumentCreator), reportingContext);
-        reportDocumentCreatorService.createReportDocuments(combinerContext, reportingContext, substitutionContext, enricherContext, templateResources);
-        List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
-        VisualizerService.getInstance().createReports(reportDocumentTypes, combinerContext, reportingContext, enricherContext);
-    }
-
-    private List<TemplateResource> copyResourcesToTargetDirectory(SubstitutionContext substitutionContext) throws IOException {
-        List<TemplateResource> result = new ArrayList<>();
-        Configuration configuration = substitutionContext.getConfiguration();
-        ResourceService resourceService = ResourceService.getInstance();
-        List<TemplateResource> allResources =
-            resourceService.getResources(null, configuration.getTemplatesResource());
-        TemplateService templateService = TemplateService.getInstance();
-        PlaceholderService placeholderService = PlaceholderService.getInstance();
-        for (TemplateResource templateResource : allResources) {
-            List<String> placeholders = placeholderService.parsePlaceholders(templateResource, substitutionContext);
-            if (!placeholders.isEmpty()) {
-                result.add(templateResource);
-            }
-            if (templateResource.getType() == ResourceType.FILE) {
-                String targetFileRelativePath =
-                    resourceService.generatePlaceholderResourceRelativePath(templateResource, substitutionContext);
-                String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
-                log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
-                    templateResource, targetFileAbsolutePath);
-                Path targetPath = Paths.get(targetFileAbsolutePath);
-                Files.createDirectories(targetPath.getParent());
-                Files.copy(templateResource.getFile().toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-            } else if (templateResource.getType() == ResourceType.CLASSPATH) {
-                if (containsDotInName(templateResource.getPath())) {
-                    String targetFileRelativePath =
-                        resourceService.generatePlaceholderResourceRelativePath(templateResource, substitutionContext);
-                    String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
-                    log.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
-                        templateResource, targetFileAbsolutePath);
-                    File file = templateService.exportResource(templateResource.getPath(), targetFileAbsolutePath);
-                    log.info("Resource copied to file: '{}'", file.getAbsolutePath());
-                }
-            } else {
-                throw new IllegalArgumentException("Unknown ResourceType " + templateResource.getType());
-            }
-        }
-        return result;
-    }
-
-    /**
-     * @param resource for example '/template/markdown/' is a directory, and '/template/markdown/README.md' is a file.
-     * @return 'False' if this resource is directory
-     */
-    private boolean containsDotInName(String resource) {
-        int index = resource.lastIndexOf('/');
-        if (index == -1) {
-            index = 0;
-        }
-        String fileName = resource.substring(index);
-        return fileName.contains(".");
     }
 }

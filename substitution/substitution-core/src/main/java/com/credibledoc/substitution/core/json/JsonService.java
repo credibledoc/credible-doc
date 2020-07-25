@@ -51,7 +51,9 @@ public class JsonService {
             JsonValue value = Json.parse(json);
             JsonObject jsonObject = value.asObject();
             placeholder.setClassName(jsonObject.getString(Placeholder.FIELD_CLASS_NAME, null));
-            placeholder.setDescription(jsonObject.getString(Placeholder.FIELD_DESCRIPTION, null));
+            if (jsonObject.get(Placeholder.FIELD_DESCRIPTION) != null && !jsonObject.get(Placeholder.FIELD_DESCRIPTION).isNull()) {
+                placeholder.setDescription(jsonObject.getString(Placeholder.FIELD_DESCRIPTION, null));
+            }
             placeholder.setId(jsonObject.getString(Placeholder.FIELD_ID, null));
             if (jsonObject.get(Placeholder.FIELD_PARAMETERS) != null) {
                 JsonObject parameters = jsonObject.get(Placeholder.FIELD_PARAMETERS).asObject();

@@ -188,9 +188,12 @@ public class PackageDependenciesContentGenerator implements ContentGenerator {
             placeholder.getDescription() + ITALICS_MARKDOWN_MARK + LINE_SEPARATOR);
     }
 
-    private void addToImportsNodeList(NodeList<ImportDeclaration> importsNodeList, String dependantPackage,
-                                      String[] dependenciesPackages, boolean ignoreInnerPackages, Pair<Path,
-        ParseResult<CompilationUnit>> pair) {
+    private void addToImportsNodeList(NodeList<ImportDeclaration> importsNodeList,
+                                      String dependantPackage,
+                                      String[] dependenciesPackages,
+                                      boolean ignoreInnerPackages,
+                                      Pair<Path,
+                                      ParseResult<CompilationUnit>> pair) {
         Path nextPath = pair.a;
         ParseResult<CompilationUnit> parseResult = pair.b;
         CompilationUnit compilationUnit =

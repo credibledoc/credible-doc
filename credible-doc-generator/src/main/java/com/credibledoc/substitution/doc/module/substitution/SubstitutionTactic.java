@@ -169,6 +169,6 @@ public class SubstitutionTactic implements Tactic {
 
     @Override
     public boolean identifyApplication(String line, LogBufferedReader logBufferedReader) {
-        return line.contains("com.credibledoc.substitution.doc.");
+        return line.contains("com.credibledoc.substitution.");
     }
 }

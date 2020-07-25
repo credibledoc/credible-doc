@@ -91,7 +91,9 @@ public class FileService {
                 }
                 line = logBufferedReader.readLine();
             }
-            throw new CombinerRuntimeException("Cannot recognize Tactic type for the file: " + file.getAbsolutePath());
+            Set<Tactic> availableTactics = combinerContext.getTacticRepository().getTactics();
+            throw new CombinerRuntimeException("Cannot recognize Tactic type for the file: " + file.getAbsolutePath() +
+                ". Available tactics: " + availableTactics + ".");
         } catch (Exception e) {
             throw new CombinerRuntimeException(e);
         }

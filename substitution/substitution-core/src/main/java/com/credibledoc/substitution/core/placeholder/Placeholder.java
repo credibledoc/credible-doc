@@ -34,12 +34,14 @@ public class Placeholder {
 
     /**
      * Identifier, for example "1". Should be unique within a template.
+     * The value is generated.
      */
     private String id;
 
     /**
      * The name of a class for generating content.
      * This placeholder will be replaced with the content.
+     * The field is mandatory.
      */
     private String className;
 
@@ -47,17 +49,20 @@ public class Placeholder {
      * Description for debugging purposes, for example
      * <pre>An UML diagram of application launching.</pre>
      * It can be use for generating an image alternative text, for logging and so on.
+     * The field is optional.
      */
     private String description;
 
     /**
      * The parameters can be used for customization of the placeholder content.
+     * The field is optional.
      */
     private Map<String, String> parameters = new HashMap<>();
 
     /**
      * Optional parameter with arbitrary content. Can be used like {@link #parameters},
      * but in a more generalized way.
+     * The field is optional.
      */
     private JsonObject jsonObject;
 

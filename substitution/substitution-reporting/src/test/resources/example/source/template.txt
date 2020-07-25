@@ -1,0 +1,5 @@
+Hello{{
+    {
+        "className": "com.credibledoc.substitution.example.HelloWorldContentGenerator"
+    }
+}}

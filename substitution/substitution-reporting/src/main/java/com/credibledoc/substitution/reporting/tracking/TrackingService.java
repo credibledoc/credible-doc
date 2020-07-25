@@ -2,9 +2,9 @@ package com.credibledoc.substitution.reporting.tracking;
 
 import com.credibledoc.substitution.core.context.SubstitutionContext;
 import com.credibledoc.substitution.core.exception.SubstitutionRuntimeException;
+import com.credibledoc.substitution.core.pair.Pair;
 import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.resource.TemplateResource;
-import com.credibledoc.substitution.core.pair.Pair;
 import com.credibledoc.substitution.reporting.replacement.ReplacementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -127,7 +127,7 @@ public class TrackingService {
         }
 
         for (WatchEvent<?> event : watchKey.pollEvents()) {
-            processEvent(watchKey, dir, event);
+            processEvent(dir, event);
         }
 
         // reset key and remove from set if directory no longer accessible
@@ -145,7 +145,7 @@ public class TrackingService {
     }
 
     @SuppressWarnings("unchecked")
-    private void processEvent(WatchKey watchKey, Path dir, WatchEvent<?> event) throws IOException {
+    private void processEvent(Path dir, WatchEvent<?> event) throws IOException {
         WatchEvent.Kind<?> kind = event.kind();
 
         if (kind == OVERFLOW) {
@@ -178,8 +178,7 @@ public class TrackingService {
         }
 
         // if a file is created or changed, then find placeholder(s) and if some exist, generate content from the template
-        if (!path.toString().endsWith("~") && Files.isRegularFile(path) &&
-                watchKey.pollEvents().isEmpty()) {
+        if (!path.toString().endsWith("~") && Files.isRegularFile(path)) {
             processFile(kind, path);
         }
     }

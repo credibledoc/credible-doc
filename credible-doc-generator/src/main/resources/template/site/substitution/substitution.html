@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="en">
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.content.generator.resource.FragmentGenerator",
+    "description": "Insert 'header' fragment to the html page.",
+    "parameters": {
+        "fragmentRelativePath": "credible-doc-generator/src/main/resources/fragment/header.html"
+    },
+    "jsonObject": {
+        "title": "Content substitution",
+        "linkPrefix": "../"
+    }
+} &&endPlaceholder
+<section>
+    <nav>
+        <ul>
+            <li class="menu-li">
+                <a class="menu-a" onclick="show('purpose', this)">Purpose</a>
+            </li>
+            <li class="menu-li">
+                <a class="menu-a" onclick="show('how-does-it-work', this)">How does it work</a>
+            </li>
+            <li class="menu-li">
+                <a class="menu-a" onclick="show('content-substitution-modules', this)">Content substitution modules</a>
+            </li>
+        </ul>
+    </nav>
+    <article>
+        <svg id="hamburger" viewBox="0 0 100 80" width="20" height="20">
+            <rect width="100" height="15"></rect>
+            <rect y="30" width="100" height="15"></rect>
+            <rect y="60" width="100" height="15"></rect>
+        </svg>
+        <div id="purpose" class="closable">
+            <h2>Purpose</h2>
+            <p>
+                The <a href="https://github.com/credibledoc/credible-doc/tree/master/substitution">Substitution</a> library
+                is created as an alternative of existing template engines. It is used for generation of <b>static</b>
+                files. It doesn't depend on template format, so it can be used with txt, markdown and other text formats.
+            </p>
+        </div>
+        <div id="how-does-it-work" class="closable">
+            <h3>
+                How does it work
+            </h3>
+            <p>
+                Let's assume that there are two folders, <i>source</i> and <i>target</i>.
+                The <i>source</i> folder contains the template named <i>template.txt</i>, see the following example TODO Kyrylo Semenko.
+            </p>
+            <p>
+                The <i>template.text</i> file contains a placeholder that looks like
+            </p>
+            <pre>
+                {{
+                    {
+                        "className": "com.credibledoc.substitution.example.HelloWorldContentGenerator"
+                    }
+                }}
+            </pre>
+            <p>
+                The placeholder defines className. The class generates the placeholder content.
+                The content is placed to the <i>template.txt</i>. The file is saved to the <i>target</i> folder.
+            </p>
+            <p>
+                The described behavior can be drawn as a diagram:
+            </p>
+            <p>
+                &&beginPlaceholder {
+                    "className": "com.credibledoc.substitution.doc.module.substitution.launching.LaunchingUmlReportService",
+                    "description": "Simple diagram of a substitution behavior.",
+                    "parameters": {"sourceFileRelativePath": "substitution/substitution-reporting/log/substitution-reporting.log"}
+                } &&endPlaceholder
+            </p>
+        </div>
+        <div id="content-substitution-modules" class="closable">
+            <h3>
+                Content substitution modules
+            </h3>
+            <p>
+                The tool contains three modules
+            <ul>
+                <li><a href="https://github.com/credibledoc/credible-doc/blob/master/substitution/substitution-core/README.md">substitution-core</a></li>
+                <li><a href="https://github.com/credibledoc/credible-doc/blob/master/substitution/substitution-generators/README.md">substitution-generators</a></li>
+                <li><a href="https://github.com/credibledoc/credible-doc/blob/master/substitution/substitution-reporting/README.md">substitution-reporting</a></li>
+            </ul>
+            </p>
+            <p>
+                The <i>substitution-core</i> module doesn't depend on the <i>substitution-reporting</i> and <i>substitution-generators</i> modules.<br>
+                &&beginPlaceholder {
+                    "className": "com.credibledoc.substitution.content.generator.dependency.PackageDependenciesContentGenerator",
+                    "description": "UML diagram with dependencies of the `substitution-core` module on classes from the `substitution-reporting` module.",
+                    "parameters": {
+                        "sourceRelativePathsPipeSeparated": "substitution/substitution-reporting/src/main/java",
+                        "dependantPackage": "com.credibledoc.substitution.core",
+                        "dependenciesPackagesPipeSeparated": "com.credibledoc.substitution.reporting|com.credibledoc.substitution.content.generator",
+                        "ignoreInnerPackages": "true",
+                        "targetFormat": "HTML_EMBEDDED"
+                    }
+                } &&endPlaceholder
+            </p>
+            <p>
+                The <i>substitution-reporting</i> module depends on the <i>substitution-core</i> module, see the following dependencies diagram.
+                &&beginPlaceholder {
+                    "className": "com.credibledoc.substitution.content.generator.dependency.PackageDependenciesContentGenerator",
+                    "description": "UML diagram with dependencies of the `substitution-reporting` module on classes from the `substitution-core` module.",
+                    "parameters": {
+                        "sourceRelativePathsPipeSeparated": "substitution/substitution-reporting/src/main/java|substitution/substitution-core/src/main/java",
+                        "dependantPackage": "com.credibledoc.substitution.reporting",
+                        "dependenciesPackagesPipeSeparated": "com.credibledoc.substitution.core",
+                        "ignoreInnerPackages": "true",
+                        "targetFormat": "HTML_EMBEDDED"
+                    }
+                } &&endPlaceholder
+            </p>
+            <p>
+                And the <i>substitution-generators</i> module depends on the <i>substitution-core</i> and <i>substitution-reporting</i> modules, see the following dependencies diagram.
+                <br>
+                &&beginPlaceholder {
+                    "className": "com.credibledoc.substitution.content.generator.dependency.PackageDependenciesContentGenerator",
+                    "description": "UML diagram with dependencies of the `substitution-generators` module on classes from the `substitution-core` and 'substitution-reporting' modules.",
+                    "parameters": {
+                        "sourceRelativePathsPipeSeparated": "substitution/substitution-reporting/src/main/java",
+                        "dependantPackage": "com.credibledoc.substitution.content",
+                        "dependenciesPackagesPipeSeparated": "com.credibledoc.substitution.core",
+                        "ignoreInnerPackages": "true",
+                        "targetFormat": "HTML_EMBEDDED"
+                    }
+                } &&endPlaceholder
+            </p>
+        </div>
+    </article>
+</section>
+&&beginPlaceholder {
+    "className": "com.credibledoc.substitution.content.generator.resource.FragmentGenerator",
+    "description": "Inserting 'footer' fragment",
+    "parameters": {
+        "fragmentRelativePath": "credible-doc-generator/src/main/resources/fragment/footer.html"
+    },
+    "jsonObject": {
+        "linkPrefix": "../"
+    }
+} &&endPlaceholder
+</html>

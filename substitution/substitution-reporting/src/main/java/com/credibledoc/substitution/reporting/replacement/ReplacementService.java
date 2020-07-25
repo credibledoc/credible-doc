@@ -10,6 +10,7 @@ import com.credibledoc.substitution.core.pair.Pair;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.substitution.core.placeholder.PlaceholderService;
 import com.credibledoc.substitution.core.resource.ResourceService;
+import com.credibledoc.substitution.core.resource.ResourceType;
 import com.credibledoc.substitution.core.resource.TemplateResource;
 import com.credibledoc.substitution.core.template.TemplateService;
 import com.credibledoc.substitution.core.tracking.Trackable;
@@ -24,7 +25,9 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReplacementService {
@@ -138,9 +141,8 @@ public class ReplacementService {
                 " Placeholder className: '" + placeholder.getClassName() +
                 "', placeholder: " + placeholder, classNotFoundException);
         }
-        throw new SubstitutionRuntimeException("Cannot find generated content " +
-            "for the placeholder id: " + placeholder.getId() +
-            ", placeholder resource: '" + placeholder.getResource() + "'");
+        throw new SubstitutionRuntimeException("Cannot generate a content " +
+            "for the placeholder: " + placeholder + "'");
     }
 
     private String processContentGenerator(Placeholder placeholder, SubstitutionContext substitutionContext,
@@ -196,5 +198,73 @@ public class ReplacementService {
             logger.info("The new directory created '{}'", directory.getAbsolutePath());
         }
     }
-    
+
+    /**
+     * Call the {@link #copyResourcesToTargetDirectory(SubstitutionContext)} method and then for every
+     * {@link TemplateResource} call the {@link #insertContentIntoTemplate(TemplateResource, SubstitutionContext)} method.
+     * @param substitutionContext the current state.
+     */
+    public void replace(SubstitutionContext substitutionContext) {
+        List<TemplateResource> templateResources = copyResourcesToTargetDirectory(substitutionContext);
+        for (TemplateResource templateResource : templateResources) {
+            insertContentIntoTemplate(templateResource, substitutionContext);
+        }
+    }
+
+    public List<TemplateResource> copyResourcesToTargetDirectory(SubstitutionContext substitutionContext) {
+        try {
+            List<TemplateResource> result = new ArrayList<>();
+            Configuration configuration = substitutionContext.getConfiguration();
+            ResourceService resourceService = ResourceService.getInstance();
+            List<TemplateResource> allResources =
+                resourceService.getResources(null, configuration.getTemplatesResource());
+            TemplateService templateService = TemplateService.getInstance();
+            PlaceholderService placeholderService = PlaceholderService.getInstance();
+            for (TemplateResource templateResource : allResources) {
+                List<String> placeholders = placeholderService.parsePlaceholders(templateResource, substitutionContext);
+                if (!placeholders.isEmpty()) {
+                    result.add(templateResource);
+                }
+                if (templateResource.getType() == ResourceType.FILE) {
+                    String targetFileRelativePath =
+                        resourceService.generatePlaceholderResourceRelativePath(templateResource, substitutionContext);
+                    String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
+                    logger.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
+                        templateResource, targetFileAbsolutePath);
+                    Path targetPath = Paths.get(targetFileAbsolutePath);
+                    Files.createDirectories(targetPath.getParent());
+                    Files.copy(templateResource.getFile().toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+                } else if (templateResource.getType() == ResourceType.CLASSPATH) {
+                    if (containsDotInName(templateResource.getPath())) {
+                        String targetFileRelativePath =
+                            resourceService.generatePlaceholderResourceRelativePath(templateResource,
+                                substitutionContext);
+                        String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
+                        logger.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
+                            templateResource, targetFileAbsolutePath);
+                        File file = templateService.exportResource(templateResource.getPath(), targetFileAbsolutePath);
+                        logger.info("Resource copied to file: '{}'", file.getAbsolutePath());
+                    }
+                } else {
+                    throw new IllegalArgumentException("Unknown ResourceType " + templateResource.getType());
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            throw new SubstitutionRuntimeException(e);
+        }
+    }
+
+    /**
+     * @param resource for example '/template/markdown/' is a directory, and '/template/markdown/README.md' is a file.
+     * @return 'False' if this resource is directory
+     */
+    private boolean containsDotInName(String resource) {
+        int index = resource.lastIndexOf('/');
+        if (index == -1) {
+            index = 0;
+        }
+        String fileName = resource.substring(index);
+        return fileName.contains(".");
+    }
 }

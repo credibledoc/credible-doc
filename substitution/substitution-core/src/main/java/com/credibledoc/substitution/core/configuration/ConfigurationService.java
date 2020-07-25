@@ -208,13 +208,17 @@ public class ConfigurationService {
             File propertiesFile = new File(propertiesFilePath);
             if (!propertiesFile.exists()) {
                 throw new SubstitutionRuntimeException("File cannot be found. " +
-                        SUBSTITUTION_PROPERTIES_FILE_PATH + "=" + propertiesFilePath);
+                        SUBSTITUTION_PROPERTIES_FILE_PATH + "=" + propertiesFilePath +
+                    ". Absolute path: " + propertiesFile.getAbsolutePath());
             }
             properties.load(new FileInputStream(propertiesFile));
             String fileAbsolutePath = propertiesFile.getAbsolutePath();
             for (Field field : Configuration.class.getDeclaredFields()) {
                 ConfigurationProperty configurationProperty = field.getAnnotation(ConfigurationProperty.class);
-                if (properties.containsKey(configurationProperty.key())) {
+                if (configurationProperty == null) {
+                    logger.info("The field {}.{} has no {} annotation and will not be used.",
+                        configuration.getClass().getName(), field.getName(), ConfigurationProperty.class.getSimpleName());
+                } else if (properties.containsKey(configurationProperty.key())) {
                     setValue(field, properties.getProperty(configurationProperty.key()), configuration);
                     map.put(configurationProperty.key(), fileAbsolutePath);
                 }
@@ -233,11 +237,15 @@ public class ConfigurationService {
      */
     private void loadDefaultPropertiesAndCompleteTheMap(Map<String, String> map, Configuration configuration) {
         for (Field field : Configuration.class.getDeclaredFields()) {
+            if (field.getName().startsWith("$")) {
+                logger.trace("Skip field '{}'", field.getName());
+                continue;
+            }
             ConfigurationProperty configurationProperty = field.getAnnotation(ConfigurationProperty.class);
             if (configurationProperty == null) {
                 throw new SubstitutionRuntimeException(
-                        "Field " + field.getName() + " of class " + Configuration.class.getCanonicalName() +
-                        " does not contains a " + ConfigurationProperty.class.getSimpleName() + " annotation.");
+                        "Field '" + field.getName() + "' of class " + Configuration.class.getCanonicalName() +
+                        " does not contain the " + ConfigurationProperty.class.getSimpleName() + " annotation.");
             }
             setValue(field, configurationProperty.defaultValue(), configuration);
             map.put(configurationProperty.key(), configurationProperty.defaultValue());
@@ -263,4 +271,9 @@ public class ConfigurationService {
         }
     }
 
+    public void loadConfiguration(Configuration configuration, String configFilePath) {
+        Map<String, String> map = new TreeMap<>();
+        loadDefaultPropertiesAndCompleteTheMap(map, configuration);
+        loadExternalPropertiesAndCompleteTheMap(map, configFilePath, configuration);
+    }
 }

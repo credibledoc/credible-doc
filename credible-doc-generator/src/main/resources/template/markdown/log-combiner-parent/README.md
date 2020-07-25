@@ -1,5 +1,5 @@
 # Module log-combiner-parent
-It enables to combine (merge) log files with different format of lines timestamps
+It enables to combine (merge) log files with a different format of lines timestamps
 to a single file or readable source with lines sorted by timestamps.
 
 The module contains the following modules

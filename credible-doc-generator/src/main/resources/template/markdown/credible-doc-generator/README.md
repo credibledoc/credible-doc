@@ -40,7 +40,7 @@ These generated files are the part of the documentation you currently reading. Y
 this approach for the generation of the documentation for your own projects.
 
 ## The templates used for the generation of this documentation
-This documentation is generated from these templates:
+This documentation generated from these templates:
 
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.resource.ResourcesListMarkdownGenerator",

@@ -159,11 +159,8 @@ public class ResourceService {
             throw new SubstitutionRuntimeException(
                 "Resource of template not found. TemplateResource: '" + templatesResource + "'." +
                     " Directory: '" + directoryString + "'." +
-                    " This resource can be configured" +
-                    " with '" + ConfigurationService.TEMPLATES_RESOURCE_KEY + "' key" +
-                    " or directly set by calling for example" +
-                    " 'ConfigurationService.getInstance().getConfiguration()." +
-                    "setTemplatesResource(\"resource/in/classpath\");'.");
+                    " The resource can be configured" +
+                    " with the '" + ConfigurationService.TEMPLATES_RESOURCE_KEY + "' key.");
         }
         return getResources(endsWith, result);
     }

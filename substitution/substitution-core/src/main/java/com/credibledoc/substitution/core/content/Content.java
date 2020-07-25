@@ -3,6 +3,7 @@ package com.credibledoc.substitution.core.content;
 /**
  * This data object contains a result of content generation performed by {@link ContentGenerator}.
  */
+// TODO Kyrylo Semenko - delete Content and create PostProcessor for transformation to svg or other formats.
 public class Content {
 
     /**
