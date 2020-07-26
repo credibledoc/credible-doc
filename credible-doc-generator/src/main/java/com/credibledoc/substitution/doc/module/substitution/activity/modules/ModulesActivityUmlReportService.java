@@ -1,7 +1,7 @@
 package com.credibledoc.substitution.doc.module.substitution.activity.modules;
 
 import com.credibledoc.enricher.context.EnricherContext;
-import com.credibledoc.substitution.doc.module.substitution.activity.everyline.EveryLineSearchCommand;
+import com.credibledoc.substitution.doc.module.substitution.activity.everyline.DebugAndAboveSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
 import com.credibledoc.substitution.reporting.report.document.Document;
 import com.credibledoc.substitution.reporting.reportdocument.ReportDocument;
@@ -45,7 +45,7 @@ public class ModulesActivityUmlReportService implements ReportDocumentCreator {
         List<LineProcessor> lineProcessors = new ArrayList<>();
         lineProcessors.add(
                 new LineProcessor(
-                        applicationContext.getBean(EveryLineSearchCommand.class),
+                        applicationContext.getBean(DebugAndAboveSearchCommand.class),
                         applicationContext.getBean(ModulesActivityTransformer.class),
                         document));
 

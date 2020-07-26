@@ -5,7 +5,7 @@ import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.enricher.context.EnricherContext;
 import com.credibledoc.substitution.core.placeholder.Placeholder;
 import com.credibledoc.enricher.printable.Printable;
-import com.credibledoc.substitution.doc.module.substitution.activity.everyline.EveryLineSearchCommand;
+import com.credibledoc.substitution.doc.module.substitution.activity.everyline.DebugAndAboveSearchCommand;
 import com.credibledoc.substitution.doc.module.substitution.logmessage.LogMessageService;
 import com.credibledoc.substitution.doc.module.substitution.report.UmlDiagramType;
 import com.credibledoc.substitution.reporting.report.document.Document;
@@ -51,8 +51,8 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
         List<LineProcessor> lineProcessors = new ArrayList<>();
         lineProcessors.add(
                 new LineProcessor(
-                        applicationContext.getBean(EveryLineSearchCommand.class),
-                        applicationContext.getBean(AnyLineTransformer.class),
+                        applicationContext.getBean(DebugAndAboveSearchCommand.class),
+                        applicationContext.getBean(ActivityLogLineTransformer.class),
                         document));
 
         LineProcessorService.getInstance().getLineProcessors(enricherContext).addAll(lineProcessors);
@@ -75,7 +75,7 @@ public class ActivityUmlReportService implements ReportDocumentCreator {
      */
     @Service
     @RequiredArgsConstructor(onConstructor = @__(@Inject))
-    public static class AnyLineTransformer implements Transformer {
+    public static class ActivityLogLineTransformer implements Transformer {
 
         @NonNull
         public final LogMessageService logMessageService;

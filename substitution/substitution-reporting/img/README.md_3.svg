@@ -459,7 +459,7 @@ link com.credibledoc.substitution.reporting to com.credibledoc.enricher.line.Lin
 link com.credibledoc.substitution.reporting to com.credibledoc.combiner.log.reader.ReaderService-->
     <path d="M130.003,1420.17 C138.478,1469.69 170.522,1621.05 256.5,1706 C290.029,1739.13 340.052,1758.53 379.481,1769.43 " fill="none" id="com.credibledoc.substitution.reporting-&gt;com.credibledoc.combiner.log.reader.ReaderService" style="stroke: #2E8B57; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/>
     <polygon fill="#2E8B57" points="384.726,1770.84,377.0805,1764.6314,379.899,1769.5361,374.9943,1772.3547,384.726,1770.84" style="stroke: #2E8B57; stroke-width: 1.0;"/>
-    <!--MD5=[23af762b8e9b43e092266d2da4166b89]
+    <!--MD5=[aefedff4056ff11d35070903082d94ac]
 @startuml
 left to right direction
 hide empty members
@@ -540,8 +540,8 @@ com.credibledoc.substitution.reporting ..> com.credibledoc.combiner.log.reader.R
 PlantUML version 1.2020.14(Sat Jun 20 16:14:34 CEST 2020)
 (GPL source distribution)
 Java Runtime: Java(TM) SE Runtime Environment
-JVM: Java HotSpot(TM) Client VM
-Default Encoding: Cp1250
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
 Language: en
 Country: US
 -->

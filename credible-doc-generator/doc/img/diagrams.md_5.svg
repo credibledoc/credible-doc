@@ -249,7 +249,7 @@ link com.credibledoc.substitution.doc to com.credibledoc.substitution.reporting.
 link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.exception.SubstitutionRuntimeException-->
     <path d="M128.35,823.889 C135.88,737.714 175.315,331.79 257,242 C291.565,204.01 345.052,184.9 392.621,175.33 " fill="none" id="com.credibledoc.substitution.doc-&gt;com.credibledoc.substitution.core.exception.SubstitutionRuntimeException" style="stroke: #2E8B57; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/>
     <polygon fill="#2E8B57" points="397.796,174.32,388.1979,172.1117,392.888,175.2745,389.7251,179.9645,397.796,174.32" style="stroke: #2E8B57; stroke-width: 1.0;"/>
-    <!--MD5=[b3cfe82eb2773486ac7bd8374d597db7]
+    <!--MD5=[7b65c34ce2781e994121e6ceafa6bf46]
 @startuml
 left to right direction
 hide empty members
@@ -300,8 +300,8 @@ com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.exception
 PlantUML version 1.2020.14(Sat Jun 20 16:14:34 CEST 2020)
 (GPL source distribution)
 Java Runtime: Java(TM) SE Runtime Environment
-JVM: Java HotSpot(TM) Client VM
-Default Encoding: Cp1250
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
 Language: en
 Country: US
 -->

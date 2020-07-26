@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EveryLineSearchCommand implements SearchCommand {
+public class DebugAndAboveSearchCommand implements SearchCommand {
 
     @Override
     public boolean isApplicable(Printable printable, List<String> multiLine, LogBufferedReader logBufferedReader) {

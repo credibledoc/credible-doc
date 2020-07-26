@@ -75,7 +75,7 @@ public class ReplacementService {
             try (OutputStream outputStream = new FileOutputStream(generatedFile)){
                 outputStream.write(replacedContent.getBytes());
             }
-            logger.info("File generated. '{}'", generatedFile.getAbsolutePath());
+            logger.trace("File generated. '{}'", generatedFile.getAbsolutePath());
         } catch (Exception exception) {
             throw new SubstitutionRuntimeException(exception);
         }
@@ -105,7 +105,7 @@ public class ReplacementService {
             String contentForReplacement = generateContent(placeholder, substitutionContext);
             replacedContent = replacedContent.replace(templatePlaceholder, contentForReplacement);
             String json = PlaceholderService.getInstance().writePlaceholderToJson(placeholder);
-            logger.info("{}{}", CONTENT_REPLACED, json);
+            logger.trace("{}{}", CONTENT_REPLACED, json);
         }
         return replacedContent;
     }
@@ -220,6 +220,8 @@ public class ReplacementService {
                 resourceService.getResources(null, configuration.getTemplatesResource());
             TemplateService templateService = TemplateService.getInstance();
             PlaceholderService placeholderService = PlaceholderService.getInstance();
+            logger.info("Templates will be copied to the target directory. Templates number: {}. " +
+                "Target directory: '{}'.", allResources.size(), configuration.getTargetDirectory());
             for (TemplateResource templateResource : allResources) {
                 List<String> placeholders = placeholderService.parsePlaceholders(templateResource, substitutionContext);
                 if (!placeholders.isEmpty()) {
@@ -229,7 +231,7 @@ public class ReplacementService {
                     String targetFileRelativePath =
                         resourceService.generatePlaceholderResourceRelativePath(templateResource, substitutionContext);
                     String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
-                    logger.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
+                    logger.trace("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
                         templateResource, targetFileAbsolutePath);
                     Path targetPath = Paths.get(targetFileAbsolutePath);
                     Files.createDirectories(targetPath.getParent());
@@ -240,10 +242,10 @@ public class ReplacementService {
                             resourceService.generatePlaceholderResourceRelativePath(templateResource,
                                 substitutionContext);
                         String targetFileAbsolutePath = configuration.getTargetDirectory() + targetFileRelativePath;
-                        logger.info("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
+                        logger.trace("Resource will be copied to file. Resource: '{}'. TargetFileAbsolutePath: '{}'",
                             templateResource, targetFileAbsolutePath);
                         File file = templateService.exportResource(templateResource.getPath(), targetFileAbsolutePath);
-                        logger.info("Resource copied to file: '{}'", file.getAbsolutePath());
+                        logger.trace("Resource copied to file: '{}'", file.getAbsolutePath());
                     }
                 } else {
                     throw new IllegalArgumentException("Unknown ResourceType " + templateResource.getType());

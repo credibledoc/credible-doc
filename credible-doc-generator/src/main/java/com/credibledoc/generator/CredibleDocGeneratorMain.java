@@ -90,36 +90,13 @@ public class CredibleDocGeneratorMain {
         }
     }
 
-    // TODO Kyrylo Semenko - delete
-//    private void substituteBAK(boolean watchChanges) throws IOException, InterruptedException {
-//        CombinerContext context = new CombinerContext().init();
-//        SubstitutionContext substitutionContext = new SubstitutionContext().init().loadConfiguration();
-//        ReportingContext reportingContext = new ReportingContext().init();
-//        context.getTacticRepository().getTactics().add(substitutionTactic);
-//        ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
-//        Collections.singletonList(reportDocumentCreator)
-//        reportDocumentCreatorService.addReportDocumentCreators(reportDocumentCreators, reportingContext);
-//        reportDocumentCreatorService.createReportDocuments(context, reportingContext, substitutionContext, enricherContext, templateResources);
-//        ReplacementService replacementService = ReplacementService.getInstance();
-//        List<TemplateResource> templateResources = replacementService.copyResourcesToTargetDirectory(substitutionContext);
-//        List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
-//        VisualizerService.getInstance().createReports(reportDocumentTypes, context, reportingContext, enricherContext);
-//        for (TemplateResource templateResource : templateResources) {
-//            replacementService.insertContentIntoTemplate(templateResource, substitutionContext);
-//        }
-//        if (watchChanges) {
-//            TrackingService trackingService = new TrackingService(substitutionContext);
-//            trackingService.track();
-//        }
-//    }
-
-
     private void substitute(boolean watchChanges) throws IOException, InterruptedException {
         ReportDocumentCreatorService reportDocumentCreatorService = ReportDocumentCreatorService.getInstance();
         SubstitutionContext substitutionContext = new SubstitutionContext().init().loadConfiguration();
         ReplacementService replacementService = ReplacementService.getInstance();
         List<TemplateResource> templateResources = replacementService.copyResourcesToTargetDirectory(substitutionContext);
-        log.debug("Markdown templates will be loaded from the templateResources: {}", templateResources);
+        log.debug("Markdown templates will be loaded from the templateResources. " +
+            "Templates number: {}", templateResources.size());
         List<ReportDocumentCreator> reportDocumentCreators = Arrays.asList(launchingUmlReportService,
             activityUmlReportService, modulesActivityUmlReportService);
         for (ReportDocumentCreator reportDocumentCreator : reportDocumentCreators) {
@@ -133,6 +110,8 @@ public class CredibleDocGeneratorMain {
             List<Class<? extends ReportDocumentType>> reportDocumentTypes = Collections.singletonList(UmlDiagramType.class);
             VisualizerService.getInstance().createReports(reportDocumentTypes, combinerContext, reportingContext, enricherContext);
         }
+        log.info("Templates placeholders will be substituted with the generated content. " +
+            "Templates number: {}", templateResources.size());
         for (TemplateResource templateResource : templateResources) {
             replacementService.insertContentIntoTemplate(templateResource, substitutionContext);
         }

@@ -62,7 +62,7 @@ public class ModulesActivityTransformer implements Transformer {
         // Should be here for activating of the "com.credibledoc.plantuml" class loader
         Package svgGeneratorPackage = SvgGeneratorService.class.getPackage();
         Package generatorJarPackage = LocalJarNameContentGenerator.class.getPackage();
-        log.debug("Class loaders activated: '{}', '{}'.", svgGeneratorPackage, generatorJarPackage);
+        log.trace("Class loaders activated: '{}', '{}'.", svgGeneratorPackage, generatorJarPackage);
         validatePackagesExist();
     }
 

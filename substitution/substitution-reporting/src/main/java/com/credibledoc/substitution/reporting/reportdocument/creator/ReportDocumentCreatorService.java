@@ -153,7 +153,7 @@ public class ReportDocumentCreatorService {
             if (!file.exists()) {
                 logger.info("File not exists. Report will not be created. File: '{}'", file.getAbsolutePath());
             } else {
-                logger.info("File will be parsed: {}", file.getAbsolutePath());
+                logger.trace("File will be parsed: {}", file.getAbsolutePath());
                 prepareReport(file, reportDocument, combinerContext, reportingContext);
             }
         }
