@@ -60,14 +60,16 @@ public class MsgField implements Msg {
     private BodyPacker bodyPacker;
     
     /**
-     * Not cloned to other fields. Defines the packed bytes maximum size.
+     * Not cloned to other fields. Defines the maximum size of a <b>value</b> packed to bytes.
+     * If the <b>value</b> packed to bytes is greater than
+     * maxLen, then an exception will be thrown during the packing.
      */
     private Integer maxLen;
 
     /**
      * The number of bytes the field contains in its packed state.
      * <p>
-     * It uses for fixed length fields only.
+     * It used for fixed length fields only.
      */
     private Integer len;
 

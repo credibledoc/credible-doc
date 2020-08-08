@@ -238,6 +238,14 @@ public class FieldBuilder {
         return this;
     }
 
+    /**
+     * Set the {@link MsgField#setMaxLen(Integer)} value.
+     *
+     * @param maxLength Defines the maximum size of a <b>value</b> packed to bytes.
+     *                  If the <b>value</b> packed to bytes is greater than maxLen, then an exception will be thrown 
+     *                  during the packing.
+     * @return The current instance of {@link FieldBuilder} with {@link #msgField} in its context.
+     */
     public FieldBuilder defineMaxLen(int maxLength) {
         this.msgField.setMaxLen(maxLength);
         return this;
