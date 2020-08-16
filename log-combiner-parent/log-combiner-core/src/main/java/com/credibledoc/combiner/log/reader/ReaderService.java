@@ -97,6 +97,7 @@ public class ReaderService {
                 logBufferedReader.mark(MAX_CHARACTERS_IN_ONE_LINE);
                 line = logBufferedReader.readLine();
             }
+            logBufferedReader.setLineDate(lineDate);
             return result;
         } catch (IOException e) {
             String message = "ReadMultiline failed. Line: '" + line + "', Result: " + result.toString();
@@ -139,7 +140,11 @@ public class ReaderService {
      */
     public String readLineFromReaders(FilesMergerState filesMergerState, CombinerContext combinerContext) {
         try {
-            NodeFile actualNodeFile = findTheOldest(combinerContext);
+            NodeFile currentNodeFile = filesMergerState.getCurrentNodeFile();
+            if (currentNodeFile != null) {
+                currentNodeFile.getLogBufferedReader().setLineDate(null);
+            }
+            NodeFile actualNodeFile = findTheOldest(combinerContext, filesMergerState);
             if (actualNodeFile == null) {
                 return null;
             }
@@ -147,12 +152,10 @@ public class ReaderService {
             Date lineDate = logBufferedReader.getLineDate(); // keep the date if exists, because it was set in the findTheOldest method.
             String line = logBufferedReader.readLine();
             if (line != null) {
+                if (lineDate == null) {
+                    lineDate = actualNodeFile.getNodeLog().getTactic().findDate(line);
+                }
                 logBufferedReader.setLineDate(lineDate);
-            }
-
-            logBufferedReader.mark(1);
-            if (logBufferedReader.read() > -1) {
-                logBufferedReader.reset();
             }
             
             filesMergerState.setCurrentNodeFile(actualNodeFile);
@@ -162,14 +165,14 @@ public class ReaderService {
         }
     }
 
-    public NodeFile findTheOldest(CombinerContext combinerContext) {
+    public NodeFile findTheOldest(CombinerContext combinerContext, FilesMergerState filesMergerState) {
         try {
-            NodeFile result = null;
+            NodeFile result = filesMergerState.getCurrentNodeFile();
             NodeFileTreeSet<NodeFile> nodeFiles = combinerContext.getNodeFileRepository().getNodeFiles();
             for (NodeFile nodeFile : nodeFiles) {
                 if (result == null) {
                     result = nodeFile;
-                } else {
+                } else if (nodeFile != result && nodeFile.getLogBufferedReader().isNotClosed()) {
                     result = getOlderNodeFile(result, nodeFile);
                 }
             }
@@ -181,44 +184,43 @@ public class ReaderService {
 
     private NodeFile getOlderNodeFile(NodeFile actual, NodeFile next) throws IOException {
         LogBufferedReader nextLogBufferedReader = next.getLogBufferedReader();
-        if (nextLogBufferedReader != null && nextLogBufferedReader.isNotClosed()) {
-            LogBufferedReader actualLogBufferedReader = actual.getLogBufferedReader();
-            Date actualLineDate = actualLogBufferedReader.getLineDate();
-            if (actualLogBufferedReader.isNotClosed()) {
-                actualLogBufferedReader.mark(1);
-                if (actualLogBufferedReader.read() == -1) {
-                    actualLogBufferedReader.close();
-                    return next;
-                }
-                actualLogBufferedReader.reset();
-                actualLogBufferedReader.setLineDate(actualLineDate);
-            } else {
+        LogBufferedReader actualLogBufferedReader = actual.getLogBufferedReader();
+        Date actualLineDate = actualLogBufferedReader.getLineDate();
+        if (actualLogBufferedReader.isNotClosed()) {
+            actualLogBufferedReader.mark(1);
+            if (actualLogBufferedReader.read() == -1) {
+                actualLogBufferedReader.close();
                 return next;
             }
-            Date nextLineDate = nextLogBufferedReader.getLineDate();
-            if (nextLineDate == null) {
-                readLineDate(next, nextLogBufferedReader);
-                nextLineDate = nextLogBufferedReader.getLineDate();
-            }
-            if (actualLineDate == null) {
-                readLineDate(actual, actualLogBufferedReader);
-                actualLineDate = actualLogBufferedReader.getLineDate();
-            }
-            
-            boolean isNextLast = false;
-            nextLogBufferedReader.mark(1);
-            if (nextLogBufferedReader.read() == -1) {
-                isNextLast = true;
-            }
-            nextLogBufferedReader.reset();
-            
-            boolean isNextLineWithoutDate = nextLineDate == null && !isNextLast;
-            boolean isNextNodeFileOlder = actualLineDate != null && isNextLineWithoutDate && next.getDate().before(actualLineDate);
-            boolean isNextLineOlder = nextLineDate != null && actualLineDate != null && nextLineDate.before(actualLineDate);
-            if (isNextNodeFileOlder || isNextLineOlder) {
-                // older line wins
-                return next;
-            }
+            actualLogBufferedReader.reset();
+            actualLogBufferedReader.setLineDate(actualLineDate);
+        } else {
+            return next;
+        }
+        Date nextLineDate = nextLogBufferedReader.getLineDate();
+        if (nextLineDate == null) {
+            readLineDate(next, nextLogBufferedReader);
+            nextLineDate = nextLogBufferedReader.getLineDate();
+        }
+        if (actualLineDate == null) {
+            readLineDate(actual, actualLogBufferedReader);
+            actualLineDate = actualLogBufferedReader.getLineDate();
+        }
+        
+        boolean isNextLast = false;
+        nextLogBufferedReader.mark(1);
+        if (nextLogBufferedReader.read() == -1) {
+            isNextLast = true;
+        }
+        nextLogBufferedReader.reset();
+        nextLogBufferedReader.setLineDate(nextLineDate);
+        
+        boolean isNextLineWithoutDate = nextLineDate == null && !isNextLast;
+        boolean isNextNodeFileOlder = actualLineDate != null && isNextLineWithoutDate && next.getDate().before(actualLineDate);
+        boolean isNextLineOlder = nextLineDate != null && actualLineDate != null && nextLineDate.before(actualLineDate);
+        if (isNextNodeFileOlder || isNextLineOlder) {
+            // older line wins
+            return next;
         }
         return actual;
     }
