@@ -110,7 +110,7 @@ public class CombinerService {
     public void combine(OutputStream outputStream, FilesMergerState filesMergerState, CombinerContext combinerContext) {
         ReaderService readerService = ReaderService.getInstance();
         if (filesMergerState.getCurrentNodeFile() == null) {
-            filesMergerState.setCurrentNodeFile(readerService.findTheYoungest(combinerContext));
+            filesMergerState.setCurrentNodeFile(readerService.findTheOldest(combinerContext));
         }
         LogBufferedReader logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         int currentLineNumber = 0;

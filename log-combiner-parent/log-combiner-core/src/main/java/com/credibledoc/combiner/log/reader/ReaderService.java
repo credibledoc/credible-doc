@@ -63,27 +63,34 @@ public class ReaderService {
 
     /**
      * Read a single log record. It can be multi-line. Position in logBufferedReader will not be changed.
-     * @param line the first line of multi-lines record or a single line. It can be followed by additional lines but not necessarily.
-     * @param logBufferedReader the data source
-     * @return for example the one line
-     * @param combinerContext the current state
-     * <pre>3.2-SNAPSHOT INFO  2018-04-13 13:19:40 : RAMJob...</pre>
-     * or the multi lines 
+     * <p>
+     * Example of a single line:
+     * <pre>
+     * 3.2-SNAPSHOT INFO  2018-04-13 13:19:40 : RAMJob...
+     * </pre>
+     * Example of multi lines:
      * <pre>
      * 3.2-SNAPSHOT INFO  2018-04-13 13:19:40 : Schedule...
      *     Scheduler class: 'org.quartz.core.QuartzSchedule...
      *     NOT STARTED.
      * </pre>
+     *
+     * @param line              the first line of the record.
+     * @param logBufferedReader the data source
+     * @param combinerContext   the current state
+     * @return A single line, multi-line or 'null'.
      */
     public List<String> readMultiline(String line, LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
         List<String> result = new ArrayList<>();
         try {
+            Date lineDate = logBufferedReader.getLineDate(); // keep the date if exists
             result.add(line);
             logBufferedReader.mark(MAX_CHARACTERS_IN_ONE_LINE);
             line = logBufferedReader.readLine();
             while (line != null) {
                 if (containsStartPattern(line, logBufferedReader, combinerContext)) {
                     logBufferedReader.reset();
+                    logBufferedReader.setLineDate(lineDate);
                     return result;
                 } else {
                     result.add(line);
@@ -121,10 +128,8 @@ public class ReaderService {
     }
 
     /**
-     * <p>
-     * Decide, which {@link NodeFile} will be used for reading.
-     * Get a {@link NodeFile#getLogBufferedReader()} from the node log and read a line from it.
-     *
+     * Decide which {@link NodeFile} will be used for reading.
+     * Get a {@link NodeFile#getLogBufferedReader()} from the node log and read a line from the reader.
      * <p>
      * Change the {@link FilesMergerState#setCurrentNodeFile(NodeFile)}
      * and current position in the {@link NodeFile#getLogBufferedReader()}.
@@ -135,13 +140,17 @@ public class ReaderService {
      */
     public String readLineFromReaders(FilesMergerState filesMergerState, CombinerContext combinerContext) {
         try {
-            NodeFile actualNodeFile = findTheYoungest(combinerContext);
+            NodeFile actualNodeFile = findTheOldest(combinerContext);
             if (actualNodeFile == null) {
                 return null;
             }
             LogBufferedReader logBufferedReader = actualNodeFile.getLogBufferedReader();
+            Date lineDate = logBufferedReader.getLineDate(); // keep the date if exists, because it was set in the findTheOldest method.
             String line = logBufferedReader.readLine();
-            actualNodeFile.setLineState(getLineState(logBufferedReader, combinerContext));
+            if (line != null) {
+                logBufferedReader.setLineDate(lineDate);
+            }
+            actualNodeFile.setLineState(getNextLineState(logBufferedReader, combinerContext));
             filesMergerState.setCurrentNodeFile(actualNodeFile);
             return line;
         } catch (IOException e) {
@@ -149,45 +158,68 @@ public class ReaderService {
         }
     }
 
-    public NodeFile findTheYoungest(CombinerContext combinerContext) {
+    public NodeFile findTheOldest(CombinerContext combinerContext) {
         try {
-            Date previousDate = null;
-            String previousLine = null;
             NodeFile result = null;
             NodeFileTreeSet<NodeFile> nodeFiles = combinerContext.getNodeFileRepository().getNodeFiles();
             for (NodeFile nodeFile : nodeFiles) {
-                LogBufferedReader logBufferedReader = nodeFile.getLogBufferedReader();
-                if (logBufferedReader != null && logBufferedReader.isNotClosed()) {
-                    logBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
-                    String line = logBufferedReader.readLine();
-                    logBufferedReader.reset();
-                    Tactic tactic = nodeFile.getNodeLog().getTactic();
-                    if (line == null) {
-                        nodeFile.setLineState(LineState.IS_NULL);
-                        logBufferedReader.close();
-                    } else {
-                        Date date = tactic.findDate(line, nodeFile);
-
-                        if (date != null) {
-                            if (previousLine == null) {
-                                previousLine = line;
-                                previousDate = date;
-                                result = nodeFile;
-                            } else {
-                                // younger line wins
-                                if (date.before(previousDate)) {
-                                    previousDate = date;
-                                    previousLine = line;
-                                    result = nodeFile;
-                                }
-                            }
-                        }
-                    }
+                if (result == null) {
+                    result = nodeFile;
+                } else {
+                    result = getOlderNodeFile(result, nodeFile);
                 }
             }
             return result;
         } catch (Exception e) {
             throw new CombinerRuntimeException(e);
+        }
+    }
+
+    private NodeFile getOlderNodeFile(NodeFile actual, NodeFile next) throws IOException {
+        LogBufferedReader nextLogBufferedReader = next.getLogBufferedReader();
+        if (nextLogBufferedReader != null && nextLogBufferedReader.isNotClosed()) {
+            LogBufferedReader actualLogBufferedReader = actual.getLogBufferedReader();
+            Date actualLineDate = actualLogBufferedReader.getLineDate();
+            if (actualLogBufferedReader.isNotClosed()) {
+                actualLogBufferedReader.mark(1);
+                if (actualLogBufferedReader.read() == -1) {
+                    actualLogBufferedReader.close();
+                    return next;
+                }
+                actualLogBufferedReader.reset();
+                actualLogBufferedReader.setLineDate(actualLineDate);
+            } else {
+                return next;
+            }
+            Date nextLineDate = nextLogBufferedReader.getLineDate();
+            if (nextLineDate == null) {
+                readLineDate(next, nextLogBufferedReader);
+                nextLineDate = nextLogBufferedReader.getLineDate();
+            }
+            if (actualLineDate == null) {
+                readLineDate(actual, actualLogBufferedReader);
+                actualLineDate = actualLogBufferedReader.getLineDate();
+            }
+
+            boolean isNextLineWithoutDate = nextLineDate == null && next.getLineState() != LineState.IS_NULL;
+            boolean isNextNodeFileOlder = actualLineDate != null && isNextLineWithoutDate && next.getDate().before(actualLineDate);
+            boolean isNextLineOlder = nextLineDate != null && actualLineDate != null && nextLineDate.before(actualLineDate);
+            if (isNextNodeFileOlder || isNextLineOlder) {
+                // older line wins
+                return next;
+            }
+        }
+        return actual;
+    }
+
+    private void readLineDate(NodeFile nodeFile, LogBufferedReader nextLogBufferedReader) throws IOException {
+        nextLogBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
+        String nextLine = nextLogBufferedReader.readLine();
+        nextLogBufferedReader.reset();
+        if (nextLine != null) {
+            Tactic nextTactic = nodeFile.getNodeLog().getTactic();
+            Date date = nextTactic.findDate(nextLine, nodeFile);
+            nextLogBufferedReader.setLineDate(date);
         }
     }
 
@@ -197,7 +229,7 @@ public class ReaderService {
      * @param combinerContext the current state
      * @return the {@link LineState} of the line
      */
-    private LineState getLineState(LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
+    private LineState getNextLineState(LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
         try {
             logBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
             
@@ -208,13 +240,13 @@ public class ReaderService {
             logBufferedReader.reset();
 
             Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader, combinerContext);
-            boolean containsDate = tactic.containsDate(line);
-            if (!containsDate) {
+            Date date = tactic.findDate(line);
+            logBufferedReader.setLineDate(date);
+            if (date == null) {
                 return LineState.WITHOUT_DATE;
             }
             
             return LineState.WITH_DATE;
-            
         } catch (IOException e) {
             throw new CombinerRuntimeException(e);
         }
@@ -266,7 +298,7 @@ public class ReaderService {
                     throw new CombinerRuntimeException("LogBufferedReader is not closed yet. Expected 'null' or closed LogBufferedReader.");
                 }
                 nodeFile.setLogBufferedReader(logBufferedReader);
-                LineState lineState = getLineState(nodeFile.getLogBufferedReader(), combinerContext);
+                LineState lineState = getNextLineState(nodeFile.getLogBufferedReader(), combinerContext);
                 nodeFile.setLineState(lineState);
             }
             long durationInNanoseconds = System.nanoTime() - startNanos;
