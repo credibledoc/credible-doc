@@ -1,6 +1,5 @@
 package com.credibledoc.combiner.node.file;
 
-import com.credibledoc.combiner.line.LineState;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.log.NodeLog;
 
@@ -34,11 +33,6 @@ public class NodeFile implements Comparable<NodeFile> {
      * Contains {@link java.io.FileInputStream} of the {@link #file}.
      */
     private LogBufferedReader logBufferedReader;
-
-    /**
-     * The {@link #logBufferedReader} state.
-     */
-    private LineState lineState;
 
     @Override
     public boolean equals(Object o) {
@@ -122,17 +116,4 @@ public class NodeFile implements Comparable<NodeFile> {
         this.logBufferedReader = logBufferedReader;
     }
 
-    /**
-     * @return The {@link #lineState} field value.
-     */
-    public LineState getLineState() {
-        return lineState;
-    }
-
-    /**
-     * @param lineState see the {@link #lineState} field description.
-     */
-    public void setLineState(LineState lineState) {
-        this.lineState = lineState;
-    }
 }

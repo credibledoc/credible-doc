@@ -2,7 +2,6 @@ package com.credibledoc.combiner.log.reader;
 
 import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
-import com.credibledoc.combiner.line.LineState;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.buffered.LogConcatenatedInputStream;
 import com.credibledoc.combiner.log.buffered.LogFileInputStream;
@@ -150,7 +149,12 @@ public class ReaderService {
             if (line != null) {
                 logBufferedReader.setLineDate(lineDate);
             }
-            actualNodeFile.setLineState(getNextLineState(logBufferedReader, combinerContext));
+
+            logBufferedReader.mark(1);
+            if (logBufferedReader.read() > -1) {
+                logBufferedReader.reset();
+            }
+            
             filesMergerState.setCurrentNodeFile(actualNodeFile);
             return line;
         } catch (IOException e) {
@@ -200,8 +204,15 @@ public class ReaderService {
                 readLineDate(actual, actualLogBufferedReader);
                 actualLineDate = actualLogBufferedReader.getLineDate();
             }
-
-            boolean isNextLineWithoutDate = nextLineDate == null && next.getLineState() != LineState.IS_NULL;
+            
+            boolean isNextLast = false;
+            nextLogBufferedReader.mark(1);
+            if (nextLogBufferedReader.read() == -1) {
+                isNextLast = true;
+            }
+            nextLogBufferedReader.reset();
+            
+            boolean isNextLineWithoutDate = nextLineDate == null && !isNextLast;
             boolean isNextNodeFileOlder = actualLineDate != null && isNextLineWithoutDate && next.getDate().before(actualLineDate);
             boolean isNextLineOlder = nextLineDate != null && actualLineDate != null && nextLineDate.before(actualLineDate);
             if (isNextNodeFileOlder || isNextLineOlder) {
@@ -220,35 +231,6 @@ public class ReaderService {
             Tactic nextTactic = nodeFile.getNodeLog().getTactic();
             Date date = nextTactic.findDate(nextLine, nodeFile);
             nextLogBufferedReader.setLineDate(date);
-        }
-    }
-
-    /**
-     * Read the first line from the argument and find out the {@link LineState} of the line.
-     * @param logBufferedReader the source of the line
-     * @param combinerContext the current state
-     * @return the {@link LineState} of the line
-     */
-    private LineState getNextLineState(LogBufferedReader logBufferedReader, CombinerContext combinerContext) {
-        try {
-            logBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
-            
-            String line = logBufferedReader.readLine();
-            if (line == null) {
-                return LineState.IS_NULL;
-            }
-            logBufferedReader.reset();
-
-            Tactic tactic = TacticService.getInstance().findTactic(logBufferedReader, combinerContext);
-            Date date = tactic.findDate(line);
-            logBufferedReader.setLineDate(date);
-            if (date == null) {
-                return LineState.WITHOUT_DATE;
-            }
-            
-            return LineState.WITH_DATE;
-        } catch (IOException e) {
-            throw new CombinerRuntimeException(e);
         }
     }
 
@@ -298,8 +280,6 @@ public class ReaderService {
                     throw new CombinerRuntimeException("LogBufferedReader is not closed yet. Expected 'null' or closed LogBufferedReader.");
                 }
                 nodeFile.setLogBufferedReader(logBufferedReader);
-                LineState lineState = getNextLineState(nodeFile.getLogBufferedReader(), combinerContext);
-                nodeFile.setLineState(lineState);
             }
             long durationInNanoseconds = System.nanoTime() - startNanos;
             String durationInMs = durationInNanoseconds / 1000000 + "," + durationInNanoseconds % 1000000;
