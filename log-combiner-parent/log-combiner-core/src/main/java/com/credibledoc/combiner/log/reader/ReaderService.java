@@ -172,7 +172,8 @@ public class ReaderService {
             for (NodeFile nodeFile : nodeFiles) {
                 if (result == null) {
                     result = nodeFile;
-                } else if (nodeFile != result && nodeFile.getLogBufferedReader().isNotClosed()) {
+                } else if (nodeFile != result && nodeFile.getLogBufferedReader() != null &&
+                        nodeFile.getLogBufferedReader().isNotClosed()) {
                     result = getOlderNodeFile(result, nodeFile);
                 }
             }
