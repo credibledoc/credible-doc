@@ -15,7 +15,7 @@ public class NodeLogRepository {
     /**
      * @return the {@link #nodeLogs} value
      */
-    NodeLogTreeSet<NodeLog> getNodeLogs() {
+    public NodeLogTreeSet<NodeLog> getNodeLogs() {
         return nodeLogs;
     }
 

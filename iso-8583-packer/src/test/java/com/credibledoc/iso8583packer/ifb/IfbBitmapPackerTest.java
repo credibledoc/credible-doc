@@ -23,7 +23,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class IfbBitmapPackerTest {
-    private static Logger logger = LoggerFactory.getLogger(IfbBitmapPacker.class);
+    private static final Logger logger = LoggerFactory.getLogger(IfbBitmapPacker.class);
 
     private static final String MTI_NAME = "MTI";
     private static final String BITMAP_NAME = "BITMAP";

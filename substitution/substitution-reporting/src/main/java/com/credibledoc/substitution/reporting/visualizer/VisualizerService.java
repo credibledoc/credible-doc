@@ -110,7 +110,7 @@ public class VisualizerService {
                 fileName = readerService.getFile(currentReader).getAbsolutePath();
             }
             String message =
-                "Creation of reports failed. File: '" + fileName +
+                "Reports creation failed. File: '" + fileName +
                     "', ReportDirectory: '" + getReportDirectoryPath(report) +
                     "', line: '" + line + "'";
             throw new SubstitutionRuntimeException(message, e);
@@ -146,7 +146,7 @@ public class VisualizerService {
             }
         } catch (Exception e) {
             String message =
-                "Creation of reports failed." +
+                "Reports creation failed." +
                     " ReportDirectory: '" + getReportDirectoryPath(report) +
                     "', line: '" + multiLine.get(0) + "'";
             if ("true".equals(System.getProperty(IGNORE_FAILURES))) {

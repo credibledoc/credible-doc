@@ -143,7 +143,7 @@ public class CombinerService {
                 fileName = readerService.getFile(logBufferedReader).getAbsolutePath();
             }
             String message =
-                "Creation of reports failed. File: '" + fileName +
+                "Reports creation failed. File: '" + fileName +
                     "', line: '" + line + "'";
             throw new CombinerRuntimeException(message, e);
         }

@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -282,9 +283,9 @@ public class FieldBuilder {
     public FieldBuilder defineParent(MsgField parentMsgField) {
         try {
             if (parentMsgField == msgField.getParent()) {
-                logger.info("Parent field '" + navigator.getPathRecursively(parentMsgField) +
-                    "' already set to the field '" + navigator.getPathRecursively(msgField) +
-                    "'. Skip the defineParent() method.");
+                logger.info("Parent field '{}' already set to the field '{}'. Skip the defineParent() method.",
+                    navigator.getPathRecursively(parentMsgField),
+                    navigator.getPathRecursively(msgField));
                 return this;
             }
             if (parentMsgField.getChildrenLengthPacker() != null && msgField.getLengthPacker() != null) {

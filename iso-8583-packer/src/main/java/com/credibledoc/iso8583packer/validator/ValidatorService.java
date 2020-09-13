@@ -9,6 +9,7 @@ import com.credibledoc.iso8583packer.message.MsgFieldType;
 import com.credibledoc.iso8583packer.navigator.Navigator;
 import com.credibledoc.iso8583packer.tag.TagPacker;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -88,23 +89,43 @@ public class ValidatorService implements Validator {
             validateLenExists(msgField, path);
         }
 
+        validateMsgType(msgField, path);
+
+        validateFixedLenSubfields(msgField, path);
+        
+        validateFixedLengthType(msgField, path);
+
+        validateChildren(msgField, path);
+    }
+
+    private void validateMsgType(MsgField msgField, String path) {
         if (msgField.getType() == MsgFieldType.MSG) {
             validateHasNoBitSetAndBitMapPacker(msgField, path);
             validateHasNoLenDefined(msgField, path);
         }
+    }
 
-        validateFixedLenSubfields(msgField, path);
-        
+    private void validateChildren(MsgField msgField, String path) {
         List<MsgField> msgFields = msgField.getChildren();
-        
+
         if (msgFields != null) {
             validateHasNoBodyPacker(msgField, path);
         }
-        
+
         if (msgFields != null) {
             for (MsgField nextMsgField : msgFields) {
                 validateStructureRecursively(nextMsgField);
             }
+        }
+    }
+
+    void validateFixedLengthType(MsgField msgField, String path) {
+        MsgFieldType type = msgField.getType();
+        if (msgField.getLen() != null && MsgFieldType.isLengthType(msgField)) {
+            throw new PackerRuntimeException("The current MsgField with type " + type + " and path '" + path +
+                "' cannot have the 'fieldLen'" +
+                " value because the type belongs to the following types: " +
+                Arrays.toString(MsgFieldType.getLengthTypes().toArray()));
         }
     }
 

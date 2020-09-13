@@ -76,7 +76,7 @@ for example:
 } &&endPlaceholder
 ```
 
-The filled object can be packed to bytes
+The filled object can be packed into bytes
 ```Java
 &&beginPlaceholder {
     "className": "com.credibledoc.substitution.content.generator.code.SourceContentGenerator",

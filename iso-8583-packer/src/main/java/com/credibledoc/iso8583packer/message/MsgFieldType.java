@@ -13,12 +13,12 @@ import java.util.List;
  */
 public enum MsgFieldType {
     /**
-     * Tag(Type) - Length - Value. See https://en.wikipedia.org/wiki/Type-length-value.
+     * Tag - Length - Value. See https://en.wikipedia.org/wiki/Type-length-value.
      */
     TAG_LEN_VAL,
 
     /**
-     * Length - Tag(Type) - Value. Similar to the {@link #TAG_LEN_VAL} type, but the length is first.
+     * Length - Tag - Value. Similar to the {@link #TAG_LEN_VAL} type, but the length is first.
      */
     LEN_TAG_VAL,
 
@@ -28,7 +28,7 @@ public enum MsgFieldType {
     TAG_VAL,
 
     /**
-     * length - Value. Similar to the {@link #TAG_LEN_VAL} type, but without tag.
+     * Length - Value. Similar to the {@link #TAG_LEN_VAL} type, but without a tag.
      */
     LEN_VAL,
 
@@ -50,24 +50,24 @@ public enum MsgFieldType {
     /**
      * Contains {@link MsgFieldType}s with specified {@link MsgField#getFieldNum()} sub-field.
      */
-    private static List<MsgFieldType> tagTypes = Arrays.asList(TAG_LEN_VAL, LEN_TAG_VAL, TAG_VAL);
+    private static final List<MsgFieldType> tagTypes = Arrays.asList(TAG_LEN_VAL, LEN_TAG_VAL, TAG_VAL);
 
     /**
      * Contains  {@link MsgFieldType}s with enclosed {@link MsgValue}s
      * with non-null {@link MsgValue#getLengthBytes()} value.
      */
-    private static List<MsgFieldType> lengthTypes = Arrays.asList(TAG_LEN_VAL, LEN_TAG_VAL, LEN_VAL);
+    private static final List<MsgFieldType> lengthTypes = Arrays.asList(TAG_LEN_VAL, LEN_TAG_VAL, LEN_VAL);
 
     /**
      * Contains  {@link MsgFieldType}s with enclosed {@link MsgValue}s
      * with {@link MsgValue#getLengthBytes()} as the first value.
      */
-    private static List<MsgFieldType> lengthFirstTypes = Arrays.asList(LEN_TAG_VAL, LEN_VAL);
+    private static final List<MsgFieldType> lengthFirstTypes = Arrays.asList(LEN_TAG_VAL, LEN_VAL);
 
     /**
-     * Contains  {@link MsgFieldType}s with fixed length body value.
+     * Contains  {@link MsgFieldType}s with fixed body length.
      */
-    private static List<MsgFieldType> fixedLengthTypes = Arrays.asList(VAL, BIT_SET, TAG_VAL);
+    private static final List<MsgFieldType> fixedLengthTypes = Arrays.asList(VAL, BIT_SET, TAG_VAL);
 
     /**
      * @return The {@link #tagTypes} list.

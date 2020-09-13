@@ -49,7 +49,7 @@ for example:
                 .setValue(value);
 ```
 
-The filled object can be packed to bytes
+The filled object can be packed into bytes
 ```Java
             byte[] valueBytes = valueHolder.pack();
             String bytesHex = HexService.bytesToHex(valueBytes);

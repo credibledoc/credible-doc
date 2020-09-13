@@ -144,6 +144,9 @@ public class ValueHolder {
         try {
             this.msgValue = msgValue;
             this.msgField = msgField;
+            if (this.msgValue.getName() == null) {
+                this.msgValue.setName(msgField.getName());
+            }
             return this;
         } catch (Exception e) {
             MsgField rootMsgField = navigator.findRoot(msgField);
@@ -1121,9 +1124,6 @@ public class ValueHolder {
      * @return The current {@link ValueHolder} instance with a new place (location) of the {@link #msgValue}.
      */
     public ValueHolder jumpAbsolute(String ... fieldNames) {
-        if (fieldNames.length < 2) {
-            return this;
-        }
         jumpToRoot();
         if (!msgField.getName().equals(fieldNames[0])) {
             String msgFieldDump = visualizer.dumpMsgField(msgField);

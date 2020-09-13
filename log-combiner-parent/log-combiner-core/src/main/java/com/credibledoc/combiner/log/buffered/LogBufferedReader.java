@@ -111,6 +111,9 @@ public class LogBufferedReader extends BufferedReader {
     @Override
     public String readLine() throws IOException {
         lineDate = null;
+        if (closed) {
+            return null;
+        }
         return super.readLine();
     }
 
