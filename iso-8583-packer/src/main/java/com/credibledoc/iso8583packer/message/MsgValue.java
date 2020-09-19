@@ -69,10 +69,11 @@ public class MsgValue implements Msg {
     private List<MsgValue> children;
 
     /**
-     * This field contains list of its children indexes. These children are located
+     * The field contains list of its children indexes. These children are located
      * in the {@link MsgValue#getChildren()} list.
      * <p>
-     * This bit set can be 'null' for some nodes or leafs, but cannot be 'null' for a root {@link MsgValue}.
+     * The bit set can be 'null' for some nodes or leaves,
+     * but cannot be 'null' for a field of the {@link MsgFieldType#BIT_SET} type.
      */
     private BitSet bitSet;
 

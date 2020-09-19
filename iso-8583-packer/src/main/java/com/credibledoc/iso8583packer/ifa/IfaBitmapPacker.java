@@ -26,12 +26,12 @@ public class IfaBitmapPacker implements BitmapPacker {
     /**
      * Contains created instances. Each instance is a Singleton.
      */
-    private static Map<Integer, IfaBitmapPacker> instances = new ConcurrentHashMap<>();
+    private static final Map<Integer, IfaBitmapPacker> instances = new ConcurrentHashMap<>();
 
     /**
      * Number of bytes in a packed state.
      */
-    private int packedBytesLength;
+    private final int packedBytesLength;
 
     private IfaBitmapPacker(int packedBytesLength) {
         this.packedBytesLength = packedBytesLength;
@@ -91,4 +91,8 @@ public class IfaBitmapPacker implements BitmapPacker {
         return result;
     }
 
+    @Override
+    public int getPackedBytesLength() {
+        return packedBytesLength;
+    }
 }

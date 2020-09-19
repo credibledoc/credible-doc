@@ -28,4 +28,8 @@ public interface BitmapPacker {
      */
     int unpack(MsgValue msgValue, byte[] bytes, int offset);
 
+    /**
+     * @return The number of the {@link BitSet} bytes in a packed state without the children of the {@link BitmapPacker}.
+     */
+    int getPackedBytesLength();
 }

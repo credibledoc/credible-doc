@@ -23,7 +23,7 @@ public class IfbBitmapPacker implements BitmapPacker {
     /**
      * Contains created instances. Each instance is a Singleton.
      */
-    private static Map<Integer, IfbBitmapPacker> instances = new ConcurrentHashMap<>();
+    private static final Map<Integer, IfbBitmapPacker> instances = new ConcurrentHashMap<>();
 
     /**
      * Number of bytes in a packed state. Accepted values are from 1 to 8, 16 or 24.
@@ -32,7 +32,7 @@ public class IfbBitmapPacker implements BitmapPacker {
      * for example fieldNum 65 cannot be encoded in 8 bytes and an additional
      * 8 bytes will be appended to the packed bytes.
      */
-    private int packedBytesLength;
+    private final int packedBytesLength;
 
     private IfbBitmapPacker(int packedBytesLength) {
         if (packedBytesLength < 1 || (packedBytesLength > 8 && !(packedBytesLength == 16 || packedBytesLength == 24))) {
@@ -116,4 +116,8 @@ public class IfbBitmapPacker implements BitmapPacker {
         return unpackedBytesLength;
     }
 
+    @Override
+    public int getPackedBytesLength() {
+        return packedBytesLength;
+    }
 }

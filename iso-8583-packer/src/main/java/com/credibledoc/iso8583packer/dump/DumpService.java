@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Objects;
@@ -284,7 +285,8 @@ public class DumpService implements Visualizer {
         String bitmapString;
         if (msgField != null && msgValue.getBitSet() != null) {
             byte[] bytes = msgValue.getBodyBytes();
-            bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bytes) + "\"";
+            byte[] bitmapHeader = Arrays.copyOf(bytes, msgField.getBitMapPacker().getPackedBytesLength());
+            bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bitmapHeader) + "\"";
         } else {
             bitmapString = "";
         }
