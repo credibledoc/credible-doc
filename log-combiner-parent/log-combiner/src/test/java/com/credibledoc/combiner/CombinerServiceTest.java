@@ -53,7 +53,7 @@ public class CombinerServiceTest {
         filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
         ReaderService readerService = ReaderService.getInstance();
         int currentLineNumber = 0;
-        String line = readerService.readLineFromReaders(filesMergerState, combinerContext);
+        String line = readerService.readLineFromReaders(filesMergerState);
         LogBufferedReader logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         while (line != null) {
             List<String> multiline = readerService.readMultiline(line, logBufferedReader, combinerContext);
@@ -63,7 +63,7 @@ public class CombinerServiceTest {
                 logger.debug("{} lines processed. NextLine: {}", currentLineNumber, nextLine);
             }
 
-            line = readerService.readLineFromReaders(filesMergerState, combinerContext);
+            line = readerService.readLineFromReaders(filesMergerState);
             logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         }
         assertEquals(17, currentLineNumber);

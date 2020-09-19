@@ -110,7 +110,7 @@ public class CombinerService {
     public void combine(OutputStream outputStream, FilesMergerState filesMergerState, CombinerContext combinerContext) {
         ReaderService readerService = ReaderService.getInstance();
         if (filesMergerState.getCurrentNodeFile() == null) {
-            filesMergerState.setCurrentNodeFile(readerService.findTheOldest(combinerContext, filesMergerState));
+            filesMergerState.setCurrentNodeFile(readerService.findTheOldest(filesMergerState));
         }
         LogBufferedReader logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         int currentLineNumber = 0;
@@ -118,7 +118,7 @@ public class CombinerService {
         String line = null;
         Config config = new ConfigService().loadConfig(null);
         try {
-            line = readerService.readLineFromReaders(filesMergerState, combinerContext);
+            line = readerService.readLineFromReaders(filesMergerState);
             logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
             int endIndex = Math.max(line.length(), 35);
             String substring = line.substring(0, endIndex);
@@ -133,7 +133,7 @@ public class CombinerService {
 
                 writeMultiline(config, outputStream, nodeFileService, logBufferedReader, multiline, combinerContext);
 
-                line = readerService.readLineFromReaders(filesMergerState, combinerContext);
+                line = readerService.readLineFromReaders(filesMergerState);
                 logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
             }
             logger.debug("{} lines processed (100%)", currentLineNumber);

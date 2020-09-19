@@ -45,14 +45,14 @@ public class ReaderServiceTest {
         FilesMergerState filesMergerState = new FilesMergerState();
         filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
         ReaderService readerService = ReaderService.getInstance();
-        String line = readerService.readLineFromReaders(filesMergerState, combinerContext);
+        String line = readerService.readLineFromReaders(filesMergerState);
         LogBufferedReader logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         List<String> result = new ArrayList<>();
         long before = System.nanoTime();
         while (line != null) {
             List<String> multiline = readerService.readMultiline(line, logBufferedReader, combinerContext);
             result.addAll(multiline);
-            line = readerService.readLineFromReaders(filesMergerState, combinerContext);
+            line = readerService.readLineFromReaders(filesMergerState);
             logBufferedReader = filesMergerState.getCurrentNodeFile().getLogBufferedReader();
         }
         long after = System.nanoTime();

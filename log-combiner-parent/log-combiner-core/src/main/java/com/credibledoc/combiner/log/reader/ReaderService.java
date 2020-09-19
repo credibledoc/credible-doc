@@ -135,16 +135,15 @@ public class ReaderService {
      * and current position in the {@link NodeFile#getLogBufferedReader()}.
      *
      * @param filesMergerState contains information of last used index and {@link NodeFile}s
-     * @param combinerContext the current state
      * @return a preferred line from one of {@link LogBufferedReader}s or 'null' if all buffers are empty.
      */
-    public String readLineFromReaders(FilesMergerState filesMergerState, CombinerContext combinerContext) {
+    public String readLineFromReaders(FilesMergerState filesMergerState) {
         try {
             NodeFile currentNodeFile = filesMergerState.getCurrentNodeFile();
             if (currentNodeFile != null) {
                 currentNodeFile.getLogBufferedReader().setLineDate(null);
             }
-            NodeFile actualNodeFile = findTheOldest(combinerContext, filesMergerState);
+            NodeFile actualNodeFile = findTheOldest(filesMergerState);
             if (actualNodeFile == null) {
                 return null;
             }
@@ -165,11 +164,10 @@ public class ReaderService {
         }
     }
 
-    public NodeFile findTheOldest(CombinerContext combinerContext, FilesMergerState filesMergerState) {
+    public NodeFile findTheOldest(FilesMergerState filesMergerState) {
         try {
             NodeFile result = filesMergerState.getCurrentNodeFile();
-            NodeFileTreeSet<NodeFile> nodeFiles = combinerContext.getNodeFileRepository().getNodeFiles();
-            for (NodeFile nodeFile : nodeFiles) {
+            for (NodeFile nodeFile : filesMergerState.getNodeFiles()) {
                 if (result == null) {
                     result = nodeFile;
                 } else if (nodeFile != result && nodeFile.getLogBufferedReader() != null &&
