@@ -1,5 +1,6 @@
 package com.credibledoc.iso8583packer.dump;
 
+import com.credibledoc.iso8583packer.bitmap.BitmapService;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.masking.Masker;
@@ -18,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Objects;
@@ -283,9 +283,9 @@ public class DumpService implements Visualizer {
 
     protected String createBitmapString(MsgField msgField, MsgValue msgValue) {
         String bitmapString;
-        if (msgField != null && msgValue.getBitSet() != null) {
-            byte[] bytes = msgValue.getBodyBytes();
-            byte[] bitmapHeader = Arrays.copyOf(bytes, msgField.getBitMapPacker().getPackedBytesLength());
+        BitSet bitSet = msgValue.getBitSet();
+        if (msgField != null && bitSet != null) {
+            byte[] bitmapHeader = BitmapService.bitSet2byte(bitSet, msgField.getBitMapPacker().getPackedBytesLength());
             bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bitmapHeader) + "\"";
         } else {
             bitmapString = "";
