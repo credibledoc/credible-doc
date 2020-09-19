@@ -32,6 +32,7 @@ public class GithubRepoRepository {
 
     /**
      * @return 'true' if the database contains a {@link GithubRepo} object with such {@link GithubRepo#getFullName()}.
+     * @param repoFullName the filter
      */
     public boolean contains(String repoFullName) {
         return datastore.createQuery(GithubRepo.class)
@@ -41,6 +42,7 @@ public class GithubRepoRepository {
 
     /**
      * Save entities to the database.
+     * @param githubRepos entities to be saved
      */
     public void save(List<GithubRepo> githubRepos) {
         datastore.save(githubRepos);

@@ -76,6 +76,7 @@ public class ReportDocumentCreatorService {
      * @param reportingContext the current state
      * @param substitutionContext the current state
      * @param enricherContext the current state
+     * @param templateResources contains templates with placeholders
      */
     public void createReportDocuments(CombinerContext combinerContext, ReportingContext reportingContext,
                                       SubstitutionContext substitutionContext, EnricherContext enricherContext,
@@ -164,6 +165,7 @@ public class ReportDocumentCreatorService {
      * Create a new {@link Report}
      * @param logFile a source file
      * @param reportDocument belonging to the {@link Report}
+     * @param combinerContext the current state
      * @param reportingContext the current state
      */
     private void prepareReport(File logFile, ReportDocument reportDocument, CombinerContext combinerContext, ReportingContext reportingContext) {

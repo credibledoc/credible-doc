@@ -31,7 +31,17 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.TimeZone;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
@@ -236,6 +246,7 @@ public class CharIterator implements MultiDataSetIterator {
     /**
      * A minimal character set, with a-z, A-Z, 0-9 and common punctuation etc.
      * As per getMinimalCharacterSet(), but with a few extra characters.
+     * @return Char array of available characters for the encoding
      */
     private static char[] getCharacters() {
         List<Character> validChars = new ArrayList<>(DIGITS_AND_LETTERS_AND_PUNCTUATIONS);
@@ -434,6 +445,8 @@ public class CharIterator implements MultiDataSetIterator {
      *
      * @param stringLine an empty buffer
      * @param labelsLine an empty buffer
+     * @param numSubLines how many sub-lines the {@link LinesWithDateClassification#EXAMPLE_LENGTH_120} will be
+     *                    divided to.
      */
     @SuppressWarnings("unchecked")
     private void prepareDataForLearning(StringBuilder stringLine, StringBuilder labelsLine, int numSubLines) {
@@ -880,6 +893,7 @@ public class CharIterator implements MultiDataSetIterator {
     /**
      * How many lines for training contains the {@link CharIterator}. The value is calculated from {@link #patternsCount}
      * multiplied with {@link #NUM_EXAMPLES_OF_DATE_PATTERN_100}.
+     * @return The lines size
      */
     public long trainingDataSetSize() {
         return NUM_EXAMPLES_OF_DATE_PATTERN_100 * patternsCount;
@@ -888,6 +902,7 @@ public class CharIterator implements MultiDataSetIterator {
     /**
      * How many lines for training remained in the {@link CharIterator}. The value is calculated from {@link #trainingDataSetSize()}
      * minus {@link #patternsPassed} multiplied with {@link #NUM_EXAMPLES_OF_DATE_PATTERN_100}.
+     * @return The remaining lines number
      */
     public long getRemainingDataSetSize() {
         return trainingDataSetSize() - (patternsPassed * NUM_EXAMPLES_OF_DATE_PATTERN_100);
@@ -896,6 +911,7 @@ public class CharIterator implements MultiDataSetIterator {
     /**
      * If the {@link #dateExamples} is empty, return 'true'. It means all the examples has been trained and the next
      * {@link PagePattern} can be loaded from the {@link PagePatternRepository#getNotTrainedPattern()} if exists.
+     * @return 'true' if the pattern has been trained
      */
     public boolean isPatternTrained() {
         return dateExamples.isEmpty();

@@ -87,7 +87,7 @@ public class VisualizerService {
         int currentLineNumber = 0;
         TransformerService transformerService = TransformerService.getInstance();
         try {
-            line = readerService.readLineFromReaders(filesMergerState, combinerContext);
+            line = readerService.readLineFromReaders(filesMergerState);
             int endIndex = Math.max(line.length(), 35);
             String substring = line.substring(0, endIndex);
             logger.trace("The first line is read from {}. Line: '{}...'", getClass().getSimpleName(), substring);
@@ -101,7 +101,7 @@ public class VisualizerService {
                 reportDocumentService.mergeReportDocumentsForAddition(reportingContext);
                 reportDocuments = reportDocumentService.getReportDocuments(report, reportingContext);
 
-                line = readerService.readLineFromReaders(filesMergerState, combinerContext);
+                line = readerService.readLineFromReaders(filesMergerState);
             }
             logger.debug("{} lines processed (100%)", currentLineNumber);
         } catch (Exception e) {

@@ -56,6 +56,7 @@ public class PagePatternRepository {
 
     /**
      * Save the entities to the database.
+     * @param pagePattens the entities to be saved
      */
     public void save(List<PagePattern> pagePattens) {
         datastore.save(pagePattens);

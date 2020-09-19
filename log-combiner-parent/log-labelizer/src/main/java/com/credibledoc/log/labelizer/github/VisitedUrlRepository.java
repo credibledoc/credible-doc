@@ -32,6 +32,7 @@ public class VisitedUrlRepository {
 
     /**
      * @return 'true' if the database contains a {@link VisitedUrl} object with such {@link VisitedUrl#getUrl()}.
+     * @param url the filter
      */
     public boolean contains(String url) {
         return datastore.createQuery(VisitedUrl.class)
@@ -41,6 +42,7 @@ public class VisitedUrlRepository {
 
     /**
      * Save entities to the database.
+     * @param visitedUrlList entities to be saved
      */
     public void save(List<VisitedUrl> visitedUrlList) {
         datastore.save(visitedUrlList);

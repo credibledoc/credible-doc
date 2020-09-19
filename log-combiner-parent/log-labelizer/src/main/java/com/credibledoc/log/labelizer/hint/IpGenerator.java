@@ -389,6 +389,7 @@ public class IpGenerator {
 	}
 	
 	/**
+     * @param charList its chars will be used randomly
 	 * @return This method create (from 1 to 4) random hexadecimal characters for IPv6 address. 
 	 * Numbers of octet can be from range of (1-4).
 	 * For example:
