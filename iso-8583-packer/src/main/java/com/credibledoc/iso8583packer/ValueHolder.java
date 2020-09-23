@@ -19,7 +19,11 @@ import com.credibledoc.iso8583packer.tag.TagPacker;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.BitSet;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * This builder helps to fill the existing {@link MsgField} definition with data. It contains
@@ -288,8 +292,7 @@ public class ValueHolder {
         MsgField currentMsgField = msgPair.getMsgField();
         rawDataLength = currentMsgField.getLen();
         if (rawDataLength == null) {
-            throw new PackerRuntimeException("Property 'len' is mandatory for the '" + MsgFieldType.class.getSimpleName() +
-                "." + currentMsgField.getType() + "' type. MsgField path: '" + navigator.getPathRecursively(currentMsgField) + "'.");
+            rawDataLength = bytes.length - offset.getValue();
         }
         int remaining = bytes.length - offset.getValue();
         if (rawDataLength > remaining) {
@@ -1144,5 +1147,15 @@ public class ValueHolder {
             }
         }
         return this;
+    }
+
+    /**
+     * Call the {@link #jumpAbsolute(String...)} method.
+     *
+     * @param fieldNames the {@link MsgField#getName()}s of fields from the root of the {@link #msgField}.
+     * @return The current {@link ValueHolder} instance with a new place (location) of the {@link #msgValue}.
+     */
+    public ValueHolder jumpAbsolute(List<String> fieldNames) {
+        return jumpAbsolute(fieldNames.toArray(new String[0]));
     }
 }

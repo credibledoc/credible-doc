@@ -76,17 +76,12 @@ public class ValidatorService implements Validator {
         }
         
         if (msgField.getType() == MsgFieldType.VAL) {
-            validateLenExists(msgField, path);
             validateHasNoBitSetAndBitMapPacker(msgField, path);
         }
         
         if (msgField.getType() == MsgFieldType.BIT_SET) {
             validateBitSetAndBitMapPackerExists(msgField, path);
             validateChildrenExists(msgField, path);
-        }
-
-        if (msgField.getType() == MsgFieldType.VAL || msgField.getType() == MsgFieldType.TAG_VAL) {
-            validateLenExists(msgField, path);
         }
 
         validateMsgType(msgField, path);
@@ -113,6 +108,14 @@ public class ValidatorService implements Validator {
         }
 
         if (msgFields != null) {
+            for (int i = 0; i < msgFields.size(); i++) {
+                MsgField nextMsgField = msgFields.get(i);
+                validateStructureRecursively(nextMsgField);
+                if (i < msgFields.size() - 1) {
+                    // all except the last child
+                    validateLenExists(nextMsgField, navigator.getPathRecursively(nextMsgField));
+                }
+            }
             for (MsgField nextMsgField : msgFields) {
                 validateStructureRecursively(nextMsgField);
             }
@@ -147,7 +150,7 @@ public class ValidatorService implements Validator {
             int childrenLen = calculateChildrenLen(msgField.getChildren());
             if (msgField.getLen() != childrenLen) {
                 throw new PackerRuntimeException("The msgField 'len' value '" + msgField.getLen() +
-                    "' is differ with its children 'len' values sum '" + childrenLen + "'. " +
+                    "' differs from its children 'len' values sum '" + childrenLen + "'. " +
                     "MsgField path: '" + path + "'");
             }
         }
@@ -251,10 +254,12 @@ public class ValidatorService implements Validator {
     }
 
     protected void validateLenExists(MsgField msgField, String path) {
-        if (msgField.getLen() == null) {
+        if (msgField.getLen() == null &&
+            (msgField.getType() == MsgFieldType.VAL || msgField.getType() == MsgFieldType.TAG_VAL)) {
+            
             throw new PackerRuntimeException("The field with path '" + path +
-                    "' has '" + msgField.getType() +
-                    "' type, so please define its length by calling the defineLen() method.");
+                "' has '" + msgField.getType() +
+                "' type, so please define its length by calling the defineLen() method.");
         }
     }
 
