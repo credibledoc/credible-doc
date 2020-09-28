@@ -85,6 +85,9 @@ public class ValueHolder {
      * @return A new instance of the {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
      */
     public static ValueHolder newInstance(MsgField definition) {
+        if (definition == null) {
+            throw new PackerRuntimeException("MsgField definition cannot be 'null'.");
+        }
         ValueHolder valueHolder = new ValueHolder();
         valueHolder.createDefaultServices();
         return valueHolder.setValueAndField(definition);
@@ -132,6 +135,12 @@ public class ValueHolder {
      * @return The new created {@link ValueHolder} with the {@link #msgValue} and {@link #msgField} in its context.
      */
     public static ValueHolder newInstance(MsgValue msgValue, MsgField msgField) {
+        if (msgValue == null) {
+            throw new PackerRuntimeException("MsgValue cannot be 'null'.");
+        }
+        if (msgField == null) {
+            throw new PackerRuntimeException("MsgField cannot be 'null'.");
+        }
         ValueHolder valueHolder = new ValueHolder();
         valueHolder.createDefaultServices();
         return valueHolder.setValueAndField(msgValue, msgField);
@@ -565,7 +574,13 @@ public class ValueHolder {
         ValueHolder valueHolder = new ValueHolder();
         valueHolder.createDefaultServices();
         valueHolder.msgField = msgPair.getMsgField();
+        if (valueHolder.msgField == null) {
+            throw new PackerRuntimeException("MsgField cannot be 'null'.");
+        }
         valueHolder.msgValue = msgPair.getMsgValue();
+        if (valueHolder.msgValue == null) {
+            throw new PackerRuntimeException("MsgValue cannot be 'null'.");
+        }
         return valueHolder;
     }
 
@@ -1157,5 +1172,56 @@ public class ValueHolder {
      */
     public ValueHolder jumpAbsolute(List<String> fieldNames) {
         return jumpAbsolute(fieldNames.toArray(new String[0]));
+    }
+
+    /**
+     * Call the {@link #getValue(Class)} method with the type of {@link #msgValue} body value.
+     * @param <T> to be used for casting
+     * @return the {@link MsgValue#getBodyValue()} casted to <i>T</i> or 'null'.
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getValue() {
+        Object bodyValue = this.msgValue.getBodyValue();
+        if (bodyValue == null) {
+            return null;
+        }
+        return (T) getValue(bodyValue.getClass());
+    }
+
+    /**
+     * Check whether the current {@link #msgValue} contains a {@link MsgValue#getBodyValue()}. Current
+     * {@link #msgField} and {@link #msgValue} will not be changed.
+     * @param fieldNames the {@link MsgValue#getName()}s of fields from the root of the {@link #msgValue}.
+     * @return 'true' if the field on the path has some value.
+     */
+    public boolean hasValue(String... fieldNames) {
+        if (fieldNames.length < 2) {
+            throw new PackerRuntimeException("Please define fieldNames as a path, for example 'ROOT', 'field1' ...");
+        }
+        MsgValue currentMsgValue = msgValue;
+        while (currentMsgValue.getParent() != null) {
+            currentMsgValue = currentMsgValue.getParent();
+        }
+        for (int i = 1; i < fieldNames.length; i++) {
+            List<MsgValue> children = currentMsgValue.getChildren();
+            if (currentMsgValue.getBodyValue() == null && children == null) {
+                return false;
+            }
+            currentMsgValue = navigator.findByName(children, fieldNames[i]);
+            if (currentMsgValue == null ||
+                (currentMsgValue.getBodyValue() == null && currentMsgValue.getChildren() == null)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Call the {@link #hasValue(String...)} method.
+     * @param fieldNames see the {@link #hasValue(String...)} method description.
+     * @return See the {@link #hasValue(String...)} method description.
+     */
+    public boolean hasValue(List<String> fieldNames) {
+        return hasValue(fieldNames.toArray(new String[0]));
     }
 }
