@@ -1,5 +1,6 @@
 package com.credibledoc.substitution.reporting.replacement;
 
+import com.credibledoc.combiner.file.FileService;
 import com.credibledoc.substitution.core.configuration.Configuration;
 import com.credibledoc.substitution.core.content.Content;
 import com.credibledoc.substitution.core.content.ContentGenerator;
@@ -97,13 +98,15 @@ public class ReplacementService {
                                   SubstitutionContext substitutionContext) {
         String replacedContent =
             TemplateService.getInstance().getTemplateContent(templateResource, StandardCharsets.UTF_8.name());
+        String lineEnding = FileService.findLineEnding(replacedContent);
         int position = 1;
         for (String templatePlaceholder : templatePlaceholders) {
             Placeholder placeholder = PlaceholderService.getInstance()
                 .parseJsonFromPlaceholder(templatePlaceholder, templateResource, substitutionContext);
             placeholder.setId(Integer.toString(position++));
             String contentForReplacement = generateContent(placeholder, substitutionContext);
-            replacedContent = replacedContent.replace(templatePlaceholder, contentForReplacement);
+            String normalizedContent = contentForReplacement.replaceAll(FileService.ANY_LINE_ENDING, lineEnding);
+            replacedContent = replacedContent.replace(templatePlaceholder, normalizedContent);
             String json = PlaceholderService.getInstance().writePlaceholderToJson(placeholder);
             logger.trace("{}{}", CONTENT_REPLACED, json);
         }

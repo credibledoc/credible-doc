@@ -31,7 +31,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.zip.GZIPInputStream;
 
@@ -48,7 +50,12 @@ public class FileService {
     private static final String GZ = ".gz";
     
     private static final Set<String> extensions;
-    
+
+    public static final String LINUX_LINE_ENDING = "\n";
+    public static final String MAC_LINE_ENDING = "\r";
+    public static final String WINDOWS_LINE_ENDING = "\r\n";
+    public static final String ANY_LINE_ENDING = WINDOWS_LINE_ENDING + "|" + LINUX_LINE_ENDING + "|" + MAC_LINE_ENDING;
+
     /**
      * Singleton.
      */
@@ -455,6 +462,48 @@ public class FileService {
     public Set<File> collectFiles(File logDirectoryOrFile) {
         Set<File> files = new TreeSet<>(Collections.singletonList(logDirectoryOrFile));
         return collectFiles(files, false);
+    }
+
+    /**
+     * Find a line-ending in the content by calling the {@link #findLineEndingIfExists(String)} method.
+     *
+     * @param content can be 'null'
+     * @return The found line-ending or the {@link System#lineSeparator()} value if the content is 'null' or has no
+     * line endings.
+     */
+    public static String findLineEnding(String content) {
+        String lineEnding = findLineEndingIfExists(content);
+        if (lineEnding != null) {
+            return lineEnding;
+        }
+        return System.lineSeparator();
+    }
+
+    /**
+     * Find the first line-ending in the content. It can be {@link #MAC_LINE_ENDING}, {@link #LINUX_LINE_ENDING}
+     * or {@link #WINDOWS_LINE_ENDING}.
+     *
+     * @param content can be 'null'
+     * @return The found line-ending or 'null' if the content is 'null' or has no
+     * line endings.
+     */
+    public static String findLineEndingIfExists(String content) {
+        if (content == null) {
+            return null;
+        }
+        Map<Integer, String> map = new TreeMap<>();
+        // mac
+        map.put(content.indexOf(MAC_LINE_ENDING), MAC_LINE_ENDING);
+        // unix
+        map.put(content.indexOf(LINUX_LINE_ENDING), LINUX_LINE_ENDING);
+        // windows
+        map.put(content.indexOf(WINDOWS_LINE_ENDING), WINDOWS_LINE_ENDING);
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
+            if (entry.getKey() > 0) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 }
 
