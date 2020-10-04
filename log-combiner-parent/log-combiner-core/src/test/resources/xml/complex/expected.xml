@@ -1,0 +1,12 @@
+<CardResponse ReqID="002" xmlns="http://www.nrf-arts.org/IXRetail/namespace">
+    <Terminal id="3"/>
+    <Ten Print="false">
+        <TotAmount CashAmount="0.00">98.74</TotAmount>
+        <Auth TimeStamp="2020-10-02T08:04:33-01:00"/>
+        <RestrCodes>30</RestrCodes>
+    </Ten>
+    <Lo Flag="true" LoyaltyTimeStamp="2020-10-02T08:04:33-01:00">
+        <LoCard/>
+        <LoAmount LoAmount="0">0</LoAmount>
+    </Lo>
+</CardResponse>

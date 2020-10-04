@@ -1,0 +1,1 @@
+Line with linux (\n) line ending

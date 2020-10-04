@@ -250,5 +250,63 @@ public class FileServiceTest {
         String text = new String(bytes, StandardCharsets.UTF_8);
         assertEquals("content", text);
     }
-    
+
+    @Test
+    public void findLineEndingWindowsIfExists() {
+        File windowsFile = new File("target/test-classes/line-ending/windows.txt");
+        assertTrue(windowsFile.exists());
+        assertEquals(FileService.WINDOWS_LINE_ENDING, FileService.findLineEndingIfExists(windowsFile));
+    }
+
+    @Test
+    public void findLineEndingMacIfExists() {
+        File macFile = new File("target/test-classes/line-ending/mac.txt");
+        assertTrue(macFile.exists());
+        assertEquals(FileService.MAC_LINE_ENDING, FileService.findLineEndingIfExists(macFile));
+    }
+
+    @Test
+    public void findLineEndingLinuxIfExists() {
+        File linuxFile = new File("target/test-classes/line-ending/linux.txt");
+        assertTrue(linuxFile.exists());
+        assertEquals(FileService.LINUX_LINE_ENDING, FileService.findLineEndingIfExists(linuxFile));
+    }
+
+    @Test
+    public void findLineEndingLinux() {
+        File linuxFile = new File("target/test-classes/line-ending/linux.txt");
+        assertTrue(linuxFile.exists());
+        assertEquals(FileService.LINUX_LINE_ENDING, FileService.findLineEnding(linuxFile));
+    }
+
+    @Test
+    public void findLineEndingEmpty() {
+        File emptyFile = new File("target/test-classes/line-ending/empty.txt");
+        assertTrue(emptyFile.exists());
+        assertEquals(System.lineSeparator(), FileService.findLineEnding(emptyFile));
+    }
+
+    @Test
+    public void findLineEndingWithout() {
+        File emptyFile = new File("target/test-classes/line-ending/without.txt");
+        assertTrue(emptyFile.exists());
+        assertEquals(System.lineSeparator(), FileService.findLineEnding(emptyFile));
+    }
+
+    @Test
+    public void findLineEndingNull() {
+        File file = null;
+        assertEquals(System.lineSeparator(),  FileService.findLineEnding(file));
+    }
+
+    @Test
+    public void findLineEndingNonExisting() {
+        File file = new File("non-existing-path");
+        assertEquals(System.lineSeparator(),  FileService.findLineEnding(file));
+    }
+
+    @Test
+    public void findLineEnding() {
+        assertEquals(FileService.WINDOWS_LINE_ENDING,  FileService.findLineEnding(FileService.WINDOWS_LINE_ENDING));
+    }
 }

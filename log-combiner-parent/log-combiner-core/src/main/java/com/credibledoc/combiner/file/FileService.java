@@ -18,9 +18,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -201,8 +203,7 @@ public class FileService {
      * Else decompress it and return a file from this compressedFile. So existing files will NOT be overwritten.
      *
      * @param compressedFile         compressed content.
-     * @param targetDirectory where the content will be decompressed. If 'null', the parent directory of a compressed file
-     *                        will be used and the packed content will be decompressed to the compressedFile parent directory.
+     * @param targetDirectory where the content will be decompressed. Cannot be 'null'.
      * @return Decompressed files or found files from the targetDirectory.
      */
     public List<File> decompressIfNotExists(File compressedFile, File targetDirectory) {
@@ -237,7 +238,8 @@ public class FileService {
                 }
             }
         } catch (Exception e) {
-            throw new CombinerRuntimeException("Cannot decompress file " + compressedFile.getAbsolutePath(), e);
+            throw new CombinerRuntimeException("Cannot decompress file '" + compressedFile.getAbsolutePath() + "'. " +
+                "Target path: '" + targetPath + "'", e);
         }
         return result;
     }
@@ -499,11 +501,66 @@ public class FileService {
         // windows
         map.put(content.indexOf(WINDOWS_LINE_ENDING), WINDOWS_LINE_ENDING);
         for (Map.Entry<Integer, String> entry : map.entrySet()) {
-            if (entry.getKey() > 0) {
+            // first value with the smallest index (first occurrence of the line-ending)
+            if (entry.getKey() > -1) {
                 return entry.getValue();
             }
         }
         return null;
+    }
+    
+    /**
+     * Find a line-ending in the file content by calling the {@link #findLineEndingIfExists(String)} method.
+     *
+     * @param file can be 'null' or non-existing
+     * @return The found line-ending or 'null' if the file content is 'null' or doesn't exist or has no line endings.
+     */
+    public static String findLineEndingIfExists(File file) {
+        if (file == null || !file.exists()) {
+            return null;
+        }
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            StringBuilder stringBuilder = new StringBuilder(100);
+            char[] buf = new char[1];
+            boolean containsLineEnding = false;
+            while (true) {
+                int read = bufferedReader.read(buf, 0, 1);
+                if (read == -1) {
+                    return findLineEndingIfExists(stringBuilder.toString());
+                }
+                String character = new String(buf);
+                stringBuilder.append(character);
+                if (MAC_LINE_ENDING.equals(character)) {
+                    containsLineEnding = true;
+                    continue;
+                }
+                if (LINUX_LINE_ENDING.equals(character)) {
+                    containsLineEnding = true;
+                }
+                if (containsLineEnding) {
+                    return findLineEndingIfExists(stringBuilder.toString());
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return null;
+        }
+
+    }
+
+    /**
+     * Find a line-ending in the file content by calling the {@link #findLineEndingIfExists(File)} method.
+     *
+     * @param file can be 'null' or non-existing
+     * @return The found line-ending or the {@link System#lineSeparator()} value if the file doesn't exist or 'null'
+     * or the file content has no line endings.
+     */
+    public static String findLineEnding(File file) {
+        String lineEnding = findLineEndingIfExists(file);
+        if (lineEnding != null) {
+            return lineEnding;
+        }
+        return System.lineSeparator();
     }
 }
 
