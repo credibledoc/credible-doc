@@ -20,6 +20,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class FieldBuilderTest {
@@ -30,6 +32,7 @@ public class FieldBuilderTest {
     private static final String BITMAP_NAME = "bitmap";
     private static final String MTI_NAME = "mti";
     private static final String PROCESSING_CODE_03_NAME = "Processing_code_03";
+    private static final String MSG_NAME = "msg";
 
     /**
      * Used in documentation
@@ -135,6 +138,53 @@ public class FieldBuilderTest {
 
         String msgValueDump = visualizer.dumpMsgValue(isoMsgField, msgValue, false);
         logger.info("Root msgValue dump: \n{}{}", msgValueDump, "End of msgValue dump.");
+    }
+    
+    @Test
+    public void msgValueOrderTest() {
+        // definition
+        FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)
+            .defineName(MSG_NAME);
+
+        MsgField isoMsgField = fieldBuilder.getCurrentField();
+        
+        MsgField bitmap = FieldBuilder.builder(MsgFieldType.BIT_SET)
+            .defineParent(isoMsgField)
+            .defineName(BITMAP_NAME)
+            .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance(16))
+            .getCurrentField();
+
+        FieldBuilder.from(bitmap)
+            .createChild(MsgFieldType.LEN_VAL)
+            .defineFieldNum(3)
+            .defineName(PROCESSING_CODE_03_NAME)
+            .defineBodyPacker(BcdBodyPacker.rightPaddingF())
+            .defineHeaderLengthPacker(BcdLengthPacker.getInstance(1));
+
+        FieldBuilder.from(bitmap)
+            .createChild(MsgFieldType.LEN_VAL)
+            .defineFieldNum(2)
+            .defineName(PAN_02_NAME)
+            .defineStringer(StringStringer.getInstance())
+            .defineBodyPacker(BcdBodyPacker.rightPaddingF())
+            .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2));
+
+        fieldBuilder.validateStructure();
+
+        // filling with data
+        ValueHolder valueHolder = ValueHolder.newInstance(isoMsgField);
+        
+        String pan = "123456781234567";
+        String processingCode = "32";
+        valueHolder.jumpAbsolute(MSG_NAME, BITMAP_NAME, PROCESSING_CODE_03_NAME)
+            .setValue(processingCode)
+            .jumpToSibling(PAN_02_NAME).setValue(pan);
+
+        List<MsgValue> children = valueHolder.getCurrentMsgValue().getParent().getChildren();
+        assertEquals(2, children.size());
+        // check the order is correct
+        assertEquals(PAN_02_NAME, children.get(0).getName());
+        assertEquals(PROCESSING_CODE_03_NAME, children.get(1).getName());
     }
 
     protected void fillField58(ValueHolder valueHolder) {

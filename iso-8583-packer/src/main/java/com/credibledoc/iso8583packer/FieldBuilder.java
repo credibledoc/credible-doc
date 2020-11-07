@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -210,6 +210,12 @@ public class FieldBuilder {
                 "Current MsgField path: '" + path + "'.");
         }
         this.msgField.setFieldNum(fieldNum);
+        MsgField parent = this.msgField.getParent();
+        if (parent != null) {
+            parent.getChildren().sort(
+                Comparator.comparing(MsgField::getFieldNum, Comparator.nullsLast(Comparator.naturalOrder()))
+            );
+        }
         return this;
     }
 
