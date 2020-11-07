@@ -39,6 +39,7 @@ public class ValueHolder {
     static final String PARTIAL_DUMP = "\nPartial dump:\n";
     static final String ROOT_MSG_FIELD = "\nRoot MsgField:\n";
     static final String THE_MSG_FIELD = "The MsgField '";
+    private static final String MSG_FIELD = "\nMsgField:\n";
 
     /**
      * The builder state. Contains an object created from the {@link #msgField} template. This field will be a part
@@ -650,7 +651,8 @@ public class ValueHolder {
      * <p>
      * Length and tag are not mandatory.
      *
-     * @param bodyValue can be 'null' for d.
+     * @param bodyValue can be 'null' for deletion the current msgField. In the case current positions of the
+     *                  {@link #msgField} and {@link #msgValue} object graphs will be changed to theirs parents.
      * @return The current {@link ValueHolder} with the same {@link #msgValue} and {@link #msgField} in its context.
      */
     public ValueHolder setValue(Object bodyValue) {
@@ -665,13 +667,12 @@ public class ValueHolder {
                 parentMsgValue.getChildren().remove(msgValue);
                 this.msgValue = parentMsgValue;
                 this.msgField = parentMsgField;
-                return this;
             } else {
                 msgValue.setBodyBytes(null);
                 msgValue.setLengthBytes(null);
                 msgValue.setBodyValue(null);
-                return this;
             }
+            return this;
         }
         try {
             msgValue.setBodyValue(bodyValue);
@@ -688,6 +689,37 @@ public class ValueHolder {
                     "\nThe MsgField:\n" + visualizer.dumpMsgField(msgField) +
                 ROOT_MSG_FIELD + visualizer.dumpMsgField(rootMsgField), e);
         }
+    }
+
+    /**
+     * Call the {@link #setValue(Object)} method. Current positions in the {@link #msgField} and {@link #msgValue}
+     * object graphs remain unchanged.
+     *
+     * @param bodyValue    see the {@link #setValue(Object)} method description
+     * @param absolutePath the {@link MsgValue#getName()}s from the root field
+     * @return See the {@link #setValue(Object)} method description
+     */
+    public ValueHolder setValue(Object bodyValue, String... absolutePath) {
+        MsgField currentMsgField = msgField;
+        MsgValue currentMsgValue = msgValue;
+
+        jumpAbsolute(absolutePath);
+        setValue(bodyValue);
+        
+        this.msgField = currentMsgField;
+        this.msgValue = currentMsgValue;
+        return this;
+    }
+
+    /**
+     * Call the {@link #setValue(Object, String...)} method.
+     *
+     * @param bodyValue    see the {@link #setValue(Object, String...)} method description
+     * @param absolutePath the field names from the root field
+     * @return See the {@link #setValue(Object, String...)} method description
+     */
+    public ValueHolder setValue(Object bodyValue, List<String> absolutePath) {
+        return setValue(bodyValue, absolutePath.toArray(new String[0]));
     }
 
     protected byte[] setBytes(Object bodyValue) {
@@ -798,9 +830,9 @@ public class ValueHolder {
             MsgValue rootMsgValue = navigator.findRoot(msgValue);
             MsgField rootMsgField = navigator.findRoot(msgField);
             throw new PackerRuntimeException("Exception: " + e.getMessage() + "\nCannot jumpToSibling '" + siblingName +
-                    "' of the message definition." +
-                    "\nMsgValue:\n" + visualizer.dumpMsgValue(rootMsgField, rootMsgValue, true) +
-                    "\nMsgField:\n" + visualizer.dumpMsgField(rootMsgField) + "\n", e);
+                "' of the message definition." +
+                "\nMsgValue:\n" + visualizer.dumpMsgValue(rootMsgField, rootMsgValue, true) +
+                MSG_FIELD + visualizer.dumpMsgField(rootMsgField) + "\n", e);
         }
     }
 
@@ -890,7 +922,7 @@ public class ValueHolder {
             throw new PackerRuntimeException("Exception: " + e.getMessage() + "\n" +
                     "Cannot pack field '" + navigator.getPathRecursively(msgValue) + "'" +
                 PARTIAL_DUMP + visualizer.dumpMsgValue(rootMsgField, rootMsgValue, true) +
-                    "\nMsgField:\n" + visualizer.dumpMsgField(msgField) + "\n", e);
+                MSG_FIELD + visualizer.dumpMsgField(msgField) + "\n", e);
         }
     }
 
@@ -1156,7 +1188,7 @@ public class ValueHolder {
         if (!msgField.getName().equals(fieldNames[0])) {
             String msgFieldDump = visualizer.dumpMsgField(msgField);
             throw new PackerRuntimeException("MsgField with name '" + fieldNames[0] + "' is not a root field. " +
-                "Expected the root field name '" + msgField.getName() + "'." + "\nMsgField:\n" + msgFieldDump);
+                "Expected the root field name '" + msgField.getName() + "'." + MSG_FIELD + msgFieldDump);
         }
         for (int i = 1; i < fieldNames.length; i++) {
             String name = fieldNames[i];
@@ -1186,7 +1218,7 @@ public class ValueHolder {
 
     /**
      * Call the {@link #getValue(Class)} method with the type of {@link #msgValue} body value.
-     * @param <T> to be used for casting
+     * @param <T> to be used for casting the returned value
      * @return the {@link MsgValue#getBodyValue()} casted to <i>T</i> or 'null'.
      */
     @SuppressWarnings("unchecked")
@@ -1199,25 +1231,63 @@ public class ValueHolder {
     }
 
     /**
+     * Call the {@link #getValue(Class)} method with the type of {@link #msgValue} body value. Current positions in the
+     * {@link #msgField} and {@link #msgValue} object graphs remain unchanged.
+     *
+     * @param <T>          to be used for casting the returned value
+     * @param absolutePath the {@link MsgValue#getName()}s of fields from the root of the {@link #msgValue}.
+     * @return the {@link MsgValue#getBodyValue()} casted to <i>T</i> or 'null'.
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getValue(String... absolutePath) {
+        MsgField currentMsgField = this.msgField;
+        MsgValue currentMsgValue = this.msgValue;
+
+        jumpAbsolute(absolutePath);
+        
+        Object bodyValue = this.msgValue.getBodyValue();
+        
+        if (bodyValue == null) {
+            return null;
+        }
+        T value = (T) getValue(bodyValue.getClass());
+        
+        this.msgField = currentMsgField;
+        this.msgValue = currentMsgValue;
+        
+        return value;
+    }
+
+    /**
+     * Call the {@link #getValue(String...)} method.
+     * @param <T> to be used for casting the returned value
+     * @param absolutePath the {@link MsgValue#getName()}s of fields from the root of the {@link #msgValue}
+     * @return the {@link MsgValue#getBodyValue()} casted to <i>T</i> or 'null'.
+     */
+    public <T> T getValue(List<String> absolutePath) {
+        return getValue(absolutePath.toArray(new String[0]));
+    }
+
+    /**
      * Check whether the current {@link #msgValue} contains a {@link MsgValue#getBodyValue()}. Current
      * {@link #msgField} and {@link #msgValue} will not be changed.
-     * @param fieldNames the {@link MsgValue#getName()}s of fields from the root of the {@link #msgValue}.
+     * @param absolutePath the {@link MsgValue#getName()}s of fields from the root of the {@link #msgValue}.
      * @return 'true' if the field on the path has some value.
      */
-    public boolean hasValue(String... fieldNames) {
-        if (fieldNames.length < 2) {
-            throw new PackerRuntimeException("Please define fieldNames as a path, for example 'ROOT', 'field1' ...");
+    public boolean hasValue(String... absolutePath) {
+        if (absolutePath.length < 2) {
+            throw new PackerRuntimeException("Please define absolutePath as a path, for example 'ROOT', 'field1' ...");
         }
         MsgValue currentMsgValue = msgValue;
         while (currentMsgValue.getParent() != null) {
             currentMsgValue = currentMsgValue.getParent();
         }
-        for (int i = 1; i < fieldNames.length; i++) {
+        for (int i = 1; i < absolutePath.length; i++) {
             List<MsgValue> children = currentMsgValue.getChildren();
             if (currentMsgValue.getBodyValue() == null && children == null) {
                 return false;
             }
-            currentMsgValue = navigator.findByName(children, fieldNames[i]);
+            currentMsgValue = navigator.findByName(children, absolutePath[i]);
             if (currentMsgValue == null ||
                 (currentMsgValue.getBodyValue() == null && currentMsgValue.getChildren() == null)) {
                 return false;
@@ -1228,10 +1298,10 @@ public class ValueHolder {
 
     /**
      * Call the {@link #hasValue(String...)} method.
-     * @param fieldNames see the {@link #hasValue(String...)} method description.
+     * @param absolutePath see the {@link #hasValue(String...)} method description.
      * @return See the {@link #hasValue(String...)} method description.
      */
-    public boolean hasValue(List<String> fieldNames) {
-        return hasValue(fieldNames.toArray(new String[0]));
+    public boolean hasValue(List<String> absolutePath) {
+        return hasValue(absolutePath.toArray(new String[0]));
     }
 }

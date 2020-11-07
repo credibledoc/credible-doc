@@ -68,6 +68,27 @@ public class ValueHolderTest {
     }
 
     @Test
+    public void getValueFromAbsolutePathTest() {
+        FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)
+            .defineName("1")
+            
+            .createChild(MsgFieldType.MSG)
+            .defineName("2")
+            
+            .createChild(MsgFieldType.VAL)
+            .defineName("3")
+            .defineBodyPacker(AsciiBodyPacker.getInstance())
+            .defineLen(1);
+
+        ValueHolder valueHolder = ValueHolder.newInstance(fieldBuilder.jumpToRoot().getCurrentField());
+        
+        valueHolder.setValue("3", Arrays.asList("1", "2", "3"));
+        assertEquals("1", valueHolder.getCurrentMsgField().getName());
+
+        assertEquals("3", valueHolder.getValue(Arrays.asList("1", "2", "3")));
+    }
+
+    @Test
     public void hasValueTest() {
         FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)
             .defineName("1")
