@@ -142,8 +142,6 @@ public class FileWithSourcesTest {
         
         String firstFileName = result.get(0).getFile().getName();
         assertTrue(firstFileName.endsWith(".txt"));
-        File decompressedFile = new File(newFolder + "/multipleZip/" + firstFileName);
-        assertTrue(decompressedFile.exists());
     }
 
     @Test
