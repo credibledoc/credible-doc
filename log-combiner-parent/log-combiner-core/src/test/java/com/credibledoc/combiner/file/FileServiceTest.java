@@ -39,6 +39,16 @@ public class FileServiceTest {
     }
 
     @Test
+    public void collectDirWithSingleFile() {
+        FileService fileService = FileService.getInstance();
+        File logDirectoryOrFile = new File("src/test/resources/files/singleFile");
+        assertTrue(logDirectoryOrFile.exists());
+
+        Set<File> result = fileService.collectFiles(logDirectoryOrFile);
+        assertEquals(1, result.size());
+    }
+
+    @Test
     public void collectZipFile() {
         FileService fileService = FileService.getInstance();
         File singleZipFile = new File("target/test-classes/files/singleZip/singleFile.zip");
@@ -149,14 +159,12 @@ public class FileServiceTest {
         FileService fileService = FileService.getInstance();
 
         File multipleFiles = new File("src/test/resources/files/tree");
-        assertTrue(multipleFiles.exists());
 
         File tempFolder = new File(temporaryFolder.getRoot(), "collectDirectoryTree");
 
         // copy
         Set<File> result = fileService.collectFiles(multipleFiles, false, tempFolder);
         assertEquals(6, result.size());
-        assertNotNull(tempFolder.listFiles());
         assertEquals(1, tempFolder.listFiles().length);
         File treeFolder = new File(tempFolder, "tree");
         assertTrue(treeFolder.exists());
@@ -164,44 +172,29 @@ public class FileServiceTest {
         assertEquals(2, treeFolder.listFiles().length);
         
         File dir01 = new File(treeFolder, "dir_01");
-        assertTrue(dir01.exists());
-        assertNotNull(dir01.listFiles());
         assertEquals(3, dir01.listFiles().length);
 
         File dir01a = new File(dir01, "dir_01_a");
-        assertTrue(dir01a.exists());
-        assertNotNull(dir01a.listFiles());
         assertEquals(2, dir01a.listFiles().length);
 
         File dir02 = new File(treeFolder, "dir_02");
-        assertTrue(dir02.exists());
-        assertNotNull(dir02.listFiles());
         assertEquals(2, dir02.listFiles().length);
         
         // unzip
         Set<File> secondResult = fileService.collectFiles(tempFolder, true, null);
         
         assertEquals(6, secondResult.size());
-        assertNotNull(tempFolder.listFiles());
         assertEquals(1, tempFolder.listFiles().length);
         treeFolder = new File(tempFolder, "tree");
-        assertTrue(treeFolder.exists());
-        assertNotNull(treeFolder.listFiles());
         assertEquals(2, treeFolder.listFiles().length);
         
         dir01 = new File(treeFolder, "dir_01");
-        assertTrue(dir01.exists());
-        assertNotNull(dir01.listFiles());
         assertEquals(4, dir01.listFiles().length);
 
         dir01a = new File(dir01, "dir_01_a");
-        assertTrue(dir01a.exists());
-        assertNotNull(dir01a.listFiles());
         assertEquals(3, dir01a.listFiles().length);
 
         dir02 = new File(treeFolder, "dir_02");
-        assertTrue(dir02.exists());
-        assertNotNull(dir02.listFiles());
         assertEquals(4, dir02.listFiles().length);
     }
 
@@ -295,18 +288,17 @@ public class FileServiceTest {
 
     @Test
     public void findLineEndingNull() {
-        File file = null;
-        assertEquals(System.lineSeparator(),  FileService.findLineEnding(file));
+        assertEquals(System.lineSeparator(), FileService.findLineEnding((File) null));
     }
 
     @Test
     public void findLineEndingNonExisting() {
         File file = new File("non-existing-path");
-        assertEquals(System.lineSeparator(),  FileService.findLineEnding(file));
+        assertEquals(System.lineSeparator(), FileService.findLineEnding(file));
     }
 
     @Test
     public void findLineEnding() {
-        assertEquals(FileService.WINDOWS_LINE_ENDING,  FileService.findLineEnding(FileService.WINDOWS_LINE_ENDING));
+        assertEquals(FileService.WINDOWS_LINE_ENDING, FileService.findLineEnding(FileService.WINDOWS_LINE_ENDING));
     }
 }
