@@ -186,6 +186,55 @@ public class FieldBuilderTest {
         assertEquals(PAN_02_NAME, children.get(0).getName());
         assertEquals(PROCESSING_CODE_03_NAME, children.get(1).getName());
     }
+    
+    @Test
+    public void bitSetNullValue() {
+        // definition
+        FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)
+            .defineName(MSG_NAME);
+
+        MsgField isoMsgField = fieldBuilder.getCurrentField();
+        
+        MsgField bitmap = FieldBuilder.builder(MsgFieldType.BIT_SET)
+            .defineParent(isoMsgField)
+            .defineName(BITMAP_NAME)
+            .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance(16))
+            .getCurrentField();
+
+        FieldBuilder.from(bitmap)
+            .createChild(MsgFieldType.LEN_VAL)
+            .defineFieldNum(2)
+            .defineName(PAN_02_NAME)
+            .defineStringer(StringStringer.getInstance())
+            .defineBodyPacker(BcdBodyPacker.rightPaddingF())
+            .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2));
+
+        FieldBuilder.from(bitmap)
+            .createChild(MsgFieldType.LEN_VAL)
+            .defineFieldNum(3)
+            .defineName(PROCESSING_CODE_03_NAME)
+            .defineBodyPacker(BcdBodyPacker.rightPaddingF())
+            .defineHeaderLengthPacker(BcdLengthPacker.getInstance(1));
+
+        fieldBuilder.validateStructure();
+
+        // filling with data
+        ValueHolder valueHolder = ValueHolder.newInstance(isoMsgField);
+        valueHolder.jumpAbsolute(MSG_NAME, BITMAP_NAME, PAN_02_NAME).setValue("123");
+        String processingCode = "32";
+        valueHolder.jumpAbsolute(MSG_NAME, BITMAP_NAME, PROCESSING_CODE_03_NAME)
+            .setValue(processingCode)
+            .jumpToSibling(PAN_02_NAME).setValue(null);
+        
+        assertEquals(2, valueHolder.getCurrentMsgField().getChildren().size());
+        assertEquals("MsgValue with 'null' value should be deleted from its parent.",
+            1, valueHolder.getCurrentMsgValue().getChildren().size());
+
+        byte[] bytes = valueHolder.jumpToRoot().pack();
+
+        MsgValue unpacked = ValueHolder.unpack(bytes, 0, isoMsgField);
+        assertFalse("Field with num 2 should be 'false'.", unpacked.getChildren().get(0).getBitSet().get(2));
+    }
 
     protected void fillField58(ValueHolder valueHolder) {
         ValueHolder field58ValueHolder = valueHolder.copyValueHolder()
