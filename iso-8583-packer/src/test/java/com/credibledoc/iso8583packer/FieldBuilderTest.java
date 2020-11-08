@@ -226,10 +226,6 @@ public class FieldBuilderTest {
             .setValue(processingCode)
             .jumpToSibling(PAN_02_NAME).setValue(null);
         
-        assertEquals(2, valueHolder.getCurrentMsgField().getChildren().size());
-        assertEquals("MsgValue with 'null' value should be deleted from its parent.",
-            1, valueHolder.getCurrentMsgValue().getChildren().size());
-
         byte[] bytes = valueHolder.jumpToRoot().pack();
 
         MsgValue unpacked = ValueHolder.unpack(bytes, 0, isoMsgField);

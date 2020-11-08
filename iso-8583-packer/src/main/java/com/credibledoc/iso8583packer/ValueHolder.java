@@ -661,17 +661,9 @@ public class ValueHolder {
                     "leaf fields. Field: " + navigator.getPathRecursively(msgField) + ", bodyValue: " + bodyValue);
         }
         if (bodyValue == null) {
-            if (msgValue.getParent() != null) {
-                MsgValue parentMsgValue = msgValue.getParent();
-                MsgField parentMsgField = msgField.getParent();
-                parentMsgValue.getChildren().remove(msgValue);
-                this.msgValue = parentMsgValue;
-                this.msgField = parentMsgField;
-            } else {
-                msgValue.setBodyBytes(null);
-                msgValue.setLengthBytes(null);
-                msgValue.setBodyValue(null);
-            }
+            msgValue.setBodyBytes(null);
+            msgValue.setLengthBytes(null);
+            msgValue.setBodyValue(null);
             return this;
         }
         try {
@@ -965,7 +957,11 @@ public class ValueHolder {
         BitSet bitSet = new BitSet();
         for (MsgField nextMsgField : msgField.getChildren()) {
             MsgValue nextMsgValue = navigator.findByFieldNum(msgValue.getChildren(), nextMsgField.getFieldNum());
-            if (nextMsgValue != null && (nextMsgValue.getBodyValue() != null || !nextMsgValue.getChildren().isEmpty())) {
+            if (nextMsgValue != null &&
+                (nextMsgValue.getBodyValue() != null ||
+                    (nextMsgValue.getChildren() != null && !nextMsgValue.getChildren().isEmpty())
+                )
+            ) {
                 bitSet.set(nextMsgField.getFieldNum());
             }
         }
