@@ -2,6 +2,7 @@ package com.credibledoc.combiner;
 
 import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
+import com.credibledoc.combiner.file.FileWithSources;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.node.file.NodeFileService;
@@ -11,14 +12,13 @@ import com.credibledoc.combiner.tactic.TacticService;
 
 import java.io.File;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Stateful instance with {@link CombinerContext} and methods for reading lines from parsed files.
  */
 public class SourceFilesReader {
     
-    private Set<File> files;
+    private List<FileWithSources> files;
     
     private FilesMergerState filesMergerState;
     
@@ -26,7 +26,7 @@ public class SourceFilesReader {
     
     private CombinerContext combinerContext;
 
-    public void addSourceFiles(Set<File> sourceFiles) {
+    public void addSourceFiles(List<FileWithSources> sourceFiles) {
         this.files = sourceFiles;
     }
 
@@ -52,7 +52,8 @@ public class SourceFilesReader {
     }
 
     public File currentFile(CombinerContext combinerContext) {
-        return NodeFileService.getInstance().findNodeFile(logBufferedReader, combinerContext).getFile();
+        return NodeFileService.getInstance().findNodeFile(logBufferedReader, combinerContext)
+            .getFileWithSources().getFile();
     }
 
     public Tactic currentTactic(CombinerContext combinerContext) {

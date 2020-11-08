@@ -270,7 +270,7 @@ public class ReaderService {
             long startNanos = System.nanoTime();
             for (NodeFile nodeFile : nodeFiles) {
                 List<LogFileInputStream> inputStreams = new ArrayList<>();
-                inputStreams.add(new LogFileInputStream(nodeFile.getFile()));
+                inputStreams.add(new LogFileInputStream(nodeFile.getFileWithSources().getFile()));
                 Enumeration<LogFileInputStream> enumeration = Collections.enumeration(inputStreams);
                 LogConcatenatedInputStream logConcatenatedInputStream = new LogConcatenatedInputStream(enumeration);
                 // TODO Kyrylo Semenko - charset from combinerContext

@@ -2,6 +2,7 @@ package com.credibledoc.substitution.reporting.reportdocument.creator;
 
 import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.file.FileService;
+import com.credibledoc.combiner.file.FileWithSources;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.node.file.NodeFileService;
 import com.credibledoc.combiner.node.log.NodeLog;
@@ -151,11 +152,14 @@ public class ReportDocumentCreatorService {
         if (placeholder.getParameters() != null &&
             placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER) != null) {
             File file = new File(placeholder.getParameters().get(SOURCE_FILE_RELATIVE_PATH_PLACEHOLDER_PARAMETER));
+            FileWithSources fileWithSources = new FileWithSources();
+            fileWithSources.setFile(file);
+            fileWithSources.getSources().add(file);
             if (!file.exists()) {
                 logger.info("File not exists. Report will not be created. File: '{}'", file.getAbsolutePath());
             } else {
                 logger.trace("File will be parsed: {}", file.getAbsolutePath());
-                prepareReport(file, reportDocument, combinerContext, reportingContext);
+                prepareReport(fileWithSources, reportDocument, combinerContext, reportingContext);
             }
         }
         reportingContext.getReportDocumentRepository().getReportDocuments().add(reportDocument);
@@ -163,23 +167,23 @@ public class ReportDocumentCreatorService {
 
     /**
      * Create a new {@link Report}
-     * @param logFile a source file
+     * @param fileWithSources a source file
      * @param reportDocument belonging to the {@link Report}
      * @param combinerContext the current state
      * @param reportingContext the current state
      */
-    private void prepareReport(File logFile, ReportDocument reportDocument, CombinerContext combinerContext, ReportingContext reportingContext) {
+    private void prepareReport(FileWithSources fileWithSources, ReportDocument reportDocument, CombinerContext combinerContext, ReportingContext reportingContext) {
         Report report = new Report();
         reportingContext.getReportRepository().addReports(Collections.singletonList(report));
         reportDocument.setReport(report);
         FileService fileService = FileService.getInstance();
-        Tactic tactic = fileService.findTactic(logFile, combinerContext);
+        Tactic tactic = fileService.findTactic(fileWithSources.getFile(), combinerContext);
 
-        Date date = fileService.findDate(logFile, tactic);
+        Date date = fileService.findDate(fileWithSources.getFile(), tactic);
         NodeLogService nodeLogService = NodeLogService.getInstance();
-        NodeLog nodeLog = nodeLogService.createNodeLog(logFile, combinerContext, tactic);
+        NodeLog nodeLog = nodeLogService.createNodeLog(fileWithSources, combinerContext, tactic);
         nodeLog.setTactic(tactic);
-        NodeFile nodeFile = NodeFileService.getInstance().createNodeFile(date, logFile, combinerContext, nodeLog);
+        NodeFile nodeFile = NodeFileService.getInstance().createNodeFile(date, fileWithSources, combinerContext, nodeLog);
         reportDocument.getNodeFiles().add(nodeFile);
         nodeLogService.findNodeLogs(tactic, combinerContext).add(nodeLog);
         logger.info("Report prepared. Report: {}", report.hashCode());

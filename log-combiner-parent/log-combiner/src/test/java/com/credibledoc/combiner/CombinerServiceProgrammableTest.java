@@ -2,6 +2,7 @@ package com.credibledoc.combiner;
 
 import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.file.FileService;
+import com.credibledoc.combiner.file.FileWithSources;
 import com.credibledoc.combiner.state.FilesMergerState;
 import com.credibledoc.combiner.tactic.Tactic;
 import com.credibledoc.combiner.tactic.TacticService;
@@ -72,7 +73,9 @@ public class CombinerServiceProgrammableTest {
         assertTrue(sourceDirectory.exists());
         
         // Collect source files
-        Set<File> sourceFiles = new FileService().collectFiles(sourceDirectory);
+        FileWithSources source = new FileWithSources();
+        source.getSources().add(sourceDirectory);
+        List<FileWithSources> sourceFiles = new FileService().collectFiles(source);
         assertEquals(2, sourceFiles.size());
         
         // Contains instances of Tactics, NodeFiles and NodeLogs
@@ -128,7 +131,9 @@ public class CombinerServiceProgrammableTest {
 
         // Collect log files from all directories recursively
         FileService fileService = FileService.getInstance();
-        Set<File> files = fileService.collectFiles(logDirectory);
+        FileWithSources fileWithSources = new FileWithSources();
+        fileWithSources.getSources().add(logDirectory);
+        List<FileWithSources> files = fileService.collectFiles(fileWithSources);
 
         // Contains instances of Tactics, NodeFiles and NodeLogs
         CombinerContext combinerContext = new CombinerContext().init();

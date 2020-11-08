@@ -302,6 +302,7 @@ public class FileService {
      * @return List of copied files in {@link FileWithSources#getFile()}.
      */
     public List<FileWithSources> collectFiles(List<FileWithSources> logDirectoriesOrFiles, boolean decompressFiles, File targetDirectory) {
+        validateSources(logDirectoriesOrFiles);
         createTargetDirectoryIfNotExists(targetDirectory);
         List<FileWithSources> result = new ArrayList<>();
         for (FileWithSources fileWithSources : logDirectoriesOrFiles) {
@@ -535,6 +536,28 @@ public class FileService {
     public List<FileWithSources> collectFiles(FileWithSources logDirectoryOrFile, boolean decompressFiles, File targetDirectory) {
         List<FileWithSources> files = Collections.singletonList(logDirectoryOrFile);
         return collectFiles(files, decompressFiles, targetDirectory);
+    }
+
+    private void validateSources(FileWithSources logDirectoryOrFile) {
+        if (logDirectoryOrFile.getFile() != null) {
+            throw new CombinerRuntimeException("Expected 'null' FileWithSources.file, " +
+                "but found non-nul value in " + logDirectoryOrFile);
+        }
+        if (logDirectoryOrFile.getSources().isEmpty()) {
+            throw new CombinerRuntimeException("Expected at lease one existing source file or directory " +
+                "in FileWithSources.sources list. The last one will be used as a source. " + logDirectoryOrFile);
+        }
+        File sourceFile = logDirectoryOrFile.getSources().get(logDirectoryOrFile.getSources().size() - 1);
+        if (!sourceFile.exists()) {
+            throw new CombinerRuntimeException("Source file '" + sourceFile.getAbsolutePath() + "' not exists. " +
+                logDirectoryOrFile);
+        }
+    }
+
+    protected void validateSources(List<FileWithSources> sources) {
+        for (FileWithSources fileWithSources : sources) {
+            validateSources(fileWithSources);
+        }
     }
 
     /**

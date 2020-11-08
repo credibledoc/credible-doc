@@ -7,6 +7,7 @@ import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.date.DateService;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
+import com.credibledoc.combiner.file.FileWithSources;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.node.file.NodeFile;
@@ -31,7 +32,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -154,7 +154,7 @@ public class CombinerService {
      * <p>
      * Add created {@link Tactic} instances to the {@link com.credibledoc.combiner.tactic.TacticService}.
      * <p>
-     * Call the {@link TacticService#prepareReaders(Set, CombinerContext)} method.
+     * Call the {@link TacticService#prepareReaders(List, CombinerContext)} method.
      *
      * @param folder the folder with log files
      * @param config contains configuration of {@link Config#getTacticConfigs()}
@@ -170,7 +170,9 @@ public class CombinerService {
             final Tactic tactic = createTactic(tacticConfig);
             combinerContext.getTacticRepository().getTactics().add(tactic);
         }
-        Set<File> files = FileService.getInstance().collectFiles(folder);
+        FileWithSources source = new FileWithSources();
+        source.getSources().add(folder);
+        List<FileWithSources> files = FileService.getInstance().collectFiles(source);
 
         tacticService.prepareReaders(files, combinerContext);
     }

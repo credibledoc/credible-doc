@@ -3,6 +3,7 @@ package com.credibledoc.combiner.tactic;
 import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
 import com.credibledoc.combiner.file.FileService;
+import com.credibledoc.combiner.file.FileWithSources;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.log.reader.ReaderService;
 import com.credibledoc.combiner.node.file.NodeFile;
@@ -10,6 +11,7 @@ import com.credibledoc.combiner.node.file.NodeFileService;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -73,17 +75,18 @@ public class TacticService {
      * For each file find out its {@link Tactic} by calling the {@link FileService#findTactic(File, CombinerContext)} method.
      * <p>
      * Append this file to {@link com.credibledoc.combiner.node.file.NodeFileRepository} by calling the
-     * {@link NodeFileService#appendToNodeLogs(File, Date, Tactic, CombinerContext)} method.
+     * {@link NodeFileService#appendToNodeLogs(FileWithSources, Date, Tactic, CombinerContext)} method.
      * <p>
      * After all call the {@link ReaderService#prepareBufferedReaders(CombinerContext)} method.
      *
-     * @param files   log files
+     * @param sources   log files
      * @param combinerContext the actual state of the current application
      */
-    public void prepareReaders(Set<File> files, CombinerContext combinerContext) {
+    public void prepareReaders(List<FileWithSources> sources, CombinerContext combinerContext) {
         NodeFileService nodeFileService = NodeFileService.getInstance();
 
-        for (File file : files) {
+        for (FileWithSources fileWithSources : sources) {
+            File file = fileWithSources.getFile();
             Tactic tactic = FileService.getInstance().findTactic(file, combinerContext);
 
             Date date = FileService.getInstance().findDate(file, tactic);
@@ -91,7 +94,7 @@ public class TacticService {
             if (date == null) {
                 throw new CombinerRuntimeException("Cannot find a date in the file: " + file.getAbsolutePath());
             }
-            nodeFileService.appendToNodeLogs(file, date, tactic, combinerContext);
+            nodeFileService.appendToNodeLogs(fileWithSources, date, tactic, combinerContext);
         }
 
         ReaderService readerService = ReaderService.getInstance();

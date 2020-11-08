@@ -1,14 +1,14 @@
 package com.credibledoc.combiner.node.file;
 
+import com.credibledoc.combiner.file.FileWithSources;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.log.NodeLog;
 
-import java.io.File;
 import java.util.Date;
 import java.util.Objects;
 
 /**
- * Data object. Contains for example a {@link #file} and {@link #date}.
+ * Data object. Contains for example a {@link #fileWithSources} and {@link #date}.
  *
  * @author Kyrylo Semenko
  */
@@ -17,10 +17,10 @@ public class NodeFile implements Comparable<NodeFile> {
     /**
      * Log file for parsing.
      */
-    private File file;
+    private FileWithSources fileWithSources;
 
     /**
-     * The first date record found in the {@link #file}
+     * The first date record found in the {@link #fileWithSources}
      */
     private Date date;
 
@@ -30,7 +30,7 @@ public class NodeFile implements Comparable<NodeFile> {
     private NodeLog nodeLog;
 
     /**
-     * Contains {@link java.io.FileInputStream} of the {@link #file}.
+     * Contains {@link java.io.FileInputStream} of the {@link #fileWithSources}.
      */
     private LogBufferedReader logBufferedReader;
 
@@ -39,14 +39,14 @@ public class NodeFile implements Comparable<NodeFile> {
         if (this == o) return true;
         if (!(o instanceof NodeFile)) return false;
         NodeFile nodeFile = (NodeFile) o;
-        return getFile().equals(nodeFile.getFile()) &&
+        return getFileWithSources().equals(nodeFile.getFileWithSources()) &&
             getDate().equals(nodeFile.getDate()) &&
             getNodeLog().equals(nodeFile.getNodeLog());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFile(), getDate(), getNodeLog());
+        return Objects.hash(getFileWithSources(), getDate(), getNodeLog());
     }
 
     @Override
@@ -57,21 +57,22 @@ public class NodeFile implements Comparable<NodeFile> {
         if (this == other) {
             return 0;
         }
-        return this.getFile().getAbsolutePath().compareTo(other.getFile().getAbsolutePath());
+        return this.getFileWithSources().getFile().getAbsolutePath()
+            .compareTo(other.getFileWithSources().getFile().getAbsolutePath());
     }
 
     /**
-     * @return the {@link #file} value
+     * @return The {@link #fileWithSources} field value.
      */
-    public File getFile() {
-        return file;
+    public FileWithSources getFileWithSources() {
+        return fileWithSources;
     }
 
     /**
-     * @param file see the {@link #file} field
+     * @param fileWithSources see the {@link #fileWithSources} field description.
      */
-    public void setFile(File file) {
-        this.file = file;
+    public void setFileWithSources(FileWithSources fileWithSources) {
+        this.fileWithSources = fileWithSources;
     }
 
     /**

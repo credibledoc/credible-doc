@@ -2,11 +2,11 @@ package com.credibledoc.combiner.node.log;
 
 import com.credibledoc.combiner.context.CombinerContext;
 import com.credibledoc.combiner.exception.CombinerRuntimeException;
+import com.credibledoc.combiner.file.FileWithSources;
 import com.credibledoc.combiner.log.buffered.LogBufferedReader;
 import com.credibledoc.combiner.node.file.NodeFile;
 import com.credibledoc.combiner.tactic.Tactic;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
@@ -40,10 +40,10 @@ public class NodeLogService {
      * @param tactic cannot be 'null'
      * @return created {@link NodeLog}
      */
-    public NodeLog createNodeLog(File nodeFileFile, CombinerContext combinerContext, Tactic tactic) {
+    public NodeLog createNodeLog(FileWithSources nodeFileFile, CombinerContext combinerContext, Tactic tactic) {
         NodeLog nodeLog = new NodeLog();
         nodeLog.setTactic(tactic);
-        nodeLog.setName(nodeFileFile.getParentFile().getName());
+        nodeLog.setName(nodeFileFile.getFile().getParentFile().getName());
         combinerContext.getNodeLogRepository().getNodeLogs().add(nodeLog);
         return nodeLog;
     }
