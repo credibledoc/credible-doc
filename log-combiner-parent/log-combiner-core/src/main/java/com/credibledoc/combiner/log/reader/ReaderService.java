@@ -48,15 +48,17 @@ public class ReaderService {
     /**
      * Singleton.
      */
-    private static ReaderService instance;
+    private static final ReaderService instance = new ReaderService();
+
+    /**
+     * If the value is 'true', call a fallback implementation.
+     */
+    public static final String IGNORE_EXCEPTIONS = "ignore.exceptions";
 
     /**
      * @return The {@link ReaderService} singleton.
      */
     public static ReaderService getInstance() {
-        if (instance == null) {
-            instance = new ReaderService();
-        }
         return instance;
     }
 
@@ -138,6 +140,7 @@ public class ReaderService {
      * @return a preferred line from one of {@link LogBufferedReader}s or 'null' if all buffers are empty.
      */
     public String readLineFromReaders(FilesMergerState filesMergerState) {
+        File file = null;
         try {
             NodeFile currentNodeFile = filesMergerState.getCurrentNodeFile();
             if (currentNodeFile != null) {
@@ -148,6 +151,7 @@ public class ReaderService {
                 return null;
             }
             LogBufferedReader logBufferedReader = actualNodeFile.getLogBufferedReader();
+            file = ReaderService.getInstance().getFile(logBufferedReader);
             Date lineDate = logBufferedReader.getLineDate(); // keep the date if exists, because it was set in the findTheOldest method.
             String line = logBufferedReader.readLine();
             if (line != null) {
@@ -160,6 +164,11 @@ public class ReaderService {
             filesMergerState.setCurrentNodeFile(actualNodeFile);
             return line;
         } catch (IOException e) {
+            if ("true".equals(System.getProperty(IGNORE_EXCEPTIONS))) {
+                String path = file == null ? null : file.getAbsolutePath();
+                logger.info("Exception: {}. File: '{}'", e.getMessage(), path);
+                return null;
+            }
             throw new CombinerRuntimeException(e);
         }
     }
@@ -227,7 +236,18 @@ public class ReaderService {
     private void readLineDate(NodeFile nodeFile, LogBufferedReader nextLogBufferedReader) throws IOException {
         nextLogBufferedReader.mark(ReaderService.MAX_CHARACTERS_IN_ONE_LINE);
         String nextLine = nextLogBufferedReader.readLine();
-        nextLogBufferedReader.reset();
+        try {
+            nextLogBufferedReader.reset();
+        } catch (Exception e) {
+            File file = ReaderService.getInstance().getFile(nextLogBufferedReader);
+            if ("true".equals(System.getProperty(IGNORE_EXCEPTIONS))) {
+                String path = file == null ? null : file.getAbsolutePath();
+                logger.info("Exception: {}. File: '{}'", e.getMessage(), path);
+                return;
+            } else {
+                throw e;
+            }
+        }
         if (nextLine != null) {
             Tactic nextTactic = nodeFile.getNodeLog().getTactic();
             Date date = nextTactic.findDate(nextLine, nodeFile);
@@ -243,9 +263,18 @@ public class ReaderService {
      * @return a log file, this {@link LogBufferedReader} reads from
      */
     public File getFile(LogBufferedReader logBufferedReader) {
+        if (logBufferedReader == null) {
+            return null;
+        }
         LogInputStreamReader logInputStreamReader = (LogInputStreamReader) logBufferedReader.getReader();
         LogConcatenatedInputStream logConcatenatedInputStream = (LogConcatenatedInputStream) logInputStreamReader.getInputStream();
+        if (logConcatenatedInputStream == null) {
+            return null;
+        }
         LogFileInputStream logFileInputStream = logConcatenatedInputStream.getCurrentStream();
+        if (logFileInputStream == null) {
+            return null;
+        }
         return logFileInputStream.getFile();
     }
 

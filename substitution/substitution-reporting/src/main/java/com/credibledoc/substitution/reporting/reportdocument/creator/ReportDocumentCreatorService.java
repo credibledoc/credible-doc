@@ -42,15 +42,12 @@ public class ReportDocumentCreatorService {
     /**
      * Singleton.
      */
-    private static ReportDocumentCreatorService instance;
+    private static final ReportDocumentCreatorService instance = new ReportDocumentCreatorService();
 
     /**
      * @return The {@link ReportDocumentCreatorService} singleton.
      */
     public static ReportDocumentCreatorService getInstance() {
-        if (instance == null) {
-            instance = new ReportDocumentCreatorService();
-        }
         return instance;
     }
 
@@ -156,7 +153,7 @@ public class ReportDocumentCreatorService {
             fileWithSources.setFile(file);
             fileWithSources.getSources().add(file);
             if (!file.exists()) {
-                logger.info("File not exists. Report will not be created. File: '{}'", file.getAbsolutePath());
+                logger.info("File doesn't exist. Report will not be created. File: '{}'", file.getAbsolutePath());
             } else {
                 logger.trace("File will be parsed: {}", file.getAbsolutePath());
                 prepareReport(fileWithSources, reportDocument, combinerContext, reportingContext);

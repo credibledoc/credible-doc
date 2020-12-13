@@ -42,7 +42,7 @@ public class ResourceService {
     /**
      * Singleton.
      */
-    private static ResourceService instance;
+    private static final ResourceService instance = new ResourceService();
 
     private ResourceService() {
         // empty
@@ -52,9 +52,6 @@ public class ResourceService {
      * @return The {@link ResourceService} singleton.
      */
     public static ResourceService getInstance() {
-        if (instance == null) {
-            instance = new ResourceService();
-        }
         return instance;
     }
 

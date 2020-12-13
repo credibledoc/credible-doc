@@ -14,7 +14,7 @@ public class BinaryToHexStringer implements Stringer {
     /**
      * Single instance.
      */
-    private static BinaryToHexStringer instance;
+    private static final BinaryToHexStringer instance = new BinaryToHexStringer();
 
     /**
      * Only one instance is allowed, see the {@link #getInstance()} method.
@@ -27,9 +27,6 @@ public class BinaryToHexStringer implements Stringer {
      * @return The {@link #instance} singleton.
      */
     public static BinaryToHexStringer getInstance() {
-        if (instance == null) {
-            instance = new BinaryToHexStringer();
-        }
         return instance;
     }
 

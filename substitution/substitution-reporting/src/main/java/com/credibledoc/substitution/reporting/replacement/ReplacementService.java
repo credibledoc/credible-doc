@@ -39,15 +39,12 @@ public class ReplacementService {
     /**
      * Singleton.
      */
-    private static ReplacementService instance;
+    private static final ReplacementService instance = new ReplacementService();
 
     /**
      * @return The {@link ReplacementService} singleton.
      */
     public static ReplacementService getInstance() {
-        if (instance == null) {
-            instance = new ReplacementService();
-        }
         return instance;
     }
 

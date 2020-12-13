@@ -13,7 +13,7 @@ public class ContentGeneratorRepository {
     /**
      * Singleton.
      */
-    private static ContentGeneratorRepository instance;
+    private static final ContentGeneratorRepository instance = new ContentGeneratorRepository();
 
     /**
      * Empty constructor.
@@ -26,9 +26,6 @@ public class ContentGeneratorRepository {
      * @return The {@link ContentGeneratorRepository} singleton.
      */
     public static ContentGeneratorRepository getInstance() {
-        if (instance == null) {
-            instance = new ContentGeneratorRepository();
-        }
         return instance;
     }
 

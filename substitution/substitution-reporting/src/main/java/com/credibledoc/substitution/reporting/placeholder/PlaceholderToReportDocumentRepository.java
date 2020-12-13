@@ -16,15 +16,12 @@ public class PlaceholderToReportDocumentRepository {
     /**
      * Singleton.
      */
-    private static PlaceholderToReportDocumentRepository instance;
+    private static final PlaceholderToReportDocumentRepository instance = new PlaceholderToReportDocumentRepository();
 
     /**
      * @return The {@link PlaceholderToReportDocumentRepository} singleton.
      */
     public static PlaceholderToReportDocumentRepository getInstance() {
-        if (instance == null) {
-            instance = new PlaceholderToReportDocumentRepository();
-        }
         return instance;
     }
 

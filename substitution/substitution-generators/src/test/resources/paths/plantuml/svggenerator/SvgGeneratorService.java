@@ -47,7 +47,7 @@ public class SvgGeneratorService {
     /**
      * Singleton.
      */
-    private static SvgGeneratorService instance;
+    private static final SvgGeneratorService instance = new SvgGeneratorService();
 
     private SvgGeneratorService() {
         // empty
@@ -58,9 +58,6 @@ public class SvgGeneratorService {
      * instantiate new {@link SvgGeneratorService}.
      */
     public static SvgGeneratorService getInstance() {
-        if (instance == null) {
-            instance = new SvgGeneratorService();
-        }
         return instance;
     }
 

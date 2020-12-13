@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class NavigatorService implements Navigator {
     
-    private static NavigatorService instance;
+    private static final NavigatorService instance = new NavigatorService();
     
     protected Visualizer visualizer;
 
@@ -26,9 +26,6 @@ public class NavigatorService implements Navigator {
      * @return The single instance of the {@link NavigatorService}. 
      */
     public static NavigatorService getInstance() {
-        if (instance == null) {
-            instance = new NavigatorService();
-        }
         return instance;
     }
 

@@ -14,15 +14,12 @@ public class PlaceholderToReportDocumentService {
     /**
      * Singleton.
      */
-    private static PlaceholderToReportDocumentService instance;
+    private static final PlaceholderToReportDocumentService instance = new PlaceholderToReportDocumentService();
 
     /**
      * @return The {@link PlaceholderToReportDocumentService} singleton.
      */
     public static PlaceholderToReportDocumentService getInstance() {
-        if (instance == null) {
-            instance = new PlaceholderToReportDocumentService();
-        }
         return instance;
     }
 

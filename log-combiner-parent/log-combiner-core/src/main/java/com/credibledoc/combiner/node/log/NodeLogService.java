@@ -21,15 +21,12 @@ public class NodeLogService {
     /**
      * Singleton.
      */
-    private static NodeLogService instance;
+    private static final NodeLogService instance = new NodeLogService();
 
     /**
      * @return The {@link NodeLogService} singleton.
      */
     public static NodeLogService getInstance() {
-        if (instance == null) {
-            instance = new NodeLogService();
-        }
         return instance;
     }
 

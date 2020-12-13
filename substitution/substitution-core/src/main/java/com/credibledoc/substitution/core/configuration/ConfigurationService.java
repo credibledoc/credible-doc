@@ -97,7 +97,7 @@ public class ConfigurationService {
     /**
      * Singleton.
      */
-    private static ConfigurationService instance;
+    private static final ConfigurationService instance = new ConfigurationService();
 
     /**
      * Empty constructor.
@@ -110,9 +110,6 @@ public class ConfigurationService {
      * @return The {@link ConfigurationService} singleton.
      */
     public static ConfigurationService getInstance() {
-        if (instance == null) {
-            instance = new ConfigurationService();
-        }
         return instance;
     }
 
@@ -211,7 +208,9 @@ public class ConfigurationService {
                         SUBSTITUTION_PROPERTIES_FILE_PATH + "=" + propertiesFilePath +
                     ". Absolute path: " + propertiesFile.getAbsolutePath());
             }
-            properties.load(new FileInputStream(propertiesFile));
+            try (FileInputStream stream = new FileInputStream(propertiesFile)) {
+                properties.load(stream);
+            }
             String fileAbsolutePath = propertiesFile.getAbsolutePath();
             for (Field field : Configuration.class.getDeclaredFields()) {
                 ConfigurationProperty configurationProperty = field.getAnnotation(ConfigurationProperty.class);

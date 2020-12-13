@@ -21,7 +21,7 @@ public class PlaceholderService {
     /**
      * Singleton.
      */
-    private static PlaceholderService instance;
+    private static final PlaceholderService instance = new PlaceholderService();
 
     private PlaceholderService() {
         // empty
@@ -31,9 +31,6 @@ public class PlaceholderService {
      * @return The {@link PlaceholderService} singleton.
      */
     public static PlaceholderService getInstance() {
-        if (instance == null) {
-            instance = new PlaceholderService();
-        }
         return instance;
     }
 

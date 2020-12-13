@@ -26,7 +26,7 @@ public class LinkService {
     /**
      * Singleton.
      */
-    private static LinkService instance;
+    private static final LinkService instance = new LinkService();
 
     /**
      * Create a new instance of this class.
@@ -39,9 +39,6 @@ public class LinkService {
      * @return A singleton {@link #instance} of this class.
      */
     public static LinkService getInstance() {
-        if (instance == null) {
-            instance = new LinkService();
-        }
         return instance;
     }
 
@@ -53,7 +50,7 @@ public class LinkService {
      */
     private String generateSearchParam(String line) {
         try {
-            int len = line.length() > 30 ? 30 : line.length();
+            int len = Math.min(line.length(), 30);
 
             String truncated = line.substring(0, len);
 

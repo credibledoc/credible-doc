@@ -15,15 +15,12 @@ public class DateService {
     /**
      * Singleton.
      */
-    private static DateService instance;
+    private static final DateService instance = new DateService();
 
     /**
      * @return The {@link DateService} singleton.
      */
     public static DateService getInstance() {
-        if (instance == null) {
-            instance = new DateService();
-        }
         return instance;
     }
 
@@ -67,7 +64,7 @@ public class DateService {
      * @return a parsed {@link Date}, for example 17:45:58.172 or 'null' if the line is 'null' or the date cannot be found.
      */
     public String findDateTime(String line, Pattern dateTimePattern, int maxIndexEndOfTime) {
-        int maxLength = line.length() > maxIndexEndOfTime ? maxIndexEndOfTime : line.length();
+        int maxLength = Math.min(line.length(), maxIndexEndOfTime);
         String dateString = null;
         Matcher matcher = dateTimePattern.matcher(line.substring(0, maxLength));
         if (matcher.find()) {

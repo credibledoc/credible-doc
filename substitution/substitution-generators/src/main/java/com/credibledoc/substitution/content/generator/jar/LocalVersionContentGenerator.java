@@ -39,7 +39,7 @@ public class LocalVersionContentGenerator implements ContentGenerator {
             File targetDirectory = new File(target);
             if (!targetDirectory.exists()) {
                 throw new SubstitutionRuntimeException("Jar name cannot be found. " +
-                    "Target directory does not exists: '" + targetDirectory.getAbsolutePath() +
+                    "Target directory doesn't exist: '" + targetDirectory.getAbsolutePath() +
                     "'. Please run 'mvn install' first");
             }
             File[] files = targetDirectory.listFiles();

@@ -39,15 +39,12 @@ public class MarkdownService {
     /**
      * Singleton.
      */
-    private static MarkdownService instance;
+    private static final MarkdownService instance = new MarkdownService();
 
     /**
      * @return The {@link MarkdownService} singleton.
      */
     public static MarkdownService getInstance() {
-        if (instance == null) {
-            instance = new MarkdownService();
-        }
         return instance;
     }
 

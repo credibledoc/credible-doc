@@ -25,15 +25,12 @@ public class HexLengthPacker implements LengthPacker {
     /**
      * Single instance.
      */
-    private static HexLengthPacker instance;
+    private static final HexLengthPacker instance = new HexLengthPacker();
 
     /**
      * @return The {@link #instance} singleton.
      */
     public static HexLengthPacker getInstance() {
-        if (instance == null) {
-            instance = new HexLengthPacker();
-        }
         return instance;
     }
 

@@ -28,7 +28,7 @@ public class TemplateService {
     /**
      * Singleton.
      */
-    private static TemplateService instance;
+    private static final TemplateService instance = new TemplateService();
 
     private TemplateService() {
         // empty
@@ -38,9 +38,6 @@ public class TemplateService {
      * @return The {@link TemplateService} singleton.
      */
     public static TemplateService getInstance() {
-        if (instance == null) {
-            instance = new TemplateService();
-        }
         return instance;
     }
 

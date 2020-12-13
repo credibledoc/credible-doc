@@ -16,7 +16,7 @@ public class LiteralBodyPacker implements BodyPacker {
     /**
      * Single instance.
      */
-    private static LiteralBodyPacker instance;
+    private static final LiteralBodyPacker instance = new LiteralBodyPacker();
 
     /**
      * Only one instance is allowed, see the {@link #getInstance()} method.
@@ -29,9 +29,6 @@ public class LiteralBodyPacker implements BodyPacker {
      * @return The {@link #instance} singleton.
      */
     public static LiteralBodyPacker getInstance() {
-        if (instance == null) {
-            instance = new LiteralBodyPacker();
-        }
         return instance;
     }
 

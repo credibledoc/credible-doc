@@ -39,15 +39,12 @@ public class VisualizerService {
     /**
      * Singleton.
      */
-    private static VisualizerService instance;
+    private static final VisualizerService instance = new VisualizerService();
 
     /**
      * @return The {@link VisualizerService} singleton.
      */
     public static VisualizerService getInstance() {
-        if (instance == null) {
-            instance = new VisualizerService();
-        }
         return instance;
     }
 

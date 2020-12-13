@@ -49,15 +49,12 @@ public class CombinerService {
     /**
      * Singleton.
      */
-    private static CombinerService instance;
+    private static final CombinerService instance = new CombinerService();
 
     /**
      * @return The {@link CombinerService} singleton.
      */
     public static CombinerService getInstance() {
-        if (instance == null) {
-            instance = new CombinerService();
-        }
         return instance;
     }
 
@@ -247,7 +244,7 @@ public class CombinerService {
     }
 
     /**
-     * Create target folder if not exists and log the information.
+     * Create target folder if doesn't exist and log the information.
      * @param targetFolder for example path/folder
      * @param targetFileName for example file.txt
      * @return The target file, for example path/folder/file.txt

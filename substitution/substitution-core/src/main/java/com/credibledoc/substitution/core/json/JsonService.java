@@ -19,7 +19,7 @@ public class JsonService {
     /**
      * Singleton.
      */
-    private static JsonService instance;
+    private static final JsonService instance = new JsonService();
 
     private JsonService() {
         // empty
@@ -29,9 +29,6 @@ public class JsonService {
      * @return The {@link JsonService} singleton.
      */
     public static JsonService getInstance() {
-        if (instance == null) {
-            instance = new JsonService();
-        }
         return instance;
     }
 

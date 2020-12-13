@@ -11,15 +11,12 @@ public class NodeFileComparator implements Comparator<NodeFile> {
     /**
      * Singleton.
      */
-    private static NodeFileComparator instance;
+    private static final NodeFileComparator instance = new NodeFileComparator();
 
     /**
      * @return The {@link NodeFileComparator} singleton.
      */
     public static NodeFileComparator getInstance() {
-        if (instance == null) {
-            instance = new NodeFileComparator();
-        }
         return instance;
     }
     

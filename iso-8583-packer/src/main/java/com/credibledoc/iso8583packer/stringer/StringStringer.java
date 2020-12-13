@@ -12,7 +12,7 @@ public class StringStringer implements Stringer {
     /**
      * Single instance.
      */
-    private static StringStringer instance;
+    private static final StringStringer instance = new StringStringer();
 
     /**
      * Only one instance is allowed, see the {@link #getInstance()} method.
@@ -25,9 +25,6 @@ public class StringStringer implements Stringer {
      * @return The {@link #instance} singleton.
      */
     public static StringStringer getInstance() {
-        if (instance == null) {
-            instance = new StringStringer();
-        }
         return instance;
     }
 

@@ -96,7 +96,7 @@ public class LinesWithDateClassification {
         List<String> arguments = Arrays.asList(args);
         boolean continueTraining = arguments.contains(CONTINUE_TRAINING_ARGUMENT);
         if (!networkFile.exists() && continueTraining) {
-            throw new LabelizerRuntimeException("File not exists and '" + CONTINUE_TRAINING_ARGUMENT +
+            throw new LabelizerRuntimeException("File doesn't exist and '" + CONTINUE_TRAINING_ARGUMENT +
                 "' argument set. File: " + networkFile.getAbsolutePath());
         }
         if (networkFile.exists()) {

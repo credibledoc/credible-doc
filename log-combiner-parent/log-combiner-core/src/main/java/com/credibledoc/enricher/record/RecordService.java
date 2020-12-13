@@ -15,15 +15,12 @@ public class RecordService {
     /**
      * Singleton.
      */
-    private static RecordService instance;
+    private static final RecordService instance = new RecordService();
 
     /**
      * @return The {@link RecordService} singleton.
      */
     static RecordService getInstance() {
-        if (instance == null) {
-            instance = new RecordService();
-        }
         return instance;
     }
 

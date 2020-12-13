@@ -66,15 +66,12 @@ public class FileService {
     /**
      * Singleton.
      */
-    private static FileService instance;
+    private static final FileService instance = new FileService();
 
     /**
      * @return The {@link FileService} singleton.
      */
     public static FileService getInstance() {
-        if (instance == null) {
-            instance = new FileService();
-        }
         return instance;
     }
     
@@ -549,7 +546,7 @@ public class FileService {
         }
         File sourceFile = logDirectoryOrFile.getSources().get(logDirectoryOrFile.getSources().size() - 1);
         if (!sourceFile.exists()) {
-            throw new CombinerRuntimeException("Source file '" + sourceFile.getAbsolutePath() + "' not exists. " +
+            throw new CombinerRuntimeException("Source file '" + sourceFile.getAbsolutePath() + "' doesn't exist. " +
                 logDirectoryOrFile);
         }
     }

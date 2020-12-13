@@ -34,9 +34,13 @@ public class DumpService implements Visualizer {
     private static final String VAL_ATTRIBUTE_PREFIX = " val=\"";
     private static final String VAL_HEX_ATTRIBUTE_PREFIX = " valHex=\"";
 
-    protected static DumpService instance;
+    protected static final DumpService instance = new DumpService();
     
     protected Navigator navigator;
+    
+    static {
+        instance.createDefaultServices();
+    }
 
     /**
      * Please use the {@link #getInstance()} method instead of this constructor.
@@ -50,10 +54,6 @@ public class DumpService implements Visualizer {
      * @return The single instance of the {@link DumpService}. 
      */
     public static DumpService getInstance() {
-        if (instance == null) {
-            instance = new DumpService();
-            instance.createDefaultServices();
-        }
         return instance;
     }
 
@@ -71,7 +71,7 @@ public class DumpService implements Visualizer {
             try (PrintStream printStream = new PrintStream(baos, true, "UTF-8")) {
                 dumpMsgField(msgField, printStream, null, "    ");
             }
-            return new String(baos.toByteArray(), StandardCharsets.UTF_8);
+            return baos.toString(StandardCharsets.UTF_8.name());
         } catch (Exception e) {
             String message = "Error in dump method.";
             logger.error(message, e);
@@ -87,7 +87,7 @@ public class DumpService implements Visualizer {
             try (PrintStream printStream = new PrintStream(baos, true, "UTF-8")) {
                 dumpMsgValue(msgField, msgValue, printStream, null, "    ", maskPrivateData);
             }
-            return new String(baos.toByteArray(), StandardCharsets.UTF_8);
+            return baos.toString(StandardCharsets.UTF_8.name());
         } catch (Exception e) {
             String message = "Error in dump method.";
             logger.error(message, e);

@@ -48,7 +48,7 @@ public class SvgGeneratorService {
     /**
      * Singleton.
      */
-    private static SvgGeneratorService instance;
+    private static final SvgGeneratorService instance = new SvgGeneratorService();
 
     private SvgGeneratorService() {
         // empty
@@ -59,9 +59,6 @@ public class SvgGeneratorService {
      * instantiate new {@link SvgGeneratorService}.
      */
     public static SvgGeneratorService getInstance() {
-        if (instance == null) {
-            instance = new SvgGeneratorService();
-        }
         return instance;
     }
 
@@ -119,7 +116,7 @@ public class SvgGeneratorService {
             logger.info("DiagramDescription: {}", diagramDescription.getDescription());
 
             // The XML is stored into svg
-            String svg = new String(os.toByteArray(), StandardCharsets.UTF_8);
+            String svg = os.toString(StandardCharsets.UTF_8.name());
 
             if (printWarningAndPlantUml) {
                 final String warningMessage = "!WARNING! Original strings (double dash) has been replaced" +
@@ -191,6 +188,8 @@ public class SvgGeneratorService {
     private String formatSvg(String svg) {
         try {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
             transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
             Transformer transformer = transformerFactory.newTransformer();
@@ -201,6 +200,8 @@ public class SvgGeneratorService {
             StreamResult result = new StreamResult(new StringWriter());
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             DocumentBuilder db = dbf.newDocumentBuilder();
             InputSource inputSource = new InputSource(new StringReader(svg));
             Document document = db.parse(inputSource);
@@ -228,8 +229,7 @@ public class SvgGeneratorService {
     private String escape(String plantUml) {
         // PlantUML do the same when attaching its source to SVG xml as comment
         return plantUml
-                .replaceAll("--", "- -")
-                .replaceAll("--", "- -")
+                .replace("--", "- -")
                 .replaceAll("\\?search=.*\\s", " ");
     }
 

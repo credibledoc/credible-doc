@@ -21,15 +21,12 @@ public class TransformerService {
     /**
      * Singleton.
      */
-    private static TransformerService instance;
+    private static final TransformerService instance = new TransformerService();
 
     /**
      * @return The {@link TransformerService} singleton.
      */
     public static TransformerService getInstance() {
-        if (instance == null) {
-            instance = new TransformerService();
-        }
         return instance;
     }
     

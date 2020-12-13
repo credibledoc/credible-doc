@@ -22,7 +22,7 @@ public class AsciiBodyPacker implements BodyPacker {
     /**
      * Single instance.
      */
-    private static AsciiBodyPacker instance;
+    private static final AsciiBodyPacker instance = new AsciiBodyPacker();
 
     /**
      * Only one instance is allowed, see the {@link #getInstance()} method.
@@ -35,9 +35,6 @@ public class AsciiBodyPacker implements BodyPacker {
      * @return The {@link #instance} singleton.
      */
     public static AsciiBodyPacker getInstance() {
-        if (instance == null) {
-            instance = new AsciiBodyPacker();
-        }
         return instance;
     }
 

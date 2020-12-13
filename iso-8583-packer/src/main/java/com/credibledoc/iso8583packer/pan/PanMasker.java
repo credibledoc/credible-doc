@@ -17,7 +17,7 @@ public class PanMasker implements Masker {
     /**
      * Single instance.
      */
-    private static PanMasker instance;
+    private static final PanMasker instance = new PanMasker();
 
     /**
      * Only one instance is allowed, see the {@link #getInstance()} method.
@@ -30,9 +30,6 @@ public class PanMasker implements Masker {
      * @return The {@link #instance} singleton.
      */
     public static PanMasker getInstance() {
-        if (instance == null) {
-            instance = new PanMasker();
-        }
         return instance;
     }
     

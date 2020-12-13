@@ -15,15 +15,12 @@ public class LineProcessorService {
     /**
      * Singleton.
      */
-    private static LineProcessorService instance;
+    private static final LineProcessorService instance = new LineProcessorService();
 
     /**
      * @return The {@link LineProcessorService} singleton.
      */
     public static LineProcessorService getInstance() {
-        if (instance == null) {
-            instance = new LineProcessorService();
-        }
         return instance;
     }
 

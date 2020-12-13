@@ -16,7 +16,7 @@ public class ContentGeneratorService {
     /**
      * Singleton.
      */
-    private static ContentGeneratorService instance;
+    private static final ContentGeneratorService instance = new ContentGeneratorService();
 
     /**
      * Empty constructor.
@@ -29,9 +29,6 @@ public class ContentGeneratorService {
      * @return The {@link ContentGeneratorService} singleton.
      */
     public static ContentGeneratorService getInstance() {
-        if (instance == null) {
-            instance = new ContentGeneratorService();
-        }
         return instance;
     }
 

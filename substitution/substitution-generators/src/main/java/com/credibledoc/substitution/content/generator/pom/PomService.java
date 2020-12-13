@@ -17,15 +17,12 @@ public class PomService {
     /**
      * Singleton.
      */
-    private static PomService instance;
+    private static final PomService instance = new PomService();
 
     /**
      * @return The {@link PomService} singleton.
      */
     public static PomService getInstance() {
-        if (instance == null) {
-            instance = new PomService();
-        }
         return instance;
     }
 

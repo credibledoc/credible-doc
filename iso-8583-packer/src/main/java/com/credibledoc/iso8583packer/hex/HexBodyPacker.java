@@ -19,7 +19,7 @@ public class HexBodyPacker implements BodyPacker {
     /**
      * Single instance.
      */
-    private static HexBodyPacker instance;
+    private static final HexBodyPacker instance = new HexBodyPacker();
 
     /**
      * Only one instance is allowed, see the {@link #getInstance()} method.
@@ -32,9 +32,6 @@ public class HexBodyPacker implements BodyPacker {
      * @return The {@link #instance} singleton.
      */
     public static HexBodyPacker getInstance() {
-        if (instance == null) {
-            instance = new HexBodyPacker();
-        }
         return instance;
     }
 

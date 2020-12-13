@@ -17,7 +17,7 @@ public class TooltipService {
     /**
      * Singleton.
      */
-    private static TooltipService instance;
+    private static final TooltipService instance = new TooltipService();
 
     private TooltipService() {
         // empty
@@ -27,9 +27,6 @@ public class TooltipService {
      * @return the {@link TooltipService} singleton.
      */
     public static TooltipService getInstance() {
-        if (instance == null) {
-            instance = new TooltipService();
-        }
         return instance;
     }
 

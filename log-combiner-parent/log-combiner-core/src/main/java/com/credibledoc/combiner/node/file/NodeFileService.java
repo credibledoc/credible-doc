@@ -28,15 +28,12 @@ public class NodeFileService {
     /**
      * Singleton.
      */
-    private static NodeFileService instance;
+    private static final NodeFileService instance = new NodeFileService();
 
     /**
      * @return The {@link NodeFileService} singleton.
      */
     public static NodeFileService getInstance() {
-        if (instance == null) {
-            instance = new NodeFileService();
-        }
         return instance;
     }
 

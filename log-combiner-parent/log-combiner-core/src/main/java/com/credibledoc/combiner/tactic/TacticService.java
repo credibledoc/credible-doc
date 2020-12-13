@@ -24,15 +24,12 @@ public class TacticService {
     /**
      * Singleton.
      */
-    private static TacticService instance;
+    private static final TacticService instance = new TacticService();
 
     /**
      * @return The {@link TacticService} singleton.
      */
     public static TacticService getInstance() {
-        if (instance == null) {
-            instance = new TacticService();
-        }
         return instance;
     }
 

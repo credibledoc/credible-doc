@@ -21,15 +21,12 @@ public class ReportDocumentService {
     /**
      * Singleton.
      */
-    private static ReportDocumentService instance;
+    private static final ReportDocumentService instance = new ReportDocumentService();
 
     /**
      * @return The {@link ReportDocumentService} singleton.
      */
     public static ReportDocumentService getInstance() {
-        if (instance == null) {
-            instance = new ReportDocumentService();
-        }
         return instance;
     }
 
