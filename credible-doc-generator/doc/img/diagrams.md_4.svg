@@ -137,7 +137,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="231" x="640" y="1802.8965">Report{directory=null, transactionsFilter=[],</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="291" x="640" y="1817.9902">linesNumber=0, creationOfSelfDocumentation=false}</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="697.5" y="1850.627"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="707.5" y="1873.084">327 lines processed (100%)</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="707.5" y="1873.084">329 lines processed (100%)</text>
     <rect fill="#FEFECE" filter="url(#1)" height="65.2813" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="311" x="630" y="1905.7207"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="208" x="640" y="1928.1777">Method createReports started. Report:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="231" x="640" y="1943.2715">Report{directory=null, transactionsFilter=[],</text>
@@ -158,7 +158,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="231" x="640" y="2349.3027">Report{directory=null, transactionsFilter=[],</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="291" x="640" y="2364.3965">linesNumber=0, creationOfSelfDocumentation=false}</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="697.5" y="2397.0332"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="707.5" y="2419.4902">327 lines processed (100%)</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="707.5" y="2419.4902">329 lines processed (100%)</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="671" y="2507.2207"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="209" x="681" y="2529.6777">Report prepared. Report: 1008315045</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="702.5" y="2562.3145"/>
@@ -173,7 +173,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="231" x="640" y="2755.334">Report{directory=null, transactionsFilter=[],</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="291" x="640" y="2770.4277">linesNumber=0, creationOfSelfDocumentation=false}</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="176" x="697.5" y="2803.0645"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="707.5" y="2825.5215">327 lines processed (100%)</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="707.5" y="2825.5215">329 lines processed (100%)</text>
     <rect fill="#FEFECE" filter="url(#1)" height="80.375" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="347" x="612" y="2983.4395"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="67" x="622" y="3005.8965">File created:</text>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="309" x="622" y="3020.9902">C:\Users\semenko\git\credibledoc\credible-doc\target\ge</text>
@@ -248,29 +248,29 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="44" x="1000.5" y="5603.584">entities)</text>
     <line style="stroke: #000000; stroke-width: 2.0;" x1="969" x2="969" y1="12.4551" y2="5872.0645"/>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="190" x="1183.5" y="3936.627"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="170" x="1193.5" y="3959.084">Result: iso-8583-packer-1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="170" x="1193.5" y="3959.084">Result: iso-8583-packer-1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="136" x="1210.5" y="3991.7207"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="1220.5" y="4014.1777">LatestVersion: 1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="1220.5" y="4014.1777">LatestVersion: 1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="1192" y="4046.8145"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4069.2715">Result: log-combiner-1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4069.2715">Result: log-combiner-1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="1192" y="4101.9082"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4124.3652">Result: log-combiner-1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4124.3652">Result: log-combiner-1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="1192" y="4157.002"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4179.459">Result: log-combiner-1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4179.459">Result: log-combiner-1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="1192" y="4212.0957"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4234.5527">Result: log-combiner-1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4234.5527">Result: log-combiner-1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="173" x="1192" y="4267.1895"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4289.6465">Result: log-combiner-1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="153" x="1202" y="4289.6465">Result: log-combiner-1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="201" x="1178" y="4322.2832"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="181" x="1188" y="4344.7402">Result: log-combiner-core-1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="181" x="1188" y="4344.7402">Result: log-combiner-core-1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="136" x="1210.5" y="4377.377"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="1220.5" y="4399.834">LatestVersion: 1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="1220.5" y="4399.834">LatestVersion: 1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="136" x="1210.5" y="4432.4707"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="1220.5" y="4454.9277">LatestVersion: 1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="1220.5" y="4454.9277">LatestVersion: 1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="217" x="1170" y="4487.5645"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="197" x="1180" y="4510.0215">Result: substitution-reporting-1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="197" x="1180" y="4510.0215">Result: substitution-reporting-1.0.26</text>
     <rect fill="#FEFECE" filter="url(#1)" height="35.0938" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="136" x="1210.5" y="4542.6582"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="1220.5" y="4565.1152">LatestVersion: 1.0.25</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="1220.5" y="4565.1152">LatestVersion: 1.0.26</text>
     <line style="stroke: #000000; stroke-width: 2.0;" x1="1164" x2="1164" y1="12.4551" y2="5872.0645"/>
     <line style="stroke: #000000; stroke-width: 2.0;" x1="1397" x2="1397" y1="12.4551" y2="5872.0645"/>
     <line style="stroke: #A80036; stroke-width: 1.5;" x1="171.5" x2="171.5" y1="75.1895" y2="95.1895"/>
@@ -508,7 +508,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="168" x="703.5" y="31.1406">substitution-reporting</text>
     <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="108" x="1012.5" y="31.1406">plantuml-core</text>
     <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="183" x="1189" y="31.1406">substitution-generators</text>
-    <!--MD5=[5f5cea9b1b74b0ed18abb9884d134180]
+    <!--MD5=[f50492c6dcc5797e035e335ce429c326]
 @startuml
 |credible-doc-generator|
     :Application credible-doc-generator launched.;
@@ -616,7 +616,7 @@
     linesNumber=0, creationOfSelfDocumentation=false};
 
 |substitution-reporting|
-    :327 lines processed (100%);
+    :329 lines processed (100%);
 
 |substitution-reporting|
     :Method createReports started. Report: 
@@ -647,7 +647,7 @@
     linesNumber=0, creationOfSelfDocumentation=false};
 
 |substitution-reporting|
-    :327 lines processed (100%);
+    :329 lines processed (100%);
 
 |credible-doc-generator|
     :Line processors prepared;
@@ -670,7 +670,7 @@
     linesNumber=0, creationOfSelfDocumentation=false};
 
 |substitution-reporting|
-    :327 lines processed (100%);
+    :329 lines processed (100%);
 
 |credible-doc-generator|
     :Templates placeholders will be substituted with the 
@@ -736,40 +736,40 @@
     rces\template;
 
 |substitution-generators|
-    :Result: iso-8583-packer-1.0.25;
+    :Result: iso-8583-packer-1.0.26;
 
 |substitution-generators|
-    :LatestVersion: 1.0.25;
+    :LatestVersion: 1.0.26;
 
 |substitution-generators|
-    :Result: log-combiner-1.0.25;
+    :Result: log-combiner-1.0.26;
 
 |substitution-generators|
-    :Result: log-combiner-1.0.25;
+    :Result: log-combiner-1.0.26;
 
 |substitution-generators|
-    :Result: log-combiner-1.0.25;
+    :Result: log-combiner-1.0.26;
 
 |substitution-generators|
-    :Result: log-combiner-1.0.25;
+    :Result: log-combiner-1.0.26;
 
 |substitution-generators|
-    :Result: log-combiner-1.0.25;
+    :Result: log-combiner-1.0.26;
 
 |substitution-generators|
-    :Result: log-combiner-core-1.0.25;
+    :Result: log-combiner-core-1.0.26;
 
 |substitution-generators|
-    :LatestVersion: 1.0.25;
+    :LatestVersion: 1.0.26;
 
 |substitution-generators|
-    :LatestVersion: 1.0.25;
+    :LatestVersion: 1.0.26;
 
 |substitution-generators|
-    :Result: substitution-reporting-1.0.25;
+    :Result: substitution-reporting-1.0.26;
 
 |substitution-generators|
-    :LatestVersion: 1.0.25;
+    :LatestVersion: 1.0.26;
 
 |plantuml-core|
     :DiagramDescription: (34 
