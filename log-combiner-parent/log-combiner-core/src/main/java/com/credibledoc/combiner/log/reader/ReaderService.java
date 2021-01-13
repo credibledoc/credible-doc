@@ -85,16 +85,24 @@ public class ReaderService {
         List<String> result = new ArrayList<>();
         try {
             Date lineDate = logBufferedReader.getLineDate(); // keep the date if exists
-            result.add(line);
+            result.add(cutIfLonger(line));
             logBufferedReader.mark(MAX_CHARACTERS_IN_ONE_LINE);
             line = logBufferedReader.readLine();
             while (line != null) {
+                boolean tooLongLine = line.length() > MAX_CHARACTERS_IN_ONE_LINE;
+                if (tooLongLine) {
+                    if (logger.isWarnEnabled()) {
+                        logger.warn("Line is longer than {} chars. Line begins with: '{}'.",
+                            MAX_CHARACTERS_IN_ONE_LINE, cutIfLonger(line));
+                    }
+                    return result;
+                }
                 if (containsStartPattern(line, logBufferedReader, combinerContext)) {
                     logBufferedReader.reset();
                     logBufferedReader.setLineDate(lineDate);
                     return result;
                 } else {
-                    result.add(line);
+                    result.add(cutIfLonger(line));
                 }
                 logBufferedReader.mark(MAX_CHARACTERS_IN_ONE_LINE);
                 line = logBufferedReader.readLine();
@@ -102,9 +110,16 @@ public class ReaderService {
             logBufferedReader.setLineDate(lineDate);
             return result;
         } catch (IOException e) {
-            String message = "ReadMultiline failed. Line: '" + line + "', Result: " + result.toString();
+            String message = "ReadMultiline failed. Line: '" + cutIfLonger(line) + "', Result: " + result.toString();
             throw new CombinerRuntimeException(message, e);
         }
+    }
+
+    public String cutIfLonger(String line) {
+        if (line == null) {
+            return null;
+        }
+        return line.length() > MAX_CHARACTERS_IN_ONE_LINE ? line.substring(0, MAX_CHARACTERS_IN_ONE_LINE) : line;
     }
 
     /**
