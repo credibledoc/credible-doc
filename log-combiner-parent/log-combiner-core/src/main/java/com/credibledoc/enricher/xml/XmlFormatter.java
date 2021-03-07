@@ -65,7 +65,7 @@ public class XmlFormatter {
             // Save a header unchanged
             String header = xml.substring(0, headerEndIndex);
             String headerAndXml = header + formattedXml;
-            if (lineEnding != null && !lineEnding.equals(System.lineSeparator())) {
+            if (lineEnding != null) {
                 return headerAndXml.replaceAll(FileService.ANY_LINE_ENDING, lineEnding);
             }
             return headerAndXml;
