@@ -171,7 +171,10 @@ public class FieldBuilder {
      */
     public FieldBuilder validateStructure() {
         try {
+            MsgField currentMsgField = msgField;
+            jumpToRoot();
             validator.validateStructure(msgField);
+            msgField = currentMsgField;
             return this;
         } catch (Exception e) {
             MsgField root = navigator.findRoot(msgField);
@@ -205,9 +208,11 @@ public class FieldBuilder {
     public FieldBuilder defineFieldNum(Integer fieldNum) {
         if (fieldNum != null && msgField.getParent() == null || msgField.getParent().getType() != MsgFieldType.BIT_SET) {
             String path = navigator.getPathRecursively(msgField);
+            String fieldDump = "\nActual structure:\n" + visualizer.dumpMsgField(navigator.findRoot(msgField));
             throw new PackerRuntimeException("The 'fieldNum' property is allowed for children of '" +
                 MsgFieldType.class.getSimpleName() + "." + MsgFieldType.BIT_SET + "' only. " +
-                "Current MsgField path: '" + path + "'.");
+                "Field num: '" + fieldNum + "'. " +
+                "Incorrect MsgField path: '" + path + "'." + fieldDump);
         }
         this.msgField.setFieldNum(fieldNum);
         MsgField parent = this.msgField.getParent();

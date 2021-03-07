@@ -21,6 +21,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+// TODO Kyrylo Semenko - complete the test cases
 public class RepeatedFieldsTest {
     private static final Logger logger = LoggerFactory.getLogger(RepeatedFieldsTest.class);
 

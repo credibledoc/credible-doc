@@ -62,10 +62,20 @@ public class ValueHolder {
 
     /**
      * Please do not create instances of this builder. It uses for internal purposes only,
-     * see the {@link #newInstance(MsgField)} method.
+     * please use one of the newInstance() methods.
      */
     protected ValueHolder() {
         // empty
+    }
+
+    /**
+     * Call the {@link #newInstance(MsgField, boolean)} method with the fromRoot=<b>false</b> value.
+     *
+     * @param definition see the {@link #newInstance(MsgField, boolean)} method description.
+     * @return See the {@link #newInstance(MsgField, boolean)} method description.
+     */
+    public static ValueHolder newInstance(MsgField definition) {
+        return newInstance(definition, false);
     }
 
     /**
@@ -75,7 +85,7 @@ public class ValueHolder {
      * <pre>
      *     ValueHolder valueHolder = ValueHolder.newInstance(isoMsgField);
      * </pre>
-     * 
+     * <p>
      * How to fill the data to the {@link FieldBuilder}? See the following example:
      * <pre>
      *     String mtiValue = "0200";
@@ -83,27 +93,39 @@ public class ValueHolder {
      * </pre>
      *
      * @param definition existing definition created with {@link FieldBuilder}.
+     * @param fromRoot   if 'false', the current MsgField definition will be used as a current position in the 
+     *                   MsgField graph.<p>
+     *                   If 'true', the root definition in the MsgField graph will be used as a current position.
      * @return A new instance of the {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
      */
-    public static ValueHolder newInstance(MsgField definition) {
+    public static ValueHolder newInstance(MsgField definition, boolean fromRoot) {
         if (definition == null) {
             throw new PackerRuntimeException("MsgField definition cannot be 'null'.");
         }
         ValueHolder valueHolder = new ValueHolder();
         valueHolder.createDefaultServices();
-        return valueHolder.setValueAndField(definition);
+        return valueHolder.setValueAndField(definition, fromRoot);
     }
 
     /**
-     * Create a new instance of {@link MsgValue} from the {@link FieldBuilder#getCurrentField()} value.
-     * <p>
-     * See also the {@link #newInstance(MsgField)} method description.
+     * Call the {@link #newInstance(FieldBuilder, boolean)} method with fromRoot=<b>false</b> value.
      *
-     * @param fieldBuilder the existing {@link FieldBuilder} with the {@link FieldBuilder#msgField} value.
-     * @return A new instance of the {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
+     * @param fieldBuilder see the the {@link #newInstance(FieldBuilder, boolean)} method description.
+     * @return See the {@link #newInstance(FieldBuilder, boolean)} method description.
      */
     public static ValueHolder newInstance(FieldBuilder fieldBuilder) {
         return newInstance(fieldBuilder.getCurrentField());
+    }
+
+    /**
+     * Call the {@link #newInstance(MsgField, boolean)} method.
+     *
+     * @param fieldBuilder the current {@link FieldBuilder} with the {@link FieldBuilder#msgField} value.
+     * @param fromRoot see the {@link #newInstance(MsgField, boolean)} description.
+     * @return See the {@link #newInstance(MsgField, boolean)} description.
+     */
+    public static ValueHolder newInstance(FieldBuilder fieldBuilder, boolean fromRoot) {
+        return newInstance(fieldBuilder.getCurrentField(), fromRoot);
     }
 
     /**
@@ -117,12 +139,15 @@ public class ValueHolder {
     }
 
     /**
-     * Set the instances of {@link MsgValue} and {@link MsgField} from the definition tho the {@link ValueHolder} instance.
+     * Set the instances of {@link MsgValue} and {@link MsgField} from the root definition of the {@link MsgField}.
      *
-     * @param definition existing definition created with {@link FieldBuilder}.
-     * @return A new instance of this {@link ValueHolder} with {@link #msgValue} and {@link #msgField} in its context.
+     * @param definition existing definition created with {@link FieldBuilder}. Its root node will be used as the main node.
+     * @return A new instance of the {@link ValueHolder} with {@link #msgValue} and the root {@link #msgField} in its context.
      */
-    protected ValueHolder setValueAndField(MsgField definition) {
+    protected ValueHolder setValueAndField(MsgField definition, boolean fromRoot) {
+        if (fromRoot) {
+            definition = navigator.findRoot(definition);
+        }
         this.msgField = definition;
         this.msgValue = navigator.newFromNameAndTag(definition);
         return this;
@@ -607,7 +632,9 @@ public class ValueHolder {
                 if (msgValue.getChildren() == null) {
                     msgValue.setChildren(new ArrayList<>());
                 }
-                msgValue.getChildren().add(msgValueChild);
+                int index = msgFieldChild.getParent().getChildren().indexOf(msgFieldChild);
+                int min = Math.min(index, msgValue.getChildren().size());
+                msgValue.getChildren().add(min, msgValueChild);
             }
             this.msgValue = msgValueChild;
             this.msgField = msgFieldChild;
@@ -1181,10 +1208,12 @@ public class ValueHolder {
      */
     public ValueHolder jumpAbsolute(String ... fieldNames) {
         jumpToRoot();
-        if (!msgField.getName().equals(fieldNames[0])) {
+        if (!fieldNames[0].equals(msgField.getName())) {
             String msgFieldDump = visualizer.dumpMsgField(msgField);
             throw new PackerRuntimeException("MsgField with name '" + fieldNames[0] + "' is not a root field. " +
-                "Expected the root field name '" + msgField.getName() + "'." + MSG_FIELD + msgFieldDump);
+                "Please define the absolute path from the root field. " +
+                "Actual root field name: '" + msgField.getName() + "'." +
+                MSG_FIELD + msgFieldDump);
         }
         for (int i = 1; i < fieldNames.length; i++) {
             String name = fieldNames[i];
