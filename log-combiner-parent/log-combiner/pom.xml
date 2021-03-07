@@ -6,7 +6,7 @@
     <parent>
         <artifactId>log-combiner-parent</artifactId>
         <groupId>com.credibledoc</groupId>
-        <version>1.0.28</version>
+        <version>1.0.29-SNAPSHOT</version>
     </parent>
 
     <artifactId>log-combiner</artifactId>
