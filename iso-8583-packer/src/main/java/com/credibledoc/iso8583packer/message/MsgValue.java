@@ -45,9 +45,9 @@ public class MsgValue implements Msg {
 
     /**
      * Readable value that will be unpacked from {@link #bodyBytes} or packed to {@link #bodyBytes}
-     * by an {@link MsgField#getBodyPacker()}.
+     * by a {@link MsgField#getBodyPacker()}.
      * <p>
-     * In most cases the value will have the String type.
+     * The default type of the value is String.
      */
     private Object bodyValue;
 
