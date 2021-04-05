@@ -6,7 +6,7 @@
     <parent>
         <artifactId>log-combiner-parent</artifactId>
         <groupId>com.credibledoc</groupId>
-        <version>1.0.30-SNAPSHOT</version>
+        <version>1.0.30</version>
     </parent>
 
     <artifactId>log-labelizer</artifactId>
