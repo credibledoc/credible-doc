@@ -1,8 +1,40 @@
-# `IfaBitmapPackerExtendedTest` examples
+package com.credibledoc.iso8583packer.ifa;
 
+import com.credibledoc.iso8583packer.FieldBuilder;
+import com.credibledoc.iso8583packer.ValueHolder;
+import com.credibledoc.iso8583packer.bcd.BcdBodyPacker;
+import com.credibledoc.iso8583packer.dump.DumpService;
+import com.credibledoc.iso8583packer.dump.Visualizer;
+import com.credibledoc.iso8583packer.ebcdic.EbcdicDecimalLengthPacker;
+import com.credibledoc.iso8583packer.hex.HexService;
+import com.credibledoc.iso8583packer.message.MsgField;
+import com.credibledoc.iso8583packer.message.MsgFieldType;
+import com.credibledoc.iso8583packer.message.MsgPair;
+import com.credibledoc.iso8583packer.message.MsgValue;
+import com.credibledoc.iso8583packer.stringer.StringStringer;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-The following example shows how to define a field with `IFA` `bitmap` format
-```Java
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+public class IfaBitmapPackerExtendedTest {
+    private static final Logger logger = LoggerFactory.getLogger(IfaBitmapPackerExtendedTest.class);
+
+    private static final String MTI_NAME = "MTI";
+    private static final String BITMAP_NAME = "BITMAP";
+    private static final String PAN_NAME = "PAN";
+    private static final String SETTLEMENT_CODE = "SettlementCode";
+    private static final String TERTIARY_FIELD = "TertiaryField";
+    private static final String MSG = "MSG";
+
+    /**
+     * Used in documentation
+     */
+    @Test
+    public void tertiaryBitsetTest() {
+        // definition
         FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)
             .defineName(MSG);
 
@@ -44,23 +76,8 @@ The following example shows how to define a field with `IFA` `bitmap` format
             .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2));
 
         fieldBuilder.validateStructure();
-```
 
-The defined structure can be shown as XML by calling the `DumpService.getInstance().dumpMsgValue(isoMsgField, msgValue, true)` method
-```XML
-    
-    <f type="MSG" name="MSG">
-        <f type="VAL" name="MTI" bodyPacker="BcdBodyPacker" len="2"/>
-        <f type="BIT_SET" name="BITMAP" bitMapPacker="IfaBitmapPacker">
-            <f type="LEN_VAL" fieldNum="2" name="PAN" lengthPacker="EbcdicDecimalLengthPacker" bodyPacker="BcdBodyPacker"/>
-            <f type="LEN_VAL" fieldNum="66" name="SettlementCode" lengthPacker="EbcdicDecimalLengthPacker" bodyPacker="BcdBodyPacker"/>
-            <f type="LEN_VAL" fieldNum="130" name="TertiaryField" lengthPacker="EbcdicDecimalLengthPacker" bodyPacker="BcdBodyPacker"/>
-        </f>
-    </f>
-```
-
-The following example shows how to set a value to the `bitmap` child
-```Java
+        // filling with data
         ValueHolder valueHolder = ValueHolder.newInstance(isoMsgField);
 
         String mtiValue = "0200";
@@ -90,21 +107,32 @@ The following example shows how to set a value to the `bitmap` child
                 expectedLenTwoBytesHex + tertiaryFieldValue;
         String packedHex = HexService.bytesToHex(bytes);
         assertEquals(expectedHex, packedHex);
-```
 
-The packed `MsgValue` then looks like the next example
-```XML
-         
-        <f name="MSG">
-            <f name="MTI" val="0200"/>
-            <f name="BITMAP" bitmapHex="C000000000000000C0000000000000004000000000000000000000000000000000000000000000000000000000000000" bitSet="{1, 2, 65, 66, 130}">
-                <f name="PAN" fieldNum="2" val="123456781234567" lenHex="F0F8" valHex="123456781234567F"/>
-                <f name="SettlementCode" fieldNum="66" val="2222" lenHex="F0F2"/>
-                <f name="TertiaryField" fieldNum="130" val="3333" lenHex="F0F2"/>
-            </f>
-        </f>
-```
+        // unpacking
+        MsgValue msgValue = ValueHolder.unpack(bytes, 0, isoMsgField);
+        assertEquals(2, msgValue.getChildren().size());
 
-The source of the test is located in GitHub [IfaBitmapPackerExtendedTest.java](https://github.com/credibledoc/credible-doc/blob/master/iso-8583-packer/src/test/java/com/credibledoc/iso8583packer/ifa/IfaBitmapPackerExtendedTest.java)
+        // data browsing
+        MsgPair rootPair = ValueHolder.newInstance(msgValue, isoMsgField).getCurrentPair();
+        assertNotNull(rootPair);
 
-More examples see [complex-example.md](../complex-example.md).
+        String mtiString = ValueHolder.newInstance(rootPair).jumpToChild(MTI_NAME).getValue(String.class);
+        assertEquals(mtiValue, mtiString);
+
+        MsgPair bitmapPair = ValueHolder.newInstance(rootPair).jumpToChild(BITMAP_NAME).getCurrentPair();
+        assertNotNull(bitmap);
+
+        ValueHolder panValueHolder = ValueHolder.newInstance(bitmapPair).jumpToChild(PAN_NAME);
+        assertNotNull(panValueHolder);
+
+        String unpackedPanString = panValueHolder.getValue(String.class);
+        assertEquals(pan, unpackedPanString);
+
+        Visualizer visualizer = DumpService.getInstance();
+        String msgFieldDump = visualizer.dumpMsgField(isoMsgField);
+        logger.info("Root msgField dump: \n{}{}", msgFieldDump, "End of msgField dump.");
+
+        String msgValueDump = DumpService.getInstance().dumpMsgValue(isoMsgField, msgValue, true);
+        logger.info("Root msgValue dump: \n{}{}", msgValueDump, "End of msgValue dump.");
+    }
+}

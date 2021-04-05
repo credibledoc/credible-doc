@@ -7,9 +7,6 @@ import java.util.BitSet;
 /**
  * Static service. Converts <a href="https://en.wikipedia.org/wiki/ISO_8583#Bitmaps">Bitmap</a> data.
  *
- * @author apr@cs.com.uy
- * @author Hani S. Kirollos
- * @author Alwyn Schoeman
  * @author Kyrylo Semenko
  */
 public class BitmapService {

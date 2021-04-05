@@ -18,18 +18,21 @@ import org.slf4j.LoggerFactory;
 
 import java.util.BitSet;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class IfaBitmapPackerTest {
-    private static Logger logger = LoggerFactory.getLogger(IfaBitmapPacker.class);
+    private static final Logger logger = LoggerFactory.getLogger(IfaBitmapPacker.class);
 
     private static final String MTI_NAME = "MTI";
     private static final String BITMAP_NAME = "BITMAP";
     private static final String PAN_NAME = "PAN";
 
     @Test
-    public void pack() {
-        IfaBitmapPacker ifaBitmapPacker = IfaBitmapPacker.getInstance(16);
+    public void pack8() {
+        IfaBitmapPacker ifaBitmapPacker = IfaBitmapPacker.getInstance(8);
         BitSet bitSet = new BitSet();
         bitSet.set(2);
         bitSet.set(4);
@@ -40,8 +43,8 @@ public class IfaBitmapPackerTest {
     }
 
     @Test
-    public void unpack() {
-        IfaBitmapPacker ifaBitmapPacker = IfaBitmapPacker.getInstance(16);
+    public void unpack8() {
+        IfaBitmapPacker ifaBitmapPacker = IfaBitmapPacker.getInstance(8);
         MsgValue msgValue = new MsgValue();
         String hex = "35303030303030303030303030303030";
         byte[] bytes = HexService.hex2byte(hex);
@@ -57,9 +60,38 @@ public class IfaBitmapPackerTest {
         assertFalse(bitSet.get(5));
     }
 
-    /**
-     * Used in documentation
-     */
+    @Test
+    public void pack16() {
+        IfaBitmapPacker ifaBitmapPacker = IfaBitmapPacker.getInstance(16);
+        BitSet bitSet = new BitSet();
+        bitSet.set(2);
+        bitSet.set(4);
+        bitSet.set(66);
+        byte[] bytes = ifaBitmapPacker.pack(bitSet);
+        String hex = HexService.bytesToHex(bytes);
+        String expected = "4430303030303030303030303030303034303030303030303030303030303030";
+        assertEquals(expected, hex);
+    }
+
+    @Test
+    public void unpack16() {
+        IfaBitmapPacker ifaBitmapPacker = IfaBitmapPacker.getInstance(16);
+        MsgValue msgValue = new MsgValue();
+        String hex = "4430303030303030303030303030303034303030303030303030303030303030";
+        byte[] bytes = HexService.hex2byte(hex);
+        int unpackedLen = ifaBitmapPacker.unpack(msgValue, bytes, 0);
+        assertEquals(32, unpackedLen);
+        BitSet bitSet = msgValue.getBitSet();
+        assertNotNull(bitSet);
+        assertFalse(bitSet.get(0));
+        assertTrue(bitSet.get(1));
+        assertTrue(bitSet.get(2));
+        assertFalse(bitSet.get(3));
+        assertTrue(bitSet.get(4));
+        assertFalse(bitSet.get(5));
+        assertTrue(bitSet.get(66));
+    }
+
     @Test
     public void builder() {
         // definition
@@ -103,7 +135,7 @@ public class IfaBitmapPackerTest {
 
         // packing
         byte[] bytes = valueHolder.jumpToRoot().pack();
-        String expectedBitmapHex = "34303030303030303030303030303030";
+        String expectedBitmapHex = "4330303030303030303030303030303030303030303030303030303030303030";
         String expectedPanLengthHex = "F0F8";
         char padding = BcdBodyPacker.FILLER_F;
         String expectedHex =
@@ -135,9 +167,9 @@ public class IfaBitmapPackerTest {
 
         Visualizer visualizer = DumpService.getInstance();
         String msgFieldDump = visualizer.dumpMsgField(isoMsgField);
-        logger.info("Root msgField dump: \n{}{}", msgFieldDump, "End of msgField dump.");
+        logger.info("Root msgField dump: \n{}", msgFieldDump);
 
         String msgValueDump = DumpService.getInstance().dumpMsgValue(isoMsgField, msgValue, true);
-        logger.info("Root msgValue dump: \n{}{}", msgValueDump, "End of msgValue dump.");
+        logger.info("Root msgValue dump: \n{}", msgValueDump);
     }
 }

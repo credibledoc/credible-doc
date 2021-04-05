@@ -416,6 +416,10 @@ public class ValueHolder {
     protected int unpackBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
         List<Integer> fieldNums = getFieldNumsFromBitSet(bytes, offset, msgPair);
         for (int nextFieldNum : fieldNums) {
+            if (nextFieldNum == 1 || nextFieldNum == 65) {
+                // these fields are the flags of a secondary and tertiary bitmaps
+                continue;
+            }
             MsgField msgFieldChild = findChildByFieldNum(msgPair.getMsgField(), nextFieldNum);
             MsgValue msgValueChild = navigator.newFromNameAndTag(msgFieldChild);
             List<MsgValue> children = msgPair.getMsgValue().getChildren();
@@ -512,8 +516,13 @@ public class ValueHolder {
         BitSet unpackedBitSet = msgPair.getMsgValue().getBitSet();
         List<Integer> fieldNums = new ArrayList<>();
         int maxFieldNum = getMaxFieldNum(msgPair.getMsgField().getChildren(), msgPair.getMsgField());
-        // first bit in a bitmap is used as flag of additional bitmaps
+        boolean secondaryBitmapMarked = false;
+        boolean tertiaryBitmapMarked = false;
+        // Bits 1 and 65 in a bitmap are used as a flags of a secondary and tertiary bitmaps
         for (int nextFieldNum = 2; nextFieldNum <= maxFieldNum; nextFieldNum++) {
+            if (nextFieldNum == 65) {
+                continue;
+            }
             MsgField childMsgField = navigator.findByFieldNum(msgPair.getMsgField().getChildren(), nextFieldNum);
             if (unpackedBitSet.get(nextFieldNum) && childMsgField == null) {
                 String path = navigator.getPathRecursively(msgPair.getMsgField());
@@ -523,10 +532,40 @@ public class ValueHolder {
                     "on one of the field '" + path + "' children.");
             }
             if (unpackedBitSet.get(nextFieldNum)) {
+                secondaryBitmapMarked = markSecondaryBitmap(fieldNums, secondaryBitmapMarked, nextFieldNum);
+                tertiaryBitmapMarked = markTertiaryBitmap(fieldNums, tertiaryBitmapMarked, nextFieldNum);
                 fieldNums.add(nextFieldNum);
             }
         }
         return fieldNums;
+    }
+
+    private boolean markTertiaryBitmap(List<Integer> fieldNums, boolean tertiaryBitmapMarked, int nextFieldNum) {
+        if (nextFieldNum > 129 && !tertiaryBitmapMarked) {
+            int tertiaryFlagIndex = findTertiaryFlagIndex(fieldNums);
+            fieldNums.add(tertiaryFlagIndex, 65);
+            tertiaryBitmapMarked = true;
+        }
+        return tertiaryBitmapMarked;
+    }
+
+    private boolean markSecondaryBitmap(List<Integer> fieldNums, boolean secondaryBitmapMarked, int nextFieldNum) {
+        if (nextFieldNum > 65 && !secondaryBitmapMarked) {
+            fieldNums.add(0, 1);
+            secondaryBitmapMarked = true;
+        }
+        return secondaryBitmapMarked;
+    }
+
+    private int findTertiaryFlagIndex(List<Integer> fieldNums) {
+        int index = 0;
+        for (int num : fieldNums) {
+            if (num > 64) {
+                return index;
+            }
+            index++;
+        }
+        throw new PackerRuntimeException("FieldNums has no field greater then 64: " + fieldNums);
     }
 
     protected void throwSiblingNotFound(MsgPair paramMsgPair, Object tag) {
@@ -979,18 +1018,27 @@ public class ValueHolder {
             throw new PackerRuntimeException("The value of '" + BitmapPacker.class.getSimpleName() +
                 "' type is mandatory for '" + MsgFieldType.class.getSimpleName() + 
                 "' '" + MsgFieldType.BIT_SET + "' type. " +
-                "Please call the defineBitmapPacker(...) method.");
+                "Please call the defineHeaderBitmapPacker(...) method.");
         }
         BitSet bitSet = new BitSet();
+        int maxFieldNum = 0;
         for (MsgField nextMsgField : msgField.getChildren()) {
-            MsgValue nextMsgValue = navigator.findByFieldNum(msgValue.getChildren(), nextMsgField.getFieldNum());
+            Integer fieldNum = nextMsgField.getFieldNum();
+            MsgValue nextMsgValue = navigator.findByFieldNum(msgValue.getChildren(), fieldNum);
             if (nextMsgValue != null &&
                 (nextMsgValue.getBodyValue() != null ||
                     (nextMsgValue.getChildren() != null && !nextMsgValue.getChildren().isEmpty())
                 )
             ) {
-                bitSet.set(nextMsgField.getFieldNum());
+                maxFieldNum = Math.max(maxFieldNum, fieldNum);
+                bitSet.set(fieldNum);
             }
+        }
+        if (maxFieldNum > 64) {
+            bitSet.set(1);
+        }
+        if (maxFieldNum > 128) {
+            bitSet.set(65);
         }
         msgValue.setBitSet(bitSet);
         byte[] bytes = bitmapPacker.pack(bitSet);

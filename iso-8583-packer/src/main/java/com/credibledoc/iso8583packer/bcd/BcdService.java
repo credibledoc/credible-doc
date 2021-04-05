@@ -7,9 +7,6 @@ import com.credibledoc.iso8583packer.string.StringUtils;
 /**
  * Static service. Converts <a href="https://en.wikipedia.org/wiki/Binary-coded_decimal">BCD</a> data.
  *
- * @author apr@jpos.org
- * @author Hani S. Kirollos
- * @author Alwyn Schoeman
  * @author Kyrylo Semenko
  */
 public class BcdService {
