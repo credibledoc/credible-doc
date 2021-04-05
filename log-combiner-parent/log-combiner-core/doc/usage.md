@@ -1,6 +1,6 @@
 # Usage of the log-combiner-core module
 
-This module is the source for the `log-combiner-core-1.0.29` library.
+This module is the source for the `log-combiner-core-1.0.30` library.
 
 This library can be loaded from the [Maven Central Repository](https://mvnrepository.com/artifact/com.credibledoc/log-combiner-core).
 
@@ -17,7 +17,7 @@ Example of Maven configuration in a `pom.xml` file
             <dependency>
                 <groupId>com.credibledoc</groupId>
                 <artifactId>log-combiner-core</artifactId>
-                <version>1.0.29</version>
+                <version>1.0.30</version>
             </dependency>
         </dependencies>
     
