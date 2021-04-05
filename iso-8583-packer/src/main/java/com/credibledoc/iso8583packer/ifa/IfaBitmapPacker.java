@@ -47,7 +47,7 @@ public class IfaBitmapPacker implements BitmapPacker {
     /**
      * Static factory. Creates and returns singletons stored in the {@link #instances} map.
      * @param bitsetBytesLength number of bytes in {@link BitSet}. For example:
-        <table>
+        <table summary="Primary, secondary and tertiary bitmap examples">
             <tr>
                 <th><b>BitsetBytesLength &nbsp;</b></th>
                 <th><b>Bitset HEX &nbsp;</b></th>
