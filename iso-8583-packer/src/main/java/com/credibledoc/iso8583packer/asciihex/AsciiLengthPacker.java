@@ -28,13 +28,13 @@ public class AsciiLengthPacker implements LengthPacker {
     /**
      * Contains created instances. Each instance is a Singleton.
      */
-    private static Map<Integer, AsciiLengthPacker> instances = new ConcurrentHashMap<>();
+    private static final Map<Integer, AsciiLengthPacker> instances = new ConcurrentHashMap<>();
 
     /**
      * How many bytes the {@link MsgValue#getTagBytes()} (optional) and {@link MsgValue#getBodyBytes()} fields
      * occupy in a packed state.
      */
-    private int numBytes;
+    private final int numBytes;
 
     private AsciiLengthPacker(int numBytes) {
         this.numBytes = numBytes;
@@ -56,7 +56,7 @@ public class AsciiLengthPacker implements LengthPacker {
         if (lenString.length() > numBytes) {
             throw new PackerRuntimeException("Cannot pack bodyBytesLength '" + bodyBytesLength +
                 "' to a byte array with length '" + numBytes +
-                "' bytes because the value required '" + lenString.length() + "' bytes for packing.");
+                "' bytes because the value requires '" + lenString.length() + "' bytes for packing.");
         }
         String formattedLength = StringUtils.leftPad(lenString, numBytes, PAD_CHAR_0);
         byte[] bytes = new byte[numBytes];

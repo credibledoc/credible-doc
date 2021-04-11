@@ -18,7 +18,7 @@ import java.util.Objects;
 public class NavigatorService implements Navigator {
     
     private static final NavigatorService instance = new NavigatorService();
-    
+
     protected Visualizer visualizer;
 
     /**
@@ -63,8 +63,8 @@ public class NavigatorService implements Navigator {
                 visualizer = DumpService.getInstance();
             }
             String root = visualizer.dumpMsgField(rootMsgField);
-            throw new PackerRuntimeException("Field with name '" + getPathRecursively(currentMsgField) +
-                "' has no child with name '" + childName + "'. Current field: " + currentMsgField + "\n" +
+            throw new PackerRuntimeException("The current field '" + getPathRecursively(currentMsgField) +
+                "' has no a child named '" + childName + "'.\n" +
                 "Root MsgField:\n" + root);
         }
         return child;
@@ -162,14 +162,14 @@ public class NavigatorService implements Navigator {
     @Override
     public MsgField findByNameAndTagOrThrowException(MsgField msgField, MsgValue msgValue) {
         MsgField rootMsgField = findRoot(msgField);
-        MsgField result = findInGraphRecurrently(msgValue, rootMsgField);
+        MsgField result = findInGraphRecursively(msgValue, rootMsgField);
         if (result == null) {
             throw new PackerRuntimeException("Cannot find msgField for this field: " + getPathRecursively(msgValue));
         }
         return result;
     }
 
-    protected MsgField findInGraphRecurrently(MsgValue msgValue, MsgField msgField) {
+    protected MsgField findInGraphRecursively(MsgValue msgValue, MsgField msgField) {
         if (isValueBelongsToField(msgValue, msgField)) {
             return msgField;
         }
@@ -177,7 +177,7 @@ public class NavigatorService implements Navigator {
             return null;
         }
         for (MsgField child : msgField.getChildren()) {
-            MsgField nextResult = findInGraphRecurrently(msgValue, child);
+            MsgField nextResult = findInGraphRecursively(msgValue, child);
             if (nextResult != null) {
                 return nextResult;
             }
@@ -253,27 +253,32 @@ public class NavigatorService implements Navigator {
         Object parentTag = msgField.getParent().getTag();
         String name = msgField.getName();
         Object tag = msgField.getTag();
-        return findInGraphRecurrently(parentName, parentTag, name, tag, findRoot(msgValue));
+        return findInGraphRecursively(parentName, parentTag, name, tag, findRoot(msgValue));
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends Msg> T findInGraphRecurrently(String parentName, Object parentTag, String name, Object tag, T msg) {
+    private <T extends Msg> T findInGraphRecursively(String parentName, Object parentTag, String name, Object tag, T msg) {
         for (Msg child : msg.getChildren()) {
             if (Objects.equals(parentName, child.getParent().getName()) &&
                 Objects.equals(parentTag, child.getParent().getTag()) &&
                 Objects.equals(name, child.getName()) &&
-                Objects.equals(tag, child.getName())) {
+                Objects.equals(tag, child.getTag())) {
                 return (T) child;
             }
             if (child.getChildren() != null) {
-                return (T) findInGraphRecurrently(parentName, parentTag, name, tag, child);
+                return (T) findInGraphRecursively(parentName, parentTag, name, tag, child);
             }
         }
-        throw new PackerRuntimeException("Cannot find appropriate MsgValue with " +
-            "parentName '" + parentName + "', " +
-            "parentTag '" + parentTag + "', " +
-            "name '" + name + "', " +
-            "tag '" + tag + "' in the MsgField.");
+        String parentTagString = parentTag == null ? "" : ("parentTag '" + parentTag + "', ");
+        String parentNameString = parentName == null ? "" : ("parentName '" + parentName + "', ");
+        String nameString = name == null ? "" : ("fieldName '" + name + "' ");
+        String tagString = tag == null ? "" : ("tag '" + tag + "' ");
+        String msgClass = msg.getClass().getSimpleName();
+        throw new PackerRuntimeException("Cannot find appropriate '" + msgClass + "' with " +
+            parentNameString +
+            parentTagString +
+            nameString +
+            tagString);
     }
 
     /**

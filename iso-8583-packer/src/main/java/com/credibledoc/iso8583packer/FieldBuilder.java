@@ -303,6 +303,7 @@ public class FieldBuilder {
                 throw new PackerRuntimeException(createMessageSameLengthPacker(parentMsgField, msgField));
             }
             this.msgField.setParent(parentMsgField);
+            this.msgField.setDepth(parentMsgField.getDepth() + 1);
             List<MsgField> msgFields = parentMsgField.getChildren();
             if (msgFields == null) {
                 msgFields = new ArrayList<>();
@@ -445,6 +446,7 @@ public class FieldBuilder {
         MsgField child = new MsgField();
         child.setType(msgFieldType);
         child.setParent(msgField);
+        child.setDepth(msgField.getDepth() + 1);
         List<MsgField> children = msgField.getChildren();
         if (children == null) {
             children = new ArrayList<>();
@@ -472,6 +474,7 @@ public class FieldBuilder {
         }
         parent.getChildren().add(cloned);
         cloned.setParent(parent);
+        cloned.setDepth(parent.getDepth() + 1);
         msgField = cloned;
         return this;
     }
@@ -555,11 +558,13 @@ public class FieldBuilder {
             parent.setType(MsgFieldType.MSG);
             parent.setName("Root");
             msgField.setParent(parent);
+            msgField.setDepth(parent.getDepth() + 1);
             List<MsgField> children = new ArrayList<>();
             children.add(msgField);
             parent.setChildren(children);
         }
         newMsgField.setParent(msgField.getParent());
+        newMsgField.setDepth(msgField.getParent().getDepth() + 1);
         msgField.getParent().getChildren().add(newMsgField);
         msgField = newMsgField;
         return this;

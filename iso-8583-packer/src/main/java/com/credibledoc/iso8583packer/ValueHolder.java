@@ -680,8 +680,12 @@ public class ValueHolder {
             return this;
         } catch (Exception e) {
             MsgField rootMsgField = navigator.findRoot(msgField);
-            throw new PackerRuntimeException("Exception message: " + e.getMessage() + "\nCannot find a child." +
-                ROOT_MSG_FIELD + visualizer.dumpMsgField(rootMsgField), e);
+            if (e instanceof PackerRuntimeException) {
+                throw new PackerRuntimeException("Message: " + e.getMessage(), e);
+            } else {
+                String dump = "\nCannot find a child." + ROOT_MSG_FIELD + visualizer.dumpMsgField(rootMsgField);
+                throw new PackerRuntimeException("Exception message: " + e.getMessage() + dump, e);
+            }
         }
     }
 

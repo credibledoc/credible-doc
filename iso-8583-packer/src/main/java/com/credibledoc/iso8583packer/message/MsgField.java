@@ -129,6 +129,11 @@ public class MsgField implements Msg {
      * Packs and unpacks bytes of the {@link MsgValue#getBitSet()} subfield.
      */
     private BitmapPacker bitMapPacker;
+
+    /**
+     * How far from the root is the field. Root has 0 depth.
+     */
+    private volatile int depth;
     
     public MsgField() {
         this.stringer = StringStringer.getInstance();
@@ -415,5 +420,19 @@ public class MsgField implements Msg {
      */
     public void setBitMapPacker(BitmapPacker bitMapPacker) {
         this.bitMapPacker = bitMapPacker;
+    }
+
+    /**
+     * @return The {@link #depth} field value.
+     */
+    public int getDepth() {
+        return depth;
+    }
+
+    /**
+     * @param depth see the {@link #depth} field description.
+     */
+    public void setDepth(int depth) {
+        this.depth = depth;
     }
 }

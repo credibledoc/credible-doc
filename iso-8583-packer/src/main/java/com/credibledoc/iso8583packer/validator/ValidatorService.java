@@ -38,73 +38,71 @@ public class ValidatorService implements Validator {
             throw new PackerRuntimeException("Field is null");
         }
 
-        String path = navigator.getPathRecursively(msgField);
-
         if (msgField.getType() == null) {
             throw new PackerRuntimeException("Please set the " + MsgFieldType.class.getSimpleName() +
-                " value to the field with path: '" + path + "'");
+                " value to the field with path: '" + navigator.getPathRecursively(msgField) + "'");
         }
-
+        
         if (msgField.getTag() == null && msgField.getName() == null && msgField.getType() != MsgFieldType.VAL) {
             throw new PackerRuntimeException("At least one 'tag' or 'name' should be set to the field " +
-                    "but the both properties are 'null'. Field path: '" + path + "'");
+                    "but the both properties are 'null'. Field path: '" + navigator.getPathRecursively(msgField) + "'");
         }
 
         if (msgField.getBodyPacker() == null && msgField.getChildren() == null &&
                 msgField.getType() != MsgFieldType.BIT_SET && msgField.getType() != MsgFieldType.MSG) {
             throw new PackerRuntimeException("Please call the 'defineBodyPacker(...)' method " +
                     "because the 'BodyPacker' value is mandatory. " +
-                    "Field path: '" + path + "'.");
+                    "Field path: '" + navigator.getPathRecursively(msgField) + "'.");
         }
 
         if (MsgFieldType.isTaggedType(msgField)) {
-            validateTagAndTagPackerExists(msgField, path);
+            validateTagAndTagPackerExists(msgField);
         }
         
         if (msgField.getType() == MsgFieldType.TAG_LEN_VAL || msgField.getType() == MsgFieldType.LEN_TAG_VAL) {
-            validateHeaderOrParentLengthPackerExists(msgField, path);
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
+            validateHeaderOrParentLengthPackerExists(msgField);
+            validateHasNoBitSetAndBitMapPacker(msgField);
         }
         
         if (msgField.getType() == MsgFieldType.TAG_VAL) {
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
+            validateHasNoBitSetAndBitMapPacker(msgField);
         }
         
         if (msgField.getType() == MsgFieldType.LEN_VAL) {
-            validateHeaderOrParentLengthPackerExists(msgField, path);
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
+            validateHeaderOrParentLengthPackerExists(msgField);
+            validateHasNoBitSetAndBitMapPacker(msgField);
         }
         
         if (msgField.getType() == MsgFieldType.VAL) {
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
+            validateHasNoBitSetAndBitMapPacker(msgField);
         }
         
         if (msgField.getType() == MsgFieldType.BIT_SET) {
-            validateBitSetAndBitMapPackerExists(msgField, path);
-            validateChildrenExists(msgField, path);
+            validateBitSetAndBitMapPackerExists(msgField);
+            validateChildrenExists(msgField);
         }
 
-        validateMsgType(msgField, path);
+        validateMsgType(msgField);
 
-        validateFixedLenSubfields(msgField, path);
+        validateFixedLenSubfields(msgField);
         
-        validateFixedLengthType(msgField, path);
+        validateFixedLengthType(msgField);
 
-        validateChildren(msgField, path);
+        validateChildren(msgField);
     }
 
-    private void validateMsgType(MsgField msgField, String path) {
+    private void validateMsgType(MsgField msgField) {
         if (msgField.getType() == MsgFieldType.MSG) {
-            validateHasNoBitSetAndBitMapPacker(msgField, path);
-            validateHasNoLenDefined(msgField, path);
+            validateHasNoBitSetAndBitMapPacker(msgField);
+            validateHasNoLenDefined(msgField);
         }
     }
 
-    private void validateChildren(MsgField msgField, String path) {
+    private void validateChildren(MsgField msgField) {
         List<MsgField> msgFields = msgField.getChildren();
 
         if (msgFields != null) {
-            validateHasNoBodyPacker(msgField, path);
+            validateHasNoBodyPacker(msgField);
         }
 
         if (msgFields != null) {
@@ -113,34 +111,32 @@ public class ValidatorService implements Validator {
                 validateStructureRecursively(nextMsgField);
                 if (i < msgFields.size() - 1) {
                     // all except the last child
-                    validateLenExists(nextMsgField, navigator.getPathRecursively(nextMsgField));
+                    validateLenExists(nextMsgField);
                 }
-            }
-            for (MsgField nextMsgField : msgFields) {
-                validateStructureRecursively(nextMsgField);
             }
         }
     }
 
-    void validateFixedLengthType(MsgField msgField, String path) {
+    void validateFixedLengthType(MsgField msgField) {
         MsgFieldType type = msgField.getType();
         if (msgField.getLen() != null && MsgFieldType.isLengthType(msgField)) {
-            throw new PackerRuntimeException("The current MsgField with type " + type + " and path '" + path +
+            throw new PackerRuntimeException("The current MsgField with type " + type + " and path '" +
+                navigator.getPathRecursively(msgField) +
                 "' cannot have the 'fieldLen'" +
                 " value because the type belongs to the following types: " +
                 Arrays.toString(MsgFieldType.getLengthTypes().toArray()));
         }
     }
 
-    private void validateHasNoBodyPacker(MsgField msgField, String path) {
+    private void validateHasNoBodyPacker(MsgField msgField) {
         if (msgField.getBodyPacker() != null) {
-            throw new PackerRuntimeException("The MsgField with path '" + path +
+            throw new PackerRuntimeException("The MsgField with path '" + navigator.getPathRecursively(msgField) +
                 "' has defined bodyPacker '" + msgField.getBodyPacker().getClass().getSimpleName() +
-                "', but it is redundant because the MsgField contains the children.");
+                "', but it is redundant, because it has children.");
         }
     }
 
-    protected void validateFixedLenSubfields(MsgField msgField, String path) {
+    protected void validateFixedLenSubfields(MsgField msgField) {
         boolean isLenType =
             msgField.getLen() != null &&
             msgField.getChildren() != null &&
@@ -149,9 +145,9 @@ public class ValidatorService implements Validator {
         if (isLenType) {
             int childrenLen = calculateChildrenLen(msgField.getChildren());
             if (msgField.getLen() != childrenLen) {
-                throw new PackerRuntimeException("The msgField 'len' value '" + msgField.getLen() +
-                    "' differs from its children 'len' values sum '" + childrenLen + "'. " +
-                    "MsgField path: '" + path + "'");
+                throw new PackerRuntimeException("The length '" + msgField.getLen() + "' of the field '" +
+                    navigator.getPathRecursively(msgField) +
+                    "' and the sum of the lengths of its children '" + childrenLen + "' not equal");
             }
         }
     }
@@ -173,27 +169,29 @@ public class ValidatorService implements Validator {
         return true;
     }
 
-    protected void validateHasNoLenDefined(MsgField msgField, String path) {
+    protected void validateHasNoLenDefined(MsgField msgField) {
         if (msgField.getLen() != null) {
-            throw new PackerRuntimeException("The 'len' property is not allowed for the MsgField with path '" + path +
+            throw new PackerRuntimeException("The 'len' property is not allowed for the MsgField with path '" +
+                navigator.getPathRecursively(msgField) +
                 "' with the '" + MsgFieldType.class.getSimpleName() + "." + msgField.getType() + "' type " +
                 "because the 'len' property is not used in such field type.");
         }
     }
 
-    protected void validateHasNoBitSetAndBitMapPacker(MsgField msgField, String path) {
+    protected void validateHasNoBitSetAndBitMapPacker(MsgField msgField) {
         if (msgField.getBitMapPacker() != null) {
-            throw new PackerRuntimeException("BitMapPacker is not allowed for MsgField '" + path +
-                    "' with MsgType '" + msgField.getType() + "' because that doesn't make sense.");
+            throw new PackerRuntimeException("BitMapPacker is not allowed for MsgField '" +
+                navigator.getPathRecursively(msgField) +
+                "' with MsgType '" + msgField.getType() + "' because that doesn't make sense.");
         }
     }
 
-    protected void validateTagAndTagPackerExists(MsgField msgField, String path) {
+    protected void validateTagAndTagPackerExists(MsgField msgField) {
         boolean parentTagPackerExists = msgField.getParent() != null && msgField.getParent().getChildrenTagPacker() != null;
         if (parentTagPackerExists && msgField.getTagPacker() != null) {
             String parentPath = navigator.getPathRecursively(msgField.getParent());
             throw new PackerRuntimeException("Only one TagPacker definition is allowed " +
-                "for the MsgField with path '" + path +
+                "for the MsgField with path '" + navigator.getPathRecursively(msgField) +
                 "', but found its parent childrenTagPacker with path '" + parentPath +
                 "'. Please chose only one TagPacker.");
         }
@@ -206,7 +204,7 @@ public class ValidatorService implements Validator {
             String parentPath = navigator.getPathRecursively(msgField.getParent());
             String parentString = parentPath == null ? "" : " or its parent with path '" + parentPath + "'";
             throw new PackerRuntimeException("Please define the '" + TagPacker.class.getSimpleName() +
-                "' value to the MsgField with path '" + path + "'" +
+                "' value to the MsgField with path '" + navigator.getPathRecursively(msgField) + "'" +
                 parentString + ", " +
                 "because it is mandatory for MsgFieldType '" + msgField.getType() + "'. Please call the " +
                 "fieldBuilder.defineChildrenTagPacker(..) method for its parent " +
@@ -214,7 +212,8 @@ public class ValidatorService implements Validator {
         }
 
         if (!tagExists) {
-            throw new PackerRuntimeException("Please define the tag value to the field '" + path +
+            throw new PackerRuntimeException("Please define the tag value to the field '" +
+                navigator.getPathRecursively(msgField) +
                     "', it is mandatory for MsgFieldType '" + msgField.getType() + "'.");
         }
 
@@ -225,7 +224,8 @@ public class ValidatorService implements Validator {
         byte[] packedTag = tagPacker.pack(tag);
         Object unpackedTag = tagPacker.unpack(packedTag, 0);
         if (!Objects.equals(tag, unpackedTag)) {
-            throw new PackerRuntimeException("MsgField with path '" + path + "' contains tag '" + tag + "', " +
+            throw new PackerRuntimeException("MsgField with path '" + navigator.getPathRecursively(msgField) +
+                "' contains tag '" + tag + "', " +
                 "the tag is packed as bytes '" + HexService.bytesToHex(packedTag) + "'. " +
                 "But unpacked value '" + unpackedTag + "' of the tag " +
                 "not equals with the original value '" + tag + "'." +
@@ -234,38 +234,41 @@ public class ValidatorService implements Validator {
         }
     }
 
-    protected void validateBitSetAndBitMapPackerExists(MsgField msgField, String path) {
+    protected void validateBitSetAndBitMapPackerExists(MsgField msgField) {
         if (msgField.getBitMapPacker() == null) {
             throw new PackerRuntimeException("The bitMapPacker value is mandatory for '" + msgField.getType() +
-                    "' field type. Please call the defineHeaderBitmapPacker(...) method. Field path: " + path + ".");
+                    "' field type. Please call the defineHeaderBitmapPacker(...) method. Field path: " +
+                navigator.getPathRecursively(msgField) + ".");
         }
     }
 
-    protected void validateHeaderOrParentLengthPackerExists(MsgField msgField, String path) {
+    protected void validateHeaderOrParentLengthPackerExists(MsgField msgField) {
         boolean parentHasLengthPacker = msgField.getParent() != null && msgField.getParent().getChildrenLengthPacker() != null;
         boolean fieldHasLengthPacker = msgField.getLengthPacker() != null;
         if (!parentHasLengthPacker && !fieldHasLengthPacker) {
             throw new PackerRuntimeException("The '" + LengthPacker.class.getSimpleName() +
-                    "' value is mandatory for the field '" + path +
+                    "' value is mandatory for the field '" + navigator.getPathRecursively(msgField) +
                     "' or its parent because it has the '" + msgField.getType() +
                     "' type. Please call the defineHeaderLengthPacker() method on the field " +
                     "or defineChildrenLengthPacker() method on the field parent.");
         }
     }
 
-    protected void validateLenExists(MsgField msgField, String path) {
+    protected void validateLenExists(MsgField msgField) {
         if (msgField.getLen() == null &&
             (msgField.getType() == MsgFieldType.VAL || msgField.getType() == MsgFieldType.TAG_VAL)) {
-            
+
+            String path = navigator.getPathRecursively(msgField);            
+                
             throw new PackerRuntimeException("The field with path '" + path +
                 "' has '" + msgField.getType() +
-                "' type, so please define its length by calling the defineLen() method.");
+                "' type, so please define its length by calling the defineLen() method or change its type.");
         }
     }
 
-    protected void validateChildrenExists(MsgField msgField, String path) {
+    protected void validateChildrenExists(MsgField msgField) {
         if (msgField.getChildren() == null || msgField.getChildren().isEmpty()) {
-            throw new PackerRuntimeException("The field '" + path +
+            throw new PackerRuntimeException("The field '" + navigator.getPathRecursively(msgField) +
                     "' has no children but has the '" + msgField.getType() +
                     "' type. Please define at least one child with the .createChild(...) method.");
         }

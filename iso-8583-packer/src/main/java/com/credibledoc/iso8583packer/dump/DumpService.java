@@ -31,12 +31,25 @@ import java.util.Objects;
 public class DumpService implements Visualizer {
     private static final Logger logger = LoggerFactory.getLogger(DumpService.class);
     public static final String FOR_SPACES = "    ";
-    private static final String VAL_ATTRIBUTE_PREFIX = " val=\"";
-    private static final String VAL_HEX_ATTRIBUTE_PREFIX = " valHex=\"";
+    protected static final String VAL_ATTRIBUTE_PREFIX = " val=\"";
+    protected static final String VAL_HEX_ATTRIBUTE_PREFIX = " valHex=\"";
+
+    protected static final int DEFAULT_MAX_DEPTH_FOR_LOGGING = 10;
 
     protected static final DumpService instance = new DumpService();
-    
+
+    /**
+     * The value of {@link #DEFAULT_MAX_DEPTH_FOR_LOGGING} can be replaced
+     * in the {@link #setMaxDepthForLogging(int)} method.
+     */
+    protected static final String TRUNCATED = "... truncated ...";
+
     protected Navigator navigator;
+
+    /**
+     * For a huge graphs it is necessary to limit the logging.
+     */
+    protected int maxDepthForLogging = DEFAULT_MAX_DEPTH_FOR_LOGGING;
     
     static {
         instance.createDefaultServices();
@@ -75,7 +88,7 @@ public class DumpService implements Visualizer {
         } catch (Exception e) {
             String message = "Error in dump method.";
             logger.error(message, e);
-            // Do nothing, it is logging only.
+            // Do nothing, it's just logging.
             return message;
         }
     }
@@ -91,8 +104,8 @@ public class DumpService implements Visualizer {
         } catch (Exception e) {
             String message = "Error in dump method.";
             logger.error(message, e);
-            // Do nothing, it is logging only.
-            return message;
+            // Do nothing, it's just logging.
+            return message + " Error message: " + e.getMessage();
         }
     }
 
@@ -135,11 +148,15 @@ public class DumpService implements Visualizer {
                 maxLenString + lenString + childTagPackerString + tagPackerString);
         
         if (msgField.getChildren() != null) {
-            printStream.println(">");
-            for (MsgField child : msgField.getChildren()) {
-                dumpMsgField(child, printStream, indent + indentForChildren, indentForChildren);
+            if (msgField.getDepth() < getMaxDepthForLogging()) {
+                printStream.println(">");
+                for (MsgField child : msgField.getChildren()) {
+                    dumpMsgField(child, printStream, indent + indentForChildren, indentForChildren);
+                }
+                printStream.println(indent + "</f>");
+            } else {
+                printStream.println(System.lineSeparator() + indent + TRUNCATED);
             }
-            printStream.println(indent + "</f>");
         } else {
             printStream.println("/>");
         }
@@ -353,9 +370,13 @@ public class DumpService implements Visualizer {
         if (msgValue.getChildren() != null) {
             printStream.println(">");
             List<MsgField> list = msgField.getChildren();
-            for (MsgValue childMsgValue : msgValue.getChildren()) {
-                MsgField childMsgField = navigator.findByName(list, childMsgValue.getName());
-                dumpMsgValue(childMsgField, childMsgValue, printStream, indent + indentForChildren, indentForChildren, maskPrivateData);
+            if (msgField.getDepth() < getMaxDepthForLogging()) {
+                for (MsgValue childMsgValue : msgValue.getChildren()) {
+                    MsgField childMsgField = navigator.findByName(list, childMsgValue.getName());
+                    dumpMsgValue(childMsgField, childMsgValue, printStream, indent + indentForChildren, indentForChildren, maskPrivateData);
+                }
+            } else {
+                printStream.println(indent + TRUNCATED);
             }
             printStream.println(indent + "</f>");
         } else {
@@ -366,5 +387,19 @@ public class DumpService implements Visualizer {
     @Override
     public void setNavigator(Navigator navigator) {
         this.navigator = navigator;
+    }
+
+    /**
+     * @param maxDepthForLogging see the {@link #maxDepthForLogging} field description.
+     */
+    public void setMaxDepthForLogging(int maxDepthForLogging) {
+        this.maxDepthForLogging = maxDepthForLogging;
+    }
+
+    /**
+     * @return The {@link #maxDepthForLogging} field value.
+     */
+    public int getMaxDepthForLogging() {
+        return maxDepthForLogging;
     }
 }
