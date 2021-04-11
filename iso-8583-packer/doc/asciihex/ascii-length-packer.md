@@ -39,19 +39,19 @@ Some examples of packed values
 Examples of integers packed with AsciiLengthPacker class
 numBytes: 1
 numBytes '1', integer '1' packed as bytes 31
-numBytes '1', integer '12' cannot be packed, exception: Cannot pack bodyBytesLength '12' to a byte array with length '1' bytes because the value required '2' bytes for packing.
-numBytes '1', integer '123' cannot be packed, exception: Cannot pack bodyBytesLength '123' to a byte array with length '1' bytes because the value required '3' bytes for packing.
-numBytes '1', integer '1234' cannot be packed, exception: Cannot pack bodyBytesLength '1234' to a byte array with length '1' bytes because the value required '4' bytes for packing.
+numBytes '1', integer '12' cannot be packed, exception: Cannot pack bodyBytesLength '12' to a byte array with length '1' bytes because the value requires '2' bytes for packing.
+numBytes '1', integer '123' cannot be packed, exception: Cannot pack bodyBytesLength '123' to a byte array with length '1' bytes because the value requires '3' bytes for packing.
+numBytes '1', integer '1234' cannot be packed, exception: Cannot pack bodyBytesLength '1234' to a byte array with length '1' bytes because the value requires '4' bytes for packing.
 numBytes: 2
 numBytes '2', integer '1' packed as bytes 3031
 numBytes '2', integer '12' packed as bytes 3132
-numBytes '2', integer '123' cannot be packed, exception: Cannot pack bodyBytesLength '123' to a byte array with length '2' bytes because the value required '3' bytes for packing.
-numBytes '2', integer '1234' cannot be packed, exception: Cannot pack bodyBytesLength '1234' to a byte array with length '2' bytes because the value required '4' bytes for packing.
+numBytes '2', integer '123' cannot be packed, exception: Cannot pack bodyBytesLength '123' to a byte array with length '2' bytes because the value requires '3' bytes for packing.
+numBytes '2', integer '1234' cannot be packed, exception: Cannot pack bodyBytesLength '1234' to a byte array with length '2' bytes because the value requires '4' bytes for packing.
 numBytes: 3
 numBytes '3', integer '1' packed as bytes 303031
 numBytes '3', integer '12' packed as bytes 303132
 numBytes '3', integer '123' packed as bytes 313233
-numBytes '3', integer '1234' cannot be packed, exception: Cannot pack bodyBytesLength '1234' to a byte array with length '3' bytes because the value required '4' bytes for packing.
+numBytes '3', integer '1234' cannot be packed, exception: Cannot pack bodyBytesLength '1234' to a byte array with length '3' bytes because the value requires '4' bytes for packing.
 ```
 
 More examples see [complex-example.md](../complex-example.md).
