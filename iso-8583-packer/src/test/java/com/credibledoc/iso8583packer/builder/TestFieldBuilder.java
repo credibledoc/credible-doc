@@ -17,6 +17,7 @@ public class TestFieldBuilder extends FieldBuilder {
         TestFieldBuilder testFieldBuilder = new TestFieldBuilder();
         testFieldBuilder.msgField = new MsgField();
         testFieldBuilder.msgField.setType(msgFieldType);
+        testFieldBuilder.msgField.setRoot(testFieldBuilder.msgField); // root references to itself
 
         // Technical domain
         testFieldBuilder.createDefaultServices();

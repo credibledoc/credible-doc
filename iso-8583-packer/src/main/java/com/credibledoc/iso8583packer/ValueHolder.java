@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -139,17 +140,22 @@ public class ValueHolder {
     }
 
     /**
-     * Set the instances of {@link MsgValue} and {@link MsgField} from the root definition of the {@link MsgField}.
+     * Create a new {@link MsgValue} instance.
      *
-     * @param definition existing definition created with {@link FieldBuilder}. Its root node will be used as the main node.
-     * @return A new instance of the {@link ValueHolder} with {@link #msgValue} and the root {@link #msgField} in its context.
+     * @param definition an existing definition.
+     * @param fromRoot if 'true', the root {@link MsgField} will be used as a definition.
+     * @return A new instance of the {@link ValueHolder} with {@link #msgValue} and the {@link #msgField} in its context.
      */
     protected ValueHolder setValueAndField(MsgField definition, boolean fromRoot) {
         if (fromRoot) {
             definition = navigator.findRoot(definition);
         }
-        this.msgField = definition;
-        this.msgValue = navigator.newFromNameAndTag(definition);
+        msgField = definition;
+        msgValue = navigator.newFromNameAndTag(definition);
+        msgValue.setRoot(msgValue); // root field references to itself
+        if (msgValue.getParent() != null) {
+            msgValue.getParent().getChildNamesMap().put(msgValue.getName(), msgValue);
+        }
         return this;
     }
 
@@ -173,7 +179,7 @@ public class ValueHolder {
     }
 
     /**
-     * Set the arguments to the current instance of {@link ValueHolder}.
+     * Set the arguments to the current instance of the {@link ValueHolder}.
      *
      * @param msgValue will be set to the {@link ValueHolder#msgValue}.
      * @param msgField will be set to the {@link ValueHolder#msgField}.
@@ -185,6 +191,9 @@ public class ValueHolder {
             this.msgField = msgField;
             if (this.msgValue.getName() == null) {
                 this.msgValue.setName(msgField.getName());
+            }
+            if (this.msgValue.getRoot() == null) {
+                this.msgValue.setRoot(this.msgValue);
             }
             return this;
         } catch (Exception e) {
@@ -214,14 +223,17 @@ public class ValueHolder {
      * @return The unpacked {@link MsgValue}.
      */
     protected MsgValue unpackMsgField(byte[] bytes, int offset) {
-        MsgValue newMsgValue = navigator.newFromNameAndTag(msgField);
+        MsgValue newMsgValue = msgValue;
         try {
             Offset offsetObject = new Offset();
             offsetObject.setValue(offset);
             MsgPair msgPair = new MsgPair(msgField, newMsgValue);
             unpackFieldRecursively(bytes, offsetObject, msgPair);
-            msgValue = msgPair.getMsgValue();
+            msgValue = newMsgValue;
             msgField = msgPair.getMsgField();
+            if (newMsgValue.getParent() != null) {
+                newMsgValue.getParent().getChildNamesMap().put(newMsgValue.getName(), newMsgValue);
+            }
             return newMsgValue;
         } catch (Exception e) {
             String dump = PARTIAL_DUMP + visualizer.dumpMsgValue(msgField, newMsgValue, true) +
@@ -383,6 +395,8 @@ public class ValueHolder {
             MsgValue msgValueChild = navigator.newFromNameAndTag(msgFieldFirstChild);
             msgPair.getMsgValue().getChildren().add(msgValueChild);
             msgValueChild.setParent(msgPair.getMsgValue());
+            msgValueChild.setRoot(msgValueChild.getParent().getRoot());
+            msgValueChild.getParent().getChildNamesMap().put(msgValueChild.getName(), msgValueChild);
             MsgPair msgPairChild = new MsgPair(msgFieldFirstChild, msgValueChild);
             unpackFieldRecursively(bytes, offset, msgPairChild);
         }
@@ -429,6 +443,8 @@ public class ValueHolder {
             }
             children.add(msgValueChild);
             msgValueChild.setParent(msgPair.getMsgValue());
+            msgValueChild.setRoot(msgPair.getMsgValue().getRoot());
+            msgPair.getMsgValue().getChildNamesMap().put(msgValueChild.getName(), msgValueChild);
             MsgPair msgPairChild = new MsgPair(msgFieldChild, msgValueChild);
             unpackFieldRecursively(bytes, offset, msgPairChild);
         }
@@ -474,6 +490,8 @@ public class ValueHolder {
             parentMsgValue.getChildren().remove(oldMsgValue);
             parentMsgValue.getChildren().add(newMsgValue);
             newMsgValue.setParent(parentMsgValue);
+            newMsgValue.setRoot(parentMsgValue.getRoot());
+            parentMsgValue.getChildNamesMap().put(newMsgValue.getName(), newMsgValue);
         }
         result.setMsgValue(newMsgValue);
         newMsgValue.setBitSet(oldMsgValue.getBitSet());
@@ -664,16 +682,9 @@ public class ValueHolder {
     public ValueHolder jumpToChild(String childName) {
         try {
             MsgField msgFieldChild = navigator.getChildOrThrowException(childName, msgField);
-            MsgValue msgValueChild = navigator.findByName(msgValue.getChildren(), childName);
+            MsgValue msgValueChild = msgValue.getChildNamesMap().get(childName);
             if (msgValueChild == null) {
-                msgValueChild = navigator.newFromNameAndTag(msgFieldChild);
-                msgValueChild.setParent(msgValue);
-                if (msgValue.getChildren() == null) {
-                    msgValue.setChildren(new ArrayList<>());
-                }
-                int index = msgFieldChild.getParent().getChildren().indexOf(msgFieldChild);
-                int min = Math.min(index, msgValue.getChildren().size());
-                msgValue.getChildren().add(min, msgValueChild);
+                msgValueChild = createChildren(childName, msgField.getChildren(), msgValue.getChildNamesMap());
             }
             this.msgValue = msgValueChild;
             this.msgField = msgFieldChild;
@@ -687,6 +698,30 @@ public class ValueHolder {
                 throw new PackerRuntimeException("Exception message: " + e.getMessage() + dump, e);
             }
         }
+    }
+
+    private MsgValue createChildren(String childName, List<MsgField> msgFieldChildren,
+                                    Map<String, MsgValue> childNamesMap) {
+        MsgValue msgValueChild = null;
+        for (MsgField nextMsgField : msgFieldChildren) {
+            if (!childNamesMap.containsKey(nextMsgField.getName())) {
+                MsgValue newMsgValue = navigator.newFromNameAndTag(nextMsgField);
+                newMsgValue.setParent(msgValue);
+                newMsgValue.setRoot(msgValue.getRoot());
+                msgValue.getChildNamesMap().put(newMsgValue.getName(), newMsgValue);
+                if (nextMsgField.getName().equals(childName)) {
+                    msgValueChild = newMsgValue;
+                }
+                if (msgValue.getChildren() == null) {
+                    msgValue.setChildren(new ArrayList<>());
+                }
+                msgValue.getChildren().add(newMsgValue);
+            }
+        }
+        if (msgValueChild == null) {
+            throw new PackerRuntimeException("Cannot create MsgValue with name " + childName);
+        }
+        return msgValueChild;
     }
 
     /**
@@ -878,14 +913,7 @@ public class ValueHolder {
         try {
             MsgField msgFieldSibling = navigator.getSiblingOrThrowException(siblingName, msgField);
             MsgValue parentMsgValue = msgValue.getParent();
-            MsgValue siblingMsgValue = navigator.findByName(parentMsgValue.getChildren(), siblingName);
-            if (siblingMsgValue == null) {
-                siblingMsgValue = navigator.newFromNameAndTag(msgFieldSibling);
-                siblingMsgValue.setParent(msgValue.getParent());
-                msgValue.getParent().getChildren().add(siblingMsgValue);
-                sortFieldChildren(msgValue.getParent(), msgField.getParent());
-            }
-            msgValue = siblingMsgValue;
+            msgValue = parentMsgValue.getChildNamesMap().get(siblingName);
             msgField = msgFieldSibling;
             return this;
         } catch (Exception e) {
@@ -896,29 +924,6 @@ public class ValueHolder {
                 "\nMsgValue:\n" + visualizer.dumpMsgValue(rootMsgField, rootMsgValue, true) +
                 MSG_FIELD + visualizer.dumpMsgField(rootMsgField) + "\n", e);
         }
-    }
-
-    /**
-     * @param msgValue to be sorted
-     * @param msgField how to sort
-     */
-    protected void sortFieldChildren(MsgValue msgValue, MsgField msgField) {
-        List<MsgValue> msgValueChildren = msgValue.getChildren();
-        List<MsgField> msgFieldChildren = msgField.getChildren();
-        List<MsgValue> result = new ArrayList<>(msgValueChildren.size());
-        for (MsgField def : msgFieldChildren) {
-            String name = def.getName();
-            MsgValue msgFieldChild = remove(name, msgValueChildren);
-            while (msgFieldChild != null) {
-                result.add(msgFieldChild);
-                msgFieldChild = remove(name, msgValueChildren);
-            }
-            if (msgValueChildren.isEmpty()) {
-                msgValue.setChildren(result);
-                return;
-            }
-        }
-        throw new PackerRuntimeException("Cannot find fields in MsgValue. Fields: " + msgValueChildren + "");
     }
 
     protected MsgValue remove(String name, List<MsgValue> msgValueChildren) {
@@ -952,8 +957,11 @@ public class ValueHolder {
      * @return The current instance with {@link #msgValue} and {@link #msgField} in its context.
      */
     public ValueHolder setChildren(List<MsgValue> subfields) {
+        msgValue.getChildNamesMap().clear();
         for (MsgValue child : subfields) {
             child.setParent(msgValue);
+            msgValue.getChildNamesMap().put(child.getName(), child);
+            child.setRoot(msgValue.getRoot());
         }
         msgValue.setChildren(subfields);
         return this;
@@ -965,8 +973,8 @@ public class ValueHolder {
      * {@link #msgField} in its context.
      */
     public ValueHolder jumpToRoot() {
-        msgValue = navigator.findRoot(msgValue);
-        msgField = navigator.findByNameAndTagOrThrowException(msgField, msgValue);
+        msgValue = msgValue.getRoot();
+        msgField = msgField.getRoot();
         return this;
     }
 
@@ -1155,7 +1163,9 @@ public class ValueHolder {
     public ValueHolder cloneSibling() {
         MsgValue clone = navigator.newFromNameAndTag(msgField);
         clone.setParent(msgValue.getParent());
+        clone.setRoot(msgValue.getParent().getRoot());
         msgValue.getParent().getChildren().add(clone);
+        clone.getParent().getChildNamesMap().put(clone.getName(), clone);
         msgValue = clone;
         return this;
     }

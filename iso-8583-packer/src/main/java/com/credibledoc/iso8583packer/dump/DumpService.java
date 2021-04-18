@@ -30,7 +30,7 @@ import java.util.Objects;
  */
 public class DumpService implements Visualizer {
     private static final Logger logger = LoggerFactory.getLogger(DumpService.class);
-    public static final String FOR_SPACES = "    ";
+    public static final String FOUR_SPACES = "    ";
     protected static final String VAL_ATTRIBUTE_PREFIX = " val=\"";
     protected static final String VAL_HEX_ATTRIBUTE_PREFIX = " valHex=\"";
 
@@ -213,7 +213,7 @@ public class DumpService implements Visualizer {
             indent = "";
         }
         if (StringUtils.isEmpty(indentForChildren)) {
-            indentForChildren = FOR_SPACES;
+            indentForChildren = FOUR_SPACES;
         }
 
         if (maskPrivateData && msgField == null) {
@@ -373,7 +373,11 @@ public class DumpService implements Visualizer {
             if (msgField.getDepth() < getMaxDepthForLogging()) {
                 for (MsgValue childMsgValue : msgValue.getChildren()) {
                     MsgField childMsgField = navigator.findByName(list, childMsgValue.getName());
-                    dumpMsgValue(childMsgField, childMsgValue, printStream, indent + indentForChildren, indentForChildren, maskPrivateData);
+                    if (hasChildren(childMsgValue) || childMsgValue.getBodyValue() != null ||
+                        childMsgValue.getBodyBytes() != null || childMsgValue.getBitSet() != null) {
+                        
+                        dumpMsgValue(childMsgField, childMsgValue, printStream, indent + indentForChildren, indentForChildren, maskPrivateData);
+                    }
                 }
             } else {
                 printStream.println(indent + TRUNCATED);
@@ -382,6 +386,10 @@ public class DumpService implements Visualizer {
         } else {
             printStream.println("/>");
         }
+    }
+
+    private boolean hasChildren(MsgValue childMsgValue) {
+        return childMsgValue.getChildren() != null && !childMsgValue.getChildren().isEmpty();
     }
 
     @Override

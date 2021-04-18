@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The service contains methods for navigation (jumping) inside the {@link MsgField}s graph.
+ * The service contains methods for navigation (jumping) in the {@link MsgField}s graph.
  * 
  * @author Kyrylo Semenko
  */
@@ -126,10 +126,7 @@ public class NavigatorService implements Navigator {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Msg> T findRoot(T msg) {
-        if (msg.getParent() == null) {
-            return msg;
-        }
-        return (T)findRoot(msg.getParent());
+        return (T)msg.getRoot();
     }
 
     @Override

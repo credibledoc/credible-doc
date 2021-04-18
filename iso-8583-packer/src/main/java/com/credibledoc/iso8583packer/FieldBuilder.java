@@ -57,6 +57,16 @@ public class FieldBuilder {
     protected Visualizer visualizer;
 
     /**
+     * If 'true' and fieldNums are defined, the fields will be sorted in their parent
+     * by the {@link MsgField#getFieldNum()} natural order.
+     * <p>
+     * Else the fields will be sorted in the order of their insertion in the list.
+     * <p>
+     * Default value is 'true'.
+     */
+    protected boolean sortByFieldNum = true;
+
+    /**
      * Create a new {@link FieldBuilder} with a new empty {@link #msgField}.
      * 
      * Example of the root field creation.
@@ -75,17 +85,30 @@ public class FieldBuilder {
      *         .defineParent(isoMsgField)
      *         .getCurrentField();
      * </pre>
-     * @param msgFieldType mandatory type
+     * @param msgFieldType mandatory type, see the {@link MsgFieldType} description
      * @return The new instance of the {@link FieldBuilder}.
      */
     public static FieldBuilder builder(MsgFieldType msgFieldType) {
         FieldBuilder fieldBuilder = new FieldBuilder();
         fieldBuilder.msgField = new MsgField();
+        fieldBuilder.msgField.setRoot(fieldBuilder.msgField); // root references to itself
         fieldBuilder.msgField.setType(msgFieldType);
         
         // Technical domain
         fieldBuilder.createDefaultServices();
         
+        return fieldBuilder;
+    }
+
+    /**
+     * Call the {@link #builder(MsgFieldType)} method and set the {@link #sortByFieldNum} flag.
+     * @param msgFieldType see the {@link #builder(MsgFieldType)} method description
+     * @param sortByFieldNum see the {@link #sortByFieldNum} description
+     * @return A new instance of the {@link FieldBuilder}.
+     */
+    public static FieldBuilder builder(MsgFieldType msgFieldType, boolean sortByFieldNum) {
+        FieldBuilder fieldBuilder = builder(msgFieldType);
+        fieldBuilder.setSortByFieldNum(sortByFieldNum);
         return fieldBuilder;
     }
 
@@ -121,6 +144,18 @@ public class FieldBuilder {
     }
 
     /**
+     * Call the {@link #clone(MsgField)} method and set the {@link #sortByFieldNum} value.
+     * @param example see the {@link #clone(MsgField)} method description
+     * @param sortByFieldNum see the {@link #sortByFieldNum} field description
+     * @return this instance of {@link FieldBuilder}.
+     */
+    public static FieldBuilder clone(MsgField example, boolean sortByFieldNum) {
+        FieldBuilder fieldBuilder = clone(example);
+        fieldBuilder.setSortByFieldNum(sortByFieldNum);
+        return fieldBuilder;
+    }
+
+    /**
      * Copy the field from the argument and create a new {@link FieldBuilder} instance with the new field in its 
      * context.
      * <p>
@@ -134,6 +169,7 @@ public class FieldBuilder {
      */
     protected MsgField cloneField(MsgField example) {
         MsgField newMsgField = new MsgField();
+        newMsgField.setRoot(example.getRoot());
         newMsgField.setType(example.getType());
         newMsgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
         newMsgField.setBodyPacker(example.getBodyPacker());
@@ -186,16 +222,28 @@ public class FieldBuilder {
     /**
      * Get the field from the argument and instantiate a new {@link FieldBuilder} with this field in its context.
      *
-     * @param msgField will be {@link FieldBuilder#msgField} value.
-     * @return Created {@link FieldBuilder}.
+     * @param msgField will be set to the {@link FieldBuilder#msgField} field.
+     * @return Created instance of the {@link FieldBuilder}.
      */
     public static FieldBuilder from(MsgField msgField) {
         FieldBuilder fieldBuilder = new FieldBuilder();
         fieldBuilder.msgField = msgField;
 
-        // Technical domain
         fieldBuilder.createDefaultServices();
         
+        return fieldBuilder;
+    }
+
+    /**
+     * Call the {@link #from(MsgField)} method and set the {@link #sortByFieldNum} value.
+     *
+     * @param msgField see the {@link #from(MsgField)} method description.
+     * @param sortByFieldNum see the {@link #sortByFieldNum} field description.
+     * @return Created instance of the {@link FieldBuilder}.
+     */
+    public static FieldBuilder from(MsgField msgField, boolean sortByFieldNum) {
+        FieldBuilder fieldBuilder = from(msgField);
+        fieldBuilder.setSortByFieldNum(sortByFieldNum);
         return fieldBuilder;
     }
 
@@ -215,11 +263,13 @@ public class FieldBuilder {
                 "Incorrect MsgField path: '" + path + "'." + fieldDump);
         }
         this.msgField.setFieldNum(fieldNum);
-        MsgField parent = this.msgField.getParent();
-        if (parent != null) {
-            parent.getChildren().sort(
-                Comparator.comparing(MsgField::getFieldNum, Comparator.nullsLast(Comparator.naturalOrder()))
-            );
+        if (isSortByFieldNum()) {
+            MsgField parent = this.msgField.getParent();
+            if (parent != null) {
+                parent.getChildren().sort(
+                    Comparator.comparing(MsgField::getFieldNum, Comparator.nullsLast(Comparator.naturalOrder()))
+                );
+            }
         }
         return this;
     }
@@ -304,6 +354,7 @@ public class FieldBuilder {
             }
             this.msgField.setParent(parentMsgField);
             this.msgField.setDepth(parentMsgField.getDepth() + 1);
+            this.msgField.setRoot(parentMsgField.getRoot());
             List<MsgField> msgFields = parentMsgField.getChildren();
             if (msgFields == null) {
                 msgFields = new ArrayList<>();
@@ -444,6 +495,7 @@ public class FieldBuilder {
      */
     public FieldBuilder createChild(MsgFieldType msgFieldType) {
         MsgField child = new MsgField();
+        child.setRoot(msgField.getRoot());
         child.setType(msgFieldType);
         child.setParent(msgField);
         child.setDepth(msgField.getDepth() + 1);
@@ -539,6 +591,7 @@ public class FieldBuilder {
     public FieldBuilder createSibling(MsgFieldType msgFieldType) {
         MsgField newMsgField = new MsgField();
         newMsgField.setType(msgFieldType);
+        newMsgField.setRoot(msgField.getRoot());
         return createParentIfNotExists(newMsgField);
     }
 
@@ -549,12 +602,14 @@ public class FieldBuilder {
     public FieldBuilder createSibling() {
         MsgField newMsgField = new MsgField();
         newMsgField.setType(msgField.getType());
+        newMsgField.setRoot(msgField.getRoot());
         return createParentIfNotExists(newMsgField);
     }
 
     protected FieldBuilder createParentIfNotExists(MsgField newMsgField) {
         if (msgField.getParent() == null) {
             MsgField parent = new MsgField();
+            parent.setRoot(parent);
             parent.setType(MsgFieldType.MSG);
             parent.setName("Root");
             msgField.setParent(parent);
@@ -565,8 +620,9 @@ public class FieldBuilder {
         }
         newMsgField.setParent(msgField.getParent());
         newMsgField.setDepth(msgField.getParent().getDepth() + 1);
-        msgField.getParent().getChildren().add(newMsgField);
         msgField = newMsgField;
+        msgField.getParent().getChildren().add(newMsgField);
+        msgField.setRoot(msgField.getParent().getRoot());
         return this;
     }
 
@@ -582,5 +638,19 @@ public class FieldBuilder {
      */
     public void setMsgField(MsgField msgField) {
         this.msgField = msgField;
+    }
+
+    /**
+     * @return The {@link #sortByFieldNum} field value.
+     */
+    public boolean isSortByFieldNum() {
+        return sortByFieldNum;
+    }
+
+    /**
+     * @param sortByFieldNum see the {@link #sortByFieldNum} field description.
+     */
+    public void setSortByFieldNum(boolean sortByFieldNum) {
+        this.sortByFieldNum = sortByFieldNum;
     }
 }

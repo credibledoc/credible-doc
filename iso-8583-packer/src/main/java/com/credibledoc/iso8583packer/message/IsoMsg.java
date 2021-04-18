@@ -35,6 +35,9 @@ public class IsoMsg {
      * @param msgField used as the first parameter for the above method
      */
     public void setPackager(MsgField msgField) {
+        if (msgField.getRoot() == null) {
+            msgField.setRoot(msgField);
+        }
         valueHolder = ValueHolder.newInstance(msgField, true);
     }
 

@@ -45,4 +45,10 @@ public interface Msg {
      * @return The {@link MsgField#getChildren()} or {@link MsgValue#getChildren()} field value.
      */
     List<? extends Msg> getChildren(); // NOSONAR, because this method will not be used by this module clients.
+
+    /**
+     * The root field doesn't have a parent, the remaining fields have parents.
+     * @return The root node of the object graph. The root node has the reference to itself.
+     */
+    Msg getRoot();
 }

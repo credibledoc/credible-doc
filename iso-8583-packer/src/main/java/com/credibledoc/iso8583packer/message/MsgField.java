@@ -134,6 +134,11 @@ public class MsgField implements Msg {
      * How far from the root is the field. Root has 0 depth.
      */
     private volatile int depth;
+
+    /**
+     * See the {@link Msg#getRoot()} method description.
+     */
+    private MsgField root;
     
     public MsgField() {
         this.stringer = StringStringer.getInstance();
@@ -434,5 +439,20 @@ public class MsgField implements Msg {
      */
     public void setDepth(int depth) {
         this.depth = depth;
+    }
+
+    /**
+     * @return The {@link #root} field value.
+     */
+    @Override
+    public MsgField getRoot() {
+        return root;
+    }
+
+    /**
+     * @param root see the {@link #root} field description.
+     */
+    public void setRoot(MsgField root) {
+        this.root = root;
     }
 }

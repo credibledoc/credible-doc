@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Defines the type of the current {@link MsgField}, for example {@link #TAG_LEN_VAL}, {@link #LEN_TAG_VAL} and so on.
  * <p>
- * The type is used for decision how to pack and unpack a {@link MsgValue} corresponds to the {@link MsgField}.
+ * The type is used for decision how to pack and unpack a {@link MsgValue}, that corresponds to the {@link MsgField}.
  *
  * @author Kyrylo Semenko
  */

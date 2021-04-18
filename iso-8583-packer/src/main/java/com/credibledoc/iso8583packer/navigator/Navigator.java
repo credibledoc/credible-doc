@@ -9,6 +9,11 @@ import com.credibledoc.iso8583packer.tag.TagPacker;
 
 import java.util.List;
 
+/**
+ * This interface contains methods for navigation (jumping) in the {@link MsgField}s graph.
+ *
+ * @author Kyrylo Semenko
+ */
 public interface Navigator {
     /**
      * Find <b>first</b> {@link Msg} with the name.
@@ -31,7 +36,7 @@ public interface Navigator {
     /**
      * Generate field name, for example 11 or 48(FFEE2E) or just 5F2A.
      * @param current focused node in the object graph
-     * @return 'null' if name nor num has been set.
+     * @return 'null' if name nor fieldNum is set.
      */
     String generatePath(Msg current);
 

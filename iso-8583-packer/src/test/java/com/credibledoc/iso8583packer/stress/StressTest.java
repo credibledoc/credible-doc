@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNull;
 public class StressTest {
     private static final Logger logger = LoggerFactory.getLogger(StressTest.class);
     private static final int NUM_CHILDREN = 30;
-    private static final int NUM_SIBLINGS = 5;
+    private static final int NUM_SIBLINGS = 3;
 
     /**
      * The message structure.
@@ -61,6 +61,12 @@ public class StressTest {
     
     @Test
     public void packUnpackTest() {
+        for (int i = 0; i < 1; i++) {
+            packUnpack();
+        }
+    }
+
+    private void packUnpack() {
         FieldBuilder fieldBuilder = defineMessageStructure();
         ValueHolder valueHolder = ValueHolder.newInstance(fieldBuilder.getCurrentField(), true);
 
@@ -103,25 +109,25 @@ public class StressTest {
         byte[] bytes = valueHolder.pack();
         long durationOfPacking = System.currentTimeMillis() - startPacking;
         logger.info("Duration of packing: {}", durationOfPacking);
-        
-        if (durationOfPacking > 5) { // for debugging purposes in case of a high load
+
+        if (durationOfPacking > 100) { // for debugging purposes in case of a high load
             String msgFieldStructure = DumpService.getInstance().dumpMsgField(fieldBuilder.getCurrentField());
             String msgValueData = DumpService.getInstance().dumpMsgValue(fieldBuilder.getCurrentField(), msgValue, false);
             logger.info("Example of a message.\nMessage Structure:\n{}\nMessage data:\n{}\nMessage bytes in hex:\n{}",
                 msgFieldStructure, msgValueData, HexService.bytesToHex(bytes));
         }
-        
+
         // unpack again
         long startUnpacking = System.currentTimeMillis();
         ValueHolder unpacker = ValueHolder.newInstance(fieldBuilder, true);
         unpacker.unpack(bytes);
         logger.info("Duration of unpacking: {}", System.currentTimeMillis() - startUnpacking);
-        
+
         long startGetting = System.currentTimeMillis();
         Object firstValue = unpacker.getValue(firstPath);
         Object secondValue = unpacker.getValue(secondPath);
         logger.info("Duration of getting: {}", System.currentTimeMillis() - startGetting);
-        
+
         assertEquals(expectedFirstValue, firstValue);
         assertNull(secondValue);
     }

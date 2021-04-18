@@ -22,7 +22,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class FieldBuilderTest {
 
@@ -143,25 +146,43 @@ public class FieldBuilderTest {
     @Test
     public void msgValueOrderTest() {
         // definition
+        MsgField isoMsgField = fieldsSortedByPosition(true);
+        ValueHolder valueHolder = fillInData(isoMsgField);
+        List<MsgValue> children = valueHolder.getCurrentMsgValue().getParent().getChildren();
+        assertEquals(2, children.size());
+        // check that the msgValues are ordered by the fieldNum definitions
+        assertEquals(PAN_02_NAME, children.get(0).getName());
+        assertEquals(PROCESSING_CODE_03_NAME, children.get(1).getName());
+
+        MsgField orderedByPosition = fieldsSortedByPosition(false);
+        ValueHolder valueHolderByPosition = fillInData(orderedByPosition);
+        List<MsgValue> childrenByPosition = valueHolderByPosition.getCurrentMsgValue().getParent().getChildren();
+        assertEquals(2, childrenByPosition.size());
+        // check that the msgValues are ordered by the positions in MsgField
+        assertEquals(PROCESSING_CODE_03_NAME, childrenByPosition.get(0).getName());
+        assertEquals(PAN_02_NAME, childrenByPosition.get(1).getName());
+    }
+
+    private MsgField fieldsSortedByPosition(boolean sortByFieldNum) {
         FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)
             .defineName(MSG_NAME);
 
         MsgField isoMsgField = fieldBuilder.getCurrentField();
-        
+
         MsgField bitmap = FieldBuilder.builder(MsgFieldType.BIT_SET)
             .defineParent(isoMsgField)
             .defineName(BITMAP_NAME)
             .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance(16))
             .getCurrentField();
 
-        FieldBuilder.from(bitmap)
+        FieldBuilder.from(bitmap, sortByFieldNum)
             .createChild(MsgFieldType.LEN_VAL)
             .defineFieldNum(3)
             .defineName(PROCESSING_CODE_03_NAME)
             .defineBodyPacker(BcdBodyPacker.rightPaddingF())
             .defineHeaderLengthPacker(BcdLengthPacker.getInstance(1));
 
-        FieldBuilder.from(bitmap)
+        FieldBuilder.from(bitmap, sortByFieldNum)
             .createChild(MsgFieldType.LEN_VAL)
             .defineFieldNum(2)
             .defineName(PAN_02_NAME)
@@ -170,23 +191,20 @@ public class FieldBuilderTest {
             .defineHeaderLengthPacker(EbcdicDecimalLengthPacker.getInstance(2));
 
         fieldBuilder.validateStructure();
+        return isoMsgField;
+    }
 
-        // filling with data
+    private ValueHolder fillInData(MsgField isoMsgField) {
         ValueHolder valueHolder = ValueHolder.newInstance(isoMsgField);
-        
+
         String pan = "123456781234567";
         String processingCode = "32";
         valueHolder.jumpAbsolute(MSG_NAME, BITMAP_NAME, PROCESSING_CODE_03_NAME)
             .setValue(processingCode)
             .jumpToSibling(PAN_02_NAME).setValue(pan);
-
-        List<MsgValue> children = valueHolder.getCurrentMsgValue().getParent().getChildren();
-        assertEquals(2, children.size());
-        // check the order is correct
-        assertEquals(PAN_02_NAME, children.get(0).getName());
-        assertEquals(PROCESSING_CODE_03_NAME, children.get(1).getName());
+        return valueHolder;
     }
-    
+
     @Test
     public void bitSetNullValue() {
         // definition
@@ -282,6 +300,7 @@ public class FieldBuilderTest {
     @Test(expected = PackerRuntimeException.class)
     public void validateStructureTest() {
         MsgField msgField = new MsgField();
+        msgField.setRoot(msgField);
         FieldBuilder.validateStructure(msgField);
     }
 

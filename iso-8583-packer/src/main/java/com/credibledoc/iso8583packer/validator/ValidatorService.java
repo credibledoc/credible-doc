@@ -89,6 +89,11 @@ public class ValidatorService implements Validator {
         validateFixedLengthType(msgField);
 
         validateChildren(msgField);
+
+        if (msgField.getRoot() == null) {
+            throw new PackerRuntimeException("The reference to a root node is 'null'. " +
+                "Field path: '" + navigator.getPathRecursively(msgField) + "'.");
+        }
     }
 
     private void validateMsgType(MsgField msgField) {

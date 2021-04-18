@@ -49,7 +49,7 @@ public class IsoMsgTest {
         isoMsg.setTerminalId("4141");
         isoMsg.set("5555", "MSG", "BIT_SET", "AmountReco");
         byte[] bytes = isoMsg.pack();
-        String expectedHex = "02005820008000800000222244445555252511114141";
+        String expectedHex = "02005820008000800000222244445555111125254141";
         assertEquals(expectedHex, HexService.bytesToHex(bytes));
         
         assertEquals("2222", isoMsg.get(2));

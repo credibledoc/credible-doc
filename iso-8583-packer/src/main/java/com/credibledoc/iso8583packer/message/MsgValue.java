@@ -3,7 +3,9 @@ package com.credibledoc.iso8583packer.message;
 import com.credibledoc.iso8583packer.hex.HexService;
 
 import java.util.BitSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This Data Object contains the value in a structure defined in the {@link MsgField}.
@@ -76,6 +78,19 @@ public class MsgValue implements Msg {
      * but cannot be 'null' for a field of the {@link MsgFieldType#BIT_SET} type.
      */
     private BitSet bitSet;
+
+    /**
+     * If the field has children, the map contains the child name as a key
+     * and the child instance as a value.
+     * <p>
+     * Else the map is empty.
+     */
+    private final Map<String, MsgValue> childNamesMap = new HashMap<>();
+
+    /**
+     * See the {@link Msg#getRoot()} method description.
+     */
+    private MsgValue root;
 
     @Override
     public String toString() {
@@ -259,5 +274,27 @@ public class MsgValue implements Msg {
      */
     public void setBitSet(BitSet bitSet) {
         this.bitSet = bitSet;
+    }
+
+    /**
+     * @return The {@link #childNamesMap} field value.
+     */
+    public Map<String, MsgValue> getChildNamesMap() {
+        return childNamesMap;
+    }
+
+    /**
+     * @return The {@link #root} field value.
+     */
+    @Override
+    public MsgValue getRoot() {
+        return root;
+    }
+
+    /**
+     * @param root see the {@link #root} field description.
+     */
+    public void setRoot(MsgValue root) {
+        this.root = root;
     }
 }
