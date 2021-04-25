@@ -97,7 +97,7 @@ The packed `MsgValue` then looks like the next example
          
         <f name="MSG">
             <f name="MTI" val="0200"/>
-            <f name="BITMAP" bitmapHex="C000000000000000C0000000000000004000000000000000000000000000000000000000000000000000000000000000" bitSet="{1, 2, 65, 66, 130}">
+            <f name="BITMAP" bitmapHex="433030303030303030303030303030304330303030303030303030303030303034303030303030303030303030303030" bitSet="{1, 2, 65, 66, 130}">
                 <f name="PAN" fieldNum="2" val="123456781234567" lenHex="F0F8" valHex="123456781234567F"/>
                 <f name="SettlementCode" fieldNum="66" val="2222" lenHex="F0F2"/>
                 <f name="TertiaryField" fieldNum="130" val="3333" lenHex="F0F2"/>

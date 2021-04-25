@@ -120,7 +120,7 @@ public class IfaBitmapPackerExtendedTest {
         assertEquals(mtiValue, mtiString);
 
         MsgPair bitmapPair = ValueHolder.newInstance(rootPair).jumpToChild(BITMAP_NAME).getCurrentPair();
-        assertNotNull(bitmap);
+        assertNotNull(bitmapPair);
 
         ValueHolder panValueHolder = ValueHolder.newInstance(bitmapPair).jumpToChild(PAN_NAME);
         assertNotNull(panValueHolder);

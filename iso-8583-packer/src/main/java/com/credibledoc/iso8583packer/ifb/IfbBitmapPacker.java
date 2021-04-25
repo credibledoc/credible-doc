@@ -3,6 +3,7 @@ package com.credibledoc.iso8583packer.ifb;
 import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
 import com.credibledoc.iso8583packer.bitmap.BitmapService;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
+import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgValue;
 
 import java.util.BitSet;
@@ -26,16 +27,20 @@ public class IfbBitmapPacker implements BitmapPacker {
     private static final Map<Integer, IfbBitmapPacker> instances = new ConcurrentHashMap<>();
 
     /**
-     * Number of bytes in a packed state. Accepted values are from 1 to 8, 16 or 24.
+     * Number of bytes in a packed state. Accepted values are from 1 to 8, 16 or 24 or -1.
      * In case of 8 bytes the packed length depends on
      * a resolved {@link BitSet} maximal fieldNum,
      * for example fieldNum 65 cannot be encoded in 8 bytes and an additional
      * 8 bytes will be appended to the packed bytes.
+     * <p>
+     * The -1 value means, that the packer is adaptable. It will have 8 or 16 or 24 bytes,
+     * depending on the maximal {@link MsgField#getFieldNum()} value.
      */
     private final int packedBytesLength;
 
     private IfbBitmapPacker(int packedBytesLength) {
-        if (packedBytesLength < 1 || (packedBytesLength > 8 && !(packedBytesLength == 16 || packedBytesLength == 24))) {
+        if (packedBytesLength < -1 || packedBytesLength == 0 ||
+                (packedBytesLength > 8 && !(packedBytesLength == 16 || packedBytesLength == 24))) {
             throw new PackerRuntimeException("PackedBytesLength '" + packedBytesLength +
                 "' cannot be accepted. Expected values are from 1 to 8 or 16 or 24.");
         }
@@ -48,6 +53,19 @@ public class IfbBitmapPacker implements BitmapPacker {
      * @return Existing instance from {@link #instances} or a new created instance.
      */
     public static IfbBitmapPacker getInstance(int packedBytesLength) {
+        instances.computeIfAbsent(packedBytesLength, k -> new IfbBitmapPacker(packedBytesLength));
+        return instances.get(packedBytesLength);
+    }
+
+    /**
+     * Static factory that creates an adaptable bit map, where its length depends on a maximal
+     * child {@link MsgField#getFieldNum()} value. The packed
+     * bitMap bytes may have 8, 16 or 24 bytes.
+     *
+     * @return Existing instance from {@link #instances} or a new created instance.
+     */
+    public static IfbBitmapPacker getInstance() {
+        int packedBytesLength = -1;
         instances.computeIfAbsent(packedBytesLength, k -> new IfbBitmapPacker(packedBytesLength));
         return instances.get(packedBytesLength);
     }
@@ -66,13 +84,28 @@ public class IfbBitmapPacker implements BitmapPacker {
         // 16 bytes max fieldNum 128
         // 24 bytes max fieldNum 192
 
-        int resolvedBytesLength = this.packedBytesLength;
-        if (resolvedBytesLength == 8) {
+        int resolvedBytesLength;
+        if (getPackedBytesLength() == -1) {
             int maxFieldNum = bitSet.previousSetBit(MAX_FIELD_NUM_192 + 1);
+            if (maxFieldNum > 192) {
+                throw new PackerRuntimeException("Maximal allowed fieldNum is 192. Current field num is " + maxFieldNum);
+            }
             if (maxFieldNum > 128) {
-                resolvedBytesLength = 8 * 3;
+                resolvedBytesLength = 24;
             } else if (maxFieldNum > 64) {
-                resolvedBytesLength = 8 * 2;
+                resolvedBytesLength = 16;
+            } else {
+                resolvedBytesLength = 8;
+            }
+        } else {
+            resolvedBytesLength = getPackedBytesLength();
+            if (resolvedBytesLength == 8) {
+                int maxFieldNum = bitSet.previousSetBit(MAX_FIELD_NUM_192 + 1);
+                if (maxFieldNum > 128) {
+                    resolvedBytesLength = 8 * 3;
+                } else if (maxFieldNum > 64) {
+                    resolvedBytesLength = 8 * 2;
+                }
             }
         }
         int maxPossibleSetBit = resolvedBytesLength * 8;
@@ -95,7 +128,7 @@ public class IfbBitmapPacker implements BitmapPacker {
      */
     @Override
     public int unpack(MsgValue msgValue, byte[] bytes, int offset) {
-        int maxFieldNum = packedBytesLength << 3;
+        int maxFieldNum = resolveMaxFieldNum(bytes, offset);
         BitSet bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
         if (packedBytesLength != 8) {
             msgValue.setBitSet(bitSet);
@@ -114,6 +147,20 @@ public class IfbBitmapPacker implements BitmapPacker {
         }
         msgValue.setBitSet(bitSet);
         return unpackedBytesLength;
+    }
+
+    private int resolveMaxFieldNum(byte[] bytes, int offset) {
+        if (packedBytesLength == -1) {
+            int result = 64;
+            if (BitmapService.hasFlag(bytes[offset])) {
+                result = 128;
+                if (bytes.length >= offset + 8 && BitmapService.hasFlag(bytes[offset + 8])) {
+                    result = 192;
+                }
+            }
+            return result;
+        }
+        return packedBytesLength << 3;
     }
 
     @Override

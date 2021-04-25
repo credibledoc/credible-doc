@@ -1,9 +1,11 @@
 package com.credibledoc.iso8583packer.ifa;
 
 import com.credibledoc.iso8583packer.bitmap.BitmapPacker;
+import com.credibledoc.iso8583packer.bitmap.BitmapService;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.ifb.IfbBitmapPacker;
+import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgValue;
 
 import java.nio.charset.Charset;
@@ -30,7 +32,8 @@ public class IfaBitmapPacker implements BitmapPacker {
     private static final Map<Integer, IfaBitmapPacker> instances = new ConcurrentHashMap<>();
 
     /**
-     * Number of bytes in a packed state.
+     * Number of bytes in a packed state. If the value is -1, it means that the number of bytes
+     * depends on a maximal child's {@link MsgField#getFieldNum()} value, see the {@link #getInstance()} description.
      */
     private final int bitsetBytesLength;
 
@@ -81,6 +84,20 @@ public class IfaBitmapPacker implements BitmapPacker {
     }
 
     /**
+     * Static factory that creates an adaptable bit map, where its length depends on a maximal
+     * child {@link MsgField#getFieldNum()} value. The packed
+     * bitMap bytes may have 8*2, 16*2 or 24*2 bytes.
+     * See examples in the {@link #getInstance(int)} method description.
+     * 
+     * @return Existing instance from {@link #instances} or a new created instance.
+     */
+    public static IfaBitmapPacker getInstance() {
+        int bitsetBytesLength = -1;
+        instances.computeIfAbsent(bitsetBytesLength, k -> new IfaBitmapPacker(bitsetBytesLength));
+        return instances.get(bitsetBytesLength);
+    }
+
+    /**
      * @param bitSet for packing
      * @return Packed bytes
      */
@@ -98,19 +115,48 @@ public class IfaBitmapPacker implements BitmapPacker {
      */
     @Override
     public int unpack(MsgValue msgValue, byte[] bytes, int offset) {
-        byte[] ifaBytes = Arrays.copyOfRange(bytes, offset, offset + getPackedBytesLength());
+        int resolvedLen = resolvePackedLen(bytes, offset);
+        byte[] ifaBytes = Arrays.copyOfRange(bytes, offset, offset + resolvedLen);
         String ifbString = new String(ifaBytes, ISO_88591);
         byte[] ifbBytes = HexService.hex2byte(ifbString);
         int unpackedLen = ifbBitmapPacker.unpack(msgValue, ifbBytes, 0);
         if (unpackedLen != bitsetBytesLength) {
             throw new PackerRuntimeException("Result bytes length '" + unpackedLen +
-                "' not equals with required packedBytesLength '" + getPackedBytesLength() + "'.");
+                "' not equals with required packedBytesLength '" + resolvedLen + "'.");
         }
-        return getPackedBytesLength();
+        return resolvedLen;
+    }
+
+    private int resolvePackedLen(byte[] bytes, int offset) {
+        int result = 8;
+        if (getPackedBytesLength() != -1) {
+            return getPackedBytesLength();
+        }
+        if (firstBitHasFlag(bytes, offset, 0)) {
+            result = 16; // existing secondary bitmap
+            if (firstBitHasFlag(bytes, offset, 8 * 2)) {
+                result = 24; // existing tertiary bitmap
+            }
+        }
+        return result * 2;
+    }
+
+    private boolean firstBitHasFlag(byte[] bytes, int firstOffset, int secondOffset) {
+        int offset = firstOffset + secondOffset;
+        if (bytes.length < offset + 2) {
+            return false;
+        }
+        byte[] ifaBytes = Arrays.copyOfRange(bytes, offset, offset + 2);
+        String ifbString = new String(ifaBytes, ISO_88591);
+        byte[] ifbBytes = HexService.hex2byte(ifbString);
+        return BitmapService.hasFlag(ifbBytes[0]);
     }
 
     @Override
     public int getPackedBytesLength() {
-        return bitsetBytesLength * 2;
+        if (bitsetBytesLength > 0) {
+            return bitsetBytesLength * 2;
+        }
+        return bitsetBytesLength;
     }
 }

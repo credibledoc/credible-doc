@@ -1,6 +1,5 @@
 package com.credibledoc.iso8583packer.dump;
 
-import com.credibledoc.iso8583packer.bitmap.BitmapService;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.masking.Masker;
@@ -302,8 +301,8 @@ public class DumpService implements Visualizer {
         String bitmapString;
         BitSet bitSet = msgValue.getBitSet();
         if (msgField != null && bitSet != null) {
-            byte[] bitmapHeader = BitmapService.bitSet2byte(bitSet, msgField.getBitMapPacker().getPackedBytesLength());
-            bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bitmapHeader) + "\"";
+            byte[] bytes = msgField.getBitMapPacker().pack(msgValue.getBitSet());
+            bitmapString = " bitmapHex=\"" + HexService.bytesToHex(bytes) + "\"";
         } else {
             bitmapString = "";
         }

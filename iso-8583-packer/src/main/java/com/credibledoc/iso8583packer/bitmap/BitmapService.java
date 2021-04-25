@@ -91,4 +91,13 @@ public class BitmapService {
         }
         return bmap;
     }
+
+    /**
+     * For example HEX CO == 1100 0000 and the first bit (number 8 backward) is 1, return true
+     * <p>
+     * For example HEX 40 == 0100 0000 and the first bit (number 8 backward) is 0, return false
+     */
+    public static boolean hasFlag(byte theByte) {
+        return ((theByte >> 8) & 1) == 1;
+    }
 }
