@@ -339,7 +339,19 @@ public class ValueHolder {
         MsgField currentMsgField = msgPair.getMsgField();
         rawDataLength = currentMsgField.getLen();
         if (rawDataLength == null) {
-            rawDataLength = bytes.length - offset.getValue();
+            MsgValue currentMsgValue = msgPair.getMsgValue();
+            MsgValue currentMsgValueParent = currentMsgValue.getParent();
+            if (currentMsgValueParent != null && currentMsgValueParent.getLengthBytes() != null) {
+                LengthPacker parentLengthPacker = currentMsgField.getParent().getLengthPacker();
+                if (parentLengthPacker == null) {
+                    parentLengthPacker = currentMsgField.getParent().getParent().getChildrenLengthPacker();
+                }
+                int parentLength = parentLengthPacker.unpack(currentMsgValueParent.getLengthBytes(), 0);
+                int childrenLength = calculateLengthUpTo(currentMsgValueParent.getChildren(), currentMsgValue);
+                rawDataLength = parentLength - childrenLength;
+            } else {
+                rawDataLength = bytes.length - offset.getValue();
+            }
         }
         int remaining = bytes.length - offset.getValue();
         if (rawDataLength > remaining) {
@@ -350,6 +362,20 @@ public class ValueHolder {
         unpackBodyBytes(bytes, offset, msgPair, rawDataLength);
         
         return rawDataLength;
+    }
+
+    private int calculateLengthUpTo(List<MsgValue> siblings, MsgValue currentSibling) {
+        int length = 0;
+        for (MsgValue sibling : siblings) {
+            if (sibling == currentSibling) {
+                return length;
+            }
+            length += sibling.getBodyBytes().length;
+        }
+        throw new PackerRuntimeException("It is expected, that the siblings' list contains the current sibling, " +
+            "but the current sibling cannot be found in the list.\n" +
+            "Siblings: '" + siblings + "'.\n" +
+            "Current sibling: '" + currentSibling + "'.");
     }
 
     protected LengthPacker getLengthPackerFromParentOrSelfOrThrowException(MsgField msgField) {
