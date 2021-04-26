@@ -7,7 +7,7 @@
     <parent>
         <artifactId>credible-doc-parent</artifactId>
         <groupId>com.credibledoc</groupId>
-        <version>1.0.34</version>
+        <version>1.0.35-SNAPSHOT</version>
     </parent>
 
     <artifactId>log-combiner-parent</artifactId>
