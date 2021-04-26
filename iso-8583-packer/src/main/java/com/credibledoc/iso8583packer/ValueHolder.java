@@ -710,7 +710,7 @@ public class ValueHolder {
             MsgField msgFieldChild = navigator.getChildOrThrowException(childName, msgField);
             MsgValue msgValueChild = msgValue.getChildNamesMap().get(childName);
             if (msgValueChild == null) {
-                msgValueChild = createChildren(childName, msgField.getChildren(), msgValue.getChildNamesMap());
+                msgValueChild = createChildren(childName);
             }
             this.msgValue = msgValueChild;
             this.msgField = msgFieldChild;
@@ -726,28 +726,47 @@ public class ValueHolder {
         }
     }
 
-    private MsgValue createChildren(String childName, List<MsgField> msgFieldChildren,
-                                    Map<String, MsgValue> childNamesMap) {
+    private MsgValue createChildren(String childName) {
+        List<MsgField> msgFieldChildren = msgField.getChildren();
+        if (msgValue.getChildren() == null) {
+            msgValue.setChildren(new ArrayList<>());
+        }
+        List<MsgValue> msgValueChildren = msgValue.getChildren();
+        Map<String, MsgValue> childNamesMap = msgValue.getChildNamesMap();
+
         MsgValue msgValueChild = null;
-        for (MsgField nextMsgField : msgFieldChildren) {
-            if (!childNamesMap.containsKey(nextMsgField.getName())) {
-                MsgValue newMsgValue = navigator.newFromNameAndTag(nextMsgField);
-                newMsgValue.setParent(msgValue);
-                newMsgValue.setRoot(msgValue.getRoot());
-                msgValue.getChildNamesMap().put(newMsgValue.getName(), newMsgValue);
-                if (nextMsgField.getName().equals(childName)) {
-                    msgValueChild = newMsgValue;
+
+        for (int i = 0; i < msgFieldChildren.size(); i++) {
+            MsgField nextMsgField = msgFieldChildren.get(i);
+            MsgValue newMsgValue;
+            if (msgValueChildren.size() < i + 1) {
+                newMsgValue = createMsgValue(nextMsgField);
+                msgValueChildren.add(newMsgValue);
+            } else if (!nextMsgField.getName().equals(msgValueChildren.get(i).getName())) {
+                newMsgValue = createMsgValue(nextMsgField);
+                msgValueChildren.add(i, newMsgValue);
+            } else {
+                newMsgValue = msgValueChildren.get(i);
+                if (!childNamesMap.containsKey(newMsgValue.getName())) {
+                    childNamesMap.put(newMsgValue.getName(), newMsgValue);
                 }
-                if (msgValue.getChildren() == null) {
-                    msgValue.setChildren(new ArrayList<>());
-                }
-                msgValue.getChildren().add(newMsgValue);
+            }
+            if (newMsgValue.getName().equals(childName)) {
+                msgValueChild = newMsgValue;
             }
         }
         if (msgValueChild == null) {
             throw new PackerRuntimeException("Cannot create MsgValue with name " + childName);
         }
         return msgValueChild;
+    }
+
+    private MsgValue createMsgValue(MsgField nextMsgField) {
+        MsgValue newMsgValue = navigator.newFromNameAndTag(nextMsgField);
+        newMsgValue.setParent(msgValue);
+        newMsgValue.setRoot(msgValue.getRoot());
+        msgValue.getChildNamesMap().put(newMsgValue.getName(), newMsgValue);
+        return newMsgValue;
     }
 
     /**
