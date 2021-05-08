@@ -16,7 +16,7 @@ Maven dependency:
     <dependency>
         <groupId>com.credibledoc</groupId>
         <artifactId>plantuml-core</artifactId>
-        <version>1.0.34</version>
+        <version>1.0.35</version>
     </dependency>
 
 ## Example of usage
