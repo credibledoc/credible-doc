@@ -1290,6 +1290,13 @@ public class ValueHolder {
     }
 
     /**
+     * @return the current {@link #navigator}.
+     */
+    public Navigator getNavigator() {
+        return this.navigator;
+    }
+
+    /**
      * @param visualizer see the {@link #visualizer} field description.
      */
     public void setVisualizer(Visualizer visualizer) {

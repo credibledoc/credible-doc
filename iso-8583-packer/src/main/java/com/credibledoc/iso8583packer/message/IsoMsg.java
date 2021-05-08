@@ -2,6 +2,7 @@ package com.credibledoc.iso8583packer.message;
 
 import com.credibledoc.iso8583packer.ValueHolder;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
+import com.credibledoc.iso8583packer.navigator.Navigator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -335,6 +336,37 @@ public class IsoMsg {
             }
         }
         return Collections.emptyList();
+    }
+
+    /**
+     * Search the first {@link MsgFieldType#BIT_SET} {@link MsgValue} in the {@link #valueHolder}
+     * and return the last child's {@link MsgValue#getFieldNum()}.
+     * Only children with existing bodyValue or bodyBytes will be searched.
+     * @return The fieldNum or -1 if the non-empty child cannot be found or the child has no fieldNum.
+     */
+    public int getMaxField() {
+        Navigator navigator = getValueHolder().getNavigator();
+        MsgField root = navigator.findRoot(getValueHolder().getCurrentMsgField());
+        
+        List<String> firstBitSetPath = findBitSet(root);
+        if (firstBitSetPath.isEmpty()) {
+            return -1;
+        }
+        MsgValue firstBitSet = getMsgValue(firstBitSetPath);
+        if (firstBitSet.getChildren() == null || firstBitSet.getChildren().isEmpty()) {
+            return -1;
+        }
+
+        for (int i = firstBitSet.getChildren().size() - 1; i >= 0; i--) {
+            MsgValue msgValue = firstBitSet.getChildren().get(i);
+            if (msgValue.getBodyValue() != null || msgValue.getBodyBytes() != null) {
+                if (msgValue.getFieldNum() == null) {
+                    return -1;
+                }
+                return msgValue.getFieldNum();
+            }
+        }
+        return -1;
     }
 
 }

@@ -141,4 +141,14 @@ public class IsoMsgTest {
         MsgValue msgValuePan = isoMsg.getMsgValue("MSG", "BIT_SET", "PAN");
         assertEquals(panValue, msgValuePan.getBodyValue(String.class));
     }
+    
+    @Test
+    public void getMaxFieldTest() {
+        IsoMsg isoMsg = new IsoMsg();
+        isoMsg.setPackager(definePackager());
+        assertEquals(-1, isoMsg.getMaxField());
+        String panValue = "1234";
+        isoMsg.set(2, panValue);
+        assertEquals(2, isoMsg.getMaxField());
+    }
 }
