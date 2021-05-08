@@ -7,6 +7,11 @@ import com.credibledoc.iso8583packer.navigator.Navigator;
 
 import java.io.PrintStream;
 
+/**
+ * The implemented services help to visualize {@link MsgField} and {@link MsgValue} object graphs.
+ * 
+ * @author Kyrylo Semenko
+ */
 public interface Visualizer {
     
     /**

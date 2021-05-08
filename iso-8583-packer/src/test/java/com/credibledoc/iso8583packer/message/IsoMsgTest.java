@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -140,6 +141,12 @@ public class IsoMsgTest {
         
         MsgValue msgValuePan = isoMsg.getMsgValue("MSG", "BIT_SET", "PAN");
         assertEquals(panValue, msgValuePan.getBodyValue(String.class));
+
+        String msgValueDump = isoMsg.dumpMsgValue(false);
+        assertNotNull(msgValueDump);
+        
+        String msgFieldDump = isoMsg.dumpMsgField();
+        assertNotNull(msgFieldDump);
     }
     
     @Test

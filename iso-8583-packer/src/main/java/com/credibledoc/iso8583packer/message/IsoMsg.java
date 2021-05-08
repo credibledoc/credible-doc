@@ -369,4 +369,27 @@ public class IsoMsg {
         return -1;
     }
 
+    /**
+     * Call the {@link com.credibledoc.iso8583packer.dump.Visualizer#dumpMsgValue(MsgField, MsgValue, boolean)} method
+     * of the current {@link #valueHolder} visualizer.
+     * @param maskPrivateData see the
+     * {@link com.credibledoc.iso8583packer.dump.Visualizer#dumpMsgValue(MsgField, MsgValue, boolean)} method description.
+     * @return Visualized root {@link MsgValue} of the {@link #valueHolder}. 
+     */
+    public String dumpMsgValue(boolean maskPrivateData) {
+        Navigator navigator = valueHolder.getNavigator();
+        MsgField rootMsgField = navigator.findRoot(valueHolder.getCurrentMsgField());
+        MsgValue rootMsgValue = navigator.findRoot(valueHolder.getCurrentMsgValue());
+        return getValueHolder().getVisualizer().dumpMsgValue(rootMsgField, rootMsgValue, maskPrivateData);
+    }
+
+    /**
+     * Call the {@link com.credibledoc.iso8583packer.dump.Visualizer#dumpMsgField(MsgField)} method.
+     * @return Visualized root {@link MsgField} of the {@link #valueHolder}.
+     */
+    public String dumpMsgField() {
+        Navigator navigator = valueHolder.getNavigator();
+        MsgField rootMsgField = navigator.findRoot(valueHolder.getCurrentMsgField());
+        return getValueHolder().getVisualizer().dumpMsgField(rootMsgField);
+    }
 }

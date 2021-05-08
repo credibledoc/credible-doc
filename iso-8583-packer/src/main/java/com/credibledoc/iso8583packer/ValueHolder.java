@@ -57,8 +57,14 @@ public class ValueHolder {
      */
     protected MsgField msgField;
 
+    /**
+     * The service helps to navigate through the {@link MsgField} and {@link MsgValue} object graphs.
+     */
     protected Navigator navigator;
-    
+
+    /**
+     * The service helps to visualize the {@link MsgField} and {@link MsgValue} object graphs.
+     */
     protected Visualizer visualizer;
 
     /**
@@ -1301,6 +1307,13 @@ public class ValueHolder {
      */
     public void setVisualizer(Visualizer visualizer) {
         this.visualizer = visualizer;
+    }
+
+    /**
+     * @return The {@link #visualizer} value.
+     */
+    public Visualizer getVisualizer() {
+        return visualizer;
     }
 
     /**
