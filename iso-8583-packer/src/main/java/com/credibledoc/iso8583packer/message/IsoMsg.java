@@ -4,6 +4,7 @@ import com.credibledoc.iso8583packer.ValueHolder;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -243,6 +244,37 @@ public class IsoMsg {
      */
     public ValueHolder getValueHolder() {
         return valueHolder;
+    }
+
+    /**
+     * Find the {@link MsgValue} node in the {@link #valueHolder}. If the msgValue not exists yet, create a new one,
+     * as defined in the {@link ValueHolder#getCurrentMsgField()}.
+     * <p>
+     * If the msgField definition has no child with such absolutePath, throw an exception.
+     *
+     * @param absolutePath absolute path to the {@link MsgField} in the object graph
+     * @return The found or newly created {@link MsgValue} from the {@link #valueHolder}.
+     */
+    public MsgValue getMsgValue(List<String> absolutePath) {
+        // store actual position
+        MsgPair msgPair = getValueHolder().getCurrentPair();
+
+        getValueHolder().jumpAbsolute(absolutePath);
+        MsgValue result = getValueHolder().getCurrentMsgValue();
+        
+        // restore actual position
+        getValueHolder().setCurrent(msgPair.getMsgField(), msgPair.getMsgValue());
+        
+        return result;
+    }
+
+    /**
+     * Call the {@link #getMsgValue(List)} method
+     * @param absolutePath see the {@link #getMsgValue(List)} method description
+     * @return See the {@link #getMsgValue(List)} method description
+     */
+    public MsgValue getMsgValue(String... absolutePath) {
+        return getMsgValue(Arrays.asList(absolutePath));
     }
 
     private List<String> findBitSet(MsgField msgField) {

@@ -127,4 +127,18 @@ public class IsoMsgTest {
         assertEquals(expectedPan, isoMsg.get(Arrays.asList("MSG", "BIT_SET", "PAN")));
     }
 
+    @Test
+    public void getMsgValueTest() {
+        IsoMsg isoMsg = new IsoMsg();
+        isoMsg.setPackager(definePackager());
+        MsgValue msgValue = isoMsg.getMsgValue("MSG", "MTI");
+        assertNotNull(msgValue);
+        assertNull(msgValue.getBodyValue());
+
+        String panValue = "1234";
+        isoMsg.set(2, panValue);
+        
+        MsgValue msgValuePan = isoMsg.getMsgValue("MSG", "BIT_SET", "PAN");
+        assertEquals(panValue, msgValuePan.getBodyValue(String.class));
+    }
 }

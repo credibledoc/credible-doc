@@ -1436,4 +1436,14 @@ public class ValueHolder {
     public boolean hasValue(List<String> absolutePath) {
         return hasValue(absolutePath.toArray(new String[0]));
     }
+
+    /**
+     * Set the {@link #msgField} and {@link #msgValue} to the current instance of the {@link ValueHolder}.
+     * @param msgField will be assigned to {@link #msgField}
+     * @param msgValue will be assigned to {@link #msgValue}
+     */
+    public void setCurrent(MsgField msgField, MsgValue msgValue) {
+        this.msgField = msgField;
+        this.msgValue = msgValue;
+    }
 }
