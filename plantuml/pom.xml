@@ -7,7 +7,7 @@
     <parent>
         <artifactId>credible-doc-parent</artifactId>
         <groupId>com.credibledoc</groupId>
-        <version>1.0.36</version>
+        <version>1.0.37-SNAPSHOT</version>
     </parent>
 
     <artifactId>plantuml-parent</artifactId>
