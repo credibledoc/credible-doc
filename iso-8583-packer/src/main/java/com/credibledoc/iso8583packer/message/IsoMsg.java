@@ -341,7 +341,7 @@ public class IsoMsg {
     /**
      * Search the first {@link MsgFieldType#BIT_SET} {@link MsgValue} in the {@link #valueHolder}
      * and return the last child's {@link MsgValue#getFieldNum()}.
-     * Only children with existing bodyValue or bodyBytes will be searched.
+     * Only children with existing bodyValue or bodyBytes od non-empty list of children will be searched.
      * @return The fieldNum or -1 if the non-empty child cannot be found or the child has no fieldNum.
      */
     public int getMaxField() {
@@ -359,7 +359,9 @@ public class IsoMsg {
 
         for (int i = firstBitSet.getChildren().size() - 1; i >= 0; i--) {
             MsgValue msgValue = firstBitSet.getChildren().get(i);
-            if (msgValue.getBodyValue() != null || msgValue.getBodyBytes() != null) {
+            if (msgValue.getBodyValue() != null || msgValue.getBodyBytes() != null ||
+                (msgValue.getChildren() != null && !msgValue.getChildren().isEmpty())) {
+                
                 if (msgValue.getFieldNum() == null) {
                     return -1;
                 }
