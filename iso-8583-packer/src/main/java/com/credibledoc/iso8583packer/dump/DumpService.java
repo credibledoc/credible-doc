@@ -2,6 +2,7 @@ package com.credibledoc.iso8583packer.dump;
 
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
+import com.credibledoc.iso8583packer.length.LengthPacker;
 import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgPair;
@@ -136,6 +137,8 @@ public class DumpService implements Visualizer {
         String lenString = getLenString(msgField);
 
         String childTagPackerString = getChildTagPackerString(msgField);
+
+        String childLenPackerString = getChildLenPackerString(msgField);
         
         String tagPackerString = msgField.getTagPacker() == null ? "" :
             " tagPacker=\"" + msgField.getTagPacker().getClass().getSimpleName() + "\"";
@@ -144,7 +147,7 @@ public class DumpService implements Visualizer {
         
         printStream.print(indent + "<f" + typeString + fieldNumString + tagString + nameString + lengthPackerString +
                 isoBitMapPackerString + interpreterString +
-                maxLenString + lenString + childTagPackerString + tagPackerString);
+                maxLenString + lenString + childTagPackerString + tagPackerString + childLenPackerString);
         
         if (msgField.getChildren() != null) {
             if (msgField.getDepth() < getMaxDepthForLogging()) {
@@ -159,6 +162,17 @@ public class DumpService implements Visualizer {
         } else {
             printStream.println("/>");
         }
+    }
+
+    protected String getChildLenPackerString(MsgField msgField) {
+        String childLenPackerString;
+        LengthPacker lenPacker = msgField.getChildrenLengthPacker();
+        if (lenPacker != null) {
+            childLenPackerString = " childLenPacker=\"" + lenPacker.getClass().getSimpleName() + "\"";
+        } else {
+            childLenPackerString = "";
+        }
+        return childLenPackerString;
     }
 
     protected String getChildTagPackerString(MsgField msgField) {
