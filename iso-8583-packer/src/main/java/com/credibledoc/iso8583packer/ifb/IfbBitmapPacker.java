@@ -25,6 +25,7 @@ public class IfbBitmapPacker implements BitmapPacker {
      * Contains created instances. Each instance is a Singleton.
      */
     private static final Map<Integer, IfbBitmapPacker> instances = new ConcurrentHashMap<>();
+    private static final int SINGLE_BITMAP_LENGTH_8 = 8;
 
     /**
      * Number of bytes in a packed state. Accepted values are from 1 to 8, 16 or 24 or -1.
@@ -40,7 +41,7 @@ public class IfbBitmapPacker implements BitmapPacker {
 
     private IfbBitmapPacker(int packedBytesLength) {
         if (packedBytesLength < -1 || packedBytesLength == 0 ||
-                (packedBytesLength > 8 && !(packedBytesLength == 16 || packedBytesLength == 24))) {
+                (packedBytesLength > SINGLE_BITMAP_LENGTH_8 && !(packedBytesLength == 16 || packedBytesLength == 24))) {
             throw new PackerRuntimeException("PackedBytesLength '" + packedBytesLength +
                 "' cannot be accepted. Expected values are from 1 to 8 or 16 or 24.");
         }
@@ -95,20 +96,20 @@ public class IfbBitmapPacker implements BitmapPacker {
             } else if (maxFieldNum > 64) {
                 resolvedBytesLength = 16;
             } else {
-                resolvedBytesLength = 8;
+                resolvedBytesLength = SINGLE_BITMAP_LENGTH_8;
             }
         } else {
             resolvedBytesLength = getPackedBytesLength();
-            if (resolvedBytesLength == 8) {
+            if (resolvedBytesLength == SINGLE_BITMAP_LENGTH_8) {
                 int maxFieldNum = bitSet.previousSetBit(MAX_FIELD_NUM_192 + 1);
                 if (maxFieldNum > 128) {
-                    resolvedBytesLength = 8 * 3;
+                    resolvedBytesLength = SINGLE_BITMAP_LENGTH_8 * 3;
                 } else if (maxFieldNum > 64) {
-                    resolvedBytesLength = 8 * 2;
+                    resolvedBytesLength = SINGLE_BITMAP_LENGTH_8 * 2;
                 }
             }
         }
-        int maxPossibleSetBit = resolvedBytesLength * 8;
+        int maxPossibleSetBit = resolvedBytesLength * SINGLE_BITMAP_LENGTH_8;
         int bitOutOfBoundary = bitSet.nextSetBit(maxPossibleSetBit + 1);
         boolean existsBitOutOfBoundary = bitOutOfBoundary > -1;
         if (existsBitOutOfBoundary) {
@@ -130,19 +131,15 @@ public class IfbBitmapPacker implements BitmapPacker {
     public int unpack(MsgValue msgValue, byte[] bytes, int offset) {
         int maxFieldNum = resolveMaxFieldNum(bytes, offset);
         BitSet bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
-        if (packedBytesLength != 8) {
-            msgValue.setBitSet(bitSet);
-            return packedBytesLength;
-        }
-        int unpackedBytesLength = packedBytesLength;
+        int unpackedBytesLength = SINGLE_BITMAP_LENGTH_8;
         if (bitSet.get(1)) {
             maxFieldNum = 128;
             bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
-            unpackedBytesLength = unpackedBytesLength + packedBytesLength;
+            unpackedBytesLength = unpackedBytesLength + SINGLE_BITMAP_LENGTH_8;
             if (bitSet.get(65)) {
                 maxFieldNum = 192;
                 bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
-                unpackedBytesLength = unpackedBytesLength + packedBytesLength;
+                unpackedBytesLength = unpackedBytesLength + SINGLE_BITMAP_LENGTH_8;
             }
         }
         msgValue.setBitSet(bitSet);
@@ -154,7 +151,7 @@ public class IfbBitmapPacker implements BitmapPacker {
             int result = 64;
             if (BitmapService.hasFlag(bytes[offset])) {
                 result = 128;
-                if (bytes.length >= offset + 8 && BitmapService.hasFlag(bytes[offset + 8])) {
+                if (bytes.length >= offset + SINGLE_BITMAP_LENGTH_8 && BitmapService.hasFlag(bytes[offset + SINGLE_BITMAP_LENGTH_8])) {
                     result = 192;
                 }
             }

@@ -120,7 +120,7 @@ public class IfaBitmapPacker implements BitmapPacker {
         String ifbString = new String(ifaBytes, ISO_88591);
         byte[] ifbBytes = HexService.hex2byte(ifbString);
         int unpackedLen = ifbBitmapPacker.unpack(msgValue, ifbBytes, 0);
-        if (unpackedLen != bitsetBytesLength) {
+        if (bitsetBytesLength != -1 && unpackedLen != bitsetBytesLength) {
             throw new PackerRuntimeException("Result bytes length '" + unpackedLen +
                 "' not equals with required packedBytesLength '" + resolvedLen + "'.");
         }
