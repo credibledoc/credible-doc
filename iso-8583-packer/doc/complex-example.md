@@ -96,7 +96,7 @@ The message definition can be described as XML by calling the `DumpService.dumpM
     <f type="BIT_SET" name="bitmap" bitMapPacker="IfbBitmapPacker">
         <f type="LEN_VAL" fieldNum="2" name="PAN_02" lengthPacker="EbcdicDecimalLengthPacker" bodyPacker="BcdBodyPacker"/>
         <f type="LEN_VAL" fieldNum="3" name="Processing_code_03" lengthPacker="BcdLengthPacker" bodyPacker="BcdBodyPacker"/>
-        <f type="LEN_VAL" fieldNum="58" name="field_58" lengthPacker="EbcdicDecimalLengthPacker" maxLen="999" childTagPacker="EbcdicDecimalTagPacker(2)">
+        <f type="LEN_VAL" fieldNum="58" name="field_58" lengthPacker="EbcdicDecimalLengthPacker" maxLen="999" childTagPacker="EbcdicDecimalTagPacker(2)" childLenPacker="EbcdicDecimalLengthPacker">
             <f type="LEN_TAG_VAL" tag="35" name="rate_request_reference" bodyPacker="AsciiBodyPacker"/>
             <f type="LEN_TAG_VAL" tag="37" name="dcc_data">
                 <f type="VAL" name="dcc_status" bodyPacker="EbcdicBodyPacker" len="1"/>
