@@ -64,7 +64,7 @@ public class NavigatorService implements Navigator {
             }
             String root = visualizer.dumpMsgField(rootMsgField);
             throw new PackerRuntimeException("The current field '" + getPathRecursively(currentMsgField) +
-                "' has no a child named '" + childName + "'.\n" +
+                "' has no child named '" + childName + "'.\n" +
                 "Root MsgField:\n" + root);
         }
         return child;
@@ -199,10 +199,15 @@ public class NavigatorService implements Navigator {
     @Override
     public void validateSameNamesAndTags(MsgPair msgPair) {
         MsgField msgField = msgPair.getMsgField();
+        if (msgField == null) {
+            // anonymous undefined incoming TLV or LTV fields have no MsgField
+            return;
+        }
         MsgValue msgValue = msgPair.getMsgValue();
         boolean namesEqual = Objects.equals(msgValue.getName(), msgField.getName());
         boolean tagNumsEqual = Objects.equals(msgValue.getTag(), msgField.getTag());
-        if (!namesEqual || !tagNumsEqual) {
+        boolean notTaggedType = MsgFieldType.isNotTaggedType(msgField);
+        if ((!namesEqual && notTaggedType) || !tagNumsEqual) {
             String cause;
             if (!namesEqual && !tagNumsEqual) {
                 cause = "names and tags";
@@ -211,7 +216,7 @@ public class NavigatorService implements Navigator {
             } else {
                 cause = "tags";
             }
-            throw new PackerRuntimeException("The MsgField and its msgValue does not fit to each other because " +
+            throw new PackerRuntimeException("The MsgField and its msgValue do not fit to each other because " +
                     "they have different " + cause + ".\nMsgValue: '" + getPathRecursively(msgValue) +
                     "'\nMsgField: '" + getPathRecursively(msgField) + "'\n" +
                     "Please navigate to a correct msgField by using the ValueHolder.adjust() or FieldBuilder.jump** methods.");

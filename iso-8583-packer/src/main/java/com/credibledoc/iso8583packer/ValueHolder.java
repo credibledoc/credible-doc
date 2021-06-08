@@ -270,6 +270,11 @@ public class ValueHolder {
         } else {
             rawDataLength = unpackOtherTypes(bytes, offset, msgPair);
         }
+
+        MsgValue parent = msgPair.getMsgValue().getParent();
+        if (parent != null) {
+            parent.getChildNamesMap().put(msgPair.getMsgValue().getName(), msgPair.getMsgValue());
+        }
         
         if (msgPair.getMsgField().getChildren() == null) {
             // set value, but for leaves (outer children) only.
@@ -420,16 +425,17 @@ public class ValueHolder {
         int childNum = 0;
         while (offset.getValue() < offsetWithChildren) {
             List<MsgField> children = msgPair.getMsgField().getChildren();
-            MsgField msgFieldFirstChild = children.get(childNum);
+            MsgField nextMsgFieldChild = children.get(childNum);
             if (children.size() > childNum + 1) {
-                childNum++;
+                childNum++; // the number of real children may be higher than defined in MsgField
+                // for example for repeated values or undefined TLV and LTV values
             }
-            MsgValue msgValueChild = navigator.newFromNameAndTag(msgFieldFirstChild);
-            msgPair.getMsgValue().getChildren().add(msgValueChild);
-            msgValueChild.setParent(msgPair.getMsgValue());
-            msgValueChild.setRoot(msgValueChild.getParent().getRoot());
-            msgValueChild.getParent().getChildNamesMap().put(msgValueChild.getName(), msgValueChild);
-            MsgPair msgPairChild = new MsgPair(msgFieldFirstChild, msgValueChild);
+            MsgValue nextMsgValueChild = navigator.newFromNameAndTag(nextMsgFieldChild);
+            
+            msgPair.getMsgValue().getChildren().add(nextMsgValueChild);
+            nextMsgValueChild.setParent(msgPair.getMsgValue());
+            nextMsgValueChild.setRoot(nextMsgValueChild.getParent().getRoot());
+            MsgPair msgPairChild = new MsgPair(nextMsgFieldChild, nextMsgValueChild);
             unpackFieldRecursively(bytes, offset, msgPairChild);
         }
         if (offset.getValue() != offsetWithChildren) {
@@ -510,8 +516,28 @@ public class ValueHolder {
     protected void replaceWithSibling(MsgPair msgPair, Object tag) {
         MsgPair result = new MsgPair();
         MsgField msgFieldSibling = findSiblingByTag(tag, msgPair.getMsgField());
+        boolean isUndefined = false;
         if (msgFieldSibling == null) {
-            throwSiblingNotFound(msgPair, tag);
+            isUndefined = true;
+            MsgField parent = msgPair.getMsgField().getParent();
+            if (parent != null && parent.getChildrenLengthPacker() != null && parent.getChildrenTagPacker() != null) {
+                msgFieldSibling = new MsgField();
+                String originalName = msgPair.getMsgField().getName();
+                Map<String, MsgValue> undefinedSiblings = msgPair.getMsgValue().getParent().getUndefinedChildrenMap();
+                String cloneName = getCloneName(originalName, undefinedSiblings);
+
+                msgFieldSibling.setName(cloneName);
+                
+                msgFieldSibling.setParent(parent);
+                msgFieldSibling.setBodyPacker(msgPair.getMsgField().getBodyPacker());
+                msgFieldSibling.setDepth(msgPair.getMsgField().getDepth());
+                msgFieldSibling.setLengthPacker(msgPair.getMsgField().getLengthPacker());
+                msgFieldSibling.setTagPacker(msgPair.getMsgField().getTagPacker());
+                msgFieldSibling.setType(msgPair.getMsgField().getType());
+                msgFieldSibling.setTag(tag);
+            } else {
+                throwSiblingNotFound(msgPair, tag);
+            }
         }
         MsgValue oldMsgValue = msgPair.getMsgValue();
         MsgValue parentMsgValue = oldMsgValue.getParent();
@@ -529,9 +555,18 @@ public class ValueHolder {
         newMsgValue.setBitSet(oldMsgValue.getBitSet());
         newMsgValue.setTagBytes(oldMsgValue.getTagBytes());
         newMsgValue.setLengthBytes(oldMsgValue.getLengthBytes());
+
+        if (isUndefined) {
+            Map<String, MsgValue> undefinedChildrenMap = newMsgValue.getParent().getUndefinedChildrenMap();
+            undefinedChildrenMap.put(newMsgValue.getName(), newMsgValue);
+        }
         
         msgPair.setMsgField(result.getMsgField());
         msgPair.setMsgValue(result.getMsgValue());
+    }
+
+    private String getCloneName(String originalName, Map<String, MsgValue> undefinedChildrenMap) {
+        return originalName + "-clone-" + (undefinedChildrenMap.size() + 1);
     }
 
     protected List<Integer> getFieldNumsFromBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
@@ -922,16 +957,20 @@ public class ValueHolder {
 
         Object tag = this.msgValue.getTag();
         if (msgField.getType() == MsgFieldType.LEN_TAG_VAL) {
-            // field parent contains lengthPacker, hence length precedes tag
-            assert msgFieldParent != null;
-            lengthPacker = msgFieldParent.getChildrenLengthPacker();
+            lengthPacker = msgField.getLengthPacker();
+            if (lengthPacker == null) {
+                assert msgFieldParent != null;
+                lengthPacker = msgFieldParent.getChildrenLengthPacker();
+            }
             packTagBytes(msgField, msgValue, tag);
             int tagAndValueLength = valueBytes.length + msgValue.getTagBytes().length;
             byte[] lengthBytes = lengthPacker.pack(tagAndValueLength);
             msgValue.setLengthBytes(lengthBytes);
         } else {
-            // field itself contains lengthPacker
             lengthPacker = msgField.getLengthPacker();
+            if (lengthPacker == null && msgField.getParent() != null) {
+                lengthPacker = msgField.getParent().getChildrenLengthPacker();
+            }
             if (MsgFieldType.getTaggedTypes().contains(msgField.getType())) {
                 packTagBytes(msgField, msgValue, tag);
             }
@@ -965,15 +1004,22 @@ public class ValueHolder {
             MsgField msgFieldSibling = navigator.getSiblingOrThrowException(siblingName, msgField);
             MsgValue parentMsgValue = msgValue.getParent();
             msgValue = parentMsgValue.getChildNamesMap().get(siblingName);
+            if (msgValue == null) {
+                throw new PackerRuntimeException("Cannot find child MsgValue with name '" + siblingName +
+                    "' for parent " + parentMsgValue);
+            }
             msgField = msgFieldSibling;
             return this;
         } catch (Exception e) {
-            MsgValue rootMsgValue = navigator.findRoot(msgValue);
-            MsgField rootMsgField = navigator.findRoot(msgField);
-            throw new PackerRuntimeException("Exception: " + e.getMessage() + "\nCannot jumpToSibling '" + siblingName +
-                "' of the message definition." +
-                "\nMsgValue:\n" + visualizer.dumpMsgValue(rootMsgField, rootMsgValue, true) +
-                MSG_FIELD + visualizer.dumpMsgField(rootMsgField) + "\n", e);
+            if (msgValue != null && msgField != null) {
+                MsgValue rootMsgValue = navigator.findRoot(msgValue);
+                MsgField rootMsgField = navigator.findRoot(msgField);
+                throw new PackerRuntimeException("Exception: " + e.getMessage() + "\nCannot jumpToSibling '" + siblingName +
+                    "' of the message definition." +
+                    "\nMsgValue:\n" + visualizer.dumpMsgValue(rootMsgField, rootMsgValue, true) +
+                    MSG_FIELD + visualizer.dumpMsgField(rootMsgField) + "\n", e);
+            }
+            throw e;
         }
     }
 
@@ -1038,12 +1084,19 @@ public class ValueHolder {
             ByteArrayOutputStream result = packRecursively(msgValue, msgField);
             return result.toByteArray();
         } catch (Exception e) {
-            MsgValue rootMsgValue = navigator.findRoot(msgValue);
-            MsgField rootMsgField = navigator.findRoot(msgField);
-            throw new PackerRuntimeException("Exception: " + e.getMessage() + "\n" +
-                    "Cannot pack field '" + navigator.getPathRecursively(msgValue) + "'" +
-                PARTIAL_DUMP + visualizer.dumpMsgValue(rootMsgField, rootMsgValue, true) +
-                MSG_FIELD + visualizer.dumpMsgField(msgField) + "\n", e);
+            if (msgField != null && msgValue != null) {
+                MsgValue rootMsgValue = navigator.findRoot(msgValue);
+                MsgField rootMsgField = navigator.findRoot(msgField);
+                if (Objects.equals(rootMsgValue.getName(), rootMsgField.getName()) &&
+                    Objects.equals(rootMsgValue.getTag(), rootMsgField.getTag())) {
+                    
+                    throw new PackerRuntimeException("Exception: " + e.getMessage() + "\n" +
+                        "Cannot pack field '" + navigator.getPathRecursively(msgValue) + "'" +
+                        PARTIAL_DUMP + visualizer.dumpMsgValue(rootMsgField, rootMsgValue, true) +
+                        MSG_FIELD + visualizer.dumpMsgField(msgField) + "\n", e);
+                }
+            }
+            throw new PackerRuntimeException(e);
         }
     }
 
@@ -1205,7 +1258,8 @@ public class ValueHolder {
 
     /**
      * Create a copy from the current {@link #msgValue} and set it to this {@link #msgValue} context.
-     * This sibling will have the same {@link MsgField#getName()} and {@link MsgField#getFieldNum()} as its sibling.
+     * This sibling will have the same {@link MsgField#getName()}, {@link MsgField#getTag()}
+     * and {@link MsgField#getFieldNum()} as its sibling.
      * <p>
      * It is useful for creation of multiple repeated fields with the same name and/or fieldNum.
      *

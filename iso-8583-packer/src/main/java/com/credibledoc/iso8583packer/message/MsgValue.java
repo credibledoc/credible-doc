@@ -80,6 +80,9 @@ public class MsgValue implements Msg {
     private BitSet bitSet;
 
     /**
+     * Caution: this map ha no all repeated values with same names, only last one.
+     * Example of repeated values is a product basket with multiple repeated products.
+     * <p>
      * If the field has children, the map contains the child name as a key
      * and the child instance as a value.
      * <p>
@@ -91,6 +94,13 @@ public class MsgValue implements Msg {
      * See the {@link Msg#getRoot()} method description.
      */
     private MsgValue root;
+
+    /**
+     * In case of {@link MsgFieldType#TAG_LEN_VAL} and {@link MsgFieldType#LEN_TAG_VAL} some {@link MsgValue}s
+     * may have no defined {@link MsgField}. Their length and tag packers are defined in their parent. Such {@link MsgValue}s
+     * have generated names.
+     */
+    private final Map<String, MsgValue> undefinedChildrenMap = new HashMap<>();
 
     @Override
     public String toString() {
@@ -297,4 +307,12 @@ public class MsgValue implements Msg {
     public void setRoot(MsgValue root) {
         this.root = root;
     }
+
+    /**
+     * @return The {@link #undefinedChildrenMap} field value.
+     */
+    public Map<String, MsgValue> getUndefinedChildrenMap() {
+        return undefinedChildrenMap;
+    }
+
 }

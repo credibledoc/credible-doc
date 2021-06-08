@@ -1,8 +1,8 @@
 package com.credibledoc.iso8583packer.dump;
 
-import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 import com.credibledoc.iso8583packer.hex.HexService;
 import com.credibledoc.iso8583packer.length.LengthPacker;
+import com.credibledoc.iso8583packer.masking.AnyMasker;
 import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgPair;
@@ -230,8 +230,9 @@ public class DumpService implements Visualizer {
         }
 
         if (maskPrivateData && msgField == null) {
-            throw new PackerRuntimeException("Argument msgField cannot be 'null' when argument maskPrivateData is 'true'." +
-                    " It used for masking of sensitive private data from the msgValue");
+            // anonymous undefined incoming TLV or LTV fields have no MsgField
+            msgField = new MsgField();
+            msgField.setMasker(new AnyMasker());
         }
 
         Masker masker = null;
@@ -267,7 +268,7 @@ public class DumpService implements Visualizer {
 
         String numNameValue = nameString + fieldNumString + tagString + valueString + bitmapString + bitSetString;
         
-        if (msgField != null) {
+        if (msgField != null && msgField.getType() != null) {
             switch (msgField.getType()) {
                 
                 case LEN_TAG_VAL:
