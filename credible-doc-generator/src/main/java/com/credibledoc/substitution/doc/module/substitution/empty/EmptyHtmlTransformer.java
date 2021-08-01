@@ -8,7 +8,7 @@ import com.credibledoc.combiner.tactic.TacticService;
 import com.credibledoc.enricher.printable.Printable;
 import com.credibledoc.enricher.transformer.Transformer;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;

@@ -4,7 +4,7 @@ import com.credibledoc.substitution.core.resource.ResourceService;
 import com.credibledoc.substitution.core.resource.ResourceType;
 import com.credibledoc.substitution.core.resource.TemplateResource;
 import com.credibledoc.substitution.core.template.TemplateService;
-import com.github.javaparser.JavaParser;
+import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.EnumConstantDeclaration;
 import com.github.javaparser.ast.body.EnumDeclaration;
@@ -56,7 +56,7 @@ public class TableService {
 
         String sourceCode = TemplateService.getInstance().getTemplateContent(templateResource, StandardCharsets.UTF_8.name());
 
-        CompilationUnit compilationUnit = JavaParser.parse(sourceCode);
+        CompilationUnit compilationUnit = StaticJavaParser.parse(sourceCode);
 
         EnumDeclaration enumDeclaration = (EnumDeclaration) compilationUnit.getTypes().get(0);
         for (EnumConstantDeclaration enumConstantDeclaration : enumDeclaration.getEntries()) {
