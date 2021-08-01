@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.credibledoc</groupId>
         <artifactId>credible-doc-parent</artifactId>
-        <version>1.0.39</version>
+        <version>1.0.40-SNAPSHOT</version>
     </parent>
 
     <artifactId>iso-8583-packer</artifactId>
