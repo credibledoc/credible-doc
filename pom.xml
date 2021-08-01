@@ -43,7 +43,7 @@
         <maven.compiler.target>1.7</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <skip.gpg>true</skip.gpg>
-        <org.junit.version>5.4.2</org.junit.version>
+        <org.junit.version>5.7.2</org.junit.version>
         <maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
     </properties>
