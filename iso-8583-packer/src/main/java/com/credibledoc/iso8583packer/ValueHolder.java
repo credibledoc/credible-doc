@@ -635,7 +635,7 @@ public class ValueHolder {
     }
 
     private boolean markSecondaryBitmap(List<Integer> fieldNums, boolean secondaryBitmapMarked, int nextFieldNum) {
-        if (nextFieldNum > 65 && !secondaryBitmapMarked) {
+        if (nextFieldNum > 65 && nextFieldNum < 130 && !secondaryBitmapMarked) {
             fieldNums.add(0, 1);
             secondaryBitmapMarked = true;
         }
@@ -650,7 +650,7 @@ public class ValueHolder {
             }
             index++;
         }
-        throw new PackerRuntimeException("FieldNums has no field greater then 64: " + fieldNums);
+        return fieldNums.size();
     }
 
     protected void throwSiblingNotFound(MsgPair paramMsgPair, Object tag) {

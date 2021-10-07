@@ -1,4 +1,4 @@
-package com.credibledoc.iso8583packer.msg.field58;
+package com.credibledoc.iso8583packer.field58;
 
 import com.credibledoc.iso8583packer.FieldBuilder;
 import com.credibledoc.iso8583packer.asciihex.AsciiBodyPacker;

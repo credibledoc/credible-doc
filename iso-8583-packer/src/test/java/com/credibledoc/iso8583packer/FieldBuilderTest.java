@@ -13,7 +13,7 @@ import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
 import com.credibledoc.iso8583packer.message.MsgPair;
 import com.credibledoc.iso8583packer.message.MsgValue;
-import com.credibledoc.iso8583packer.msg.field58.Field58;
+import com.credibledoc.iso8583packer.field58.Field58;
 import com.credibledoc.iso8583packer.stringer.StringStringer;
 import com.credibledoc.iso8583packer.validator.TestValidatorService;
 import org.junit.Test;

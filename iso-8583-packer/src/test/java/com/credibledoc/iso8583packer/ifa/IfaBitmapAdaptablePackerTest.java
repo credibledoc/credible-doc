@@ -75,6 +75,46 @@ public class IfaBitmapAdaptablePackerTest {
         logger.info("Root msgValue dump: \n{}{}", msgValueDump, "End of msgValue dump.");
     }
 
+    @Test
+    public void tertiaryWithoutSecondaryTest() {
+        MsgField isoMsgField = defineStructure();
+
+        // filling with data
+        ValueHolder valueHolder = ValueHolder.newInstance(isoMsgField);
+
+        // primary bitMap
+        String pan = "123456781234567";
+        valueHolder.setValue(pan, MSG, BITMAP_NAME, PAN_NAME);
+        
+        String primaryHex = HexService.bytesToHex(valueHolder.pack());
+        String expectedPrimaryHex = "34303030303030303030303030303030F0F8123456781234567F";
+        assertEquals(primaryHex, expectedPrimaryHex);
+
+        MsgValue primaryUnpacked = ValueHolder.newInstance(isoMsgField).unpack(HexService.hex2byte(primaryHex));
+        ValueHolder primaryValueHolder = ValueHolder.newInstance(primaryUnpacked, isoMsgField);
+        assertEquals(pan, primaryValueHolder.getValue(MSG, BITMAP_NAME, PAN_NAME));
+
+        // secondary bitMap is empty
+        
+        // tertiary bitMap
+        String tertiaryFieldValue = "3333";
+        valueHolder.setValue(tertiaryFieldValue, MSG, BITMAP_NAME, TERTIARY_FIELD);
+        String tertiaryHex = HexService.bytesToHex(valueHolder.pack());
+        String expectedTertiaryHex = "433030303030303030303030303030303830303030303030303030303030303034303030303030303030303030303030F0F8123456781234567FF0F23333";
+        assertEquals(expectedTertiaryHex, tertiaryHex);
+
+        MsgValue tertiaryUnpacked = ValueHolder.newInstance(isoMsgField).unpack(HexService.hex2byte(tertiaryHex));
+        ValueHolder tertiaryValueHolder = ValueHolder.newInstance(tertiaryUnpacked, isoMsgField);
+        assertEquals(tertiaryFieldValue, tertiaryValueHolder.getValue(MSG, BITMAP_NAME, TERTIARY_FIELD));
+
+        Visualizer visualizer = DumpService.getInstance();
+        String msgFieldDump = visualizer.dumpMsgField(isoMsgField);
+        logger.info("Root msgField dump: \n{}{}", msgFieldDump, "End of msgField dump.");
+
+        String msgValueDump = DumpService.getInstance().dumpMsgValue(isoMsgField, valueHolder.jumpToRoot().getCurrentMsgValue(), true);
+        logger.info("Root msgValue dump: \n{}{}", msgValueDump, "End of msgValue dump.");
+    }
+
     private MsgField defineStructure() {
         FieldBuilder fieldBuilder = FieldBuilder.builder(MsgFieldType.MSG)
             .defineName(MSG);
