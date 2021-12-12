@@ -29,7 +29,7 @@
             <name>Kyrylo Semenko</name>
             <email>kyrylo.semenko@gmail.com</email>
             <organization>credibledoc.com</organization>
-            <organizationUrl>http://credibledoc.com/</organizationUrl>
+            <organizationUrl>https://credibledoc.com/</organizationUrl>
         </developer>
     </developers>
     
@@ -105,6 +105,17 @@
             <groupId>dev.morphia.morphia</groupId>
             <artifactId>core</artifactId>
             <version>1.6.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mongodb</groupId>
+                    <artifactId>mongodb-driver-sync</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>4.4.0</version>
         </dependency>
         <dependency>
             <groupId>com.credibledoc</groupId>

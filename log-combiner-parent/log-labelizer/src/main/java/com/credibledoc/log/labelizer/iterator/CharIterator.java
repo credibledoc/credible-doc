@@ -13,7 +13,6 @@ import com.credibledoc.log.labelizer.training.TrainingDataGenerator;
 import com.google.common.primitives.Chars;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.MultiDataSet;
 import org.nd4j.linalg.dataset.api.MultiDataSetPreProcessor;
@@ -154,7 +153,6 @@ public class CharIterator implements MultiDataSetIterator {
         }
     }
 
-    @NotNull
     private static String getNationalCharsFromFile() throws IOException {
         ClassPathResource resource = new ClassPathResource(CharIterator.RESOURCES_DIR + "/" + NATIONAL_CHARS_TXT);
         File file = resource.getFile();

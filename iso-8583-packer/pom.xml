@@ -33,12 +33,12 @@
             <name>Kyrylo Semenko</name>
             <email>kyrylo.semenko@gmail.com</email>
             <organization>credibledoc.com</organization>
-            <organizationUrl>http://credibledoc.com/</organizationUrl>
+            <organizationUrl>https://credibledoc.com/</organizationUrl>
         </developer>
     </developers>
     
     <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
@@ -64,6 +64,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.plugin.version}</version>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

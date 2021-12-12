@@ -42,7 +42,7 @@ public class InterfaceImplementationsContentGenerator implements ContentGenerato
         String includePackages = placeholder.getParameters().get(INCLUDE_PACKAGES);
 
         StringBuilder stringBuilder = new StringBuilder();
-        try (ScanResult scanResult = new ClassGraph().whitelistPackages(includePackages) .enableClassInfo().scan()) {
+        try (ScanResult scanResult = new ClassGraph().acceptPackages(includePackages).enableClassInfo().scan()) {
             for (ClassInfo ci : scanResult.getClassesImplementing(interfaceName)) {
                 stringBuilder.append("* ");
                 stringBuilder.append(ci.getName());

@@ -99,7 +99,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.1</version>
+                <version>${jacoco.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
@@ -131,6 +131,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.maven.plugin.version}</version>
                 <reportSets>
                     <reportSet>
                         <reports>

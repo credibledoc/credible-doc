@@ -53,7 +53,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.1</version>
+        <version>${jacoco.maven.plugin.version}</version>
         <executions>
           <execution>
             <id>default-prepare-agent</id>
@@ -167,6 +167,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.maven.plugin.version}</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -178,7 +179,7 @@
     </plugins>
   </reporting>
   <properties>
-    <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
   </properties>
 </project>

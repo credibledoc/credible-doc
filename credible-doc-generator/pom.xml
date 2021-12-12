@@ -163,7 +163,7 @@
             <plugin>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok-maven-plugin</artifactId>
-                <version>1.16.22.0</version>
+                <version>1.18.20.0</version>
                 <configuration>
                     <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
                     <outputDirectory>${delombok.output}</outputDirectory>
