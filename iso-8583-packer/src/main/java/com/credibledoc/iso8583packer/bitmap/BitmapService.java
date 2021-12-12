@@ -3,6 +3,7 @@ package com.credibledoc.iso8583packer.bitmap;
 import com.credibledoc.iso8583packer.exception.PackerRuntimeException;
 
 import java.util.BitSet;
+import java.util.OptionalInt;
 
 /**
  * Static service. Converts <a href="https://en.wikipedia.org/wiki/ISO_8583#Bitmaps">Bitmap</a> data.
@@ -31,11 +32,15 @@ public class BitmapService {
                 bytes[i >> 3] |= (0x80 >> (i % 8));
             }
         }
-        if (len > 64) {
-            bytes[0] |= 0x80;
-        }
-        if (len > 128) {
-            bytes[8] |= 0x80;
+        OptionalInt optionalInt = bitSet.stream().max();
+        if (optionalInt.isPresent()) {
+            int maxBit = optionalInt.getAsInt();
+            if (maxBit > 64 || bytesNumber == 16) {
+                bytes[0] |= 0x80;
+            }
+            if (maxBit > 128 || bytesNumber == 24) {
+                bytes[8] |= 0x80;
+            }
         }
         return bytes;
     }
@@ -85,7 +90,7 @@ public class BitmapService {
         for (int i = 0; i < len; i++) {
             int shifted = i >> 3;
             int shiftedOffset = offset + shifted;
-            if (((bytes[shiftedOffset]) & (0x80 >> (i % 8))) > 0) {
+            if (((bytes[shiftedOffset] & 0xff) & (0x80 >> (i % 8))) > 0) {
                 bmap.set(i + 1);
             }
         }

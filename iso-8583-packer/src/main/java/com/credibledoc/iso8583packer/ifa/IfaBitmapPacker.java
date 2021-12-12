@@ -32,7 +32,7 @@ public class IfaBitmapPacker implements BitmapPacker {
     private static final Map<Integer, IfaBitmapPacker> instances = new ConcurrentHashMap<>();
 
     /**
-     * Number of bytes in a packed state. If the value is -1, it means that the number of bytes
+     * Number of bytes in a packed state. Value -1 means the number of bytes
      * depends on a maximal child's {@link MsgField#getFieldNum()} value, see the {@link #getInstance()} description.
      */
     private final int bitsetBytesLength;
@@ -50,7 +50,7 @@ public class IfaBitmapPacker implements BitmapPacker {
     /**
      * Static factory. Creates and returns singletons stored in the {@link #instances} map.
      * @param bitsetBytesLength number of bytes in {@link BitSet}. For example:
-        <table summary="Primary, secondary and tertiary bitmap examples">
+        <table caption="Primary, secondary and tertiary bitmap examples">
             <tr>
                 <th><b>BitsetBytesLength &nbsp;</b></th>
                 <th><b>Bitset HEX &nbsp;</b></th>
@@ -71,13 +71,18 @@ public class IfaBitmapPacker implements BitmapPacker {
                 <td>5000000000000000</td>
                 <td>35303030303030303030303030303030</td>
             </tr>
+            <tr>
+                <td>1</td>
+                <td>14</td>
+                <td>3530</td>
+            </tr>
         </table>
      *                          See https://neapay.com/online-tools/bitmap-fields-decoder.html
      * @return Existing instance from {@link #instances} or a new created instance.
      */
     public static IfaBitmapPacker getInstance(int bitsetBytesLength) {
-        if (bitsetBytesLength != 8 && bitsetBytesLength != 16 && bitsetBytesLength != 24) {
-            throw new PackerRuntimeException("Expected value is 8, 16 or 24.");
+        if ((bitsetBytesLength < 1 || bitsetBytesLength > 8) && bitsetBytesLength != 16 && bitsetBytesLength != 24) {
+            throw new PackerRuntimeException("Expected value are from 1 to 8, 16 or 24.");
         }
         instances.computeIfAbsent(bitsetBytesLength, k -> new IfaBitmapPacker(bitsetBytesLength));
         return instances.get(bitsetBytesLength);

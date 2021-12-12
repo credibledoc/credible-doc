@@ -48,7 +48,7 @@ public class UnderstandingIso8583MessageLogTest {
             
             .createSibling(MsgFieldType.BIT_SET)
             .defineName("Bitmap")
-            .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance(8))
+            .defineHeaderBitmapPacker(IfbBitmapPacker.getInstance())
             
             .createChild(MsgFieldType.VAL)
             .defineName("SystemTraceAuditNumber")

@@ -614,7 +614,7 @@ public class ValueHolder {
                 throw new PackerRuntimeException("Unpacked bitSet contains fieldNum '" + nextFieldNum + "', " +
                     "but the MsgField with path '" + path + "' has no child with such fieldNum. " +
                     "Please set the defineFieldNum(" + nextFieldNum + ") value " +
-                    "on one of the field '" + path + "' children.");
+                    "to one of the field '" + path + "' children.");
             }
             if (unpackedBitSet.get(nextFieldNum)) {
                 secondaryBitmapMarked = markSecondaryBitmap(fieldNums, secondaryBitmapMarked, nextFieldNum);

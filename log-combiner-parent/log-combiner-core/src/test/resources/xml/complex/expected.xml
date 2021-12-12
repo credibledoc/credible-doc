@@ -1,4 +1,4 @@
-<CardResponse ReqID="002" xmlns="http://www.nrf-arts.org/IXRetail/namespace">
+<CardResponse ReqID="002">
     <Terminal id="3"/>
     <Ten Print="false">
         <TotAmount CashAmount="0.00">98.74</TotAmount>

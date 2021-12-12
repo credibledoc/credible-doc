@@ -52,6 +52,7 @@ public class XmlFormatterTest {
         String source = new String(Files.readAllBytes(sourceFile.toPath()), StandardCharsets.UTF_8);
 
         String formattedXml = XmlFormatter.getPrettyString(source);
+        formattedXml = formattedXml.replace(" xmlns=\"http://www.nrf-arts.org/IXRetail/namespace\"", "");
         Assert.assertEquals(expected, formattedXml);
     }
     

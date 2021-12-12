@@ -24,11 +24,43 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class IfaBitmapPackerTest {
-    private static final Logger logger = LoggerFactory.getLogger(IfaBitmapPacker.class);
+    private static final Logger logger = LoggerFactory.getLogger(IfaBitmapPackerTest.class);
 
     private static final String MTI_NAME = "MTI";
     private static final String BITMAP_NAME = "BITMAP";
     private static final String PAN_NAME = "PAN";
+
+    @Test
+    public void pack1() {
+        IfaBitmapPacker ifaBitmapPacker = IfaBitmapPacker.getInstance(1);
+        BitSet bitSet = new BitSet();
+        bitSet.set(2);
+        bitSet.set(4);
+        byte[] bytes = ifaBitmapPacker.pack(bitSet);
+        String hex = HexService.bytesToHex(bytes);
+        String expected = "3530";
+        assertEquals(expected, hex);
+    }
+
+    @Test
+    public void unpack1() {
+        IfaBitmapPacker ifaBitmapPacker = IfaBitmapPacker.getInstance(1);
+        MsgValue msgValue = new MsgValue();
+        String hex = "3530";
+        byte[] bytes = HexService.hex2byte(hex);
+        int unpackedLen = ifaBitmapPacker.unpack(msgValue, bytes, 0);
+        assertEquals(2, unpackedLen);
+        BitSet bitSet = msgValue.getBitSet();
+        assertNotNull(bitSet);
+        assertFalse(bitSet.get(1));
+        assertTrue(bitSet.get(2));
+        assertFalse(bitSet.get(3));
+        assertTrue(bitSet.get(4));
+        assertFalse(bitSet.get(5));
+        assertFalse(bitSet.get(6));
+        assertFalse(bitSet.get(7));
+        assertFalse(bitSet.get(8));
+    }
 
     @Test
     public void pack8() {

@@ -8,6 +8,7 @@ import com.credibledoc.iso8583packer.message.MsgValue;
 
 import java.util.BitSet;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -85,6 +86,8 @@ public class IfbBitmapPacker implements BitmapPacker {
         // 16 bytes max fieldNum 128
         // 24 bytes max fieldNum 192
 
+        checkMaxBitSetSize(bitSet);
+
         int resolvedBytesLength;
         if (getPackedBytesLength() == -1) {
             int maxFieldNum = bitSet.previousSetBit(MAX_FIELD_NUM_192 + 1);
@@ -121,6 +124,20 @@ public class IfbBitmapPacker implements BitmapPacker {
         return BitmapService.bitSet2byte(bitSet, resolvedBytesLength);
     }
 
+    private void checkMaxBitSetSize(BitSet bitSet) {
+        if (packedBytesLength != -1) {
+            OptionalInt optionalInt = bitSet.stream().max();
+            if (optionalInt.isPresent()) {
+                int maxBit = optionalInt.getAsInt();
+                int maxAllowedBit = packedBytesLength * 8;
+                if (maxAllowedBit < maxBit) {
+                    throw new PackerRuntimeException("Maximal allowed bit in bitSet is '" + maxAllowedBit + "'. " +
+                        "Current max bit in bitSet is " + maxBit);
+                }
+            }
+        }
+    }
+
     /**
      * @param msgValue the target container for storing the unpacked {@link BitSet}
      * @param bytes       the source bytes
@@ -132,7 +149,7 @@ public class IfbBitmapPacker implements BitmapPacker {
         int maxFieldNum = resolveMaxFieldNum(bytes, offset);
         BitSet bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
         int unpackedBytesLength = SINGLE_BITMAP_LENGTH_8;
-        if (bitSet.get(1)) {
+        if (packedBytesLength == -1 && bitSet.get(1)) {
             maxFieldNum = 128;
             bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
             unpackedBytesLength = unpackedBytesLength + SINGLE_BITMAP_LENGTH_8;
@@ -141,6 +158,8 @@ public class IfbBitmapPacker implements BitmapPacker {
                 bitSet = BitmapService.byte2BitSet(bytes, offset, maxFieldNum);
                 unpackedBytesLength = unpackedBytesLength + SINGLE_BITMAP_LENGTH_8;
             }
+        } else if (packedBytesLength != -1) { // TODO Kyrylo Semenko - test
+            unpackedBytesLength = packedBytesLength;
         }
         msgValue.setBitSet(bitSet);
         return unpackedBytesLength;

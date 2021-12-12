@@ -23,11 +23,43 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class IfbBitmapPackerTest {
-    private static final Logger logger = LoggerFactory.getLogger(IfbBitmapPacker.class);
+    private static final Logger logger = LoggerFactory.getLogger(IfbBitmapPackerTest.class);
 
     private static final String MTI_NAME = "MTI";
     private static final String BITMAP_NAME = "BITMAP";
     private static final String PAN_NAME = "PAN";
+
+    @Test
+    public void pack1() {
+        IfbBitmapPacker ifbBitmapPacker = IfbBitmapPacker.getInstance(1);
+        BitSet bitSet = new BitSet();
+        bitSet.set(2);
+        bitSet.set(4);
+        byte[] bytes = ifbBitmapPacker.pack(bitSet);
+        String hex = HexService.bytesToHex(bytes);
+        String expected = "50";
+        assertEquals(expected, hex);
+    }
+
+    @Test
+    public void unpack1() {
+        IfbBitmapPacker ifbBitmapPacker = IfbBitmapPacker.getInstance(1);
+        MsgValue msgValue = new MsgValue();
+        String hex = "35";
+        byte[] bytes = HexService.hex2byte(hex);
+        int unpackedLen = ifbBitmapPacker.unpack(msgValue, bytes, 0);
+        assertEquals(1, unpackedLen);
+        BitSet bitSet = msgValue.getBitSet();
+        assertNotNull(bitSet);
+        assertFalse(bitSet.get(1));
+        assertFalse(bitSet.get(2));
+        assertTrue(bitSet.get(3));
+        assertTrue(bitSet.get(4));
+        assertFalse(bitSet.get(5));
+        assertTrue(bitSet.get(6));
+        assertFalse(bitSet.get(7));
+        assertTrue(bitSet.get(8));
+    }
 
     @Test
     public void pack() {
@@ -148,25 +180,46 @@ public class IfbBitmapPackerTest {
         List<Integer> lenList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 16, 24, 32);
         List<Integer> fieldNums = Arrays.asList(0, 1, 2, 7, 8, 9, 15, 16, 17, 23, 24, 25, 31, 32, 33, 39, 40, 47, 48, 49, 64, 65, 79, 80, 81, 128, 129, 192, 193);
         for (Integer len : lenList) {
+            IfbBitmapPacker ifbBitmapPacker;
             try {
-                IfbBitmapPacker ifbBitmapPacker = IfbBitmapPacker.getInstance(len);
-                BitSet bitSet = new BitSet();
-                for (int fieldNum : fieldNums) {
-                    bitSet.set(fieldNum);
-                    try {
-                        byte[] bytes = ifbBitmapPacker.pack(bitSet);
-                        assertNotNull(bytes);
-                        logger.info("Bitmap bytes length: {}, BitSet: {}, bytes: {}",
-                            len, bitSet, HexService.bytesToHex(bytes, " "));
-                    } catch (Exception e) {
-                        logger.info("Bitmap bytes length: {}, BitSet: {} cannot be packed. Exception: {}",
-                            len, bitSet, e.getMessage());
-                        break;
-                    }
-                }
+                ifbBitmapPacker = IfbBitmapPacker.getInstance(len);
             } catch (Exception e) {
-                logger.info("Bitmap bytes length: {} cannot be packed. Exception: {}",
+                logger.info("Bitmap bytes length: {} cannot be unpacked. Exception: {}",
                     len, e.getMessage());
+                continue;
+            }
+            BitSet bitSet = new BitSet();
+            byte[] bytes;
+            for (int fieldNum : fieldNums) {
+                bitSet.set(fieldNum);
+                try {
+                    bytes = ifbBitmapPacker.pack(bitSet);
+                    assertNotNull(bytes);
+                    logger.info("Bitmap bytes length: {}, BitSet: {}, bytes: {}",
+                        len, bitSet, HexService.bytesToHex(bytes, " "));
+                } catch (Exception e) {
+                    logger.info("Bitmap bytes length: {}, BitSet: {} cannot be packed. Exception: {}",
+                        len, bitSet, e.getMessage());
+                    break;
+                }
+                try {
+                    MsgValue msgValue = new MsgValue();
+                    int unpackedByteNum = ifbBitmapPacker.unpack(msgValue, bytes, 0);
+                    logger.info("Unpacked: byteNum: {},  BitSet: {}", unpackedByteNum, msgValue.getBitSet());
+                    msgValue.getBitSet().set(0); // For the comparison purpose only. In a real scenario this bit contains 'true' if the first bitmap is followed by the second bitmap
+                    // TODO Kyrylo Semenko - resolve exceptions in packing and unpacking
+                    if (len >= 24 && fieldNum < 65) {
+                        msgValue.getBitSet().clear(65);
+                    }
+                    if (len >= 16 && fieldNum == 0) {
+                        msgValue.getBitSet().clear(1);
+                    }
+                    assertEquals(bitSet, msgValue.getBitSet());
+                } catch (Exception e) {
+                    logger.info("Bitmap bytes length: {} cannot be unpacked. Exception: {}",
+                        len, e.getMessage());
+                    throw e;
+                }
             }
         }
     }
