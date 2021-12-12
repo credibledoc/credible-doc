@@ -21,7 +21,7 @@ The defined structure can be shown as XML by calling the `DumpService.getInstanc
     "description": "MsgField dump",
     "parameters": {
         "sourceRelativePath": "iso-8583-packer/log/iso-8583-packer.log",
-        "beginString": "IfbBitmapPacker - Root msgField dump: ",
+        "beginString": "IfbBitmapPackerTest - Root msgField dump: ",
         "includeBeginString": "false",
         "endString": "End of msgField dump.",
         "includeEndString": "false",
@@ -51,7 +51,7 @@ The packed `MsgValue` then looks like the next example
     "description": "Example of packed MsgValue",
     "parameters": {
         "sourceRelativePath": "iso-8583-packer/log/iso-8583-packer.log",
-        "beginString": "IfbBitmapPacker - Root msgValue dump:",
+        "beginString": "IfbBitmapPackerTest - Root msgValue dump:",
         "includeBeginString": "false",
         "endString": "End of msgValue dump.",
         "includeEndString": "false",
