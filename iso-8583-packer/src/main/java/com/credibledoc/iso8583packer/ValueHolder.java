@@ -468,11 +468,15 @@ public class ValueHolder {
     protected int unpackBitSet(byte[] bytes, Offset offset, MsgPair msgPair) {
         List<Integer> fieldNums = getFieldNumsFromBitSet(bytes, offset, msgPair);
         for (int nextFieldNum : fieldNums) {
-            if (nextFieldNum == 1 || nextFieldNum == 65) {
-                // these fields are the flags of a secondary and tertiary bitmaps
+            MsgField msgFieldChild = findChildByFieldNumUnsafe(msgPair.getMsgField(), nextFieldNum);
+            // Bits 1 and 65 in a bitmap may be used as flags of a secondary and tertiary bitmaps, as well as flags of used msgFields
+            if (msgFieldChild == null && (nextFieldNum == 1 || nextFieldNum == 65)) {
                 continue;
             }
-            MsgField msgFieldChild = findChildByFieldNum(msgPair.getMsgField(), nextFieldNum);
+            if (msgFieldChild == null) {
+                throw new PackerRuntimeException("Cannot find child with fieldNum '" + nextFieldNum +
+                    "' in the msgField " + navigator.getPathRecursively(msgField));
+            }
             MsgValue msgValueChild = navigator.newFromNameAndTag(msgFieldChild);
             List<MsgValue> children = msgPair.getMsgValue().getChildren();
             if (children == null) {
@@ -587,14 +591,13 @@ public class ValueHolder {
         return getFieldNumsAndValidateBitSet(msgPair);
     }
 
-    protected MsgField findChildByFieldNum(MsgField msgField, int nextFieldNum) {
+    protected MsgField findChildByFieldNumUnsafe(MsgField msgField, int nextFieldNum) {
         for (MsgField child : msgField.getChildren()) {
             if (nextFieldNum == child.getFieldNum()) {
                 return child;
             }
         }
-        throw new PackerRuntimeException("Cannot find child with fieldNum '" + nextFieldNum +
-                "' in the msgField " + navigator.getPathRecursively(msgField));
+        return null;
     }
 
     protected List<Integer> getFieldNumsAndValidateBitSet(MsgPair msgPair) {
@@ -603,24 +606,25 @@ public class ValueHolder {
         int maxFieldNum = getMaxFieldNum(msgPair.getMsgField().getChildren(), msgPair.getMsgField());
         boolean secondaryBitmapMarked = false;
         boolean tertiaryBitmapMarked = false;
-        // Bits 1 and 65 in a bitmap are used as a flags of a secondary and tertiary bitmaps
-        for (int nextFieldNum = 2; nextFieldNum <= maxFieldNum; nextFieldNum++) {
-            if (nextFieldNum == 65) {
+        for (int nextFieldNum = 1; nextFieldNum <= maxFieldNum; nextFieldNum++) {
+            MsgField childMsgField = navigator.findByFieldNum(msgPair.getMsgField().getChildren(), nextFieldNum);
+            boolean bitMarked = unpackedBitSet.get(nextFieldNum);
+            // Bits 1 and 65 in a bitmap may be used as flags of a secondary and tertiary bitmaps, as well as flags of used msgFields
+            if (!bitMarked || (childMsgField == null && (nextFieldNum == 65 || nextFieldNum == 1))) {
                 continue;
             }
-            MsgField childMsgField = navigator.findByFieldNum(msgPair.getMsgField().getChildren(), nextFieldNum);
-            if (unpackedBitSet.get(nextFieldNum) && childMsgField == null) {
+            if (childMsgField == null) {
                 String path = navigator.getPathRecursively(msgPair.getMsgField());
                 throw new PackerRuntimeException("Unpacked bitSet contains fieldNum '" + nextFieldNum + "', " +
                     "but the MsgField with path '" + path + "' has no child with such fieldNum. " +
                     "Please set the defineFieldNum(" + nextFieldNum + ") value " +
                     "to one of the field '" + path + "' children.");
             }
-            if (unpackedBitSet.get(nextFieldNum)) {
-                secondaryBitmapMarked = markSecondaryBitmap(fieldNums, secondaryBitmapMarked, nextFieldNum);
-                tertiaryBitmapMarked = markTertiaryBitmap(fieldNums, tertiaryBitmapMarked, nextFieldNum);
-                fieldNums.add(nextFieldNum);
-            }
+
+            secondaryBitmapMarked = markSecondaryBitmap(fieldNums, secondaryBitmapMarked, nextFieldNum);
+            tertiaryBitmapMarked = markTertiaryBitmap(fieldNums, tertiaryBitmapMarked, nextFieldNum);
+            
+            fieldNums.add(nextFieldNum);
         }
         return fieldNums;
     }
