@@ -83,9 +83,6 @@ public class CombinerService {
             prepareReader(sourceFolder, config, combinerContext);
             File targetFile = prepareTargetFile(sourceFolder, config.getTargetFileName());
             try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(targetFile))) {
-                ReaderService readerService = ReaderService.getInstance();
-                readerService.prepareBufferedReaders(combinerContext);
-
                 FilesMergerState filesMergerState = new FilesMergerState();
                 filesMergerState.setNodeFiles(combinerContext.getNodeFileRepository().getNodeFiles());
 
