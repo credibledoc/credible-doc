@@ -247,7 +247,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>${groupId}.${artifactId}</Automatic-Module-Name>
+                            <Automatic-Module-Name>${project.groupId}.${project.artifactId}</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>

@@ -114,7 +114,7 @@
                     </includes>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>${groupId}.substitution.core</Automatic-Module-Name>
+                            <Automatic-Module-Name>${project.groupId}.substitution.core</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>

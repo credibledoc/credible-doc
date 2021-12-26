@@ -134,7 +134,7 @@
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
-                            <Automatic-Module-Name>${groupId}.credible.doc.generator</Automatic-Module-Name>
+                            <Automatic-Module-Name>${project.groupId}.credible.doc.generator</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>

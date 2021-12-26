@@ -82,7 +82,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>${groupId}.iso8583packer</Automatic-Module-Name>
+                            <Automatic-Module-Name>${project.groupId}.iso8583packer</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>

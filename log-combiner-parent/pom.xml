@@ -136,7 +136,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>${groupId}.log.combiner.parent</Automatic-Module-Name>
+                            <Automatic-Module-Name>${project.groupId}.log.combiner.parent</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>
