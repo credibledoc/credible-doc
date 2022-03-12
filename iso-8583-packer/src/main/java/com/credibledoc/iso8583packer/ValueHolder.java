@@ -870,8 +870,8 @@ public class ValueHolder {
             MsgValue rootMsgValue = navigator.findRoot(msgValue);
             MsgField rootMsgField = navigator.findRoot(msgField);
             MsgField appropriateMsgField = navigator.findByNameAndTagOrThrowException(rootMsgField, rootMsgValue);
-            throw new PackerRuntimeException("Exception message: " + e.getMessage() + "\nCannot set bodyValue '" + bodyValue +
-                    "' to field '" + navigator.getPathRecursively(msgField) + "'" +
+            throw new PackerRuntimeException("Exception message: " + e.getMessage() + "\nCannot set bodyValue" +
+                    " to field '" + navigator.getPathRecursively(msgField) + "'" +
                     "\nRoot MsgValue:\n" + visualizer.dumpMsgValue(appropriateMsgField, rootMsgValue, true) +
                     "\nThe MsgField:\n" + visualizer.dumpMsgField(msgField) +
                 ROOT_MSG_FIELD + visualizer.dumpMsgField(rootMsgField), e);
