@@ -67,11 +67,19 @@ public class MsgField implements Msg {
     private Integer maxLen;
 
     /**
-     * The number of bytes the field contains in its packed state.
+     * Number of bytes the field's body contains in its packed state.
      * <p>
      * It used for fixed length fields only.
      */
     private Integer len;
+
+    /**
+     * Number of bytes the field's children have in bodies in packed state. If some child has defined {@link #len} and
+     * childrenBodyLen, the {@link #len} wins and childrenBodyLen is ignored.
+     * <p>
+     * It used for fixed length children fields only.
+     */
+    private Integer childrenBodyLen;
 
     /**
      * Packs and unpacks the {@link #tag} subfield. Only one tagPacker or {@link #childrenLengthPacker} is allowed.
@@ -79,13 +87,13 @@ public class MsgField implements Msg {
     private TagPacker tagPacker;
 
     /**
-     * Packs and unpacks the children ({@link #children}) {@link #tag} subfields.
-     * Only one {@link #tagPacker} or childrenLengthPacker is allowed.
+     * Packs and unpacks the ({@link #children})'s {@link #tag} subfields.
+     * Only one {@link #tagPacker} or childrenTagPacker is allowed.
      */
     private TagPacker childrenTagPacker;
 
     /**
-     * Packs and unpacks length of children fields. This value should be defined when the <i>length</i> sub-field
+     * Packs and unpacks length of ({@link #children})'s fields. This value should be defined when the <i>length</i> sub-field
      * precedes the <i>tag</i> sub-field,
      * for example F0F0F3 F9F3 F0, where F0F0F3 is the length 003, F9F3 is the tag 93 and F0 is the body.
      * <p>
@@ -93,6 +101,12 @@ public class MsgField implements Msg {
      * exception will be thrown.
      */
     private LengthPacker childrenLengthPacker;
+
+    /**
+     * Packs and unpacks {@link MsgValue#getBodyBytes()} of ({@link #children})'s fields. The packer may be set in a field
+     * or in its parent. Packer in a field has precedence over a packer in a parent.
+     */
+    private BodyPacker childrenBodyPacker;
 
     /**
      * If this field exists, the {@link MsgValue#getBodyBytes()} value must be exactly n bytes long.
@@ -119,9 +133,6 @@ public class MsgField implements Msg {
      * Packs from int to bytes and wise versa the {@link MsgValue#getLengthBytes()} subfield.
      * <p>
      * The calculated value says how many bytes contains the {@link MsgValue#getBodyBytes()} subfield.
-     * <p>
-     * Only one {@link LengthPacker} can be defined, parent {@link MsgField#getChildrenLengthPacker()}
-     * or the lengthPacker. Else an exception is thrown.
      */
     private LengthPacker lengthPacker;
 
@@ -167,6 +178,7 @@ public class MsgField implements Msg {
                 ", stringer=" + stringerString +
                 ", maxLen=" + maxLen +
                 ", len=" + len +
+                ", childrenBodyLen=" + childrenBodyLen +
                 ", tagPacker=" + tagPackerString +
                 ", childrenTagPacker=" + childrenTagPackerString +
                 ", exactlyLength=" + exactlyLength +
@@ -302,6 +314,20 @@ public class MsgField implements Msg {
     }
 
     /**
+     * @return The {@link #childrenBodyLen} field value.
+     */
+    public Integer getChildrenBodyLen() {
+        return childrenBodyLen;
+    }
+
+    /**
+     * @param childrenBodyLen see the {@link #childrenBodyLen} field description.
+     */
+    public void setChildrenBodyLen(Integer childrenBodyLen) {
+        this.childrenBodyLen = childrenBodyLen;
+    }
+
+    /**
      * @return The {@link #tagPacker} field value.
      */
     public TagPacker getTagPacker() {
@@ -341,6 +367,20 @@ public class MsgField implements Msg {
      */
     public void setChildrenLengthPacker(LengthPacker childrenLengthPacker) {
         this.childrenLengthPacker = childrenLengthPacker;
+    }
+
+    /**
+     * @return The {@link #childrenBodyPacker} field value.
+     */
+    public BodyPacker getChildrenBodyPacker() {
+        return childrenBodyPacker;
+    }
+
+    /**
+     * @param childrenBodyPacker see the {@link #childrenBodyPacker} field description.
+     */
+    public void setChildrenBodyPacker(BodyPacker childrenBodyPacker) {
+        this.childrenBodyPacker = childrenBodyPacker;
     }
 
     /**

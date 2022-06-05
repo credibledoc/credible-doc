@@ -10,6 +10,7 @@ import com.credibledoc.iso8583packer.masking.Masker;
 import com.credibledoc.iso8583packer.message.Msg;
 import com.credibledoc.iso8583packer.message.MsgField;
 import com.credibledoc.iso8583packer.message.MsgFieldType;
+import com.credibledoc.iso8583packer.message.MsgValue;
 import com.credibledoc.iso8583packer.navigator.Navigator;
 import com.credibledoc.iso8583packer.navigator.NavigatorService;
 import com.credibledoc.iso8583packer.stringer.Stringer;
@@ -172,10 +173,10 @@ public class FieldBuilder {
         newMsgField.setRoot(example.getRoot());
         newMsgField.setType(example.getType());
         newMsgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
+        newMsgField.setChildrenBodyPacker(example.getChildrenBodyPacker());
         newMsgField.setBodyPacker(example.getBodyPacker());
         newMsgField.setTagPacker(example.getTagPacker());
         newMsgField.setChildrenTagPacker(example.getChildrenTagPacker());
-        newMsgField.setChildrenLengthPacker(example.getChildrenLengthPacker());
         newMsgField.setExactlyLength(example.getExactlyLength());
         newMsgField.setLen(example.getLen());
         newMsgField.setMaxLen(example.getMaxLen());
@@ -331,13 +332,24 @@ public class FieldBuilder {
     }
 
     /**
-     * Set the {@link MsgField#setLen(Integer)} value. The value can be set to fields with fixed length only.
+     * Set the {@link MsgField#setLen(Integer)} value. The value can be set for fields with fixed length only.
      *
-     * @param fieldLen can be 'null' for deactivation.
+     * @param fieldLen can be 'null' for unsetting.
      * @return The current actual {@link FieldBuilder}
      */
     public FieldBuilder defineLen(Integer fieldLen) {
         this.msgField.setLen(fieldLen);
+        return this;
+    }
+
+    /**
+     * Set the {@link MsgField#setChildrenBodyLen(Integer)} value. The value can be set for fields with fixed length only.
+     *
+     * @param bodyLen can be 'null' for unsetting.
+     * @return The current actual {@link FieldBuilder}
+     */
+    public FieldBuilder defineChildrenBodyLen(Integer bodyLen) {
+        this.msgField.setChildrenBodyLen(bodyLen);
         return this;
     }
 
@@ -422,12 +434,6 @@ public class FieldBuilder {
      * @return The current instance of the {@link FieldBuilder} with a {@link #msgField} in its context.
      */
     public FieldBuilder defineHeaderLengthPacker(LengthPacker lengthPacker) {
-        if (msgField.getParent() != null) {
-            MsgField parent = msgField.getParent();
-            if (parent.getChildrenLengthPacker() != null) {
-                throw new PackerRuntimeException(createMessageSameLengthPacker(parent, msgField));
-            }
-        }
         msgField.setLengthPacker(lengthPacker);
         return this;
     }
@@ -550,6 +556,23 @@ public class FieldBuilder {
             }
         }
         msgField.setChildrenLengthPacker(lengthPacker);
+        return this;
+    }
+
+    /**
+     * Set the {@link MsgField#setChildrenBodyPacker(BodyPacker)} value to the current {@link #msgField}.
+     * @param bodyPacker packs and unpacks the children's {@link MsgValue#getBodyBytes()}. It may be used in
+     *                   unknown (undefined) {@link MsgFieldType#TAG_LEN_VAL}, {@link MsgFieldType#TAG_LEN_VAL} and
+     *                   {@link MsgFieldType#TAG_VAL} fields during unpacking.
+     *                     
+     * @return The current actual {@link FieldBuilder} with the {@link #msgField} in its context.
+     */
+    public FieldBuilder defineChildrenBodyPacker(BodyPacker bodyPacker) {
+        if (bodyPacker == null) {
+            msgField.setChildrenBodyPacker(null);
+            return this;
+        }
+        msgField.setChildrenBodyPacker(bodyPacker);
         return this;
     }
 
