@@ -7,7 +7,7 @@
     <parent>
         <artifactId>credible-doc-parent</artifactId>
         <groupId>com.credibledoc</groupId>
-        <version>1.0.48</version>
+        <version>1.0.49-SNAPSHOT</version>
     </parent>
 
     <artifactId>substitution-parent</artifactId>
