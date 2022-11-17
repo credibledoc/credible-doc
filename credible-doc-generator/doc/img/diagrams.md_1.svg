@@ -13,7 +13,7 @@
     <polygon fill="#181818" points="139.5,40,143.5,50,147.5,40,143.5,44" style="stroke:#181818;stroke-width:1.0;"/>
     <line style="stroke:#181818;stroke-width:1.0;" x1="143.5" x2="143.5" y1="85.0938" y2="105.0938"/>
     <polygon fill="#181818" points="139.5,95.0938,143.5,105.0938,147.5,95.0938,143.5,99.0938" style="stroke:#181818;stroke-width:1.0;"/>
-    <!--MD5=[ac64e39f1fb2d2fb7f306363eb593825]
+    <!--MD5=[bc52977093eb36caeb116aa66be1cefb]
 @startuml
 start
 :Application credible-doc-generator launched.;
@@ -25,7 +25,7 @@ end note
 
 @enduml
 
-PlantUML version 1.2022.4(Sat Apr 09 15:29:17 CEST 2022)
+PlantUML version 1.2022.12(Sun Oct 23 20:12:26 CEST 2022)
 (GPL source distribution)
 Java Runtime: Java(TM) SE Runtime Environment
 JVM: Java HotSpot(TM) 64-Bit Server VM

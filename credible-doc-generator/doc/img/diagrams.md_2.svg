@@ -654,7 +654,7 @@
     <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143" x="229.5" y="7235.0537">Inserting 'footer' fragment</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="120" x="83.5" y="7212.1875"/>
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="97" x="93.5" y="7234.6445">Content replaced.</text>
-    <ellipse cx="143.5" cy="7278.2813" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;fill:none;"/>
+    <ellipse cx="143.5" cy="7278.2813" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/>
     <ellipse cx="143.5" cy="7278.2813" fill="#222222" rx="6" ry="6" style="stroke:#111111;stroke-width:1.0;"/>
     <line style="stroke:#181818;stroke-width:1.0;" x1="143.5" x2="143.5" y1="30" y2="50"/>
     <polygon fill="#181818" points="139.5,40,143.5,50,147.5,40,143.5,44" style="stroke:#181818;stroke-width:1.0;"/>
@@ -920,7 +920,7 @@
     <polygon fill="#181818" points="139.5,7202.1875,143.5,7212.1875,147.5,7202.1875,143.5,7206.1875" style="stroke:#181818;stroke-width:1.0;"/>
     <line style="stroke:#181818;stroke-width:1.0;" x1="143.5" x2="143.5" y1="7247.2813" y2="7267.2813"/>
     <polygon fill="#181818" points="139.5,7257.2813,143.5,7267.2813,147.5,7257.2813,143.5,7261.2813" style="stroke:#181818;stroke-width:1.0;"/>
-    <!--MD5=[c9cee17b450535591b9bb206c5062458]
+    <!--MD5=[41818b1f73664eee0732ae297d0e8c49]
 @startuml
 start
 :Application credible-doc-generator launched.;
@@ -1579,7 +1579,7 @@ stop
 
 @enduml
 
-PlantUML version 1.2022.4(Sat Apr 09 15:29:17 CEST 2022)
+PlantUML version 1.2022.12(Sun Oct 23 20:12:26 CEST 2022)
 (GPL source distribution)
 Java Runtime: Java(TM) SE Runtime Environment
 JVM: Java HotSpot(TM) 64-Bit Server VM
