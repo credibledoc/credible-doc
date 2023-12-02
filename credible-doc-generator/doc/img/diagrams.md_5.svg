@@ -1,398 +1,337 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1620px" preserveAspectRatio="none" style="width:725px;height:1620px;background:#FFFFFF;" version="1.1" viewBox="0 0 725 1620" width="725px" zoomAndPan="magnify">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="2167px" preserveAspectRatio="none" style="width:584px;height:2167px;background:#FFFFFF;" version="1.1" viewBox="0 0 584 2167" width="584px" zoomAndPan="magnify">
   <defs/>
   <g>
-    <!--MD5=[6bd5fed661691d3bad4a21d0634ed63c]
-cluster com.credibledoc.substitution-->
-    <g id="cluster_com.credibledoc.substitution">
-      <path d="M8.5,788 L214.5,788 A3.75,3.75 0 0 1 217,790.5 L224,811.6094 L224.5,811.6094 A2.5,2.5 0 0 1 227,814.1094 L227,869.5 A2.5,2.5 0 0 1 224.5,872 L8.5,872 A2.5,2.5 0 0 1 6,869.5 L6,790.5 A2.5,2.5 0 0 1 8.5,788 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="6" x2="224" y1="811.6094" y2="811.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="205" x="10" y="804.5332">com.credibledoc.substitution</text>
+    <!--cluster com-->
+    <g id="cluster_com">
+      <path d="M8.5,6 L38.5,6 A3.75,3.75 0 0 1 41,8.5 L48,29.6094 L574.5,29.6094 A2.5,2.5 0 0 1 577,32.1094 L577,2157.5 A2.5,2.5 0 0 1 574.5,2160 L8.5,2160 A2.5,2.5 0 0 1 6,2157.5 L6,8.5 A2.5,2.5 0 0 1 8.5,6 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="6" x2="48" y1="29.6094" y2="29.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="29" x="10" y="22.5332">com</text>
     </g>
-    <!--MD5=[b4b367a8f3b794c0512c242c02d7d20b]
-cluster com.credibledoc.substitution.reporting.report.document-->
-    <g id="cluster_com.credibledoc.substitution.reporting.report.document">
-      <path d="M282.5,6 L680.5,6 A3.75,3.75 0 0 1 683,8.5 L690,29.6094 L690.5,29.6094 A2.5,2.5 0 0 1 693,32.1094 L693,87.5 A2.5,2.5 0 0 1 690.5,90 L282.5,90 A2.5,2.5 0 0 1 280,87.5 L280,8.5 A2.5,2.5 0 0 1 282.5,6 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="280" x2="690" y1="29.6094" y2="29.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="397" x="284" y="22.5332">com.credibledoc.substitution.reporting.report.document</text>
+    <!--cluster credibledoc-->
+    <g id="cluster_credibledoc">
+      <path d="M32.5,50 L117.5,50 A3.75,3.75 0 0 1 120,52.5 L127,73.6094 L550.5,73.6094 A2.5,2.5 0 0 1 553,76.1094 L553,2133.5 A2.5,2.5 0 0 1 550.5,2136 L32.5,2136 A2.5,2.5 0 0 1 30,2133.5 L30,52.5 A2.5,2.5 0 0 1 32.5,50 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="30" x2="127" y1="73.6094" y2="73.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="84" x="34" y="66.5332">credibledoc</text>
     </g>
-    <!--MD5=[6aaa9b1fe7b3b9cd355b4aa4b9b93fb8]
-cluster com.credibledoc.substitution.core.exception-->
-    <g id="cluster_com.credibledoc.substitution.core.exception">
-      <path d="M323,114 L639,114 A3.75,3.75 0 0 1 641.5,116.5 L648.5,137.6094 L649,137.6094 A2.5,2.5 0 0 1 651.5,140.1094 L651.5,195.5 A2.5,2.5 0 0 1 649,198 L323,198 A2.5,2.5 0 0 1 320.5,195.5 L320.5,116.5 A2.5,2.5 0 0 1 323,114 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="320.5" x2="648.5" y1="137.6094" y2="137.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="315" x="324.5" y="130.5332">com.credibledoc.substitution.core.exception</text>
+    <!--cluster substitution-->
+    <g id="cluster_substitution">
+      <path d="M56.5,94 L141.5,94 A3.75,3.75 0 0 1 144,96.5 L151,117.6094 L526.5,117.6094 A2.5,2.5 0 0 1 529,120.1094 L529,2109.5 A2.5,2.5 0 0 1 526.5,2112 L56.5,2112 A2.5,2.5 0 0 1 54,2109.5 L54,96.5 A2.5,2.5 0 0 1 56.5,94 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="54" x2="151" y1="117.6094" y2="117.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="84" x="58" y="110.5332">substitution</text>
     </g>
-    <!--MD5=[604668a39e118144da349442eead69dc]
-cluster com.credibledoc.substitution.reporting.reportdocument-->
-    <g id="cluster_com.credibledoc.substitution.reporting.reportdocument">
-      <path d="M284,222 L678,222 A3.75,3.75 0 0 1 680.5,224.5 L687.5,245.6094 L688,245.6094 A2.5,2.5 0 0 1 690.5,248.1094 L690.5,370.5 A2.5,2.5 0 0 1 688,373 L284,373 A2.5,2.5 0 0 1 281.5,370.5 L281.5,224.5 A2.5,2.5 0 0 1 284,222 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="281.5" x2="687.5" y1="245.6094" y2="245.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="393" x="285.5" y="238.5332">com.credibledoc.substitution.reporting.reportdocument</text>
+    <!--cluster reporting-->
+    <g id="cluster_reporting">
+      <path d="M168,1474 L235,1474 A3.75,3.75 0 0 1 237.5,1476.5 L244.5,1497.6094 L478,1497.6094 A2.5,2.5 0 0 1 480.5,1500.1094 L480.5,2085.5 A2.5,2.5 0 0 1 478,2088 L168,2088 A2.5,2.5 0 0 1 165.5,2085.5 L165.5,1476.5 A2.5,2.5 0 0 1 168,1474 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="165.5" x2="244.5" y1="1497.6094" y2="1497.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="66" x="169.5" y="1490.5332">reporting</text>
     </g>
-    <!--MD5=[089cbeb571dbef2d151d2e2cf16503b4]
-cluster com.credibledoc.substitution.content.generator.jar-->
-    <g id="cluster_com.credibledoc.substitution.content.generator.jar">
-      <path d="M301.5,397 L661.5,397 A3.75,3.75 0 0 1 664,399.5 L671,420.6094 L671.5,420.6094 A2.5,2.5 0 0 1 674,423.1094 L674,478.5 A2.5,2.5 0 0 1 671.5,481 L301.5,481 A2.5,2.5 0 0 1 299,478.5 L299,399.5 A2.5,2.5 0 0 1 301.5,397 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="299" x2="671" y1="420.6094" y2="420.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="359" x="303" y="413.5332">com.credibledoc.substitution.content.generator.jar</text>
+    <!--cluster report-->
+    <g id="cluster_report">
+      <path d="M237.5,1518 L282.5,1518 A3.75,3.75 0 0 1 285,1520.5 L292,1541.6094 L408.5,1541.6094 A2.5,2.5 0 0 1 411,1544.1094 L411,1667.5 A2.5,2.5 0 0 1 408.5,1670 L237.5,1670 A2.5,2.5 0 0 1 235,1667.5 L235,1520.5 A2.5,2.5 0 0 1 237.5,1518 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="235" x2="292" y1="1541.6094" y2="1541.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="44" x="239" y="1534.5332">report</text>
     </g>
-    <!--MD5=[f78070935425e6a95d03db3dc2e77f87]
-cluster com.credibledoc.substitution.core.context-->
-    <g id="cluster_com.credibledoc.substitution.core.context">
-      <path d="M331.5,505 L630.5,505 A3.75,3.75 0 0 1 633,507.5 L640,528.6094 L640.5,528.6094 A2.5,2.5 0 0 1 643,531.1094 L643,586.5 A2.5,2.5 0 0 1 640.5,589 L331.5,589 A2.5,2.5 0 0 1 329,586.5 L329,507.5 A2.5,2.5 0 0 1 331.5,505 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="329" x2="640" y1="528.6094" y2="528.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="298" x="333" y="521.5332">com.credibledoc.substitution.core.context</text>
+    <!--cluster document-->
+    <g id="cluster_document">
+      <path d="M261.5,1562 L332.5,1562 A3.75,3.75 0 0 1 335,1564.5 L342,1585.6094 L384.5,1585.6094 A2.5,2.5 0 0 1 387,1588.1094 L387,1643.5 A2.5,2.5 0 0 1 384.5,1646 L261.5,1646 A2.5,2.5 0 0 1 259,1643.5 L259,1564.5 A2.5,2.5 0 0 1 261.5,1562 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="259" x2="342" y1="1585.6094" y2="1585.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="70" x="263" y="1578.5332">document</text>
     </g>
-    <!--MD5=[78253e8a40f9af2549829117a9d7d7ac]
-cluster com.credibledoc.substitution.core.placeholder-->
-    <g id="cluster_com.credibledoc.substitution.core.placeholder">
-      <path d="M316.5,613 L646.5,613 A3.75,3.75 0 0 1 649,615.5 L656,636.6094 L656.5,636.6094 A2.5,2.5 0 0 1 659,639.1094 L659,761.5 A2.5,2.5 0 0 1 656.5,764 L316.5,764 A2.5,2.5 0 0 1 314,761.5 L314,615.5 A2.5,2.5 0 0 1 316.5,613 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="314" x2="656" y1="636.6094" y2="636.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="329" x="318" y="629.5332">com.credibledoc.substitution.core.placeholder</text>
+    <!--cluster reportdocument-->
+    <g id="cluster_reportdocument">
+      <path d="M192,1694 L307,1694 A3.75,3.75 0 0 1 309.5,1696.5 L316.5,1717.6094 L454,1717.6094 A2.5,2.5 0 0 1 456.5,1720.1094 L456.5,1953.5 A2.5,2.5 0 0 1 454,1956 L192,1956 A2.5,2.5 0 0 1 189.5,1953.5 L189.5,1696.5 A2.5,2.5 0 0 1 192,1694 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="189.5" x2="316.5" y1="1717.6094" y2="1717.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="114" x="193.5" y="1710.5332">reportdocument</text>
     </g>
-    <!--MD5=[4d226a5b58f759dcb301ddf5905e7a50]
-cluster com.credibledoc.substitution.core.resource-->
-    <g id="cluster_com.credibledoc.substitution.core.resource">
-      <path d="M326.5,788 L636.5,788 A3.75,3.75 0 0 1 639,790.5 L646,811.6094 L646.5,811.6094 A2.5,2.5 0 0 1 649,814.1094 L649,1003.5 A2.5,2.5 0 0 1 646.5,1006 L326.5,1006 A2.5,2.5 0 0 1 324,1003.5 L324,790.5 A2.5,2.5 0 0 1 326.5,788 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="324" x2="646" y1="811.6094" y2="811.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="309" x="328" y="804.5332">com.credibledoc.substitution.core.resource</text>
+    <!--cluster creator-->
+    <g id="cluster_creator">
+      <path d="M216,1738 L268,1738 A3.75,3.75 0 0 1 270.5,1740.5 L277.5,1761.6094 L430,1761.6094 A2.5,2.5 0 0 1 432.5,1764.1094 L432.5,1819.5 A2.5,2.5 0 0 1 430,1822 L216,1822 A2.5,2.5 0 0 1 213.5,1819.5 L213.5,1740.5 A2.5,2.5 0 0 1 216,1738 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="213.5" x2="277.5" y1="1761.6094" y2="1761.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="51" x="217.5" y="1754.5332">creator</text>
     </g>
-    <!--MD5=[22609b558f7955e0789638ecc9c88945]
-cluster com.credibledoc.substitution.reporting.reportdocument.creator-->
-    <g id="cluster_com.credibledoc.substitution.reporting.reportdocument.creator">
-      <path d="M257,1030 L706,1030 A3.75,3.75 0 0 1 708.5,1032.5 L715.5,1053.6094 L716,1053.6094 A2.5,2.5 0 0 1 718.5,1056.1094 L718.5,1111.5 A2.5,2.5 0 0 1 716,1114 L257,1114 A2.5,2.5 0 0 1 254.5,1111.5 L254.5,1032.5 A2.5,2.5 0 0 1 257,1030 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="254.5" x2="715.5" y1="1053.6094" y2="1053.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="448" x="258.5" y="1046.5332">com.credibledoc.substitution.reporting.reportdocument.creator</text>
+    <!--cluster replacement-->
+    <g id="cluster_replacement">
+      <path d="M228.5,1980 L317.5,1980 A3.75,3.75 0 0 1 320,1982.5 L327,2003.6094 L417.5,2003.6094 A2.5,2.5 0 0 1 420,2006.1094 L420,2061.5 A2.5,2.5 0 0 1 417.5,2064 L228.5,2064 A2.5,2.5 0 0 1 226,2061.5 L226,1982.5 A2.5,2.5 0 0 1 228.5,1980 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="226" x2="327" y1="2003.6094" y2="2003.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="88" x="230" y="1996.5332">replacement</text>
     </g>
-    <!--MD5=[9702c35b080beb7f5ae80df4f8631438]
-cluster com.credibledoc.substitution.core.template-->
-    <g id="cluster_com.credibledoc.substitution.core.template">
-      <path d="M327.5,1138 L634.5,1138 A3.75,3.75 0 0 1 637,1140.5 L644,1161.6094 L644.5,1161.6094 A2.5,2.5 0 0 1 647,1164.1094 L647,1219.5 A2.5,2.5 0 0 1 644.5,1222 L327.5,1222 A2.5,2.5 0 0 1 325,1219.5 L325,1140.5 A2.5,2.5 0 0 1 327.5,1138 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="325" x2="644" y1="1161.6094" y2="1161.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="306" x="329" y="1154.5332">com.credibledoc.substitution.core.template</text>
+    <!--cluster core-->
+    <g id="cluster_core">
+      <path d="M176,382 L209,382 A3.75,3.75 0 0 1 211.5,384.5 L218.5,405.6094 L470,405.6094 A2.5,2.5 0 0 1 472.5,408.1094 L472.5,1447.5 A2.5,2.5 0 0 1 470,1450 L176,1450 A2.5,2.5 0 0 1 173.5,1447.5 L173.5,384.5 A2.5,2.5 0 0 1 176,382 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="173.5" x2="218.5" y1="405.6094" y2="405.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="32" x="177.5" y="398.5332">core</text>
     </g>
-    <!--MD5=[6fea2340843c4c33bcaaaffa683def55]
-cluster com.credibledoc.substitution.core.configuration-->
-    <g id="cluster_com.credibledoc.substitution.core.configuration">
-      <path d="M311.5,1246 L651.5,1246 A3.75,3.75 0 0 1 654,1248.5 L661,1269.6094 L661.5,1269.6094 A2.5,2.5 0 0 1 664,1272.1094 L664,1327.5 A2.5,2.5 0 0 1 661.5,1330 L311.5,1330 A2.5,2.5 0 0 1 309,1327.5 L309,1248.5 A2.5,2.5 0 0 1 311.5,1246 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="309" x2="661" y1="1269.6094" y2="1269.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="339" x="313" y="1262.5332">com.credibledoc.substitution.core.configuration</text>
+    <!--cluster exception-->
+    <g id="cluster_exception">
+      <path d="M200,426 L271,426 A3.75,3.75 0 0 1 273.5,428.5 L280.5,449.6094 L446,449.6094 A2.5,2.5 0 0 1 448.5,452.1094 L448.5,507.5 A2.5,2.5 0 0 1 446,510 L200,510 A2.5,2.5 0 0 1 197.5,507.5 L197.5,428.5 A2.5,2.5 0 0 1 200,426 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="197.5" x2="280.5" y1="449.6094" y2="449.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="70" x="201.5" y="442.5332">exception</text>
     </g>
-    <!--MD5=[ce9195034ca59eb29b58526b44be340b]
-cluster com.credibledoc.substitution.reporting.replacement-->
-    <g id="cluster_com.credibledoc.substitution.reporting.replacement">
-      <path d="M297.5,1354 L665.5,1354 A3.75,3.75 0 0 1 668,1356.5 L675,1377.6094 L675.5,1377.6094 A2.5,2.5 0 0 1 678,1380.1094 L678,1435.5 A2.5,2.5 0 0 1 675.5,1438 L297.5,1438 A2.5,2.5 0 0 1 295,1435.5 L295,1356.5 A2.5,2.5 0 0 1 297.5,1354 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="295" x2="675" y1="1377.6094" y2="1377.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="367" x="299" y="1370.5332">com.credibledoc.substitution.reporting.replacement</text>
+    <!--cluster context-->
+    <g id="cluster_context">
+      <path d="M232.5,534 L286.5,534 A3.75,3.75 0 0 1 289,536.5 L296,557.6094 L413.5,557.6094 A2.5,2.5 0 0 1 416,560.1094 L416,615.5 A2.5,2.5 0 0 1 413.5,618 L232.5,618 A2.5,2.5 0 0 1 230,615.5 L230,536.5 A2.5,2.5 0 0 1 232.5,534 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="230" x2="296" y1="557.6094" y2="557.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="53" x="234" y="550.5332">context</text>
     </g>
-    <!--MD5=[0f12076e88e759fddd5320f7dca15cee]
-cluster com.credibledoc.substitution.core.content-->
-    <g id="cluster_com.credibledoc.substitution.core.content">
-      <path d="M331,1462 L631,1462 A3.75,3.75 0 0 1 633.5,1464.5 L640.5,1485.6094 L641,1485.6094 A2.5,2.5 0 0 1 643.5,1488.1094 L643.5,1610.5 A2.5,2.5 0 0 1 641,1613 L331,1613 A2.5,2.5 0 0 1 328.5,1610.5 L328.5,1464.5 A2.5,2.5 0 0 1 331,1462 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
-      <line style="stroke:#000000;stroke-width:1.5;" x1="328.5" x2="640.5" y1="1485.6094" y2="1485.6094"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="299" x="332.5" y="1478.5332">com.credibledoc.substitution.core.content</text>
+    <!--cluster placeholder-->
+    <g id="cluster_placeholder">
+      <path d="M232.5,642 L317.5,642 A3.75,3.75 0 0 1 320,644.5 L327,665.6094 L413.5,665.6094 A2.5,2.5 0 0 1 416,668.1094 L416,790.5 A2.5,2.5 0 0 1 413.5,793 L232.5,793 A2.5,2.5 0 0 1 230,790.5 L230,644.5 A2.5,2.5 0 0 1 232.5,642 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="230" x2="327" y1="665.6094" y2="665.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="84" x="234" y="658.5332">placeholder</text>
     </g>
-    <!--MD5=[184e894e943eea80494633c4a85fc481]
-class com.credibledoc.substitution.doc-->
-    <g id="elem_com.credibledoc.substitution.doc">
-      <rect codeLine="10" fill="#98FB98" height="32" id="com.credibledoc.substitution.doc" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="55" x="89" y="824"/>
-      <ellipse cx="104" cy="840" fill="#20B2AA" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M104.625,841.5469 L104.625,843.2969 L106.3281,843.2969 Q106.9531,843.2969 107.2109,843.5313 Q107.4688,843.7656 107.4688,844.1563 Q107.4688,844.5313 107.2109,844.7656 Q106.9531,845 106.3281,845 L102.6563,845 Q102.0313,845 101.7734,844.7656 Q101.5156,844.5313 101.5156,844.1406 Q101.5156,843.7656 101.7813,843.5313 Q102.0469,843.2969 102.6563,843.2969 L102.9219,843.2969 L102.9219,836.6406 L102.6563,836.6406 Q102.0313,836.6406 101.7734,836.4063 Q101.5156,836.1719 101.5156,835.7813 Q101.5156,835.4063 101.7734,835.1719 Q102.0313,834.9375 102.6563,834.9375 L106.5625,834.9375 Q108.2969,834.9375 109.3047,835.8828 Q110.3125,836.8281 110.3125,838.1719 Q110.3125,838.9219 109.9688,839.5938 Q109.7188,840.0781 109.1172,840.5703 Q108.5156,841.0625 107.8828,841.3047 Q107.25,841.5469 106.2344,841.5469 L104.625,841.5469 Z M104.625,839.8438 L106.1875,839.8438 Q107.3125,839.8438 107.9609,839.3438 Q108.6094,838.8438 108.6094,838.1406 Q108.6094,837.5313 108.0859,837.0859 Q107.5625,836.6406 106.5781,836.6406 L104.625,836.6406 L104.625,839.8438 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="23" x="118" y="845.7285">doc</text>
+    <!--cluster resource-->
+    <g id="cluster_resource">
+      <path d="M233.5,817 L298.5,817 A3.75,3.75 0 0 1 301,819.5 L308,840.6094 L412.5,840.6094 A2.5,2.5 0 0 1 415,843.1094 L415,1032.5 A2.5,2.5 0 0 1 412.5,1035 L233.5,1035 A2.5,2.5 0 0 1 231,1032.5 L231,819.5 A2.5,2.5 0 0 1 233.5,817 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="231" x2="308" y1="840.6094" y2="840.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="64" x="235" y="833.5332">resource</text>
     </g>
-    <!--MD5=[c5a4acc6e28859c4ed5f977e6e109c29]
-class com.credibledoc.substitution.reporting.report.document.Document-->
-    <g id="elem_com.credibledoc.substitution.reporting.report.document.Document">
-      <rect codeLine="11" fill="#98FB98" height="32" id="com.credibledoc.substitution.reporting.report.document.Document" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="96" x="438" y="42"/>
-      <ellipse cx="453" cy="58" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M455.7656,53.875 Q455.9219,53.6563 456.1094,53.5469 Q456.2969,53.4375 456.5156,53.4375 Q456.8906,53.4375 457.125,53.6953 Q457.3594,53.9531 457.3594,54.5625 L457.3594,56.0156 Q457.3594,56.625 457.125,56.8906 Q456.8906,57.1563 456.5156,57.1563 Q456.1719,57.1563 455.9688,56.9531 Q455.7656,56.7656 455.6563,56.25 Q455.6094,55.8906 455.4219,55.7031 Q455.0938,55.3281 454.4844,55.1094 Q453.875,54.8906 453.25,54.8906 Q452.4844,54.8906 451.8516,55.2188 Q451.2188,55.5469 450.7266,56.2969 Q450.2344,57.0469 450.2344,58.0781 L450.2344,59.1719 Q450.2344,60.4063 451.125,61.2266 Q452.0156,62.0469 453.6094,62.0469 Q454.5469,62.0469 455.2031,61.7969 Q455.5938,61.6406 456.0156,61.2031 Q456.2813,60.9375 456.4297,60.8594 Q456.5781,60.7813 456.7813,60.7813 Q457.1094,60.7813 457.3672,61.0391 Q457.625,61.2969 457.625,61.6406 Q457.625,61.9844 457.2813,62.3906 Q456.7813,62.9688 455.9844,63.2969 Q454.9063,63.75 453.6094,63.75 Q452.0938,63.75 450.8906,63.125 Q449.9063,62.625 449.2188,61.5547 Q448.5313,60.4844 448.5313,59.2031 L448.5313,58.0469 Q448.5313,56.7188 449.1484,55.5703 Q449.7656,54.4219 450.8594,53.8047 Q451.9531,53.1875 453.1875,53.1875 Q453.9219,53.1875 454.5703,53.3516 Q455.2188,53.5156 455.7656,53.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="467" y="63.7285">Document</text>
+    <!--cluster template-->
+    <g id="cluster_template">
+      <path d="M240.5,1059 L302.5,1059 A3.75,3.75 0 0 1 305,1061.5 L312,1082.6094 L405.5,1082.6094 A2.5,2.5 0 0 1 408,1085.1094 L408,1140.5 A2.5,2.5 0 0 1 405.5,1143 L240.5,1143 A2.5,2.5 0 0 1 238,1140.5 L238,1061.5 A2.5,2.5 0 0 1 240.5,1059 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="238" x2="312" y1="1082.6094" y2="1082.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="61" x="242" y="1075.5332">template</text>
     </g>
-    <!--MD5=[13694b838c4692c931c3f77704ea2c78]
-class com.credibledoc.substitution.core.exception.SubstitutionRuntimeException-->
-    <g id="elem_com.credibledoc.substitution.core.exception.SubstitutionRuntimeException">
-      <rect codeLine="12" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.exception.SubstitutionRuntimeException" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="219" x="376.5" y="150"/>
-      <ellipse cx="391.5" cy="166" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M394.2656,161.875 Q394.4219,161.6563 394.6094,161.5469 Q394.7969,161.4375 395.0156,161.4375 Q395.3906,161.4375 395.625,161.6953 Q395.8594,161.9531 395.8594,162.5625 L395.8594,164.0156 Q395.8594,164.625 395.625,164.8906 Q395.3906,165.1563 395.0156,165.1563 Q394.6719,165.1563 394.4688,164.9531 Q394.2656,164.7656 394.1563,164.25 Q394.1094,163.8906 393.9219,163.7031 Q393.5938,163.3281 392.9844,163.1094 Q392.375,162.8906 391.75,162.8906 Q390.9844,162.8906 390.3516,163.2188 Q389.7188,163.5469 389.2266,164.2969 Q388.7344,165.0469 388.7344,166.0781 L388.7344,167.1719 Q388.7344,168.4063 389.625,169.2266 Q390.5156,170.0469 392.1094,170.0469 Q393.0469,170.0469 393.7031,169.7969 Q394.0938,169.6406 394.5156,169.2031 Q394.7813,168.9375 394.9297,168.8594 Q395.0781,168.7813 395.2813,168.7813 Q395.6094,168.7813 395.8672,169.0391 Q396.125,169.2969 396.125,169.6406 Q396.125,169.9844 395.7813,170.3906 Q395.2813,170.9688 394.4844,171.2969 Q393.4063,171.75 392.1094,171.75 Q390.5938,171.75 389.3906,171.125 Q388.4063,170.625 387.7188,169.5547 Q387.0313,168.4844 387.0313,167.2031 L387.0313,166.0469 Q387.0313,164.7188 387.6484,163.5703 Q388.2656,162.4219 389.3594,161.8047 Q390.4531,161.1875 391.6875,161.1875 Q392.4219,161.1875 393.0703,161.3516 Q393.7188,161.5156 394.2656,161.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="187" x="405.5" y="171.7285">SubstitutionRuntimeException</text>
+    <!--cluster configuration-->
+    <g id="cluster_configuration">
+      <path d="M227.5,1342 L322.5,1342 A3.75,3.75 0 0 1 325,1344.5 L332,1365.6094 L418.5,1365.6094 A2.5,2.5 0 0 1 421,1368.1094 L421,1423.5 A2.5,2.5 0 0 1 418.5,1426 L227.5,1426 A2.5,2.5 0 0 1 225,1423.5 L225,1344.5 A2.5,2.5 0 0 1 227.5,1342 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="225" x2="332" y1="1365.6094" y2="1365.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="94" x="229" y="1358.5332">configuration</text>
     </g>
-    <!--MD5=[de6fb2299aece456650c4cd9b365442a]
-class com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType-->
-    <g id="elem_com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType">
-      <rect codeLine="13" fill="#98FB98" height="32" id="com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="171" x="400.5" y="258"/>
-      <ellipse cx="415.5" cy="274" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M418.2656,269.875 Q418.4219,269.6563 418.6094,269.5469 Q418.7969,269.4375 419.0156,269.4375 Q419.3906,269.4375 419.625,269.6953 Q419.8594,269.9531 419.8594,270.5625 L419.8594,272.0156 Q419.8594,272.625 419.625,272.8906 Q419.3906,273.1563 419.0156,273.1563 Q418.6719,273.1563 418.4688,272.9531 Q418.2656,272.7656 418.1563,272.25 Q418.1094,271.8906 417.9219,271.7031 Q417.5938,271.3281 416.9844,271.1094 Q416.375,270.8906 415.75,270.8906 Q414.9844,270.8906 414.3516,271.2188 Q413.7188,271.5469 413.2266,272.2969 Q412.7344,273.0469 412.7344,274.0781 L412.7344,275.1719 Q412.7344,276.4063 413.625,277.2266 Q414.5156,278.0469 416.1094,278.0469 Q417.0469,278.0469 417.7031,277.7969 Q418.0938,277.6406 418.5156,277.2031 Q418.7813,276.9375 418.9297,276.8594 Q419.0781,276.7813 419.2813,276.7813 Q419.6094,276.7813 419.8672,277.0391 Q420.125,277.2969 420.125,277.6406 Q420.125,277.9844 419.7813,278.3906 Q419.2813,278.9688 418.4844,279.2969 Q417.4063,279.75 416.1094,279.75 Q414.5938,279.75 413.3906,279.125 Q412.4063,278.625 411.7188,277.5547 Q411.0313,276.4844 411.0313,275.2031 L411.0313,274.0469 Q411.0313,272.7188 411.6484,271.5703 Q412.2656,270.4219 413.3594,269.8047 Q414.4531,269.1875 415.6875,269.1875 Q416.4219,269.1875 417.0703,269.3516 Q417.7188,269.5156 418.2656,269.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="139" x="429.5" y="279.7285">ReportDocumentType</text>
+    <!--cluster content-->
+    <g id="cluster_content">
+      <path d="M236,1167 L291,1167 A3.75,3.75 0 0 1 293.5,1169.5 L300.5,1190.6094 L410,1190.6094 A2.5,2.5 0 0 1 412.5,1193.1094 L412.5,1315.5 A2.5,2.5 0 0 1 410,1318 L236,1318 A2.5,2.5 0 0 1 233.5,1315.5 L233.5,1169.5 A2.5,2.5 0 0 1 236,1167 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="233.5" x2="300.5" y1="1190.6094" y2="1190.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="54" x="237.5" y="1183.5332">content</text>
     </g>
-    <!--MD5=[dd460d3c26151f28537ffa24ebd17c35]
-class com.credibledoc.substitution.reporting.reportdocument.ReportDocument-->
-    <g id="elem_com.credibledoc.substitution.reporting.reportdocument.ReportDocument">
-      <rect codeLine="25" fill="#98FB98" height="32" id="com.credibledoc.substitution.reporting.reportdocument.ReportDocument" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="139" x="416.5" y="325"/>
-      <ellipse cx="431.5" cy="341" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M434.2656,336.875 Q434.4219,336.6563 434.6094,336.5469 Q434.7969,336.4375 435.0156,336.4375 Q435.3906,336.4375 435.625,336.6953 Q435.8594,336.9531 435.8594,337.5625 L435.8594,339.0156 Q435.8594,339.625 435.625,339.8906 Q435.3906,340.1563 435.0156,340.1563 Q434.6719,340.1563 434.4688,339.9531 Q434.2656,339.7656 434.1563,339.25 Q434.1094,338.8906 433.9219,338.7031 Q433.5938,338.3281 432.9844,338.1094 Q432.375,337.8906 431.75,337.8906 Q430.9844,337.8906 430.3516,338.2188 Q429.7188,338.5469 429.2266,339.2969 Q428.7344,340.0469 428.7344,341.0781 L428.7344,342.1719 Q428.7344,343.4063 429.625,344.2266 Q430.5156,345.0469 432.1094,345.0469 Q433.0469,345.0469 433.7031,344.7969 Q434.0938,344.6406 434.5156,344.2031 Q434.7813,343.9375 434.9297,343.8594 Q435.0781,343.7813 435.2813,343.7813 Q435.6094,343.7813 435.8672,344.0391 Q436.125,344.2969 436.125,344.6406 Q436.125,344.9844 435.7813,345.3906 Q435.2813,345.9688 434.4844,346.2969 Q433.4063,346.75 432.1094,346.75 Q430.5938,346.75 429.3906,346.125 Q428.4063,345.625 427.7188,344.5547 Q427.0313,343.4844 427.0313,342.2031 L427.0313,341.0469 Q427.0313,339.7188 427.6484,338.5703 Q428.2656,337.4219 429.3594,336.8047 Q430.4531,336.1875 431.6875,336.1875 Q432.4219,336.1875 433.0703,336.3516 Q433.7188,336.5156 434.2656,336.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107" x="445.5" y="346.7285">ReportDocument</text>
+    <!--cluster content-->
+    <g id="cluster_content">
+      <path d="M143.5,138 L198.5,138 A3.75,3.75 0 0 1 201,140.5 L208,161.6094 L502.5,161.6094 A2.5,2.5 0 0 1 505,164.1094 L505,355.5 A2.5,2.5 0 0 1 502.5,358 L143.5,358 A2.5,2.5 0 0 1 141,355.5 L141,140.5 A2.5,2.5 0 0 1 143.5,138 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="141" x2="208" y1="161.6094" y2="161.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="54" x="145" y="154.5332">content</text>
     </g>
-    <!--MD5=[104fd32fb6caa548d2ce9768d17dcbe3]
-class com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator-->
-    <g id="elem_com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator">
-      <rect codeLine="14" fill="#98FB98" height="32" id="com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="236" x="368" y="433"/>
-      <ellipse cx="383" cy="449" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M385.7656,444.875 Q385.9219,444.6563 386.1094,444.5469 Q386.2969,444.4375 386.5156,444.4375 Q386.8906,444.4375 387.125,444.6953 Q387.3594,444.9531 387.3594,445.5625 L387.3594,447.0156 Q387.3594,447.625 387.125,447.8906 Q386.8906,448.1563 386.5156,448.1563 Q386.1719,448.1563 385.9688,447.9531 Q385.7656,447.7656 385.6563,447.25 Q385.6094,446.8906 385.4219,446.7031 Q385.0938,446.3281 384.4844,446.1094 Q383.875,445.8906 383.25,445.8906 Q382.4844,445.8906 381.8516,446.2188 Q381.2188,446.5469 380.7266,447.2969 Q380.2344,448.0469 380.2344,449.0781 L380.2344,450.1719 Q380.2344,451.4063 381.125,452.2266 Q382.0156,453.0469 383.6094,453.0469 Q384.5469,453.0469 385.2031,452.7969 Q385.5938,452.6406 386.0156,452.2031 Q386.2813,451.9375 386.4297,451.8594 Q386.5781,451.7813 386.7813,451.7813 Q387.1094,451.7813 387.3672,452.0391 Q387.625,452.2969 387.625,452.6406 Q387.625,452.9844 387.2813,453.3906 Q386.7813,453.9688 385.9844,454.2969 Q384.9063,454.75 383.6094,454.75 Q382.0938,454.75 380.8906,454.125 Q379.9063,453.625 379.2188,452.5547 Q378.5313,451.4844 378.5313,450.2031 L378.5313,449.0469 Q378.5313,447.7188 379.1484,446.5703 Q379.7656,445.4219 380.8594,444.8047 Q381.9531,444.1875 383.1875,444.1875 Q383.9219,444.1875 384.5703,444.3516 Q385.2188,444.5156 385.7656,444.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="204" x="397" y="454.7285">LocalJarNameContentGenerator</text>
+    <!--cluster generator-->
+    <g id="cluster_generator">
+      <path d="M167.5,182 L238.5,182 A3.75,3.75 0 0 1 241,184.5 L248,205.6094 L478.5,205.6094 A2.5,2.5 0 0 1 481,208.1094 L481,331.5 A2.5,2.5 0 0 1 478.5,334 L167.5,334 A2.5,2.5 0 0 1 165,331.5 L165,184.5 A2.5,2.5 0 0 1 167.5,182 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="165" x2="248" y1="205.6094" y2="205.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="70" x="169" y="198.5332">generator</text>
     </g>
-    <!--MD5=[49c5b8dc52a382acc6ecd565342c1456]
-class com.credibledoc.substitution.core.context.SubstitutionContext-->
-    <g id="elem_com.credibledoc.substitution.core.context.SubstitutionContext">
-      <rect codeLine="15" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.context.SubstitutionContext" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="154" x="409" y="541"/>
-      <ellipse cx="424" cy="557" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M426.7656,552.875 Q426.9219,552.6563 427.1094,552.5469 Q427.2969,552.4375 427.5156,552.4375 Q427.8906,552.4375 428.125,552.6953 Q428.3594,552.9531 428.3594,553.5625 L428.3594,555.0156 Q428.3594,555.625 428.125,555.8906 Q427.8906,556.1563 427.5156,556.1563 Q427.1719,556.1563 426.9688,555.9531 Q426.7656,555.7656 426.6563,555.25 Q426.6094,554.8906 426.4219,554.7031 Q426.0938,554.3281 425.4844,554.1094 Q424.875,553.8906 424.25,553.8906 Q423.4844,553.8906 422.8516,554.2188 Q422.2188,554.5469 421.7266,555.2969 Q421.2344,556.0469 421.2344,557.0781 L421.2344,558.1719 Q421.2344,559.4063 422.125,560.2266 Q423.0156,561.0469 424.6094,561.0469 Q425.5469,561.0469 426.2031,560.7969 Q426.5938,560.6406 427.0156,560.2031 Q427.2813,559.9375 427.4297,559.8594 Q427.5781,559.7813 427.7813,559.7813 Q428.1094,559.7813 428.3672,560.0391 Q428.625,560.2969 428.625,560.6406 Q428.625,560.9844 428.2813,561.3906 Q427.7813,561.9688 426.9844,562.2969 Q425.9063,562.75 424.6094,562.75 Q423.0938,562.75 421.8906,562.125 Q420.9063,561.625 420.2188,560.5547 Q419.5313,559.4844 419.5313,558.2031 L419.5313,557.0469 Q419.5313,555.7188 420.1484,554.5703 Q420.7656,553.4219 421.8594,552.8047 Q422.9531,552.1875 424.1875,552.1875 Q424.9219,552.1875 425.5703,552.3516 Q426.2188,552.5156 426.7656,552.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="438" y="562.7285">SubstitutionContext</text>
+    <!--cluster jar-->
+    <g id="cluster_jar">
+      <path d="M191.5,226 L210.5,226 A3.75,3.75 0 0 1 213,228.5 L220,249.6094 L454.5,249.6094 A2.5,2.5 0 0 1 457,252.1094 L457,307.5 A2.5,2.5 0 0 1 454.5,310 L191.5,310 A2.5,2.5 0 0 1 189,307.5 L189,228.5 A2.5,2.5 0 0 1 191.5,226 " fill="none" style="stroke:#000000;stroke-width:1.5;"/>
+      <line style="stroke:#000000;stroke-width:1.5;" x1="189" x2="220" y1="249.6094" y2="249.6094"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="18" x="193" y="242.5332">jar</text>
     </g>
-    <!--MD5=[e564e4e147ca37e9e2799dcfbb8f5901]
-class com.credibledoc.substitution.core.placeholder.PlaceholderService-->
-    <g id="elem_com.credibledoc.substitution.core.placeholder.PlaceholderService">
-      <rect codeLine="16" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.placeholder.PlaceholderService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="154" x="409" y="649"/>
-      <ellipse cx="424" cy="665" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M426.7656,660.875 Q426.9219,660.6563 427.1094,660.5469 Q427.2969,660.4375 427.5156,660.4375 Q427.8906,660.4375 428.125,660.6953 Q428.3594,660.9531 428.3594,661.5625 L428.3594,663.0156 Q428.3594,663.625 428.125,663.8906 Q427.8906,664.1563 427.5156,664.1563 Q427.1719,664.1563 426.9688,663.9531 Q426.7656,663.7656 426.6563,663.25 Q426.6094,662.8906 426.4219,662.7031 Q426.0938,662.3281 425.4844,662.1094 Q424.875,661.8906 424.25,661.8906 Q423.4844,661.8906 422.8516,662.2188 Q422.2188,662.5469 421.7266,663.2969 Q421.2344,664.0469 421.2344,665.0781 L421.2344,666.1719 Q421.2344,667.4063 422.125,668.2266 Q423.0156,669.0469 424.6094,669.0469 Q425.5469,669.0469 426.2031,668.7969 Q426.5938,668.6406 427.0156,668.2031 Q427.2813,667.9375 427.4297,667.8594 Q427.5781,667.7813 427.7813,667.7813 Q428.1094,667.7813 428.3672,668.0391 Q428.625,668.2969 428.625,668.6406 Q428.625,668.9844 428.2813,669.3906 Q427.7813,669.9688 426.9844,670.2969 Q425.9063,670.75 424.6094,670.75 Q423.0938,670.75 421.8906,670.125 Q420.9063,669.625 420.2188,668.5547 Q419.5313,667.4844 419.5313,666.2031 L419.5313,665.0469 Q419.5313,663.7188 420.1484,662.5703 Q420.7656,661.4219 421.8594,660.8047 Q422.9531,660.1875 424.1875,660.1875 Q424.9219,660.1875 425.5703,660.3516 Q426.2188,660.5156 426.7656,660.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="438" y="670.7285">PlaceholderService</text>
+    <!--class doc-->
+    <g id="elem_doc">
+      <rect codeLine="10" fill="#98FB98" height="32" id="doc" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="55" x="70" y="1095"/>
+      <ellipse cx="85" cy="1111" fill="#20B2AA" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M85.625,1112.5469 L85.625,1114.2969 L87.3281,1114.2969 Q87.9531,1114.2969 88.2109,1114.5313 Q88.4688,1114.7656 88.4688,1115.1563 Q88.4688,1115.5313 88.2109,1115.7656 Q87.9531,1116 87.3281,1116 L83.6563,1116 Q83.0313,1116 82.7734,1115.7656 Q82.5156,1115.5313 82.5156,1115.1406 Q82.5156,1114.7656 82.7813,1114.5313 Q83.0469,1114.2969 83.6563,1114.2969 L83.9219,1114.2969 L83.9219,1107.6406 L83.6563,1107.6406 Q83.0313,1107.6406 82.7734,1107.4063 Q82.5156,1107.1719 82.5156,1106.7813 Q82.5156,1106.4063 82.7734,1106.1719 Q83.0313,1105.9375 83.6563,1105.9375 L87.5625,1105.9375 Q89.2969,1105.9375 90.3047,1106.8828 Q91.3125,1107.8281 91.3125,1109.1719 Q91.3125,1109.9219 90.9688,1110.5938 Q90.7188,1111.0781 90.1172,1111.5703 Q89.5156,1112.0625 88.8828,1112.3047 Q88.25,1112.5469 87.2344,1112.5469 L85.625,1112.5469 Z M85.625,1110.8438 L87.1875,1110.8438 Q88.3125,1110.8438 88.9609,1110.3438 Q89.6094,1109.8438 89.6094,1109.1406 Q89.6094,1108.5313 89.0859,1108.0859 Q88.5625,1107.6406 87.5781,1107.6406 L85.625,1107.6406 L85.625,1110.8438 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="23" x="99" y="1116.7285">doc</text>
     </g>
-    <!--MD5=[56a034bd30a3bed0b5d1d9cdd1ada984]
-class com.credibledoc.substitution.core.placeholder.Placeholder-->
-    <g id="elem_com.credibledoc.substitution.core.placeholder.Placeholder">
-      <rect codeLine="27" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.placeholder.Placeholder" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="107" x="432.5" y="716"/>
-      <ellipse cx="447.5" cy="732" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M450.2656,727.875 Q450.4219,727.6563 450.6094,727.5469 Q450.7969,727.4375 451.0156,727.4375 Q451.3906,727.4375 451.625,727.6953 Q451.8594,727.9531 451.8594,728.5625 L451.8594,730.0156 Q451.8594,730.625 451.625,730.8906 Q451.3906,731.1563 451.0156,731.1563 Q450.6719,731.1563 450.4688,730.9531 Q450.2656,730.7656 450.1563,730.25 Q450.1094,729.8906 449.9219,729.7031 Q449.5938,729.3281 448.9844,729.1094 Q448.375,728.8906 447.75,728.8906 Q446.9844,728.8906 446.3516,729.2188 Q445.7188,729.5469 445.2266,730.2969 Q444.7344,731.0469 444.7344,732.0781 L444.7344,733.1719 Q444.7344,734.4063 445.625,735.2266 Q446.5156,736.0469 448.1094,736.0469 Q449.0469,736.0469 449.7031,735.7969 Q450.0938,735.6406 450.5156,735.2031 Q450.7813,734.9375 450.9297,734.8594 Q451.0781,734.7813 451.2813,734.7813 Q451.6094,734.7813 451.8672,735.0391 Q452.125,735.2969 452.125,735.6406 Q452.125,735.9844 451.7813,736.3906 Q451.2813,736.9688 450.4844,737.2969 Q449.4063,737.75 448.1094,737.75 Q446.5938,737.75 445.3906,737.125 Q444.4063,736.625 443.7188,735.5547 Q443.0313,734.4844 443.0313,733.2031 L443.0313,732.0469 Q443.0313,730.7188 443.6484,729.5703 Q444.2656,728.4219 445.3594,727.8047 Q446.4531,727.1875 447.6875,727.1875 Q448.4219,727.1875 449.0703,727.3516 Q449.7188,727.5156 450.2656,727.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="461.5" y="737.7285">Placeholder</text>
+    <!--class Document-->
+    <g id="elem_Document">
+      <rect codeLine="11" fill="#98FB98" height="32" id="Document" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="96" x="275" y="1598"/>
+      <ellipse cx="290" cy="1614" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M292.7656,1609.875 Q292.9219,1609.6563 293.1094,1609.5469 Q293.2969,1609.4375 293.5156,1609.4375 Q293.8906,1609.4375 294.125,1609.6953 Q294.3594,1609.9531 294.3594,1610.5625 L294.3594,1612.0156 Q294.3594,1612.625 294.125,1612.8906 Q293.8906,1613.1563 293.5156,1613.1563 Q293.1719,1613.1563 292.9688,1612.9531 Q292.7656,1612.7656 292.6563,1612.25 Q292.6094,1611.8906 292.4219,1611.7031 Q292.0938,1611.3281 291.4844,1611.1094 Q290.875,1610.8906 290.25,1610.8906 Q289.4844,1610.8906 288.8516,1611.2188 Q288.2188,1611.5469 287.7266,1612.2969 Q287.2344,1613.0469 287.2344,1614.0781 L287.2344,1615.1719 Q287.2344,1616.4063 288.125,1617.2266 Q289.0156,1618.0469 290.6094,1618.0469 Q291.5469,1618.0469 292.2031,1617.7969 Q292.5938,1617.6406 293.0156,1617.2031 Q293.2813,1616.9375 293.4297,1616.8594 Q293.5781,1616.7813 293.7813,1616.7813 Q294.1094,1616.7813 294.3672,1617.0391 Q294.625,1617.2969 294.625,1617.6406 Q294.625,1617.9844 294.2813,1618.3906 Q293.7813,1618.9688 292.9844,1619.2969 Q291.9063,1619.75 290.6094,1619.75 Q289.0938,1619.75 287.8906,1619.125 Q286.9063,1618.625 286.2188,1617.5547 Q285.5313,1616.4844 285.5313,1615.2031 L285.5313,1614.0469 Q285.5313,1612.7188 286.1484,1611.5703 Q286.7656,1610.4219 287.8594,1609.8047 Q288.9531,1609.1875 290.1875,1609.1875 Q290.9219,1609.1875 291.5703,1609.3516 Q292.2188,1609.5156 292.7656,1609.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="304" y="1619.7285">Document</text>
     </g>
-    <!--MD5=[b6d80539f3bead6292ad36c14bd5bb90]
-class com.credibledoc.substitution.core.resource.TemplateResource-->
-    <g id="elem_com.credibledoc.substitution.core.resource.TemplateResource">
-      <rect codeLine="17" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.resource.TemplateResource" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="152" x="410" y="824"/>
-      <ellipse cx="425" cy="840" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M427.7656,835.875 Q427.9219,835.6563 428.1094,835.5469 Q428.2969,835.4375 428.5156,835.4375 Q428.8906,835.4375 429.125,835.6953 Q429.3594,835.9531 429.3594,836.5625 L429.3594,838.0156 Q429.3594,838.625 429.125,838.8906 Q428.8906,839.1563 428.5156,839.1563 Q428.1719,839.1563 427.9688,838.9531 Q427.7656,838.7656 427.6563,838.25 Q427.6094,837.8906 427.4219,837.7031 Q427.0938,837.3281 426.4844,837.1094 Q425.875,836.8906 425.25,836.8906 Q424.4844,836.8906 423.8516,837.2188 Q423.2188,837.5469 422.7266,838.2969 Q422.2344,839.0469 422.2344,840.0781 L422.2344,841.1719 Q422.2344,842.4063 423.125,843.2266 Q424.0156,844.0469 425.6094,844.0469 Q426.5469,844.0469 427.2031,843.7969 Q427.5938,843.6406 428.0156,843.2031 Q428.2813,842.9375 428.4297,842.8594 Q428.5781,842.7813 428.7813,842.7813 Q429.1094,842.7813 429.3672,843.0391 Q429.625,843.2969 429.625,843.6406 Q429.625,843.9844 429.2813,844.3906 Q428.7813,844.9688 427.9844,845.2969 Q426.9063,845.75 425.6094,845.75 Q424.0938,845.75 422.8906,845.125 Q421.9063,844.625 421.2188,843.5547 Q420.5313,842.4844 420.5313,841.2031 L420.5313,840.0469 Q420.5313,838.7188 421.1484,837.5703 Q421.7656,836.4219 422.8594,835.8047 Q423.9531,835.1875 425.1875,835.1875 Q425.9219,835.1875 426.5703,835.3516 Q427.2188,835.5156 427.7656,835.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="439" y="845.7285">TemplateResource</text>
+    <!--class ReportDocumentType-->
+    <g id="elem_ReportDocumentType">
+      <rect codeLine="13" fill="#98FB98" height="32" id="ReportDocumentType" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="171" x="237.5" y="1841"/>
+      <ellipse cx="252.5" cy="1857" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M255.2656,1852.875 Q255.4219,1852.6563 255.6094,1852.5469 Q255.7969,1852.4375 256.0156,1852.4375 Q256.3906,1852.4375 256.625,1852.6953 Q256.8594,1852.9531 256.8594,1853.5625 L256.8594,1855.0156 Q256.8594,1855.625 256.625,1855.8906 Q256.3906,1856.1563 256.0156,1856.1563 Q255.6719,1856.1563 255.4688,1855.9531 Q255.2656,1855.7656 255.1563,1855.25 Q255.1094,1854.8906 254.9219,1854.7031 Q254.5938,1854.3281 253.9844,1854.1094 Q253.375,1853.8906 252.75,1853.8906 Q251.9844,1853.8906 251.3516,1854.2188 Q250.7188,1854.5469 250.2266,1855.2969 Q249.7344,1856.0469 249.7344,1857.0781 L249.7344,1858.1719 Q249.7344,1859.4063 250.625,1860.2266 Q251.5156,1861.0469 253.1094,1861.0469 Q254.0469,1861.0469 254.7031,1860.7969 Q255.0938,1860.6406 255.5156,1860.2031 Q255.7813,1859.9375 255.9297,1859.8594 Q256.0781,1859.7813 256.2813,1859.7813 Q256.6094,1859.7813 256.8672,1860.0391 Q257.125,1860.2969 257.125,1860.6406 Q257.125,1860.9844 256.7813,1861.3906 Q256.2813,1861.9688 255.4844,1862.2969 Q254.4063,1862.75 253.1094,1862.75 Q251.5938,1862.75 250.3906,1862.125 Q249.4063,1861.625 248.7188,1860.5547 Q248.0313,1859.4844 248.0313,1858.2031 L248.0313,1857.0469 Q248.0313,1855.7188 248.6484,1854.5703 Q249.2656,1853.4219 250.3594,1852.8047 Q251.4531,1852.1875 252.6875,1852.1875 Q253.4219,1852.1875 254.0703,1852.3516 Q254.7188,1852.5156 255.2656,1852.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="139" x="266.5" y="1862.7285">ReportDocumentType</text>
     </g>
-    <!--MD5=[00153bfefca05d263e9c6344f4443f50]
-class com.credibledoc.substitution.core.resource.ResourceService-->
-    <g id="elem_com.credibledoc.substitution.core.resource.ResourceService">
-      <rect codeLine="21" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.resource.ResourceService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="140" x="416" y="891"/>
-      <ellipse cx="431" cy="907" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M433.7656,902.875 Q433.9219,902.6563 434.1094,902.5469 Q434.2969,902.4375 434.5156,902.4375 Q434.8906,902.4375 435.125,902.6953 Q435.3594,902.9531 435.3594,903.5625 L435.3594,905.0156 Q435.3594,905.625 435.125,905.8906 Q434.8906,906.1563 434.5156,906.1563 Q434.1719,906.1563 433.9688,905.9531 Q433.7656,905.7656 433.6563,905.25 Q433.6094,904.8906 433.4219,904.7031 Q433.0938,904.3281 432.4844,904.1094 Q431.875,903.8906 431.25,903.8906 Q430.4844,903.8906 429.8516,904.2188 Q429.2188,904.5469 428.7266,905.2969 Q428.2344,906.0469 428.2344,907.0781 L428.2344,908.1719 Q428.2344,909.4063 429.125,910.2266 Q430.0156,911.0469 431.6094,911.0469 Q432.5469,911.0469 433.2031,910.7969 Q433.5938,910.6406 434.0156,910.2031 Q434.2813,909.9375 434.4297,909.8594 Q434.5781,909.7813 434.7813,909.7813 Q435.1094,909.7813 435.3672,910.0391 Q435.625,910.2969 435.625,910.6406 Q435.625,910.9844 435.2813,911.3906 Q434.7813,911.9688 433.9844,912.2969 Q432.9063,912.75 431.6094,912.75 Q430.0938,912.75 428.8906,912.125 Q427.9063,911.625 427.2188,910.5547 Q426.5313,909.4844 426.5313,908.2031 L426.5313,907.0469 Q426.5313,905.7188 427.1484,904.5703 Q427.7656,903.4219 428.8594,902.8047 Q429.9531,902.1875 431.1875,902.1875 Q431.9219,902.1875 432.5703,902.3516 Q433.2188,902.5156 433.7656,902.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="445" y="912.7285">ResourceService</text>
+    <!--class ReportDocument-->
+    <g id="elem_ReportDocument">
+      <rect codeLine="25" fill="#98FB98" height="32" id="ReportDocument" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="139" x="253.5" y="1908"/>
+      <ellipse cx="268.5" cy="1924" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M271.2656,1919.875 Q271.4219,1919.6563 271.6094,1919.5469 Q271.7969,1919.4375 272.0156,1919.4375 Q272.3906,1919.4375 272.625,1919.6953 Q272.8594,1919.9531 272.8594,1920.5625 L272.8594,1922.0156 Q272.8594,1922.625 272.625,1922.8906 Q272.3906,1923.1563 272.0156,1923.1563 Q271.6719,1923.1563 271.4688,1922.9531 Q271.2656,1922.7656 271.1563,1922.25 Q271.1094,1921.8906 270.9219,1921.7031 Q270.5938,1921.3281 269.9844,1921.1094 Q269.375,1920.8906 268.75,1920.8906 Q267.9844,1920.8906 267.3516,1921.2188 Q266.7188,1921.5469 266.2266,1922.2969 Q265.7344,1923.0469 265.7344,1924.0781 L265.7344,1925.1719 Q265.7344,1926.4063 266.625,1927.2266 Q267.5156,1928.0469 269.1094,1928.0469 Q270.0469,1928.0469 270.7031,1927.7969 Q271.0938,1927.6406 271.5156,1927.2031 Q271.7813,1926.9375 271.9297,1926.8594 Q272.0781,1926.7813 272.2813,1926.7813 Q272.6094,1926.7813 272.8672,1927.0391 Q273.125,1927.2969 273.125,1927.6406 Q273.125,1927.9844 272.7813,1928.3906 Q272.2813,1928.9688 271.4844,1929.2969 Q270.4063,1929.75 269.1094,1929.75 Q267.5938,1929.75 266.3906,1929.125 Q265.4063,1928.625 264.7188,1927.5547 Q264.0313,1926.4844 264.0313,1925.2031 L264.0313,1924.0469 Q264.0313,1922.7188 264.6484,1921.5703 Q265.2656,1920.4219 266.3594,1919.8047 Q267.4531,1919.1875 268.6875,1919.1875 Q269.4219,1919.1875 270.0703,1919.3516 Q270.7188,1919.5156 271.2656,1919.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107" x="282.5" y="1929.7285">ReportDocument</text>
     </g>
-    <!--MD5=[43b55aca9cee8087ee601639b7ccee93]
-class com.credibledoc.substitution.core.resource.ResourceType-->
-    <g id="elem_com.credibledoc.substitution.core.resource.ResourceType">
-      <rect codeLine="24" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.resource.ResourceType" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="125" x="423.5" y="958"/>
-      <ellipse cx="438.5" cy="974" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M441.2656,969.875 Q441.4219,969.6563 441.6094,969.5469 Q441.7969,969.4375 442.0156,969.4375 Q442.3906,969.4375 442.625,969.6953 Q442.8594,969.9531 442.8594,970.5625 L442.8594,972.0156 Q442.8594,972.625 442.625,972.8906 Q442.3906,973.1563 442.0156,973.1563 Q441.6719,973.1563 441.4688,972.9531 Q441.2656,972.7656 441.1563,972.25 Q441.1094,971.8906 440.9219,971.7031 Q440.5938,971.3281 439.9844,971.1094 Q439.375,970.8906 438.75,970.8906 Q437.9844,970.8906 437.3516,971.2188 Q436.7188,971.5469 436.2266,972.2969 Q435.7344,973.0469 435.7344,974.0781 L435.7344,975.1719 Q435.7344,976.4063 436.625,977.2266 Q437.5156,978.0469 439.1094,978.0469 Q440.0469,978.0469 440.7031,977.7969 Q441.0938,977.6406 441.5156,977.2031 Q441.7813,976.9375 441.9297,976.8594 Q442.0781,976.7813 442.2813,976.7813 Q442.6094,976.7813 442.8672,977.0391 Q443.125,977.2969 443.125,977.6406 Q443.125,977.9844 442.7813,978.3906 Q442.2813,978.9688 441.4844,979.2969 Q440.4063,979.75 439.1094,979.75 Q437.5938,979.75 436.3906,979.125 Q435.4063,978.625 434.7188,977.5547 Q434.0313,976.4844 434.0313,975.2031 L434.0313,974.0469 Q434.0313,972.7188 434.6484,971.5703 Q435.2656,970.4219 436.3594,969.8047 Q437.4531,969.1875 438.6875,969.1875 Q439.4219,969.1875 440.0703,969.3516 Q440.7188,969.5156 441.2656,969.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="93" x="452.5" y="979.7285">ResourceType</text>
+    <!--class ReportDocumentCreator-->
+    <g id="elem_ReportDocumentCreator">
+      <rect codeLine="18" fill="#98FB98" height="32" id="ReportDocumentCreator" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="187" x="229.5" y="1774"/>
+      <ellipse cx="244.5" cy="1790" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M247.2656,1785.875 Q247.4219,1785.6563 247.6094,1785.5469 Q247.7969,1785.4375 248.0156,1785.4375 Q248.3906,1785.4375 248.625,1785.6953 Q248.8594,1785.9531 248.8594,1786.5625 L248.8594,1788.0156 Q248.8594,1788.625 248.625,1788.8906 Q248.3906,1789.1563 248.0156,1789.1563 Q247.6719,1789.1563 247.4688,1788.9531 Q247.2656,1788.7656 247.1563,1788.25 Q247.1094,1787.8906 246.9219,1787.7031 Q246.5938,1787.3281 245.9844,1787.1094 Q245.375,1786.8906 244.75,1786.8906 Q243.9844,1786.8906 243.3516,1787.2188 Q242.7188,1787.5469 242.2266,1788.2969 Q241.7344,1789.0469 241.7344,1790.0781 L241.7344,1791.1719 Q241.7344,1792.4063 242.625,1793.2266 Q243.5156,1794.0469 245.1094,1794.0469 Q246.0469,1794.0469 246.7031,1793.7969 Q247.0938,1793.6406 247.5156,1793.2031 Q247.7813,1792.9375 247.9297,1792.8594 Q248.0781,1792.7813 248.2813,1792.7813 Q248.6094,1792.7813 248.8672,1793.0391 Q249.125,1793.2969 249.125,1793.6406 Q249.125,1793.9844 248.7813,1794.3906 Q248.2813,1794.9688 247.4844,1795.2969 Q246.4063,1795.75 245.1094,1795.75 Q243.5938,1795.75 242.3906,1795.125 Q241.4063,1794.625 240.7188,1793.5547 Q240.0313,1792.4844 240.0313,1791.2031 L240.0313,1790.0469 Q240.0313,1788.7188 240.6484,1787.5703 Q241.2656,1786.4219 242.3594,1785.8047 Q243.4531,1785.1875 244.6875,1785.1875 Q245.4219,1785.1875 246.0703,1785.3516 Q246.7188,1785.5156 247.2656,1785.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="155" x="258.5" y="1795.7285">ReportDocumentCreator</text>
     </g>
-    <!--MD5=[7607ff8ca570e4ff0c0e24433c905d6e]
-class com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator-->
-    <g id="elem_com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator">
-      <rect codeLine="18" fill="#98FB98" height="32" id="com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="187" x="392.5" y="1066"/>
-      <ellipse cx="407.5" cy="1082" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M410.2656,1077.875 Q410.4219,1077.6563 410.6094,1077.5469 Q410.7969,1077.4375 411.0156,1077.4375 Q411.3906,1077.4375 411.625,1077.6953 Q411.8594,1077.9531 411.8594,1078.5625 L411.8594,1080.0156 Q411.8594,1080.625 411.625,1080.8906 Q411.3906,1081.1563 411.0156,1081.1563 Q410.6719,1081.1563 410.4688,1080.9531 Q410.2656,1080.7656 410.1563,1080.25 Q410.1094,1079.8906 409.9219,1079.7031 Q409.5938,1079.3281 408.9844,1079.1094 Q408.375,1078.8906 407.75,1078.8906 Q406.9844,1078.8906 406.3516,1079.2188 Q405.7188,1079.5469 405.2266,1080.2969 Q404.7344,1081.0469 404.7344,1082.0781 L404.7344,1083.1719 Q404.7344,1084.4063 405.625,1085.2266 Q406.5156,1086.0469 408.1094,1086.0469 Q409.0469,1086.0469 409.7031,1085.7969 Q410.0938,1085.6406 410.5156,1085.2031 Q410.7813,1084.9375 410.9297,1084.8594 Q411.0781,1084.7813 411.2813,1084.7813 Q411.6094,1084.7813 411.8672,1085.0391 Q412.125,1085.2969 412.125,1085.6406 Q412.125,1085.9844 411.7813,1086.3906 Q411.2813,1086.9688 410.4844,1087.2969 Q409.4063,1087.75 408.1094,1087.75 Q406.5938,1087.75 405.3906,1087.125 Q404.4063,1086.625 403.7188,1085.5547 Q403.0313,1084.4844 403.0313,1083.2031 L403.0313,1082.0469 Q403.0313,1080.7188 403.6484,1079.5703 Q404.2656,1078.4219 405.3594,1077.8047 Q406.4531,1077.1875 407.6875,1077.1875 Q408.4219,1077.1875 409.0703,1077.3516 Q409.7188,1077.5156 410.2656,1077.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="155" x="421.5" y="1087.7285">ReportDocumentCreator</text>
+    <!--class ReplacementService-->
+    <g id="elem_ReplacementService">
+      <rect codeLine="22" fill="#98FB98" height="32" id="ReplacementService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="162" x="242" y="2016"/>
+      <ellipse cx="257" cy="2032" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M259.7656,2027.875 Q259.9219,2027.6563 260.1094,2027.5469 Q260.2969,2027.4375 260.5156,2027.4375 Q260.8906,2027.4375 261.125,2027.6953 Q261.3594,2027.9531 261.3594,2028.5625 L261.3594,2030.0156 Q261.3594,2030.625 261.125,2030.8906 Q260.8906,2031.1563 260.5156,2031.1563 Q260.1719,2031.1563 259.9688,2030.9531 Q259.7656,2030.7656 259.6563,2030.25 Q259.6094,2029.8906 259.4219,2029.7031 Q259.0938,2029.3281 258.4844,2029.1094 Q257.875,2028.8906 257.25,2028.8906 Q256.4844,2028.8906 255.8516,2029.2188 Q255.2188,2029.5469 254.7266,2030.2969 Q254.2344,2031.0469 254.2344,2032.0781 L254.2344,2033.1719 Q254.2344,2034.4063 255.125,2035.2266 Q256.0156,2036.0469 257.6094,2036.0469 Q258.5469,2036.0469 259.2031,2035.7969 Q259.5938,2035.6406 260.0156,2035.2031 Q260.2813,2034.9375 260.4297,2034.8594 Q260.5781,2034.7813 260.7813,2034.7813 Q261.1094,2034.7813 261.3672,2035.0391 Q261.625,2035.2969 261.625,2035.6406 Q261.625,2035.9844 261.2813,2036.3906 Q260.7813,2036.9688 259.9844,2037.2969 Q258.9063,2037.75 257.6094,2037.75 Q256.0938,2037.75 254.8906,2037.125 Q253.9063,2036.625 253.2188,2035.5547 Q252.5313,2034.4844 252.5313,2033.2031 L252.5313,2032.0469 Q252.5313,2030.7188 253.1484,2029.5703 Q253.7656,2028.4219 254.8594,2027.8047 Q255.9531,2027.1875 257.1875,2027.1875 Q257.9219,2027.1875 258.5703,2027.3516 Q259.2188,2027.5156 259.7656,2027.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130" x="271" y="2037.7285">ReplacementService</text>
     </g>
-    <!--MD5=[c6ed0641fbc9f581e2ff59c7e46144b2]
-class com.credibledoc.substitution.core.template.TemplateService-->
-    <g id="elem_com.credibledoc.substitution.core.template.TemplateService">
-      <rect codeLine="19" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.template.TemplateService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="138" x="417" y="1174"/>
-      <ellipse cx="432" cy="1190" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M434.7656,1185.875 Q434.9219,1185.6563 435.1094,1185.5469 Q435.2969,1185.4375 435.5156,1185.4375 Q435.8906,1185.4375 436.125,1185.6953 Q436.3594,1185.9531 436.3594,1186.5625 L436.3594,1188.0156 Q436.3594,1188.625 436.125,1188.8906 Q435.8906,1189.1563 435.5156,1189.1563 Q435.1719,1189.1563 434.9688,1188.9531 Q434.7656,1188.7656 434.6563,1188.25 Q434.6094,1187.8906 434.4219,1187.7031 Q434.0938,1187.3281 433.4844,1187.1094 Q432.875,1186.8906 432.25,1186.8906 Q431.4844,1186.8906 430.8516,1187.2188 Q430.2188,1187.5469 429.7266,1188.2969 Q429.2344,1189.0469 429.2344,1190.0781 L429.2344,1191.1719 Q429.2344,1192.4063 430.125,1193.2266 Q431.0156,1194.0469 432.6094,1194.0469 Q433.5469,1194.0469 434.2031,1193.7969 Q434.5938,1193.6406 435.0156,1193.2031 Q435.2813,1192.9375 435.4297,1192.8594 Q435.5781,1192.7813 435.7813,1192.7813 Q436.1094,1192.7813 436.3672,1193.0391 Q436.625,1193.2969 436.625,1193.6406 Q436.625,1193.9844 436.2813,1194.3906 Q435.7813,1194.9688 434.9844,1195.2969 Q433.9063,1195.75 432.6094,1195.75 Q431.0938,1195.75 429.8906,1195.125 Q428.9063,1194.625 428.2188,1193.5547 Q427.5313,1192.4844 427.5313,1191.2031 L427.5313,1190.0469 Q427.5313,1188.7188 428.1484,1187.5703 Q428.7656,1186.4219 429.8594,1185.8047 Q430.9531,1185.1875 432.1875,1185.1875 Q432.9219,1185.1875 433.5703,1185.3516 Q434.2188,1185.5156 434.7656,1185.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="106" x="446" y="1195.7285">TemplateService</text>
+    <!--class SubstitutionRuntimeException-->
+    <g id="elem_SubstitutionRuntimeException">
+      <rect codeLine="12" fill="#98FB98" height="32" id="SubstitutionRuntimeException" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="219" x="213.5" y="462"/>
+      <ellipse cx="228.5" cy="478" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M231.2656,473.875 Q231.4219,473.6563 231.6094,473.5469 Q231.7969,473.4375 232.0156,473.4375 Q232.3906,473.4375 232.625,473.6953 Q232.8594,473.9531 232.8594,474.5625 L232.8594,476.0156 Q232.8594,476.625 232.625,476.8906 Q232.3906,477.1563 232.0156,477.1563 Q231.6719,477.1563 231.4688,476.9531 Q231.2656,476.7656 231.1563,476.25 Q231.1094,475.8906 230.9219,475.7031 Q230.5938,475.3281 229.9844,475.1094 Q229.375,474.8906 228.75,474.8906 Q227.9844,474.8906 227.3516,475.2188 Q226.7188,475.5469 226.2266,476.2969 Q225.7344,477.0469 225.7344,478.0781 L225.7344,479.1719 Q225.7344,480.4063 226.625,481.2266 Q227.5156,482.0469 229.1094,482.0469 Q230.0469,482.0469 230.7031,481.7969 Q231.0938,481.6406 231.5156,481.2031 Q231.7813,480.9375 231.9297,480.8594 Q232.0781,480.7813 232.2813,480.7813 Q232.6094,480.7813 232.8672,481.0391 Q233.125,481.2969 233.125,481.6406 Q233.125,481.9844 232.7813,482.3906 Q232.2813,482.9688 231.4844,483.2969 Q230.4063,483.75 229.1094,483.75 Q227.5938,483.75 226.3906,483.125 Q225.4063,482.625 224.7188,481.5547 Q224.0313,480.4844 224.0313,479.2031 L224.0313,478.0469 Q224.0313,476.7188 224.6484,475.5703 Q225.2656,474.4219 226.3594,473.8047 Q227.4531,473.1875 228.6875,473.1875 Q229.4219,473.1875 230.0703,473.3516 Q230.7188,473.5156 231.2656,473.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="187" x="242.5" y="483.7285">SubstitutionRuntimeException</text>
     </g>
-    <!--MD5=[f34d3cae6d5f5520fa3597259176558d]
-class com.credibledoc.substitution.core.configuration.ConfigurationService-->
-    <g id="elem_com.credibledoc.substitution.core.configuration.ConfigurationService">
-      <rect codeLine="20" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.configuration.ConfigurationService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="164" x="404" y="1282"/>
-      <ellipse cx="419" cy="1298" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M421.7656,1293.875 Q421.9219,1293.6563 422.1094,1293.5469 Q422.2969,1293.4375 422.5156,1293.4375 Q422.8906,1293.4375 423.125,1293.6953 Q423.3594,1293.9531 423.3594,1294.5625 L423.3594,1296.0156 Q423.3594,1296.625 423.125,1296.8906 Q422.8906,1297.1563 422.5156,1297.1563 Q422.1719,1297.1563 421.9688,1296.9531 Q421.7656,1296.7656 421.6563,1296.25 Q421.6094,1295.8906 421.4219,1295.7031 Q421.0938,1295.3281 420.4844,1295.1094 Q419.875,1294.8906 419.25,1294.8906 Q418.4844,1294.8906 417.8516,1295.2188 Q417.2188,1295.5469 416.7266,1296.2969 Q416.2344,1297.0469 416.2344,1298.0781 L416.2344,1299.1719 Q416.2344,1300.4063 417.125,1301.2266 Q418.0156,1302.0469 419.6094,1302.0469 Q420.5469,1302.0469 421.2031,1301.7969 Q421.5938,1301.6406 422.0156,1301.2031 Q422.2813,1300.9375 422.4297,1300.8594 Q422.5781,1300.7813 422.7813,1300.7813 Q423.1094,1300.7813 423.3672,1301.0391 Q423.625,1301.2969 423.625,1301.6406 Q423.625,1301.9844 423.2813,1302.3906 Q422.7813,1302.9688 421.9844,1303.2969 Q420.9063,1303.75 419.6094,1303.75 Q418.0938,1303.75 416.8906,1303.125 Q415.9063,1302.625 415.2188,1301.5547 Q414.5313,1300.4844 414.5313,1299.2031 L414.5313,1298.0469 Q414.5313,1296.7188 415.1484,1295.5703 Q415.7656,1294.4219 416.8594,1293.8047 Q417.9531,1293.1875 419.1875,1293.1875 Q419.9219,1293.1875 420.5703,1293.3516 Q421.2188,1293.5156 421.7656,1293.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="132" x="433" y="1303.7285">ConfigurationService</text>
+    <!--class SubstitutionContext-->
+    <g id="elem_SubstitutionContext">
+      <rect codeLine="15" fill="#98FB98" height="32" id="SubstitutionContext" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="154" x="246" y="570"/>
+      <ellipse cx="261" cy="586" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M263.7656,581.875 Q263.9219,581.6563 264.1094,581.5469 Q264.2969,581.4375 264.5156,581.4375 Q264.8906,581.4375 265.125,581.6953 Q265.3594,581.9531 265.3594,582.5625 L265.3594,584.0156 Q265.3594,584.625 265.125,584.8906 Q264.8906,585.1563 264.5156,585.1563 Q264.1719,585.1563 263.9688,584.9531 Q263.7656,584.7656 263.6563,584.25 Q263.6094,583.8906 263.4219,583.7031 Q263.0938,583.3281 262.4844,583.1094 Q261.875,582.8906 261.25,582.8906 Q260.4844,582.8906 259.8516,583.2188 Q259.2188,583.5469 258.7266,584.2969 Q258.2344,585.0469 258.2344,586.0781 L258.2344,587.1719 Q258.2344,588.4063 259.125,589.2266 Q260.0156,590.0469 261.6094,590.0469 Q262.5469,590.0469 263.2031,589.7969 Q263.5938,589.6406 264.0156,589.2031 Q264.2813,588.9375 264.4297,588.8594 Q264.5781,588.7813 264.7813,588.7813 Q265.1094,588.7813 265.3672,589.0391 Q265.625,589.2969 265.625,589.6406 Q265.625,589.9844 265.2813,590.3906 Q264.7813,590.9688 263.9844,591.2969 Q262.9063,591.75 261.6094,591.75 Q260.0938,591.75 258.8906,591.125 Q257.9063,590.625 257.2188,589.5547 Q256.5313,588.4844 256.5313,587.2031 L256.5313,586.0469 Q256.5313,584.7188 257.1484,583.5703 Q257.7656,582.4219 258.8594,581.8047 Q259.9531,581.1875 261.1875,581.1875 Q261.9219,581.1875 262.5703,581.3516 Q263.2188,581.5156 263.7656,581.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="275" y="591.7285">SubstitutionContext</text>
     </g>
-    <!--MD5=[2144794834e14012e336f06ac19b4f39]
-class com.credibledoc.substitution.reporting.replacement.ReplacementService-->
-    <g id="elem_com.credibledoc.substitution.reporting.replacement.ReplacementService">
-      <rect codeLine="22" fill="#98FB98" height="32" id="com.credibledoc.substitution.reporting.replacement.ReplacementService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="162" x="405" y="1390"/>
-      <ellipse cx="420" cy="1406" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M422.7656,1401.875 Q422.9219,1401.6563 423.1094,1401.5469 Q423.2969,1401.4375 423.5156,1401.4375 Q423.8906,1401.4375 424.125,1401.6953 Q424.3594,1401.9531 424.3594,1402.5625 L424.3594,1404.0156 Q424.3594,1404.625 424.125,1404.8906 Q423.8906,1405.1563 423.5156,1405.1563 Q423.1719,1405.1563 422.9688,1404.9531 Q422.7656,1404.7656 422.6563,1404.25 Q422.6094,1403.8906 422.4219,1403.7031 Q422.0938,1403.3281 421.4844,1403.1094 Q420.875,1402.8906 420.25,1402.8906 Q419.4844,1402.8906 418.8516,1403.2188 Q418.2188,1403.5469 417.7266,1404.2969 Q417.2344,1405.0469 417.2344,1406.0781 L417.2344,1407.1719 Q417.2344,1408.4063 418.125,1409.2266 Q419.0156,1410.0469 420.6094,1410.0469 Q421.5469,1410.0469 422.2031,1409.7969 Q422.5938,1409.6406 423.0156,1409.2031 Q423.2813,1408.9375 423.4297,1408.8594 Q423.5781,1408.7813 423.7813,1408.7813 Q424.1094,1408.7813 424.3672,1409.0391 Q424.625,1409.2969 424.625,1409.6406 Q424.625,1409.9844 424.2813,1410.3906 Q423.7813,1410.9688 422.9844,1411.2969 Q421.9063,1411.75 420.6094,1411.75 Q419.0938,1411.75 417.8906,1411.125 Q416.9063,1410.625 416.2188,1409.5547 Q415.5313,1408.4844 415.5313,1407.2031 L415.5313,1406.0469 Q415.5313,1404.7188 416.1484,1403.5703 Q416.7656,1402.4219 417.8594,1401.8047 Q418.9531,1401.1875 420.1875,1401.1875 Q420.9219,1401.1875 421.5703,1401.3516 Q422.2188,1401.5156 422.7656,1401.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130" x="434" y="1411.7285">ReplacementService</text>
+    <!--class PlaceholderService-->
+    <g id="elem_PlaceholderService">
+      <rect codeLine="16" fill="#98FB98" height="32" id="PlaceholderService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="154" x="246" y="678"/>
+      <ellipse cx="261" cy="694" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M263.7656,689.875 Q263.9219,689.6563 264.1094,689.5469 Q264.2969,689.4375 264.5156,689.4375 Q264.8906,689.4375 265.125,689.6953 Q265.3594,689.9531 265.3594,690.5625 L265.3594,692.0156 Q265.3594,692.625 265.125,692.8906 Q264.8906,693.1563 264.5156,693.1563 Q264.1719,693.1563 263.9688,692.9531 Q263.7656,692.7656 263.6563,692.25 Q263.6094,691.8906 263.4219,691.7031 Q263.0938,691.3281 262.4844,691.1094 Q261.875,690.8906 261.25,690.8906 Q260.4844,690.8906 259.8516,691.2188 Q259.2188,691.5469 258.7266,692.2969 Q258.2344,693.0469 258.2344,694.0781 L258.2344,695.1719 Q258.2344,696.4063 259.125,697.2266 Q260.0156,698.0469 261.6094,698.0469 Q262.5469,698.0469 263.2031,697.7969 Q263.5938,697.6406 264.0156,697.2031 Q264.2813,696.9375 264.4297,696.8594 Q264.5781,696.7813 264.7813,696.7813 Q265.1094,696.7813 265.3672,697.0391 Q265.625,697.2969 265.625,697.6406 Q265.625,697.9844 265.2813,698.3906 Q264.7813,698.9688 263.9844,699.2969 Q262.9063,699.75 261.6094,699.75 Q260.0938,699.75 258.8906,699.125 Q257.9063,698.625 257.2188,697.5547 Q256.5313,696.4844 256.5313,695.2031 L256.5313,694.0469 Q256.5313,692.7188 257.1484,691.5703 Q257.7656,690.4219 258.8594,689.8047 Q259.9531,689.1875 261.1875,689.1875 Q261.9219,689.1875 262.5703,689.3516 Q263.2188,689.5156 263.7656,689.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="275" y="699.7285">PlaceholderService</text>
     </g>
-    <!--MD5=[29968a5d37d6b3fe49470c30b586a72c]
-class com.credibledoc.substitution.core.content.ContentGenerator-->
-    <g id="elem_com.credibledoc.substitution.core.content.ContentGenerator">
-      <rect codeLine="23" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.content.ContentGenerator" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="147" x="412.5" y="1498"/>
-      <ellipse cx="427.5" cy="1514" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M430.2656,1509.875 Q430.4219,1509.6563 430.6094,1509.5469 Q430.7969,1509.4375 431.0156,1509.4375 Q431.3906,1509.4375 431.625,1509.6953 Q431.8594,1509.9531 431.8594,1510.5625 L431.8594,1512.0156 Q431.8594,1512.625 431.625,1512.8906 Q431.3906,1513.1563 431.0156,1513.1563 Q430.6719,1513.1563 430.4688,1512.9531 Q430.2656,1512.7656 430.1563,1512.25 Q430.1094,1511.8906 429.9219,1511.7031 Q429.5938,1511.3281 428.9844,1511.1094 Q428.375,1510.8906 427.75,1510.8906 Q426.9844,1510.8906 426.3516,1511.2188 Q425.7188,1511.5469 425.2266,1512.2969 Q424.7344,1513.0469 424.7344,1514.0781 L424.7344,1515.1719 Q424.7344,1516.4063 425.625,1517.2266 Q426.5156,1518.0469 428.1094,1518.0469 Q429.0469,1518.0469 429.7031,1517.7969 Q430.0938,1517.6406 430.5156,1517.2031 Q430.7813,1516.9375 430.9297,1516.8594 Q431.0781,1516.7813 431.2813,1516.7813 Q431.6094,1516.7813 431.8672,1517.0391 Q432.125,1517.2969 432.125,1517.6406 Q432.125,1517.9844 431.7813,1518.3906 Q431.2813,1518.9688 430.4844,1519.2969 Q429.4063,1519.75 428.1094,1519.75 Q426.5938,1519.75 425.3906,1519.125 Q424.4063,1518.625 423.7188,1517.5547 Q423.0313,1516.4844 423.0313,1515.2031 L423.0313,1514.0469 Q423.0313,1512.7188 423.6484,1511.5703 Q424.2656,1510.4219 425.3594,1509.8047 Q426.4531,1509.1875 427.6875,1509.1875 Q428.4219,1509.1875 429.0703,1509.3516 Q429.7188,1509.5156 430.2656,1509.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="441.5" y="1519.7285">ContentGenerator</text>
+    <!--class Placeholder-->
+    <g id="elem_Placeholder">
+      <rect codeLine="27" fill="#98FB98" height="32" id="Placeholder" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="107" x="269.5" y="745"/>
+      <ellipse cx="284.5" cy="761" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M287.2656,756.875 Q287.4219,756.6563 287.6094,756.5469 Q287.7969,756.4375 288.0156,756.4375 Q288.3906,756.4375 288.625,756.6953 Q288.8594,756.9531 288.8594,757.5625 L288.8594,759.0156 Q288.8594,759.625 288.625,759.8906 Q288.3906,760.1563 288.0156,760.1563 Q287.6719,760.1563 287.4688,759.9531 Q287.2656,759.7656 287.1563,759.25 Q287.1094,758.8906 286.9219,758.7031 Q286.5938,758.3281 285.9844,758.1094 Q285.375,757.8906 284.75,757.8906 Q283.9844,757.8906 283.3516,758.2188 Q282.7188,758.5469 282.2266,759.2969 Q281.7344,760.0469 281.7344,761.0781 L281.7344,762.1719 Q281.7344,763.4063 282.625,764.2266 Q283.5156,765.0469 285.1094,765.0469 Q286.0469,765.0469 286.7031,764.7969 Q287.0938,764.6406 287.5156,764.2031 Q287.7813,763.9375 287.9297,763.8594 Q288.0781,763.7813 288.2813,763.7813 Q288.6094,763.7813 288.8672,764.0391 Q289.125,764.2969 289.125,764.6406 Q289.125,764.9844 288.7813,765.3906 Q288.2813,765.9688 287.4844,766.2969 Q286.4063,766.75 285.1094,766.75 Q283.5938,766.75 282.3906,766.125 Q281.4063,765.625 280.7188,764.5547 Q280.0313,763.4844 280.0313,762.2031 L280.0313,761.0469 Q280.0313,759.7188 280.6484,758.5703 Q281.2656,757.4219 282.3594,756.8047 Q283.4531,756.1875 284.6875,756.1875 Q285.4219,756.1875 286.0703,756.3516 Q286.7188,756.5156 287.2656,756.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="298.5" y="766.7285">Placeholder</text>
     </g>
-    <!--MD5=[d3b8fea686fa7db660b77e8dcfb05006]
-class com.credibledoc.substitution.core.content.Content-->
-    <g id="elem_com.credibledoc.substitution.core.content.Content">
-      <rect codeLine="26" fill="#98FB98" height="32" id="com.credibledoc.substitution.core.content.Content" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="82" x="445" y="1565"/>
-      <ellipse cx="460" cy="1581" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
-      <path d="M462.7656,1576.875 Q462.9219,1576.6563 463.1094,1576.5469 Q463.2969,1576.4375 463.5156,1576.4375 Q463.8906,1576.4375 464.125,1576.6953 Q464.3594,1576.9531 464.3594,1577.5625 L464.3594,1579.0156 Q464.3594,1579.625 464.125,1579.8906 Q463.8906,1580.1563 463.5156,1580.1563 Q463.1719,1580.1563 462.9688,1579.9531 Q462.7656,1579.7656 462.6563,1579.25 Q462.6094,1578.8906 462.4219,1578.7031 Q462.0938,1578.3281 461.4844,1578.1094 Q460.875,1577.8906 460.25,1577.8906 Q459.4844,1577.8906 458.8516,1578.2188 Q458.2188,1578.5469 457.7266,1579.2969 Q457.2344,1580.0469 457.2344,1581.0781 L457.2344,1582.1719 Q457.2344,1583.4063 458.125,1584.2266 Q459.0156,1585.0469 460.6094,1585.0469 Q461.5469,1585.0469 462.2031,1584.7969 Q462.5938,1584.6406 463.0156,1584.2031 Q463.2813,1583.9375 463.4297,1583.8594 Q463.5781,1583.7813 463.7813,1583.7813 Q464.1094,1583.7813 464.3672,1584.0391 Q464.625,1584.2969 464.625,1584.6406 Q464.625,1584.9844 464.2813,1585.3906 Q463.7813,1585.9688 462.9844,1586.2969 Q461.9063,1586.75 460.6094,1586.75 Q459.0938,1586.75 457.8906,1586.125 Q456.9063,1585.625 456.2188,1584.5547 Q455.5313,1583.4844 455.5313,1582.2031 L455.5313,1581.0469 Q455.5313,1579.7188 456.1484,1578.5703 Q456.7656,1577.4219 457.8594,1576.8047 Q458.9531,1576.1875 460.1875,1576.1875 Q460.9219,1576.1875 461.5703,1576.3516 Q462.2188,1576.5156 462.7656,1576.875 Z " fill="#000000"/>
-      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="474" y="1586.7285">Content</text>
+    <!--class TemplateResource-->
+    <g id="elem_TemplateResource">
+      <rect codeLine="17" fill="#98FB98" height="32" id="TemplateResource" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="152" x="247" y="853"/>
+      <ellipse cx="262" cy="869" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M264.7656,864.875 Q264.9219,864.6563 265.1094,864.5469 Q265.2969,864.4375 265.5156,864.4375 Q265.8906,864.4375 266.125,864.6953 Q266.3594,864.9531 266.3594,865.5625 L266.3594,867.0156 Q266.3594,867.625 266.125,867.8906 Q265.8906,868.1563 265.5156,868.1563 Q265.1719,868.1563 264.9688,867.9531 Q264.7656,867.7656 264.6563,867.25 Q264.6094,866.8906 264.4219,866.7031 Q264.0938,866.3281 263.4844,866.1094 Q262.875,865.8906 262.25,865.8906 Q261.4844,865.8906 260.8516,866.2188 Q260.2188,866.5469 259.7266,867.2969 Q259.2344,868.0469 259.2344,869.0781 L259.2344,870.1719 Q259.2344,871.4063 260.125,872.2266 Q261.0156,873.0469 262.6094,873.0469 Q263.5469,873.0469 264.2031,872.7969 Q264.5938,872.6406 265.0156,872.2031 Q265.2813,871.9375 265.4297,871.8594 Q265.5781,871.7813 265.7813,871.7813 Q266.1094,871.7813 266.3672,872.0391 Q266.625,872.2969 266.625,872.6406 Q266.625,872.9844 266.2813,873.3906 Q265.7813,873.9688 264.9844,874.2969 Q263.9063,874.75 262.6094,874.75 Q261.0938,874.75 259.8906,874.125 Q258.9063,873.625 258.2188,872.5547 Q257.5313,871.4844 257.5313,870.2031 L257.5313,869.0469 Q257.5313,867.7188 258.1484,866.5703 Q258.7656,865.4219 259.8594,864.8047 Q260.9531,864.1875 262.1875,864.1875 Q262.9219,864.1875 263.5703,864.3516 Q264.2188,864.5156 264.7656,864.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="276" y="874.7285">TemplateResource</text>
     </g>
-    <!--MD5=[c14cffe0b2defeec22661e2aec967a76]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.configuration.ConfigurationService-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.configuration.ConfigurationService">
-      <path codeLine="28" d="M118.01,856.08 C120.73,914.16 137.92,1115.27 246.5,1222 C287.03,1261.83 348.37,1280.8 398.7,1289.83 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.configuration.ConfigurationService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="403.85,1290.73,395.6685,1285.2471,398.9239,1289.8733,394.2977,1293.1288,403.85,1290.73" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--class ResourceService-->
+    <g id="elem_ResourceService">
+      <rect codeLine="21" fill="#98FB98" height="32" id="ResourceService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="140" x="253" y="920"/>
+      <ellipse cx="268" cy="936" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M270.7656,931.875 Q270.9219,931.6563 271.1094,931.5469 Q271.2969,931.4375 271.5156,931.4375 Q271.8906,931.4375 272.125,931.6953 Q272.3594,931.9531 272.3594,932.5625 L272.3594,934.0156 Q272.3594,934.625 272.125,934.8906 Q271.8906,935.1563 271.5156,935.1563 Q271.1719,935.1563 270.9688,934.9531 Q270.7656,934.7656 270.6563,934.25 Q270.6094,933.8906 270.4219,933.7031 Q270.0938,933.3281 269.4844,933.1094 Q268.875,932.8906 268.25,932.8906 Q267.4844,932.8906 266.8516,933.2188 Q266.2188,933.5469 265.7266,934.2969 Q265.2344,935.0469 265.2344,936.0781 L265.2344,937.1719 Q265.2344,938.4063 266.125,939.2266 Q267.0156,940.0469 268.6094,940.0469 Q269.5469,940.0469 270.2031,939.7969 Q270.5938,939.6406 271.0156,939.2031 Q271.2813,938.9375 271.4297,938.8594 Q271.5781,938.7813 271.7813,938.7813 Q272.1094,938.7813 272.3672,939.0391 Q272.625,939.2969 272.625,939.6406 Q272.625,939.9844 272.2813,940.3906 Q271.7813,940.9688 270.9844,941.2969 Q269.9063,941.75 268.6094,941.75 Q267.0938,941.75 265.8906,941.125 Q264.9063,940.625 264.2188,939.5547 Q263.5313,938.4844 263.5313,937.2031 L263.5313,936.0469 Q263.5313,934.7188 264.1484,933.5703 Q264.7656,932.4219 265.8594,931.8047 Q266.9531,931.1875 268.1875,931.1875 Q268.9219,931.1875 269.5703,931.3516 Q270.2188,931.5156 270.7656,931.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="282" y="941.7285">ResourceService</text>
     </g>
-    <!--MD5=[72387fb44c4bffa7ba2aded2b6b532d2]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator">
-      <path codeLine="29" d="M119.32,823.91 C125.99,772.5 153.78,610.57 246.5,525 C278.49,495.48 321.97,477.42 363.04,466.38 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="368.04,465.07,358.3193,463.4865,363.2039,466.3397,360.3507,471.2243,368.04,465.07" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--class ResourceType-->
+    <g id="elem_ResourceType">
+      <rect codeLine="24" fill="#98FB98" height="32" id="ResourceType" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="125" x="260.5" y="987"/>
+      <ellipse cx="275.5" cy="1003" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M278.2656,998.875 Q278.4219,998.6563 278.6094,998.5469 Q278.7969,998.4375 279.0156,998.4375 Q279.3906,998.4375 279.625,998.6953 Q279.8594,998.9531 279.8594,999.5625 L279.8594,1001.0156 Q279.8594,1001.625 279.625,1001.8906 Q279.3906,1002.1563 279.0156,1002.1563 Q278.6719,1002.1563 278.4688,1001.9531 Q278.2656,1001.7656 278.1563,1001.25 Q278.1094,1000.8906 277.9219,1000.7031 Q277.5938,1000.3281 276.9844,1000.1094 Q276.375,999.8906 275.75,999.8906 Q274.9844,999.8906 274.3516,1000.2188 Q273.7188,1000.5469 273.2266,1001.2969 Q272.7344,1002.0469 272.7344,1003.0781 L272.7344,1004.1719 Q272.7344,1005.4063 273.625,1006.2266 Q274.5156,1007.0469 276.1094,1007.0469 Q277.0469,1007.0469 277.7031,1006.7969 Q278.0938,1006.6406 278.5156,1006.2031 Q278.7813,1005.9375 278.9297,1005.8594 Q279.0781,1005.7813 279.2813,1005.7813 Q279.6094,1005.7813 279.8672,1006.0391 Q280.125,1006.2969 280.125,1006.6406 Q280.125,1006.9844 279.7813,1007.3906 Q279.2813,1007.9688 278.4844,1008.2969 Q277.4063,1008.75 276.1094,1008.75 Q274.5938,1008.75 273.3906,1008.125 Q272.4063,1007.625 271.7188,1006.5547 Q271.0313,1005.4844 271.0313,1004.2031 L271.0313,1003.0469 Q271.0313,1001.7188 271.6484,1000.5703 Q272.2656,999.4219 273.3594,998.8047 Q274.4531,998.1875 275.6875,998.1875 Q276.4219,998.1875 277.0703,998.3516 Q277.7188,998.5156 278.2656,998.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="93" x="289.5" y="1008.7285">ResourceType</text>
     </g>
-    <!--MD5=[fe1b52f384b4412ee58cd72856759174]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.resource.TemplateResource-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.resource.TemplateResource">
-      <path codeLine="30" d="M144.23,840 C198.13,840 321.76,840 404.33,840 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.resource.TemplateResource" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="409.71,840,400.71,836,404.71,840,400.71,844,409.71,840" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--class TemplateService-->
+    <g id="elem_TemplateService">
+      <rect codeLine="19" fill="#98FB98" height="32" id="TemplateService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="138" x="254" y="1095"/>
+      <ellipse cx="269" cy="1111" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M271.7656,1106.875 Q271.9219,1106.6563 272.1094,1106.5469 Q272.2969,1106.4375 272.5156,1106.4375 Q272.8906,1106.4375 273.125,1106.6953 Q273.3594,1106.9531 273.3594,1107.5625 L273.3594,1109.0156 Q273.3594,1109.625 273.125,1109.8906 Q272.8906,1110.1563 272.5156,1110.1563 Q272.1719,1110.1563 271.9688,1109.9531 Q271.7656,1109.7656 271.6563,1109.25 Q271.6094,1108.8906 271.4219,1108.7031 Q271.0938,1108.3281 270.4844,1108.1094 Q269.875,1107.8906 269.25,1107.8906 Q268.4844,1107.8906 267.8516,1108.2188 Q267.2188,1108.5469 266.7266,1109.2969 Q266.2344,1110.0469 266.2344,1111.0781 L266.2344,1112.1719 Q266.2344,1113.4063 267.125,1114.2266 Q268.0156,1115.0469 269.6094,1115.0469 Q270.5469,1115.0469 271.2031,1114.7969 Q271.5938,1114.6406 272.0156,1114.2031 Q272.2813,1113.9375 272.4297,1113.8594 Q272.5781,1113.7813 272.7813,1113.7813 Q273.1094,1113.7813 273.3672,1114.0391 Q273.625,1114.2969 273.625,1114.6406 Q273.625,1114.9844 273.2813,1115.3906 Q272.7813,1115.9688 271.9844,1116.2969 Q270.9063,1116.75 269.6094,1116.75 Q268.0938,1116.75 266.8906,1116.125 Q265.9063,1115.625 265.2188,1114.5547 Q264.5313,1113.4844 264.5313,1112.2031 L264.5313,1111.0469 Q264.5313,1109.7188 265.1484,1108.5703 Q265.7656,1107.4219 266.8594,1106.8047 Q267.9531,1106.1875 269.1875,1106.1875 Q269.9219,1106.1875 270.5703,1106.3516 Q271.2188,1106.5156 271.7656,1106.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="106" x="283" y="1116.7285">TemplateService</text>
     </g>
-    <!--MD5=[10989d738cd39a43c13b5ec32812712b]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.reporting.report.document.Document-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.reporting.report.document.Document">
-      <path codeLine="31" d="M118.25,823.9 C122.96,728.89 151.55,241.93 246.5,134 C293.5,80.58 377.93,64.4 432.69,59.68 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.reporting.report.document.Document" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="437.89,59.26,428.5989,55.9926,432.906,59.6599,429.2387,63.9669,437.89,59.26" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--class ConfigurationService-->
+    <g id="elem_ConfigurationService">
+      <rect codeLine="20" fill="#98FB98" height="32" id="ConfigurationService" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="164" x="241" y="1378"/>
+      <ellipse cx="256" cy="1394" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M258.7656,1389.875 Q258.9219,1389.6563 259.1094,1389.5469 Q259.2969,1389.4375 259.5156,1389.4375 Q259.8906,1389.4375 260.125,1389.6953 Q260.3594,1389.9531 260.3594,1390.5625 L260.3594,1392.0156 Q260.3594,1392.625 260.125,1392.8906 Q259.8906,1393.1563 259.5156,1393.1563 Q259.1719,1393.1563 258.9688,1392.9531 Q258.7656,1392.7656 258.6563,1392.25 Q258.6094,1391.8906 258.4219,1391.7031 Q258.0938,1391.3281 257.4844,1391.1094 Q256.875,1390.8906 256.25,1390.8906 Q255.4844,1390.8906 254.8516,1391.2188 Q254.2188,1391.5469 253.7266,1392.2969 Q253.2344,1393.0469 253.2344,1394.0781 L253.2344,1395.1719 Q253.2344,1396.4063 254.125,1397.2266 Q255.0156,1398.0469 256.6094,1398.0469 Q257.5469,1398.0469 258.2031,1397.7969 Q258.5938,1397.6406 259.0156,1397.2031 Q259.2813,1396.9375 259.4297,1396.8594 Q259.5781,1396.7813 259.7813,1396.7813 Q260.1094,1396.7813 260.3672,1397.0391 Q260.625,1397.2969 260.625,1397.6406 Q260.625,1397.9844 260.2813,1398.3906 Q259.7813,1398.9688 258.9844,1399.2969 Q257.9063,1399.75 256.6094,1399.75 Q255.0938,1399.75 253.8906,1399.125 Q252.9063,1398.625 252.2188,1397.5547 Q251.5313,1396.4844 251.5313,1395.2031 L251.5313,1394.0469 Q251.5313,1392.7188 252.1484,1391.5703 Q252.7656,1390.4219 253.8594,1389.8047 Q254.9531,1389.1875 256.1875,1389.1875 Q256.9219,1389.1875 257.5703,1389.3516 Q258.2188,1389.5156 258.7656,1389.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="132" x="270" y="1399.7285">ConfigurationService</text>
     </g>
-    <!--MD5=[361309265c965880cb5caf80892c0925]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.context.SubstitutionContext-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.context.SubstitutionContext">
-      <path codeLine="32" d="M123.07,823.84 C137.29,785.01 178.64,685.77 246.5,633 C291.94,597.66 354.2,578.55 403.72,568.33 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.context.SubstitutionContext" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="408.77,567.31,399.1519,565.1904,403.871,568.3098,400.7516,573.0289,408.77,567.31" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--class ContentGenerator-->
+    <g id="elem_ContentGenerator">
+      <rect codeLine="23" fill="#98FB98" height="32" id="ContentGenerator" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="147" x="249.5" y="1203"/>
+      <ellipse cx="264.5" cy="1219" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M267.2656,1214.875 Q267.4219,1214.6563 267.6094,1214.5469 Q267.7969,1214.4375 268.0156,1214.4375 Q268.3906,1214.4375 268.625,1214.6953 Q268.8594,1214.9531 268.8594,1215.5625 L268.8594,1217.0156 Q268.8594,1217.625 268.625,1217.8906 Q268.3906,1218.1563 268.0156,1218.1563 Q267.6719,1218.1563 267.4688,1217.9531 Q267.2656,1217.7656 267.1563,1217.25 Q267.1094,1216.8906 266.9219,1216.7031 Q266.5938,1216.3281 265.9844,1216.1094 Q265.375,1215.8906 264.75,1215.8906 Q263.9844,1215.8906 263.3516,1216.2188 Q262.7188,1216.5469 262.2266,1217.2969 Q261.7344,1218.0469 261.7344,1219.0781 L261.7344,1220.1719 Q261.7344,1221.4063 262.625,1222.2266 Q263.5156,1223.0469 265.1094,1223.0469 Q266.0469,1223.0469 266.7031,1222.7969 Q267.0938,1222.6406 267.5156,1222.2031 Q267.7813,1221.9375 267.9297,1221.8594 Q268.0781,1221.7813 268.2813,1221.7813 Q268.6094,1221.7813 268.8672,1222.0391 Q269.125,1222.2969 269.125,1222.6406 Q269.125,1222.9844 268.7813,1223.3906 Q268.2813,1223.9688 267.4844,1224.2969 Q266.4063,1224.75 265.1094,1224.75 Q263.5938,1224.75 262.3906,1224.125 Q261.4063,1223.625 260.7188,1222.5547 Q260.0313,1221.4844 260.0313,1220.2031 L260.0313,1219.0469 Q260.0313,1217.7188 260.6484,1216.5703 Q261.2656,1215.4219 262.3594,1214.8047 Q263.4531,1214.1875 264.6875,1214.1875 Q265.4219,1214.1875 266.0703,1214.3516 Q266.7188,1214.5156 267.2656,1214.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="278.5" y="1224.7285">ContentGenerator</text>
     </g>
-    <!--MD5=[5f8858ad0ebb27cc4efc508cbf085ba7]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType">
-      <path codeLine="33" d="M119.01,823.82 C126.92,742.51 166.37,379.5 246.5,307 C286.13,271.14 345.67,262.87 395.34,263.58 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="400.42,263.68,391.5018,259.5008,395.421,263.58,391.3418,267.4992,400.42,263.68" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--class Content-->
+    <g id="elem_Content">
+      <rect codeLine="26" fill="#98FB98" height="32" id="Content" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="82" x="282" y="1270"/>
+      <ellipse cx="297" cy="1286" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M299.7656,1281.875 Q299.9219,1281.6563 300.1094,1281.5469 Q300.2969,1281.4375 300.5156,1281.4375 Q300.8906,1281.4375 301.125,1281.6953 Q301.3594,1281.9531 301.3594,1282.5625 L301.3594,1284.0156 Q301.3594,1284.625 301.125,1284.8906 Q300.8906,1285.1563 300.5156,1285.1563 Q300.1719,1285.1563 299.9688,1284.9531 Q299.7656,1284.7656 299.6563,1284.25 Q299.6094,1283.8906 299.4219,1283.7031 Q299.0938,1283.3281 298.4844,1283.1094 Q297.875,1282.8906 297.25,1282.8906 Q296.4844,1282.8906 295.8516,1283.2188 Q295.2188,1283.5469 294.7266,1284.2969 Q294.2344,1285.0469 294.2344,1286.0781 L294.2344,1287.1719 Q294.2344,1288.4063 295.125,1289.2266 Q296.0156,1290.0469 297.6094,1290.0469 Q298.5469,1290.0469 299.2031,1289.7969 Q299.5938,1289.6406 300.0156,1289.2031 Q300.2813,1288.9375 300.4297,1288.8594 Q300.5781,1288.7813 300.7813,1288.7813 Q301.1094,1288.7813 301.3672,1289.0391 Q301.625,1289.2969 301.625,1289.6406 Q301.625,1289.9844 301.2813,1290.3906 Q300.7813,1290.9688 299.9844,1291.2969 Q298.9063,1291.75 297.6094,1291.75 Q296.0938,1291.75 294.8906,1291.125 Q293.9063,1290.625 293.2188,1289.5547 Q292.5313,1288.4844 292.5313,1287.2031 L292.5313,1286.0469 Q292.5313,1284.7188 293.1484,1283.5703 Q293.7656,1282.4219 294.8594,1281.8047 Q295.9531,1281.1875 297.1875,1281.1875 Q297.9219,1281.1875 298.5703,1281.3516 Q299.2188,1281.5156 299.7656,1281.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="311" y="1291.7285">Content</text>
     </g>
-    <!--MD5=[a75af4171043cec589e558f1c9d66ced]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.resource.ResourceType-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.resource.ResourceType">
-      <path codeLine="34" d="M132.81,856.33 C155.33,879.21 199.79,920.22 246.5,940 C301.42,963.25 369.16,971.15 418.4,973.59 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.resource.ResourceType" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="423.4,973.82,414.5926,969.412,418.4052,973.591,414.2263,977.4036,423.4,973.82" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--class LocalJarNameContentGenerator-->
+    <g id="elem_LocalJarNameContentGenerator">
+      <rect codeLine="14" fill="#98FB98" height="32" id="LocalJarNameContentGenerator" rx="2.5" ry="2.5" style="stroke:#00FF7F;stroke-width:0.5;" width="236" x="205" y="262"/>
+      <ellipse cx="220" cy="278" fill="#9ACD32" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/>
+      <path d="M222.7656,273.875 Q222.9219,273.6563 223.1094,273.5469 Q223.2969,273.4375 223.5156,273.4375 Q223.8906,273.4375 224.125,273.6953 Q224.3594,273.9531 224.3594,274.5625 L224.3594,276.0156 Q224.3594,276.625 224.125,276.8906 Q223.8906,277.1563 223.5156,277.1563 Q223.1719,277.1563 222.9688,276.9531 Q222.7656,276.7656 222.6563,276.25 Q222.6094,275.8906 222.4219,275.7031 Q222.0938,275.3281 221.4844,275.1094 Q220.875,274.8906 220.25,274.8906 Q219.4844,274.8906 218.8516,275.2188 Q218.2188,275.5469 217.7266,276.2969 Q217.2344,277.0469 217.2344,278.0781 L217.2344,279.1719 Q217.2344,280.4063 218.125,281.2266 Q219.0156,282.0469 220.6094,282.0469 Q221.5469,282.0469 222.2031,281.7969 Q222.5938,281.6406 223.0156,281.2031 Q223.2813,280.9375 223.4297,280.8594 Q223.5781,280.7813 223.7813,280.7813 Q224.1094,280.7813 224.3672,281.0391 Q224.625,281.2969 224.625,281.6406 Q224.625,281.9844 224.2813,282.3906 Q223.7813,282.9688 222.9844,283.2969 Q221.9063,283.75 220.6094,283.75 Q219.0938,283.75 217.8906,283.125 Q216.9063,282.625 216.2188,281.5547 Q215.5313,280.4844 215.5313,279.2031 L215.5313,278.0469 Q215.5313,276.7188 216.1484,275.5703 Q216.7656,274.4219 217.8594,273.8047 Q218.9531,273.1875 220.1875,273.1875 Q220.9219,273.1875 221.5703,273.3516 Q222.2188,273.5156 222.7656,273.875 Z " fill="#000000"/>
+      <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="204" x="234" y="283.7285">LocalJarNameContentGenerator</text>
     </g>
-    <!--MD5=[b7be76b93cab8399d23056fc9bc6305e]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.placeholder.PlaceholderService-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.placeholder.PlaceholderService">
-      <path codeLine="35" d="M126.76,823.88 C145.2,793.47 189.64,727.99 246.5,698 C294.66,672.6 355.55,664.5 403.76,662.68 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.placeholder.PlaceholderService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="408.97,662.5,399.8382,658.8107,403.9729,662.6713,400.1123,666.806,408.97,662.5" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to ConfigurationService-->
+    <g id="link_doc_ConfigurationService">
+      <path codeLine="28" d="M99.2,1127.3 C101.36,1170.84 109.33,1288.53 133,1318 C158.33,1349.53 198.75,1368.06 235.72,1378.91 " fill="none" id="doc-to-ConfigurationService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="240.68,1380.32,233.1252,1374.0014,235.8724,1378.9464,230.9274,1381.6936,240.68,1380.32" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[e7cfedb0e6eb0d952ade452fef94243e]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.template.TemplateService-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.template.TemplateService">
-      <path codeLine="36" d="M120.46,856.31 C129.85,903.47 163.46,1041.23 246.5,1114 C292.65,1154.44 360.44,1173.39 411.97,1182.26 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.template.TemplateService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="416.9,1183.08,408.6877,1177.6433,411.9692,1182.2511,407.3614,1185.5325,416.9,1183.08" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to LocalJarNameContentGenerator-->
+    <g id="link_doc_LocalJarNameContentGenerator">
+      <path codeLine="29" d="M98.6,1094.93 C99.26,999.21 104.08,506.17 133,446 C166.37,376.57 242.79,323.39 287.57,296.8 " fill="none" id="doc-to-LocalJarNameContentGenerator" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="292.07,294.16,282.2827,295.2599,287.7563,296.6882,286.3279,302.1618,292.07,294.16" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[e96b5baf345deb1a600e5b2b6776a774]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.resource.ResourceService-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.resource.ResourceService">
-      <path codeLine="37" d="M144.48,847.82 C170.45,855.12 210.9,865.93 246.5,873 C301.12,883.85 363.44,892.61 410.68,898.52 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.resource.ResourceService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="415.78,899.15,407.3547,894.0496,410.8197,898.521,406.3483,901.9861,415.78,899.15" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to TemplateResource-->
+    <g id="link_doc_TemplateResource">
+      <path codeLine="30" d="M98.84,1094.9 C100.1,1050.74 106.02,929.23 133,902 C160.93,873.81 203.81,864.71 241.66,863.04 " fill="none" id="doc-to-TemplateResource" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="246.73,862.86,237.5982,859.1707,241.7329,863.0313,237.8723,867.166,246.73,862.86" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[791a41cceeb1cab29f66cb2594478c85]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.content.ContentGenerator-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.content.ContentGenerator">
-      <path codeLine="38" d="M118.82,856.11 C126.2,942.28 164.91,1348.18 246.5,1438 C287.33,1482.95 354.65,1501.48 407.38,1509.03 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.content.ContentGenerator" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="412.43,1509.72,404.065,1504.5212,407.4774,1509.0329,402.9657,1512.4453,412.43,1509.72" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to Document-->
+    <g id="link_doc_Document">
+      <path codeLine="31" d="M98.87,1127.35 C100.36,1184.15 107.17,1372.34 133,1426 C169.48,1501.8 249.43,1564.73 292.74,1594.86 " fill="none" id="doc-to-Document" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="297.07,1597.85,291.9197,1589.4551,292.9498,1595.0174,287.3875,1596.0474,297.07,1597.85" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[54180e2517bc662b66aef05505156612]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.placeholder.Placeholder-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.placeholder.Placeholder">
-      <path codeLine="39" d="M144.23,832.15 C203.38,814.76 346.51,772.7 427.2,748.99 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.placeholder.Placeholder" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="432.42,747.45,422.6564,746.1568,427.6239,748.8631,424.9175,753.8306,432.42,747.45" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to SubstitutionContext-->
+    <g id="link_doc_SubstitutionContext">
+      <path codeLine="32" d="M98.74,1094.91 C100.02,1018.86 106.94,697.55 133,662 C158.21,627.61 201.61,608.75 240.46,598.43 " fill="none" id="doc-to-SubstitutionContext" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="245.67,597.09,235.9582,595.4528,240.8269,598.3329,237.9468,603.2017,245.67,597.09" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[d668dad145f7f973df3f5f220e04c3a1]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.content.Content-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.content.Content">
-      <path codeLine="40" d="M117.98,856.05 C121.18,951.83 142.64,1447.1 246.5,1547 C297.75,1596.29 386.12,1595.11 439.7,1588.75 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.content.Content" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="444.78,1588.12,435.3574,1585.2539,439.8177,1588.7332,436.3385,1593.1935,444.78,1588.12" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to ReportDocumentType-->
+    <g id="link_doc_ReportDocumentType">
+      <path codeLine="33" d="M98.72,1127.19 C100.2,1230.58 109.37,1794.95 133,1822 C157.27,1849.78 195.84,1860.1 231.81,1862.85 " fill="none" id="doc-to-ReportDocumentType" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="237.1,1863.2,228.3825,1858.6168,232.1108,1862.8712,227.8564,1866.5995,237.1,1863.2" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[e145688e96e1b763c5c2d4918c55b299]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.reporting.replacement.ReplacementService-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.reporting.replacement.ReplacementService">
-      <path codeLine="41" d="M119.65,856.15 C130.13,932.67 178.18,1258.1 246.5,1330 C286.15,1371.73 348.61,1390.62 399.67,1399.14 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.reporting.replacement.ReplacementService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="404.89,1399.98,396.632,1394.613,399.9524,1399.1928,395.3725,1402.5132,404.89,1399.98" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to ResourceType-->
+    <g id="link_doc_ResourceType">
+      <path codeLine="34" d="M113.63,1094.71 C119.33,1089.21 126.1,1083.37 133,1079 C173.3,1053.45 223.63,1033.71 262.22,1020.77 " fill="none" id="doc-to-ResourceType" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="267.34,1019.07,257.5387,1018.1036,262.5937,1020.6426,260.0548,1025.6976,267.34,1019.07" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[6bff7b36862dcb628ac8d930e12df50d]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.reporting.reportdocument.ReportDocument-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.reporting.reportdocument.ReportDocument">
-      <path codeLine="42" d="M117.4,823.97 C117.89,762.17 128.08,536.91 246.5,417 C289.91,373.04 358.66,354.47 411.22,346.64 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.reporting.reportdocument.ReportDocument" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="416.25,345.92,406.7704,343.2483,411.3014,346.6351,407.9146,351.1661,416.25,345.92" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to PlaceholderService-->
+    <g id="link_doc_PlaceholderService">
+      <path codeLine="35" d="M98.81,1094.87 C100.31,1025.46 107.73,754.46 133,727 C159.87,697.79 202.67,688.62 240.75,687.17 " fill="none" id="doc-to-PlaceholderService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="245.85,687.02,236.7394,683.2787,240.852,687.1628,236.9679,691.2754,245.85,687.02" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[e825f59b1202d74b5f3421cbc6e28f10]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator">
-      <path codeLine="43" d="M125.77,856.33 C143.38,889.5 187.84,965.06 246.5,1006 C288.19,1035.1 341.58,1053.47 387.28,1064.85 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="392.24,1066.06,384.4454,1060.0397,387.3826,1064.8742,382.5481,1067.8115,392.24,1066.06" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to TemplateService-->
+    <g id="link_doc_TemplateService">
+      <path codeLine="36" d="M125.02,1111 C155.35,1111 206.31,1111 248.8,1111 " fill="none" id="doc-to-TemplateService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="253.94,1111,244.94,1107,248.94,1111,244.94,1115,253.94,1111" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[b2083f92fe3f5a563dc27403056ff2a0]
-link com.credibledoc.substitution.doc to com.credibledoc.substitution.core.exception.SubstitutionRuntimeException-->
-    <g id="link_com.credibledoc.substitution.doc_com.credibledoc.substitution.core.exception.SubstitutionRuntimeException">
-      <path codeLine="44" d="M118.82,823.89 C126.2,737.72 164.91,331.82 246.5,242 C278.43,206.84 326.57,187.85 371.25,177.63 " fill="none" id="com.credibledoc.substitution.doc-to-com.credibledoc.substitution.core.exception.SubstitutionRuntimeException" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
-      <polygon fill="#2E8B57" points="376.4,176.49,366.7454,174.5436,371.5197,177.5777,368.4857,182.352,376.4,176.49" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    <!--link doc to ResourceService-->
+    <g id="link_doc_ResourceService">
+      <path codeLine="37" d="M100.22,1094.83 C104.11,1061.34 114.71,986.13 133,969 C163.25,940.67 208.73,932.08 247.5,930.74 " fill="none" id="doc-to-ResourceService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="252.68,930.6,243.5799,926.8333,247.6817,930.7289,243.7861,934.8307,252.68,930.6" style="stroke:#2E8B57;stroke-width:1.0;"/>
     </g>
-    <!--MD5=[27021f3b099b212412c4a7406a166a1a]
-@startuml
-left to right direction
-hide empty members
-
-skinparam class {
-    BackgroundColor PaleGreen
-    ArrowColor SeaGreen
-    BorderColor SpringGreen
-}
-
-Class com.credibledoc.substitution.doc << (P,LightSeaGreen) >>
-Class com.credibledoc.substitution.reporting.report.document.Document << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.exception.SubstitutionRuntimeException << (C,YellowGreen) >>
-Class com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType << (C,YellowGreen) >>
-Class com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.context.SubstitutionContext << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.placeholder.PlaceholderService << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.resource.TemplateResource << (C,YellowGreen) >>
-Class com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.template.TemplateService << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.configuration.ConfigurationService << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.resource.ResourceService << (C,YellowGreen) >>
-Class com.credibledoc.substitution.reporting.replacement.ReplacementService << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.content.ContentGenerator << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.resource.ResourceType << (C,YellowGreen) >>
-Class com.credibledoc.substitution.reporting.reportdocument.ReportDocument << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.content.Content << (C,YellowGreen) >>
-Class com.credibledoc.substitution.core.placeholder.Placeholder << (C,YellowGreen) >>
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.configuration.ConfigurationService
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.content.generator.jar.LocalJarNameContentGenerator
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.resource.TemplateResource
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.reporting.report.document.Document
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.context.SubstitutionContext
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.reporting.reportdocument.ReportDocumentType
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.resource.ResourceType
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.placeholder.PlaceholderService
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.template.TemplateService
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.resource.ResourceService
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.content.ContentGenerator
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.placeholder.Placeholder
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.content.Content
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.reporting.replacement.ReplacementService
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.reporting.reportdocument.ReportDocument
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.reporting.reportdocument.creator.ReportDocumentCreator
-com.credibledoc.substitution.doc ..> com.credibledoc.substitution.core.exception.SubstitutionRuntimeException
-@enduml
-
-PlantUML version 1.2022.12(Sun Oct 23 20:12:26 CEST 2022)
-(GPL source distribution)
-Java Runtime: Java(TM) SE Runtime Environment
-JVM: Java HotSpot(TM) 64-Bit Server VM
-Default Encoding: UTF-8
-Language: en
-Country: GB
--->
+    <!--link doc to ContentGenerator-->
+    <g id="link_doc_ContentGenerator">
+      <path codeLine="38" d="M113.63,1127.29 C119.33,1132.79 126.1,1138.63 133,1143 C173.3,1168.55 223.63,1188.29 262.22,1201.23 " fill="none" id="doc-to-ContentGenerator" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="267.34,1202.93,260.0548,1196.3024,262.5937,1201.3574,257.5387,1203.8964,267.34,1202.93" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    </g>
+    <!--link doc to Placeholder-->
+    <g id="link_doc_Placeholder">
+      <path codeLine="39" d="M98.45,1094.94 C98.6,1042.57 101.6,877.72 133,837 C164.4,796.28 221.1,777.3 264.23,768.5 " fill="none" id="doc-to-Placeholder" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="269.15,767.52,259.544,765.3466,264.2455,768.4923,261.0997,773.1938,269.15,767.52" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    </g>
+    <!--link doc to Content-->
+    <g id="link_doc_Content">
+      <path codeLine="40" d="M100.24,1127.05 C104.18,1160.29 114.87,1234.96 133,1252 C171.28,1287.98 234.06,1292.55 276.66,1290.74 " fill="none" id="doc-to-Content" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="281.75,1290.49,272.566,1286.9326,276.7559,1290.7333,272.9553,1294.9231,281.75,1290.49" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    </g>
+    <!--link doc to ReplacementService-->
+    <g id="link_doc_ReplacementService">
+      <path codeLine="41" d="M98.66,1127.14 C99.88,1241.07 108.18,1920.84 133,1956 C156.91,1989.87 198.56,2008.66 236.68,2019.08 " fill="none" id="doc-to-ReplacementService" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="241.79,2020.43,234.1223,2014.2489,236.9584,2019.1435,232.0638,2021.9796,241.79,2020.43" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    </g>
+    <!--link doc to ReportDocument-->
+    <g id="link_doc_ReportDocument">
+      <path codeLine="42" d="M98.65,1127.31 C99.73,1236.69 106.99,1860.26 133,1890 C160.93,1921.94 207.81,1930.53 247.89,1931.08 " fill="none" id="doc-to-ReportDocument" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="253.25,1931.11,244.273,1927.0586,248.2501,1931.0814,244.2273,1935.0585,253.25,1931.11" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    </g>
+    <!--link doc to ReportDocumentCreator-->
+    <g id="link_doc_ReportDocumentCreator">
+      <path codeLine="43" d="M98.75,1127.12 C100.15,1211.4 107.94,1599.24 133,1646 C165.41,1706.46 235.46,1749.13 280.58,1771.62 " fill="none" id="doc-to-ReportDocumentCreator" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="285.13,1773.86,278.8109,1766.3056,280.6408,1771.6583,275.2882,1773.4883,285.13,1773.86" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    </g>
+    <!--link doc to SubstitutionRuntimeException-->
+    <g id="link_doc_SubstitutionRuntimeException">
+      <path codeLine="44" d="M98.49,1094.94 C98.55,1008.3 100.57,598.93 133,554 C154.11,524.75 188.39,506.75 222.01,495.67 " fill="none" id="doc-to-SubstitutionRuntimeException" style="stroke:#2E8B57;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/>
+      <polygon fill="#2E8B57" points="226.96,494.08,217.1678,493.025,222.1997,495.6096,219.6151,500.6415,226.96,494.08" style="stroke:#2E8B57;stroke-width:1.0;"/>
+    </g>
+    <!--SRC=[lLVDRi8m3BxtANBS99Gdc916Do5DQ4B0PSUGcfAH9fMR3j2qTr-QjlniQe4rNK-9dNwsFyTsAs5bYD44HRms9188t0YjWhM8W42IcZr985a2Pa6GROHA6RA4SCcoZ7m6n3uZnZSnwbn5ePOQoPH962E0Sjf7HBqj5NDWH_b8OmHOAL8KAYvrNq4GEd2k4yeH8h6K46bEitoP6M7omZjg1UJXWTnD1vF2xnhvdWo7rxoEa6eqrcQrAl3o19IXJzN2eOU3Dv1IRs_2vXg1mev3whRp4zqiLqOay5mh_sxaPm07_sTkMqUnsAVG9H9b2imO520p6kaxGphHdCaNXgyiWR0yCQuFT6JD6ToPCyx2KjOHEPMCmrfBU-NezBYU0tu83Xt14JAT8mUwiFKYcO5P9UWXl_ODbudpF8Ubj6CSfdB_48SVUcnMLoBExGKfHE7fpZF_DU-TOS_eBwvBNLlrsXiphi0ybz4lFhgrWIjxZLyk-gdt1jIBeuRIePUBxiNIhKtPLtYDRSw3WSi3sMEIccPC3t6qp6NlQJcjTb_WxNFJbvMcmTCRHPxnc_fuprdeoNtVPT0oF_-lulgqrFfDvYj9r_rHV0C0]-->
   </g>
 </svg>

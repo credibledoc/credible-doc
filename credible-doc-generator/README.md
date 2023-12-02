@@ -20,7 +20,7 @@ Change the directory
     
 Launch the application
 
-    java -jar credible-doc-generator/target/credible-doc-generator-1.0.49-SNAPSHOT.jar
+    java -jar credible-doc-generator/target/credible-doc-generator-1.0.50-SNAPSHOT.jar
 
 As a result, the `credible-doc/target/generated/markdown/` folder with new sub-folders and files are generated.
 
@@ -29,7 +29,7 @@ This folder should look as the following one
 ![Image of differences between template and generated files](doc/img/generatedFolders.png)
 
 Please inspect these generated files in the `credible-doc/target/generated/doc` folder.
-These generated files are the part of the documentation you are reading. You can use
+These generated files are the part of the documentation you currently reading. You can use
 this approach for the generation of the documentation for your own projects.
 
 ## The templates used for the generation of this documentation
