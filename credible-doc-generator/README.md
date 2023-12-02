@@ -29,7 +29,7 @@ This folder should look as the following one
 ![Image of differences between template and generated files](doc/img/generatedFolders.png)
 
 Please inspect these generated files in the `credible-doc/target/generated/doc` folder.
-These generated files are the part of the documentation you currently reading. You can use
+These generated files are the part of the documentation you are reading. You can use
 this approach for the generation of the documentation for your own projects.
 
 ## The templates used for the generation of this documentation
