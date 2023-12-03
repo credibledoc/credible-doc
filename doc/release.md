@@ -5,7 +5,7 @@
 1. Create a new version
     
     ```bash
-    mvn versions:set -DnewVersion="1.0.xx"
+    mvn versions:set -DnewVersion=1.0.xx
     ```
     
 2. Clean backup files
@@ -52,7 +52,7 @@
 1. Prepare the next SNAPSHOT version (do not forget to increase version number)
     
     ```bash
-    mvn versions:set -DnewVersion="1.0.xx-SNAPSHOT"
+    mvn versions:set -DnewVersion=1.0.xx-SNAPSHOT
     ```
 
 2. Clean backup files

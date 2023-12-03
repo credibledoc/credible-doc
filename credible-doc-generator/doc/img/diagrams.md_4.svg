@@ -252,29 +252,29 @@
     <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="44" x="989.5" y="5603.584">entities)</text>
     <line style="stroke:#000000;stroke-width:1.5;" x1="958" x2="958" y1="12.4551" y2="5872.0645"/>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="190" x="1166.5" y="3936.627"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="170" x="1176.5" y="3959.084">Result: iso-8583-packer-1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="170" x="1176.5" y="3959.084">Result: iso-8583-packer-1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="136" x="1193.5" y="3991.7207"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="1203.5" y="4014.1777">LatestVersion: 1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="1203.5" y="4014.1777">LatestVersion: 1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="173" x="1175" y="4046.8145"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4069.2715">Result: log-combiner-1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4069.2715">Result: log-combiner-1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="173" x="1175" y="4101.9082"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4124.3652">Result: log-combiner-1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4124.3652">Result: log-combiner-1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="173" x="1175" y="4157.002"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4179.459">Result: log-combiner-1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4179.459">Result: log-combiner-1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="173" x="1175" y="4212.0957"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4234.5527">Result: log-combiner-1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4234.5527">Result: log-combiner-1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="173" x="1175" y="4267.1895"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4289.6465">Result: log-combiner-1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="153" x="1185" y="4289.6465">Result: log-combiner-1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="201" x="1161" y="4322.2832"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="181" x="1171" y="4344.7402">Result: log-combiner-core-1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="181" x="1171" y="4344.7402">Result: log-combiner-core-1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="136" x="1193.5" y="4377.377"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="1203.5" y="4399.834">LatestVersion: 1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="1203.5" y="4399.834">LatestVersion: 1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="136" x="1193.5" y="4432.4707"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="1203.5" y="4454.9277">LatestVersion: 1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="1203.5" y="4454.9277">LatestVersion: 1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="217" x="1153" y="4487.5645"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="197" x="1163" y="4510.0215">Result: substitution-reporting-1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="197" x="1163" y="4510.0215">Result: substitution-reporting-1.0.50</text>
     <rect fill="#F1F1F1" height="35.0938" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="136" x="1193.5" y="4542.6582"/>
-    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="1203.5" y="4565.1152">LatestVersion: 1.0.49</text>
+    <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="1203.5" y="4565.1152">LatestVersion: 1.0.50</text>
     <line style="stroke:#000000;stroke-width:1.5;" x1="1147" x2="1147" y1="12.4551" y2="5872.0645"/>
     <line style="stroke:#000000;stroke-width:1.5;" x1="1374" x2="1374" y1="12.4551" y2="5872.0645"/>
     <line style="stroke:#181818;stroke-width:1.0;" x1="171.5" x2="171.5" y1="75.1895" y2="95.1895"/>
@@ -512,6 +512,6 @@
     <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="168" x="692" y="31.1406">substitution-reporting</text>
     <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="108" x="998.5" y="31.1406">plantuml-core</text>
     <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="183" x="1169" y="31.1406">substitution-generators</text>
-    <!--SRC=[xLfRR-8u57xlh_3BLXq90YI40LPz6BMpqahjRDNfxCjaD3A92TuwTcGxxQBj_lSzjXC2b1QgRcyKdeWvb-zS_FauuYQM9A4ZHfg9Y9ifuKHYBUJD7eBFy5EUCnfZJGL7gmKHmmMF9oJnVjtRkxdNsDTSKfwYEPj7WclojpQciIO9mZn1IcC9tuqrLOoKfhemeirOI58QEfCY9r9JeX0JE075qHGTCQpKYNcKQ2n5XgoidX0aYHA5ZCdGBOqf8yFMqR3rJH6fMefaX5-ALafrQm5-XgsuqaIsLiVL0gWf0JNZcYWhtfe7xUKpfFV50saOqxIGBi-bpXHTaca9US6c9bdE85tAgm9hEAahp0e8ilgzWOIaAUMb3GionteoV7A4u3uc4y6W5Dw808H5WFlxTl6ibdeTK0bF6XL6Axc_3qkl0gPhD2-XaiJGUDEbYhisBFkI92-7KnARqDyeWrtp-r8wjIp-rwOyBziVnPXpeT68eB4eW48ej_l-Boph7U-X4-58vyouSpzin0A606vlxTOjL7Diu183bD3Q2Fy2wbcDIun7myX2Z4g84K2Cxe8OhIQgICauoZ3bKKKPZgoYYYjkmOH22YW0Jqki5nNfe6lAc4brB78ApAk5HUrYhy5x3dojnejiHEGGzK8FNIm9L_snrCRhJvHJB2yJSSrdd5V3Amy6Un8OWCv3ALPbNdah40R1Mhydb1Ep5y224bB1Lv9ZkUBGMaxZkNsUoNl8BGpHeDVfzDhTVly5VFizF-Zrmj1_0T-TGHZqEs7OtTG4m2fW7sXL3Grh5K-9deYa57TML3LbD92JFYwjNanpeifs_4vXE95ZeBEIgqJcLTa15Du2Ovc5J2G54CqI8LfTuyFxbh5ZYbE9C-FcnwE0rncqikxXdzcEEkG5OmrWNCmLZerrvJZvyFkFyknWK4lrnVRyORlXl83S7-ElX8shVDYbmp5cYlox5kyWS4Qh3e7jTz1fjt_vi7MH1lxWlOJQyU-9z9d98Xnqk_x7ZtvlHnPRleMU-nGA1w7Vz_rEVzTPxxcpwc5mxbvOpvGpjs3nckf9FLZEPbOe3vIBwxi7IrZakiZO_4sWhCSnKR6akObgY4o-hgYU1ci3XfIIgWqVU6c8tCmTbVYjBadWgk3cwhkk4_0KqIoD4eTRULdoq-fsF7MLRdsK_hk8CdWNKNOV6kL1f-yGmowdvXN5XxSKRbY5ktkfylmlLMQggWPRC3WygHBDVjWFcZcEBubiThosrnsirpynvul-4mAnhRcfMkMMYHHIbutWiDpSvqwvL3PDzzILUcI1LxFIuq5lp9L1znLnvRpVQ3K8IvhddpzPtUFJpuOtWtT3cJlyJuh_BSnHYcgok57CZbYuIqvqndu-U0G-QByy4smQNF3mcR3tTgBhRdFfjcQ-tVXl6MFAgNB_l_WF]-->
+    <!--SRC=[xLfRR-8u57xlh_3BLXq90YI40LPz6BMpqahjRDNfxCjaD3A92TuwTcGxxQBj_lSzjXC2b1QgRcyKdeWvb-zS_FauuYQM9A4ZHfg9Y9ifuKHYBUJD7eBFy5EUCnfZJGL7gmKHmmMF9oJnVjtRkxdNsDTSKfwYEPj7WclojpQciIO9mZn1IcC9tuqrLOoKfhemeirOI58QEfCY9r9JeX0JE075qHGTCQpKYNcKQ2n5XgoidX0aYHA5ZCdGBOqf8yFMqR3rJH6fMefaX5-ALafrQm5-XgsuqaIsLiVL0gWf0JNZcYWhtfe7xUKpfFV50saOqxIGBi-bpXHTaca9US6c9bdE85tAgm9hEAahp0e8ilgzWOIaAUMb3GionteoV7A4u3uc4y6W5Dw808H5WFlxTl6ibdeTK0bF6XL6Axc_3qkl0gPhD2-XaiJGUDEbYhisBFkI92-7KnARqDyeWrtp-r8wjIp-rwOyBziVnPXpeT68eB4eW48ej_l-Boph7U-X4-58vyouSpzin0A606vlxTOjL7Diu183bD3Q2Fy2wbcDIun7myX2Z4g84K2Cxe8OhIQgICauoZ3bKKKPZgoYYYjkmOH22YW0Jqki5nNfe6lAc4brB78ApAk5HUrYhy5x3dojnejiHEGGzK8FNIm9L_snrCRhJvHJB2yJSSrdd5V3Amy6Un8OWCv3ALPbNdah40R1Mhydb1Ep5y224bB1Lv9ZkUBGMaxZkNsUoNl8BGpHeDVfzDhTVly5VFizF-Zrmj1_0T-TGHZqEs7OtTG4m2fW7sXL3Grh5K-9deYa57TML3LbD92JFYwjNanpeifs_4vXE95ZeBEIgqJcLTa15Du2Ovc5J2G54CqI8LfTuyFxbh5ZYbE9C-FcnwE0rncqikxXdzcEEkG5OmrWNCmLZerrvJZvyFkFyknWK4lrnVRyORlXl83S7-ElX8shVDYbmp5cYlox5kyWS4Qh3e7jTz1fjt_vi7MH1lxWlOJQyU-9z9d98Xnqk_x7ZtvlHnPRleMU-nGA1w7Vz_rEVzTPxxcpwc5mxbvOpvGpjs3nckf9FLZEPbOe3vIBwxi7IrZakiZO_4sWhCSnKR6akObgY4o-hgYU1ci3XfIIgWqVU6c8tCmTbVYjBadWgk3cwhkk4_0KqIoD4eTRULdoq-fsF7MLRdsK_hk8CdWNKNOV6kL1f-yGmowdvXN5XxSKRbY5ktkfylmlLMQggWPRC3WygHBDVjWFcZcEBubiThos5xRNwv-OyqN_2O7OrjnKhNBBH0gfoqPmM6xkSwTSAfkcU-fAFRB0grdfyQ0tvigW-uguSjvlj1g49Stppv-ixl7fPyERmRkXp1t-9yN_5kOeHJLPt2XcHopS9ISwOpyVF08Vj5-U2JODBdZuJDXxEz5rjxbqMpFVRlotZ37bLBd_N_m7]-->
   </g>
 </svg>
