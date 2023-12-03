@@ -66,6 +66,12 @@
             <groupId>org.datavec</groupId>
             <artifactId>datavec-api</artifactId>
             <version>${org.deeplearning4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.deeplearning4j</groupId>
